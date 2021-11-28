@@ -96,7 +96,8 @@ Avant de déployer (dans la vraie vie), vous aurez à mettre en place un pipelin
 
 Une fois réalisé, vous verrez automatiquement le gain. Vos déploiements seront réellement fluides. Bon OK, on peut le faire sur des [VMS](https://en.wikipedia.org/wiki/Virtual_machine) standards. Mais on peut améliorer la procédure de déploiement pour mettre en place du [zero downtime](https://dzone.com/articles/zero-downtime-deployment) pour ne pas interrompre le service lors d&rsquo;un déploiement. 
 
-<pre class="wp-block-preformatted">strategy:
+```yaml
+strategy:
 type: RollingUpdate
 rollingUpdate:
 maxSurge: 1
