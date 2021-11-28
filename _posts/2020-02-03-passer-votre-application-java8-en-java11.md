@@ -4,7 +4,7 @@ title: Passer votre application Java8 en Java11
 date: 2020-02-03T15:44:27+01:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg
 
 timeline_notification:
   - "1580741068"

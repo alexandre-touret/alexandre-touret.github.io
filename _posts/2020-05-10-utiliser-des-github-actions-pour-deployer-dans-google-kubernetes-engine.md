@@ -4,7 +4,7 @@ title: Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine
 date: 2020-05-10T08:22:00+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/05/article_github_actions_k8s-1.png
 
 publicize_twitter_user:
   - touret_alex

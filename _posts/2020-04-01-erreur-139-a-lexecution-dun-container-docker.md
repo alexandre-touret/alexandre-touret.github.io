@@ -4,7 +4,7 @@ title: 'Erreur 139 à l&rsquo;exécution d&rsquo;un container docker'
 date: 2020-04-01T11:09:44+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/04/man-person-street-shoes-2882.jpg
 
 timeline_notification:
   - "1585735785"

@@ -4,7 +4,7 @@ title: Gérer « efficacement » les fichiers de configuration dans les charts
 date: 2021-01-09T15:21:28+01:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg
 
 publicize_linkedin_url:
   - ""

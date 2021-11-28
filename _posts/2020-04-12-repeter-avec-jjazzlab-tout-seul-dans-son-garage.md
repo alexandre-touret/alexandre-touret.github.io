@@ -4,7 +4,7 @@ title: Répéter avec JjazzLab tout seul dans son garage
 date: 2020-04-12T14:47:48+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg
 
 enclosure:
   - |

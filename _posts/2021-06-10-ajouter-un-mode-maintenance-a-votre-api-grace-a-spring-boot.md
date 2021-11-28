@@ -4,7 +4,7 @@ title: Ajouter un mode « maintenance » à votre API grâce à Spring boot
 date: 2021-06-10T17:01:20+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2021/06/pexels-photo-257736.jpeg
 
 timeline_notification:
   - "1623337284"
