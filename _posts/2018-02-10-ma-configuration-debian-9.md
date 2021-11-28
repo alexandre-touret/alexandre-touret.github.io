@@ -10,8 +10,6 @@ timeline_notification:
   - "1518252334"
 publicize_twitter_user:
   - littlewing1112
-categories:
-  - gnu/linux
 tags:
   - debian
   - Planet-Libre

@@ -12,8 +12,6 @@ timeline_notification:
   - "1518770547"
 publicize_twitter_user:
   - littlewing1112
-categories:
-  - logiciels libres
 tags:
   - cygwin
   - git

@@ -12,8 +12,6 @@ timeline_notification:
   - "1624118296"
 publicize_linkedin_url:
   - ""
-categories:
-  - java
   - logiciels libres
 tags:
   - github

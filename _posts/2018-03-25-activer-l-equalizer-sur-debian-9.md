@@ -10,8 +10,6 @@ timeline_notification:
   - "1521981511"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
 tags:
   - debian
   - Planet-Libre

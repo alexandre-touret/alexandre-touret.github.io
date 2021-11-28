@@ -16,8 +16,6 @@ publicize_twitter_user:
   - touret_alex
 timeline_notification:
   - "1602148200"
-categories:
-  - logiciels libres
 tags:
   - helm
   - hype

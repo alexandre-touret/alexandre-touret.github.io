@@ -18,8 +18,6 @@ timeline_notification:
   - "1627293232"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - github
   - java

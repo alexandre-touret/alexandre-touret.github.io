@@ -15,7 +15,9 @@ author: Alexandre Touret
 
 navbar-links:
   "A propos": "a-propos"
-  talks: talks
+  Contact: contact
+  Talks: talks
+
   
 # --- Logo --- #
 
@@ -253,4 +255,5 @@ domain: blogtest.touret.info      # if you want to force HTTPS, specify the doma
 url: https://blogtest.touret.info  # the base hostname and protocol for your site, e.g. http://example.com
 #baseurl: /    # place folder name if the site is served in a subfolder
 repository: alexandre-touret/alexandre-touret.github.io
-
+full-width: true
+language: fr

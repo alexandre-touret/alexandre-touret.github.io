@@ -8,8 +8,6 @@ layout: post
 
 timeline_notification:
   - "1548251400"
-categories:
-  - logiciels libres
 tags:
   - Planet-Libre
 ---

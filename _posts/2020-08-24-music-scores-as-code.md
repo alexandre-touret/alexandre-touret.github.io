@@ -10,8 +10,6 @@ timeline_notification:
   - "1598269367"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - docker
   - github

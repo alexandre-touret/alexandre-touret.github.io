@@ -16,8 +16,6 @@ timeline_notification:
   - "1586699272"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
 tags:
   - debian
   - musique

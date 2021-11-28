@@ -12,8 +12,6 @@ publicize_linkedin_url:
   - www.linkedin.com/updates?topic=6509324277303644160
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - Planet-Libre
   - raspberry-pi

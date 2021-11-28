@@ -10,8 +10,6 @@ timeline_notification:
   - "1584957972"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
 tags:
   - Planet-Libre
   - ubuntu

@@ -12,8 +12,6 @@ publicize_linkedin_url:
   - www.linkedin.com/updates?topic=6512243228153122817
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - moodeaudio
   - Planet-Libre

@@ -10,8 +10,6 @@ timeline_notification:
   - "1580741068"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - Non classé
 tags:
   - java
   - Planet-Libre

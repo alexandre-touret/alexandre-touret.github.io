@@ -14,8 +14,6 @@ publicize_linkedin_url:
   - www.linkedin.com/updates?topic=6469176818153984000
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
   - logiciels libres
   - Non classé
 tags:

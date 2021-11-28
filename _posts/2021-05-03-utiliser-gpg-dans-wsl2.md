@@ -12,8 +12,6 @@ publicize_twitter_user:
   - touret_alex
 publicize_linkedin_url:
   - ""
-categories:
-  - gnu/linux
   - logiciels libres
 tags:
   - git
