@@ -5,7 +5,7 @@ date: 2021-07-26T11:53:49+02:00
 author: admin
 layout: post
 
-
+thumbnail-img: /assets/img/posts/2021/07/rest-book-architecture.png
 spay_email:
   - ""
 jetpack_anchor_podcast:
@@ -182,14 +182,9 @@ opentracing:
 
 Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:<figure class="wp-block-gallery columns-2 is-cropped">
 
-<ul class="blocks-gallery-grid">
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="2074" height="704" src="/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png?w=1024" alt="" data-id="586" data-link="https://blog.touret.info/screenshot-2021-07-26-at-11-38-31-jaeger-ui/" class="wp-image-586" srcset="/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2074w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-300x102.png 300w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1024x348.png 1024w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-768x261.png 768w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1536x521.png 1536w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-2048x695.png 2048w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1568x532.png 1568w" sizes="(max-width: 2074px) 100vw, 2074px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="2336" height="1131" src="/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png?w=1024" alt="" data-id="587" data-link="https://blog.touret.info/screenshot-2021-07-26-at-11-38-15-jaeger-ui/" class="wp-image-587" srcset="/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2336w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-300x145.png 300w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1024x496.png 1024w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-768x372.png 768w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1536x744.png 1536w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-2048x992.png 2048w, /assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1568x759.png 1568w" sizes="(max-width: 2336px) 100vw, 2336px" /></figure>
-  </li>
-</ul></figure> 
+![jaeger1](/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1568x532.png)
+![jaeger2](/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1568x759.png)
+
 
 ## Conclusion
 

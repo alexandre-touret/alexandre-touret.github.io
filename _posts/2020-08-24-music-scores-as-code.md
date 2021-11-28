@@ -4,7 +4,7 @@ title: Music Scores As Code
 date: 2020-08-24T12:42:46+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg
 
 timeline_notification:
   - "1598269367"

@@ -4,7 +4,7 @@ title: Installer Ubuntu 18.04 LTS sur un Dell Inspiron 14-3493
 date: 2020-03-23T11:06:09+01:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/03/dell-inspiron-14-3493.jpg
 
 timeline_notification:
   - "1584957972"

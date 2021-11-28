@@ -4,7 +4,7 @@ title: Installer Ubuntu 20.04 LTS sur un DELL Inspiron 13 5000
 date: 2021-04-02T21:45:43+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01.jpg
 
 publicize_twitter_user:
   - touret_alex

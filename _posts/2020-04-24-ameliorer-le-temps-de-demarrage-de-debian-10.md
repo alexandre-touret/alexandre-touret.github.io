@@ -4,7 +4,7 @@ title: Améliorer le temps de démarrage de Debian 10
 date: 2020-04-24T20:06:13+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/04/boot_avant.png
 
 timeline_notification:
   - "1587755176"
@@ -15,14 +15,16 @@ tags:
   - debian
   - Planet-Libre
 ---
-Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal&#8230; J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.<figure class="wp-block-image size-large">
+Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal&#8230; J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.
 
-<img loading="lazy" width="819" height="45" src="/assets/img/posts/2020/04/boot_time.png?w=819" alt="" class="wp-image-346" srcset="/assets/img/posts/2020/04/boot_time.png 819w, /assets/img/posts/2020/04/boot_time-300x16.png 300w, /assets/img/posts/2020/04/boot_time-768x42.png 768w" sizes="(max-width: 819px) 100vw, 819px" /> </figure> 
+<figure class="wp-block-image size-large">
+<img loading="lazy" width="819" height="45" src="/assets/img/posts/2020/04/boot_time.png?w=819" alt="" class="wp-image-346" srcset="/assets/img/posts/2020/04/boot_time.png 819w, /assets/img/posts/2020/04/boot_time-300x16.png 300w, /assets/img/posts/2020/04/boot_time-768x42.png 768w" sizes="(max-width: 819px) 100vw, 819px" /> 
+</figure> 
 
 Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:
 
-```java
-systemd-analyze plot &gt; plot.svg
+```bash
+systemd-analyze plot > plot.svg
 ```
 
 

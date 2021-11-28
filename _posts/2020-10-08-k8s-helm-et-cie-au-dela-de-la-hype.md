@@ -4,7 +4,7 @@ title: 'K8S, HELM et Cie: au delà de la hype'
 date: 2020-10-08T10:09:59+02:00
 author: admin
 layout: post
-
+thumbnail-img: /assets/img/posts/2020/10/gartner_hype_cycle.svg_.png
 
 publicize_linkedin_url:
   - ""
