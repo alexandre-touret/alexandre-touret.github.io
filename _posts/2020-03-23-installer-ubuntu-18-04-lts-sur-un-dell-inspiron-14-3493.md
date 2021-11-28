@@ -11,7 +11,7 @@ timeline_notification:
 publicize_twitter_user:
   - touret_alex
 tags:
-  - Planet-Libre
+  - planetlibre
   - ubuntu
 ---
 Suite aux premières annonces de distanciation sociale ( avant que le confinement soit effectif ) j&rsquo;ai acheté en catastrophe un PC portable. Les critères étaient : 8Go de RAM, un disque SSD &#8230; et la compatibilité GNU/LINUX :).  

@@ -16,7 +16,7 @@ publicize_linkedin_url:
 tags:
   - actuator
   - observability
-  - Planet-Libre
+  - planetlibre
   - spring
   - springboot
 ---

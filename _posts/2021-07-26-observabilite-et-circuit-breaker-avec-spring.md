@@ -22,7 +22,7 @@ tags:
   - github
   - java
   - observability
-  - Planet-Libre
+  - planetlibre
   - spring
 ---
 Il y a quelques mois déjà, je discutais avec [un collègue](https://jefrajames.fr/) d&rsquo; observabilité, [opentracing](https://github.com/opentracing-contrib/java-spring-cloud), &#8230; avec [Quarkus](http://quarkus.io/). On est tombé sur [un super exemple réalisé par Antonio Concalves](https://github.com/agoncal/agoncal-fascicle-quarkus-pract). Ce projet démontre les capacités de Quarkus sur les sujets suivants:

@@ -13,7 +13,7 @@ publicize_linkedin_url:
 publicize_twitter_user:
   - littlewing1112
 tags:
-  - Planet-Libre
+  - planetlibre
   - tourainetech
 ---
 J&rsquo;ai eu la chance d&rsquo;être sélectionné pour la première édition de la conférence [TouraineTech](https://touraine.tech/).

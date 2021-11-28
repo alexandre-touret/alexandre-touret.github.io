@@ -12,7 +12,7 @@ publicize_twitter_user:
   - touret_alex
 tags:
   - java
-  - Planet-Libre
+  - planetlibre
 ---
 Java 8 est encore largement utilisé dans les entreprises aujourd&rsquo;hui. Il y a même certains frameworks qui n&rsquo;ont pas encore sauté le pas.  
 Je vais essayer d&rsquo;exposer dans cette article les étapes à réaliser pour migrer (simplement) votre application JAVA8 en JAVA 11.

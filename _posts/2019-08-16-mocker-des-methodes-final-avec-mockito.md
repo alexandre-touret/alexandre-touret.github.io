@@ -13,7 +13,7 @@ publicize_twitter_user:
 tags:
   - java
   - mockito
-  - Planet-Libre
+  - planetlibre
   - tests-unitaires
 ---
 Auparavant, dans nos tests, quand on voulait [mocker](https://fr.wikipedia.org/wiki/Mock_(programmation_orient%C3%A9e_objet)) des [méthodes « final »](https://fr.wikipedia.org/wiki/Final_(Java)) ou [statiques](https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods), on devait passer par [PowerMock](https://github.com/powermock/powermock).
