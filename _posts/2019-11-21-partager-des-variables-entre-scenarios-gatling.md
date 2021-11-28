@@ -12,7 +12,7 @@ publicize_twitter_user:
   - touret_alex
 tags:
   - gatling
-  - Planet-Libre
+  - planetlibre
   - scala
 ---
 Je suis en train de mettre en œuvre des tests de performance avec [Gatling](https://gatling.io/). Un des principaux outils libres de tests de performance.<figure class="wp-block-image size-large">

@@ -9,7 +9,7 @@ layout: post
 timeline_notification:
   - "1548251400"
 tags:
-  - Planet-Libre
+  - planetlibre
 ---
 Voici ma deuxième contribution pour une série d&rsquo;articles sur l&rsquo;opensource pour le blog de mon entreprise.
 
