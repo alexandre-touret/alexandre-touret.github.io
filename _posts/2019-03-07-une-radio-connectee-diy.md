@@ -13,7 +13,7 @@ publicize_linkedin_url:
 publicize_twitter_user:
   - touret_alex
 tags:
-  - Planet-Libre
+  - planetlibre
   - raspberry-pi
 ---
 Dans la série j&rsquo;équipe ma maison en [Raspberry PI](https://www.raspberrypi.org/), j&rsquo;ai décidé de me doter d&rsquo;une station radio connectée qui me permettrait de « moderniser » un peu ma chaîne HI-FI.

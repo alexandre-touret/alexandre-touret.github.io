@@ -14,7 +14,7 @@ publicize_twitter_user:
 tags:
   - ansible
   - debian
-  - Planet-Libre
+  - planetlibre
 ---
 Si vous [provisionnez vos VM VirtualBox avec Vagrant](http://blog.touret.info/2018/03/15/installation-de-vagrant/), vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
 

@@ -16,7 +16,7 @@ publicize_linkedin_url:
 tags:
   - git
   - gpg
-  - Planet-Libre
+  - planetlibre
   - wsl2
 ---
 <div class="wp-block-image">
