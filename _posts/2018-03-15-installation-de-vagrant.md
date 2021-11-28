@@ -14,7 +14,7 @@ publicize_twitter_user:
   - touret_alex
   - logiciels libres
 tags:
-  - Planet-Libre
+  - planetlibre
   - vagrant
 ---
 [Vagrant](http://vagrantup.com/) est un outil permettant de construire des environnements de travail virtualisés hébergés sur vmware, virtualbox ou encore docker. Il permet par exemple de construire et gérer une VM dans un seul et même workflow et d&rsquo;éviter les exports et partages de machines virtuelles ( tout est déclaré dans un seul et même fichier ).

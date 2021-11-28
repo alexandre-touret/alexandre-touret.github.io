@@ -14,7 +14,7 @@ publicize_twitter_user:
   - touret_alex
 tags:
   - moodeaudio
-  - Planet-Libre
+  - planetlibre
   - spotify
 ---
 Après avoir mis à jour mon mot de passe Spotify ( oui, il faut modifier régulièrement ses mots de passe ) , j&rsquo;ai eu un petit soucis sur [MoodeAudio](http://moodeaudio.org/) ( version 4.4) et notamment sur la connexion avec Spotify.

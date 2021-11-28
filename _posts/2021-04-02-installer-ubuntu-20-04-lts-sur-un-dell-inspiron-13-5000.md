@@ -13,7 +13,7 @@ timeline_notification:
   - logiciels libres
 tags:
   - dell
-  - Planet-Libre
+  - planetlibre
   - ubuntu
 ---
 <p class="has-drop-cap">

@@ -13,7 +13,7 @@ timeline_notification:
 publicize_twitter_user:
   - touret_alex
 tags:
-  - Planet-Libre
+  - planetlibre
 ---
 je n&rsquo;ai pas écrit beaucoup de choses sur mon blog ces derniers temps. C&rsquo;était en partie dû au fait que j&rsquo;étais en train d&rsquo;écrire un article avec [R. SEMETEYS](https://www.linkedin.com/in/raphaelsemeteys/) pour [le blog de mon entreprise](https://blog.worldline.tech).  
 Cet article est disponible **[ici](https://blog.worldline.tech/2018/10/29/opensource-history.html)**. Il essaye de synthétiser l&rsquo;histoire de l&rsquo;open source.

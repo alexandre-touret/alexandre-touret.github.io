@@ -13,7 +13,7 @@ publicize_twitter_user:
 tags:
   - aop
   - java
-  - Planet-Libre
+  - planetlibre
   - spring
   - springboo
 ---

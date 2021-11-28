@@ -13,7 +13,7 @@ publicize_twitter_user:
   - logiciels libres
 tags:
   - debian
-  - Planet-Libre
+  - planetlibre
 ---
 Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal&#8230; J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.
 

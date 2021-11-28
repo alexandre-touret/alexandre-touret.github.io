@@ -16,7 +16,7 @@ tags:
   - cygwin
   - git
   - gnu/linux
-  - Planet-Libre
+  - planetlibre
 ---
 Dans la série, [j&rsquo;essaye de sauvegarder toutes mes configurations](http://blog.touret.info/2018/02/10/ma-configuration-debian-9/), voici ce que j&rsquo;ai fait pour configurer correctement [cygwin](https://cygwin.com/).
 
