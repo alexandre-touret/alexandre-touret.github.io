@@ -10,8 +10,6 @@ timeline_notification:
   - "1563393924"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - Non classé
 ---
 En changeant de société l&rsquo;année dernière j&rsquo;ai eu l&rsquo;impression de monter d&rsquo;un cran dans la pyramide des ages.  
 Pour faire plus simple, je me suis senti un peu plus vieux.

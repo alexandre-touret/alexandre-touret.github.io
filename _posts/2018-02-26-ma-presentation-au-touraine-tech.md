@@ -12,8 +12,6 @@ publicize_linkedin_url:
   - 'https://www.linkedin.com/updates?discuss=&scope=38123191&stype=M&topic=6373882278589845504&type=U&a=GOAl'
 publicize_twitter_user:
   - littlewing1112
-categories:
-  - logiciels libres
 tags:
   - Planet-Libre
   - tourainetech

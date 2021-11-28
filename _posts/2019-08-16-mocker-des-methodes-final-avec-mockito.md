@@ -10,8 +10,6 @@ timeline_notification:
   - "1565940418"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - java
   - mockito

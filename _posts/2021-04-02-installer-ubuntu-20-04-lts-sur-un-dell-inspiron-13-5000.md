@@ -10,8 +10,6 @@ publicize_twitter_user:
   - touret_alex
 timeline_notification:
   - "1617396348"
-categories:
-  - gnu/linux
   - logiciels libres
 tags:
   - dell

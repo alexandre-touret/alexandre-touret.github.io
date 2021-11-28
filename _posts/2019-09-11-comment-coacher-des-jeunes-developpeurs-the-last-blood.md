@@ -12,8 +12,6 @@ publicize_twitter_user:
   - touret_alex
 publicize_linkedin_url:
   - ""
-categories:
-  - Non classé
 ---
 Après avoir soumis [mon article sur le coaching des développeur](http://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/)s, je me suis rendu compte que j&rsquo;ai oublié pas mal de points qui, à bien y réfléchir, me paraissent essentiels.  
 Dans mon précédent article ( the first blood pour le coup ) je me suis attardé sur le « quoi » : toutes les actions que j&rsquo;ai testé dans l&rsquo;encadrement des jeunes développeurs et des développeurs en général.

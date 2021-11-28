@@ -10,8 +10,6 @@ timeline_notification:
   - "1572973975"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - aop
   - java

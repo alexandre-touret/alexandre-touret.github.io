@@ -12,8 +12,6 @@ timeline_notification:
   - "1521111959"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
   - logiciels libres
 tags:
   - Planet-Libre

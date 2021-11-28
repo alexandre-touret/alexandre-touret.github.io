@@ -12,8 +12,6 @@ timeline_notification:
   - "1540819796"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - Planet-Libre
 ---

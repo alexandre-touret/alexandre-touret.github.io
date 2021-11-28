@@ -12,8 +12,6 @@ publicize_linkedin_url:
   - www.linkedin.com/updates?topic=6474646066024321024
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - logbook
   - Planet-Libre

@@ -10,8 +10,6 @@ timeline_notification:
   - "1577714616"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - gradle
   - java

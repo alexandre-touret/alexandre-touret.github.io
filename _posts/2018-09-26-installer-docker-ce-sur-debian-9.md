@@ -12,8 +12,6 @@ timeline_notification:
   - "1537961302"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - debian
   - docker

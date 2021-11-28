@@ -10,8 +10,6 @@ timeline_notification:
   - "1565363602"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - gnu/linux
   - logiciels libres
 tags:
   - git

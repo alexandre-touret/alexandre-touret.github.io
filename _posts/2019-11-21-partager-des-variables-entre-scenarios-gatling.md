@@ -10,8 +10,6 @@ timeline_notification:
   - "1574370773"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - gatling
   - Planet-Libre

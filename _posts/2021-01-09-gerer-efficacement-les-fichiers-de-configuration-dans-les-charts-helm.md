@@ -12,8 +12,6 @@ timeline_notification:
   - "1610202091"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - Non classé
 ---
 <p class="has-drop-cap">
   Dès qu&rsquo;on veut déployer des environnements <a href="https://kubernetes.io/">Kubernetes</a>, <a href="https://helm.sh/">Helm </a>devient une des solutions à considérer.<br />Le déploiement des objets standards tels que <code>deployment</code>, <code>autoscaler </code>et autres se fait aisément car ces derniers ne changent pas d&rsquo;un environnement à l&rsquo;autre. Généralement on déploie la même infrastructure sur tous les environnements du développement à la production.

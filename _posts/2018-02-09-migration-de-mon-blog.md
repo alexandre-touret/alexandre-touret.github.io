@@ -10,8 +10,6 @@ timeline_notification:
   - "1518171127"
 publicize_twitter_user:
   - littlewing1112
-categories:
-  - Non classé
 ---
 Bon,
 

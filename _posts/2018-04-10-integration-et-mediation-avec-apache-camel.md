@@ -10,8 +10,6 @@ timeline_notification:
   - "1523369709"
 publicize_twitter_user:
   - touret_alex
-categories:
-  - logiciels libres
 tags:
   - camel
   - integration
