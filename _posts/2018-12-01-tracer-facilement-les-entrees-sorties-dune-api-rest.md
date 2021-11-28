@@ -14,7 +14,7 @@ publicize_twitter_user:
   - touret_alex
 tags:
   - logbook
-  - Planet-Libre
+  - planetlibre
   - spring
   - springboot
 ---

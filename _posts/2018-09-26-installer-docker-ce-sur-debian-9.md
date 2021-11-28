@@ -15,7 +15,7 @@ publicize_twitter_user:
 tags:
   - debian
   - docker
-  - Planet-Libre
+  - planetlibre
 ---
 Bon, ça fait quelques temps que je n&rsquo;ai rien posté&#8230;  
 Voici un rapide tuto pour installer [docker-ce sur une debian9](https://docs.docker.com/install/linux/docker-ce/debian/). Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l&rsquo;installation de la version ce fournie par docker.

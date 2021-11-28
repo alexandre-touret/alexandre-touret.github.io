@@ -19,7 +19,7 @@ publicize_twitter_user:
 tags:
   - debian
   - musique
-  - Planet-Libre
+  - planetlibre
 ---
 Avec les contraintes liées au confinement, les [répétitions](http://george-abitbol.fr/v/c0bce857) se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d&rsquo;un instrument et d&rsquo; improviser tout en ayant une bande son en fond musical.
 
