@@ -12,7 +12,7 @@ publicize_twitter_user:
   - touret_alex
 tags:
   - debian
-  - Planet-Libre
+  - planetlibre
   - pulseaudio
 ---
 Et oui, il y a un equalizer dans debian&#8230;.[Pulse Audio dispose d&rsquo;un equalizer](https://www.freedesktop.org/wiki/Software/PulseAudio/). Bon ce n&rsquo;est encore très user friendly, mais ça fonctionne!

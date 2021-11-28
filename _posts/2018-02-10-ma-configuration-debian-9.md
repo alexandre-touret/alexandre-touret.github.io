@@ -11,8 +11,9 @@ timeline_notification:
 publicize_twitter_user:
   - littlewing1112
 tags:
+  - planetlibre
   - debian
-  - Planet-Libre
+  
 ---
 Désolé de remettre ça&#8230; Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
 

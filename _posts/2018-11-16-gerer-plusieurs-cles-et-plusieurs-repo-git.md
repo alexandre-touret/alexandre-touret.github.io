@@ -18,7 +18,7 @@ publicize_twitter_user:
   - Non classé
 tags:
   - git
-  - Planet-Libre
+  - planetlibre
 ---
 En attendant d&rsquo;avoir plus d&rsquo;imagination, voici un rapide tuto pour gérer plusieurs référentiels GIT avec des clés SSH différentes.
 

@@ -13,7 +13,7 @@ publicize_twitter_user:
 tags:
   - camel
   - integration
-  - Planet-Libre
+  - planetlibre
 ---
 Depuis quelques jours, je teste [Apache Camel](https://camel.apache.org/) pour la mise en œuvre  de médiations.
 

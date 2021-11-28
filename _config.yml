@@ -247,7 +247,7 @@ exclude:
 plugins:
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-sitemap
+  - jekyll-feed
 
 # Beautiful Jekyll / Dean Attali
 # 2fc73a3a967e97599c9763d05e564189
@@ -258,3 +258,6 @@ url: https://blogtest.touret.info  # the base hostname and protocol for your sit
 repository: alexandre-touret/alexandre-touret.github.io
 full-width: true
 language: fr
+
+feed:
+  tags: true

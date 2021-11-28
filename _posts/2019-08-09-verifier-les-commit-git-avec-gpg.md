@@ -16,7 +16,7 @@ tags:
   - github
   - gitlab
   - gpg
-  - Planet-Libre
+  - planetlibre
 ---
 Juste pour un pense bête, voici comment paramétrer [GIT](https://git-scm.com/) et [GITHUB](https://github.com/)/[GITLAB](https://about.gitlab.com/) pour signer les commits avec [GPG](https://gnupg.org).
 
