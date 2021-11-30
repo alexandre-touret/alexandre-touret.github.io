@@ -2,8 +2,8 @@
 id: 71
 title: 'Activer l&rsquo; equalizer sur Debian 9'
 date: 2018-03-25T13:38:27+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -40,7 +40,7 @@ Relancer le démon pulseaudio
 
 A ce stade, vous devriez avoir dans le panneau de configuration la référence à l&rsquo;equalizer
 
-<img loading="lazy" class="alignnone size-full wp-image-74" src="/assets/img/posts/2018/03/sc3a9lection_001.png" alt="Sélection_001" width="431" height="177" srcset="/assets/img/posts/2018/03/sc3a9lection_001.png 431w, /assets/img/posts/2018/03/sc3a9lection_001-300x123.png 300w" sizes="(max-width: 431px) 100vw, 431px" /> 
+<img loading="lazy" class="alignnone size-full wp-image-74" src="/assets/images/2018/03/sc3a9lection_001.png" alt="Sélection_001" width="431" height="177" srcset="/assets/images/2018/03/sc3a9lection_001.png 431w, /assets/images/2018/03/sc3a9lection_001-300x123.png 300w" sizes="(max-width: 431px) 100vw, 431px" /> 
 
 ## Lancement
 
@@ -52,7 +52,7 @@ $ qpaeq &
 
 On obtient cette interface:
 
-<img loading="lazy" class="alignnone size-full wp-image-75" src="/assets/img/posts/2018/03/qpaeq_002.png" alt="qpaeq_002" width="1382" height="368" srcset="/assets/img/posts/2018/03/qpaeq_002.png 1382w, /assets/img/posts/2018/03/qpaeq_002-300x80.png 300w, /assets/img/posts/2018/03/qpaeq_002-1024x273.png 1024w, /assets/img/posts/2018/03/qpaeq_002-768x205.png 768w" sizes="(max-width: 1382px) 100vw, 1382px" /> 
+<img loading="lazy" class="alignnone size-full wp-image-75" src="/assets/images/2018/03/qpaeq_002.png" alt="qpaeq_002" width="1382" height="368" srcset="/assets/images/2018/03/qpaeq_002.png 1382w, /assets/images/2018/03/qpaeq_002-300x80.png 300w, /assets/images/2018/03/qpaeq_002-1024x273.png 1024w, /assets/images/2018/03/qpaeq_002-768x205.png 768w" sizes="(max-width: 1382px) 100vw, 1382px" /> 
 
 Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)
 

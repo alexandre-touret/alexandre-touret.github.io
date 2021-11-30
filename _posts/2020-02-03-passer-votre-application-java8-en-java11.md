@@ -2,9 +2,10 @@
 id: 241
 title: Passer votre application Java8 en Java11
 date: 2020-02-03T15:44:27+01:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg
+
+
+header:
+  teaser: /assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg
 
 timeline_notification:
   - "1580741068"
@@ -20,7 +21,7 @@ Je vais essayer d&rsquo;exposer dans cette article les étapes à réaliser pour
 Dans cet article, je prendrai comme postulat que l&rsquo;application se construit avec Maven.
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/img/posts/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg?w=683" alt="" class="wp-image-270" /></figure>
+  <figure class="aligncenter size-large"><img src="/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg?w=683" alt="" class="wp-image-270" /></figure>
 </div>
 
 ## Pré-requis
@@ -42,14 +43,14 @@ Les trois plugins à mettre à jour obligatoirement sont :
 ### Maven compiler plugin
 
 ```java
-&lt;plugin&gt;
-        &lt;artifactId&gt;maven-compiler-plugin&lt;/artifactId&gt;
-        &lt;version&gt;3.8.1&lt;/version&gt;
-        &lt;configuration&gt;
-          &lt;release&gt;11&lt;/release&gt;
-          &lt;encoding&gt;UTF-8&lt;/encoding&gt;
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
+<plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.8.1</version>
+        <configuration>
+          <release>11</release>
+          <encoding>UTF-8</encoding>
+        </configuration>
+      </plugin>
 ```
 
 
@@ -58,15 +59,15 @@ Les trois plugins à mettre à jour obligatoirement sont :
 Pour ces deux plugins, ajouter la configuration suivante:
 
 ```java
-&lt;plugin&gt;
-        &lt;artifactId&gt;maven-surefire-plugin&lt;/artifactId&gt;
-        &lt;version&gt;2.22.2&lt;/version&gt;
-        &lt;configuration&gt;
+<plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>2.22.2</version>
+        <configuration>
         [...]
-          &lt;argLine&gt;--illegal-access=permit&lt;/argLine&gt;
+          <argLine>--illegal-access=permit</argLine>
           [...]
-        &lt;/configuration&gt;
-      &lt;/plugin&gt;
+        </configuration>
+      </plugin>
 ```
 
 
@@ -83,23 +84,23 @@ Si vous faites du XML, SOAP ou que vous utilisiez l&rsquo;API activation, vous d
 Par exemple:
 
 ```java
-&lt;dependency&gt;
-            &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
-            &lt;artifactId&gt;jaxb-core&lt;/artifactId&gt;
-            &lt;version&gt;2.3.0.1&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;com.sun.xml.bind&lt;/groupId&gt;
-            &lt;artifactId&gt;jaxb-impl&lt;/artifactId&gt;
-            &lt;version&gt;2.3.0.1&lt;/version&gt;
-            &lt;scope&gt;test&lt;/scope&gt;
-        &lt;/dependency&gt;
-        &lt;dependency&gt;
-            &lt;groupId&gt;javax.xml.bind&lt;/groupId&gt;
-            &lt;artifactId&gt;jaxb-api&lt;/artifactId&gt;
-            &lt;version&gt;2.3.1&lt;/version&gt;
-        &lt;/dependency&gt;
+<dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-core</artifactId>
+            <version>2.3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-impl</artifactId>
+            <version>2.3.0.1</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>2.3.1</version>
+        </dependency>
 
 ```
 

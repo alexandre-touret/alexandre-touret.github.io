@@ -2,9 +2,10 @@
 id: 414
 title: Music Scores As Code
 date: 2020-08-24T12:42:46+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg
+
+
+header:
+  teaser: /assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg
 
 timeline_notification:
   - "1598269367"
@@ -16,7 +17,7 @@ tags:
   - lilypond
   - planetlibre
 ---
-<figure class="wp-block-image size-large"><img src="/assets/img/posts/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg?w=1024" alt="" class="wp-image-428" /></figure> 
+<figure class="wp-block-image size-large"><img src="/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg?w=1024" alt="" class="wp-image-428" /></figure> 
 
 
 
@@ -70,7 +71,7 @@ upper=
   d'2 (b4 e
   d2 b4 a 
   g2 g2 
-  &lt;e g,&gt;2) &lt;fis, c' d&gt; 
+  <e g,>2) <fis, c' d> 
   \bar "||"
 
 ```

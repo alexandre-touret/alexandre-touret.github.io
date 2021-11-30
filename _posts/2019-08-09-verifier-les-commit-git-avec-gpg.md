@@ -2,8 +2,8 @@
 id: 188
 title: Vérifier les commit GIT avec GPG
 date: 2019-08-09T16:13:21+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -20,7 +20,7 @@ tags:
 ---
 Juste pour un pense bête, voici comment paramétrer [GIT](https://git-scm.com/) et [GITHUB](https://github.com/)/[GITLAB](https://about.gitlab.com/) pour signer les commits avec [GPG](https://gnupg.org).
 
-<img loading="lazy" class="aligncenter wp-image-196 size-large" src="/assets/img/posts/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg?w=612" alt="" width="612" height="408" /> 
+<img loading="lazy" class="aligncenter wp-image-196 size-large" src="/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg?w=612" alt="" width="612" height="408" /> 
 
 ## Configuration GPG
 
@@ -45,7 +45,7 @@ Sélectionnez une clé RSA (question 1) de 4096 bits (question 2).</span></span>
 ----------------------------------
 sec rsa4096/XXXXXXXXXX 2019-08-09 [SC]
 XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
-uid [ ultime ] Alexandre Touret &lt;mon.mail.github.ou.gitlab@monprovider.fr&gt;
+uid [ ultime ] Alexandre Touret <mon.mail.github.ou.gitlab@monprovider.fr>
 ssb rsa4096/XXXXXXXXXX 2019-08-09 [E]
 ```
 

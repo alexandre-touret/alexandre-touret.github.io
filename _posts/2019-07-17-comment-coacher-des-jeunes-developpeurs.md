@@ -2,8 +2,8 @@
 id: 179
 title: Comment coacher des jeunes développeurs ?
 date: 2019-07-17T21:03:59+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -14,7 +14,7 @@ publicize_twitter_user:
 En changeant de société l&rsquo;année dernière j&rsquo;ai eu l&rsquo;impression de monter d&rsquo;un cran dans la pyramide des ages.  
 Pour faire plus simple, je me suis senti un peu plus vieux.
 
-<img loading="lazy" class="size-medium wp-image-189 aligncenter" src="/assets/img/posts/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg?w=300" alt="" width="300" height="186" /> 
+<img loading="lazy" class="size-medium wp-image-189 aligncenter" src="/assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg?w=300" alt="" width="300" height="186" /> 
 
 Si vous avez quelques années d&rsquo;expérience dans le développement ou tout simplement dans la technique, vous avez déjà eu l&rsquo;occasion de coacher ou d&rsquo;encadrer techniquement des jeunes diplômés.
 

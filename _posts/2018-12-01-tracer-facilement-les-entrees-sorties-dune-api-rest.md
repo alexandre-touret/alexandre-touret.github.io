@@ -2,8 +2,8 @@
 id: 113
 title: 'Tracer (facilement) les entrées sorties d&rsquo;une API REST'
 date: 2018-12-01T15:51:50+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -18,7 +18,7 @@ tags:
   - spring
   - springboot
 ---
-<figure class="wp-block-image"><img loading="lazy" width="1200" height="1200" src="/assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" alt="" class="wp-image-115" srcset="/assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg 1200w, /assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-300x300.jpeg 300w, /assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-1024x1024.jpeg 1024w, /assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-150x150.jpeg 150w, /assets/img/posts/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-768x768.jpeg 768w" sizes="(max-width: 1200px) 100vw, 1200px" /></figure> 
+<figure class="wp-block-image"><img loading="lazy" width="1200" height="1200" src="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" alt="" class="wp-image-115" srcset="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg 1200w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-300x300.jpeg 300w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-1024x1024.jpeg 1024w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-150x150.jpeg 150w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-768x768.jpeg 768w" sizes="(max-width: 1200px) 100vw, 1200px" /></figure> 
 
 Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une [API REST](https://fr.wikipedia.org/wiki/Representational_state_transfer) en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
 
@@ -35,7 +35,7 @@ Voici un exemple de mise en œuvre dans un projet SpringBoot:
 
 Dans le  fichier pom.xml, ajouter cette dépendance:
 
-<pre class="wp-block-preformatted">&lt;dependency&gt;<br />    &lt;groupId&gt;org.zalando&lt;/groupId&gt;<br />    &lt;artifactId&gt;logbook-spring-boot-starter&lt;/artifactId&gt;<br />    &lt;version&gt;1.11.2&lt;/version&gt;<br />&lt;/dependency&gt;<br /><br />
+<pre class="wp-block-preformatted"><dependency><br />    <groupId>org.zalando</groupId><br />    <artifactId>logbook-spring-boot-starter</artifactId><br />    <version>1.11.2</version><br /></dependency><br /><br />
 ```
 
 

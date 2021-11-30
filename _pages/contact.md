@@ -2,8 +2,7 @@
 id: 9
 title: Contact
 date: 2018-02-08T14:25:11+01:00
-author: admin
-layout: page
+permalink: /contact/
 
 sharing_disabled:
   - 'a:1:{i:0;i:1;}'

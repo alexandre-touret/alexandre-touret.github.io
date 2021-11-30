@@ -2,8 +2,8 @@
 id: 155
 title: Au secours! Spotify Connect ne fonctionne plus sur MoodeAudio
 date: 2019-03-15T09:49:36+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -19,7 +19,7 @@ tags:
 ---
 Après avoir mis à jour mon mot de passe Spotify ( oui, il faut modifier régulièrement ses mots de passe ) , j&rsquo;ai eu un petit soucis sur [MoodeAudio](http://moodeaudio.org/) ( version 4.4) et notamment sur la connexion avec Spotify.
 
-<img loading="lazy" class="size-medium wp-image-164 aligncenter" src="/assets/img/posts/2019/03/moode-r44.png?w=300" alt="" width="300" height="225" srcset="/assets/img/posts/2019/03/moode-r44.png 1024w, /assets/img/posts/2019/03/moode-r44-300x225.png 300w, /assets/img/posts/2019/03/moode-r44-768x576.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
+<img loading="lazy" class="size-medium wp-image-164 aligncenter" src="/assets/images/2019/03/moode-r44.png?w=300" alt="" width="300" height="225" srcset="/assets/images/2019/03/moode-r44.png 1024w, /assets/images/2019/03/moode-r44-300x225.png 300w, /assets/images/2019/03/moode-r44-768x576.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
 
 Après quelques recherches sur [le forum de moodeaudio](http://moodeaudio.org/forum/showthread.php?tid=765&page=2), j&rsquo;ai trouvé la correction qui allait bien.
 

@@ -2,8 +2,8 @@
 id: 33
 title: Ma Configuration Debian 9
 date: 2018-02-10T08:58:47+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -17,7 +17,7 @@ tags:
 ---
 Désolé de remettre ça&#8230; Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
 
-<img loading="lazy" class=" size-full wp-image-39 aligncenter" src="/assets/img/posts/2018/02/220px-debian-openlogo-svg.png" alt="220px-Debian-OpenLogo.svg" width="220" height="291" /> 
+<img loading="lazy" class=" size-full wp-image-39 aligncenter" src="/assets/images/2018/02/220px-debian-openlogo-svg.png" alt="220px-Debian-OpenLogo.svg" width="220" height="291" /> 
 
 Voici ce que j&rsquo;ai réalisé post-installation:
 

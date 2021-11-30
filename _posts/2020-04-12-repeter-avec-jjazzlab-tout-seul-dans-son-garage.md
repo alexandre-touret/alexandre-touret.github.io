@@ -2,9 +2,10 @@
 id: 278
 title: Répéter avec JjazzLab tout seul dans son garage
 date: 2020-04-12T14:47:48+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg
+
+
+header:
+  teaser: /assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg
 
 enclosure:
   - |
@@ -24,7 +25,7 @@ tags:
 Avec les contraintes liées au confinement, les [répétitions](http://george-abitbol.fr/v/c0bce857) se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d&rsquo;un instrument et d&rsquo; improviser tout en ayant une bande son en fond musical.
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/img/posts/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg?w=1024" alt="" class="wp-image-303" /></figure>
+  <figure class="aligncenter size-large"><img src="/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg?w=1024" alt="" class="wp-image-303" /></figure>
 </div>
 
 Il y a plusieurs logiciels payants/propriétaires sur différentes plateformes:
@@ -94,13 +95,13 @@ Vous trouverez ci-dessous la configuration que j&rsquo;ai appliqué. Elle diffè
 
 <ul class="blocks-gallery-grid">
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png?w=656" alt="" data-id="307" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-04-39/" class="wp-image-307" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 656w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
+    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png?w=656" alt="" data-id="307" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-04-39/" class="wp-image-307" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png?w=656" alt="" data-id="308" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-02/" class="wp-image-308" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 656w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
+    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png?w=656" alt="" data-id="308" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-02/" class="wp-image-308" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png?w=656" alt="" data-id="309" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-13/" class="wp-image-309" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 656w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
+    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png?w=656" alt="" data-id="309" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-13/" class="wp-image-309" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
   </li>
 </ul></figure> 
 
@@ -111,7 +112,7 @@ Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
 Disclaimer: La c&rsquo;est la partie la plus obscure&#8230;
 
 <div class="wp-block-image is-style-default">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/04/pegi_18_annotated_2009-2010.png?w=819" alt="" class="wp-image-312" width="247" height="302" srcset="/assets/img/posts/2020/04/pegi_18_annotated_2009-2010.png 819w, /assets/img/posts/2020/04/pegi_18_annotated_2009-2010-246x300.png 246w, /assets/img/posts/2020/04/pegi_18_annotated_2009-2010-768x938.png 768w" sizes="(max-width: 247px) 100vw, 247px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/04/pegi_18_annotated_2009-2010.png?w=819" alt="" class="wp-image-312" width="247" height="302" srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.png 819w, /assets/images/2020/04/pegi_18_annotated_2009-2010-246x300.png 246w, /assets/images/2020/04/pegi_18_annotated_2009-2010-768x938.png 768w" sizes="(max-width: 247px) 100vw, 247px" /></figure>
 </div>
 
 Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu &#8230;  
@@ -184,18 +185,18 @@ Maintenant vous pouvez directement démarrer JJazzlab via le menu.
 
 Une fois jjazzlab démarré, vous devez aller dans le menu « Tools>Options » et sélectionnez les valeurs suivantes:<figure class="wp-block-image size-large">
 
-<img loading="lazy" width="750" height="692" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png?w=750" alt="" class="wp-image-316" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 750w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27-300x277.png 300w" sizes="(max-width: 750px) 100vw, 750px" /> </figure> 
+<img loading="lazy" width="750" height="692" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png?w=750" alt="" class="wp-image-316" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 750w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27-300x277.png 300w" sizes="(max-width: 750px) 100vw, 750px" /> </figure> 
 
 Ouvrez un fichier example (ex. sunny ) 
 
 Cliquez sur le menu décrit par un clavier
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="341" height="48" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png?w=341" alt="" class="wp-image-317" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 341w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11-300x42.png 300w" sizes="(max-width: 341px) 100vw, 341px" /></figure>
+  <figure class="aligncenter size-large"><img loading="lazy" width="341" height="48" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png?w=341" alt="" class="wp-image-317" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 341w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11-300x42.png 300w" sizes="(max-width: 341px) 100vw, 341px" /></figure>
 </div>
 
 Puis configurez comme suit:<figure class="wp-block-image size-large">
 
-<img loading="lazy" width="828" height="591" src="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png?w=828" alt="" class="wp-image-318" srcset="/assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 828w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-300x214.png 300w, /assets/img/posts/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-768x548.png 768w" sizes="(max-width: 828px) 100vw, 828px" /> </figure> 
+<img loading="lazy" width="828" height="591" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png?w=828" alt="" class="wp-image-318" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 828w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-300x214.png 300w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-768x548.png 768w" sizes="(max-width: 828px) 100vw, 828px" /> </figure> 
 
 Maintenant vous pouvez [télécharger les standards fournis sur le site](https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip) et improviser dessus 🙂

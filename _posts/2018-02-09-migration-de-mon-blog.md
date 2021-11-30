@@ -2,8 +2,8 @@
 id: 24
 title: Migration de mon blog
 date: 2018-02-09T11:12:03+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
