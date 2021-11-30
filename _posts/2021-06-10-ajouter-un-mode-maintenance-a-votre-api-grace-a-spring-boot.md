@@ -2,9 +2,10 @@
 id: 527
 title: Ajouter un mode « maintenance » à votre API grâce à Spring boot
 date: 2021-06-10T17:01:20+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2021/06/pexels-photo-257736.jpeg
+
+header:
+  teaser: /assets/images/2021/06/pexels-photo-257736.jpeg
+
 
 timeline_notification:
   - "1623337284"
@@ -21,7 +22,7 @@ tags:
   - springboot
 ---
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2021/06/pexels-photo-257736.jpeg" alt="" class="wp-image-543" width="697" height="463" srcset="/assets/img/posts/2021/06/pexels-photo-257736.jpeg 1880w, /assets/img/posts/2021/06/pexels-photo-257736-300x200.jpeg 300w, /assets/img/posts/2021/06/pexels-photo-257736-1024x681.jpeg 1024w, /assets/img/posts/2021/06/pexels-photo-257736-768x511.jpeg 768w, /assets/img/posts/2021/06/pexels-photo-257736-1536x1022.jpeg 1536w, /assets/img/posts/2021/06/pexels-photo-257736-1568x1043.jpeg 1568w" sizes="(max-width: 697px) 100vw, 697px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/close-up-of-telephone-booth-257736/" rel="nofollow">Pexels.com</a></figcaption></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/06/pexels-photo-257736.jpeg" alt="" class="wp-image-543" width="697" height="463" srcset="/assets/images/2021/06/pexels-photo-257736.jpeg 1880w, /assets/images/2021/06/pexels-photo-257736-300x200.jpeg 300w, /assets/images/2021/06/pexels-photo-257736-1024x681.jpeg 1024w, /assets/images/2021/06/pexels-photo-257736-768x511.jpeg 768w, /assets/images/2021/06/pexels-photo-257736-1536x1022.jpeg 1536w, /assets/images/2021/06/pexels-photo-257736-1568x1043.jpeg 1568w" sizes="(max-width: 697px) 100vw, 697px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/close-up-of-telephone-booth-257736/" rel="nofollow">Pexels.com</a></figcaption></figure>
 </div>
 
 <p class="has-drop-cap">
@@ -53,10 +54,10 @@ Pour activer les différents probes, vous devez activer [Actuator](https://docs.
 Dans le fichier pom.xml, vous devez ajouter le starter correspondant:
 
 ```java
-&lt;dependency&gt;
-    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
-	&lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
-&lt;/dependency&gt;
+<dependency>
+    <groupId>org.springframework.boot</groupId>
+	<artifactId>spring-boot-starter-actuator</artifactId>
+</dependency>
 ```
 
 
@@ -89,7 +90,7 @@ Par exemple, pour connaître le statut `<a href="https://docs.spring.io/spring-b
 @ApiResponses(value = {
  @ApiResponse(responseCode = "200", description = "Checks if the application in under maitenance")})
  @GetMapping
- public ResponseEntity&lt;MaintenanceDTO&gt; retreiveInMaintenance() {
+ public ResponseEntity<MaintenanceDTO> retreiveInMaintenance() {
         var lastChangeEvent = availability.getLastChangeEvent(ReadinessState.class);
         return ResponseEntity.ok(new MaintenanceDTO(lastChangeEvent.getState().equals(ReadinessState.REFUSING_TRAFFIC), new Date(lastChangeEvent.getTimestamp())));
     }
@@ -104,7 +105,7 @@ Grâce à la même API, on peut également modifier ce statut dans via du code:
 @ApiResponses(value = {
 @ApiResponse(responseCode = "204", description = "Put the app under maitenance")})
 @PutMapping
-public ResponseEntity&lt;Void&gt; initInMaintenance(@NotNull @RequestBody String inMaintenance) {
+public ResponseEntity<Void> initInMaintenance(@NotNull @RequestBody String inMaintenance) {
         AvailabilityChangeEvent.publish(eventPublisher, this, Boolean.valueOf(inMaintenance) ? ReadinessState.REFUSING_TRAFFIC : ReadinessState.ACCEPTING_TRAFFIC);
         return ResponseEntity.noContent().build();
 }
@@ -134,7 +135,7 @@ public class CheckMaintenanceFilter implements Filter {
     private HandlerExceptionResolver exceptionHandler;
 
     /**
-     * Checks if the application is under maintenance. If it is and if the requested URI is not '/api/maintenance', it throws a &lt;code&gt;MaintenanceException&lt;/code&gt;
+     * Checks if the application is under maintenance. If it is and if the requested URI is not '/api/maintenance', it throws a <code>MaintenanceException</code>
      *
      * @param request
      * @param response

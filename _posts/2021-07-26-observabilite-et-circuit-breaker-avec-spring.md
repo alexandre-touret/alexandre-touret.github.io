@@ -2,10 +2,10 @@
 id: 563
 title: Observabilité et Circuit Breaker avec Spring
 date: 2021-07-26T11:53:49+02:00
-author: admin
-layout: post
 
-thumbnail-img: /assets/img/posts/2021/07/rest-book-architecture.png
+
+header:
+  teaser: /assets/images/2021/07/rest-book-architecture.png
 spay_email:
   - ""
 jetpack_anchor_podcast:
@@ -45,7 +45,7 @@ Vous trouverez ci-dessous un schéma d&rsquo;architecture de l&rsquo;application
 
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="825" height="668" src="/assets/img/posts/2021/07/rest-book-architecture.png?w=825" alt="" class="wp-image-580" srcset="/assets/img/posts/2021/07/rest-book-architecture.png 825w, /assets/img/posts/2021/07/rest-book-architecture-300x243.png 300w, /assets/img/posts/2021/07/rest-book-architecture-768x622.png 768w" sizes="(max-width: 825px) 100vw, 825px" /></figure>
+  <figure class="aligncenter size-large"><img loading="lazy" width="825" height="668" src="/assets/images/2021/07/rest-book-architecture.png?w=825" alt="" class="wp-image-580" srcset="/assets/images/2021/07/rest-book-architecture.png 825w, /assets/images/2021/07/rest-book-architecture-300x243.png 300w, /assets/images/2021/07/rest-book-architecture-768x622.png 768w" sizes="(max-width: 825px) 100vw, 825px" /></figure>
 </div>
 
 ## Circuit Breaker
@@ -57,21 +57,21 @@ Il faut tout d&rsquo;abord [configurer les circuit breakers au travers d&rsquo;u
 
 ```java
 @Bean
-    public Customizer&lt;Resilience4JCircuitBreakerFactory&gt; createDefaultCustomizer() {
-        return factory -&gt; factory.configureDefault(id -&gt; new Resilience4JConfigBuilder(id)
+    public Customizer<Resilience4JCircuitBreakerFactory> createDefaultCustomizer() {
+        return factory -> factory.configureDefault(id -> new Resilience4JConfigBuilder(id)
                 .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(timeoutInSec)).build())
                 .circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                 .build());
     }
 
     /**
-     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
-     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
+     * Creates a circuit breaker customizer applying a timeout specified by the <code>booknumbers.api.timeout_sec</code> property.
+     * This customizer could be reached using this id: <code>slowNumbers</code>
      * @return the circuit breaker customizer to apply when calling to numbers api
      */
     @Bean
-    public Customizer&lt;Resilience4JCircuitBreakerFactory&gt; createSlowNumbersAPICallCustomizer() {
-        return factory -&gt; factory.configure(builder -&gt; builder.circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
+    public Customizer<Resilience4JCircuitBreakerFactory> createSlowNumbersAPICallCustomizer() {
+        return factory -> factory.configure(builder -> builder.circuitBreakerConfig(CircuitBreakerConfig.ofDefaults())
                 .timeLimiterConfig(TimeLimiterConfig.custom().timeoutDuration(Duration.ofSeconds(timeoutInSec)).build()), "slowNumbers");
     }
 ```
@@ -83,8 +83,8 @@ Maintenant, on peut les utiliser dans le code de la manière suivante:
 ```java
 public Book registerBook(@Valid Book book) {
         circuitBreakerFactory.create("slowNumbers").run(
-                () -&gt; persistBook(book),
-                throwable -&gt; fallbackPersistBook(book)
+                () -> persistBook(book),
+                throwable -> fallbackPersistBook(book)
         );
 
         return bookRepository.save(book);
@@ -182,8 +182,8 @@ opentracing:
 
 Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:<figure class="wp-block-gallery columns-2 is-cropped">
 
-![jaeger1](/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1568x532.png)
-![jaeger2](/assets/img/posts/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1568x759.png)
+![jaeger1](/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui-1568x532.png)
+![jaeger2](/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui-1568x759.png)
 
 
 ## Conclusion

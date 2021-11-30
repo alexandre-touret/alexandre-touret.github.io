@@ -2,8 +2,8 @@
 id: 201
 title: 'Comment coacher des jeunes développeurs &#8211; The last blood'
 date: 2019-09-11T21:16:44+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -24,19 +24,19 @@ Vous pouvez adopter plusieurs postures:
 
 <ul class="wp-block-gallery columns-3 is-cropped">
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="275" height="321" src="/assets/img/posts/2019/09/yoda.jpg" alt="" data-id="212" data-link="http://blog.touret.info/?attachment_id=212" class="wp-image-212" srcset="/assets/img/posts/2019/09/yoda.jpg 275w, /assets/img/posts/2019/09/yoda-257x300.jpg 257w" sizes="(max-width: 275px) 100vw, 275px" /></figure>
+    <figure><img loading="lazy" width="275" height="321" src="/assets/images/2019/09/yoda.jpg" alt="" data-id="212" data-link="http://blog.touret.info/?attachment_id=212" class="wp-image-212" srcset="/assets/images/2019/09/yoda.jpg 275w, /assets/images/2019/09/yoda-257x300.jpg 257w" sizes="(max-width: 275px) 100vw, 275px" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="300" height="168" src="/assets/img/posts/2019/09/pascal_le_grand_frere.jpg" alt="" data-id="211" data-link="http://blog.touret.info/?attachment_id=211" class="wp-image-211" /></figure>
+    <figure><img loading="lazy" width="300" height="168" src="/assets/images/2019/09/pascal_le_grand_frere.jpg" alt="" data-id="211" data-link="http://blog.touret.info/?attachment_id=211" class="wp-image-211" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="613" height="344" src="/assets/img/posts/2019/09/capture-kubrick-756b3f-0401x.jpeg?w=612" alt="" data-id="210" data-link="http://blog.touret.info/?attachment_id=210" class="wp-image-210" srcset="/assets/img/posts/2019/09/capture-kubrick-756b3f-0401x.jpeg 613w, /assets/img/posts/2019/09/capture-kubrick-756b3f-0401x-300x168.jpeg 300w" sizes="(max-width: 613px) 100vw, 613px" /></figure>
+    <figure><img loading="lazy" width="613" height="344" src="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg?w=612" alt="" data-id="210" data-link="http://blog.touret.info/?attachment_id=210" class="wp-image-210" srcset="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg 613w, /assets/images/2019/09/capture-kubrick-756b3f-0401x-300x168.jpeg 300w" sizes="(max-width: 613px) 100vw, 613px" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="480" height="360" src="/assets/img/posts/2019/09/bisounours.jpg" alt="" data-id="209" data-link="http://blog.touret.info/?attachment_id=209" class="wp-image-209" srcset="/assets/img/posts/2019/09/bisounours.jpg 480w, /assets/img/posts/2019/09/bisounours-300x225.jpg 300w" sizes="(max-width: 480px) 100vw, 480px" /></figure>
+    <figure><img loading="lazy" width="480" height="360" src="/assets/images/2019/09/bisounours.jpg" alt="" data-id="209" data-link="http://blog.touret.info/?attachment_id=209" class="wp-image-209" srcset="/assets/images/2019/09/bisounours.jpg 480w, /assets/images/2019/09/bisounours-300x225.jpg 300w" sizes="(max-width: 480px) 100vw, 480px" /></figure>
   </li>
   <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="410" height="230" src="/assets/img/posts/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg" alt="" data-id="217" data-link="http://blog.touret.info/?attachment_id=217" class="wp-image-217" srcset="/assets/img/posts/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg 410w, /assets/img/posts/2019/09/gandalf-lord-of-the-rings-e1534255368438-300x168.jpg 300w" sizes="(max-width: 410px) 100vw, 410px" /></figure>
+    <figure><img loading="lazy" width="410" height="230" src="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg" alt="" data-id="217" data-link="http://blog.touret.info/?attachment_id=217" class="wp-image-217" srcset="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg 410w, /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438-300x168.jpg 300w" sizes="(max-width: 410px) 100vw, 410px" /></figure>
   </li>
 </ul>
 

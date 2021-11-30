@@ -2,9 +2,10 @@
 id: 266
 title: Installer Ubuntu 18.04 LTS sur un Dell Inspiron 14-3493
 date: 2020-03-23T11:06:09+01:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/03/dell-inspiron-14-3493.jpg
+
+
+header:
+  teaser: /assets/images/2020/03/dell-inspiron-14-3493.jpg
 
 timeline_notification:
   - "1584957972"
@@ -19,7 +20,7 @@ Suite aux premières annonces de distanciation sociale ( avant que le confinemen
 N&rsquo;ayant pas trop de temps pour chercher la bonne affaire ( technologique et financière ), j&rsquo; ai acheté un [Dell Inspiron 14-3493](https://www.dell.com/gh/business/p/inspiron-14-3493-laptop/pd).
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/03/dell-inspiron-14-3493.jpg?w=510" alt="" class="wp-image-279" width="576" height="401" srcset="/assets/img/posts/2020/03/dell-inspiron-14-3493.jpg 510w, /assets/img/posts/2020/03/dell-inspiron-14-3493-300x209.jpg 300w" sizes="(max-width: 576px) 100vw, 576px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/03/dell-inspiron-14-3493.jpg?w=510" alt="" class="wp-image-279" width="576" height="401" srcset="/assets/images/2020/03/dell-inspiron-14-3493.jpg 510w, /assets/images/2020/03/dell-inspiron-14-3493-300x209.jpg 300w" sizes="(max-width: 576px) 100vw, 576px" /></figure>
 </div>
 
   
@@ -40,7 +41,7 @@ Vous pouvez donc sélectionner le disque dur. Au boot en appuyant sur la touche 
 Voila les paramètres que j&rsquo;ai appliqué:
 
 <p class="has-text-align-left">
-  Dans le menu <code>"SATA Operation"</code>: vous devez sélectionner AHCI au lieu de RAID.<br />Dans le menu <code>"Change boot mode settings &gt;UEFI Boot Mode"</code> , vous devez désactiver le <code>Secure Boot</code>.<br /><br />Une fois réalisé, vous pouvez redémarrer en appuyant sur la touche F2 et/ou F12. Si vous n&rsquo;arrivez pas à revenir sur le BIOS pour indiquer de booter sur votre clé USB, vous obtiendrez un écran d&rsquo;erreur Windows dû à la configuration AHCI. Personnellement, en redémarrant une ou deux fois, j&rsquo;ai obtenu un écran de démarrage avancé qui m&rsquo;a permis de sélectionner le périphérique (ma clé USB) sur lequel démarrer.<br /><br />Maintenant vous pouvez accéder à l&rsquo;installeur Ubuntu et profiter 🙂
+  Dans le menu <code>"SATA Operation"</code>: vous devez sélectionner AHCI au lieu de RAID.<br />Dans le menu <code>"Change boot mode settings >UEFI Boot Mode"</code> , vous devez désactiver le <code>Secure Boot</code>.<br /><br />Une fois réalisé, vous pouvez redémarrer en appuyant sur la touche F2 et/ou F12. Si vous n&rsquo;arrivez pas à revenir sur le BIOS pour indiquer de booter sur votre clé USB, vous obtiendrez un écran d&rsquo;erreur Windows dû à la configuration AHCI. Personnellement, en redémarrant une ou deux fois, j&rsquo;ai obtenu un écran de démarrage avancé qui m&rsquo;a permis de sélectionner le périphérique (ma clé USB) sur lequel démarrer.<br /><br />Maintenant vous pouvez accéder à l&rsquo;installeur Ubuntu et profiter 🙂
 </p>
 
 ## Après l&rsquo;installation

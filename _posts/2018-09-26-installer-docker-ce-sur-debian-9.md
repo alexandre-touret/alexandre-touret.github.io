@@ -2,8 +2,8 @@
 id: 92
 title: Installer docker ce sur Debian 9
 date: 2018-09-26T12:28:21+02:00
-author: admin
-layout: post
+
+
 
 
 geo_public:
@@ -20,7 +20,7 @@ tags:
 Bon, ça fait quelques temps que je n&rsquo;ai rien posté&#8230;  
 Voici un rapide tuto pour installer [docker-ce sur une debian9](https://docs.docker.com/install/linux/docker-ce/debian/). Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l&rsquo;installation de la version ce fournie par docker.
 
-<img loading="lazy" class="alignnone size-medium wp-image-96" src="/assets/img/posts/2018/09/docker.png?w=300" alt="" width="300" height="268" srcset="/assets/img/posts/2018/09/docker.png 1354w, /assets/img/posts/2018/09/docker-300x268.png 300w, /assets/img/posts/2018/09/docker-1024x914.png 1024w, /assets/img/posts/2018/09/docker-768x685.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
+<img loading="lazy" class="alignnone size-medium wp-image-96" src="/assets/images/2018/09/docker.png?w=300" alt="" width="300" height="268" srcset="/assets/images/2018/09/docker.png 1354w, /assets/images/2018/09/docker-300x268.png 300w, /assets/images/2018/09/docker-1024x914.png 1024w, /assets/images/2018/09/docker-768x685.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
 
 ## Pré-requis
 

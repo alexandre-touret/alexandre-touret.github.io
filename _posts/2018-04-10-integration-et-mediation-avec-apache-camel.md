@@ -2,8 +2,8 @@
 id: 78
 title: Intégration et médiation avec Apache Camel
 date: 2018-04-10T15:15:05+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -17,7 +17,7 @@ tags:
 ---
 Depuis quelques jours, je teste [Apache Camel](https://camel.apache.org/) pour la mise en œuvre  de médiations.
 
-<img loading="lazy" class=" size-full wp-image-80 aligncenter" src="/assets/img/posts/2018/04/apache-camel-logo.png" alt="Apache-camel-logo" width="349" height="171" srcset="/assets/img/posts/2018/04/apache-camel-logo.png 349w, /assets/img/posts/2018/04/apache-camel-logo-300x147.png 300w" sizes="(max-width: 349px) 100vw, 349px" /> 
+<img loading="lazy" class=" size-full wp-image-80 aligncenter" src="/assets/images/2018/04/apache-camel-logo.png" alt="Apache-camel-logo" width="349" height="171" srcset="/assets/images/2018/04/apache-camel-logo.png 349w, /assets/images/2018/04/apache-camel-logo-300x147.png 300w" sizes="(max-width: 349px) 100vw, 349px" /> 
 
 [Apache Camel](https://camel.apache.org/) est un framework assez ancien. Il est similaire à [Spring Intégration](https://projects.spring.io/spring-integration/) et permet l&rsquo; implémentation de [patterns d&rsquo;intégration](http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html).
 
@@ -27,7 +27,7 @@ Qu&rsquo;est-ce qu&rsquo;un [pattern d&rsquo;intégration](http://www.enterprise
 
 Exemple :
 
-<img loading="lazy" class="alignnone size-full wp-image-79" src="/assets/img/posts/2018/04/publishsubscribesolution.gif" alt="PublishSubscribeSolution" width="504" height="330" /> 
+<img loading="lazy" class="alignnone size-full wp-image-79" src="/assets/images/2018/04/publishsubscribesolution.gif" alt="PublishSubscribeSolution" width="504" height="330" /> 
 
 &nbsp;
 
