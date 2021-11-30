@@ -2,8 +2,8 @@
 id: 128
 title: 'Deuxième crossover : Opensource business models'
 date: 2019-01-23T14:49:59+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:

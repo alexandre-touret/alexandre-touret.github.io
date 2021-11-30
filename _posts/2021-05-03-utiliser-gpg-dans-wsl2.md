@@ -2,9 +2,9 @@
 id: 505
 title: Utiliser GPG dans WSL2
 date: 2021-05-03T20:47:11+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2021/05/pexels-photo-261621.jpeg
+
+header:
+  teaser: /assets/images/2021/05/pexels-photo-261621.jpeg
 
 timeline_notification:
   - "1620067634"
@@ -20,7 +20,7 @@ tags:
   - wsl2
 ---
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2021/05/pexels-photo-261621.jpeg?w=1024" alt="" class="wp-image-511" width="641" height="480" srcset="/assets/img/posts/2021/05/pexels-photo-261621.jpeg 1733w, /assets/img/posts/2021/05/pexels-photo-261621-300x225.jpeg 300w, /assets/img/posts/2021/05/pexels-photo-261621-1024x768.jpeg 1024w, /assets/img/posts/2021/05/pexels-photo-261621-768x576.jpeg 768w, /assets/img/posts/2021/05/pexels-photo-261621-1536x1152.jpeg 1536w, /assets/img/posts/2021/05/pexels-photo-261621-1568x1176.jpeg 1568w" sizes="(max-width: 641px) 100vw, 641px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/agreement-blur-business-close-up-261621/" rel="nofollow">Pexels.com</a></figcaption></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/05/pexels-photo-261621.jpeg?w=1024" alt="" class="wp-image-511" width="641" height="480" srcset="/assets/images/2021/05/pexels-photo-261621.jpeg 1733w, /assets/images/2021/05/pexels-photo-261621-300x225.jpeg 300w, /assets/images/2021/05/pexels-photo-261621-1024x768.jpeg 1024w, /assets/images/2021/05/pexels-photo-261621-768x576.jpeg 768w, /assets/images/2021/05/pexels-photo-261621-1536x1152.jpeg 1536w, /assets/images/2021/05/pexels-photo-261621-1568x1176.jpeg 1568w" sizes="(max-width: 641px) 100vw, 641px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/agreement-blur-business-close-up-261621/" rel="nofollow">Pexels.com</a></figcaption></figure>
 </div>
 
 <p class="has-drop-cap">
@@ -43,8 +43,8 @@ Je vais tâcher de décrire dans cet article les différentes manipulations néc
 Lancez la commande suivante:
 
 ```java
-gpg --export ${ID} &gt; public.key
-gpg --export-secret-key ${ID} &gt; private.key
+gpg --export ${ID} > public.key
+gpg --export-secret-key ${ID} > private.key
 ```
 
 
@@ -64,7 +64,7 @@ Pour vérifier que la clé est bien configurée, vous pouvez lancer la commande 
 gpg --list-secret-keys --keyid-format LONG   alexandre@....
 sec   rsa4096/CLE_ID 2019-12-20 [SC]
       ********************
-uid                [  ultime ] Alexandre &lt;alexandre@....&gt;
+uid                [  ultime ] Alexandre <alexandre@....>
 ssb   rsa4096/SUB 2019-12-20 [E]
 
 ```

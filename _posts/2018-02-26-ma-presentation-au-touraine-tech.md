@@ -2,8 +2,8 @@
 id: 63
 title: Ma présentation au Touraine Tech
 date: 2018-02-26T14:32:31+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -18,7 +18,7 @@ tags:
 ---
 J&rsquo;ai eu la chance d&rsquo;être sélectionné pour la première édition de la conférence [TouraineTech](https://touraine.tech/).
 
-<img loading="lazy" class="  wp-image-65 alignright" src="/assets/img/posts/2018/02/logotnt_final.jpg" alt="logotnt_final" width="296" height="213" srcset="/assets/img/posts/2018/02/logotnt_final.jpg 500w, /assets/img/posts/2018/02/logotnt_final-300x216.jpg 300w" sizes="(max-width: 296px) 100vw, 296px" /> 
+<img loading="lazy" class="  wp-image-65 alignright" src="/assets/images/2018/02/logotnt_final.jpg" alt="logotnt_final" width="296" height="213" srcset="/assets/images/2018/02/logotnt_final.jpg 500w, /assets/images/2018/02/logotnt_final-300x216.jpg 300w" sizes="(max-width: 296px) 100vw, 296px" /> 
 
 Tout d&rsquo;abord, je tiens à remercier toute l&rsquo;équipe du Touraine Tech pour l&rsquo;accueil et l&rsquo;organisation de cette conférence.
 
@@ -32,7 +32,7 @@ J&rsquo;ai pas mal préparé la présentation car c&rsquo;était ma première da
 
 Les retours ont été assez satisfaisants. Voici le retour des participants :
 
-<img loading="lazy" class="alignnone size-full wp-image-64" src="/assets/img/posts/2018/02/img_0161.jpg" alt="IMG_0161" width="4032" height="3024" /> 
+<img loading="lazy" class="alignnone size-full wp-image-64" src="/assets/images/2018/02/img_0161.jpg" alt="IMG_0161" width="4032" height="3024" /> 
 
 Pour ceux qui regrettaient de ne pas avoir de démos, j&rsquo;en suis désolé, mais le format de 15mn ne s&rsquo;y prêtait pas trop . Si j&rsquo;avais eu plus de temps, j&rsquo;aurai fait des démonstrations qui auraient beaucoup mieux illustré mon propos.
 

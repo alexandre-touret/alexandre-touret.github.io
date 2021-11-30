@@ -2,8 +2,8 @@
 id: 56
 title: Ma configuration CYGWIN
 date: 2018-02-16T09:42:24+01:00
-author: admin
-layout: post
+
+
 
 
 publicize_linkedin_url:
@@ -22,7 +22,7 @@ Dans la série, [j&rsquo;essaye de sauvegarder toutes mes configurations](http:/
 
 Pour ceux qui ne connaissent pas ou qui n&rsquo;ont pas la chance d&rsquo;utiliser windows au travail, [cygwin](https://cygwin.com/) est un shell avec tous les outils GNU.
 
-En attendant [d&rsquo;avoir windows 10 ( au travail ) et un BASH intégré](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), il n&rsquo;y a pas mieux. Du moins à mon humble avis.<img loading="lazy" class="  wp-image-60 alignright" src="/assets/img/posts/2018/02/2000px-cygwin_logo-svg.png" alt="2000px-Cygwin_logo.svg.png" width="105" height="105" srcset="/assets/img/posts/2018/02/2000px-cygwin_logo-svg.png 2000w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-300x300.png 300w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-1024x1024.png 1024w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-150x150.png 150w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-768x768.png 768w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-1536x1536.png 1536w, /assets/img/posts/2018/02/2000px-cygwin_logo-svg-1568x1568.png 1568w" sizes="(max-width: 105px) 100vw, 105px" />
+En attendant [d&rsquo;avoir windows 10 ( au travail ) et un BASH intégré](https://www.howtogeek.com/249966/how-to-install-and-use-the-linux-bash-shell-on-windows-10/), il n&rsquo;y a pas mieux. Du moins à mon humble avis.<img loading="lazy" class="  wp-image-60 alignright" src="/assets/images/2018/02/2000px-cygwin_logo-svg.png" alt="2000px-Cygwin_logo.svg.png" width="105" height="105" srcset="/assets/images/2018/02/2000px-cygwin_logo-svg.png 2000w, /assets/images/2018/02/2000px-cygwin_logo-svg-300x300.png 300w, /assets/images/2018/02/2000px-cygwin_logo-svg-1024x1024.png 1024w, /assets/images/2018/02/2000px-cygwin_logo-svg-150x150.png 150w, /assets/images/2018/02/2000px-cygwin_logo-svg-768x768.png 768w, /assets/images/2018/02/2000px-cygwin_logo-svg-1536x1536.png 1536w, /assets/images/2018/02/2000px-cygwin_logo-svg-1568x1568.png 1568w" sizes="(max-width: 105px) 100vw, 105px" />
 
 ## GIT
 

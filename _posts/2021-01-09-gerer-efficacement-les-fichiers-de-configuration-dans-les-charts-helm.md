@@ -2,9 +2,10 @@
 id: 472
 title: Gérer « efficacement » les fichiers de configuration dans les charts HELM
 date: 2021-01-09T15:21:28+01:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg
+
+
+header:
+  teaser: /assets/images/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg
 
 publicize_linkedin_url:
   - ""
@@ -22,7 +23,7 @@ Bien évidemment on pourra limiter la taille des replicas sur l&rsquo;environnem
 Je vais essayer d&rsquo;exposer dans cet article comment j&rsquo;ai réussi à gérer +/- efficacement (en tout cas pour moi) les fichiers de configuration dans les charts HELM.<figure class="wp-block-gallery columns-1 is-cropped">
 
 
-![helm](/assets/img/posts/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg)
+![helm](/assets/images/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg)
 
 ## Les config maps et secrets
 
