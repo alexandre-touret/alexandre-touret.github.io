@@ -122,3 +122,9 @@ feed:
   tags: true
 date_format: "%d/%m/%Y"
 google-site-verification: "7UnqNmvO-mjfMkRqKaaWRPTBxSylEVJXvAn8iTfc7SI"
+
+analytics:
+  provider: "google-gtag"
+  google:
+    tracking_id: " UA-31817514-1"
+    anonymize_ip: false # default
