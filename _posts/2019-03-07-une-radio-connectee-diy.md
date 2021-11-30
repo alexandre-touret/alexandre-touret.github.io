@@ -2,8 +2,8 @@
 id: 136
 title: Une radio connectée DIY
 date: 2019-03-07T08:30:44+01:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -30,13 +30,13 @@ Après quelques recherches, j&rsquo;ai donc opté pour une solution basée sur u
 
 Voici le DAC que l&rsquo;on branche directement sur le port GPIO du Raspberry PI:
 
-<img loading="lazy" class="size-medium wp-image-156 aligncenter" src="/assets/img/posts/2019/03/f1228179-02.jpg?w=292" alt="" width="292" height="300" srcset="/assets/img/posts/2019/03/f1228179-02.jpg 432w, /assets/img/posts/2019/03/f1228179-02-292x300.jpg 292w" sizes="(max-width: 292px) 100vw, 292px" /> 
+<img loading="lazy" class="size-medium wp-image-156 aligncenter" src="/assets/images/2019/03/f1228179-02.jpg?w=292" alt="" width="292" height="300" srcset="/assets/images/2019/03/f1228179-02.jpg 432w, /assets/images/2019/03/f1228179-02-292x300.jpg 292w" sizes="(max-width: 292px) 100vw, 292px" /> 
 
  
 
 L&rsquo;installation et la configuration du DAC se sont très bien passées. L&rsquo;installation se fait comme avec des LEGOs.<figure id="attachment_159" aria-describedby="caption-attachment-159" style="width: 300px" class="wp-caption aligncenter">
 
-<img loading="lazy" class="size-medium wp-image-159" src="/assets/img/posts/2019/03/img_20190306_234555.jpg?w=300" alt="" width="300" height="224" /> <figcaption id="caption-attachment-159" class="wp-caption-text">Que la lumière soit</figcaption></figure> 
+<img loading="lazy" class="size-medium wp-image-159" src="/assets/images/2019/03/img_20190306_234555.jpg?w=300" alt="" width="300" height="224" /> <figcaption id="caption-attachment-159" class="wp-caption-text">Que la lumière soit</figcaption></figure> 
 
  
 

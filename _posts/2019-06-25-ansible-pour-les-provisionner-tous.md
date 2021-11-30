@@ -2,8 +2,8 @@
 id: 168
 title: Ansible pour les provisionner tous !
 date: 2019-06-25T11:34:51+02:00
-author: admin
-layout: post
+
+
 
 
 timeline_notification:
@@ -20,7 +20,7 @@ Si vous [provisionnez vos VM VirtualBox avec Vagrant](http://blog.touret.info/20
 
 Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez [Ansible.](https://www.ansible.com/)
 
-<img loading="lazy" class="size-medium wp-image-180 aligncenter" src="/assets/img/posts/2019/06/ansible_logo.svg_.png?w=244" alt="" width="244" height="300" srcset="/assets/img/posts/2019/06/ansible_logo.svg_.png 832w, /assets/img/posts/2019/06/ansible_logo.svg_-244x300.png 244w, /assets/img/posts/2019/06/ansible_logo.svg_-768x945.png 768w" sizes="(max-width: 244px) 100vw, 244px" /> 
+<img loading="lazy" class="size-medium wp-image-180 aligncenter" src="/assets/images/2019/06/ansible_logo.svg_.png?w=244" alt="" width="244" height="300" srcset="/assets/images/2019/06/ansible_logo.svg_.png 832w, /assets/images/2019/06/ansible_logo.svg_-244x300.png 244w, /assets/images/2019/06/ansible_logo.svg_-768x945.png 768w" sizes="(max-width: 244px) 100vw, 244px" /> 
 
 Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que [Puppet](https://puppet.com), est qu&rsquo;il ne nécessite pas l&rsquo;installation [d&rsquo;agent.](https://puppet.com/docs/puppet/6.0/man/agent.html) 
 

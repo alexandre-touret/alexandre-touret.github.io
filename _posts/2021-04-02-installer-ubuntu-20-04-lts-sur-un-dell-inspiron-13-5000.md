@@ -2,9 +2,10 @@
 id: 495
 title: Installer Ubuntu 20.04 LTS sur un DELL Inspiron 13 5000
 date: 2021-04-02T21:45:43+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01.jpg
+
+
+header:
+  teaser: /assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg
 
 publicize_twitter_user:
   - touret_alex
@@ -24,7 +25,7 @@ tags:
 
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01.jpg?w=1024" alt="" class="wp-image-499" width="511" height="383" srcset="/assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01.jpg 2000w, /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01-300x225.jpg 300w, /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01-1024x768.jpg 1024w, /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01-768x576.jpg 768w, /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01-1536x1152.jpg 1536w, /assets/img/posts/2021/04/dell-inspiron-13-5301-argent-01-1568x1176.jpg 1568w" sizes="(max-width: 511px) 100vw, 511px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg?w=1024" alt="" class="wp-image-499" width="511" height="383" srcset="/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg 2000w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-300x225.jpg 300w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1024x768.jpg 1024w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-768x576.jpg 768w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1536x1152.jpg 1536w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1568x1176.jpg 1568w" sizes="(max-width: 511px) 100vw, 511px" /></figure>
 </div>
 
 A l&rsquo;instar de mon autre laptop, je j&rsquo;ai pas pris de risques. J&rsquo;ai opté pour un DELL qui est pleinement compatible avec Ubuntu. Oui j&rsquo;aurai pu installer un ordinateur avec Ubuntu pré-installé, mais je n&rsquo;ai pas eu le temps de faire un choix « serein ».

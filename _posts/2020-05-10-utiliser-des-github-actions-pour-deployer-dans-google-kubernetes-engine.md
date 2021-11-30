@@ -2,9 +2,10 @@
 id: 373
 title: Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine
 date: 2020-05-10T08:22:00+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/05/article_github_actions_k8s-1.png
+
+
+header:
+  teaser: /assets/images/2020/05/article_github_actions_k8s-1.png
 
 publicize_twitter_user:
   - touret_alex
@@ -32,7 +33,7 @@ Oui, tant qu&rsquo;à faire, autant aller dans la hype &#8230;
 <div class="wp-block-group">
   <div class="wp-block-group__inner-container">
     <div class="wp-block-image">
-      <figure class="aligncenter size-medium"><img loading="lazy" width="696" height="549" src="/assets/img/posts/2020/05/article_github_actions_k8s-1.png?w=300" alt="" class="wp-image-412" srcset="/assets/img/posts/2020/05/article_github_actions_k8s-1.png 696w, /assets/img/posts/2020/05/article_github_actions_k8s-1-300x237.png 300w" sizes="(max-width: 696px) 100vw, 696px" /></figure>
+      <figure class="aligncenter size-medium"><img loading="lazy" width="696" height="549" src="/assets/images/2020/05/article_github_actions_k8s-1.png?w=300" alt="" class="wp-image-412" srcset="/assets/images/2020/05/article_github_actions_k8s-1.png 696w, /assets/images/2020/05/article_github_actions_k8s-1-300x237.png 300w" sizes="(max-width: 696px) 100vw, 696px" /></figure>
     </div>
   </div>
 </div>
@@ -67,13 +68,13 @@ jobs:
 
 Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié<figure class="wp-block-image size-large is-resized">
 
-<img loading="lazy" src="/assets/img/posts/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png?w=1024" alt="" class="wp-image-376" width="768" height="305" srcset="/assets/img/posts/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1025w, /assets/img/posts/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-300x119.png 300w, /assets/img/posts/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-768x306.png 768w" sizes="(max-width: 768px) 100vw, 768px" /> </figure> 
+<img loading="lazy" src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png?w=1024" alt="" class="wp-image-376" width="768" height="305" srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1025w, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-300x119.png 300w, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-768x306.png 768w" sizes="(max-width: 768px) 100vw, 768px" /> </figure> 
 
 Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).  
 Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png?w=936" alt="" class="wp-image-399" width="702" height="275" srcset="/assets/img/posts/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 936w, /assets/img/posts/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-300x117.png 300w, /assets/img/posts/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-768x300.png 768w" sizes="(max-width: 702px) 100vw, 702px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png?w=936" alt="" class="wp-image-399" width="702" height="275" srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 936w, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-300x117.png 300w, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-768x300.png 768w" sizes="(max-width: 702px) 100vw, 702px" /></figure>
 </div>
 
 ## Worflows implémentés
@@ -86,7 +87,7 @@ J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:
 On obtient donc dans mon cas:
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/05/workflow.png?w=1024" alt="" class="wp-image-378" width="512" height="396" srcset="/assets/img/posts/2020/05/workflow.png 1056w, /assets/img/posts/2020/05/workflow-300x232.png 300w, /assets/img/posts/2020/05/workflow-1024x791.png 1024w, /assets/img/posts/2020/05/workflow-768x593.png 768w" sizes="(max-width: 512px) 100vw, 512px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/workflow.png?w=1024" alt="" class="wp-image-378" width="512" height="396" srcset="/assets/images/2020/05/workflow.png 1056w, /assets/images/2020/05/workflow-300x232.png 300w, /assets/images/2020/05/workflow-1024x791.png 1024w, /assets/images/2020/05/workflow-768x593.png 768w" sizes="(max-width: 512px) 100vw, 512px" /></figure>
 </div>
 
 Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.  
@@ -160,7 +161,7 @@ Mon application est pour l&rsquo;instant architecturée comme suit (_attention c
 <div class="wp-block-columns">
   <div class="wp-block-column" style="flex-basis:100%;">
     <div class="wp-block-image is-style-default">
-      <figure class="aligncenter size-medium"><img loading="lazy" width="359" height="483" src="/assets/img/posts/2020/05/application-1.png?w=223" alt="" class="wp-image-391" srcset="/assets/img/posts/2020/05/application-1.png 359w, /assets/img/posts/2020/05/application-1-223x300.png 223w" sizes="(max-width: 359px) 100vw, 359px" /></figure>
+      <figure class="aligncenter size-medium"><img loading="lazy" width="359" height="483" src="/assets/images/2020/05/application-1.png?w=223" alt="" class="wp-image-391" srcset="/assets/images/2020/05/application-1.png 359w, /assets/images/2020/05/application-1-223x300.png 223w" sizes="(max-width: 359px) 100vw, 359px" /></figure>
     </div>
   </div>
 </div>
@@ -168,7 +169,7 @@ Mon application est pour l&rsquo;instant architecturée comme suit (_attention c
 Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/05/application_gke.png?w=561" alt="" class="wp-image-392" width="421" height="443" srcset="/assets/img/posts/2020/05/application_gke.png 561w, /assets/img/posts/2020/05/application_gke-285x300.png 285w" sizes="(max-width: 421px) 100vw, 421px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/application_gke.png?w=561" alt="" class="wp-image-392" width="421" height="443" srcset="/assets/images/2020/05/application_gke.png 561w, /assets/images/2020/05/application_gke-285x300.png 285w" sizes="(max-width: 421px) 100vw, 421px" /></figure>
 </div>
 
 J&rsquo;utilise les objets suivants:

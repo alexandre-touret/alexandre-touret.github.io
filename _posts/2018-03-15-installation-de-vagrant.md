@@ -2,8 +2,8 @@
 id: 68
 title: Installation de Vagrant
 date: 2018-03-15T12:05:55+01:00
-author: admin
-layout: post
+
+
 
 
 publicize_linkedin_url:
@@ -19,7 +19,7 @@ tags:
 ---
 [Vagrant](http://vagrantup.com/) est un outil permettant de construire des environnements de travail virtualisés hébergés sur vmware, virtualbox ou encore docker. Il permet par exemple de construire et gérer une VM dans un seul et même workflow et d&rsquo;éviter les exports et partages de machines virtuelles ( tout est déclaré dans un seul et même fichier ).
 
-<img loading="lazy" class="  wp-image-69 alignright" src="/assets/img/posts/2018/03/vagrant.png" alt="Vagrant" width="128" height="156" srcset="/assets/img/posts/2018/03/vagrant.png 999w, /assets/img/posts/2018/03/vagrant-246x300.png 246w, /assets/img/posts/2018/03/vagrant-840x1024.png 840w, /assets/img/posts/2018/03/vagrant-768x936.png 768w" sizes="(max-width: 128px) 100vw, 128px" /> 
+<img loading="lazy" class="  wp-image-69 alignright" src="/assets/images/2018/03/vagrant.png" alt="Vagrant" width="128" height="156" srcset="/assets/images/2018/03/vagrant.png 999w, /assets/images/2018/03/vagrant-246x300.png 246w, /assets/images/2018/03/vagrant-840x1024.png 840w, /assets/images/2018/03/vagrant-768x936.png 768w" sizes="(max-width: 128px) 100vw, 128px" /> 
 
 Voici comment je l&rsquo;ai installé sur ma [debian 9](http://blog.touret.info/2018/02/10/ma-configuration-debian-9/).
 

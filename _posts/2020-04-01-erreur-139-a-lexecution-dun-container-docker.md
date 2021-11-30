@@ -2,9 +2,10 @@
 id: 290
 title: 'Erreur 139 à l&rsquo;exécution d&rsquo;un container docker'
 date: 2020-04-01T11:09:44+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/04/man-person-street-shoes-2882.jpg
+
+
+header:
+  teaser: /assets/images/2020/04/man-person-street-shoes-2882.jpg
 
 timeline_notification:
   - "1585735785"
@@ -21,7 +22,7 @@ Voici un rapide article sur un problème rencontré récemment. Lors de l&rsquo;
 Bref que du bonheur 🙂
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/img/posts/2020/04/man-person-street-shoes-2882.jpg?w=1024" alt="" class="wp-image-295" /></figure>
+  <figure class="aligncenter size-large"><img src="/assets/images/2020/04/man-person-street-shoes-2882.jpg?w=1024" alt="" class="wp-image-295" /></figure>
 </div>
 
   

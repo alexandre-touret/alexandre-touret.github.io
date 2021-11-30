@@ -2,9 +2,10 @@
 id: 440
 title: 'K8S, HELM et Cie: au delà de la hype'
 date: 2020-10-08T10:09:59+02:00
-author: admin
-layout: post
-thumbnail-img: /assets/img/posts/2020/10/gartner_hype_cycle.svg_.png
+
+
+header:
+  teaser: /assets/images/2020/10/gartner_hype_cycle.svg_.png
 
 publicize_linkedin_url:
   - ""
@@ -26,7 +27,7 @@ Depuis quelques années, [Kubernetes](https://kubernetes.io/) (K8S) et [son éco
 Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas [au cycle du hype](https://fr.wikipedia.org/wiki/Cycle_du_hype) et à la fameuse courbe du Gartner.
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="320" height="208" src="/assets/img/posts/2020/10/gartner_hype_cycle.svg_.png?w=320" alt="" class="wp-image-445" srcset="/assets/img/posts/2020/10/gartner_hype_cycle.svg_.png 320w, /assets/img/posts/2020/10/gartner_hype_cycle.svg_-300x195.png 300w" sizes="(max-width: 320px) 100vw, 320px" /></figure>
+  <figure class="aligncenter size-large"><img loading="lazy" width="320" height="208" src="/assets/images/2020/10/gartner_hype_cycle.svg_.png?w=320" alt="" class="wp-image-445" srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png 320w, /assets/images/2020/10/gartner_hype_cycle.svg_-300x195.png 300w" sizes="(max-width: 320px) 100vw, 320px" /></figure>
 </div>
 
 Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.  
@@ -41,7 +42,7 @@ Avant de présenter les avantages des applications cloud, je vais essayer de ré
 Vaste sujet et question délicate pour la population informaticienne qui a tendance à suivre les tendances du marché. 
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png?w=986" alt="" class="wp-image-464" width="611" height="404" srcset="/assets/img/posts/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png 986w, /assets/img/posts/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-300x199.png 300w, /assets/img/posts/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-768x509.png 768w" sizes="(max-width: 611px) 100vw, 611px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png?w=986" alt="" class="wp-image-464" width="611" height="404" srcset="/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png 986w, /assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-300x199.png 300w, /assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-768x509.png 768w" sizes="(max-width: 611px) 100vw, 611px" /></figure>
 </div>
 
 Avant de foncer tête baissée dans cette technologie qui est très intéressante au demeurant, il est important de se poser ces quelques questions:
@@ -108,7 +109,7 @@ maxUnavailable: 0
 ### L&rsquo;Infrastructure As Code
 
 <div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/img/posts/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png?w=683" alt="" class="wp-image-462" width="452" height="678" srcset="/assets/img/posts/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 719w, /assets/img/posts/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-200x300.png 200w, /assets/img/posts/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-683x1024.png 683w" sizes="(max-width: 452px) 100vw, 452px" /></figure>
+  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png?w=683" alt="" class="wp-image-462" width="452" height="678" srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 719w, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-200x300.png 200w, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-683x1024.png 683w" sizes="(max-width: 452px) 100vw, 452px" /></figure>
 </div>
 
 

@@ -2,10 +2,10 @@
 id: 601
 title: Talks
 date: 2021-11-10T17:41:07+01:00
-layout: page
+permalink: /talks/
 ---
 
-![talks](/assets/img/posts/2021/11/pexels-skitterphoto-691485.jpg)
+![talks](/assets/images/2021/11/pexels-skitterphoto-691485.jpg)
 
 Vous trouverez ci-dessous les slides et vidéos de mes derniers talks.
 
