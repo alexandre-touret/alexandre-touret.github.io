@@ -1,3 +1,5 @@
+[![Build and deploy Jekyll site to GitHub Pages](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/github-pages.yml/badge.svg?branch=main)](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/github-pages.yml)
+
 # Minimal Mistakes remote theme starter
 
 Click [**Use this template**](https://github.com/mmistakes/mm-github-pages-starter/generate) button above for the quickest method of getting started with the [Minimal Mistakes Jekyll theme](https://github.com/mmistakes/minimal-mistakes).
