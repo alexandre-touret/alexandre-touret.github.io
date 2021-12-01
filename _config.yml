@@ -141,3 +141,6 @@ social:
   links:
     - "https://twitter.com/touret_alex"
     - "https://www.linkedin.com/in/atouret"
+
+sass:
+  style: compressed
