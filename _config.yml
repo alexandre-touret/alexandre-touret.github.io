@@ -16,7 +16,7 @@
 title: blog.touret.info
 email: 
 description: >- # this means to ignore newlines until "baseurl:"
-  Mon blog personnel. J'y expose mes derniers travaux , ma veille technologique sur le développement spring, le cloud et les logiciels libres. J'abord également les derniers talks que j'ai pu réaliser.
+  Mon blog personnel. J'y expose mes derniers travaux et ma veille technologique. Au menu en vrac: Java, Kotlin, Maven, Docker, Cloud, Kubernetes, logiciels libres, Debian, Ubuntu, Gnu/Linux, des talks online et présentiels.
 twitter_username: touret_alex
 github_username: alexandre-touret
 minimal_mistakes_skin: default
@@ -54,11 +54,12 @@ plugins:
   - jekyll-feed
   - jemoji
   - jekyll-include-cache
+  - jekyll-seo-tag
 
 author:
   name   : "Alexandre Touret"
-  avatar : "/assets/images/bouletmaton1.jpg "
-  bio    : "Architecte logiciel et développeur (senior pour les deux)"
+  avatar : "/assets/images/bouletmaton1.jpg"
+  bio    : "Architecte logiciel, développeur, bidouilleur (dans le désordre)"
   links:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
@@ -81,6 +82,10 @@ footer:
     - label: "LinkedIn"
       icon: "fab fa-fw fa-linkedin"
       url: "https://www.linkedin.com/in/atouret/"
+    - label: "Licence du contenu de ce site"
+      icon: "fab fa-fw fa-creative-commons-by"
+      url: "https://creativecommons.org/licenses/by/4.0/"
+    
 
 defaults:
   # _posts
@@ -128,3 +133,11 @@ analytics:
   google:
     tracking_id: " UA-31817514-1"
     anonymize_ip: false # default
+twitter:
+  username: "touret_alex"
+og_image: /assets/images/bouletmaton1.jpg
+
+social:
+  links:
+    - "https://twitter.com/touret_alex"
+    - "https://www.linkedin.com/in/atouret"
