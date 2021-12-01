@@ -63,7 +63,7 @@ kind: Secret
 type: Opaque
 # Inclusion of binary configuration files
 data:
-  my_keystore.jks: {{ .Files.Get "secrets/my_keystore.jks" | b64enc }}
+  my_keystore_jks: {{ .Files.Get "secrets/my_keystore.jks" | b64enc }}
 ```
 
 
@@ -77,7 +77,7 @@ kind: ConfigMap
 [...]
 
 data:
-  my.conf:   {{- (.Files.Glob "conf/*").AsConfig | nindent 2 }} 
+  my_conf:   {{- (.Files.Glob "conf/*").AsConfig | nindent 2 }} 
 
 ```
 
