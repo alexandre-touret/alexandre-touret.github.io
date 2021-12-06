@@ -159,8 +159,8 @@ feed:
 
 ## Et maintenant ?
 
-J'ai sans doute oublié quelques renommages/suppression que j'ai pu faire ici et là.
-Le principal est évoqué dans cet article.
+J'ai sans doute oublié quelques renommages/suppressions que j'ai pu faire ici et là.
+Néanmoins, le principal est évoqué dans cet article.
 
-Il ne vous reste plus qu'à éplucher la documentation du thème et de jekyll pour 
+Il ne vous reste plus qu'à éplucher la documentation du thème et de jekyll pour finaliser l' installation de votre nouveau site.
 
