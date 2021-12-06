@@ -15,5 +15,5 @@ jobs:
       id: hello
       uses: srt32/uptime@master
       with:
-        url-to-hit: "https://blog.touret.info"
+        url-to-hit: "https://blog.touret.info/robots.txt"
         expected-statuses: "200,301"
