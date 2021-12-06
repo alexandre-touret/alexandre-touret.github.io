@@ -13,11 +13,11 @@ tags:
 ---
 
 L'idée me trottait dans la tête depuis quelques mois environ: migrer mon blog de Wordpress vers un site basé sur Jekyll et hébergé directement sur Github.
-La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé de franchir le pas.
+La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas.
 
 ![migration](/assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg)
 
-## L'hébergement de sites web sur Github
+## L' hébergement de sites web sur Github
 
 [Github permet via son service Github Pages d'héberger des sites statiques](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll) (c.-à-d. pas de base de données derrière) en permettant d'associer son nom de domaine. 
 Le certificat est automatiquement généré.
@@ -159,7 +159,7 @@ feed:
 
 ## Et maintenant ?
 
-J'ai sans doute oublié quelques renommages/suppressions que j'ai pu faire ici et là.
+J'ai sans doute oublié quelques renommages/suppressions réalisés ici et là.
 Néanmoins, le principal est évoqué dans cet article.
 
 Il ne vous reste plus qu'à éplucher la documentation du thème et de jekyll pour finaliser l' installation de votre nouveau site.
