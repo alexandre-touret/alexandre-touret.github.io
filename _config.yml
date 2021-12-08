@@ -127,6 +127,7 @@ feed:
   tags: true
 date_format: "%d/%m/%Y"
 google-site-verification: "7UnqNmvO-mjfMkRqKaaWRPTBxSylEVJXvAn8iTfc7SI"
+bing_site_verification: "0FC3FD70512616B052E755A56F8952D"
 
 analytics:
   provider: "google-gtag"
