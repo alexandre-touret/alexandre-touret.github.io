@@ -30,7 +30,12 @@ Je vais essayer de vous montrer comment mettre en place le provisionning via Ans
 
 Dans le fichier Vagrantfile, on active le provisionning via Ansible:
 
-<pre>config.vm.provision "ansible_local" do |ansible|<br />ansible.playbook = "site.yml"<br />ansible.install_mode = "pip"<br />ansible.version = "2.7.10"<br />end
+```
+config.vm.provision "ansible_local" 
+  do |ansible| ansible.playbook = "site.yml"
+  ansible.install_mode = "pip"
+  ansible.version = "2.7.10"
+end
 ```
 
 
@@ -38,19 +43,83 @@ Cette configuration fait référence à un fichier « playbook » site.yml. C&
 
 Voici un exemple de contenu:
 
-<pre>- name: VirtualBox<br />hosts: all<br />become: yes<br />become_user: "root"<br />become_method: "sudo"<br />roles:<br />- common<br />vars_files:<br />- vars/environment.yml
+```yaml
+- name: VirtualBox
+    hosts: all
+    become: yes
+    become_user: "root"
+    become_method: "sudo"
+    roles:
+      - common:
+        vars_files:
+          - vars/environment.yml
 ```
 
 
 Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:
 
-<pre>- name: "Remove useless packages from the cache"<br />apt:<br />autoclean: yes<br />force_apt_get: yes<br /><br />- name: "Remove dependencies that are no longer required"<br />apt:<br />autoremove: yes<br />force_apt_get: yes<br /><br />- name: "Update and upgrade apt packages (may take a while)"<br />become: true<br />apt:<br />upgrade: dist<br />update_cache: yes<br />force_apt_get: yes<br /><br />- name: "Install useful packages"<br />  become: true<br />  apt: <br />    name:<br />      - gcc<br />      - g++<br /> ...<br />      - zsh<br />      - firewalld<br />    state: present<br />    update_cache: no <br /><br />- name: ansible create directory example<br />file:<br />path: "{{ home }}/.m2"<br />state: directory<br />owner: "{{ username }}"<br />group: "{{ username }}"<br /><br />- name: Install Maven settings.xml<br />copy: <br />src: settings.xml<br />dest: "{{ home }}/.m2/settings.xml"<br />owner: "{{ username }}"<br />group: "{{ username }}"<br /><br />- name: "Install Maven"<br />raw: "curl -sL \"http://mirror.ibcp.fr/pub/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz\" -o /opt/apache-maven.tar.gz && tar -zxf /opt/apache-maven.tar.gz -C /opt"<br />become: true<br />become_user: root<br />become_method: sudo<br /><br />- name: "Change Maven Rights"<br />file:<br />path: /opt/*<br />state: touch<br />modification_time: "preserve"<br />access_time: "preserve"<br />owner: "{{ username }}"<br />group: "{{ username }}"
+```yaml
+- name: "Remove useless packages from the cache"
+  apt:
+    autoclean: yes
+    force_apt_get: yes
+    
+- name: "Remove dependencies that are no longer required"
+  apt:
+    autoremove: yes
+    force_apt_get: yes
+- name: "Update and upgrade apt packages (may take a while)"
+  become: true
+  apt:
+    upgrade: dist
+    update_cache: yes
+    force_apt_get: yes
+- name: "Install useful packages"
+  become: true
+  apt: 
+    name:
+      - gcc
+      - g++
+      - ...
+      - zsh
+      - firewalld
+    state: present
+    update_cache: no 
+- name: ansible create directory example
+  file:
+    path: "{{ home }}/.m2"
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+- name: Install Maven settings.xml
+  copy: 
+    src: settings.xml
+    dest: "{{ home }}/.m2/settings.xml"
+    owner: "{{ username }}"
+    group: "{{ username }}"
+- name: "Install Maven"
+  raw: "curl -sL \"http://mirror.ibcp.fr/pub/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz\" -o /opt/apache-maven.tar.gz && tar -zxf /opt/apache-maven.tar.gz -C /opt"
+  become: true
+  become_user: root
+  become_method: sudo
+- name: "Change Maven Rights"
+  file:
+    path: /opt/*
+    state: touch
+    modification_time: "preserve"
+    access_time: "preserve"
+    owner: "{{ username }}"
+    group: "{{ username }}"
 ```
 
 
 Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés
 
-<pre>maven_version: 3.5.4<br />username: vagrant<br />home: /home/vagrant<br />docker_compose_version: 1.22.0
+```bash
+maven_version: 3.5.4
+username: vagrant
+home: /home/vagrant
+docker_compose_version: 1.22.0
 ```
 
 
@@ -62,13 +131,17 @@ Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentai
 
 ##### ansible.cfg
 
-<pre>[defaults]<br />hostfile = hosts
+```ini
+[defaults]
+  hostfile = hosts
 ```
 
 
 ##### hosts
 
-<pre>[local]<br />localhost ansible_connection=local
+```ini
+[local]
+  localhost ansible_connection=local
 ```
 
 
@@ -78,7 +151,8 @@ Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentai
 
 le provisionning peut se faire au lancement de vagrant via la commande:
 
-<pre>vagrant up
+```bash
+vagrant up
 ```
 
 
@@ -86,7 +160,8 @@ Pour faire une mise à jour
 
 Directement dans la box, vous pouvez lancer les commandes suivantes :
 
-<pre>sudo mount -t vboxsf vagrant /vagrant
+```bash
+sudo mount -t vboxsf vagrant /vagrant
 ```
 
 
@@ -94,8 +169,9 @@ Directement dans la box, vous pouvez lancer les commandes suivantes :
   Puis, vous pouvez lancer les commandes suivantes dans la box:
 </p>
 
-<pre>su -<br />cd /vagrant<br />export ANSIBLE_CONFIG=/vagrant<br />ansible-playbook site.yml
+```bash
+su -
+cd /vagrant
+export ANSIBLE_CONFIG=/vagrant
+ansible-playbook site.yml
 ```
-
-
- 
