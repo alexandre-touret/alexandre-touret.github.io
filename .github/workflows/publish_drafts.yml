@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  release:
+    types: [published]
+  workflow_run:
+    workflows: ["Build and deploy Jekyll site to GitHub Pages"]
+    branches: [main]
+    types:
+      - completed
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    steps:
+    - uses: actions/checkout@v1
+    - name: Jekyll Publish Drafts
+      uses: soywiz/github-action-jekyll-publish-drafts@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        jekyll_path: ./
