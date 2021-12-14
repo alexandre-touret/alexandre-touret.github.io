@@ -9,7 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: feature/test_python
+        ref: main
     - name: setup python
       uses: actions/setup-python@v2
       with:
@@ -32,4 +32,4 @@ jobs:
       uses: ad-m/github-push-action@v0.6.0
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: feature/test_python  
+        branch: main
