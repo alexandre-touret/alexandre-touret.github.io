@@ -9,10 +9,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: ${{ secrets.BRANCH_WHERE_DRAFTS_ARE_CHECKED }}
+        ref: main
     - name: Jekyll Publish Drafts
       uses: soywiz/github-action-jekyll-publish-drafts@master
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         jekyll_path: ./
-        branch:  ${{ secrets.BRANCH_WHERE_DRAFTS_ARE_CHECKED }}
+        branch:  main
