@@ -1,8 +1,8 @@
 name: CI
 
 on:
-  release:
-    types: [published]
+  issues:
+    types: [closed]
   workflow_run:
     workflows: ["Build and deploy Jekyll site to GitHub Pages"]
     branches: [main]
