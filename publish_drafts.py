@@ -3,7 +3,7 @@ from datetime import datetime
 import shutil
 
 def publishFile(file):
-    print(file)
+    print("Parsing file [",file+"]")
     with open(file, 'r') as article:
         lines = article.read().splitlines()
         for line in lines:
@@ -12,9 +12,9 @@ def publishFile(file):
                 datetime_object = datetime.fromisoformat(line[6:])
                 basename=os.path.basename(file)
                 dest=POSTS_FOLDER+datetime_object.strftime("%Y-%m-%-d")+"-"+basename
-                print("basename",basename)
+                print("Copying draft to [",dest,"]")
                 shutil.copy(file,dest)   
-                
+                print("Draft published")
 
 def main():
     for file in glob.glob(DRAFTS_FOLDER+"/*.md", recursive = False):
