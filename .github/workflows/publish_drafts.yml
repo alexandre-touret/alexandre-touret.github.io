@@ -1,0 +1,35 @@
+name: Publish Drafts
+on:
+  milestone:
+    types: [closed]
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        ref: feature/test_python
+    - name: setup python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.7.7' # install the python version needed
+    - name: install python packages
+      run: |
+        python -m pip install --upgrade pip
+          
+    - name: execute py script 
+      run: python publish_drafts.py
+          
+    - name: commit files
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -A
+        git commit -m "publish drafts" -a -S
+          
+    - name: push changes
+      uses: ad-m/github-push-action@v0.6.0
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: feature/test_python  
