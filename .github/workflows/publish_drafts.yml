@@ -1,13 +1,8 @@
 name: CI
 
 on:
-  issues:
+  milestone:
     types: [closed]
-  workflow_run:
-    workflows: ["Build and deploy Jekyll site to GitHub Pages"]
-    branches: [main]
-    types:
-      - completed
 
 jobs:
   build:
