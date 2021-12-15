@@ -9,19 +9,19 @@ jobs:
     steps:
     - uses: actions/checkout@v2
       with:
-        ref: blog
-    - name: setup python
+        ref: main
+    - name: 📂 setup python
       uses: actions/setup-python@v2
       with:
         python-version: '3.7.7' # install the python version needed
-    - name: install python packages
+    - name: 💎 install python packages
       run: |
         python -m pip install --upgrade pip
           
-    - name: execute py script 
+    - name: 🔨 execute py script 
       run: python publish_drafts.py
           
-    - name: commit files
+    - name: 🔨 commit files
       run: |
         if git ls-files -o  --exclude-standard; then
           git config --local user.email "action@github.com"
@@ -32,8 +32,12 @@ jobs:
           echo "No file to publish"
         fi
           
-    - name: push changes
-      uses: ad-m/github-push-action@v0.6.0
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        branch: blog
+    - name: 🚀 deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          # if the repo you are deploying to is <username>.github.io, uncomment the line below.
+          # if you are including the line below, make sure your source files are NOT in the master branch:
+          # publish_branch: master
+
