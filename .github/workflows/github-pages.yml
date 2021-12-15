@@ -27,7 +27,7 @@ jobs:
           bundler-cache: true
 
       - name: 🔨 install dependencies & build site
-	run: bundle exec jekyll build
+      - run: bundle exec jekyll build
 
       - name: 🚀 deploy
         uses: peaceiris/actions-gh-pages@v3
