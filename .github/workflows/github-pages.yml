@@ -26,7 +26,6 @@ jobs:
           ruby-version: 2.6 # can change this to 2.7 or whatever version you prefer
           bundler-cache: true
 
-      - name: 🔨 install dependencies & build site
       - run: bundle exec jekyll build
 
       - name: 🚀 deploy
