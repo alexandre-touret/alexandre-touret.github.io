@@ -4,13 +4,36 @@ on:
   push:
     branches:
       - main
+      # - source
+      # It is highly recommended that you only run this action on push to a
+      # specific branch, eg. master or source (if on *.github.io repo)
 
 jobs:
-  github-pages:
-    runs-on: ubuntu-latest
+  jekyll:
+    runs-on: ubuntu-latest # can change this to ubuntu-latest if you prefer
     steps:
-      - uses: actions/checkout@v2
-      - uses: helaili/jekyll-action@v2
+      - name: 📂 setup
+        uses: actions/checkout@v2
+
+        # include the lines below if you are using jekyll-last-modified-at
+        # or if you would otherwise need to fetch the full commit history
+        # however this may be very slow for large repositories!
+        # with:
+        # fetch-depth: '0'
+      - name: 💎 setup ruby
+        uses: ruby/setup-ruby@v1
         with:
-          target_path: /
-          token: ${{ secrets.GITHUB_TOKEN }}
+          ruby-version: 2.6 # can change this to 2.7 or whatever version you prefer
+          bundler-cache: true
+
+      - name: 🔨 install dependencies & build site
+	run: bundle exec jekyll build
+
+      - name: 🚀 deploy
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./_site
+          # if the repo you are deploying to is <username>.github.io, uncomment the line below.
+          # if you are including the line below, make sure your source files are NOT in the master branch:
+          # publish_branch: master
