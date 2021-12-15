@@ -23,10 +23,14 @@ jobs:
           
     - name: commit files
       run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add -A
-        git commit -m "publish drafts" -a -S
+        if git ls-files -o  --exclude-standard; then
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add -A
+          git commit -m "publish drafts" -a -S
+        else
+          echo "No file to publish"
+        fi
           
     - name: push changes
       uses: ad-m/github-push-action@v0.6.0
