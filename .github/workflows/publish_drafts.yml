@@ -28,16 +28,8 @@ jobs:
           git config --local user.name "GitHub Action"
           git add -A
           git commit -m "publish drafts" -a -S
+          git push origin main
         else
           echo "No file to publish"
         fi
           
-    - name: 🚀 deploy
-      uses: peaceiris/actions-gh-pages@v3
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./_site
-          # if the repo you are deploying to is <username>.github.io, uncomment the line below.
-          # if you are including the line below, make sure your source files are NOT in the master branch:
-          # publish_branch: master
-
