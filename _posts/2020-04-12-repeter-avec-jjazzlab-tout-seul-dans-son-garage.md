@@ -91,19 +91,14 @@ Normalement vous devriez avoir du son.
 
 Lancez qsynth et cliquez sur le bouton « configuration »
 
-Vous trouverez ci-dessous la configuration que j'ai appliqué. Elle diffère légèrement de [celle présentée dans la documentation](https://www.jjazzlab.com/en/doc/fluidsynth/).<figure class="wp-block-gallery columns-3 is-cropped">
+Vous trouverez ci-dessous la configuration que j'ai appliqué. Elle diffère légèrement de [celle présentée dans la documentation](https://www.jjazzlab.com/en/doc/fluidsynth/).
 
-<ul class="blocks-gallery-grid">
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png?w=656" alt="" data-id="307" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-04-39/" class="wp-image-307" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png?w=656" alt="" data-id="308" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-02/" class="wp-image-308" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="656" height="442" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png?w=656" alt="" data-id="309" data-link="https://blog.touret.info/capture-de28099c3a9cran-du-2020-04-12-15-05-13/" class="wp-image-309" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 656w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13-300x202.png 300w" sizes="(max-width: 656px) 100vw, 656px" /></figure>
-  </li>
-</ul></figure> 
+![fluidsynth1](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png)
+
+![fluidsynth2](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02-300x202.png)
+
+![fluidsynth3](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png)
+  
 
 Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
 
@@ -111,9 +106,9 @@ Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
 
 Disclaimer: La c'est la partie la plus obscure&#8230;
 
-<div class="wp-block-image is-style-default">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/04/pegi_18_annotated_2009-2010.png?w=819" alt="" class="wp-image-312" width="247" height="302" srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.png 819w, /assets/images/2020/04/pegi_18_annotated_2009-2010-246x300.png 246w, /assets/images/2020/04/pegi_18_annotated_2009-2010-768x938.png 768w" sizes="(max-width: 247px) 100vw, 247px" /></figure>
-</div>
+
+![aconnect](/assets/images/2020/04/pegi_18_annotated_2009-2010.png)
+
 
 Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n'est pas intuitif, je vous avais prévenu &#8230;  
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c'est pour dire ) .
@@ -185,18 +180,17 @@ Maintenant vous pouvez directement démarrer JJazzlab via le menu.
 
 Une fois jjazzlab démarré, vous devez aller dans le menu « Tools>Options » et sélectionnez les valeurs suivantes:<figure class="wp-block-image size-large">
 
-<img loading="lazy" width="750" height="692" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png?w=750" alt="" class="wp-image-316" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 750w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27-300x277.png 300w" sizes="(max-width: 750px) 100vw, 750px" /> </figure> 
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png)
 
 Ouvrez un fichier example (ex. sunny ) 
 
 Cliquez sur le menu décrit par un clavier
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="341" height="48" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png?w=341" alt="" class="wp-image-317" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 341w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11-300x42.png 300w" sizes="(max-width: 341px) 100vw, 341px" /></figure>
-</div>
+
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png)
 
 Puis configurez comme suit:<figure class="wp-block-image size-large">
 
-<img loading="lazy" width="828" height="591" src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png?w=828" alt="" class="wp-image-318" srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 828w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-300x214.png 300w, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04-768x548.png 768w" sizes="(max-width: 828px) 100vw, 828px" /> </figure> 
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png)
 
 Maintenant vous pouvez [télécharger les standards fournis sur le site](https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip) et improviser dessus 🙂
