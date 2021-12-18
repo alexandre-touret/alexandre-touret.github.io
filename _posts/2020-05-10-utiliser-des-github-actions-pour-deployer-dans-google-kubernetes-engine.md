@@ -20,7 +20,7 @@ tags:
   - kubernetes
 ---
 <p class="has-drop-cap">
-  A mes heures perdues, je travaille sur un « <em>POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche</em> » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :
+  A mes heures perdues, je travaille sur un « <em>POC/side project qui n'aboutira pas et je m'en fiche</em> » basé sur Quarkus. J' ai choisi d'utiliser les langages et composants suivants :
 </p>
 
   * [Kotlin](https://kotlinlang.org/)
@@ -28,7 +28,7 @@ tags:
   * [Gradle](https://gradle.org/)
   * [Kubernetes](http://kubernetes.io/) pour le déploiement
 
-Oui, tant qu&rsquo;à faire, autant aller dans la hype &#8230;
+Oui, tant qu'à faire, autant aller dans la hype &#8230;
 
 <div class="wp-block-group">
   <div class="wp-block-group__inner-container">
@@ -38,14 +38,14 @@ Oui, tant qu&rsquo;à faire, autant aller dans la hype &#8230;
   </div>
 </div>
 
-[Mon projet est sur GITHUB](https://github.com/alexandre-touret/music-quote). Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.  
+[Mon projet est sur GITHUB](https://github.com/alexandre-touret/music-quote). Pour automatiser certaines actions et, disons-le, par fierté personnelle, j'ai choisi d'automatiser certaines actions par la mise en œuvre de pipelines CI/CD.  
 Depuis peu, GITHUB a intégré un mécanisme de pipeline : [GITHUB Actions](https://github.com/features/actions).
 
 Ça permet, entre autres, de lancer des processus automatisé sur un push ou sur une action pour un commit GIT.
 
-La force de l&rsquo;outil est, selon moi, de facilement s&rsquo;intégrer avec beaucoup de services du cloud ( sonarcloud, google cloud, heroku,…). On aime ou on n&rsquo;aime pas, mais chez Microsoft, l&rsquo;intégration ils savent faire.
+La force de l'outil est, selon moi, de facilement s'intégrer avec beaucoup de services du cloud ( sonarcloud, google cloud, heroku,…). On aime ou on n'aime pas, mais chez Microsoft, l'intégration ils savent faire.
 
-Par exemple, si on veut lancer une compilation lors d&rsquo;un push, on peut placer un fichier `.github/workflows/build.xml` avec le contenu :
+Par exemple, si on veut lancer une compilation lors d'un push, on peut placer un fichier `.github/workflows/build.xml` avec le contenu :
 
 ```java
 name: CI
@@ -66,12 +66,12 @@ jobs:
 ```
 
 
-Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié<figure class="wp-block-image size-large is-resized">
+Coté GITHUB, vous verrez l'exécution sur un écran dédié<figure class="wp-block-image size-large is-resized">
 
 <img loading="lazy" src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png?w=1024" alt="" class="wp-image-376" width="768" height="305" srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1025w, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-300x119.png 300w, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote-768x306.png 768w" sizes="(max-width: 768px) 100vw, 768px" /> </figure> 
 
 Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).  
-Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:
+Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d'exécution sont disponibles dans ce même écran:
 
 <div class="wp-block-image">
   <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png?w=936" alt="" class="wp-image-399" width="702" height="275" srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 936w, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-300x117.png 300w, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote-768x300.png 768w" sizes="(max-width: 702px) 100vw, 702px" /></figure>
@@ -79,7 +79,7 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
 
 ## Worflows implémentés
 
-J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:
+J'ai choisi d'implémenter les workflows suivants:
 
   * **CI**: Build sur la feature branch
   * **CD**: Build sur master branch et déploiement
@@ -90,12 +90,12 @@ On obtient donc dans mon cas:
   <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/workflow.png?w=1024" alt="" class="wp-image-378" width="512" height="396" srcset="/assets/images/2020/05/workflow.png 1056w, /assets/images/2020/05/workflow-300x232.png 300w, /assets/images/2020/05/workflow-1024x791.png 1024w, /assets/images/2020/05/workflow-768x593.png 768w" sizes="(max-width: 512px) 100vw, 512px" /></figure>
 </div>
 
-Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.  
+Ce n'est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l'améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l'analyse sonar, etc.  
 Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.
 
 ## Analyse SONAR
 
-J&rsquo;ai choisi d&rsquo;utiliser [sonarcloud](http://sonarcloud.io/) pour analyser mon code. C&rsquo;est gratuit pour les projets opensource. L&rsquo;analyse se fait simplement:
+J'ai choisi d'utiliser [sonarcloud](http://sonarcloud.io/) pour analyser mon code. C'est gratuit pour les projets opensource. L'analyse se fait simplement:
 
 ```java
 sonarCloudTrigger:
@@ -116,9 +116,9 @@ sonarCloudTrigger:
 ```
 
 
-Dans ce job j&rsquo;utilise deux [secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets). Ce sont des tokens qui permettent de ne pas stocker en dur les données dans les repos GITHUB.
+Dans ce job j'utilise deux [secrets](https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets). Ce sont des tokens qui permettent de ne pas stocker en dur les données dans les repos GITHUB.
 
-## Création d&rsquo;une image Docker et déploiement dans le registry GITHUB
+## Création d'une image Docker et déploiement dans le registry GITHUB
 
 Ici aussi, ça se fait simplement. La preuve :
 
@@ -148,15 +148,15 @@ jobs:
 
 
   1. Création du binaire
-  2. Création de l&rsquo;image docker en utilisant la commande docker et le Dockerfile fourni par Quarkus
+  2. Création de l'image docker en utilisant la commande docker et le Dockerfile fourni par Quarkus
   3. Identification sur la registry Docker de GITHUB
-  4. Déploiement de l&rsquo;image
+  4. Déploiement de l'image
 
 Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire [cet article de la documentation](https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token).
 
 ## Déploiement dans Google Kubernetes Engine
 
-Mon application est pour l&rsquo;instant architecturée comme suit (_attention c&rsquo;est compliqué_):
+Mon application est pour l'instant architecturée comme suit (_attention c'est compliqué_):
 
 <div class="wp-block-columns">
   <div class="wp-block-column" style="flex-basis:100%;">
@@ -166,29 +166,29 @@ Mon application est pour l&rsquo;instant architecturée comme suit (_attention c
   </div>
 </div>
 
-Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:
+Pour la déployer dans Google Kubernetes Engine, j'ai besoin d' implémenter cette « architecture » par les objets Kubernetes suivants:
 
 <div class="wp-block-image">
   <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/05/application_gke.png?w=561" alt="" class="wp-image-392" width="421" height="443" srcset="/assets/images/2020/05/application_gke.png 561w, /assets/images/2020/05/application_gke-285x300.png 285w" sizes="(max-width: 421px) 100vw, 421px" /></figure>
 </div>
 
-J&rsquo;utilise les objets suivants:
+J'utilise les objets suivants:
 
-  * Des services pour exposer la base de données ainsi que l&rsquo;application
-  * Un deployment pour l&rsquo;application
+  * Des services pour exposer la base de données ainsi que l'application
+  * Un deployment pour l'application
   * Des pods car à un moment, il en faut&#8230;
   * Un statefulset pour la base de données
 
-Vous pourrez trouver la définition de tous ces objets au format yaml via [ce lien](https://github.com/alexandre-touret/music-quote/tree/master/k8s). J&rsquo;ai fait très simple. Logiquement j&rsquo;aurai du créer un volume pour les bases de données ou utiliser une base de données en mode PAAS.
+Vous pourrez trouver la définition de tous ces objets au format yaml via [ce lien](https://github.com/alexandre-touret/music-quote/tree/master/k8s). J'ai fait très simple. Logiquement j'aurai du créer un volume pour les bases de données ou utiliser une base de données en mode PAAS.
 
-Pour lancer le déploiement, il faut au préalable créer un secret ( fait manuellement pour ne pas stocker d&rsquo;objet yaml dans le repository GITHUB) pour se connecter au repo GITHUB via la commande suivante:
+Pour lancer le déploiement, il faut au préalable créer un secret ( fait manuellement pour ne pas stocker d'objet yaml dans le repository GITHUB) pour se connecter au repo GITHUB via la commande suivante:
 
 ```java
 kubectl create secret docker-registry github-registry --docker-server=docker.pkg.github.com --docker-username=USER--docker-password=PASSWORD --docker-email=EMAIL
 ```
 
 
-On peut faire pareil pour les connexions base de données. J&rsquo;ai mis dans un configmap pour ne pas trop me prendre la tête&#8230;
+On peut faire pareil pour les connexions base de données. J'ai mis dans un configmap pour ne pas trop me prendre la tête&#8230;
 
 Après le déploiement via le pipeline se fait assez simplement:
 
@@ -210,10 +210,10 @@ Après le déploiement via le pipeline se fait assez simplement:
 ```
 
 
-J&rsquo;utilise [les « actions » fournies par Google](https://github.com/GoogleCloudPlatform/github-actions). 
+J'utilise [les « actions » fournies par Google](https://github.com/GoogleCloudPlatform/github-actions). 
 
 ## Conclusion
 
-Pour que ça marche il y a pas mal d&rsquo;étapes préalables ( des tokens à générer, un utilisateur technique, &#8230;).  
-J&rsquo;ai essayé de les référencer dans [le README du projet](https://github.com/alexandre-touret/music-quote).  
-Si vous voulez tester l&rsquo;intégration Kubernetes dans le cloud google, sachez que vous pouvez disposer d&rsquo;un crédit de 300€ valable un an. Attention, avec ce genre d&rsquo;architecture, ça part vite&#8230;
+Pour que ça marche il y a pas mal d'étapes préalables ( des tokens à générer, un utilisateur technique, &#8230;).  
+J'ai essayé de les référencer dans [le README du projet](https://github.com/alexandre-touret/music-quote).  
+Si vous voulez tester l'intégration Kubernetes dans le cloud google, sachez que vous pouvez disposer d'un crédit de 300€ valable un an. Attention, avec ce genre d'architecture, ça part vite&#8230;

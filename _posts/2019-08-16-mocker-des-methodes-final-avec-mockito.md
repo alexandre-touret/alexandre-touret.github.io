@@ -20,9 +20,9 @@ Auparavant, dans nos tests, quand on voulait [mocker](https://fr.wikipedia.org/w
 
 <img loading="lazy" class="aligncenter size-medium wp-image-203" src="/assets/images/2019/08/logo-mockito.png?w=300" alt="" width="300" height="150" srcset="/assets/images/2019/08/logo-mockito.png 400w, /assets/images/2019/08/logo-mockito-300x150.png 300w" sizes="(max-width: 300px) 100vw, 300px" /> 
 
-Depuis peu, si on utilise Mockito ( >2.1) , on n&rsquo;a plus besoin d&rsquo;ajouter PowerMock pour mocker des méthodes « final ».
+Depuis peu, si on utilise Mockito ( >2.1) , on n'a plus besoin d'ajouter PowerMock pour mocker des méthodes « final ».
 
-Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu&rsquo;avec [Mockito](https://github.com/mockito/mockito), mais cela va dans le bon sens.
+Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu'avec [Mockito](https://github.com/mockito/mockito), mais cela va dans le bon sens.
 
 Voici comment activer en quelques commandes le mocking des méthodes « final ».
 
@@ -34,7 +34,7 @@ Dans le répertoire src/test/resources, il faut créer un répertoire mockito-ex
 ```
 
 
-A l&rsquo;intérieur de ce fichier, vous devrez ajouter le contenu suivant :
+A l'intérieur de ce fichier, vous devrez ajouter le contenu suivant :
 
 <pre>mock-maker-inline
 ```
