@@ -17,8 +17,8 @@ tags:
   - docker
   - planetlibre
 ---
-Bon, ça fait quelques temps que je n&rsquo;ai rien posté&#8230;  
-Voici un rapide tuto pour installer [docker-ce sur une debian9](https://docs.docker.com/install/linux/docker-ce/debian/). Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l&rsquo;installation de la version ce fournie par docker.
+Bon, ça fait quelques temps que je n'ai rien posté&#8230;  
+Voici un rapide tuto pour installer [docker-ce sur une debian9](https://docs.docker.com/install/linux/docker-ce/debian/). Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l'installation de la version ce fournie par docker.
 
 <img loading="lazy" class="alignnone size-medium wp-image-96" src="/assets/images/2018/09/docker.png?w=300" alt="" width="300" height="268" srcset="/assets/images/2018/09/docker.png 1354w, /assets/images/2018/09/docker-300x268.png 300w, /assets/images/2018/09/docker-1024x914.png 1024w, /assets/images/2018/09/docker-768x685.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
 
@@ -82,7 +82,7 @@ Après ceci, vaut mieux redémarrer le pc &#8230;
 
 ## Configuration du démon
 
-Voici quelques config à appliquer pour que le démon soit accessible par des outils tels que le plugin maven ou encore configurer l&rsquo;accès à un proxy
+Voici quelques config à appliquer pour que le démon soit accessible par des outils tels que le plugin maven ou encore configurer l'accès à un proxy
 
 ### Configuration du port
 
@@ -106,7 +106,7 @@ ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
 
 [/code]
 
-Et l&rsquo;enregistrer sous /etc/systemd/system/docker.service.d/docker.conf
+Et l'enregistrer sous /etc/systemd/system/docker.service.d/docker.conf
 
 ### Configuration du proxy
 

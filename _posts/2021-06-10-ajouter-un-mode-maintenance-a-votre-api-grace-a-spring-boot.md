@@ -26,11 +26,11 @@ tags:
 </div>
 
 <p class="has-drop-cap">
-  Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l&rsquo;application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (<a href="https://httpd.apache.org/">Apache HTTPD</a>, <a href="https://fr.wikipedia.org/wiki/Web_application_firewall">WAF</a>,&#8230;)
+  Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l'application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (<a href="https://httpd.apache.org/">Apache HTTPD</a>, <a href="https://fr.wikipedia.org/wiki/Web_application_firewall">WAF</a>,&#8230;)
 </p>
 
 [Kubernetes a introduit ( ou popularisé ) les notions de « probes »](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) et plus particulièrement les [livenessProbes](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) et [readinessProbes](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).  
-Le premier nous indique si l&rsquo;application est en état de fonctionnement, le second nous permet de savoir si cette dernière est apte à recevoir des requêtes (ex. lors d&rsquo;un démarrage).
+Le premier nous indique si l'application est en état de fonctionnement, le second nous permet de savoir si cette dernière est apte à recevoir des requêtes (ex. lors d'un démarrage).
 
 
 
@@ -38,14 +38,14 @@ Je vais exposer dans cet article comment utiliser au mieux ces probes et [les AP
 
 ## Stack utilisée
 
-Dans l&rsquo;exemple que j&rsquo;ai développé, j&rsquo;ai pu utiliser les briques suivantes:  
+Dans l'exemple que j'ai développé, j'ai pu utiliser les briques suivantes:  
 
 
   * OpenJDK 11.0.10
   * Spring Boot 2.5.0 (web, actuator)
   * Maven 3.8.1
 
-Bref, rien de neuf à l&rsquo;horizon 🙂
+Bref, rien de neuf à l'horizon 🙂
 
 ## Configuration de Spring Actuator
 
@@ -112,16 +112,16 @@ public ResponseEntity<Void> initInMaintenance(@NotNull @RequestBody String inMai
 ```
 
 
-## Filtre les appels et indiquer que l&rsquo;application est en maintenance
+## Filtre les appels et indiquer que l'application est en maintenance
 
-Maintenant qu&rsquo;on a codé les mécanismes de récupération du statut de l&rsquo;application et de la mise en maintenance, on peut ajouter le mécanisme permettant de traiter ou non les appels entrants.  
+Maintenant qu'on a codé les mécanismes de récupération du statut de l'application et de la mise en maintenance, on peut ajouter le mécanisme permettant de traiter ou non les appels entrants.  
 Pour ça on va utiliser un [bon vieux filtre servlet](http://blog.paumard.org/cours/servlet/chap04-filtre-mise-en-place.html).  
 
 
-Ce dernier aura la tâche de laisser passer les requêtes entrantes si l&rsquo;application n&rsquo;est pas en maintenance et de déclencher une [MaintenanceException](https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/exception/MaintenanceException.java) le cas échéant qui sera traité par [la gestion d&rsquo;erreur globale de l&rsquo;application](https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/GlobalExceptionHandler.java) ( traité via un [@RestControllerAdvice](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestControllerAdvice.html)).  
+Ce dernier aura la tâche de laisser passer les requêtes entrantes si l'application n'est pas en maintenance et de déclencher une [MaintenanceException](https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/exception/MaintenanceException.java) le cas échéant qui sera traité par [la gestion d'erreur globale de l'application](https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/GlobalExceptionHandler.java) ( traité via un [@RestControllerAdvice](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestControllerAdvice.html)).  
 
 
-Pour que l&rsquo;exception soit bien traitée par ce mécanisme, il faut le déclencher via le [HandlerExceptionResolver](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerExceptionResolver.html).
+Pour que l'exception soit bien traitée par ce mécanisme, il faut le déclencher via le [HandlerExceptionResolver](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerExceptionResolver.html).
 
 ```java
 @Component
@@ -159,7 +159,7 @@ public class CheckMaintenanceFilter implements Filter {
 ```
 
 
-Enfin, voici la gestion des erreurs de l&rsquo;API:
+Enfin, voici la gestion des erreurs de l'API:
 
 ```java
 @RestControllerAdvice
@@ -188,7 +188,7 @@ public class GlobalExceptionHandler {
 
 ## Conclusion
 
-On a pu voir comment intéragir simplement avec les APIS SPRING pour gérer le statut de l&rsquo;application pour répondre à cette question :Est-elle disponible ou non?  
-Bien évidemment, selon le contexte, il conviendra d&rsquo;ajouter un peu de sécurité pour que cette API ne soit pas disponible à tout le monde 🙂  
+On a pu voir comment intéragir simplement avec les APIS SPRING pour gérer le statut de l'application pour répondre à cette question :Est-elle disponible ou non?  
+Bien évidemment, selon le contexte, il conviendra d'ajouter un peu de sécurité pour que cette API ne soit pas disponible à tout le monde 🙂  
   
 Le code exposé ici est disponible sur [Github](https://github.com/alexandre-touret/maintenance-mode/). Le [Readme](https://github.com/alexandre-touret/maintenance-mode/blob/main/README.md) est suffisamment détaillé pour que vous puissiez tester et réutiliser le code.

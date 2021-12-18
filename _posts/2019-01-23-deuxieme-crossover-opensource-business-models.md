@@ -11,10 +11,10 @@ timeline_notification:
 tags:
   - planetlibre
 ---
-Voici ma deuxième contribution pour une série d&rsquo;articles sur l&rsquo;opensource pour le blog de mon entreprise.
+Voici ma deuxième contribution pour une série d'articles sur l'opensource pour le blog de mon entreprise.
 
-Les articles précédents traitaient de [l&rsquo;histoire de l&rsquo;opensource](https://blog.worldline.tech/2018/10/29/opensource-history.html) puis [des différentes formes que peut prendre l&rsquo;open source](https://blog.worldline.tech/2018/12/19/FOSS-dimensions.html).
+Les articles précédents traitaient de [l'histoire de l'opensource](https://blog.worldline.tech/2018/10/29/opensource-history.html) puis [des différentes formes que peut prendre l'open source](https://blog.worldline.tech/2018/12/19/FOSS-dimensions.html).
 
-Cette fois j&rsquo;aborde [les business models du monde opensource](https://blog.worldline.tech/2019/01/23/opensource-business-models.html).
+Cette fois j'aborde [les business models du monde opensource](https://blog.worldline.tech/2019/01/23/opensource-business-models.html).
 
 Bonne lecture 🙂
