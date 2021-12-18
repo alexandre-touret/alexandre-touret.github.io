@@ -21,20 +21,20 @@ tags:
 
 
 
-Derrière ce nom pompeux qui peut effrayer, je vais essayer d&rsquo;expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.
+Derrière ce nom pompeux qui peut effrayer, je vais essayer d'expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.
 
 En cherchant comment mettre de la documentation technique avec des diagrammes [PlantUml](https://plantuml.com/) dans des repos [GITLAB](https://about.gitlab.com/) et générés avec des pipelines, je me suis mis dans la tête de faire la même chose avec des partitions 🙂  
   
-Depuis plusieurs années, j&rsquo;utilise [lilypond](https://lilypond.org/) pour créer mes partitions. C&rsquo;est un peu difficile de s&rsquo;y mettre, mais une fois la syntaxe assimilée, la saisie d&rsquo;une partition est beaucoup plus efficace. Le rendu des partitions est vraiment optimisé.  
+Depuis plusieurs années, j'utilise [lilypond](https://lilypond.org/) pour créer mes partitions. C'est un peu difficile de s'y mettre, mais une fois la syntaxe assimilée, la saisie d'une partition est beaucoup plus efficace. Le rendu des partitions est vraiment optimisé.  
 Si vous voulez plus de détails sur le pourquoi du comment je vous conseille [cette page](https://lilypond.org/doc/v2.19/Documentation/essay-big-page).
 
 Vous trouverez des exemples sur [le site](https://lilypond.org/text-input.fr.html).  
   
-J&rsquo;ai donc eu l&rsquo;idée de:
+J'ai donc eu l'idée de:
 
-  * Stocker ces partitions sur un repo github (_jusque là rien d&rsquo;exceptionnel_)
+  * Stocker ces partitions sur un repo github (_jusque là rien d'exceptionnel_)
   * Générer automatiquement les partitions au format PDF, PNG et MIDI via une [github action](https://github.com/features/actions) (_ça commence à devenir intéressant&#8230;_)
-  * Les publier avec [les github pages](https://pages.github.com/) (_tant qu&rsquo;à faire 🙂_)
+  * Les publier avec [les github pages](https://pages.github.com/) (_tant qu'à faire 🙂_)
 
 ## Stockage
 
@@ -77,9 +77,9 @@ upper=
 ```
 
 
-[GIT](https://git-scm.com/) et [GITHUB](https://github.com) permettent de versionner facilement et pouvoir faire facilement un retour arrière en cas d&rsquo;erreur.  
+[GIT](https://git-scm.com/) et [GITHUB](https://github.com) permettent de versionner facilement et pouvoir faire facilement un retour arrière en cas d'erreur.  
 Aussi, GITHUB offre des [fonctionnalités « sociales » et collaboratives qui facilitent la revue des modifications](https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests) ( en cas de travail à plusieurs ).  
-Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;un retour arrière en cas d&rsquo;erreur.  
+Bref, ça offre la sécurité d'une sauvegarde et la possibilité d'un retour arrière en cas d'erreur.  
 
 
 ## Générer les partitions avec une github action
@@ -92,11 +92,11 @@ Les [github actions](https://github.com/features/actions) sont des outils permet
   </p>
 </blockquote>
 
-J&rsquo;ai donc décidé de créer un workflow qui permet de générer les partitions au format lilypond.
+J'ai donc décidé de créer un workflow qui permet de générer les partitions au format lilypond.
 
-J&rsquo;ai mis à disposition [le code sur github](https://github.com/alexandre-touret/lilypond-github-action) sous [licence GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html). Elle est utilisable telle quelle.
+J'ai mis à disposition [le code sur github](https://github.com/alexandre-touret/lilypond-github-action) sous [licence GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.en.html). Elle est utilisable telle quelle.
 
-Pour créer l&rsquo;action, il faut créer un fichier action.yml à la racine du repo. Voici le contenu
+Pour créer l'action, il faut créer un fichier action.yml à la racine du repo. Voici le contenu
 
 ```java
 name: 'Lilypond Generator'
@@ -121,9 +121,9 @@ branding:
 ```
 
 
-Vous aurez compris que ce fichier fait référence à une [image Docker](https://github.com/alexandre-touret/lilypond-github-action/blob/master/Dockerfile). Cette dernière n&rsquo;est ni plus ni moins qu&rsquo;une Debian avec lilypond d&rsquo;installé.  
+Vous aurez compris que ce fichier fait référence à une [image Docker](https://github.com/alexandre-touret/lilypond-github-action/blob/master/Dockerfile). Cette dernière n'est ni plus ni moins qu'une Debian avec lilypond d'installé.  
   
-Pour l&rsquo;utiliser dans un repo github, on peut créer une action qui l&rsquo;utilise. Voici un exemple:
+Pour l'utiliser dans un repo github, on peut créer une action qui l'utilise. Voici un exemple:
 
 ```java
 jobs:
@@ -152,7 +152,7 @@ A la dernière ligne on peut passer [les arguments nécessaires à lilypond](htt
 
 ## Publication
 
-La c&rsquo;est l&rsquo;étape la plus facile :). Il suffit d&rsquo;activer [les github pages](https://pages.github.com/) et de commiter et pusher les partitions générées
+La c'est l'étape la plus facile :). Il suffit d'activer [les github pages](https://pages.github.com/) et de commiter et pusher les partitions générées
 
 ```java
 - name: Push Local Changes
@@ -168,15 +168,15 @@ La c&rsquo;est l&rsquo;étape la plus facile :). Il suffit d&rsquo;activer [les 
 ```
 
 
-Il suffit de créer une page index.md à la racine et d&rsquo;ajouter des liens vers les partitions générées ( dans mon cas, ça se passe dans le répertoire /docs ).  
+Il suffit de créer une page index.md à la racine et d'ajouter des liens vers les partitions générées ( dans mon cas, ça se passe dans le répertoire /docs ).  
 Vous pouvez trouver un exemple [ici](https://alexandre-touret.github.io/piano-sheets-as-code/).
 
 ## Conclusion
 
 Voila comment on peut générer un site avec des partitions crées avec Lilypond.  
-Vous trouverez les différents liens ci-dessous. Peut être que je publierai cette action sur le marketplace une fois que j&rsquo;aurai publié une documentation digne de ce nom :).  
+Vous trouverez les différents liens ci-dessous. Peut être que je publierai cette action sur le marketplace une fois que j'aurai publié une documentation digne de ce nom :).  
 
 
   * [Action](https://github.com/alexandre-touret/lilypond-github-action)
-  * [Exemple d&rsquo;utilisation](https://github.com/alexandre-touret/piano-sheets-as-code)
+  * [Exemple d'utilisation](https://github.com/alexandre-touret/piano-sheets-as-code)
   * [Exemple de site généré](https://alexandre-touret.github.io/piano-sheets-as-code/)

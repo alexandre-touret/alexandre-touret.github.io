@@ -15,11 +15,11 @@ tags:
   - debian
   
 ---
-Désolé de remettre ça&#8230; Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
+Désolé de remettre ça&#8230; Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu'elle est dans mon historique .
 
 <img loading="lazy" class=" size-full wp-image-39 aligncenter" src="/assets/images/2018/02/220px-debian-openlogo-svg.png" alt="220px-Debian-OpenLogo.svg" width="220" height="291" /> 
 
-Voici ce que j&rsquo;ai réalisé post-installation:
+Voici ce que j'ai réalisé post-installation:
 
 ## Ajout dépôts supplémentaires
 
@@ -91,7 +91,7 @@ libsane-hpaio xsane autofs vlc
 
 ## Configuration autofs
 
-Pour ceux qui ne connaissent pas , [autofs](https://wiki.debian.org/AutoFs) est un outil permettant de monter directement des partages [nfs](https://linuxconfig.org/how-to-configure-nfs-on-debian-9-stretch-linux) et cicfs à l&rsquo;utilisation et non au démarrage de l&rsquo;ordinateur.
+Pour ceux qui ne connaissent pas , [autofs](https://wiki.debian.org/AutoFs) est un outil permettant de monter directement des partages [nfs](https://linuxconfig.org/how-to-configure-nfs-on-debian-9-stretch-linux) et cicfs à l'utilisation et non au démarrage de l'ordinateur.
 
 Dans le fichier /etc/auto.master
 
@@ -127,9 +127,9 @@ REP2 -fstype=nfs,rw,intr 192.168.0.XX:/volume1/REP2
 ```
 
 
-## Installation d&rsquo;atom
+## Installation d'atom
 
-J&rsquo;ai choisi d&rsquo;installer [atom](https://atom.io/) via le package .deb fourni par [github](http://github.com/). Afin d&rsquo;automatiser l&rsquo;installation et la mise à jour, voici le script que j&rsquo;ai réalisé :
+J'ai choisi d'installer [atom](https://atom.io/) via le package .deb fourni par [github](http://github.com/). Afin d'automatiser l'installation et la mise à jour, voici le script que j'ai réalisé :
 
 <pre>#!/bin/sh
 SETUP_ROOT=/tmp
@@ -148,7 +148,7 @@ Ce script est placé dans le répertoire /usr/local/sbin et lancé comme suit :
 
 ## Installation de Firefox
 
-Afin d&rsquo;avoir la dernière version de firefox, voici le script que j&rsquo;ai réalisé:
+Afin d'avoir la dernière version de firefox, voici le script que j'ai réalisé:
 
 <pre>#!/bin/sh
 SETUP_ROOT=/tmp
@@ -175,9 +175,9 @@ echo "Fini :)"
 
 ## Minecraft
 
-Voila l&rsquo;étape la plus importante, du moins pour mes enfants &#8230;
+Voila l'étape la plus importante, du moins pour mes enfants &#8230;
 
-J&rsquo;ai crée le script /usr/local/bin/minecraft.sh
+J'ai crée le script /usr/local/bin/minecraft.sh
 
 <pre>#!/bin/bash
 cd /usr/local/minecraft
@@ -185,9 +185,9 @@ java -Xmx1G -Xms512M -cp /usr/local/minecraft/Minecraft.jar net.minecraft.bootst
 ```
 
 
-J&rsquo;ai placé le JAR en question dans le répertoire /usr/local/minecraft.
+J'ai placé le JAR en question dans le répertoire /usr/local/minecraft.
 
-Enfin, j&rsquo;ai crée le fichier « lanceur gnome » /usr/share/applications/minecraft.desktop
+Enfin, j'ai crée le fichier « lanceur gnome » /usr/share/applications/minecraft.desktop
 
 <pre>[Desktop Entry] 
 Name=Minecraft
@@ -201,7 +201,7 @@ StartupNotify=true
 ```
 
 
-J&rsquo;ai également mis une icone SVG dans le répertoire /usr/share/icons/
+J'ai également mis une icone SVG dans le répertoire /usr/share/icons/
 
 ## Optimisation du boot
 
@@ -256,9 +256,9 @@ Par exemple, si vous voulez désactiver le service virtualbox au démarrage
 
 et ainsi de suite pour tous les services inutiles au démarrage
 
-## Analyse du démarrage d&rsquo;un service
+## Analyse du démarrage d'un service
 
-Pour analyser le démarrage d&rsquo;un service, on peut utiliser la commande journalctl
+Pour analyser le démarrage d'un service, on peut utiliser la commande journalctl
 
 <pre># journalctl -b -u NetworkManager-wait-online.service
 ```
@@ -268,7 +268,7 @@ Pour analyser le démarrage d&rsquo;un service, on peut utiliser la commande jou
 
 ## Conclusion
 
-Après toutes ces étapes, j&rsquo;ai un système opérationnel. Il manque pas mal d&rsquo;outils ( ex. maven, npm, intellij,&#8230;). Ces outils tiennent plus du poste de développement.
+Après toutes ces étapes, j'ai un système opérationnel. Il manque pas mal d'outils ( ex. maven, npm, intellij,&#8230;). Ces outils tiennent plus du poste de développement.
 
 &nbsp;
 
