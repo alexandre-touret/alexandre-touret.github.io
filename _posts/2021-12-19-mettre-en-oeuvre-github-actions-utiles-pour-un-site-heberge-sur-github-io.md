@@ -164,7 +164,7 @@ jobs:
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add -A
-          git commit -m "publish drafts" -a -S
+          git commit -m "publish drafts" -a
           git push origin main
         else
           echo "No file to publish"
