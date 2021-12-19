@@ -1,6 +1,6 @@
 ---
 id: 113
-title: 'Tracer (facilement) les entrées sorties d&rsquo;une API REST'
+title: "Tracer (facilement) les entrées sorties d'une API REST"
 date: 2018-12-01T15:51:50+01:00
 
 
@@ -20,16 +20,16 @@ tags:
 ---
 <figure class="wp-block-image"><img loading="lazy" width="1200" height="1200" src="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" alt="" class="wp-image-115" srcset="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg 1200w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-300x300.jpeg 300w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-1024x1024.jpeg 1024w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-150x150.jpeg 150w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-768x768.jpeg 768w" sizes="(max-width: 1200px) 100vw, 1200px" /></figure> 
 
-Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une [API REST](https://fr.wikipedia.org/wiki/Representational_state_transfer) en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
+Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d'une [API REST](https://fr.wikipedia.org/wiki/Representational_state_transfer) en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
 
-Travaillant sur une stack [SpringBoot](https://spring.io/projects/spring-boot), vous allez me dire : oui tu peux faire des filtres. Pour être franc, j&rsquo;ai essayé d&rsquo; appliquer des [interceptor](https://www.baeldung.com/spring-mvc-handlerinterceptor) et [filtres](https://www.baeldung.com/spring-boot-add-filter) mais dans mon contexte, ça ne collait pas.
+Travaillant sur une stack [SpringBoot](https://spring.io/projects/spring-boot), vous allez me dire : oui tu peux faire des filtres. Pour être franc, j'ai essayé d' appliquer des [interceptor](https://www.baeldung.com/spring-mvc-handlerinterceptor) et [filtres](https://www.baeldung.com/spring-boot-add-filter) mais dans mon contexte, ça ne collait pas.
 
-Me voilà donc à la recherche d&rsquo;une solution faisant le taff et qui soit peu intrusive dans mon contexte. 
+Me voilà donc à la recherche d'une solution faisant le taff et qui soit peu intrusive dans mon contexte. 
 
-J&rsquo;ai trouvé par hasard au fil de mes lectures sur Stackoverflow le framework [logbook](https://github.com/zalando/logbook) réalisé par &#8230; Zalando ( et oui, ils ne font pas que des chaussures) en licence MIT.   
-Ce composant ne fait qu&rsquo;une seule chose, mais il le fait bien ! 
+J'ai trouvé par hasard au fil de mes lectures sur Stackoverflow le framework [logbook](https://github.com/zalando/logbook) réalisé par &#8230; Zalando ( et oui, ils ne font pas que des chaussures) en licence MIT.   
+Ce composant ne fait qu'une seule chose, mais il le fait bien ! 
 
-Il permet entre autres de s&rsquo;intégrer dans une stack JAVA ( JAX-RS ou SpringMVC), de filtrer, récupérer les différentes informations des requêtes et réponses et enfin de formatter selon l&rsquo;envie (ex. JSON).  
+Il permet entre autres de s'intégrer dans une stack JAVA ( JAX-RS ou SpringMVC), de filtrer, récupérer les différentes informations des requêtes et réponses et enfin de formatter selon l'envie (ex. JSON).  
   
 Voici un exemple de mise en œuvre dans un projet SpringBoot:
 
@@ -45,11 +45,11 @@ Dans une de vos classes [Configuration](https://docs.spring.io/spring-framework/
 ```
 
 
-Dans mon cas j&rsquo;ai fait un filtre en n&rsquo;incluant que l&rsquo; API /helloworld et j&rsquo;ai formatté en JSON.  
-On peut également modifier le processus d&rsquo;écriture pour ne pas écrire dans un fichier mais en base par ex.  
+Dans mon cas j'ai fait un filtre en n'incluant que l' API /helloworld et j'ai formatté en JSON.  
+On peut également modifier le processus d'écriture pour ne pas écrire dans un fichier mais en base par ex.  
 
 
-Ensuite, j&rsquo;ai ajouté la configuration du logger dans le fichier application.properties
+Ensuite, j'ai ajouté la configuration du logger dans le fichier application.properties
 
 <pre class="wp-block-preformatted">logging.level.org.zalando.logbook:TRACE<br />
 ```
@@ -57,7 +57,7 @@ Ensuite, j&rsquo;ai ajouté la configuration du logger dans le fichier applicati
 
 Et voila ! 
 
-Dans la console, lors d&rsquo;un appel ou d&rsquo;une réponse à mon API, j&rsquo;ai le message suivant :
+Dans la console, lors d'un appel ou d'une réponse à mon API, j'ai le message suivant :
 
 
 
@@ -66,7 +66,7 @@ Dans la console, lors d&rsquo;un appel ou d&rsquo;une réponse à mon API, j&rsq
 ```
 
 
-Vous remarquerez que les requêtes / réponses peuvent désormais être associés grâce à un identifiant de corrélation. On peut facilement déterminer le temps de traitement d&rsquo;une requête ou encore faciliter les recherches.  
+Vous remarquerez que les requêtes / réponses peuvent désormais être associés grâce à un identifiant de corrélation. On peut facilement déterminer le temps de traitement d'une requête ou encore faciliter les recherches.  
 
 
 

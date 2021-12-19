@@ -16,13 +16,13 @@ tags:
   - debian
   - planetlibre
 ---
-Si vous [provisionnez vos VM VirtualBox avec Vagrant](http://blog.touret.info/2018/03/15/installation-de-vagrant/), vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
+Si vous [provisionnez vos VM VirtualBox avec Vagrant](http://blog.touret.info/2018/03/15/installation-de-vagrant/), vous avez sans doute eu l'idée d'automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
 
 Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez [Ansible.](https://www.ansible.com/)
 
 <img loading="lazy" class="size-medium wp-image-180 aligncenter" src="/assets/images/2019/06/ansible_logo.svg_.png?w=244" alt="" width="244" height="300" srcset="/assets/images/2019/06/ansible_logo.svg_.png 832w, /assets/images/2019/06/ansible_logo.svg_-244x300.png 244w, /assets/images/2019/06/ansible_logo.svg_-768x945.png 768w" sizes="(max-width: 244px) 100vw, 244px" /> 
 
-Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que [Puppet](https://puppet.com), est qu&rsquo;il ne nécessite pas l&rsquo;installation [d&rsquo;agent.](https://puppet.com/docs/puppet/6.0/man/agent.html) 
+Ansible est un outil opensource permettant d'automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L'avantage par rapport à des outils tels que [Puppet](https://puppet.com), est qu'il ne nécessite pas l'installation [d'agent.](https://puppet.com/docs/puppet/6.0/man/agent.html) 
 
 Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour [VirtualBox](https://www.virtualbox.org/).
 
@@ -30,7 +30,7 @@ Je vais essayer de vous montrer comment mettre en place le provisionning via Ans
 
 Dans le fichier Vagrantfile, on active le provisionning via Ansible:
 
-```
+```ini
 config.vm.provision "ansible_local" 
   do |ansible| ansible.playbook = "site.yml"
   ansible.install_mode = "pip"
@@ -39,7 +39,7 @@ end
 ```
 
 
-Cette configuration fait référence à un fichier « playbook » site.yml. C&rsquo;est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.
+Cette configuration fait référence à un fichier « playbook » site.yml. C'est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.
 
 Voici un exemple de contenu:
 
@@ -56,7 +56,7 @@ Voici un exemple de contenu:
 ```
 
 
-Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:
+Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d' environnement. Voici un exemple de rôle:
 
 ```yaml
 - name: "Remove useless packages from the cache"
@@ -113,7 +113,7 @@ Ce fichier est la racine de notre configuration Ansible. On y référence les r�
 ```
 
 
-Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés
+Les variables d'environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés
 
 ```bash
 maven_version: 3.5.4
@@ -123,11 +123,11 @@ docker_compose_version: 1.22.0
 ```
 
 
-Il y a [une quantité impressionnante de modules Ansible que l&rsquo;on peut utiliser](https://docs.ansible.com/ansible/latest/modules/modules_by_category.html). Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d&rsquo;un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.
+Il y a [une quantité impressionnante de modules Ansible que l'on peut utiliser](https://docs.ansible.com/ansible/latest/modules/modules_by_category.html). Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d'un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.
 
 ### Configuration spécifique pour VirtualBox
 
-Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentaires à la racine:
+Pour VirtualBox, j'ai ajouté deux fichiers de configuration supplémentaires à la racine:
 
 ##### ansible.cfg
 
@@ -164,10 +164,8 @@ Directement dans la box, vous pouvez lancer les commandes suivantes :
 sudo mount -t vboxsf vagrant /vagrant
 ```
 
+Puis, vous pouvez lancer les commandes suivantes dans la box:
 
-<p dir="auto">
-  Puis, vous pouvez lancer les commandes suivantes dans la box:
-</p>
 
 ```bash
 su -

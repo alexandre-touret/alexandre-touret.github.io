@@ -2,7 +2,6 @@
 title: Mettre en oeuvre Github Actions utiles pour un site hébergé sur Github pages
 date: 2021-12-19 12:00:00
 
-
 header:
   teaser: /assets/images/2021/12/github-1.jpg
 
@@ -122,6 +121,7 @@ Pour rédiger un article, j'utilise le mécanisme de feature branch et pull requ
 Je rédige les articles (comme celui-ci) et les positionne dans le répertoire ``_drafts``:
 
 ```bash
+
 ls -R _drafts                                                                                               
 quelques-github-actions-utiles-pour-un-site-jekyll-heberge-sur-github-io.md
 ```

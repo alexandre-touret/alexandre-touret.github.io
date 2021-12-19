@@ -72,7 +72,7 @@ Et indiquez que vous voulez signer tous vos commits
 ```
 
 
-Si vous ne faites pas cette dernière commande, vous devrez ajouter l&rsquo;option -S à chaque exécution de la commande git commit.
+Si vous ne faites pas cette dernière commande, vous devrez ajouter l'option -S à chaque exécution de la commande git commit.
 
 Exemple:
 
@@ -85,5 +85,5 @@ Exemple:
 Sur Github ( il y a la même chose sur gitlab), vous pouvez [dans vos paramètres](https://github.com/settings/keys) ajouter cette clé . De cette manière, vos prochains commits envoyés seront vérifiés.
 
 <p class="prettyprint prettyprinted">
-  <span class="s1"><span class="pln"> En espérant que ça serve à d&rsquo;autres 🙂<br /> </span></span>
+  <span class="s1"><span class="pln"> En espérant que ça serve à d'autres 🙂<br /> </span></span>
 </p>

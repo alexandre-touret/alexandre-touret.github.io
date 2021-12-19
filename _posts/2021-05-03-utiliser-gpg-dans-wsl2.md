@@ -24,10 +24,10 @@ tags:
 </div>
 
 <p class="has-drop-cap">
-  Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu&rsquo;on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">le sous système Linux (WSL2)</a>?
+  Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu'on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">le sous système Linux (WSL2)</a>?
 </p>
 
-Sous GNU/Linux, l&rsquo;installation et l&rsquo;utilisation avec git est très simple. Avec [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10),&#8230; il faut un peu d&rsquo;huile de coude 🙂
+Sous GNU/Linux, l'installation et l'utilisation avec git est très simple. Avec [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10),&#8230; il faut un peu d'huile de coude 🙂
 
 Je vais tâcher de décrire dans cet article les différentes manipulations nécessaires pour:
 
@@ -38,7 +38,7 @@ Je vais tâcher de décrire dans cet article les différentes manipulations néc
 
 ### Export de la clé GPG
 
-#### Identifier l&rsquo; ID de la clé
+#### Identifier l' ID de la clé
 
 Lancez la commande suivante:
 
@@ -70,7 +70,7 @@ ssb   rsa4096/SUB 2019-12-20 [E]
 ```
 
 
-Si la clé n&rsquo;est pas reconnue comme ultime ou comme de confiance, il faudra l&rsquo;éditer:
+Si la clé n'est pas reconnue comme ultime ou comme de confiance, il faudra l'éditer:
 
 ```java
 gpg --edit-key CLE_ID
@@ -90,7 +90,7 @@ Si vous ne voulez pas trop vous compliquer, je vous conseille de répondre `5`.
 
 ## Configuration GPG pour WSL2
 
-Avant de configurer l&rsquo;agent GPG, vous pouvez vous référer [à cet article](https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/) pour configurer GIT et GPG. La configuration est équivalente.
+Avant de configurer l'agent GPG, vous pouvez vous référer [à cet article](https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/) pour configurer GIT et GPG. La configuration est équivalente.
 
 Ensuite, créez le fichier `~/.gnupg/gpg.conf` avec le contenu suivant:
 
@@ -121,14 +121,14 @@ ls /usr/bin/pinentry-curses
 ```
 
 
-Si vous ne l&rsquo;avez pas, vous pouvez l&rsquo;installer grâce à la commande suivante:
+Si vous ne l'avez pas, vous pouvez l'installer grâce à la commande suivante:
 
 ```java
 sudo apt install pinentry-curses
 ```
 
 
-Maintenant, on peut configurer l&rsquo;environnement BASH en modifiant le fichier `~/.bashrc`
+Maintenant, on peut configurer l'environnement BASH en modifiant le fichier `~/.bashrc`
 
 ```java
 # enable GPG signing
@@ -142,4 +142,4 @@ export GPG_AGENT_INFO=${HOME}/.gnupg/S.gpg-agent:0:1
 
 Redémarrez ensuite WSL2 pour que ça soit pris en compte. 
 
-A la première utilisation de GPG ( par ex. lors d&rsquo;un commit, vous aurez une interface [Ncurses](https://fr.wikipedia.org/wiki/Ncurses) qui apparaîtra dans votre prompt WSL2. Vous aurez à renseigner le mot de passe de votre clé.
+A la première utilisation de GPG ( par ex. lors d'un commit, vous aurez une interface [Ncurses](https://fr.wikipedia.org/wiki/Ncurses) qui apparaîtra dans votre prompt WSL2. Vous aurez à renseigner le mot de passe de votre clé.

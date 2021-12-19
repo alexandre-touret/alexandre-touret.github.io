@@ -15,9 +15,9 @@ publicize_twitter_user:
 tags:
   - planetlibre
 ---
-je n&rsquo;ai pas écrit beaucoup de choses sur mon blog ces derniers temps. C&rsquo;était en partie dû au fait que j&rsquo;étais en train d&rsquo;écrire un article avec [R. SEMETEYS](https://www.linkedin.com/in/raphaelsemeteys/) pour [le blog de mon entreprise](https://blog.worldline.tech).  
-Cet article est disponible **[ici](https://blog.worldline.tech/2018/10/29/opensource-history.html)**. Il essaye de synthétiser l&rsquo;histoire de l&rsquo;open source.
+je n'ai pas écrit beaucoup de choses sur mon blog ces derniers temps. C'était en partie dû au fait que j'étais en train d'écrire un article avec [R. SEMETEYS](https://www.linkedin.com/in/raphaelsemeteys/) pour [le blog de mon entreprise](https://blog.worldline.tech).  
+Cet article est disponible **[ici](https://blog.worldline.tech/2018/10/29/opensource-history.html)**. Il essaye de synthétiser l'histoire de l'open source.
 
-J&rsquo;espère que vous ne serez pas rebuté par l&rsquo;anglais ( c&rsquo;est un exercice 🙂 )
+J'espère que vous ne serez pas rebuté par l'anglais ( c'est un exercice 🙂 )
 
 Bonne lecture 🙂

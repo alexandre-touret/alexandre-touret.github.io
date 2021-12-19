@@ -17,16 +17,16 @@ tags:
   - spring
   - springboo
 ---
-Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.
+Une fois n'est pas coutume, voici un article qui reprend des basiques de la programmation. J'aborde une stack JAVA, mais c'est applicable à d'autres langages.
 
 <div class="wp-block-image">
   <figure class="aligncenter size-large"><img src="/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg?w=1024" alt="" class="wp-image-231" /></figure>
 </div>
 
-Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect) ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.  
-Si vous faites du JAVA, vous utilisez déjà l&rsquo;[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect). En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté `@Transactional`, une transaction est initiée au début de la méthode et fermée à la fin.
+Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l'on oublie assez souvent : l'[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect) ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.  
+Si vous faites du JAVA, vous utilisez déjà l'[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect). En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté `@Transactional`, une transaction est initiée au début de la méthode et fermée à la fin.
 
-Avec [Spring](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html) et notamment dans [Spring boot](https://github.com/spring-projects/spring-boot/), voici comment initier l&rsquo;[AOP](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-api-advice).
+Avec [Spring](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html) et notamment dans [Spring boot](https://github.com/spring-projects/spring-boot/), voici comment initier l'[AOP](https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-api-advice).
 
 ## Configuration maven
 
@@ -83,8 +83,8 @@ LOGGER.trace("End of method : [{}]", joinPoint.getSignature().getName());
 ```
 
 
-L&rsquo;utilisation de l&rsquo; annotation `@ConditionalOnProperty` me permet d&rsquo;activer cette classe de configuration seulement si la propriété `debug.enabled` est initialisée à `true`.  
+L'utilisation de l' annotation `@ConditionalOnProperty` me permet d'activer cette classe de configuration seulement si la propriété `debug.enabled` est initialisée à `true`.  
   
-Les annotations `@Before` et `@After` indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.  
+Les annotations `@Before` et `@After` indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d'un package défini.  
   
 Pour plus de détails sur la syntaxe et les possibilités, vous pouvez vous référer [à la documentation](https://docs.spring.io/spring/docs/2.0.x/reference/aop.html).

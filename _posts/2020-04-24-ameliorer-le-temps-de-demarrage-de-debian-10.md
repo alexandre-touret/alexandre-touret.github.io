@@ -16,20 +16,20 @@ tags:
   - debian
   - planetlibre
 ---
-Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal&#8230; J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.
+Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal&#8230; J'ai eu donc envie de me pencher sur l'optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.
 
 <figure class="wp-block-image size-large">
 <img loading="lazy" width="819" height="45" src="/assets/images/2020/04/boot_time.png?w=819" alt="" class="wp-image-346" srcset="/assets/images/2020/04/boot_time.png 819w, /assets/images/2020/04/boot_time-300x16.png 300w, /assets/images/2020/04/boot_time-768x42.png 768w" sizes="(max-width: 819px) 100vw, 819px" /> 
 </figure> 
 
-Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:
+Tout d'abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:
 
 ```bash
 systemd-analyze plot > plot.svg
 ```
 
 
-J&rsquo;ai obtenu le graphique suivant:<figure class="wp-block-gallery aligncenter columns-1 is-cropped">
+J'ai obtenu le graphique suivant:<figure class="wp-block-gallery aligncenter columns-1 is-cropped">
 
 <ul class="blocks-gallery-grid">
   <li class="blocks-gallery-item">
@@ -66,7 +66,7 @@ sudo systemctl disable NetworkManager-wait-online.service
 
 ## Configuration Apt
 
-Un autre service qui prenait pas mal de temps était [apt-daily.timer qui vérifiait au boot](https://askubuntu.com/questions/1038923/do-i-really-need-apt-daily-service-and-apt-daily-upgrade-service) qu&rsquo;il y avait des mises à jour de l&rsquo;OS. Après quelques recherches, j&rsquo; ai vu qu&rsquo;on pouvait soit le désactiver ( ce qui n&rsquo;est pas recommandé pour les mises à jour de sécurité ) soit décaler la recherche. J&rsquo;ai choisi cette solution. Vous devez donc exécuter la commande suivante:
+Un autre service qui prenait pas mal de temps était [apt-daily.timer qui vérifiait au boot](https://askubuntu.com/questions/1038923/do-i-really-need-apt-daily-service-and-apt-daily-upgrade-service) qu'il y avait des mises à jour de l'OS. Après quelques recherches, j' ai vu qu'on pouvait soit le désactiver ( ce qui n'est pas recommandé pour les mises à jour de sécurité ) soit décaler la recherche. J'ai choisi cette solution. Vous devez donc exécuter la commande suivante:
 
 ```java
 sudo systemctl edit apt-daily.timer
@@ -102,7 +102,7 @@ sudo systemctl daemon-reload
 
 ## Résultats
 
-Après ces quelques manipulations qui peuvent prendre 5 minutes grand maximum, j&rsquo;ai réussi à optimiser le boot en réduisant le démarrage à **5 secondes!**<figure class="wp-block-image size-large">
+Après ces quelques manipulations qui peuvent prendre 5 minutes grand maximum, j'ai réussi à optimiser le boot en réduisant le démarrage à **5 secondes!**<figure class="wp-block-image size-large">
 
 <img loading="lazy" width="783" height="55" src="/assets/images/2020/04/boot_apres_header.png?w=783" alt="" class="wp-image-360" srcset="/assets/images/2020/04/boot_apres_header.png 783w, /assets/images/2020/04/boot_apres_header-300x21.png 300w, /assets/images/2020/04/boot_apres_header-768x54.png 768w" sizes="(max-width: 783px) 100vw, 783px" /> </figure> 
 
