@@ -1,5 +1,5 @@
 ---
-title: Mettre en oeuvre Github Actions utiles pour un site hébergé sur Github pages
+title: Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages
 date: 2021-12-19 12:00:00
 
 header:
