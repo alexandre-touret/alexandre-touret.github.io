@@ -122,8 +122,7 @@ Pour rédiger un article, j'utilise le mécanisme de feature branch et pull requ
 Je rédige les articles (comme celui-ci) et les positionne dans le répertoire ``_drafts``:
 
 ```bash
-ls -R _drafts                                                                                                      littlewing@TAJMAHAL
-_drafts:
+ls -R _drafts                                                                                               
 quelques-github-actions-utiles-pour-un-site-jekyll-heberge-sur-github-io.md
 ```
 
@@ -185,7 +184,7 @@ Une fois ce workflow réalisé, le workflow vu précédemment est automatiquemen
 
 ## Uptime
 
-J'aurai pu utiliser un tiers service telle que [uptime robot](https://uptimerobot.com/). 
+J'aurai pu utiliser un tiers service tel que [uptime robot](https://uptimerobot.com/). 
 Pour mon besoin, j'ai préféré opter pour un appel régulier du site et une vérification du code HTTP (``200``).
 
 ```yaml
@@ -214,7 +213,7 @@ jobs:
 **Explications**
 
 1. Déclenchement toutes les heures de ce workflow
-2. J'ai utilisé une GITHUB ACTION existante qui ping une URL et vérifie le code retour. Dans mon cas, j'ai utilisé l'URL du fichier robots.txt et je vérifie le code retour .
+2. J'ai utilisé une GITHUB ACTION existante qui ping une URL et vérifie le code retour. Dans mon cas, j'ai utilisé l'URL du fichier [robots.txt](https://developers.google.com/search/docs/advanced/robots/intro?hl=fr) et je vérifie le code retour.
 
 
 ## Conclusion
