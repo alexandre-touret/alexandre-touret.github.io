@@ -153,6 +153,7 @@ sass:
 comments:
   provider: "utterances"
   utterances:
+    repository: "alexandre-touret/alexandre-touret.github.io"
     theme: "github-light" # "github-dark"
     issue_term: "pathname"
     label: "comment" # Optional - must be existing label.
