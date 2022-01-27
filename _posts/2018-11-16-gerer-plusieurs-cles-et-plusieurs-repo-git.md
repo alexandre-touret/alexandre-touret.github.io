@@ -12,7 +12,7 @@ Imaginons que vous deviez vous connecter sur différents serveurs GIT (ex. githu
 
 Pour pouvoir gérer ceci de manière simple, j'ai fait la manipulation suivante :
 
-Dans le répertoire ~/.ssh. J'ai crée les différentes clés avec [la doc fournie par GITHUB](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/). Puis, j'ai crée le fichier ``~/.ssh/config`` avec le contenu suivant:
+Dans le répertoire ``~/.ssh``, j'ai crée les différentes clés avec [la doc fournie par GITHUB](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/). Puis, j'ai crée le fichier ``~/.ssh/config`` avec le contenu suivant:
 
 
 ```
