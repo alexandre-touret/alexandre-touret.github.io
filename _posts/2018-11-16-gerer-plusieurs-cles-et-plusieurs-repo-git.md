@@ -1,21 +1,7 @@
 ---
-id: 106
 title: Gérer plusieurs clés et plusieurs repo GIT
 date: 2018-11-16T13:39:04+01:00
 
-
-
-
-geo_public:
-  - "0"
-timeline_notification:
-  - "1542371944"
-publicize_linkedin_url:
-  - www.linkedin.com/updates?topic=6469176818153984000
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
-  - Non classé
 tags:
   - git
   - planetlibre
@@ -26,11 +12,11 @@ Imaginons que vous deviez vous connecter sur différents serveurs GIT (ex. githu
 
 Pour pouvoir gérer ceci de manière simple, j'ai fait la manipulation suivante :
 
-Dans le répertoire ~/.ssh. J'ai crée les différentes clés avec [la doc fournie par GITHUB](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/). Puis, j'ai crée le fichier ~/.ssh/config avec le contenu suivant:
+Dans le répertoire ~/.ssh. J'ai crée les différentes clés avec [la doc fournie par GITHUB](https://help.github.com/articles/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent/). Puis, j'ai crée le fichier ``~/.ssh/config`` avec le contenu suivant:
 
-&nbsp;
 
-<pre>Host monhost1.fr
+```
+Host monhost1.fr
 HostName monhost1.fr
 User git
 IdentityFile ~/.ssh/id_rsa
@@ -42,12 +28,8 @@ IdentityFile ~/.ssh/nouvellecle_rsa
 ```
 
 
-&nbsp;
+Et voilà !
 
-Et voila !
+Après avoir fait les différentes configurations coté serveur (c.-a-d. ajout des clés publiques), je peux interagir avec les différents serveurs (pull, push).
 
-Après avoir fait les différentes configurations coté serveur ( c.-a-d. ajout des clés publiques ), je peux interagir avec les différents serveurs ( pull, push ).
-
-En espérant que ça puisse servir à d'autres
-
-&nbsp;
+En espérant que ça puisse servir à d'autres.
