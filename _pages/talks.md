@@ -1,7 +1,7 @@
 ---
 id: 601
 title: Talks
-date: 2021-12-28T09:41:07+01:00
+date: 2022-01-31T09:41:07+01:00
 permalink: /talks/
 ---
 
@@ -10,6 +10,8 @@ permalink: /talks/
 Vous trouverez ci-dessous les slides et vidéos de mes derniers talks.
 
 Vous pourrez également retrouver [l'ensemble des slides sur SpeakerDeck](https://speakerdeck.com/alexandretouret).
+
+* [Java dans le cloud: avec Spring ou Quarkus?](https://speakerdeck.com/alexandretouret/tnt2-java-dans-le-cloud-avec-spring-ou-quarkus)
 
 * [Kubernetes beyond the hype: 10 tips for designers who want to create cloud apps](https://www.youtube.com/watch?v=F1cpW27ZKus&
 list=PLXADOFXCGUmWdrC1Wey9VGgosDKSdCbNm&index=27)
