@@ -16,6 +16,7 @@ def publishFile(file):
                     dest=POSTS_FOLDER+"/"+datetime_object.strftime("%Y-%m-%-d")+"-"+basename
                     print("Copying draft [",file,"] to [",dest,"]")
                     shutil.copy(file,dest)   
+                    shutil.remove(file)
                     print("Draft published")
                 else:
                     print("This file [",file,"] is newer than now")
