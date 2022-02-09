@@ -13,13 +13,13 @@ def publishFile(file):
                 # Only publish if the date specified in the file is older than now()
                 if(datetime_object < datetime.now()):
                     basename=os.path.basename(file)
-                    dest=POSTS_FOLDER+"/"+datetime_object.strftime("%Y-%m-%-d")+"-"+basename
+                    dest=POSTS_FOLDER+"/"+datetime_object.strftime("%Y-%m-%d")+"-"+basename
                     print("Copying draft [",file,"] to [",dest,"]")
                     shutil.copy(file,dest)   
-                    shutil.remove(file)
+                    os.remove(file)
                     print("Draft published")
                 else:
-                    print("This file [",file,"] is newer than now")
+                    print("This file [",file,":(",datetime_object,")] is newer than now")
 
 def main():
     for file in glob.glob(DRAFTS_FOLDER+"/*.md", recursive = False):
