@@ -62,7 +62,7 @@ plugins:
 
 author:
   name   : "Alexandre Touret"
-  avatar : "/assets/images/bouletmaton1.jpg"
+  avatar : "/assets/images/glasses_alexandre_touret.png"
   bio    : "Architecte logiciel, développeur, bidouilleur (dans le désordre)"
   links:
     - label: "Twitter"
@@ -140,7 +140,7 @@ analytics:
     anonymize_ip: false # default
 twitter:
   username: "touret_alex"
-og_image: /assets/images/bouletmaton1.jpg
+og_image: /assets/images/glasses_alexandre_touret.png
 
 social:
   links:
