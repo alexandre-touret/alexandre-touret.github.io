@@ -24,7 +24,7 @@ jobs:
     - name: 🔨 commit files
       run: |
         if git ls-files -o  --exclude-standard; then
-          git config --local user.email "${{ secrets.GITHUB_USEREMAIL}}"
+          git config --local user.email "${{ secrets.GITHUBUSEREMAIL}}"
           git config --local user.name "${{ secrets.GITHUBUSERNAME}}"
           git add -A
           git commit -m "publish drafts" -a
