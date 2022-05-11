@@ -72,7 +72,7 @@ J'ai volontairement exclu les traitements sur présence de messages (ex. Kafka).
 
 ### Traitement sur présence de fichiers
 
-### Traitement déclenché par un ordonnanceur 
+### gpsupTraitement déclenché par un ordonnanceur 
 
 
 
