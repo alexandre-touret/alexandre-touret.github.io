@@ -10,3 +10,4 @@ vendor/
 #Gemfile.lock
 *.gem
 vendor
+.idea/
