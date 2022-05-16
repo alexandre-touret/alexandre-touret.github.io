@@ -13,9 +13,9 @@ tags:
 
 ![pat-whelen-xSsWBa4rb6E-unsplash.jpg ](/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg)
 
-Quand on parle du Cloud et de Kubernetes, généralement on pense au développement et au déploiement d'APIs.
+Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs.
 Mais qu'en est-il des batchs?
-Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin. 
+Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore. 
 Ils ont même eu une deuxième jeunesse avec le Big Data et l'explosion des volumétries dans l'IT.
 
 Je vais essayer de faire un tour d'horizon dans cet article des batchs dans un environnement Cloud et plus particulièrement dans Kubernetes.
@@ -26,13 +26,13 @@ Les exemples présentés dans cet article seront (sans doute) approfondis dans u
 
 A ce titre un peu provocateur, j'ajouterais aussi *"Pourquoi des batchs dans Kubernetes ?"*.
 
-Oui, aujourd'hui encore, on doit créer des traitements batchs. A coté des APIs qui représentent le cas d'utilisation "standard" du Cloud, on peut également avoir à traiter des fichiers volumineux allant de plusieurs centaines de Mo à quelques Go.
+Oui, aujourd'hui encore,comme j'ai pu l'indiquer précédemment, on doit créer des traitements batchs. A coté des APIs qui représentent le cas d'utilisation "standard" du Cloud, on peut également avoir à traiter des fichiers volumineux allant de plusieurs centaines de Mo à quelques Go.
 
 Parmi les cas d'utilisation qui nécessitent ce genre de traitement, on pourra avoir:
 * Les reprises de données (suite à des erreurs ou lors d'une initialisation)
 * Traitement suite à une réception de fichiers (par ex. traitement de fichiers OPENDATA)
 
-Si vous déjà franchi le pas du Cloud pour vos applications transactionnelles, vous vous poserez cette question: *Puis-je également déployer des batchs?*
+Si vous êtes déjà passé sur le Cloud pour vos applications transactionnelles, vous vous poserez cette question: *Puis-je également déployer des batchs?*
 
 ### Pourquoi se poser cette question?
 
@@ -54,7 +54,7 @@ Selon les sociétés, il peut y avoir un fort historique et beaucoup d' exigence
 Que cela soit sur les performances, la qualité de service ou plus simplement l' utilisation.
 
 Il faut donc, à l'instar de toute architecture, déterminer quel sera l'environnement technique de ce type de traitement. 
-Cette fois, on aura à concilier performances et fichiers volumineux. 
+Cette fois, on aura à concilier performances, fichiers volumineux et reprises sur erreur. 
 
 ### Quelques technologies
 
@@ -88,12 +88,12 @@ Pour les APIs, ce n'est pas un problème.
 Pour les batchs, c'est une autre paire de manches. 
 Quid du crash en plein milieu du traitement d'un fichier?
 
-Il faut donc penser à ce cas-là et archiver les fichiers pour un éventuel rejeu.
+Il faut donc penser à ce cas ( et à d'autres) et archiver les fichiers pour un éventuel rejeu.
 
 ### Données et idempotence des traitements
 
 Idéalement, les fichiers doivent avoir des lignes indépendantes qui peuvent être insérées individuellement et dans n'importe quel ordre.
-De même, chaque modification et traitement de données doivent être idempotentes.
+Aussi, chaque modification et traitement de données doivent être idempotentes.
 
 Pourquoi? Pas seulement par ce que c'est sympa et l'état de l'art, mais dans ce nouvel environnement, vous ne pourrez pas forcément garantir l'ordre des traitements.
 L'une des solutions potentielles de traitement est de découpler la lecture et l'insertion par du queueing (Artemis, Kafka *- oui ce n'est pas du queuing, mais vous avez compris...*). 
@@ -106,9 +106,9 @@ Vos ressources systèmes sont des PODs avec un 1 Go de RAM.
 
 Vous voyez le soucis? 
 
-Cet exemple, qui n'est pas trop éloigné de la réalité, mets en évidence, que vous devrez prendre dès le début de votre conception cette contrainte. 
+Cet exemple, qui n'est pas trop éloigné de la réalité, mets en évidence l'une des contraintes techniques que vous devrez prendre dès le début de votre conception. 
 
-L'une des solutions serait,par exemple, le traitement quasi systématique du streaming de fichiers et l'obligation d'avoir des fichiers avec des lignes de données indépendantes (c.-à-d. sans avoir à faire de liens inter lignes pendant le traitement).
+L'une des solutions serait, par exemple, le traitement quasi systématique du streaming de fichiers et l'obligation d'avoir des fichiers avec des lignes de données indépendantes (c.-à-d. sans avoir à faire de liens inter lignes pendant le traitement).
 
 ## Traitement sur réception de fichiers
 
@@ -126,15 +126,16 @@ Dans ce cas, le batch pourra être déployé sous la forme d'un [déploiement Ku
 ## Traitement déclenché par un ordonnanceur 
 
 Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers. 
-Généralement, dans le monde de l'entreprise, la plannification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des [CRON Jobs](https://en.wikipedia.org/wiki/Cron).
+Généralement, dans le monde de l'entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des [CRON Jobs](https://en.wikipedia.org/wiki/Cron).
 
-Dans ce cas, on a deux manières de faire:
+Dans ce cas, on a deux manières de procéder:
 * Avoir un traitement qui fournit une API permettant de démarrer des traitements et d'avoir leurs statuts.
 * Lancer des jobs.
 
 ### Avec une API
 
-Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu'à l'instar de la solution précédente, le programme tourne toujours et n' est vraiment utile que lorsqu'il est appelé via son API. 
+Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu'à l'instar de la solution précédente, le programme tourne toujours et n' est vraiment utile que lorsqu'il est appelé via un endpoint REST.
+
 Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l'intégration d'un  Job Kubenertes est problématique pour vous (voir ci-dessous). 
 
 L'un des avantages que l'on pourra trouver est que le [mode de déploiement est assez simple et similaire aux APIs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
