@@ -20,6 +20,7 @@ Ils ont même eu une deuxième jeunesse avec le Big Data et l'explosion des volu
 
 Je vais essayer de faire un tour d'horizon dans cet article des batchs dans un environnement Cloud et plus particulièrement dans Kubernetes.
 
+Les exemples présentés dans cet article seront (sans doute) approfondis dans un second article et d'ores et déjà disponibles dans [mon GitHub](https://github.com/alexandre-touret/k8s-batch). 
 
 ## Pourquoi des batchs dans le Cloud?
 
@@ -138,9 +139,46 @@ Ce modèle de conception peut être utilisé à mon avis si la fréquence est fo
 
 L'un des avantages que l'on pourra trouver est que le [mode de déploiement est assez simple et similaire aux APIs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
-![traitement_api]/assets/images/2022/05/traitement_api.svg)
+![traitement_api](/assets/images/2022/05/traitement_api.svg)
 
 ### Avec des jobs
+
+Si votre ordonnanceur peut exécuter le client kubectl, vous pourrez considérer les [jobs  kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/job/). 
+
+En résumé, ils permettent de créer un POD et exécute une action en gérant les erreurs potentielles jusqu'à complétion du traitement.
+
+Par exemple, voici un job permettant de faire un "Hello World!":
+
+```yaml
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hello-world
+spec:
+  template:
+    spec:
+      containers:
+      - name: helloworld
+        image: busybox
+        command: ["echo",  "Hello World!"]
+      restartPolicy: Never
+  backoffLimit: 4
+```
+
+Une fois déployé avec Helm, vous pouvez les voir avec la commande ``kubectl get jobs``
+
+```jshelllanguage
+minikube kubectl -- get jobs
+NAME          COMPLETIONS   DURATION   AGE
+hello-world   0/1           25s        25s
+```
+
+Pour les logs et voir le résultat de la commande lancé, cela se passe d'une manière assez habituelle:
+
+```jshelllanguage
+minikube kubectl -- logs hello-world-zx4wh
+Hello World!
+```
 
 ## Traitement déclenché par CRONTab
 
