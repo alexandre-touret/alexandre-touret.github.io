@@ -11,10 +11,11 @@ tags:
   - batch
 ---
 
-![pat-whelen-xSsWBa4rb6E-unsplash.jpg ](/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg)
-
 Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs.
 Mais qu'en est-il des batchs?
+
+![pat-whelen-xSsWBa4rb6E-unsplash.jpg ](/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg){: .align-center}
+
 Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore. 
 Ils ont même eu une deuxième jeunesse avec le Big Data et l'explosion des volumétries dans l'IT.
 
@@ -42,7 +43,7 @@ Vous avez votre application dans le cloud, votre base de données y est égaleme
 Vous devez donc déployer des traitements tiers au plus proche de celle-ci pour vous soustraire des mêmes soucis.
 
 De plus, l'écosystème lié au cloud offre des technologies et pratiques qui rendent la vie plus simple (si, si je vous assure) aux développeurs et ops. 
-Le déploiement via l'Infra As Code est un bon exemple : Avoir toute l'infrastructure liée aux traitements batchs et transactionnels versionnées et instantiables à la demande est quelque chose dont on a du mal à se passer!
+Le déploiement via [l'Infra As Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) est un bon exemple : Avoir toute l'infrastructure liée aux traitements batchs et transactionnels versionnées et instantiables à la demande est quelque chose dont on a du mal à se passer!
 
 ## Difficulté(s) par rapport aux APIs
 
@@ -50,8 +51,8 @@ Quand on déploie une API dans le cloud, généralement tout va bien.
 On peut voir rapidement que cet environnement convient bien à ce genre de traitements.
 
 Pour les batchs, c'est une autre affaire!
-Selon les sociétés, il peut y avoir un fort historique et beaucoup d' exigences à propos des batchs. 
-Que cela soit sur les performances, la qualité de service ou plus simplement l' utilisation.
+Selon les sociétés, il peut y avoir un fort historique et beaucoup plus d'exigences que pour les APIs. 
+Ces dernières pourront être liées aux performances, à la qualité de service ou plus simplement à l'utilisation. 
 
 Il faut donc, à l'instar de toute architecture, déterminer quel sera l'environnement technique de ce type de traitement. 
 Cette fois, on aura à concilier performances, fichiers volumineux et reprises sur erreur. 
@@ -61,8 +62,8 @@ Cette fois, on aura à concilier performances, fichiers volumineux et reprises s
 On pourra retrouver dans notre future architecture les briques suivantes:
 
 * Une passerelle de fichiers (File Gateway) pour permettre l'envoi des fichiers de manière sécurisée
-* Un stockage objet pour la distribution de fichiers, ou l'archivage.
-* Les éléments nécessaires à l'API : bases de données, HSMs, Cluster Kubernetes,...
+* Un stockage objet pour la distribution de fichiers ou l'archivage.
+* Les éléments nécessaires à l'API : bases de données, [HSMs](https://en.wikipedia.org/wiki/Hardware_security_module), Cluster Kubernetes,...
 
 ## Modes de déclenchement
 
@@ -70,7 +71,7 @@ Si on regarde de plus près les exigences techniques liées aux cas d'utilisatio
 
 * Traitement sur réception de fichiers
 * Traitement déclenché par un ordonnanceur de manière régulière ou non.
-* Traitement déclenché par CRONTab
+* Traitement déclenché par [CRON](https://en.wikipedia.org/wiki/Cron)
 
 J'ai volontairement exclu les traitements sur présence de messages (ex. Kafka). Je les considère plus liés au monde transactionnel.
 
@@ -78,7 +79,7 @@ Dans les paragraphes suivants, je vais décrire des solutions d'architecture qui
 
 ## Contraintes 
 
-Dès qu'on s'aventure dans ce type de conception, nous aurons, au delà des [12 factors](https://12factor.net/), les contraintes suivantes à traiter:
+Dès qu'on s'aventure dans ce type de conception, nous aurons, au-delà des [12 factors](https://12factor.net/), les contraintes suivantes à traiter:
   
 ### Gestion des erreurs et indisponibilités
 Dans un cluster Kubernetes, le crash d'un POD n'est pas rédhibitoire.
@@ -88,7 +89,7 @@ Pour les APIs, ce n'est pas un problème.
 Pour les batchs, c'est une autre paire de manches. 
 Quid du crash en plein milieu du traitement d'un fichier?
 
-Il faut donc penser à ce cas ( et à d'autres) et archiver les fichiers pour un éventuel rejeu.
+Il faut donc penser à ce cas (et à d'autres) et archiver les fichiers pour un éventuel rejeu.
 
 ### Données et idempotence des traitements
 
@@ -119,7 +120,7 @@ Je traite ici le risque de crash d'un POD en gardant systématiquement les fichi
 
 Ce découplage permet de gérer facilement la scalabilité et les arrêts/relances de PODs.
 
-![batch_evenement-Batch_sur_presence_fichier](/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg)
+![batch_evenement-Batch_sur_presence_fichier](/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg){: .align-center}
 
 Dans ce cas, le batch pourra être déployé sous la forme d'un [déploiement Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
@@ -140,7 +141,7 @@ Ce modèle de conception peut être utilisé à mon avis si la fréquence est fo
 
 L'un des avantages que l'on pourra trouver est que le [mode de déploiement est assez simple et similaire aux APIs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
-![traitement_api](/assets/images/2022/05/traitement_api.svg)
+![traitement_api](/assets/images/2022/05/traitement_api.svg){: .align-center}
 
 ### Avec des jobs
 
@@ -168,7 +169,7 @@ spec:
 
 Une fois déployé avec Helm, vous pouvez les voir avec la commande ``kubectl get jobs``
 
-```jshelllanguage
+```bash
 minikube kubectl -- get jobs
 NAME          COMPLETIONS   DURATION   AGE
 hello-world   0/1           25s        25s
@@ -176,17 +177,36 @@ hello-world   0/1           25s        25s
 
 Pour les logs et voir le résultat de la commande lancé, cela se passe d'une manière assez habituelle:
 
-```jshelllanguage
+```bash
 minikube kubectl -- logs hello-world-zx4wh
 Hello World!
 ```
 
-## Traitement déclenché par CRONTAB
+## Traitement déclenché par CRON
 
-Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRONTAB.
-Bien que je ne suis pas trop fan de ne pas centraliser l'ordonancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.
+Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRON.
+Bien que je ne suis pas trop fan de ne pas centraliser l'ordonnancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.
 
 Si vous êtes dans ce cas-là, vous pouvez utiliser l'objet [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) qui n'est ni plus ni moins qu'un [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) exécuté de manière périodique.
+
+
+```yaml
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: hello
+spec:
+  schedule: "* * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: helloworld-cron
+            image: busybox
+            command: ["echo",  "Hello World!"]
+          restartPolicy: OnFailure
+```
 
 ## Panorama des solutions logicielles possibles
 
@@ -202,6 +222,7 @@ En Java, vous avez le choix entre différents frameworks :
 * [Quarkus](https://quarkus.io/) avec la [JSR 352](https://github.com/quarkiverse/quarkus-jberet)
 
 Si vous allez du côté du BigData, vous pouvez aussi envisager d'utiliser des technologies telles qu'[Apache Spark](https://spark.apache.org/).
+Ces dernières vous permettront de [découper "plus facilement" vos traitements](https://spark.apache.org/docs/latest/running-on-kubernetes.html).
 
 ## Le diable se cache dans les détails
 
@@ -209,7 +230,7 @@ Déployer un batch dans Kubernetes peut se faire assez facilement (en développe
 Cependant, les soucis peuvent survenir une fois arrivé en production. 
 
 La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement (rejeu) en production. 
-Il vous faudra bien donc [identifier et évaluer les risques liés à votre application](https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/) et voir quelles sont les actions à mener.
+Il vous faudra ainsi bien [identifier et évaluer les risques liés à votre application](https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/) et voir quelles sont les actions à mener.
 
 Aussi, si vous devez manipuler des fichiers volumineux, il faudra faire attention au système de fichiers utilisé et ses performances. Habituellement, avec ce type d'architecture, on utilise généralement du SAN. En fonction de vos exigences, un [stockage block](https://www.redhat.com/fr/topics/data-storage/file-block-object-storage) pourra être plus adapté.
 
@@ -218,6 +239,10 @@ Aussi, si vous devez manipuler des fichiers volumineux, il faudra faire attentio
 Pour conclure cet article, vous aurez compris que le sujet des batchs dans Kubernetes peut s'avérer assez complexe à gérer. 
 Au-delà des technologies qui peuvent faire le job (*désolé du mauvais jeu de mots*), il vous faudra faire très attention à tout l'environnement dans lequel votre programme devra interagir. Les bases, le réseau, les performances de votre matériel seront des prérequis indispensables.
 
-Aussi, il vous faudra faire attention à la manière dont sont transmises les données et dont vous les traitez. Bref, il faut étudier la solution dans son ensemble du développement à l'exploitation pour s'assurer de ne rien oublier.
+Aussi, il vous faudra faire attention à la manière dont sont transmises les données et dont vous les traitez. 
+Bref, il faut étudier la solution dans son ensemble du développement à l'exploitation pour s'assurer de ne rien oublier. 
 
-J'essaierai de détailler un exemple dans un prochain article.
+Enfin, cet article n'est bien évidemment pas exhaustif que cela soit sur les solutions ou les contraintes à adresser. 
+J'ai néanmoins essayé d'apporter quelques cas concrets et retours d'expérience. 
+
+J'essaierai de détailler un cas concret dans un prochain article.
