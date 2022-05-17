@@ -181,10 +181,31 @@ minikube kubectl -- logs hello-world-zx4wh
 Hello World!
 ```
 
-## Traitement déclenché par CRONTab
+## Traitement déclenché par CRONTAB
 
-## Paysages des solutions logicielles possibles
+Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRONTAB.
+Bien que je ne suis pas trop fan de ne pas centraliser l'ordonancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.
 
-## Faiblesses
+Si vous êtes dans ce cas-là, vous pouvez utiliser l'objet [CronJob](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) qui n'est ni plus ni moins qu'un [Job](https://kubernetes.io/docs/concepts/workloads/controllers/job/) exécuté de manière périodique.
+
+## Panorama des solutions logicielles possibles
+
+Une fois qu'on s'est posé toutes (en tout cas certaines) les questions possibles sur nos exigences techniques et la conception, on peut voir quelles sont les technologies possibles pour implémenter des batchs "cloud natifs".
+
+Ça ne sera pas une surprise, je vais m'attarder à la plateforme Java. Il est bien évidemment possible d'utiliser d'autres langages et frameworks tels que Go.
+
+En Java, vous avez le choix entre différents frameworks :
+
+* [Spring avec spring batch]([Spring avec spring batch et/ou integration
+) et/ou [integration](https://spring.io/projects/spring-integration)
+* [Camel](https://camel.apache.org/) qui peut être utilisé avec [Spring](https://camel.apache.org/manual/spring.html) ou [Quarkus](https://quarkus.io/)
+* [Quarkus](https://quarkus.io/) avec la [JSR 352](https://github.com/quarkiverse/quarkus-jberet)
+
+## Le diable se cache dans les détails
+
+Déployer un batch dans Kubernetes peut se faire assez facilement (en développement) une fois qu'on a compris quelques principes. 
+Cependant, les soucis peuvent survenir une fois arrivé en production. 
+La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement ( rejeu ) 
+
 
 ## Conclusion
