@@ -1,6 +1,6 @@
 ---
 title: Faire des batchs "Cloud Native" dans Kubernetes
-date: 2022-05-16 08:00:00
+date: 2022-05-17 08:00:00
 
 header:
   teaser: /assets/images/2022/02/architecture.jpg
