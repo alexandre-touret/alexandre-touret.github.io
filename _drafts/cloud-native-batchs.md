@@ -42,7 +42,7 @@ Elles sont tout d'abord liées à une rationalisation des environnements.
 Vous avez votre application dans le cloud, votre base de données y est également gérée pour éviter la latence réseau.
 Vous devez donc déployer des traitements tiers au plus proche de celle-ci pour vous soustraire des mêmes soucis.
 
-De plus, l'écosystème lié au cloud offre des technologies et pratiques qui rendent la vie plus simple (si, si je vous assure) aux développeurs et ops. 
+De plus, l'écosystème lié au cloud offre des technologies et pratiques qui rendent la vie plus simple (si, si, je vous assure) aux développeurs et ops. 
 Le déploiement via [l'Infra As Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) est un bon exemple : Avoir toute l'infrastructure liée aux traitements batchs et transactionnels versionnées et instantiables à la demande est quelque chose dont on a du mal à se passer!
 
 ## Difficulté(s) par rapport aux APIs
