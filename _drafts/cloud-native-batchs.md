@@ -134,9 +134,9 @@ Dans ce cas, on a deux manières de procéder:
 
 ### Avec une API
 
-Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu'à l'instar de la solution précédente, le programme tourne toujours et n' est vraiment utile que lorsqu'il est appelé via un endpoint REST.
+Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu'à l'instar de la solution précédente, le programme tourne toujours et n'est vraiment utile que lorsqu'il est appelé via un endpoint REST.
 
-Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l'intégration d'un  Job Kubenertes est problématique pour vous (voir ci-dessous). 
+Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l'intégration d'un Job Kubernetes est problématique pour vous (voir ci-dessous). 
 
 L'un des avantages que l'on pourra trouver est que le [mode de déploiement est assez simple et similaire aux APIs](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
@@ -201,11 +201,23 @@ En Java, vous avez le choix entre différents frameworks :
 * [Camel](https://camel.apache.org/) qui peut être utilisé avec [Spring](https://camel.apache.org/manual/spring.html) ou [Quarkus](https://quarkus.io/)
 * [Quarkus](https://quarkus.io/) avec la [JSR 352](https://github.com/quarkiverse/quarkus-jberet)
 
+Si vous allez du côté du BigData, vous pouvez aussi envisager d'utiliser des technologies telles qu'[Apache Spark](https://spark.apache.org/).
+
 ## Le diable se cache dans les détails
 
 Déployer un batch dans Kubernetes peut se faire assez facilement (en développement) une fois qu'on a compris quelques principes. 
 Cependant, les soucis peuvent survenir une fois arrivé en production. 
-La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement ( rejeu ) 
 
+La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement (rejeu) en production. 
+Il vous faudra bien donc [identifier et évaluer les risques liés à votre application](https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/) et voir quelles sont les actions à mener.
+
+Aussi, si vous devez manipuler des fichiers volumineux, il faudra faire attention au système de fichiers utilisé et ses performances. Habituellement, avec ce type d'architecture, on utilise généralement du SAN. En fonction de vos exigences, un [stockage block](https://www.redhat.com/fr/topics/data-storage/file-block-object-storage) pourra être plus adapté.
 
 ## Conclusion
+
+Pour conclure cet article, vous aurez compris que le sujet des batchs dans Kubernetes peut s'avérer assez complexe à gérer. 
+Au-delà des technologies qui peuvent faire le job (*désolé du mauvais jeu de mots*), il vous faudra faire très attention à tout l'environnement dans lequel votre programme devra interagir. Les bases, le réseau, les performances de votre matériel seront des prérequis indispensables.
+
+Aussi, il vous faudra faire attention à la manière dont sont transmises les données et dont vous les traitez. Bref, il faut étudier la solution dans son ensemble du développement à l'exploitation pour s'assurer de ne rien oublier.
+
+J'essaierai de détailler un exemple dans un prochain article.
