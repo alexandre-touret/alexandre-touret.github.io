@@ -70,8 +70,8 @@ On pourra retrouver dans notre future architecture les briques suivantes:
 Si on regarde de plus près les exigences techniques liées aux cas d'utilisation, on pourrait résumer les différents modes de déclenchement de la manière suivante:
 
 * Traitement sur réception de fichiers
-* Traitement déclenché par un ordonnanceur de manière régulière ou non.
-* Traitement déclenché par [CRON](https://en.wikipedia.org/wiki/Cron)
+* Traitement déclenché par un ordonnanceur/orchestrateur centralisé (ex. https://dkron.io/) de manière régulière ou non.
+* Traitement déclenché par [CRON](https://en.wikipedia.org/wiki/Cron) (qui est un ordonnanceur, mais un peu plus roots)
 
 J'ai volontairement exclu les traitements sur présence de messages (ex. Kafka). Je les considère plus liés au monde transactionnel.
 
@@ -124,9 +124,9 @@ Ce découplage permet de gérer facilement la scalabilité et les arrêts/relanc
 
 Dans ce cas, le batch pourra être déployé sous la forme d'un [déploiement Kubernetes](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/).
 
-## Traitement déclenché par un ordonnanceur 
+## Traitement déclenché à distance (par ex. par un orchestrateur de traitements)
 
-Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers. 
+Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers ou tout simplement lancé à distance. 
 Généralement, dans le monde de l'entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des [CRON Jobs](https://en.wikipedia.org/wiki/Cron).
 
 Dans ce cas, on a deux manières de procéder:
