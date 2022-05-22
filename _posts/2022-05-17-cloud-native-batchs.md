@@ -4,7 +4,7 @@ date: 2022-05-17 08:00:00
 
 header:
   teaser: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg
-  image: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg
+og_image: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg
 
 tags:
   - cloud
