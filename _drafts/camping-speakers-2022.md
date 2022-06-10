@@ -10,9 +10,9 @@ tags:
 - conference
 ---
 
-Au début de l'année, j'ai interpelé mes managers: "J'ai été retenu au [Camping des Speakers"](https://camping-speakers.fr/)!
+Au début de l'année, j'ai interpelé mes managers: *"J'ai été retenu au [Camping des Speakers"](https://camping-speakers.fr/)!*
 
-Unanimement, j'ai eu la même réponse: "Le QUOI ???!!!"
+Unanimement, j'ai eu la même réponse: *"Le QUOI ???!!!"*
 
 Oui j'en conviens le titre peut paraître à première vue tout sauf sérieux. 
 Il faut dire que le lieu est un camping en Bretagne dans le golfe du Morbihan.
