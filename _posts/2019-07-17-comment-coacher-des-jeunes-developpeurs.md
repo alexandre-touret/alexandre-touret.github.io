@@ -14,7 +14,7 @@ publicize_twitter_user:
 En changeant de société l'année dernière j'ai eu l'impression de monter d'un cran dans la pyramide des ages.  
 Pour faire plus simple, je me suis senti un peu plus vieux.
 
-<img loading="lazy" class="size-medium wp-image-189 aligncenter" src="/assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg?w=300" alt="" width="300" height="186" /> 
+![old bloy](/assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg){: .align-center}
 
 Si vous avez quelques années d'expérience dans le développement ou tout simplement dans la technique, vous avez déjà eu l'occasion de coacher ou d'encadrer techniquement des jeunes diplômés.
 
