@@ -30,15 +30,11 @@ Après quelques recherches, j'ai donc opté pour une solution basée sur un [DAC
 
 Voici le DAC que l'on branche directement sur le port GPIO du Raspberry PI:
 
-<img loading="lazy" class="size-medium wp-image-156 aligncenter" src="/assets/images/2019/03/f1228179-02.jpg?w=292" alt="" width="292" height="300" srcset="/assets/images/2019/03/f1228179-02.jpg 432w, /assets/images/2019/03/f1228179-02-292x300.jpg 292w" sizes="(max-width: 292px) 100vw, 292px" /> 
+![dac](/assets/images/2019/03/f1228179-02.jpg){: .align-center}
 
- 
+L'installation et la configuration du DAC se sont très bien passées. L'installation se fait comme avec des LEGOs.
 
-L'installation et la configuration du DAC se sont très bien passées. L'installation se fait comme avec des LEGOs.<figure id="attachment_159" aria-describedby="caption-attachment-159" style="width: 300px" class="wp-caption aligncenter">
-
-<img loading="lazy" class="size-medium wp-image-159" src="/assets/images/2019/03/img_20190306_234555.jpg?w=300" alt="" width="300" height="224" /> <figcaption id="caption-attachment-159" class="wp-caption-text">Que la lumière soit</figcaption></figure> 
-
- 
+![it's alive](/assets/images/2019/03/img_20190306_234555.jpg){: .align-center}
 
 Pour la configuration, j'ai testé dans un premier temps [Volumio](https://volumio.org/) puis [MoodeAudio](http://moodeaudio.org/). Pour  l'instant, je reste sur cette dernière. Toutes les fonctionnalités que je souhaite sont en standard. Pas besoin de plugins tiers.
 

@@ -12,6 +12,29 @@ publicize_twitter_user:
   - touret_alex
 publicize_linkedin_url:
   - ""
+
+gallery:
+ - url: /assets/images/2019/09/yoda.jpg
+   image_path: /assets/images/2019/09/yoda.jpg
+   alt: "Yoda"
+   title: "Yoda"
+ - url: /assets/images/2019/09/pascal_le_grand_frere.jpg
+   image_path: /assets/images/2019/09/pascal_le_grand_frere.jpg
+   alt: "Pascal"
+   title: "Pascal"
+ - url: /assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg
+   image_path: /assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg
+   alt: "Kubrick"
+   title: "Kubrick"
+ - url: /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg
+   image_path: /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg
+   alt: "Gandalf"
+   title: "Gandalf"
+ - url: /assets/images/2019/09/bisounours.jpg
+   image_path: /assets/images/2019/09/bisounours.jpg
+   alt: "Bisounours"
+   title: "Bisounours"
+   
 ---
 Après avoir soumis [mon article sur le coaching des développeur](http://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/)s, je me suis rendu compte que j'ai oublié pas mal de points qui, à bien y réfléchir, me paraissent essentiels.  
 Dans mon précédent article ( the first blood pour le coup ) je me suis attardé sur le « quoi » : toutes les actions que j'ai testé dans l'encadrement des jeunes développeurs et des développeurs en général.
@@ -22,23 +45,7 @@ Je vais commencer par ce dernier point. Quand on est architecte, développeur s�
 
 Vous pouvez adopter plusieurs postures:
 
-<ul class="wp-block-gallery columns-3 is-cropped">
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="275" height="321" src="/assets/images/2019/09/yoda.jpg" alt="" data-id="212" data-link="http://blog.touret.info/?attachment_id=212" class="wp-image-212" srcset="/assets/images/2019/09/yoda.jpg 275w, /assets/images/2019/09/yoda-257x300.jpg 257w" sizes="(max-width: 275px) 100vw, 275px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="300" height="168" src="/assets/images/2019/09/pascal_le_grand_frere.jpg" alt="" data-id="211" data-link="http://blog.touret.info/?attachment_id=211" class="wp-image-211" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="613" height="344" src="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg?w=612" alt="" data-id="210" data-link="http://blog.touret.info/?attachment_id=210" class="wp-image-210" srcset="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg 613w, /assets/images/2019/09/capture-kubrick-756b3f-0401x-300x168.jpeg 300w" sizes="(max-width: 613px) 100vw, 613px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="480" height="360" src="/assets/images/2019/09/bisounours.jpg" alt="" data-id="209" data-link="http://blog.touret.info/?attachment_id=209" class="wp-image-209" srcset="/assets/images/2019/09/bisounours.jpg 480w, /assets/images/2019/09/bisounours-300x225.jpg 300w" sizes="(max-width: 480px) 100vw, 480px" /></figure>
-  </li>
-  <li class="blocks-gallery-item">
-    <figure><img loading="lazy" width="410" height="230" src="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg" alt="" data-id="217" data-link="http://blog.touret.info/?attachment_id=217" class="wp-image-217" srcset="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg 410w, /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438-300x168.jpg 300w" sizes="(max-width: 410px) 100vw, 410px" /></figure>
-  </li>
-</ul>
+{% include gallery caption="Différentes postures à adopter"  layout="half" %}
 
 A ce stade de lecture de cet article, vous vous dites, quelle est la bonne photo et donc la posture à adopter ?  
 A mon avis, elles sont à proscrire individuellement. Je pense qu'il faut les panacher.
