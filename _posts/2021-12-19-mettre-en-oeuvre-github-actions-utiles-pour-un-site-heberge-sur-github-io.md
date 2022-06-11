@@ -12,7 +12,7 @@ tags:
   - planetlibre
 ---
 
-![github](/assets/images/2021/12/github-1.jpg)
+![github](/assets/images/2021/12/github-1.jpg){: .align-center}
 
 ## Pourquoi mettre en oeuvre des GITHUB ACTIONS ?
 

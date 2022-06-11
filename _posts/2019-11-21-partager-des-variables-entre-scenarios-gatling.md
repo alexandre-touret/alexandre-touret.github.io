@@ -17,7 +17,7 @@ tags:
 ---
 Je suis en train de mettre en œuvre des tests de performance avec [Gatling](https://gatling.io/). Un des principaux outils libres de tests de performance.<figure class="wp-block-image size-large">
 
-<img loading="lazy" width="800" height="500" src="/assets/images/2019/11/gatling-new-design.png?w=612" alt="" class="wp-image-236" srcset="/assets/images/2019/11/gatling-new-design.png 800w, /assets/images/2019/11/gatling-new-design-300x188.png 300w, /assets/images/2019/11/gatling-new-design-768x480.png 768w" sizes="(max-width: 800px) 100vw, 800px" /> </figure> 
+![gatling](/assets/images/2019/11/gatling-new-design.png){: .align-center}
 
 J'ai eu récemment à résoudre un « petit » soucis : je souhaitai partager des variables entre plusieurs [scénarios](https://gatling.io/docs/2.2/general/scenario). Il existe pas mal de solutions sur stackoverflow. J'ai condensé certaines d'entre elles pour les adapter à mon besoin.  
 Ces variables sont issues de exécution d'une seule requête et sont automatiquement injectées dans les scénarios suivants. Ce mécanisme permet par exemple de récupérer un jeton d'un serveur d'identification et de l'injecter pour le scénario que l'on souhaite tester.
@@ -47,7 +47,6 @@ val secondScenario = scenario("Second Simulation")
 ```
 
 
-Voici l'exemple complet  
-[gist https://gist.github.com/littlewing/bdba509353c7b42de85d9a90c0352aa7#file-gatling\_scenario\_with\_shared\_values-scala]  
-  
+Voici [l'exemple complet](https://gist.github.com/alexandre-touret/bdba509353c7b42de85d9a90c0352aa7#file-gatling_scenario_with_shared_values-scala) .
+
 En espérant que cela puisse aider à certain.e.s d'entre vous 🙂
