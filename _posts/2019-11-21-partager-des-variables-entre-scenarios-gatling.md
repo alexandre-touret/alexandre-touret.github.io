@@ -48,6 +48,8 @@ val secondScenario = scenario("Second Simulation")
 ```
 
 
-Voici [l'exemple complet](https://gist.github.com/alexandre-touret/bdba509353c7b42de85d9a90c0352aa7#file-gatling_scenario_with_shared_values-scala) .
+Voici l'exemple complet
+
+<script src="https://gist.github.com/alexandre-touret/bdba509353c7b42de85d9a90c0352aa7#file-gatling_scenario_with_shared_values-scala" />
 
 En espérant que cela puisse aider à certain.e.s d'entre vous 🙂
