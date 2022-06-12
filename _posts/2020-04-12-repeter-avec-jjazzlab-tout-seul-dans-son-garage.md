@@ -105,7 +105,7 @@ Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
 Disclaimer: La c'est la partie la plus obscure&#8230;
 
 
-![aconnect](/assets/images/2020/04/pegi_18_annotated_2009-2010.png){: .align-center}
+![aconnect](/assets/images/2020/04/pegi_18_annotated_2009-2010.webp){: .align-center}
 
 
 Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n'est pas intuitif, je vous avais prévenu &#8230;  
