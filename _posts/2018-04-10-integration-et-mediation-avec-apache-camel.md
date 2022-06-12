@@ -6,6 +6,13 @@ date: 2018-04-10T15:15:05+02:00
 
 
 
+header:
+  teaser: /assets/images/2018/04/apache-camel-logo.png
+og_image: /assets/images/2018/04/apache-camel-logo.png
+
+
+
+
 timeline_notification:
   - "1523369709"
 publicize_twitter_user:
@@ -17,7 +24,8 @@ tags:
 ---
 Depuis quelques jours, je teste [Apache Camel](https://camel.apache.org/) pour la mise en œuvre  de médiations.
 
-<img loading="lazy" class=" size-full wp-image-80 aligncenter" src="/assets/images/2018/04/apache-camel-logo.png" alt="Apache-camel-logo" width="349" height="171" srcset="/assets/images/2018/04/apache-camel-logo.png 349w, /assets/images/2018/04/apache-camel-logo-300x147.png 300w" sizes="(max-width: 349px) 100vw, 349px" /> 
+
+![camel](/assets/images/2018/04/apache-camel-logo.png){: .align-center}
 
 [Apache Camel](https://camel.apache.org/) est un framework assez ancien. Il est similaire à [Spring Intégration](https://projects.spring.io/spring-integration/) et permet l' implémentation de [patterns d'intégration](http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html).
 
@@ -27,9 +35,7 @@ Qu'est-ce qu'un [pattern d'intégration](http://www.enterpriseintegrationpattern
 
 Exemple :
 
-<img loading="lazy" class="alignnone size-full wp-image-79" src="/assets/images/2018/04/publishsubscribesolution.gif" alt="PublishSubscribeSolution" width="504" height="330" /> 
-
-&nbsp;
+![publish_subscribe](/assets/images/2018/04/publishsubscribesolution.gif){: .align-center}
 
 Camel permet simplement de gérer l'intégration via un DSL.
 
@@ -53,17 +59,17 @@ Tout se configure par des URLs. La première permet d'extraire les données via 
 
 Elles sont externalisées dans des fichiers de configuration pour faciliter les tests et accessibles via SPRING.
 
-https://gist.github.com/littlewing/470b84ac760c4f70d093753c63ec153b
+[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b]
 
-https://gist.github.com/littlewing/470b84ac760c4f70d093753c63ec153b#file-camel-properties
+[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-camel-properties]
 
-https://gist.github.com/littlewing/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java
+[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java]
 
 ## Lancement de la route
 
 Le lancement de la route se fait dans une méthode main() :
 
-https://gist.github.com/littlewing/40f3cfa13f5947aa922fc1f796668c59
+[https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59]
 
 ## Tests
 
@@ -71,7 +77,7 @@ Camel fournit une API de test assez bien fournie. Elle permet notamment de mocke
 
 Dans mon cas, j'ai décidé de remplacer la base de données que j'interroge en input par une [base HSQLDB chargée en mémoire](http://hsqldb.org/doc/guide/ch01.html#N101CA). Le fichier de sortie est, lui, remplacé dynamiquement par un [mock](https://camel.apache.org/mock.html). Pour ce faire, j'ai utilisé les « adviceWith »
 
-https://gist.github.com/littlewing/391305e01510e65703a26c46c2e233f5
+[https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5]
 
 ## Pour aller plus loin
 
