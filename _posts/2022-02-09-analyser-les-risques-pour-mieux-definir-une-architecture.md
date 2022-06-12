@@ -3,13 +3,13 @@ title: Mieux analyser les risques pour simplifier les architectures (ou pas)
 date: 2022-02-09 08:00:00
 
 header:
-  teaser: /assets/images/2022/02/architecture.jpg
+  teaser: /assets/images/2022/02/architecture.webp
 
 tags:
   - architecture
 ---
 
-![architecture](/assets/images/2022/02/architecture.jpg)
+![architecture](/assets/images/2022/02/architecture.webp)
 
 ## L'analyse des risques: kezako ?
 
@@ -65,7 +65,7 @@ A coté de ça, vous aurez à identifier si possible le temps d'indisponibilité
 
 Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:
 
-![analyse de risques](/assets/images/2022/02/Risk-Based-Audit_technical.jpg)
+![analyse de risques](/assets/images/2022/02/Risk-Based-Audit_technical.webp)
 
 En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d'action.
 

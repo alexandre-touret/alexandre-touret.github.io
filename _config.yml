@@ -62,7 +62,7 @@ plugins:
 
 author:
   name   : "Alexandre Touret"
-  avatar : "/assets/images/alexandre.touret-low.jpg"
+  avatar : "/assets/images/alexandre.touret-low.webp"
   bio    : "Architecte logiciel, développeur, bidouilleur (dans le désordre)"
   links:
     - label: "Twitter"
@@ -140,7 +140,7 @@ analytics:
     anonymize_ip: false # default
 twitter:
   username: "touret_alex"
-og_image: /assets/images/alexandre.touret.png
+og_image: /assets/images/alexandre.touret.webp
 
 social:
   links:
