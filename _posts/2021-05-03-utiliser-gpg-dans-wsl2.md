@@ -19,13 +19,11 @@ tags:
   - planetlibre
   - wsl2
 ---
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/05/pexels-photo-261621.jpeg?w=1024" alt="" class="wp-image-511" width="641" height="480" srcset="/assets/images/2021/05/pexels-photo-261621.jpeg 1733w, /assets/images/2021/05/pexels-photo-261621-300x225.jpeg 300w, /assets/images/2021/05/pexels-photo-261621-1024x768.jpeg 1024w, /assets/images/2021/05/pexels-photo-261621-768x576.jpeg 768w, /assets/images/2021/05/pexels-photo-261621-1536x1152.jpeg 1536w, /assets/images/2021/05/pexels-photo-261621-1568x1176.jpeg 1568w" sizes="(max-width: 641px) 100vw, 641px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/agreement-blur-business-close-up-261621/" rel="nofollow">Pexels.com</a></figcaption></figure>
-</div>
 
-<p class="has-drop-cap">
-  Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu'on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10">le sous système Linux (WSL2)</a>?
-</p>
+![pexel photo](/assets/images/2021/05/pexels-photo-261621.jpeg){: .align-center}
+
+Pourquoi utiliser [GPG](https://fr.wikipedia.org/wiki/GNU_Privacy_Guard) ? Par exemple [pour signer les commits GIT](https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/). Maintenant comment faire quand on est sous Windows 10 et qu'on souhaite utiliser [le sous système Linux (WSL2)](https://docs.microsoft.com/en-us/windows/wsl/install-win10)?
+
 
 Sous GNU/Linux, l'installation et l'utilisation avec git est très simple. Avec [WSL2](https://docs.microsoft.com/en-us/windows/wsl/install-win10),&#8230; il faut un peu d'huile de coude 🙂
 
@@ -42,7 +40,7 @@ Je vais tâcher de décrire dans cet article les différentes manipulations néc
 
 Lancez la commande suivante:
 
-```java
+```bash
 gpg --export ${ID} > public.key
 gpg --export-secret-key ${ID} > private.key
 ```
@@ -50,7 +48,7 @@ gpg --export-secret-key ${ID} > private.key
 
 ### Import
 
-```java
+```bash
 gpg --import public.key
 gpg --import private.key
 ```
@@ -60,7 +58,7 @@ gpg --import private.key
 
 Pour vérifier que la clé est bien configurée, vous pouvez lancer la commande suivante:
 
-```java
+```bash
 gpg --list-secret-keys --keyid-format LONG   alexandre@....
 sec   rsa4096/CLE_ID 2019-12-20 [SC]
       ********************
@@ -72,7 +70,7 @@ ssb   rsa4096/SUB 2019-12-20 [E]
 
 Si la clé n'est pas reconnue comme ultime ou comme de confiance, il faudra l'éditer:
 
-```java
+```bash
 gpg --edit-key CLE_ID
 Please decide how far you trust this user to correctly verify other users' keys
 (by looking at passports, checking fingerprints from different sources, etc.)
@@ -94,7 +92,7 @@ Avant de configurer l'agent GPG, vous pouvez vous référer [à cet article](htt
 
 Ensuite, créez le fichier `~/.gnupg/gpg.conf` avec le contenu suivant:
 
-```java
+```conf
 # Uncomment within config (or add this line)
 # This tells gpg to use the gpg-agent
 use-agent
@@ -105,7 +103,7 @@ default-key CLE_ID
 
 Puis créez le fichier `~/.gnupg/gpg-agent.conf` avec le contenu ci-dessous:
 
-```java
+```conf
 default-cache-ttl 34560000
 max-cache-ttl 34560000
 pinentry-program /usr/bin/pinentry-curses
@@ -116,21 +114,21 @@ Le cache ici est défini en secondes. Il est mis ici à 400 jours.
 
 Ce dernier fichier fait référence au programme `pinentry`. Vous pouvez vérifier sa présence grâce à la commande:
 
-```java
+```bash
 ls /usr/bin/pinentry-curses 
 ```
 
 
 Si vous ne l'avez pas, vous pouvez l'installer grâce à la commande suivante:
 
-```java
+```bash
 sudo apt install pinentry-curses
 ```
 
 
 Maintenant, on peut configurer l'environnement BASH en modifiant le fichier `~/.bashrc`
 
-```java
+```bash
 # enable GPG signing
 export GPG_TTY=$(tty)
 if [ ! -f ~/.gnupg/S.gpg-agent ]; then

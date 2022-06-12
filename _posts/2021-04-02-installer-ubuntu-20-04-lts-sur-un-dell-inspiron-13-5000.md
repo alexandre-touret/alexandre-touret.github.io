@@ -17,22 +17,17 @@ tags:
   - planetlibre
   - ubuntu
 ---
-<p class="has-drop-cap">
-  <a href="https://blog.touret.info/2020/03/23/installer-ubuntu-18-04-lts-sur-un-dell-inspiron-14-3493/">Les confinements se suivent et se ressemblent</a>. Me voilà à installer Ubuntu sur un nouvel ordinateur.<br />A l'instar de l'ancien laptop que j'ai acheté pour mon aînée, j'ai acheté un DELL pour ma deuxième fille.<br />J'ai opté pour un DELL Inspiron 5301.
-</p>
+[Les confinements se suivent et se ressemblent](https://blog.touret.info/2020/03/23/installer-ubuntu-18-04-lts-sur-un-dell-inspiron-14-3493/). Me voilà à installer Ubuntu sur un nouvel ordinateur.
+
+A l'instar de l'ancien laptop que j'ai acheté pour mon aînée, j'ai acheté un DELL pour ma deuxième fille.J'ai opté pour un DELL Inspiron 5301.
 
   
+![dell inspiron](/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg){: .align-center}
 
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg?w=1024" alt="" class="wp-image-499" width="511" height="383" srcset="/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg 2000w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-300x225.jpg 300w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1024x768.jpg 1024w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-768x576.jpg 768w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1536x1152.jpg 1536w, /assets/images/2021/04/dell-inspiron-13-5301-argent-01-1568x1176.jpg 1568w" sizes="(max-width: 511px) 100vw, 511px" /></figure>
-</div>
 
 A l'instar de mon autre laptop, je j'ai pas pris de risques. J'ai opté pour un DELL qui est pleinement compatible avec Ubuntu. Oui j'aurai pu installer un ordinateur avec Ubuntu pré-installé, mais je n'ai pas eu le temps de faire un choix « serein ».
 
-<p class="has-text-align-center">
-  <br />
-</p>
 
 ## Configuration du BIOS
 

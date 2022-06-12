@@ -5,6 +5,12 @@ date: 2018-02-10T08:58:47+01:00
 
 
 
+header:
+  teaser: /assets/images/2018/02/220px-debian-openlogo-svg.png
+og_image: /assets/images/2018/02/220px-debian-openlogo-svg.png
+
+
+
 
 timeline_notification:
   - "1518252334"
@@ -15,9 +21,9 @@ tags:
   - debian
   
 ---
-Désolé de remettre ça&#8230; Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu'elle est dans mon historique .
+Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu'elle est dans mon historique .
 
-<img loading="lazy" class=" size-full wp-image-39 aligncenter" src="/assets/images/2018/02/220px-debian-openlogo-svg.png" alt="220px-Debian-OpenLogo.svg" width="220" height="291" /> 
+![debian](/assets/images/2018/02/220px-debian-openlogo-svg.png){: .align-center}
 
 Voici ce que j'ai réalisé post-installation:
 
@@ -25,7 +31,8 @@ Voici ce que j'ai réalisé post-installation:
 
 Dans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.
 
-<pre>deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib
+```ini
+deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib
 deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib
 
 deb http://security.debian.org/debian-security stretch/updates main non-free contrib
@@ -36,7 +43,6 @@ deb http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib
 deb-src http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib
 ```
 
-
 ## Logiciels tiers
 
 ### Etcher
@@ -44,21 +50,22 @@ deb-src http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib
     #echo "deb https://dl.bintray.com/resin-io/debian stable etcher" | sudo tee /etc/apt/sources.list.d/etcher.list
     
 
-<div class="highlight highlight-source-shell">
+```bash
   <pre>#apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 379CE192D401AB61
 ```
 
-</div>
 
 ### Virtualbox
 
-<pre># wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
+```bash
+# wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -
 ```
 
 
-Dans le fichier /etc/apt/sources.list.d/virtualbox.list
+Dans le fichier ``/etc/apt/sources.list.d/virtualbox.list``
 
-<pre>deb https://download.virtualbox.org/virtualbox/debian stretch contrib
+```ini
+deb https://download.virtualbox.org/virtualbox/debian stretch contrib
 ```
 
 
@@ -66,13 +73,15 @@ Dans le fichier /etc/apt/sources.list.d/virtualbox.list
 
 Dans le fichier /etc/apt/sources.list.d/spotify.list
 
-<pre>deb http://repository.spotify.com stable non-free
+```ini
+deb http://repository.spotify.com stable non-free
 ```
 
 
 ## Installation paquets supplémentaires
 
-<pre># apt-get update
+```bash
+# apt-get update
 # apt-get install firmware-iwlwifi virtualbox-5.2\
 ttf-mscorefonts-installer easytag tuxguitar-jsa htop\
  frescobaldi gparted grsync ntfs-config chromium autofs\
@@ -95,7 +104,8 @@ Pour ceux qui ne connaissent pas , [autofs](https://wiki.debian.org/AutoFs) est 
 
 Dans le fichier /etc/auto.master
 
-<pre>/mnt/SERV1/nfs /etc/auto.nfs --ghost, --timeout=60 
+```ini
+/mnt/SERV1/nfs /etc/auto.nfs --ghost, --timeout=60 
 /mnt/SERV1/cifs /etc/auto.SERV1.cifs --ghost, --timeout=60 
 /mnt/SERV2 /etc/auto.cifs --ghost, --timeout=60
 ```
@@ -105,7 +115,8 @@ ensuite insérer la configuration adéquate dans les fichiers référencés :
 
 ### auto.cicfs
 
-<pre>data -fstype=cifs,credentials=/home/USER/.cred-file,user=littlewing,uid=1000,gid=1000 ://192.168.0.XX/REPERTOIRE
+```ini
+data -fstype=cifs,credentials=/home/USER/.cred-file,user=littlewing,uid=1000,gid=1000 ://192.168.0.XX/REPERTOIRE
 ```
 
 
@@ -113,7 +124,8 @@ Les identifiants / mots de passe sont stockés dans un fichier .cred-file stock�
 
 Voici un exemple :
 
-<pre>username=user
+```ini
+username=user
 password=password
 ```
 
@@ -122,7 +134,8 @@ Le fichier auto.SERV1.cifs reprend la même structure
 
 ### auto.nfs
 
-<pre>REP1 -fstype=nfs,rw,intr 192.168.0.XX:/volume1/REP1
+```ini
+REP1 -fstype=nfs,rw,intr 192.168.0.XX:/volume1/REP1
 REP2 -fstype=nfs,rw,intr 192.168.0.XX:/volume1/REP2
 ```
 
@@ -131,7 +144,8 @@ REP2 -fstype=nfs,rw,intr 192.168.0.XX:/volume1/REP2
 
 J'ai choisi d'installer [atom](https://atom.io/) via le package .deb fourni par [github](http://github.com/). Afin d'automatiser l'installation et la mise à jour, voici le script que j'ai réalisé :
 
-<pre>#!/bin/sh
+```bash
+#!/bin/sh
 SETUP_ROOT=/tmp
 wget -O $SETUP_ROOT/atom.deb "https://atom.io/download/deb"
 echo "Installation du paquet..."
@@ -142,7 +156,8 @@ echo "Fini :)"
 
 Ce script est placé dans le répertoire /usr/local/sbin et lancé comme suit :
 
-<pre># upgrade-atom.sh
+```bash
+# upgrade-atom.sh
 ```
 
 
@@ -150,7 +165,8 @@ Ce script est placé dans le répertoire /usr/local/sbin et lancé comme suit :
 
 Afin d'avoir la dernière version de firefox, voici le script que j'ai réalisé:
 
-<pre>#!/bin/sh
+```bash
+#!/bin/sh
 SETUP_ROOT=/tmp
 BIN_ROOT=/usr/local/firefox
 DATE=`date +%Y-%m-%d`
@@ -179,7 +195,8 @@ Voila l'étape la plus importante, du moins pour mes enfants &#8230;
 
 J'ai crée le script /usr/local/bin/minecraft.sh
 
-<pre>#!/bin/bash
+```bash
+#!/bin/bash
 cd /usr/local/minecraft
 java -Xmx1G -Xms512M -cp /usr/local/minecraft/Minecraft.jar net.minecraft.bootstrap.Bootstrap
 ```
@@ -189,7 +206,8 @@ J'ai placé le JAR en question dans le répertoire /usr/local/minecraft.
 
 Enfin, j'ai crée le fichier « lanceur gnome » /usr/share/applications/minecraft.desktop
 
-<pre>[Desktop Entry] 
+```ini
+[Desktop Entry] 
 Name=Minecraft
 Comment=
 Categories=Game;BoardGame;
@@ -209,7 +227,8 @@ Après toutes ces installations, il faut vérifier que les performances, notamme
 
 Pour avoir le détail du boot, il faut utiliser la commande systemd-analyze
 
-<pre>#systemd-analyze blame
+```bash
+#systemd-analyze blame
  8.113s NetworkManager-wait-online.service
  2.549s apt-daily-upgrade.service
  803ms networking.service
@@ -224,7 +243,8 @@ Pour avoir le détail du boot, il faut utiliser la commande systemd-analyze
 
 On peut également voir le chemin critique avec cette commande:
 
-<pre>#systemd-analyze critical-chain 
+```bash
+#systemd-analyze critical-chain 
 The time after the unit is active or started is printed after the "@" character.
 The time the unit takes to start is printed after the "+" character.
 
@@ -250,7 +270,8 @@ graphical.target @8.944s
 
 Par exemple, si vous voulez désactiver le service virtualbox au démarrage
 
-<pre># systemctl disable vboxautostart-service.service
+```bash
+# systemctl disable vboxautostart-service.service
 ```
 
 
@@ -260,18 +281,10 @@ et ainsi de suite pour tous les services inutiles au démarrage
 
 Pour analyser le démarrage d'un service, on peut utiliser la commande journalctl
 
-<pre># journalctl -b -u NetworkManager-wait-online.service
+```bash
+# journalctl -b -u NetworkManager-wait-online.service
 ```
-
-
-&nbsp;
 
 ## Conclusion
 
 Après toutes ces étapes, j'ai un système opérationnel. Il manque pas mal d'outils ( ex. maven, npm, intellij,&#8230;). Ces outils tiennent plus du poste de développement.
-
-&nbsp;
-
-&nbsp;
-
-&nbsp;

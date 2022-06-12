@@ -17,8 +17,7 @@ tags:
   - lilypond
   - planetlibre
 ---
-<figure class="wp-block-image size-large"><img src="/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg?w=1024" alt="" class="wp-image-428" /></figure> 
-
+![boot](/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg){: .align-center}
 
 
 Derrière ce nom pompeux qui peut effrayer, je vais essayer d'expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.
@@ -40,7 +39,7 @@ J'ai donc eu l'idée de:
 
 Pourquoi stocker dans un référentiel de sources tel que Github ? Pour les non informaticiens : les partitions sont stockées au format texte. 
 
-```java
+```latex
 \version "2.12.1"
 
 \header {

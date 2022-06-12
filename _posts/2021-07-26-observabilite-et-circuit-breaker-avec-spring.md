@@ -42,11 +42,7 @@ J'ai donc réalisé un clone de [ce projet basé sur Spring Boot/Cloud](https://
 Vous trouverez ci-dessous un schéma d'architecture de l'application [au format C4](https://c4model.com/).
 
   
-
-
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="825" height="668" src="/assets/images/2021/07/rest-book-architecture.png?w=825" alt="" class="wp-image-580" srcset="/assets/images/2021/07/rest-book-architecture.png 825w, /assets/images/2021/07/rest-book-architecture-300x243.png 300w, /assets/images/2021/07/rest-book-architecture-768x622.png 768w" sizes="(max-width: 825px) 100vw, 825px" /></figure>
-</div>
+![maintenance](/assets/images/2021/07/rest-book-architecture.png){: .align-center}
 
 ## Circuit Breaker
 
@@ -103,7 +99,7 @@ Pour activer certaines métriques d'[actuator](https://docs.spring.io/spring-boo
 
 Ajouter la/les dépendance(s)
 
-```java
+```groovy
 dependencies {
 [...]
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -162,14 +158,14 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 
 Pour activer la fonctionnalité il suffit d'ajouter la dépendance au classpath:
 
-```java
+```groovy
 implementation 'io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.3.1'
 ```
 
 
 et de configurer l'URL de Jaeger dans l'application
 
-```java
+```yaml
 # Default values
 opentracing:
   jaeger:

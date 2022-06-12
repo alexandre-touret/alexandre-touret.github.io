@@ -3,6 +3,11 @@ id: 188
 title: Vérifier les commit GIT avec GPG
 date: 2019-08-09T16:13:21+02:00
 
+header:
+  teaser: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
+og_image: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
+
+
 timeline_notification:
   - "1565363602"
 publicize_twitter_user:
@@ -17,7 +22,7 @@ tags:
 ---
 Juste pour un pense bête, voici comment paramétrer [GIT](https://git-scm.com/) et [GITHUB](https://github.com/)/[GITLAB](https://about.gitlab.com/) pour signer les commits avec [GPG](https://gnupg.org).
 
-![sign](/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg?w=612){: .align-center}
+![sign](/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg){: .align-center}
 
 ## Configuration GPG
 
