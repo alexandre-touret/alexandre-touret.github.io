@@ -20,9 +20,7 @@ Je vais essayer d'exposer dans cette article les étapes à réaliser pour migre
 
 Dans cet article, je prendrai comme postulat que l'application se construit avec Maven.
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg?w=683" alt="" class="wp-image-270" /></figure>
-</div>
+![boot](/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg){: .align-center}
 
 ## Pré-requis
 
@@ -42,7 +40,7 @@ Les trois plugins à mettre à jour obligatoirement sont :
 
 ### Maven compiler plugin
 
-```java
+```xml
 <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
@@ -58,7 +56,7 @@ Les trois plugins à mettre à jour obligatoirement sont :
 
 Pour ces deux plugins, ajouter la configuration suivante:
 
-```java
+```xml
 <plugin>
         <artifactId>maven-surefire-plugin</artifactId>
         <version>2.22.2</version>
@@ -83,7 +81,7 @@ Si vous faites du XML, SOAP ou que vous utilisiez l'API activation, vous devez d
 
 Par exemple:
 
-```java
+```xml
 <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-core</artifactId>

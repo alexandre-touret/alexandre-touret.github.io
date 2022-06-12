@@ -3,7 +3,9 @@ id: 208
 title: Programmmation par aspect avec Spring AOP
 date: 2019-11-05T18:12:54+01:00
 
-
+header:
+  teaser: /assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg
+og_image: /assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg
 
 
 timeline_notification:
@@ -19,9 +21,7 @@ tags:
 ---
 Une fois n'est pas coutume, voici un article qui reprend des basiques de la programmation. J'aborde une stack JAVA, mais c'est applicable à d'autres langages.
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg?w=1024" alt="" class="wp-image-231" /></figure>
-</div>
+![spring](/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg){: .align-center}
 
 Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l'on oublie assez souvent : l'[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect) ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.  
 Si vous faites du JAVA, vous utilisez déjà l'[AOP](https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect). En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté `@Transactional`, une transaction est initiée au début de la méthode et fermée à la fin.
@@ -32,7 +32,7 @@ Avec [Spring](https://docs.spring.io/spring/docs/current/spring-framework-refere
 
 Ajouter le starter AOP:
 
-```java
+```xml
 <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>

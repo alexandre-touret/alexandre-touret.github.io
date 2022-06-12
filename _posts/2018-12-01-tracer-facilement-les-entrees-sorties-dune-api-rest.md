@@ -4,6 +4,9 @@ title: "Tracer (facilement) les entrées sorties d'une API REST"
 date: 2018-12-01T15:51:50+01:00
 
 
+header:
+  teaser: /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg
+og_image: /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg
 
 
 timeline_notification:
@@ -18,7 +21,8 @@ tags:
   - spring
   - springboot
 ---
-<figure class="wp-block-image"><img loading="lazy" width="1200" height="1200" src="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" alt="" class="wp-image-115" srcset="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg 1200w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-300x300.jpeg 300w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-1024x1024.jpeg 1024w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-150x150.jpeg 150w, /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd-768x768.jpeg 768w" sizes="(max-width: 1200px) 100vw, 1200px" /></figure> 
+
+![street_city](/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg){: .align-center}
 
 Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d'une [API REST](https://fr.wikipedia.org/wiki/Representational_state_transfer) en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
 
@@ -35,13 +39,26 @@ Voici un exemple de mise en œuvre dans un projet SpringBoot:
 
 Dans le  fichier pom.xml, ajouter cette dépendance:
 
-<pre class="wp-block-preformatted"><dependency><br />    <groupId>org.zalando</groupId><br />    <artifactId>logbook-spring-boot-starter</artifactId><br />    <version>1.11.2</version><br /></dependency><br /><br />
+
+```xml
+<dependency>
+ <groupId>org.zalando</groupId>
+ <artifactId>logbook-spring-boot-starter</artifactId>
+ <version>1.11.2</version>
+</dependency>
 ```
 
 
 Dans une de vos classes [Configuration](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html), définir la factory de Logbook
 
-<pre class="wp-block-preformatted">@Bean<br />public Logbook createLogBook() {<br />    // too easy : return Logbook.create();<br />    return Logbook.<em>builder</em>()<br />            .condition(Conditions.<em>requestTo</em>("/helloworld"))<br />            .formatter(new JsonHttpLogFormatter())<br />            .build();<br />}
+```java
+@Bean
+public Logbook createLogBook() {
+  // too easy : return Logbook.create();
+  return Logbook.builder()
+                  .condition(Conditions.requestTo("/helloworld"))
+                  .formatter(new JsonHttpLogFormatter()).build();
+}
 ```
 
 
@@ -51,7 +68,8 @@ On peut également modifier le processus d'écriture pour ne pas écrire dans un
 
 Ensuite, j'ai ajouté la configuration du logger dans le fichier application.properties
 
-<pre class="wp-block-preformatted">logging.level.org.zalando.logbook:TRACE<br />
+```ini
+logging.level.org.zalando.logbook:TRACE
 ```
 
 
@@ -60,15 +78,13 @@ Et voila !
 Dans la console, lors d'un appel ou d'une réponse à mon API, j'ai le message suivant :
 
 
-
-<pre class="wp-block-preformatted">018-12-01 15:14:18.373 TRACE 3605 --- [nio-8080-exec-1] org.zalando.logbook.Logbook              : {"origin":"remote","type":"request","correlation":"c6b345013835273f","protocol":"HTTP/1.1","remote":"127.0.0.1","method":"GET","uri":"http://127.0.0.1:8080/helloworld","headers":{"accept":["<em>/</em>"],"host":["127.0.0.1:8080"],"user-agent":["curl/7.52.1"]}}<br />
+```bash
+018-12-01 15:14:18.373 TRACE 3605 --- [nio-8080-exec-1] org.zalando.logbook.Logbook              : {"origin":"remote","type":"request","correlation":"c6b345013835273f","protocol":"HTTP/1.1","remote":"127.0.0.1","method":"GET","uri":"http://127.0.0.1:8080/helloworld","headers":{"accept":["/"],"host":["127.0.0.1:8080"],"user-agent":["curl/7.52.1"]}}
 2018-12-01 15:14:18.418 TRACE 3605 --- [nio-8080-exec-1] org.zalando.logbook.Logbook              : {"origin":"local","type":"response","correlation":"c6b345013835273f","duration":48,"protocol":"HTTP/1.1","status":200,"headers":{"Content-Length":["11"],"Content-Type":["text/plain;charset=UTF-8"],"Date":["Sat, 01 Dec 2018 14:14:18 GMT"]},"body":"Hello world"}
 ```
 
 
 Vous remarquerez que les requêtes / réponses peuvent désormais être associés grâce à un identifiant de corrélation. On peut facilement déterminer le temps de traitement d'une requête ou encore faciliter les recherches.  
-
-
 
 
 Vous trouverez tout le code dans [ce repo github](https://github.com/littlewing/demo-logbook).

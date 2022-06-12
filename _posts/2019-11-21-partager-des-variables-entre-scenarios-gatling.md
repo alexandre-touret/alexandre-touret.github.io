@@ -3,8 +3,9 @@ id: 222
 title: Partager des variables entre scénarios gatling
 date: 2019-11-21T22:12:53+01:00
 
-
-
+header:
+  teaser: /assets/images/2019/11/gatling-new-design.png
+og_image: /assets/images/2019/11/gatling-new-design.png
 
 timeline_notification:
   - "1574370773"

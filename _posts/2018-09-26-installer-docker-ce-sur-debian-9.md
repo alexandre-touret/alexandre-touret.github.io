@@ -4,6 +4,10 @@ title: Installer docker ce sur Debian 9
 date: 2018-09-26T12:28:21+02:00
 
 
+header:
+  teaser: /assets/images/2018/09/docker.png
+og_image: /assets/images/2018/09/docker.png
+
 
 
 geo_public:
@@ -20,63 +24,54 @@ tags:
 Bon, ça fait quelques temps que je n'ai rien posté&#8230;  
 Voici un rapide tuto pour installer [docker-ce sur une debian9](https://docs.docker.com/install/linux/docker-ce/debian/). Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l'installation de la version ce fournie par docker.
 
-<img loading="lazy" class="alignnone size-medium wp-image-96" src="/assets/images/2018/09/docker.png?w=300" alt="" width="300" height="268" srcset="/assets/images/2018/09/docker.png 1354w, /assets/images/2018/09/docker-300x268.png 300w, /assets/images/2018/09/docker-1024x914.png 1024w, /assets/images/2018/09/docker-768x685.png 768w" sizes="(max-width: 300px) 100vw, 300px" /> 
+![docker](/assets/images/2018/09/docker.png){: .align-center}
 
 ## Pré-requis
 
 Supprimer les éventuelles installations de docker et docker-compose
 
-[code language= »bash »]
 
+```bash
 #apt-get remove docker docker-compose  
-[/code]
+```
 
 ## Installation
 
 Lancer les commandes suivantes:
 
-[code language= »bash »]  
-\# apt-get install apt-transport-https ca-certificates  
-\# curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add &#8211;  
-\# add-apt-repository \  
+```bash
+# apt-get install apt-transport-https ca-certificates  
+# curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add &#8211;  
+# add-apt-repository \  
 "deb [arch=amd64] https://download.docker.com/linux/debian \  
 $(lsb_release -cs) \ stable"  
-[/code]
+```
 
 Puis lancer
 
-[code language= »bash »]
-
-\# apt update
-
-\# apt install docker-ce
-
-[/code]
+```bash
+# apt update
+# apt install docker-ce
+```
 
 ### Installation de docker-compose
 
 Lancer les commandes suivantes:
 
-[code language= »bash »]
-
-\# curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-
-\# chmod a+x /usr/local/bin/docker-compose  
-[/code]
+```bash
+# curl -L "https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+# chmod a+x /usr/local/bin/docker-compose  
+```
 
 ## Configuration des droits
 
 Pour lancer docker depuis un utiliser non root, il faut lancer les commandes suivantes:
 
-[code language= »bash »]
-
-\# groupadd docker
-
-\# adduser monutilisateur docker
-
-\# usermod -aG docker monutilisateur
-
-[/code]
+```bash
+# groupadd docker
+# adduser monutilisateur docker
+# usermod -aG docker monutilisateur
+```
 
 Après ceci, vaut mieux redémarrer le pc &#8230;
 
@@ -88,64 +83,47 @@ Voici quelques config à appliquer pour que le démon soit accessible par des ou
 
 Exécuter la commande:
 
-[code language= »bash »]
-
-\# systemctl edit docker.service
-
-[/code]
+```bash
+# systemctl edit docker.service
+```
 
 Entrer le code suivant:
 
-[code language= »bash »]
-
+```ini
 [Service]
-
 ExecStart=
-
 ExecStart=/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock
-
-[/code]
-
+```
 Et l'enregistrer sous /etc/systemd/system/docker.service.d/docker.conf
 
 ### Configuration du proxy
 
 Avec la même commande
 
-[code language= »bash »]
-
-\# systemctl edit docker.service
-
-[/code]
+```bash
+# systemctl edit docker.service
+```
 
 Entrer la configuration suivante:
 
-[code language= »bash »]
-
+```ini
 [Service]
-
 Environment="HTTP\_PROXY=http://mon\_proxy:mon_port/"
-
 Environment="NO_PROXY=127.0.0.1"
-
-[/code]
+```
 
 ### Activation des configurations
 
 Lancer les commandes suivantes:
 
-[code language= »bash »]
-
-\# systemctl daemon-reload # systemctl restart docker
-
-[/code]
+```bash
+# systemctl daemon-reload # systemctl restart docker
+```
 
 ## Validation
 
 Maintenant, vous pouvez valider votre configuration avec la commande:
 
-[code language= »bash »]
-
+```bash
 $ docker run hello-world
-
-[/code]
+```
