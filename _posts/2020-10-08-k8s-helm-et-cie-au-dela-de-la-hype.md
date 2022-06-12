@@ -26,9 +26,7 @@ tags:
 Depuis quelques années, [Kubernetes](https://kubernetes.io/) (K8S) et [son écosystème](https://www.cncf.io/) deviennent l'environnement d' exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D'autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d'une telle plateforme.  
 Vous l'aurez compris, cette technologie n'échappe pas [au cycle du hype](https://fr.wikipedia.org/wiki/Cycle_du_hype) et à la fameuse courbe du Gartner.
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img loading="lazy" width="320" height="208" src="/assets/images/2020/10/gartner_hype_cycle.svg_.png?w=320" alt="" class="wp-image-445" srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png 320w, /assets/images/2020/10/gartner_hype_cycle.svg_-300x195.png 300w" sizes="(max-width: 320px) 100vw, 320px" /></figure>
-</div>
+![cycle hype](/assets/images/2020/10/gartner_hype_cycle.svg_.png){: .align-center}
 
 Après quelques expériences sur cette plateforme ( et beaucoup sur d'autres 😀 ) je vais essayer de peser le pour et le contre qui m'apparaissent importants.  
 Bien évidemment, ce n'est que mon avis, j'ai sans doute omis certaines informations qui pourraient être indispensables pour d' autres.
@@ -41,9 +39,7 @@ Avant de présenter les avantages des applications cloud, je vais essayer de ré
 
 Vaste sujet et question délicate pour la population informaticienne qui a tendance à suivre les tendances du marché. 
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png?w=986" alt="" class="wp-image-464" width="611" height="404" srcset="/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png 986w, /assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-300x199.png 300w, /assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash-768x509.png 768w" sizes="(max-width: 611px) 100vw, 611px" /></figure>
-</div>
+![cycle hype](/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png){: .align-center}
 
 Avant de foncer tête baissée dans cette technologie qui est très intéressante au demeurant, il est important de se poser ces quelques questions:
 
@@ -108,11 +104,7 @@ maxUnavailable: 0
 
 ### L'Infrastructure As Code
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png?w=683" alt="" class="wp-image-462" width="452" height="678" srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 719w, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-200x300.png 200w, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash-683x1024.png 683w" sizes="(max-width: 452px) 100vw, 452px" /></figure>
-</div>
-
-
+![iaac](/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png){: .align-center}
 
 Quand on pense à Kubernetes, et au cloud, on ne pense pas trop à l'[Infrastructure As Code](https://en.wikipedia.org/wiki/Infrastructure_as_code) au début. Cependant, cette pratique est pour moi l'une des plus utiles. 
 

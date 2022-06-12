@@ -6,6 +6,13 @@ date: 2019-08-16T08:26:57+02:00
 
 
 
+header:
+  teaser: /assets/images/2019/08/logo-mockito.png
+og_image: /assets/images/2019/08/logo-mockito.png
+
+
+
+
 timeline_notification:
   - "1565940418"
 publicize_twitter_user:
@@ -18,7 +25,7 @@ tags:
 ---
 Auparavant, dans nos tests, quand on voulait [mocker](https://fr.wikipedia.org/wiki/Mock_(programmation_orient%C3%A9e_objet)) des [méthodes « final »](https://fr.wikipedia.org/wiki/Final_(Java)) ou [statiques](https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods), on devait passer par [PowerMock](https://github.com/powermock/powermock).
 
-![mockito](/assets/images/2019/08/logo-mockito-300x150.png){: .align-center}
+![mockito](/assets/images/2019/08/logo-mockito.png){: .align-center}
 
 Depuis peu, si on utilise Mockito ( >2.1) , on n'a plus besoin d'ajouter PowerMock pour mocker des méthodes « final ».
 

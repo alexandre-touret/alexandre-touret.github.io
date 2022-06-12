@@ -59,11 +59,11 @@ Tout se configure par des URLs. La première permet d'extraire les données via 
 
 Elles sont externalisées dans des fichiers de configuration pour faciliter les tests et accessibles via SPRING.
 
-<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js" />
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js" ></script>
 
-<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-camel-properties" />
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-camel-properties" ></script>
 
-<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java" />
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java" ></script>
 
 ## Lancement de la route
 
