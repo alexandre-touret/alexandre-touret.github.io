@@ -24,9 +24,7 @@ tags:
 ---
 Avec les contraintes liées au confinement, les [répétitions](http://george-abitbol.fr/v/c0bce857) se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d'un instrument et d' improviser tout en ayant une bande son en fond musical.
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large"><img src="/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg?w=1024" alt="" class="wp-image-303" /></figure>
-</div>
+![sign](/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg){: .align-center}
 
 Il y a plusieurs logiciels payants/propriétaires sur différentes plateformes:
 
@@ -45,21 +43,21 @@ Je vais expliquer comment l'installer sur [Debian](https://www.debian.org/).
 
 Créer un fichier `/etc/modules.load.d/midi.conf` avec le contenu suivant:
 
-```java
+```bash
 snd-virmidi
 ```
 
 
 Ensuite créer le fichier `/etc/modprobe.d/midi.conf` avec le contenu suivant:
 
-```java
+```bash
 options snd-virmidi midi_devs=1
 ```
 
 
 Logiquement à ce stade, lors du prochain reboot, vous aurez un périphérique virtuel MIDI activé. En attendant vous pouvez lancer la commande suivante
 
-```java
+```bash
 $ sudo modprobe snd-virmidi midi_devs=1
 ```
 
@@ -71,7 +69,7 @@ La banque de son recommandée est disponible via [ce lien](https://musical-artif
 
 Pour le second, il vous faudra installer [fluidsynth](http://www.fluidsynth.org/). Voic les quelques commandes à lancer:
 
-```java
+```bash
 $ sudo apt install fluid-synth qsynth
 ```
 
@@ -80,7 +78,7 @@ $ sudo apt install fluid-synth qsynth
 
 Avant d' aller plus loin dans la configuration de fluidsynth, vous pouvez vous assurer que tout est OK [en récupérant un fichier MIDI](https://en.wikipedia.org/wiki/File:MIDI_sample.mid?qsrc=3044) et en lançant la commande suivante:
 
-```java
+```bash
 $ fluidsynth -a pulseaudio -m alsa_seq -l -i /opt/JJazzLab-2.0-Linux/JJazzLab-SoundFont.sf2  MIDI_sample.mid
 ```
 
@@ -93,11 +91,11 @@ Lancez qsynth et cliquez sur le bouton « configuration »
 
 Vous trouverez ci-dessous la configuration que j'ai appliqué. Elle diffère légèrement de [celle présentée dans la documentation](https://www.jjazzlab.com/en/doc/fluidsynth/).
 
-![fluidsynth1](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png)
+![fluidsynth1](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png){: .align-center}
 
-![fluidsynth2](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02-300x202.png)
+![fluidsynth2](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png){: .align-center}
 
-![fluidsynth3](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png)
+![fluidsynth3](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png){: .align-center}
   
 
 Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
@@ -107,7 +105,7 @@ Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.
 Disclaimer: La c'est la partie la plus obscure&#8230;
 
 
-![aconnect](/assets/images/2020/04/pegi_18_annotated_2009-2010.png)
+![aconnect](/assets/images/2020/04/pegi_18_annotated_2009-2010.png){: .align-center}
 
 
 Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n'est pas intuitif, je vous avais prévenu &#8230;  
@@ -115,7 +113,7 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
 
 Exécutez la commande suivante:
 
-```java
+```bash
 $ aconnect -lo                                            
 client 14: 'Midi Through' [type=noyau]
     0 'Midi Through Port-0'
@@ -128,14 +126,14 @@ client 128: 'FLUID Synth (JJLAB)' [type=utilisateur,pid=17838]
 
 Dans mon cas, je vais avoir à connecter le client 24:0 au synthétiseur 128:0 grâce à la commande :
 
-```java
+```bash
 $ aconnect 24:0 128:0
 ```
 
 
 Maintenant, si on relance la commande `aconnect -lo` on obtient le résultat suivant:
 
-```java
+```bash
 client 14: 'Midi Through' [type=noyau]
     0 'Midi Through Port-0'
 client 24: 'Virtual Raw MIDI 2-0' [type=noyau,card=2]
@@ -155,14 +153,14 @@ Téléchargez les binaires sur [ce site](https://www.jjazzlab.com/en/download/),
 
 Vous devez également installer java
 
-```java
+```bash
 $ sudo apt install openjdk-11-jdk
 ```
 
 
 Ensuite, vous devez créer le fichier `~/.local/share/applications/jjazzlab.desktop` avec le contenu suivant:
 
-```java
+```ini
 [Desktop Entry]
 Type=Application
 Name=JJazzLab
@@ -180,17 +178,17 @@ Maintenant vous pouvez directement démarrer JJazzlab via le menu.
 
 Une fois jjazzlab démarré, vous devez aller dans le menu « Tools>Options » et sélectionnez les valeurs suivantes:<figure class="wp-block-image size-large">
 
-![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png)
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png){: .align-center}
 
 Ouvrez un fichier example (ex. sunny ) 
 
 Cliquez sur le menu décrit par un clavier
 
 
-![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png)
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png){: .align-center}
 
 Puis configurez comme suit:<figure class="wp-block-image size-large">
 
-![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png)
+![configuration](/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png){: .align-center}
 
 Maintenant vous pouvez [télécharger les standards fournis sur le site](https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip) et improviser dessus 🙂

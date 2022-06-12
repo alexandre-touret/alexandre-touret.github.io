@@ -21,13 +21,11 @@ tags:
   - spring
   - springboot
 ---
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2021/06/pexels-photo-257736.jpeg" alt="" class="wp-image-543" width="697" height="463" srcset="/assets/images/2021/06/pexels-photo-257736.jpeg 1880w, /assets/images/2021/06/pexels-photo-257736-300x200.jpeg 300w, /assets/images/2021/06/pexels-photo-257736-1024x681.jpeg 1024w, /assets/images/2021/06/pexels-photo-257736-768x511.jpeg 768w, /assets/images/2021/06/pexels-photo-257736-1536x1022.jpeg 1536w, /assets/images/2021/06/pexels-photo-257736-1568x1043.jpeg 1568w" sizes="(max-width: 697px) 100vw, 697px" /><figcaption>Photo by Pixabay on <a href="https://www.pexels.com/photo/close-up-of-telephone-booth-257736/" rel="nofollow">Pexels.com</a></figcaption></figure>
-</div>
 
-<p class="has-drop-cap">
-  Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l'application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (<a href="https://httpd.apache.org/">Apache HTTPD</a>, <a href="https://fr.wikipedia.org/wiki/Web_application_firewall">WAF</a>,&#8230;)
-</p>
+![maintenance](/assets/images/2021/06/pexels-photo-257736.jpeg){: .align-center}
+
+Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l'application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. ([Apache HTTPD](https://httpd.apache.org/), [WAF](https://fr.wikipedia.org/wiki/Web_application_firewall))
+
 
 [Kubernetes a introduit ( ou popularisé ) les notions de « probes »](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) et plus particulièrement les [livenessProbes](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/) et [readinessProbes](https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/).  
 Le premier nous indique si l'application est en état de fonctionnement, le second nous permet de savoir si cette dernière est apte à recevoir des requêtes (ex. lors d'un démarrage).
@@ -39,7 +37,6 @@ Je vais exposer dans cet article comment utiliser au mieux ces probes et [les AP
 ## Stack utilisée
 
 Dans l'exemple que j'ai développé, j'ai pu utiliser les briques suivantes:  
-
 
   * OpenJDK 11.0.10
   * Spring Boot 2.5.0 (web, actuator)
@@ -53,7 +50,7 @@ Pour activer les différents probes, vous devez activer [Actuator](https://docs.
 
 Dans le fichier pom.xml, vous devez ajouter le starter correspondant:
 
-```java
+```xml
 <dependency>
     <groupId>org.springframework.boot</groupId>
 	<artifactId>spring-boot-starter-actuator</artifactId>
@@ -63,7 +60,7 @@ Dans le fichier pom.xml, vous devez ajouter le starter correspondant:
 
 Puis vous devez déclarer ces differentes [propriétés](https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/resources/application.properties):
 
-```java
+```ini
 management.endpoints.enabled-by-default=true
 management.health.livenessstate.enabled=true
 management.health.readinessstate.enabled=true
@@ -75,7 +72,7 @@ management.endpoint.health.enabled=true
 
 Après avoir redémarré votre application, vous pourrez connaître son statut grâce à un appel HTTP
 
-```java
+```bash
 curl -s http://localhost:8080/actuator/health/readiness 
 ```
 
@@ -84,7 +81,7 @@ curl -s http://localhost:8080/actuator/health/readiness
 
 Avec Spring, vous pouvez modifier les différents statuts avec les classes [ApplicationEventPublisher](https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisher.html) et [ApplicationAvailability](https://docs.spring.io/spring-boot/docs/2.4.4/api/org/springframework/boot/availability/ApplicationAvailability.html).
 
-Par exemple, pour connaître le statut `<a href="https://docs.spring.io/spring-boot/docs/2.5.0-SNAPSHOT/api/org/springframework/boot/availability/ReadinessState.html">"Readiness"</a>` vous pouvez exécuter le code suivant:
+Par exemple, pour connaître le statut [Readiness](https://docs.spring.io/spring-boot/docs/2.5.0-SNAPSHOT/api/org/springframework/boot/availability/ReadinessState.html) vous pouvez exécuter le code suivant:
 
 ```java
 @ApiResponses(value = {
