@@ -3,7 +3,9 @@ id: 235
 title: Premiers pas avec Gradle
 date: 2019-12-30T15:03:36+01:00
 
-
+header:
+  teaser: /assets/images/2019/12/gradle_logo.png
+og_image: /assets/images/2019/12/gradle_logo.png
 
 
 timeline_notification:
@@ -14,9 +16,8 @@ tags:
   - gradle
   - java
 ---
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2019/12/gradle_logo.png?w=535" alt="" class="wp-image-243" width="581" height="202" srcset="/assets/images/2019/12/gradle_logo.png 535w, /assets/images/2019/12/gradle_logo-300x104.png 300w" sizes="(max-width: 581px) 100vw, 581px" /></figure>
-</div>
+
+![gradle](/assets/images/2019/12/gradle_logo.png){: .align-center}
 
 Depuis quelques temps je me mets à [Gradle](https://gradle.org/). Après de (trop?) nombreuses années à utiliser Maven (depuis la version 0.9&#8230;), je me risque à modifier mon environnement de build. Du moins sur des projets démo.
 
