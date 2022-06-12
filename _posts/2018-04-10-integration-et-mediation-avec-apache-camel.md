@@ -59,17 +59,17 @@ Tout se configure par des URLs. La première permet d'extraire les données via 
 
 Elles sont externalisées dans des fichiers de configuration pour faciliter les tests et accessibles via SPRING.
 
-[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b]
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js" />
 
-[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-camel-properties]
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-camel-properties" />
 
-[https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java]
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b#file-routebuilder-java" />
 
 ## Lancement de la route
 
 Le lancement de la route se fait dans une méthode main() :
 
-[https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59]
+<script src="https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59.js"></script>
 
 ## Tests
 
@@ -77,7 +77,7 @@ Camel fournit une API de test assez bien fournie. Elle permet notamment de mocke
 
 Dans mon cas, j'ai décidé de remplacer la base de données que j'interroge en input par une [base HSQLDB chargée en mémoire](http://hsqldb.org/doc/guide/ch01.html#N101CA). Le fichier de sortie est, lui, remplacé dynamiquement par un [mock](https://camel.apache.org/mock.html). Pour ce faire, j'ai utilisé les « adviceWith »
 
-[https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5]
+<script src="https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5.js"></script>
 
 ## Pour aller plus loin
 
