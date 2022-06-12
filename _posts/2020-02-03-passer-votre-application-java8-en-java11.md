@@ -5,7 +5,7 @@ date: 2020-02-03T15:44:27+01:00
 
 
 header:
-  teaser: /assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg
+  teaser: /assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp
 
 timeline_notification:
   - "1580741068"
@@ -20,7 +20,7 @@ Je vais essayer d'exposer dans cette article les étapes à réaliser pour migre
 
 Dans cet article, je prendrai comme postulat que l'application se construit avec Maven.
 
-![boot](/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.jpg){: .align-center}
+![boot](/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp){: .align-center}
 
 ## Pré-requis
 

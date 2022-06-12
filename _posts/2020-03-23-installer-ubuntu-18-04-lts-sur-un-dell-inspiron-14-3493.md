@@ -19,11 +19,7 @@ Suite aux premières annonces de distanciation sociale ( avant que le confinemen
   
 N'ayant pas trop de temps pour chercher la bonne affaire ( technologique et financière ), j' ai acheté un [Dell Inspiron 14-3493](https://www.dell.com/gh/business/p/inspiron-14-3493-laptop/pd).
 
-<div class="wp-block-image">
-  <figure class="aligncenter size-large is-resized"><img loading="lazy" src="/assets/images/2020/03/dell-inspiron-14-3493.jpg?w=510" alt="" class="wp-image-279" width="576" height="401" srcset="/assets/images/2020/03/dell-inspiron-14-3493.jpg 510w, /assets/images/2020/03/dell-inspiron-14-3493-300x209.jpg 300w" sizes="(max-width: 576px) 100vw, 576px" /></figure>
-</div>
-
-  
+![dell-inspiron-14-](/assets/images/2020/03/dell-inspiron-14-3493.jpg){: .align-center}
   
 Je n'ai pas pris trop de risques. Bien que livré avec Windows 10, ce modèle est [déjà certifié compatible Ubuntu](https://certification.ubuntu.com/hardware/201907-27239).  
 L'installation d'[Ubuntu](https://doc.ubuntu-fr.org/Accueil) se passe très bien. C'est plié en moins de 30mn. Du coup, je ne la détaillerai pas dans cet article &#8211; si vous êtes intéressé, vous pouvez consulter [cet article](https://doc.ubuntu-fr.org/installation). Pour les pré-requis, c'est une autre paire de manches &#8230;  
