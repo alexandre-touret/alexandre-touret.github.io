@@ -3,8 +3,8 @@ title: Faire des batchs "Cloud Native" dans Kubernetes
 date: 2022-05-17 08:00:00
 
 header:
-  teaser: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg
-og_image: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg
+  teaser: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp
+og_image: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp
 
 tags:
   - cloud
@@ -15,7 +15,7 @@ tags:
 Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs.
 Mais qu'en est-il des batchs?
 
-![pat-whelen-xSsWBa4rb6E-unsplash.jpg ](/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.jpg){: .align-center}
+![pat-whelen-xSsWBa4rb6E-unsplash.jpg ](/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp){: .align-center}
 
 Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore. 
 Ils ont même eu une deuxième jeunesse avec le Big Data et l'explosion des volumétries dans l'IT.

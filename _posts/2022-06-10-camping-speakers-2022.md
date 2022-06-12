@@ -3,8 +3,8 @@ title: Mon Camping des Speakers
 date: 2022-06-10 08:00:00
 
 header:
-  teaser: /assets/images/2022/06/camping_speakers_2.jpg
-og_image: /assets/images/2022/06/camping_speakers_2.jpg
+  teaser: /assets/images/2022/06/camping_speakers_2.webp
+og_image: /assets/images/2022/06/camping_speakers_2.webp
 
 tags:
 - conference
@@ -24,7 +24,7 @@ La programmation était de qualité et a tenu ses promesses.
 Je vais essayer de retranscrire quelques sujets qui ont retenu mon attention. J'en oublierai sans doute beaucoup. Je m'en excuse d'avance.
 
 
-![bollinette](/assets/images/2022/06/camping_speakers_2.jpg){: .align-center}
+![bollinette](/assets/images/2022/06/camping_speakers_2.webp){: .align-center}
 
 
 Tout d'abord, l'intérêt de cette conférence réside, selon moi, au-delà des talks donnés.
@@ -63,7 +63,7 @@ Si vous n'êtes toujours pas convaincu, sachez qu'il y a également des mashmall
 
 *Avec cet argument massue, on devrait convaincre les plus sceptiques! ;)*
 
-![mashmallow](/assets/images/2022/06/camping_speakers_1.jpg){: .align-center}
+![mashmallow](/assets/images/2022/06/camping_speakers_1.webp){: .align-center}
 
 Merci encore aux organisatrices et organisateurs pour ces deux jours. 
 
