@@ -4,6 +4,11 @@ title: "Activer l' equalizer sur Debian 9"
 date: 2018-03-25T13:38:27+02:00
 
 
+header:
+  teaser: /assets/images/2018/03/sc3a9lection_001.png
+og_image: /assets/images/2018/03/sc3a9lection_001.png
+
+
 
 
 timeline_notification:
@@ -19,43 +24,42 @@ Et oui, il y a un equalizer dans debian&#8230;.[Pulse Audio dispose d'un equaliz
 
 ## Installation de l'equalizer
 
-[code language= »bash »]  
-#apt-get install pulseaudio-equalizer  
-[/code]
+
+```bash
+apt-get install pulseaudio-equalizer  
+```
 
 ## Activation
 
 Ajouter les lignes suivantes dans le fichier /etc/pulse/default.pa
 
-[code language= »text »]  
+```ini
 load-module module-equalizer-sink  
 load-module module-dbus-protocol  
-[/code]
+```
 
 Relancer le démon pulseaudio
 
-[code language= »bash »]  
+```bash
 \# pulseaudio -k && pulseaudio -D  
-[/code]
+```
 
 A ce stade, vous devriez avoir dans le panneau de configuration la référence à l'equalizer
 
-<img loading="lazy" class="alignnone size-full wp-image-74" src="/assets/images/2018/03/sc3a9lection_001.png" alt="Sélection_001" width="431" height="177" srcset="/assets/images/2018/03/sc3a9lection_001.png 431w, /assets/images/2018/03/sc3a9lection_001-300x123.png 300w" sizes="(max-width: 431px) 100vw, 431px" /> 
+![camel](/assets/images/2018/03/sc3a9lection_001.png){: .align-center}
 
 ## Lancement
 
 En ligne de commande ( je vous disais que ce n'était pas trop user-friendly), lancer la commande
 
-[code language= »bash »]  
+```bash
 $ qpaeq &  
-[/code]
+```
 
 On obtient cette interface:
 
-<img loading="lazy" class="alignnone size-full wp-image-75" src="/assets/images/2018/03/qpaeq_002.png" alt="qpaeq_002" width="1382" height="368" srcset="/assets/images/2018/03/qpaeq_002.png 1382w, /assets/images/2018/03/qpaeq_002-300x80.png 300w, /assets/images/2018/03/qpaeq_002-1024x273.png 1024w, /assets/images/2018/03/qpaeq_002-768x205.png 768w" sizes="(max-width: 1382px) 100vw, 1382px" /> 
+![camel](/assets/images/2018/03/qpaeq_002.png){: .align-center}
 
 Arrivé à ce niveau, je suis quand même un peu déçu/ Il n'y a pas une vrai intégration dans debian ( pas de lanceur pour l'equalizer ) et il n'y a pas de presets configurés ( #souvienstoiwinamp)
 
 J'ai essayé de poster mon soucis sur IRC, mais je n'ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.
-
-&nbsp;
