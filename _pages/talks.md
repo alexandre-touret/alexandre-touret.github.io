@@ -1,7 +1,7 @@
 ---
 id: 601
 title: Talks
-date: 2022-01-31T09:41:07+01:00
+date: 2022-07-02T09:41:07+01:00
 permalink: /talks/
 ---
 
@@ -19,9 +19,9 @@ Vous pourrez également retrouver [l'ensemble des slides sur SpeakerDeck](https:
 
 {% include video id="xLhb3mvweDI" provider="youtube" %}
 
-* [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://www.youtube.com/watch?v=XvPrmEiXWus)
+* [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://www.youtube.com/watch?v=DKfR5AVD_AM)
 
-{% include video id="XvPrmEiXWus" provider="youtube" %}
+{% include video id="DKfR5AVD_AM" provider="youtube" %}
 
 
 * [Kubernetes beyond the hype: 10 tips for designers who want to create cloud apps](https://speakerdeck.com/alexandretouret/devoxx-uk-2021-architecture-katas-improve-your-system-architecture-design-skills-in-a-funny-way)

@@ -1,9 +1,11 @@
 main:
-  - title: "Tags"
-    url: /tags/
   - title: "Talks"
     url: /talks/
   - title: "A propos"
     url: /a-propos/
   - title: "Contact"
     url: /contact/
+  - title: "Tags"
+    url: /tags/
+  - title: "Catégories"
+    url: /categories/
