@@ -1,6 +1,6 @@
 ---
 id: 601
-title: Talks
+title: Conférences
 date: 2022-07-02T09:41:07+01:00
 permalink: /talks/
 ---
