@@ -17,10 +17,20 @@ tags:
 
 ![flow](/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp){: .align-center}
 
-J'ai par la suite testé plus en détails les jobs et cron jobs Kubernetes en essayant d'avoir une vue OPS sur ce sujet.
+J'ai par la suite testé plus en détails les [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) et [cron jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) Kubernetes en essayant d'avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l'est pas dans certains cas) des jobs est qu'on ne peut pas les rejouer.
-Si ces derniers sont terminés avec succès - Vous allez me dire, il faut bien les coder - mais qu'on souhaite les rejouer pour diverses raisons, on doit le supprimer et relancer.
-J'ai vu plusieurs post sur StackOverflow à ce sujet, je n'ai pas trouvé de solutions satisfaisantes à mes yeux pour ce sujet.
+Si ces derniers sont terminés avec succès - Vous allez me dire, il faut bien les coder - mais qu'on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
+J'ai vu plusieurs posts sur StackOverflow à ce sujet, je n'ai pas trouvé de solutions satisfaisantes à mes yeux relatifs à ce sujet.
+
+![luke_cage](/assets/images/2022/08/luke_cage.webp){: .align-center}
+
+Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
+Loin de là. 
+
+Je pense que si vous avez besoin d'un traitement sans chaînage d'actions, sans rejeu, les [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) et [cron jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) sont des options plus que valables.
+Le monitoring et reporting des actions réalisées peut se faire par l'observabilité mise en place dans votre cluster K8S.
+
+![spring dataflow logo](/assets/images/2022/08/spring_dataflow_logo.webp){: .align-center}
 
 Après plusieurs recherches, je suis tombé sur [Spring Data Flow](https://dataflow.spring.io/). 
 L'offre de ce module de [Spring Cloud](https://spring.io/projects/spring-cloud) va au delà des batchs. 
@@ -77,8 +87,6 @@ kubectl port-forward --namespace default svc/dataflow-spring-cloud-dataflow-serv
 ```
 
 Ensuite, vous pourrez accéder à la console web via l'URL ``http://localhost:8080/dashboard``.
-
-
 
 ## Développement d'une Task
 
