@@ -11,6 +11,32 @@ tags:
   - kubernetes
   - batch
   - spring
+
+galleryInit:
+ - url: /assets/images/2022/08/dataflow_config3.webp
+   image_path: /assets/images/2022/08/dataflow_config3.webp
+   alt: "init"
+ - url: /assets/images/2022/08/dataflow_config4.webp
+   image_path: /assets/images/2022/08/dataflow_config4.webp
+   alt: "init"
+
+galleryExecution:
+ - url: /assets/images/2022/08/dataflow_config2.webp
+   image_path: /assets/images/2022/08/dataflow_config2.webp
+   alt: "create"
+ - url: /assets/images/2022/08/dataflow_config10.webp
+   image_path: /assets/images/2022/08/dataflow_config10.webp
+   alt: "init"
+ - url: /assets/images/2022/08/dataflow_config8.webp
+   image_path: /assets/images/2022/08/dataflow_config8.webp
+   alt: "init"
+ - url: /assets/images/2022/08/dataflow_config7.webp
+   image_path: /assets/images/2022/08/dataflow_config7.webp
+   alt: "init"
+ - url: /assets/images/2022/08/dataflow_config9.webp
+   image_path: /assets/images/2022/08/dataflow_config9.webp
+   alt: "init"
+
 ---
 
 [Dans mon dernier article](https://blog.touret.info/2022/05/17/cloud-native-batchs/), j'ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.
@@ -90,7 +116,154 @@ Ensuite, vous pourrez accéder à la console web via l'URL ``http://localhost:80
 
 ## Développement d'une Task
 
+J'ai crée une simple task qui va rechercher la nationalité d'un prénom. 
+Pour ceci, j'utilise l'API [https://api.nationalize.io/](https://api.nationalize.io/).
 
+On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.
+
+Vous trouverez les sources de cet exemple sur [mon Github](https://github.com/alexandre-touret/cloud-task).
+
+Aussi, [la documentation est bien faite, il suffit de la lire](https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/). 
+
+### Initialisation
+
+J'ai initié un projet Spring avec les dépendances suivantes:
+
+
+```groovy
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.cloud:spring-cloud-starter-task'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+```
+
+Attention, les starters JDBC/ MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.
+
+### Construction de la tâche
+
+Une tâche se crée facilement en annotation une classe "Configuration" par l'annotation ``@EnableTask`` 
+
+
+```java
+@Configuration
+@EnableTask
+public class TaskConfiguration {
+  ...
+}
+```
+
+Ensuite l'essentiel du job s'effectue dans la construction d'un bean ``CommandLineRunner`` :
+
+```java
+    @Bean
+    public CommandLineRunner createCommandLineRunner(RestTemplate restTemplate) {
+        return args -> {
+            var commandLinePropertySource = new SimpleCommandLinePropertySource(args);
+            var entity = restTemplate.getForEntity("https://api.nationalize.io/?name=" + Optional.ofNullable(commandLinePropertySource.getProperty("name")).orElse("BLANK"), NationalizeResponseDTO.class);
+            LOGGER.info("RESPONSE[{}]: {}", entity.getStatusCode(), entity.getBody());
+        };
+    }
+
+```
+
+Dans mon exemple, j'affiche dans la sortie standard le payload de l'API ainsi que le code HTTP de la réponse.
+
+Voici un exemple d'exécution :
+
+```bash
+2022-08-12 15:11:07.885  INFO 1 --- [           main] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8080 (http) with context path ''
+2022-08-12 15:11:07.894  INFO 1 --- [           main] i.t.b.cloudtask.CloudTaskApplication     : Started CloudTaskApplication in 17.704 seconds (JVM running for 19.18)
+2022-08-12 15:11:10.722  INFO 1 --- [           main] i.t.batch.cloudtask.TaskConfiguration    : RESPONSE[200 OK]: NationalizeResponseDTO{name='Alexandre', countries=[CountryDTO{countryId='BR', pr....
+```
+
+### Packaging
+
+Ici rien de nouveau, il suffit de lancer la commande:
+
+```bash
+gradle build
+```
 
 ## Déploiement
 
+### Création et déploiement de l'image Docker
+Pour déployer notre toute nouvelle tâche, nous allons d'abord créer l'image Docker avec buildpack.
+
+Tout d'abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube 
+
+```bash
+eval $(minikube docker-env)
+```
+
+Ensuite, il nous reste à créer l'image Docker
+
+```bash
+./gradlew bootBuildImage --imageName=info.touret/cloud-task:latest
+```
+
+Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:
+
+```bash
+minikube image ls | grep loud-task                                                                                                                                                                          
+info.touret/cloud-task:latest
+```
+
+### Création de l'application
+
+Avant de créer la tâche dans l'interface, il faut d'abord référencer l'image Docker en créer une [application](https://dataflow.spring.io/docs/applications/):
+
+
+![application](/assets/images/2022/08/dataflow_config5.webp){: .align-center}
+
+Il faut déclarer l'image Docker avec le formalisme présenté dans la capture d'écran.
+
+### Création de la tâche
+
+Voici les différentes actions que j'ai réalisé via l'interface:
+
+{% include gallery id="galleryInit" caption="Création de la tâche"  layout="half" %}
+
+Vous trouverez plus de détails dans [la documentation officielle](https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/).
+
+## Exécution
+
+Maintenant, il nous est possible de lancer notre tâche.
+Vous trouverez dans les copies d'écran ci-dessous les différentes actions que j'ai réalisé pour exécuter ma toute nouvelle tâche.
+
+{% include gallery id="galleryExecution" caption="Exécution de la tâche"  layout="half" %}
+
+J'ai pu également accéder aux logs.
+
+Il est également important de noter qu' après l'exécution d'une tâche, le POD est toujours au statut ``RUNNING``  afin que Kubernetes ne redémarre pas automatiquement le traitement.
+
+```bash
+kubectl get pods | grep cloud-task                                                                                                                                                                           a696618@WL-941Y493
+cloud-task-7mp72gzpwo                                    1/1     Running            0               57m
+cloud-task-pymdkr182p                                    1/1     Running            0               65m
+```
+
+A chaque exécution il y aura donc un pod d'alloué.
+
+## Aller plus loin
+
+Parmi les fonctionnalités que j'ai découvert, on peut :
+* relancer un traitement
+* le programmer 
+* nettoyer les exécutions
+* les pistes d'audit
+* le chaînage des différentes tâches
+
+Gros inconvénient pour le nettoyage: e n'ai pas constaté un impact dans les pods alloués. 
+
+## Conclusion
