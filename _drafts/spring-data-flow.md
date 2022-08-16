@@ -1,5 +1,5 @@
 ---
-title: Spring Data Flow pour des batchs cloud native
+title: Découverte de Spring Data Flow pour déployer des batchs cloud native
 date: 2022-09-01 08:00:00
 
 header:
@@ -45,15 +45,15 @@ galleryExecution:
 
 J'ai par la suite testé plus en détails les [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) et [cron jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) Kubernetes en essayant d'avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l'est pas dans certains cas) des jobs est qu'on ne peut pas les rejouer.
-Si ces derniers sont terminés avec succès - Vous allez me dire, il faut bien les coder - mais qu'on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
-J'ai vu plusieurs posts sur StackOverflow à ce sujet, je n'ai pas trouvé de solutions satisfaisantes à mes yeux relatifs à ce sujet.
+Si ces derniers sont terminés avec succès - *Vous allez me dire, il faut bien les coder* - mais qu'on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
+J'ai vu plusieurs posts sur StackOverflow à ce sujet, je n'ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.
 
 ![luke_cage](/assets/images/2022/08/luke_cage.webp){: .align-center}
 
 Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là. 
 
-Je pense que si vous avez besoin d'un traitement sans chaînage d'actions, sans rejeu, les [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) et [cron jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) sont des options plus que valables.
+Je pense que si vous avez besoin d'un traitement sans chaînage d'actions, sans rejeu, les [jobs](https://kubernetes.io/docs/concepts/workloads/controllers/job/) et [cron jobs](https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/) sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l'observabilité mise en place dans votre cluster K8S.
 
 ![spring dataflow logo](/assets/images/2022/08/spring_dataflow_logo.webp){: .align-center}
@@ -62,7 +62,7 @@ Après plusieurs recherches, je suis tombé sur [Spring Data Flow](https://dataf
 L'offre de ce module de [Spring Cloud](https://spring.io/projects/spring-cloud) va au delà des batchs. 
 Il permet notamment de gérer le streaming via une interface graphique ou via son [API](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide).
 
-Dans cet article, je vais implémenter un exemple et le déployer dans Minikube.
+Dans cet article, je vais implémenter un exemple et le déployer dans [Minikube](https://minikube.sigs.k8s.io/).
 
 ## Installation et configuration de Minikube
 
@@ -105,7 +105,7 @@ dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running        
 
 ### Accès au dashboard
 
-Pour accéder au dashboard de Spring Cloud Data Flow, vous pouvez lancer les commandes suivantes:
+Pour accéder au [dashboard de Spring Cloud Data Flow](https://cloud.spring.io/spring-cloud-dataflow-ui/), vous pouvez lancer les commandes suivantes:
 
 ```bash
 export SERVICE_PORT=$(kubectl get --namespace default -o jsonpath="{.spec.ports[0].port}" services dataflow-spring-cloud-dataflow-server)
@@ -137,7 +137,6 @@ dependencies {
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     implementation 'org.springframework.boot:spring-boot-starter-jdbc'
-    implementation 'org.springframework.boot:spring-boot-starter-jdbc'
     runtimeOnly 'org.mariadb.jdbc:mariadb-java-client'
 }
 
@@ -148,12 +147,11 @@ dependencyManagement {
 }
 ```
 
-Attention, les starters JDBC/ MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.
+Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.
 
 ### Construction de la tâche
 
 Une tâche se crée facilement en annotation une classe "Configuration" par l'annotation ``@EnableTask`` 
-
 
 ```java
 @Configuration
@@ -192,7 +190,7 @@ Voici un exemple d'exécution :
 Ici rien de nouveau, il suffit de lancer la commande:
 
 ```bash
-gradle build
+./gradlew build
 ```
 
 ## Déploiement
@@ -215,7 +213,7 @@ Ensuite, il nous reste à créer l'image Docker
 Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:
 
 ```bash
-minikube image ls | grep loud-task                                                                                                                                                                          
+minikube image ls | grep cloud-task                                                                                                                                                                          
 info.touret/cloud-task:latest
 ```
 
@@ -253,7 +251,7 @@ cloud-task-7mp72gzpwo                                    1/1     Running        
 cloud-task-pymdkr182p                                    1/1     Running            0               65m
 ```
 
-A chaque exécution il y aura donc un pod d'alloué.
+A chaque exécution il y aura donc un pod alloué.
 
 ## Aller plus loin
 
@@ -269,7 +267,7 @@ Gros inconvénient pour le nettoyage: e n'ai pas constaté un impact dans les po
 ## Conclusion
 
 Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
-Je vais donc utiliser la liste des caractéristiques présentée par [M. Richards et N. Ford dans leur livre : Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/).
+Je vais donc utiliser la liste des caractéristiques présentée par [M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/).
 
 Bien évidemment, cette notation est purement personnelle.
 Vous noterez que selon où on positionne le curseur, l'une des deux solutions peut s'avérer meilleure (ou pas).
@@ -277,7 +275,7 @@ Vous noterez que selon où on positionne le curseur, l'une des deux solutions pe
 Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
 A mon avis, une solution telle que Spring Cloud Dataflow s'inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data. 
 
-N'hésitez pas à me donner votre avis (sans troller svp) en commentaire.
+N'hésitez pas à me donner votre avis ([sans troller svp](https://blog.touret.info/a-propos/)) en commentaire ou si ça concerne [l'exemple, directement dans Github](https://github.com/alexandre-touret/cloud-task).
 
 |Architecture characteristic   |   K8s job rating| Spring Cloud Dataflow rating |
 |---|---|---| 
