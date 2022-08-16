@@ -248,7 +248,7 @@ J'ai pu également accéder aux logs.
 Il est également important de noter qu' après l'exécution d'une tâche, le POD est toujours au statut ``RUNNING``  afin que Kubernetes ne redémarre pas automatiquement le traitement.
 
 ```bash
-kubectl get pods | grep cloud-task                                                                                                                                                                           a696618@WL-941Y493
+kubectl get pods | grep cloud-task                                                                                                                                                                           
 cloud-task-7mp72gzpwo                                    1/1     Running            0               57m
 cloud-task-pymdkr182p                                    1/1     Running            0               65m
 ```
@@ -267,3 +267,30 @@ Parmi les fonctionnalités que j'ai découvert, on peut :
 Gros inconvénient pour le nettoyage: e n'ai pas constaté un impact dans les pods alloués. 
 
 ## Conclusion
+
+Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
+Je vais donc utiliser la liste des caractéristiques présentée par [M. Richards et N. Ford dans leur livre : Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/).
+
+Bien évidemment, cette notation est purement personnelle.
+Vous noterez que selon où on positionne le curseur, l'une des deux solutions peut s'avérer meilleure (ou pas).
+
+Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
+A mon avis, une solution telle que Spring Cloud Dataflow s'inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data. 
+
+N'hésitez pas à me donner votre avis (sans troller svp) en commentaire.
+
+|Architecture characteristic   |   K8s job rating| Spring Cloud Dataflow rating |
+|---|---|---| 
+|Partitioning type   | Domain & technical  | Domain & technical|
+|Number of quanta   |  1 to many | 1 to many |
+|Deployability   | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Elasticity   | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Evolutionary   | ⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Fault Tolerance   | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Modularity   | ⭐⭐⭐  | ⭐⭐⭐⭐⭐|
+|Overall cost   | ⭐⭐⭐⭐| ⭐⭐⭐ |
+|Performance   | ⭐⭐⭐⭐⭐| ⭐⭐⭐ |
+|Reliability   | ⭐⭐⭐⭐| ⭐⭐⭐ |
+|Scalability   | ⭐⭐⭐⭐| ⭐⭐⭐⭐ |
+|Simplicity   | ⭐⭐⭐⭐⭐| ⭐⭐⭐|
+|Testability   | ⭐⭐⭐  | ⭐⭐⭐⭐|
