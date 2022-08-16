@@ -9,7 +9,7 @@ permalink: /talks/
 
 Vous trouverez ci-dessous les slides et vidéos de mes derniers talks.
 
-Vous pourrez également retrouver [l'ensemble des slides sur SpeakerDeck](https://speakerdeck.com/alexandretouret).
+Vous pourrez également retrouver [l'ensemble des slides sur SpeakerDeck](https://speakerdeck.com/alexandretouret) ainsi que les vidéos dans cette [playlist Youtube](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt).
 
 * [Java dans le cloud: avec Spring ou Quarkus?](https://speakerdeck.com/alexandretouret/tnt2-java-dans-le-cloud-avec-spring-ou-quarkus)
 
