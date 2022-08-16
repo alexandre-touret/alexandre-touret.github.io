@@ -1,5 +1,5 @@
 ---
-title: Découverte de Spring Data Flow pour déployer des batchs cloud native
+title: Déployer des batchs cloud native avec Spring Cloud Data Flow
 date: 2022-09-01 08:00:00
 
 header:
@@ -251,7 +251,7 @@ cloud-task-7mp72gzpwo                                    1/1     Running        
 cloud-task-pymdkr182p                                    1/1     Running            0               65m
 ```
 
-A chaque exécution il y aura donc un pod alloué.
+A chaque exécution il y aura donc un pod d'alloué.
 
 ## Aller plus loin
 
