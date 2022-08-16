@@ -295,12 +295,4 @@ N'hésitez pas à me donner votre avis (sans troller svp) en commentaire.
 |Simplicity   | ⭐⭐⭐⭐⭐| ⭐⭐⭐|
 |Testability   | ⭐⭐⭐  | ⭐⭐⭐⭐|
 
-[^1]: Extrait du livre "Fundamentals of Software Architecture:
-> Many science-literate developers know of the concept of quantum from
-physics, the minimum amount of any physical entity involved in an
-interaction. The word quantum derives from Latin, meaning “how great” or
-“how much.” We have adopted this notion to define an architecture
-quantum:
-Architecture quantum
-An independently deployable artifact with high functional cohesion and
-synchronous connascence
+[^1]: ~ Nombre de livrables indépendants fortement couplés
