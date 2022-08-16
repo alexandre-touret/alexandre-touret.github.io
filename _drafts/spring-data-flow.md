@@ -267,7 +267,7 @@ Gros inconvénient pour le nettoyage: e n'ai pas constaté un impact dans les po
 ## Conclusion
 
 Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
-Je vais donc utiliser la liste des caractéristiques présentée par [M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/).
+Je vais donc utiliser la liste des caractéristiques présentée par [M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture](https://fundamentalsofsoftwarearchitecture.com/)[^1].
 
 Bien évidemment, cette notation est purement personnelle.
 Vous noterez que selon où on positionne le curseur, l'une des deux solutions peut s'avérer meilleure (ou pas).
@@ -280,7 +280,7 @@ N'hésitez pas à me donner votre avis ([sans troller svp](https://blog.touret.i
 |Architecture characteristic   |   K8s job rating| Spring Cloud Dataflow rating |
 |---|---|---| 
 |Partitioning type   | Domain & technical  | Domain & technical|
-|Number of quanta [^1]  |  1 | 1 to many |
+|Number of quanta [^2]  |  1 | 1 to many |
 |Deployability   | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
 |Elasticity   | ⭐⭐⭐ | ⭐⭐⭐⭐ |
 |Evolutionary   | ⭐⭐⭐ | ⭐⭐⭐⭐ |
@@ -293,4 +293,5 @@ N'hésitez pas à me donner votre avis ([sans troller svp](https://blog.touret.i
 |Simplicity   | ⭐⭐⭐⭐⭐| ⭐⭐⭐|
 |Testability   | ⭐⭐⭐  | ⭐⭐⭐⭐|
 
-[^1]: ~ Nombre de livrables indépendants fortement couplés
+[^1]: A lire absolument!
+[^2]: ~ Nombre de livrables indépendants fortement couplés
