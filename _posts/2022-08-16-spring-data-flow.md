@@ -262,7 +262,7 @@ Parmi les fonctionnalités que j'ai découvert, on peut :
 * les pistes d'audit
 * le chaînage des différentes tâches
 
-Gros inconvénient pour le nettoyage: e n'ai pas constaté un impact dans les pods alloués. 
+Gros inconvénient pour le nettoyage: je n'ai pas constaté un impact dans les pods alloués. 
 
 ## Conclusion
 
