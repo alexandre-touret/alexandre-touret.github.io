@@ -28,7 +28,7 @@ C'était une première pour moi.
 ![badge](/assets/images/2022/10/devoxx_badge.webp){: .align-center}
 
 Pour y aller, j'ai eu trois fois de la chance:
-1. J'ai eu cette opportunité grâce à Worldline - mon employeur  
+1. J'ai eu cette opportunité grâce à [Worldline - mon employeur](https://worldline.com/)  
 2. J'ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch
 3. [Ma présentation au format Quickie a été retenue](https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way). J'ai présenté un talk à Devoxx!!!!!!!
 
@@ -130,4 +130,4 @@ Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fort
 
 ## Conclusion
 
-Voila quelques talks qui m'ont interpellé. Il y a beaucoup d'autres supers telles que celles de [Julien TOPCU](https://devoxx.be/talk/?id=2352) ou [Marcy ERICKA CHARELLOIS](https://devoxx.be/talk/?id=19402). 
+Voila quelques talks qui m'ont interpellé. Il y a beaucoup d'autres supers telles que celles de [Julien TOPCU](https://devoxx.be/talk/?id=2352) ou [Marcy ERICKA CHARELLOIS](https://devoxx.be/talk/?id=19402).
