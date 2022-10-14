@@ -8,6 +8,17 @@ og_image: /assets/images/2022/06/camping_speakers_2.webp
 
 tags:
 - conference
+- java
+
+
+galleryTalk:
+ - url: /assets/images/2022/10/devoxx-be-22-1.webp 
+   image_path:/assets/images/2022/10/devoxx-be-22-1.webp 
+   alt: "alexandre on stage 1"
+ - url: /assets/images/2022/10/devoxx-be-22-2.webp 
+   image_path: /assets/images/2022/10/devoxx-be-22-2.webp 
+   alt: "alexandre on stage 2"
+
 ---
 
 Après trois ans d'inactivité pour des raisons que l'on connait malheureusement toutes et tous, Devoxx était de retour. 
@@ -17,6 +28,9 @@ Pour y aller, j'ai eu trois fois de la chance:
 1. J'ai eu cette opportunité grâce à Worldline mon employeur  
 2. J'ai réussi à avoir un billet pendant les cinq minutes ou se sont vendus les billets lors du premier batch
 3. Ma présentation au format Quickie a été retenue. J'ai pu présenter un talk à Devoxx!!!!!!!
+
+
+{% include gallery id="galleryTalk" caption="Alex on stage"  layout="half" %}
 
 Voici mon retour d'expérience des trois jours de conférence.
 
@@ -29,9 +43,18 @@ Je me suis trompé.
 Je ne dirais pas lequel est le meilleur (*en fait, est-ce qu'il y a de bonnes ou mauvaises conférences. Non ce sont d'abord des rencontres...*). Je ne saurais le dire. On est sur un autre type de conférence. 
 Il y a un peu moins de feedback de la communauté (ex. Doctolib, le bon coin,...) et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown).
 Aussi, alors que la ligne éditoriale de Devoxx France s'est tournée au fil des années sur d'autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur.
-Les (très) grands speakers de l'écosystème sont présents et on fait des super talks : James Goslin, Simon Ritter, Mario Fusco.
+Les (très) grands speakers de l'écosystème sont présents et on fait des super talks: James Goslin, Simon Ritter, Mario Fusco.
 
-Bref, le coeur de la communauté Java bat à Anvers pendant une semaine.
+En résumé, le coeur de la communauté Java bat à Anvers pendant une semaine.
+
+## Les tendances
+
+Les grandes tendances étaient:
+* L'IA et les applications
+* Le projet Loom
+* GraalVM
+
+## Quelques conférences qui m'ont interpellé
 
 
 
