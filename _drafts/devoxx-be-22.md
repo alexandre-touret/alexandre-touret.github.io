@@ -29,7 +29,7 @@ C'était une première pour moi.
 
 Pour y aller, j'ai eu trois fois de la chance:
 1. J'ai eu cette opportunité grâce à Worldline - mon employeur  
-2. J'ai réussi à avoir un billet pendant les cinq minutes ou se sont vendus les billets lors du premier batch
+2. J'ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch
 3. [Ma présentation au format Quickie a été retenue](https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way). J'ai présenté un talk à Devoxx!!!!!!!
 
 {% include gallery id="galleryTalk" caption="Alex on stage"  layout="half" %}
@@ -38,11 +38,11 @@ Voici mon retour d'expérience des trois jours de conférence.
 
 ## Impressions générales
 
-Tout d'abord, j'ai pu assister à de nombreux Devoxx France. J'ai cru naïvement que les évènements se ressembleraient. 
+Tout d'abord, j'ai pu assister à de nombreux Devoxx France. J'ai cru naïvement que les deux évènements se ressembleraient. 
 
 Je me suis trompé.
 
-Je ne dirais pas lequel est le meilleur (*en fait, est-ce qu'il y a de bonnes ou mauvaises conférences. Non ce sont d'abord des rencontres...*). Je ne saurais le dire. On est sur un autre type de conférence. 
+Je ne dirai pas lequel est le meilleur (*en fait, est-ce qu'il y a de bonnes ou mauvaises conférences. Non ce sont d'abord des rencontres...*). Je ne saurais le dire. On est sur un autre type de conférence. 
 
 Il y a un peu moins de feedback de la communauté (ex. Doctolib, le bon coin,...) et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling).
 Aussi, alors que la ligne éditoriale de Devoxx France s'est tournée au fil des années sur d'autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur. 
@@ -87,7 +87,7 @@ Pour ce point, ils ont conseillé de gardé le mode JIT avec une JVM pendant le 
 ## The lost art of software design by Simon Brown
 
 J'utilise [le modèle C4](https://www.c4model.com/) depuis plusieurs années. 
-Je l'ai même présenté dans mon talk. Par conséquent, j'ai été très impressionné quand j'ai pu assister à la présentation de [Simon Brown](https://simonbrown.je/) sur la conception logicielle.
+Je l'ai même présenté très brièvement dans mon talk. Aussi, j'ai été très impressionné quand j'ai pu assister à la présentation de [Simon Brown](https://simonbrown.je/) sur la conception logicielle.
 Il a expliqué pourquoi la conception n'était pas conflictuelle avec les méthodes agiles.
 Ca permet notamment d' identtifier et de gérer les risques.
 
@@ -105,7 +105,7 @@ Cette fois on abordait le support de l' AOT et du mode natif dans la future vers
 Les présentateurs ont expliqués comment Spring supportait le mode natif: le processus appliqué, la gestion des métadonnées et l'analyse réalisée.
 En (très très bref) résumé, l' AOT génère des sources dont le chargement des Bean Definition.
 
-Ils ont également pointé du doigt des changements bloquants - enfin pour moi:
+Ils ont également pointé du doigt des changements que je considère bloquants:
 * On ne peut pas utiliser changer les profils au runtime
 * La surcharge des propriétés et variable d'environnement n'est pas possible à l'exécution
 * On ne peut pas utiliser de Java Agent.
@@ -119,10 +119,10 @@ A la fin de cette présentation, ils ont donné quelques recommendations. Parmi 
 
 ### The Art of Java Language Pattern Matching by Simon Ritter
 
-[Simon Ritter](https://uk.linkedin.com/in/siritter) a exploré toutes les possibilité du pattern matching en Java. 
+[Simon Ritter](https://uk.linkedin.com/in/siritter) a exploré toutes les possibilité du [pattern matching en Java](https://docs.oracle.com/en/java/javase/15/language/pattern-matching-instanceof-operator.html). 
 Toutes les fonctionnalités ne sont pas encore disponibles. On peut néanmoins faire beaucoup de choses. 
 
-Après un rappel sur les nouvelles fonctionnalités depuis le JDK11 (Sealed classes, Records,var ), Simon Ritter a illustré leur utilisation dans ce contexte.
+Après un rappel sur les nouvelles fonctionnalités depuis le JDK11 ([Sealed classes](https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html), [Records](https://docs.oracle.com/en/java/javase/15/language/records.html)), Simon Ritter a illustré leur utilisation dans ce contexte.
 
 Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fortement de regarder ce talk.
 
