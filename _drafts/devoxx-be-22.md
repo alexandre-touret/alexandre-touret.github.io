@@ -1,6 +1,6 @@
 ---
 title: Ma première participation à Devoxx Belgium
-date: 2022-10-16 08:00:00
+date: 2022-10-15 08:00:00
 
 header:
   teaser: /assets/images/2022/10/devoxx_badge.webp
@@ -67,7 +67,7 @@ L'ensemble des conférences [est déjà publié sur Youtube](https://www.youtube
 
 Le [Dr Alan D. Thompson](https://lifearchitect.ai/) est un expert en intelligence artificielle. 
 Il nous a donné une présentation pendant la keynote sur ce que l' IA peut réellement faire de nos jours.
-C'est de plus en plus utilisé dans notre industrie au travers de Github Copilot, Codegeex,...
+C'est de plus en plus utilisé dans notre industrie au travers de Github Copilot, [Codegeex](https://github.com/THUDM/CodeGeeX),...
 
 Après nous avoir rappellé [la timeline de l'adoption de l' IA](https://lifearchitect.ai/timeline/), il a illustré avec des peintures déssinées par une IA comment un ordinateur peut maintenant comprendre une phrase en langage naturel et la traduire en image. 
 
@@ -83,7 +83,7 @@ Au travers d'un exemple basé sur [Micronaut](https://micronaut.io/), ils ont ex
 
 La developer experience était également à l'ordre du jour. Comment offrir une bonne expérience alors que la compilation prend plus de temps?
 
-Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode JIT avec une JVM pendant le développement et d'utiliser l' AOT pour le déploiement final. Ceci permet de disposer d'une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.
+Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode [JIT](https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk) avec une JVM pendant le développement et d'utiliser l' [AOT](https://devblogs.microsoft.com/java/aot-compilation-in-hotspot-introduction/) pour le déploiement final. Ceci permet de disposer d'une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.
 
 [La vidéo est disponible ici](https://www.youtube.com/watch?v=mhmqomex1zk)
 
@@ -138,4 +138,8 @@ Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fort
 ## Conclusion
 
 Voila les quelques talks qui m'ont interpellé. Il y en a beaucoup d'autres tels que ceux de [Julien TOPCU](https://devoxx.be/talk/?id=2352) ou [Marcy ERICKA CHARELLOIS](https://devoxx.be/talk/?id=19402).
-Cette première participation était très enrichissante. J'ai eu à plusieurs reprises l'impression d'avoir l'information à la source (ex. pour Spring). Si j'ai autant de chance, je pense rééditer l'expérience l'année prochaine. En tant que speaker pour une conférence ou un workshop? Seul l'avenir nous le dira!
+Cette première participation était très enrichissante. J'ai eu à plusieurs reprises l'impression d'avoir l'information à la source (ex. pour Spring). 
+
+Si j'ai autant de chance, je pense rééditer l'expérience l'année prochaine. 
+
+En tant que speaker pour une conférence ou un workshop? Seul l'avenir nous le dira!
