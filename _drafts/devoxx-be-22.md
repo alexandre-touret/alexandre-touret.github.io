@@ -1,5 +1,5 @@
 ---
-title: Ma première participation à Devoxx Anvers
+title: Ma première participation à Devoxx Belgium
 date: 2022-10-16 08:00:00
 
 header:
@@ -20,10 +20,10 @@ galleryTalk:
 
 ---
 
-Après trois ans d'inactivité pour des raisons que l'on connait malheureusement toutes et tous, Devoxx était de retour. 
+Après trois ans d'inactivité pour des raisons que l'on connait malheureusement toutes et tous, [Devoxx Belgium](https://www.devoxx.be) était de retour à Anvers. 
 Je n'avais jamais participé (en vrai) à une conférence internationale.
 
-C'était une première pour moi.
+C'était donc une première pour moi.
 
 ![badge](/assets/images/2022/10/devoxx_badge.webp){: .align-center}
 
@@ -38,18 +38,20 @@ Voici mon retour d'expérience des trois jours de conférence.
 
 ## Impressions générales
 
-Tout d'abord, j'ai pu assister à de nombreux Devoxx France. J'ai cru naïvement que les deux évènements se ressembleraient. 
+Tout d'abord, j'ai pu assister à de nombreux [Devoxx France](https://www.devoxx.fr/). J'ai cru naïvement que les deux évènements se ressembleraient. 
 
 Je me suis trompé.
 
 Je ne dirai pas lequel est le meilleur (*en fait, est-ce qu'il y a de bonnes ou mauvaises conférences. Non ce sont d'abord des rencontres...*). Je ne saurais le dire. On est sur un autre type de conférence. 
 
-Il y a un peu moins de feedback de la communauté (ex. Doctolib, le bon coin,...) et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling).
+Il y a un peu moins de feedback de la communauté (ex. Doctolib, le bon coin,...) et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling). 
+
 Aussi, alors que la ligne éditoriale de Devoxx France s'est tournée au fil des années sur d'autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur. 
 
-Les (très) grands speakers de l'écosystème sont présents et on fait des super talks: James Gosling, Simon Ritter, Mario Fusco.
+Les (très) grands speakers de l'écosystème sont présents et on fait des super talks: [James Gosling](https://en.wikipedia.org/wiki/James_Gosling), [Simon Ritter](https://uk.linkedin.com/in/siritter), [Mario Fusco](https://developers.redhat.com/authors/mario-fusco), [Gavin King](https://in.relation.to/gavin-king/) ou [José Paumard](https://blogs.oracle.com/java/post/new-java-champion-jos%C3%A9-paumard).
 
-En résumé, le coeur de la communauté Java bat à Anvers pendant une semaine.
+En résumé, le coeur de la communauté [Java](https://en.wikipedia.org/wiki/Java_(programming_language)) bat à Anvers pendant une semaine. 
+Une majorité de [Java champions](https://dev.java/community/jcs/) sont +/- présents et nous font partager leur expertise.
 
 ## Les tendances
 
@@ -63,9 +65,9 @@ L'ensemble des conférences [est déjà publié sur Youtube](https://www.youtube
 
 ### Artificial Intelligence: You Are Here by Alan D Thompson
 
-Le Dr Alan D. Thompson est un expert en intelligence artificielle. 
+Le [Dr Alan D. Thompson](https://lifearchitect.ai/) est un expert en intelligence artificielle. 
 Il nous a donné une présentation pendant la keynote sur ce que l' IA peut réellement faire de nos jours.
-C'est de plus en plus utilisé dans notre industrie à travers de Github Copilot, Codegeex,...
+C'est de plus en plus utilisé dans notre industrie au travers de Github Copilot, Codegeex,...
 
 Après nous avoir rappellé [la timeline de l'adoption de l' IA](https://lifearchitect.ai/timeline/), il a illustré avec des peintures déssinées par une IA comment un ordinateur peut maintenant comprendre une phrase en langage naturel et la traduire en image. 
 
@@ -75,19 +77,22 @@ Vous pouvez trouver [la vidéo ici](https://www.youtube.com/watch?v=xjYy91BxdPo)
 
 ## Revolutionizing Java-Based Applications with GraalVM by Alina Yurenko and Thomas Wuerthinger
 
-Dans cette présentation, les présentateurs d'Oracle ont abordé une autre grande tendance du marché: le retour aux livrables binaires qui permettent de limiter l'impact sur le démarrage, la mémoire et la taille des packages.
+Dans cette présentation, les présentateurs d'Oracle ont abordé une autre grande tendance du marché: le retour au natif qui permet de limiter l'impact sur le démarrage, la mémoire et la taille des packages.
 
-Au travers d'un exemple basé sur Micronaut, ils ont expliqué comment GraalVM peut répondre à ces enjeux. Ils ont également démystifié plusieurs mythes liés à GraalVM. Par exemple, GraalVM supporte la réflexion (... et parfois non). On peut utiliser également Java Flight Recorder pendant la compilation. Le support à l'exécution des applications est bientôt prévu.
+Au travers d'un exemple basé sur [Micronaut](https://micronaut.io/), ils ont expliqué comment [GraalVM](https://www.graalvm.org/) peut répondre à ces enjeux. Ils ont également démystifié plusieurs mythes liés à GraalVM. Par exemple, GraalVM supporte la réflexion (... et parfois non). On peut utiliser également [Java Flight Recorder](Java Flight Recorder) pendant la compilation. Le support à l'exécution des applications est bientôt prévu.
 
 La developer experience était également à l'ordre du jour. Comment offrir une bonne expérience alors que la compilation prend plus de temps?
-Pour ce point, ils ont conseillé de gardé le mode JIT avec une JVM pendant le développement et d'utiliser l' AOT pour le déploiement final. Ceci permet de disposer d'une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.
+
+Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode JIT avec une JVM pendant le développement et d'utiliser l' AOT pour le déploiement final. Ceci permet de disposer d'une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.
 
 [La vidéo est disponible ici](https://www.youtube.com/watch?v=mhmqomex1zk)
 
 ## The lost art of software design by Simon Brown
 
 J'utilise [le modèle C4](https://www.c4model.com/) depuis plusieurs années. 
-Je l'ai même présenté très brièvement dans mon talk. Aussi, j'ai été très impressionné quand j'ai pu assister à la présentation de [Simon Brown](https://simonbrown.je/) sur la conception logicielle.
+Je l'ai même présenté très brièvement dans mon talk. 
+
+Aussi, j'ai été très impressionné quand j'ai pu assister à la présentation de [Simon Brown](https://simonbrown.je/) sur la conception logicielle.
 Il a expliqué pourquoi la conception n'était pas conflictuelle avec les méthodes agiles.
 Ca permet notamment d' identtifier et de gérer les risques.
 
@@ -110,12 +115,14 @@ Ils ont également pointé du doigt des changements que je considère bloquants:
 * La surcharge des propriétés et variable d'environnement n'est pas possible à l'exécution
 * On ne peut pas utiliser de Java Agent.
 
-Pour ce dernier point, cela risque de poser de nombreux soucis que ça soit l'utilisation d'un APM ou le support de l'AOP.
+Pour ce dernier point, cela risque de poser de nombreux soucis que ça soit l'utilisation d'un [APM tel que Dynatrace](https://www.dynatrace.com/news/blog/what-is-apm-2/) ou le support de [l'AOP](https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/aop.html).
 
 A la fin de cette présentation, ils ont donné quelques recommendations. Parmi celles-ci:
 
 * Exécuter en développement l'application en mode AOT avec une JVM
 * Exécuter les tests en mode natif
+
+[Vous trouverez la vidéo ici](https://www.youtube.com/watch?v=TS4DpYSmfXk)
 
 ### The Art of Java Language Pattern Matching by Simon Ritter
 
@@ -130,4 +137,5 @@ Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fort
 
 ## Conclusion
 
-Voila quelques talks qui m'ont interpellé. Il y a beaucoup d'autres supers telles que celles de [Julien TOPCU](https://devoxx.be/talk/?id=2352) ou [Marcy ERICKA CHARELLOIS](https://devoxx.be/talk/?id=19402).
+Voila les quelques talks qui m'ont interpellé. Il y en a beaucoup d'autres tels que ceux de [Julien TOPCU](https://devoxx.be/talk/?id=2352) ou [Marcy ERICKA CHARELLOIS](https://devoxx.be/talk/?id=19402).
+Cette première participation était très enrichissante. J'ai eu à plusieurs reprises l'impression d'avoir l'information à la source (ex. pour Spring). Si j'ai autant de chance, je pense rééditer l'expérience l'année prochaine. En tant que speaker pour une conférence ou un workshop? Seul l'avenir nous le dira!
