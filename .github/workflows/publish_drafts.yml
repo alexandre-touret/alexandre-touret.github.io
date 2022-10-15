@@ -1,7 +1,5 @@
 name: Publish Drafts
 on:
-  milestone:
-    types: [closed]
   workflow_dispatch:
 jobs:
   build:
