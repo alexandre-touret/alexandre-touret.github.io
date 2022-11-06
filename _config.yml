@@ -68,6 +68,9 @@ author:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/touret_alex"
+    - label: "Mastodon"
+      icon: "fab fa-fw fa-mastodon"
+      url: "https://piaille.fr/@alexandre"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/alexandre-touret"
@@ -80,6 +83,9 @@ footer:
     - label: "Twitter"
       icon: "fab fa-fw fa-twitter-square"
       url: "https://twitter.com/touret_alex"
+    - label: "Mastodon"
+      icon: "fab fa-fw fa-mastodon"
+      url: "https://piaille.fr/@alexandre"
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/alexandre-touret"
@@ -145,6 +151,7 @@ og_image: /assets/images/alexandre.touret.webp
 social:
   links:
     - "https://twitter.com/touret_alex"
+    - "https://piaille.fr/@alexandre"
     - "https://www.linkedin.com/in/atouret"
 
 sass:
