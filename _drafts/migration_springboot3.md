@@ -61,7 +61,7 @@ L'une des premières actions à réaliser est de migrer votre application vers l
 repositories {
         maven { url 'https://repo.spring.io/milestone' }
         mavenCentral()
-    }
+}
 ```
 
 Ensuite, j'ai utilisé les versions suivantes pour les différents composants spring:
@@ -87,3 +87,87 @@ Pour vérifier la pertinence de certaines propriétés dans la nouvelle version,
 ```
 
 Il permet de notifier à l'exécution si un paramètre est déprécié ou totalement inutile.  
+
+## Migration namespace javax vers jakartaee
+
+Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d'innombrables maux de tête.
+
+Si vous utilisez Spring Boot au-dessus d'un Tomcat (c.-à-d. en mode _old school_), il  vous faudra mettre à jour le conteneur de servlet à une version compatible.
+
+Dans mon application, je n'ai eu qu'à modifier les imports dans les entités,  filtres et méthodes annotées par l'annotation ``@PostConstruct()``.
+
+```java
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+...
+```
+
+Sur ce sujet, Jetbrains a [publié un tutoriel sur la migration vers Jakarta](https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/).
+
+## Distributed Tracing et observabilité
+
+Spring embarque désormais plusieurs fonctionnalités liées à l'observabilité sous forme de starters. 
+Dans mon cas, j'avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger.
+
+J'ai suivi [cet article](https://spring.io/blog/2022/10/12/observability-with-spring-boot-3) paru sur le blog de Spring.
+J'ai par conséquent basculé sur Zipkin (pour mon Workshop, l'utilisation du distributed tracing est un peu la cerise sur le gâteau).
+
+Voici les starters que j'ai intégrés :
+
+```groovy
+implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+implementation 'io.opentelemetry:opentelemetry-exporter-zipkin'
+implementation 'org.springframework.boot:spring-boot-starter-aop'
+```
+
+J'ai par la suite intégré les propriétés suivantes dans la configuration:
+
+```yaml
+spring:
+ zipkin:
+    base-url: http://localhost:9411
+    sender:
+      type: web
+
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  metrics:
+    distribution:
+      percentiles-histogram:
+        http:
+          server:
+            requests: true
+```
+ 
+Je pense que j'aurai pu faire fonctionner Jaeger. 
+Je n'ai pas voulu perdre de temps (SnowcampIO arrive bientôt...).
+
+## Securité
+J'ai eu quelques soucis après avoir mis à jour Spring Authorization Server et Spring Security.
+Je pense que la version précédente de Spring était plus permissive sur l' injection et le nom des beans chargés dans les classes Configuration.
+
+J'ai donc revu [la validation côté gateway et plus particulièrement la validation du jeton JWT](https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006).
+
+J'ai du notamment ajouter le paramètre ``jwk-set-uri`` qui est obligatoire maintenant:
+
+```yaml
+    resourceserver:
+        jwt:
+          jwk-set-uri: http://localhost:8009
+```
+
+Je n'ai pas eu de [réels problèmes coté Authorization Server car j'avais déjà migré vers la version 0.4.0](https://github.com/spring-projects/spring-authorization-server/).
+
+## Conclusion
+
+Vous l'aurez compris, si vous faites l'effort de suivre régulièrement les versions de Spring, vous devriez venir à bout facilement de la migration vers la dernière version de Spring.
+Néanmoins, sur des projets conséquents (et je ne parle pas de ceux où il n'y a de tests automatisés...) ça peut s'avérer coûteux.
+Certaines actions et contournements peuvent prendre du temps (ex. javax --> jakarta).
+Enfin, je vous conseille d'attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour "de vrai". 
+Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d'attendre que les premiers correctifs soient publiés avant de vous lancer.
