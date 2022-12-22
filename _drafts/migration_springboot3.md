@@ -14,7 +14,7 @@ tags:
 Pour ce dernier article de l'année 2022, voici un rapide retour d'expérience.
 
 Je suis actuellement en cours de préparation d'un workshop pour [l'édition 2023 de SnowcampIO](https://snowcamp.io/fr/).
-J'aborderai dans ce dernier le versioning des APIs REST.
+J'aborderai dans [ce dernier le versioning des APIs REST](https://sessionize.com/s/alexandre-touret/rest-apis-versioning-hands-on/60048).
 Pour illustrer ce sujet ô combien épineux, j'ai réalisé une plateforme "microservices" en utilisant différents composants de la [stack Spring](https://spring.io/).
 
 ![spring](/assets/images/2022/12/spring.webp){: .align-center}
@@ -31,7 +31,7 @@ Pour illustrer ce sujet ô combien épineux, j'ai réalisé une plateforme "micr
 
 En résumé, j'utilise [Spring Boot](https://spring.io/projects/spring-boot), [Cloud](https://spring.io/cloud), [Security](https://spring.io/projects/spring-security), [Authorization Server](https://spring.io/projects/spring-authorization-server), [Circuit Breaker](https://spring.io/projects/spring-cloud-circuitbreaker), [Spring Data](https://spring.io/projects/spring-data),...
 
-J'ai démarré le développement avant l'annonce officielle de la version 3.0 de Spring Boot.
+J'ai démarré le développement avant [l'annonce officielle de la version 3.0 de Spring Boot](https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga).
 Ce n'était pas réellement obligatoire pour cet atelier, mais j'ai souhaité quand même migrer cette application dans la dernière version de Spring Boot/Framework.
 
 Je vais décrire dans cet article comment j'ai réussi à migrer toute cette stack et les choix que j'ai fait pour que ça fonctionne.
@@ -46,16 +46,17 @@ Cependant, je la trouve représentative et espère (très modestement) que mon r
 
 Une documentation existe.
 Vous pouvez la consulter [ici](https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide).
+Il existe aussi plusieurs articles sur le blog du projet Spring. Voici [un exemple](https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0).
 
 ## Dépendances et configuration des plugins
 
 ### JDK
 
-Pour Spring Boot 3, il faut impérativement utiliser un JDK >=17.
+Pour Spring Boot 3, il faut impérativement utiliser un [JDK >=17](https://openjdk.org/projects/jdk/17/).
 
 ### Mises à jour
 
-L'une des premières actions à réaliser est de migrer votre application vers la version 2.7.
+L'une des premières actions à réaliser est de migrer votre application vers [la version 2.7](https://spring.io/blog/2022/06/23/spring-boot-2-7-1-available-now).
 
 À l'heure où j'écris cet article, la version de Spring Cloud est encore en version RC. 
 J'ai donc dû ajouter le repository _"milestone"_ de Spring:
@@ -115,7 +116,7 @@ Spring embarque désormais plusieurs fonctionnalités liées à l'observabilité
 Dans mon cas, [j'avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger](https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html).
 
 J'ai suivi [cet article](https://spring.io/blog/2022/10/12/observability-with-spring-boot-3) paru sur le blog de Spring.
-J'ai par conséquent basculé sur Zipkin (pour mon Workshop, l'utilisation du distributed tracing est un peu la cerise sur le gâteau).
+J'ai par conséquent basculé sur [Zipkin](https://zipkin.io/) (pour mon Workshop, l'utilisation du distributed tracing est un peu la cerise sur le gâteau).
 
 Voici les starters que j'ai intégrés :
 
@@ -148,7 +149,7 @@ management:
             requests: true
 ```
  
-Je pense que j'aurai pu faire fonctionner Jaeger. 
+Je pense que j'aurai pu faire fonctionner [Jaeger](https://www.jaegertracing.io/). 
 Je n'ai pas voulu perdre de temps (SnowcampIO arrive bientôt...).
 
 ## Securité
@@ -170,7 +171,9 @@ Je n'ai pas eu de [réels problèmes coté Authorization Server car j'avais déj
 ## Conclusion
 
 Vous l'aurez compris, si vous faites l'effort de suivre régulièrement les versions de Spring, vous devriez venir à bout facilement de la migration vers la dernière version de Spring.
+
 Néanmoins, sur des projets conséquents (et je ne parle pas de ceux où il n'y a de tests automatisés...) ça peut s'avérer coûteux.
 Certaines actions et contournements peuvent prendre du temps (ex. javax --> jakarta).
-Enfin, je vous conseille d'attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour "de vrai". 
+
+Enfin, je vous conseille d'attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour _"de vrai"_. 
 Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d'attendre que les premiers correctifs soient publiés avant de vous lancer.
