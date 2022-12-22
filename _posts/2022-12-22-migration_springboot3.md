@@ -3,7 +3,7 @@ title: Migrer son application Spring Boot vers la version 3
 date: 2022-12-22 08:00:00
 
 header:
-teaser: /assets/images/2022/12/spring.webp
+  teaser: /assets/images/2022/12/spring.webp
 og_image: /assets/images/2022/12/spring.webp
 
 tags:
