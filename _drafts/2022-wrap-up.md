@@ -12,7 +12,7 @@ tags:
 
 ---
 
-_You could find the English version below_
+_You can read the English version below_
 
 ![spring](/assets/images/2022/12/review.webp){: .align-center}
 
@@ -35,9 +35,6 @@ Pour l'année prochaine, on a quelques idées. J'espère pouvoir communiquer là
 
 Je vous souhaite en attendant un bon réveillon et si vous découvrez mon article en 2023 une bonne année.
 
-[^1]: c'est comme des dev rel mais on essaye d'inclure au delà des devs (ex. les OPS)
-
-
 ---
 
 ## 2022 in few words
@@ -53,13 +50,15 @@ I also wrote 6 articles on [my blog](https://blog.touret.info/https://blog.toure
 
 Thank you to my employer for giving me this opportunity and the organisers for their trust and their hospitality. I'm pretty sure you will recognise yourselves.
 
-## And now?
+## And now, something completely different?
 
 On behalf of the [^2]Worldline tech rel initiative, I had the chance to meet great people and move forward in some technical domains. Drawing up and submitting a talk about a technical topic requires you to dig into it and be proficient on it.
 I already have ideas for the next year. I hope communicating about it shortly.
 
 Best wishes for the new year eve and if you come across this article in 2023: Happy new year!!
 
+
+[^1]: c'est comme des dev rel mais on essaye d'inclure au delà des devs (ex. les OPS, SRE).
 [^2]: It is just like dev rel, but we would like to include all the tech crew (e.g., OPS & SRE)
 
 
