@@ -31,7 +31,7 @@ Je tiens à remercier mon employeur pour me permettre de vivre cette expérience
 Merci également à toutes celles et ceux qui m'ont aidé également à monter en compétence en tant que speaker.  
 
 ## Et maintenant?
-Grâce à l'initiative [^1]Tech-Rel de Worldline, j'ai pu faire des super rencontres et progresser techniquement dans certains domaines : Préparer et proposer un s ujet technique vous impose de le creuser à fond et de le maîtriser.
+Grâce à l'initiative [^1]Tech-Rel de Worldline, j'ai pu faire des super rencontres et progresser techniquement dans certains domaines : Préparer et proposer un sujet technique vous impose de le creuser à fond et de le maîtriser.
 Pour l'année prochaine, on a quelques idées. J'espère pouvoir communiquer là-dessus rapidement.
 
 Je vous souhaite en attendant un bon réveillon et si vous découvrez mon article en 2023 une bonne année.
