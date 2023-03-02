@@ -260,7 +260,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     Vine = ""
     Googlescholar = ""
     Researchgate = ""
-    Mastodon = "piaille.fr/alexandre"
     Thingiverse = ""
     Devto = ""
     Gitea = ""
@@ -278,7 +277,16 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     HackTheBox = ""
     RootMe= ""
     Email = ""
-    RSS = ""
+    RSS = "RSS"
+    [params.social.Mastodon]
+      # weight when arranging icons (the greater the weight, the later the icon is positioned)
+      weight = 0
+      # your social ID
+      id = "@alexandre"
+      # prefix of your social link
+      prefix = "https://piaille.fr/"
+      # content hovering on the icon
+      title = "Mastodon"
 
   # Page global config
   [params.page]
@@ -672,6 +680,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         name = "About"
         url = "/about/"
         title = ""
+      [[languages.en.menu.main]]
+        weight = 6
+        identifier = "RSS"
+        pre = "<i class='fa fa-rss-square fa-fw' aria-hidden='true'></i>"
+        post = ""
+        name = ""
+        url = "https://blog.touret.info/index.xml"
+        title = ""
     [languages.en.params.search]
         enable = true
         type = "lunr"
@@ -723,6 +739,15 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         name = "À propos"
         url = "/a-propos/"
         title = "À propos" 
+
+      [[languages.fr.menu.main]]
+        weight = 6
+        identifier = "RSS"
+        pre = "<i class='fa fa-rss-square fa-fw' aria-hidden='true'></i>"
+        post = ""
+        name = ""
+        url = "https://blog.touret.info/index.xml"
+        title = ""
       [languages.fr.permalinks]
         posts = '/:year/:month/:day/:filename/'
        
