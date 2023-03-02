@@ -6,13 +6,8 @@ date: 2019-04-20T08:14:09+02:00
 
 featuredImagePreview: /assets/images/2019/04/img_20190419_161746.jpg
 featuredImage: /assets/images/2019/04/img_20190419_161746.jpg
+images: ["/assets/images/2019/04/img_20190419_161746.jpg"]
 
-timeline_notification:
-  - "1555744454"
-publicize_twitter_user:
-  - touret_alex
-publicize_linkedin_url:
-  - ""
 tags:
   - conférence
   - devoxx

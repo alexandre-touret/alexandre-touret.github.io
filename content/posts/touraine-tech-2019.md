@@ -5,13 +5,8 @@ date: 2018-12-25T17:24:29+01:00
 
 featuredImagePreview: /assets/images/2018/12/touraine_tech.png
 featuredImage: /assets/images/2018/12/touraine_tech.png
+images: ["/assets/images/2018/12/touraine_tech.png"]
 
-timeline_notification:
-  - "1545755073"
-publicize_linkedin_url:
-  - www.linkedin.com/updates?topic=6483366689433096192
-publicize_twitter_user:
-  - touret_alex
 tags:
   - architecture
   - conférence

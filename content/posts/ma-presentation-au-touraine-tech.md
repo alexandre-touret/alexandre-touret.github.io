@@ -7,7 +7,7 @@ date: 2018-02-26T14:32:31+01:00
 
 featuredImage: /assets/images/2018/02/logotnt_final.jpg
 featuredImagePreview: /assets/images/2018/02/logotnt_final.jpg
-og_image: /assets/images/2018/02/logotnt_final.jpg
+images: ["/assets/images/2018/02/logotnt_final.jpg"]
 
 
 

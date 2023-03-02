@@ -5,7 +5,7 @@ date: 2018-02-10T08:58:47+01:00
 
 
 featuredImagePreview: /assets/images/2018/02/220px-debian-openlogo-svg.png
-og_image: /assets/images/2018/02/220px-debian-openlogo-svg.png
+images: ["/assets/images/2018/02/220px-debian-openlogo-svg.png"]
 
 
 

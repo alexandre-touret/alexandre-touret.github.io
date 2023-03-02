@@ -5,14 +5,9 @@ date: 2019-08-09T16:13:21+02:00
 
 featuredImagePreview: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
 featuredImage: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
-og_image: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
+images: ["/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg"]
 
 
-timeline_notification:
-  - "1565363602"
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
 tags:
   - git
   - github

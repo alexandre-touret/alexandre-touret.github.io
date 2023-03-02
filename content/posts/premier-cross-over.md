@@ -4,14 +4,6 @@ title: 'Premier cross over &#8230;'
 date: 2018-10-29T14:29:56+01:00
 
 
-
-
-geo_public:
-  - "0"
-timeline_notification:
-  - "1540819796"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - planetlibre
 ---

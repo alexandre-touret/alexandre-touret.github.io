@@ -3,6 +3,7 @@ title: Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Git
 date: 2021-12-19 12:00:00
 
 featuredImagePreview: /assets/images/2021/12/github-1.jpg
+images: ["/assets/images/2021/12/github-1.jpg"]
 
 tags:
   - github

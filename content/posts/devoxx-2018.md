@@ -7,16 +7,8 @@ date: 2018-04-20T13:18:43+02:00
 featuredImage: /assets/images/2018/04/img_20180419_155256624099247.jpg
 
 featuredImagePreview: /assets/images/2018/04/img_20180419_155256624099247.jpg
-og_image: /assets/images/2018/04/img_20180419_155256624099247.jpg
+images: ["/assets/images/2018/04/img_20180419_155256624099247.jpg"]
 
-
-
-timeline_notification:
-  - "1524226728"
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=38123191&stype=M&topic=6393070267714846720&type=U&a=GMXe'
-publicize_twitter_user:
-  - touret_alex
 tags:
   - devoxx
   - devoxxfr

@@ -5,15 +5,8 @@ date: 2021-06-10T17:01:20+02:00
 
 featuredImagePreview: /assets/images/2021/06/pexels-photo-257736.jpeg
 featuredImage: /assets/images/2021/06/pexels-photo-257736.jpeg
+images: ["/assets/images/2018/03/sc3a9lection_001.png"]
 
-
-timeline_notification:
-  - "1623337284"
-publicize_twitter_user:
-  - touret_alex
-publicize_linkedin_url:
-  - ""
-  - logiciels libres
 tags:
   - actuator
   - observability

@@ -6,11 +6,8 @@ date: 2020-08-24T12:42:46+02:00
 
 featuredImagePreview: /assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg
 featuredImage: /assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg
+images: ["/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg"]
 
-timeline_notification:
-  - "1598269367"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - docker
   - github

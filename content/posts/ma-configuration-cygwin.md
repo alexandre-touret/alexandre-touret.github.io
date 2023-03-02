@@ -6,7 +6,7 @@ date: 2018-02-16T09:42:24+01:00
 
 featuredImage: /assets/images/2018/02/2000px-cygwin_logo-svg.png
 featuredImagePreview: /assets/images/2018/02/2000px-cygwin_logo-svg.png
-og_image: /assets/images/2018/02/2000px-cygwin_logo-svg.png
+images: ["/assets/images/2018/02/2000px-cygwin_logo-svg.png"]
 
 
 

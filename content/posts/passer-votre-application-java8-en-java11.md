@@ -6,11 +6,8 @@ date: 2020-02-03T15:44:27+01:00
 
 featuredImagePreview: /assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp
 featuredImage: /assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp
+images: ["/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp"]
 
-timeline_notification:
-  - "1580741068"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - java
   - planetlibre

@@ -6,12 +6,7 @@ date: 2021-04-02T21:45:43+02:00
 featuredImage: /assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg
 
 featuredImagePreview: /assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg
-
-publicize_twitter_user:
-  - touret_alex
-timeline_notification:
-  - "1617396348"
-  - logiciels libres
+images: ["/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg"]
 tags:
   - dell
   - planetlibre
