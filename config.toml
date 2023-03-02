@@ -445,7 +445,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       [params.page.comment.utterances]
         enable = true
         # owner/repo
-        repo = "alexandre-touret/alexandre.touret.github.io"
+        repo = "alexandre-touret/alexandre-touret.github.io"
         issueTerm = "pathname"
         label = ""
         lightTheme = "github-light"
