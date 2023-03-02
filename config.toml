@@ -1,11 +1,9 @@
 baseURL = "http://blog.touret.info/"
 
 # theme
-
 theme = "LoveIt"
 
 # website title
-
 title = "Alexandre Touret's Blog"
 
 # determines default content language ["en", "zh-cn", "fr", "pl", ...]
@@ -22,7 +20,7 @@ paginate = 12
 # google analytics code [UA-XXXXXXXX-X]
 googleAnalytics = "UA-31817514-1"
 # copyright description used only for seo schema
-copyright = ""
+copyright = "Creative Commons By 4.0"
 
 # whether to use robots.txt
 enableRobotsTXT = true
