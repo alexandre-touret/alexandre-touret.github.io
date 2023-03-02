@@ -1,9 +1,0 @@
-main:
-  - title: "Conférences"
-    url: /talks/
-  - title: "A propos"
-    url: /a-propos/
-  - title: "Contact"
-    url: /contact/
-  - title: "Tags"
-    url: /tags/
