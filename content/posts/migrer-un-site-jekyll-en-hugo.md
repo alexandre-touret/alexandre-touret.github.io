@@ -80,13 +80,17 @@ Dans chaque post, j'ai revu les images et leur positionnement.
 J'ai donc passé chaque article manuellement. 
 Heureusement, je n'en avais pas une centaine...
 
-J'ai ajouté quand je pouvais l'en-tête suivant:
+J'ai ajouté quand je pouvais l'en-tête suivant (adaptez le chemin vers l'image ;-) ):
 
 ```yml
 featuredImage: /assets/images/2022/12/review.webp
+images: ["/assets/images/2022/12/review.webp"]
 ```
 
-et j'ai ajouté le code suivant pour centrer les images:
+Le premier attribut permet d'avoir une image d'en-tête pour l'article. 
+Le second permet d'avoir l'image lors d'un partage sur un réseau social (ex. Twitter)
+
+j'ai ajouté le code suivant pour centrer les images:
 
 ```markdown
 {{< style "text-align:center" >}}
