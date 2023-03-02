@@ -2,8 +2,7 @@
 title: 2022 en quelques chiffres
 date: 2022-12-31 08:00:00
 
-images:
-    - /assets/images/2022/12/review.webp
+images: ["/assets/images/2022/12/review.webp"]
 featuredImagePreview: /assets/images/2022/12/review.webp
 featuredImage: /assets/images/2022/12/review.webp
 
