@@ -1,0 +1,25 @@
+@startuml batch_evenement
+!include ../../../plantuml/include/C4_Container.puml
+!include ../../../plantuml/include/C4_Context.puml
+
+LAYOUT_TOP_DOWN()
+LAYOUT_WITH_LEGEND()
+
+title Batch sur presence fichier
+
+Container_Ext(scheduler,"Scheduler","Scheduler","Triggers batches")
+
+System_Boundary(dc1, "System") {
+    Container(s3,"File Storage","AWS S3,GCP Filestore... ","Stores files")
+    Boundary(instance1, "Instance #1") {
+    Container(batch, "Batch Java Application", "Java, ...", "Polls the S3 buckets and handle new files")
+    }
+    ContainerDb(db1, "Database", "PostgreSQL", "Stores data", "pgsql_server")
+}
+
+
+Rel(scheduler, batch, "triggers", "HTTPS")
+Rel(batch, s3, "Fetch/Stores", "HTTPS")
+Rel(batch, db1, "queries", "JDBC")
+
+@enduml
