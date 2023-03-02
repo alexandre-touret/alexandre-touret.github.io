@@ -3,15 +3,6 @@ id: 136
 title: Une radio connectée DIY
 date: 2019-03-07T08:30:44+01:00
 
-
-
-
-timeline_notification:
-  - "1551943845"
-publicize_linkedin_url:
-  - www.linkedin.com/updates?topic=6509324277303644160
-publicize_twitter_user:
-  - touret_alex
 tags:
   - planetlibre
   - raspberry-pi

@@ -6,16 +6,14 @@ date: 2020-04-12T14:47:48+02:00
 
 featuredImagePreview: /assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg
 featuredImage: /assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg
+images: ["/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg"]
+
 enclosure:
   - |
     https://en.wikipedia.org/wiki/File:MIDI_sample.mid?qsrc=3044
     0
     audio/midi
     
-timeline_notification:
-  - "1586699272"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - debian
   - musique

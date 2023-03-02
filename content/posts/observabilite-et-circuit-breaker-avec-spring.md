@@ -2,17 +2,8 @@
 date: "2021-07-26T11:53:49Z"
 featuredImagePreview: "/assets/images/2021/07/rest-book-architecture.png"
 featuredImage: "/assets/images/2021/07/rest-book-architecture.png"
-id: 563
-jetpack_anchor_episode:
-- ""
-jetpack_anchor_podcast:
-- ""
-jetpack_anchor_spotify_show:
-- ""
-publicize_twitter_user:
-- touret_alex
-spay_email:
-- ""
+images: ["/assets/images/2021/07/rest-book-architecture.png"]
+
 tags:
 - github
 - java

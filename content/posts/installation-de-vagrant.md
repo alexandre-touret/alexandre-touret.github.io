@@ -4,20 +4,9 @@ title: Installation de Vagrant
 date: 2018-03-15T12:05:55+01:00
 
 featuredImage: /assets/images/2018/03/vagrant.png
-
+images: ["/assets/images/2018/03/vagrant.png"]
 featuredImagePreview: /assets/images/2018/03/vagrant.png
-og_image: /assets/images/2018/03/vagrant.png
 
-
-
-
-publicize_linkedin_url:
-  - 'https://www.linkedin.com/updates?discuss=&scope=38123191&stype=M&topic=6380005983703355392&type=U&a=aIHA'
-timeline_notification:
-  - "1521111959"
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
 tags:
   - planetlibre
   - vagrant

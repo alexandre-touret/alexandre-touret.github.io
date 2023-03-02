@@ -5,12 +5,8 @@ date: 2020-04-01T11:09:44+02:00
 
 featuredImage: /assets/images/2020/04/man-person-street-shoes-2882.webp
 featuredImagePreview: /assets/images/2020/04/man-person-street-shoes-2882.webp
+images: ["/assets/images/2020/04/man-person-street-shoes-2882.webp"]
 
-timeline_notification:
-  - "1585735785"
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
 tags:
   - debian
   - docker

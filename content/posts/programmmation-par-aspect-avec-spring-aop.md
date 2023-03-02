@@ -5,13 +5,8 @@ date: 2019-11-05T18:12:54+01:00
 
 featuredImagePreview: /assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg
 featuredImage: /assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg
-og_image: /assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg
+images: ["/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg"]
 
-
-timeline_notification:
-  - "1572973975"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - aop
   - java

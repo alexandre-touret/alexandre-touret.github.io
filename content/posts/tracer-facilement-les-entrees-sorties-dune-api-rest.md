@@ -5,15 +5,8 @@ date: 2018-12-01T15:51:50+01:00
 
 featuredImage: /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg
 featuredImagePreview: /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg
-og_image: /assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg
+images: ["/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg"]
 
-
-timeline_notification:
-  - "1543675914"
-publicize_linkedin_url:
-  - www.linkedin.com/updates?topic=6474646066024321024
-publicize_twitter_user:
-  - touret_alex
 tags:
   - logbook
   - planetlibre

@@ -5,12 +5,8 @@ date: 2020-04-24T20:06:13+02:00
 
 
 featuredImagePreview: /assets/images/2020/04/boot_avant.png
+images: ["/assets/images/2020/04/boot_avant.png"]
 
-timeline_notification:
-  - "1587755176"
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
 tags:
   - debian
   - planetlibre

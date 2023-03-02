@@ -5,13 +5,8 @@ date: 2019-12-30T15:03:36+01:00
 
 featuredImagePreview: /assets/images/2019/12/gradle_logo.png
 featuredImage: /assets/images/2019/12/gradle_logo.png
-og_image: /assets/images/2019/12/gradle_logo.png
+images: ["/assets/images/2019/12/gradle_logo.png"]
 
-
-timeline_notification:
-  - "1577714616"
-publicize_twitter_user:
-  - touret_alex
 tags:
   - gradle
   - java

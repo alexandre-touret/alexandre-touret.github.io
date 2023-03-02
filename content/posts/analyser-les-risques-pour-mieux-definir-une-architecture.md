@@ -4,6 +4,7 @@ date: 2022-02-09 08:00:00
 
 featuredImagePreview: /assets/images/2022/02/architecture.webp
 featuredImage: /assets/images/2022/02/architecture.webp
+images: ["/assets/images/2022/02/architecture.webp"]
 tags:
   - architecture
 ---

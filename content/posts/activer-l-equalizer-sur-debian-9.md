@@ -5,8 +5,7 @@ date: 2018-03-25T13:38:27+02:00
 
 
 featuredImagePreview: /assets/images/2018/03/sc3a9lection_001.png
-og_image: /assets/images/2018/03/sc3a9lection_001.png
-
+images: ["/assets/images/2018/03/sc3a9lection_001.png"]
 
 
 

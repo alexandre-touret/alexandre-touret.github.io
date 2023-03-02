@@ -5,13 +5,8 @@ date: 2019-06-25T11:34:51+02:00
 
 featuredImagePreview: /assets/images/2019/06/ansible_logo.svg_.png
 featuredImage: /assets/images/2019/06/ansible_logo.svg_.png
+images: ["/assets/images/2019/06/ansible_logo.svg_.png"]
 
-
-timeline_notification:
-  - "1561458892"
-publicize_twitter_user:
-  - touret_alex
-  - logiciels libres
 tags:
   - ansible
   - debian

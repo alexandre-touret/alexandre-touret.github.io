@@ -5,17 +5,8 @@ date: 2020-10-08T10:09:59+02:00
 
 
 featuredImagePreview: /assets/images/2020/10/gartner_hype_cycle.svg_.png
+images: ["/assets/images/2021/04/dell-inspiron-13-5301-argent-01.jpg"]
 
-publicize_linkedin_url:
-  - ""
-amp_status:
-  - ""
-spay_email:
-  - ""
-publicize_twitter_user:
-  - touret_alex
-timeline_notification:
-  - "1602148200"
 tags:
   - helm
   - hype

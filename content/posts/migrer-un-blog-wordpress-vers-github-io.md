@@ -5,6 +5,7 @@ date: 2021-12-06T12:00:00+02:00
 
 featuredImagePreview: /assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg 
 featuredImage: /assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg 
+images: ["/assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg "]
 
 tags:
   - github
