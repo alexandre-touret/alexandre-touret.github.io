@@ -2,8 +2,7 @@
 title: Migrer un site Jekyll sur Hugo
 date: 2023-03-03 08:00:00
 
-images:
-    - /assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp
+images: ["/assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp
 featuredImage: /assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp
 
