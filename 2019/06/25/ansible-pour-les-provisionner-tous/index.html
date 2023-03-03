@@ -1,0 +1,181 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Ansible pour les provisionner tous ! - Alexandre Touret's Blog</title><meta name=Description content="Architecte logiciel, développeur, bidouilleur (dans le désordre)"><meta property="og:title" content="Ansible pour les provisionner tous !"><meta property="og:description" content="Si vous provisionnez vos VM VirtualBox avec Vagrant, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
+Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez Ansible.
+Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH)."><meta property="og:type" content="article"><meta property="og:url" content="/2019/06/25/ansible-pour-les-provisionner-tous/"><meta property="og:image" content="/assets/images/2019/06/ansible_logo.svg_.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2019-06-25T11:34:51+02:00"><meta property="article:modified_time" content="2023-03-02T18:52:03+01:00"><meta property="og:site_name" content="blog.touret.info"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/assets/images/2019/06/ansible_logo.svg_.png"><meta name=twitter:title content="Ansible pour les provisionner tous !"><meta name=twitter:description content="Si vous provisionnez vos VM VirtualBox avec Vagrant, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
+Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez Ansible.
+Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH)."><meta name=application-name content="LoveIt"><meta name=apple-mobile-web-app-title content="LoveIt"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=/2019/06/25/ansible-pour-les-provisionner-tous/><link rel=prev href=/2019/04/20/devoxx-2019/><link rel=next href=/2019/07/17/comment-coacher-des-jeunes-developpeurs/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><meta name=google-site-verification content="7UnqNmvO-mjfMkRqKaaWRPTBxSylEVJXvAn8iTfc7SI"><meta name=msvalidate.01 content="F9655A4C8648E42154ECB4B4D6CF60A2"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Ansible pour les provisionner tous !","inLanguage":"fr","mainEntityOfPage":{"@type":"WebPage","@id":"\/2019\/06\/25\/ansible-pour-les-provisionner-tous\/"},"image":["\/images\/alexandre-touret.webp"],"genre":"posts","keywords":"ansible, debian, planetlibre","wordcount":631,"url":"\/2019\/06\/25\/ansible-pour-les-provisionner-tous\/","datePublished":"2019-06-25T11:34:51+02:00","dateModified":"2023-03-02T18:52:03+01:00","license":"This work is licensed under a Creative Commons Attribution 4.0 International License.","publisher":{"@type":"Organization","name":"Alexandre Touret","logo":"\/images\/alexandre-touret.webp"},"author":{"@type":"Person","name":"Alexandre Touret"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Alexandre Touret's Blog">blog.touret.info</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/ title=Articles>Articles </a><a class=menu-item href=/contact/>Contact </a><a class=menu-item href=/talks/ title=Talks>Conférences </a><a class=menu-item href=/a-propos/ title="À propos">À propos </a><a class=menu-item href=/https:/blog.touret.info/index.xml><i class='fa fa-rss-square fa-fw' aria-hidden=true></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Rechercher des titres, des contenus..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Chercher><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clair><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Changer de Thème"><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title="Choisir la langue"><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/2019/06/25/ansible-pour-les-provisionner-tous/ selected>Français</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Alexandre Touret's Blog">blog.touret.info</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Rechercher des titres, des contenus..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Chercher><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clair><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Annuler</a></div><a class=menu-item href=/posts/ title=Articles>Articles</a><a class=menu-item href=/contact/ title>Contact</a><a class=menu-item href=/talks/ title=Talks>Conférences</a><a class=menu-item href=/a-propos/ title="À propos">À propos</a><a class=menu-item href=/https:/blog.touret.info/index.xml title><i class='fa fa-rss-square fa-fw' aria-hidden=true></i></a><a href=javascript:void(0); class="menu-item theme-switch" title="Changer de Thème">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title="Choisir la langue"><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/2019/06/25/ansible-pour-les-provisionner-tous/ selected>Français</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contenu</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ansible pour les provisionner tous !</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.touret.info title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Alexandre Touret</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2019-06-25>2019-06-25</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;631 mots&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;3 minutes&nbsp;</div></div><div class=featured-image><img class=lazyload src=/svg/loading.min.svg data-src=/assets/images/2019/06/ansible_logo.svg_.png data-srcset="/assets/images/2019/06/ansible_logo.svg_.png, /assets/images/2019/06/ansible_logo.svg_.png 1.5x, /assets/images/2019/06/ansible_logo.svg_.png 2x" data-sizes=auto alt=/assets/images/2019/06/ansible_logo.svg_.png title=/assets/images/2019/06/ansible_logo.svg_.png></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contenu</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#configuration-de-vagrant>Configuration de Vagrant</a><ul><li><a href=#configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</a><ul><li><ul><li><a href=#ansiblecfg>ansible.cfg</a></li><li><a href=#hosts>hosts</a></li></ul></li></ul></li></ul></li><li><a href=#provisionning>Provisionning</a><ul><li><a href=#a-la-création>A la création</a></li></ul></li></ul></nav></div></div><div class=content id=content><p>Si vous <a href=http://blog.touret.info/2018/03/15/installation-de-vagrant/ target=_blank rel="noopener noreffer">provisionnez vos VM VirtualBox avec Vagrant</a>, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.</p><p>Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez <a href=https://www.ansible.com/ target=_blank rel="noopener noreffer">Ansible.</a></p><p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href=https://puppet.com target=_blank rel="noopener noreffer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation <a href=https://puppet.com/docs/puppet/6.0/man/agent.html target=_blank rel="noopener noreffer">d&rsquo;agent.</a></p><p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href=https://www.virtualbox.org/ target=_blank rel="noopener noreffer">VirtualBox</a>.</p><h2 id=configuration-de-vagrant>Configuration de Vagrant</h2><p>Dans le fichier Vagrantfile, on active le provisionning via Ansible:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>config.vm.provision &#34;ansible_local&#34; </span>
+</span></span><span class=line><span class=cl>  <span class=na>do |ansible| ansible.playbook</span> <span class=o>=</span> <span class=s>&#34;site.yml&#34;
+</span></span></span><span class=line><span class=cl><span class=s>  ansible.install_mode = &#34;pip&#34;
+</span></span></span><span class=line><span class=cl><span class=s>  ansible.version = &#34;2.7.10&#34;</span>
+</span></span><span class=line><span class=cl><span class=na>end</span>
+</span></span></code></pre></td></tr></table></div></div><p>Cette configuration fait référence à un fichier « playbook » site.yml. C&rsquo;est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.</p><p>Voici un exemple de contenu:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>VirtualBox</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>hosts</span><span class=p>:</span><span class=w> </span><span class=l>all</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>become</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>become_user</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;root&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>become_method</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;sudo&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>roles</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>common</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>vars_files</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=l>vars/environment.yml</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=line><span class=cl>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Remove useless packages from the cache&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>apt</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>autoclean</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>force_apt_get</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Remove dependencies that are no longer required&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>apt</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>autoremove</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>force_apt_get</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Update and upgrade apt packages (may take a while)&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>become</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>apt</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>upgrade</span><span class=p>:</span><span class=w> </span><span class=l>dist</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>update_cache</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>force_apt_get</span><span class=p>:</span><span class=w> </span><span class=kc>yes</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Install useful packages&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>become</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>apt</span><span class=p>:</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>name</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>gcc</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>g++</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>...</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>zsh</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=l>firewalld</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>present</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>update_cache</span><span class=p>:</span><span class=w> </span><span class=kc>no</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>ansible create directory example</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ home }}/.m2&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>directory</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>Install Maven settings.xml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>copy</span><span class=p>:</span><span class=w> 
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>src</span><span class=p>:</span><span class=w> </span><span class=l>settings.xml</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>dest</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ home }}/.m2/settings.xml&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Install Maven&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>raw</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;curl -sL \&#34;http://mirror.ibcp.fr/pub/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz\&#34; -o /opt/apache-maven.tar.gz &amp;&amp; tar -zxf /opt/apache-maven.tar.gz -C /opt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>become</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>become_user</span><span class=p>:</span><span class=w> </span><span class=l>root</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>become_method</span><span class=p>:</span><span class=w> </span><span class=l>sudo</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w></span>- <span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;Change Maven Rights&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>file</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>path</span><span class=p>:</span><span class=w> </span><span class=l>/opt/*</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>state</span><span class=p>:</span><span class=w> </span><span class=l>touch</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>modification_time</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;preserve&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>access_time</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;preserve&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
+</span></span></span></code></pre></td></tr></table></div></div><p>Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>maven_version: 3.5.4
+</span></span><span class=line><span class=cl>username: vagrant
+</span></span><span class=line><span class=cl>home: /home/vagrant
+</span></span><span class=line><span class=cl>docker_compose_version: 1.22.0
+</span></span></code></pre></td></tr></table></div></div><p>Il y a <a href=https://docs.ansible.com/ansible/latest/modules/modules_by_category.html target=_blank rel="noopener noreffer">une quantité impressionnante de modules Ansible que l&rsquo;on peut utiliser</a>. Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d&rsquo;un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.</p><h3 id=configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</h3><p>Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentaires à la racine:</p><h5 id=ansiblecfg>ansible.cfg</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[defaults]</span>
+</span></span><span class=line><span class=cl>  <span class=na>hostfile</span> <span class=o>=</span> <span class=s>hosts</span>
+</span></span></code></pre></td></tr></table></div></div><h5 id=hosts>hosts</h5><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=k>[local]</span>
+</span></span><span class=line><span class=cl>  <span class=na>localhost ansible_connection</span><span class=o>=</span><span class=s>local</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=provisionning>Provisionning</h2><h3 id=a-la-création>A la création</h3><p>le provisionning peut se faire au lancement de vagrant via la commande:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>vagrant up
+</span></span></code></pre></td></tr></table></div></div><p>Pour faire une mise à jour</p><p>Directement dans la box, vous pouvez lancer les commandes suivantes :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>sudo mount -t vboxsf vagrant /vagrant
+</span></span></code></pre></td></tr></table></div></div><p>Puis, vous pouvez lancer les commandes suivantes dans la box:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>su -
+</span></span><span class=line><span class=cl><span class=nb>cd</span> /vagrant
+</span></span><span class=line><span class=cl><span class=nb>export</span> <span class=nv>ANSIBLE_CONFIG</span><span class=o>=</span>/vagrant
+</span></span><span class=line><span class=cl>ansible-playbook site.yml
+</span></span></code></pre></td></tr></table></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Mis à jour le 2023-03-02&nbsp;<a class=git-hash href=https://github.com/alexandre-touret/alexandre-touret.github.io/commit/375bd449aa0d25e75c30b33fdae2da7a4b75de66 target=_blank title="commit by Alexandre Touret(alexandre-touret@users.noreply.github.com) 375bd449aa0d25e75c30b33fdae2da7a4b75de66: twitter card images">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>375bd44</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/2019/06/25/ansible-pour-les-provisionner-tous/index.md target=_blank>Lire Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Partager sur Twitter" data-sharer=twitter data-url=/2019/06/25/ansible-pour-les-provisionner-tous/ data-title="Ansible pour les provisionner tous !" data-via=touret_alex data-hashtags=ansible,debian,planetlibre><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Partager sur Linkedin" data-sharer=linkedin data-url=/2019/06/25/ansible-pour-les-provisionner-tous/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Partager sur Hacker News" data-sharer=hackernews data-url=/2019/06/25/ansible-pour-les-provisionner-tous/ data-title="Ansible pour les provisionner tous !"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/ansible/>ansible</a>,&nbsp;<a href=/tags/debian/>debian</a>,&nbsp;<a href=/tags/planetlibre/>planetlibre</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Retour</a></span>&nbsp;|&nbsp;<span><a href=/>Accueil</a></span></section></div><div class=post-nav><a href=/2019/04/20/devoxx-2019/ class=prev rel=prev title="Devoxx 2019"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Devoxx 2019</a>
+<a href=/2019/07/17/comment-coacher-des-jeunes-developpeurs/ class=next rel=next title="Comment coacher des jeunes développeurs ?">Comment coacher des jeunes développeurs ?<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=utterances class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><a rel=me href=https://piaille.fr/@alexandre></a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2018 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.touret.info target=_blank>Alexandre Touret</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by/4.0/ target=_blank>CC BY 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Retour en Haut"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="Afficher les Commentaires"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js></script><script type=text/javascript src=/lib/lunr/lunr.stemmer.support.min.js></script><script type=text/javascript src=/lib/lunr/lunr.fr.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copier dans le presse-papiers",maxShownLines:50},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"alexandre-touret/alexandre-touret.github.io"}},lightgallery:!0,search:{highlightTag:"em",lunrIndexURL:"/index.json",lunrLanguageCode:"fr",maxResultLength:10,noResultsFound:"Aucun résultat trouvé",snippetLength:50,type:"lunr"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","google-gtag",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=google-gtag" async></script></body></html>

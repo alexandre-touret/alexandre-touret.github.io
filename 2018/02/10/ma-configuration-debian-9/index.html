@@ -1,0 +1,236 @@
+<!doctype html><html lang=fr><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><meta name=robots content="noodp"><title>Ma Configuration Debian 9 - Alexandre Touret's Blog</title><meta name=Description content="Architecte logiciel, développeur, bidouilleur (dans le désordre)"><meta property="og:title" content="Ma Configuration Debian 9"><meta property="og:description" content="Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
+Voici ce que j&rsquo;ai réalisé post-installation:
+Ajout dépôts supplémentaires Dans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.
+1 2 3 4 5 6 7 8 9 deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb http://security."><meta property="og:type" content="article"><meta property="og:url" content="/2018/02/10/ma-configuration-debian-9/"><meta property="og:image" content="/assets/images/2018/02/220px-debian-openlogo-svg.png"><meta property="article:section" content="posts"><meta property="article:published_time" content="2018-02-10T08:58:47+01:00"><meta property="article:modified_time" content="2023-03-02T18:52:03+01:00"><meta property="og:site_name" content="blog.touret.info"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="/assets/images/2018/02/220px-debian-openlogo-svg.png"><meta name=twitter:title content="Ma Configuration Debian 9"><meta name=twitter:description content="Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
+Voici ce que j&rsquo;ai réalisé post-installation:
+Ajout dépôts supplémentaires Dans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.
+1 2 3 4 5 6 7 8 9 deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb http://security."><meta name=application-name content="LoveIt"><meta name=apple-mobile-web-app-title content="LoveIt"><meta name=theme-color content="#ffffff"><meta name=msapplication-TileColor content="#da532c"><link rel=canonical href=/2018/02/10/ma-configuration-debian-9/><link rel=prev href=/2018/02/09/migration-de-mon-blog/><link rel=next href=/2018/02/16/ma-configuration-cygwin/><link rel=stylesheet href=/css/style.min.css><link rel=preload href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css></noscript><link rel=preload href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css as=style onload='this.onload=null,this.rel="stylesheet"'><noscript><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css></noscript><meta name=google-site-verification content="7UnqNmvO-mjfMkRqKaaWRPTBxSylEVJXvAn8iTfc7SI"><meta name=msvalidate.01 content="F9655A4C8648E42154ECB4B4D6CF60A2"><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Ma Configuration Debian 9","inLanguage":"fr","mainEntityOfPage":{"@type":"WebPage","@id":"\/2018\/02\/10\/ma-configuration-debian-9\/"},"image":["\/images\/alexandre-touret.webp"],"genre":"posts","keywords":"planetlibre, debian","wordcount":825,"url":"\/2018\/02\/10\/ma-configuration-debian-9\/","datePublished":"2018-02-10T08:58:47+01:00","dateModified":"2023-03-02T18:52:03+01:00","license":"This work is licensed under a Creative Commons Attribution 4.0 International License.","publisher":{"@type":"Organization","name":"Alexandre Touret","logo":"\/images\/alexandre-touret.webp"},"author":{"@type":"Person","name":"Alexandre Touret"},"description":""}</script></head><body data-header-desktop=fixed data-header-mobile=auto><script type=text/javascript>(window.localStorage&&localStorage.getItem("theme")?localStorage.getItem("theme")==="dark":"auto"==="auto"?window.matchMedia("(prefers-color-scheme: dark)").matches:"auto"==="dark")&&document.body.setAttribute("theme","dark")</script><div id=mask></div><div class=wrapper><header class=desktop id=header-desktop><div class=header-wrapper><div class=header-title><a href=/ title="Alexandre Touret's Blog">blog.touret.info</a></div><div class=menu><div class=menu-inner><a class=menu-item href=/posts/ title=Articles>Articles </a><a class=menu-item href=/contact/>Contact </a><a class=menu-item href=/talks/ title=Talks>Conférences </a><a class=menu-item href=/a-propos/ title="À propos">À propos </a><a class=menu-item href=/https:/blog.touret.info/index.xml><i class='fa fa-rss-square fa-fw' aria-hidden=true></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Rechercher des titres, des contenus..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Chercher><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clair><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-desktop><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span>
+</span><a href=javascript:void(0); class="menu-item theme-switch" title="Changer de Thème"><i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="menu-item language" title="Choisir la langue"><i class="fa fa-globe" aria-hidden=true></i>
+<select class=language-select id=language-select-desktop onchange="location=this.value"><option value=/2018/02/10/ma-configuration-debian-9/ selected>Français</option></select></a></div></div></div></header><header class=mobile id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/ title="Alexandre Touret's Blog">blog.touret.info</a></div><div class=menu-toggle id=menu-toggle-mobile><span></span><span></span><span></span></div></div><div class=menu id=menu-mobile><div class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Rechercher des titres, des contenus..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Chercher><i class="fas fa-search fa-fw" aria-hidden=true></i></a>
+<a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clair><i class="fas fa-times-circle fa-fw" aria-hidden=true></i></a>
+<span class="search-button search-loading" id=search-loading-mobile><i class="fas fa-spinner fa-fw fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Annuler</a></div><a class=menu-item href=/posts/ title=Articles>Articles</a><a class=menu-item href=/contact/ title>Contact</a><a class=menu-item href=/talks/ title=Talks>Conférences</a><a class=menu-item href=/a-propos/ title="À propos">À propos</a><a class=menu-item href=/https:/blog.touret.info/index.xml title><i class='fa fa-rss-square fa-fw' aria-hidden=true></i></a><a href=javascript:void(0); class="menu-item theme-switch" title="Changer de Thème">
+<i class="fas fa-adjust fa-fw" aria-hidden=true></i>
+</a><a href=javascript:void(0); class=menu-item title="Choisir la langue"><i class="fa fa-globe fa-fw" aria-hidden=true></i>
+<select class=language-select onchange="location=this.value"><option value=/2018/02/10/ma-configuration-debian-9/ selected>Français</option></select></a></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=main><div class=container><div class=toc id=toc-auto><h2 class=toc-title>Contenu</h2><div class=toc-content id=toc-content-auto></div></div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Ma Configuration Debian 9</h1><div class=post-meta><div class=post-meta-line><span class=post-author><a href=https://blog.touret.info title=Author target=_blank rel="noopener noreffer author" class=author><i class="fas fa-user-circle fa-fw" aria-hidden=true></i>Alexandre Touret</a></span></div><div class=post-meta-line><i class="far fa-calendar-alt fa-fw" aria-hidden=true></i>&nbsp;<time datetime=2018-02-10>2018-02-10</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden=true></i>&nbsp;825 mots&nbsp;
+<i class="far fa-clock fa-fw" aria-hidden=true></i>&nbsp;4 minutes&nbsp;</div></div><div class="details toc" id=toc-static data-kept><div class="details-summary toc-title"><span>Contenu</span>
+<span><i class="details-icon fas fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#ajout-dépôts-supplémentaires>Ajout dépôts supplémentaires</a></li><li><a href=#logiciels-tiers>Logiciels tiers</a><ul><li><a href=#etcher>Etcher</a></li><li><a href=#virtualbox>Virtualbox</a></li><li><a href=#spotify>Spotify</a></li></ul></li><li><a href=#installation-paquets-supplémentaires>Installation paquets supplémentaires</a></li><li><a href=#configuration-autofs>Configuration autofs</a><ul><li><a href=#autocicfs>auto.cicfs</a></li><li><a href=#autonfs>auto.nfs</a></li></ul></li><li><a href=#installation-datom>Installation d&rsquo;atom</a></li><li><a href=#installation-de-firefox>Installation de Firefox</a></li><li><a href=#minecraft>Minecraft</a></li><li><a href=#optimisation-du-boot>Optimisation du boot</a><ul><li><a href=#désactivation-des-services>Désactivation des services</a></li></ul></li><li><a href=#analyse-du-démarrage-dun-service>Analyse du démarrage d&rsquo;un service</a></li><li><a href=#conclusion>Conclusion</a></li></ul></nav></div></div><div class=content id=content><p>Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .</p><div id=id-1><img class=lazyload src=/svg/loading.min.svg data-src=/assets/images/2018/02/220px-debian-openlogo-svg.png data-srcset="/assets/images/2018/02/220px-debian-openlogo-svg.png, /assets/images/2018/02/220px-debian-openlogo-svg.png 1.5x, /assets/images/2018/02/220px-debian-openlogo-svg.png 2x" data-sizes=auto alt=/assets/images/2018/02/220px-debian-openlogo-svg.png title=debian></div><p>Voici ce que j&rsquo;ai réalisé post-installation:</p><h2 id=ajout-dépôts-supplémentaires>Ajout dépôts supplémentaires</h2><p>Dans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib</span>
+</span></span><span class=line><span class=cl><span class=na>deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=na>deb http://security.debian.org/debian-security stretch/updates main non-free contrib</span>
+</span></span><span class=line><span class=cl><span class=na>deb-src http://security.debian.org/debian-security stretch/updates main non-free contrib</span>
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl><span class=c1># stretch-updates, previously known as &#39;volatile&#39;</span>
+</span></span><span class=line><span class=cl><span class=na>deb http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib</span>
+</span></span><span class=line><span class=cl><span class=na>deb-src http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=logiciels-tiers>Logiciels tiers</h2><h3 id=etcher>Etcher</h3><pre><code>#echo &quot;deb https://dl.bintray.com/resin-io/debian stable etcher&quot; | sudo tee /etc/apt/sources.list.d/etcher.list
+</code></pre><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>  &lt;pre&gt;#apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 379CE192D401AB61
+</span></span></code></pre></td></tr></table></div></div><h3 id=virtualbox>Virtualbox</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -</span>
+</span></span></code></pre></td></tr></table></div></div><p>Dans le fichier <code>/etc/apt/sources.list.d/virtualbox.list</code></p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>deb https://download.virtualbox.org/virtualbox/debian stretch contrib</span>
+</span></span></code></pre></td></tr></table></div></div><h3 id=spotify>Spotify</h3><p>Dans le fichier /etc/apt/sources.list.d/spotify.list</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>deb http://repository.spotify.com stable non-free</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=installation-paquets-supplémentaires>Installation paquets supplémentaires</h2><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># apt-get update</span>
+</span></span><span class=line><span class=cl><span class=c1># apt-get install firmware-iwlwifi virtualbox-5.2\</span>
+</span></span><span class=line><span class=cl>ttf-mscorefonts-installer easytag tuxguitar-jsa htop<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> frescobaldi gparted grsync ntfs-config chromium autofs<span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> openjdk-8-jdk openjdk-8-jre gnome-tweak-tool ntfs-config <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>ntfs-3g cifs-utils geogebra-gnome arduino libmediainfo <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>libmediainfo0v5 network-manager-openvpn-gnome dirmngr <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>spotify-client spotify-client-gnome-support <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span> etcher apt-transport-https etcher-electron vim <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>fonts-powerline audacity ffmpeg lame unrar rar gdebi <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>sound-juicer traceroute scala net-tools nmap <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>gnome-shell-pomodoro hplip dig dnsutils build-essential <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>linux-headers-amd64 firmware-linux-nonfree lshw ethtool <span class=se>\
+</span></span></span><span class=line><span class=cl><span class=se></span>libsane-hpaio xsane autofs vlc
+</span></span></code></pre></td></tr></table></div></div><h2 id=configuration-autofs>Configuration autofs</h2><p>Pour ceux qui ne connaissent pas , <a href=https://wiki.debian.org/AutoFs target=_blank rel="noopener noreffer">autofs</a> est un outil permettant de monter directement des partages <a href=https://linuxconfig.org/how-to-configure-nfs-on-debian-9-stretch-linux target=_blank rel="noopener noreffer">nfs</a> et cicfs à l&rsquo;utilisation et non au démarrage de l&rsquo;ordinateur.</p><p>Dans le fichier /etc/auto.master</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>/mnt/SERV1/nfs /etc/auto.nfs --ghost, --timeout</span><span class=o>=</span><span class=s>60 </span>
+</span></span><span class=line><span class=cl><span class=na>/mnt/SERV1/cifs /etc/auto.SERV1.cifs --ghost, --timeout</span><span class=o>=</span><span class=s>60 </span>
+</span></span><span class=line><span class=cl><span class=na>/mnt/SERV2 /etc/auto.cifs --ghost, --timeout</span><span class=o>=</span><span class=s>60</span>
+</span></span></code></pre></td></tr></table></div></div><p>ensuite insérer la configuration adéquate dans les fichiers référencés :</p><h3 id=autocicfs>auto.cicfs</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>data -fstype</span><span class=o>=</span><span class=s>cifs,credentials=/home/USER/.cred-file,user=littlewing,uid=1000,gid=1000 ://192.168.0.XX/REPERTOIRE</span>
+</span></span></code></pre></td></tr></table></div></div><p>Les identifiants / mots de passe sont stockés dans un fichier .cred-file stocké à la racine du répertoire utilisateur.</p><p>Voici un exemple :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>username</span><span class=o>=</span><span class=s>user</span>
+</span></span><span class=line><span class=cl><span class=na>password</span><span class=o>=</span><span class=s>password</span>
+</span></span></code></pre></td></tr></table></div></div><p>Le fichier auto.SERV1.cifs reprend la même structure</p><h3 id=autonfs>auto.nfs</h3><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>REP1 -fstype</span><span class=o>=</span><span class=s>nfs,rw,intr 192.168.0.XX:/volume1/REP1</span>
+</span></span><span class=line><span class=cl><span class=na>REP2 -fstype</span><span class=o>=</span><span class=s>nfs,rw,intr 192.168.0.XX:/volume1/REP2</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=installation-datom>Installation d&rsquo;atom</h2><p>J&rsquo;ai choisi d&rsquo;installer <a href=https://atom.io/ target=_blank rel="noopener noreffer">atom</a> via le package .deb fourni par <a href=http://github.com/ target=_blank rel="noopener noreffer">github</a>. Afin d&rsquo;automatiser l&rsquo;installation et la mise à jour, voici le script que j&rsquo;ai réalisé :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>SETUP_ROOT</span><span class=o>=</span>/tmp
+</span></span><span class=line><span class=cl>wget -O <span class=nv>$SETUP_ROOT</span>/atom.deb <span class=s2>&#34;https://atom.io/download/deb&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Installation du paquet...&#34;</span>
+</span></span><span class=line><span class=cl>dpkg -i <span class=nv>$SETUP_ROOT</span>/atom.deb
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Fini :)&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><p>Ce script est placé dans le répertoire /usr/local/sbin et lancé comme suit :</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># upgrade-atom.sh</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=installation-de-firefox>Installation de Firefox</h2><p>Afin d&rsquo;avoir la dernière version de firefox, voici le script que j&rsquo;ai réalisé:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/sh
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nv>SETUP_ROOT</span><span class=o>=</span>/tmp
+</span></span><span class=line><span class=cl><span class=nv>BIN_ROOT</span><span class=o>=</span>/usr/local/firefox
+</span></span><span class=line><span class=cl><span class=nv>DATE</span><span class=o>=</span><span class=sb>`</span>date +%Y-%m-%d<span class=sb>`</span>
+</span></span><span class=line><span class=cl><span class=nv>OLD_EXE</span><span class=o>=</span>/usr/lib/firefox-esr/firefox-esr
+</span></span><span class=line><span class=cl>wget -O <span class=nv>$SETUP_ROOT</span>/FirefoxSetup.tar.bz2 <span class=s2>&#34;https://download.mozilla.org/?product=firefox-latest&amp;os=linux64&amp;lang=fr&#34;</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Extraction de l&#39;archive...&#34;</span>
+</span></span><span class=line><span class=cl>tar xjf <span class=nv>$SETUP_ROOT</span>/FirefoxSetup.tar.bz2 -C /usr/local
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Changement des droits utilisateur&#34;</span>
+</span></span><span class=line><span class=cl>chown -R :users <span class=nv>$BIN_ROOT</span>
+</span></span><span class=line><span class=cl>chmod a+x <span class=nv>$BIN_ROOT</span>/firefox
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Sauvegarde de l&#39;ancien binaire et Creation des liens symboliques&#34;</span>
+</span></span><span class=line><span class=cl><span class=k>if</span> <span class=o>[</span> -e <span class=nv>$OLD_EXE</span> <span class=o>]</span>
+</span></span><span class=line><span class=cl><span class=k>then</span>
+</span></span><span class=line><span class=cl> <span class=nv>OLD_BINARY</span><span class=o>=</span><span class=si>${</span><span class=nv>OLD_EXE</span><span class=si>}</span>_orig_<span class=si>${</span><span class=nv>DATE</span><span class=si>}</span>
+</span></span><span class=line><span class=cl> mv <span class=nv>$OLD_EXE</span> <span class=nv>$OLD_BINARY</span>
+</span></span><span class=line><span class=cl><span class=k>fi</span> 
+</span></span><span class=line><span class=cl>ln -s <span class=nv>$BIN_ROOT</span>/firefox <span class=nv>$OLD_EXE</span>
+</span></span><span class=line><span class=cl>chmod a+x <span class=nv>$OLD_EXE</span>
+</span></span><span class=line><span class=cl><span class=nb>echo</span> <span class=s2>&#34;Fini :)&#34;</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=minecraft>Minecraft</h2><p>Voila l&rsquo;étape la plus importante, du moins pour mes enfants …</p><p>J&rsquo;ai crée le script /usr/local/bin/minecraft.sh</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=cp>#!/bin/bash
+</span></span></span><span class=line><span class=cl><span class=cp></span><span class=nb>cd</span> /usr/local/minecraft
+</span></span><span class=line><span class=cl>java -Xmx1G -Xms512M -cp /usr/local/minecraft/Minecraft.jar net.minecraft.bootstrap.Bootstrap
+</span></span></code></pre></td></tr></table></div></div><p>J&rsquo;ai placé le JAR en question dans le répertoire /usr/local/minecraft.</p><p>Enfin, j&rsquo;ai crée le fichier « lanceur gnome » /usr/share/applications/minecraft.desktop</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-ini data-lang=ini><span class=line><span class=cl><span class=na>[Desktop Entry] </span>
+</span></span><span class=line><span class=cl><span class=na>Name</span><span class=o>=</span><span class=s>Minecraft</span>
+</span></span><span class=line><span class=cl><span class=na>Comment</span><span class=o>=</span>
+</span></span><span class=line><span class=cl><span class=na>Categories</span><span class=o>=</span><span class=s>Game;BoardGame;</span>
+</span></span><span class=line><span class=cl><span class=na>Exec</span><span class=o>=</span><span class=s>/usr/local/bin/minecraft.sh</span>
+</span></span><span class=line><span class=cl><span class=na>Icon</span><span class=o>=</span><span class=s>Minecraft_Block</span>
+</span></span><span class=line><span class=cl><span class=na>Terminal</span><span class=o>=</span><span class=s>false</span>
+</span></span><span class=line><span class=cl><span class=na>Type</span><span class=o>=</span><span class=s>Application</span>
+</span></span><span class=line><span class=cl><span class=na>StartupNotify</span><span class=o>=</span><span class=s>true</span>
+</span></span></code></pre></td></tr></table></div></div><p>J&rsquo;ai également mis une icone SVG dans le répertoire /usr/share/icons/</p><h2 id=optimisation-du-boot>Optimisation du boot</h2><p>Après toutes ces installations, il faut vérifier que les performances, notamment au démarrage ne sont pas trop altérées</p><p>Pour avoir le détail du boot, il faut utiliser la commande systemd-analyze</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#systemd-analyze blame</span>
+</span></span><span class=line><span class=cl> 8.113s NetworkManager-wait-online.service
+</span></span><span class=line><span class=cl> 2.549s apt-daily-upgrade.service
+</span></span><span class=line><span class=cl> 803ms networking.service
+</span></span><span class=line><span class=cl> 228ms colord.service
+</span></span><span class=line><span class=cl> 213ms dev-sda1.device
+</span></span><span class=line><span class=cl> 145ms systemd-timesyncd.service
+</span></span><span class=line><span class=cl> 128ms ModemManager.service
+</span></span><span class=line><span class=cl> 102ms autofs.service
+</span></span><span class=line><span class=cl>....
+</span></span></code></pre></td></tr></table></div></div><p>On peut également voir le chemin critique avec cette commande:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1>#systemd-analyze critical-chain </span>
+</span></span><span class=line><span class=cl>The <span class=nb>time</span> after the unit is active or started is printed after the <span class=s2>&#34;@&#34;</span> character.
+</span></span><span class=line><span class=cl>The <span class=nb>time</span> the unit takes to start is printed after the <span class=s2>&#34;+&#34;</span> character.
+</span></span><span class=line><span class=cl>
+</span></span><span class=line><span class=cl>graphical.target @8.944s
+</span></span><span class=line><span class=cl>└─multi-user.target @8.944s
+</span></span><span class=line><span class=cl> └─autofs.service @8.841s +102ms
+</span></span><span class=line><span class=cl> └─network-online.target @8.841s
+</span></span><span class=line><span class=cl> └─NetworkManager-wait-online.service @723ms +8.113s
+</span></span><span class=line><span class=cl> └─NetworkManager.service @642ms +80ms
+</span></span><span class=line><span class=cl> └─dbus.service @612ms
+</span></span><span class=line><span class=cl> └─basic.target @612ms
+</span></span><span class=line><span class=cl> └─paths.target @612ms
+</span></span><span class=line><span class=cl> └─acpid.path @610ms
+</span></span><span class=line><span class=cl> └─sysinit.target @608ms
+</span></span><span class=line><span class=cl> └─systemd-backlight@backlight:acpi_video0.service @1.042s +8ms
+</span></span><span class=line><span class=cl> └─system-systemd<span class=se>\x</span>2dbacklight.slice @1.042s
+</span></span><span class=line><span class=cl> └─system.slice @119ms
+</span></span><span class=line><span class=cl> └─-.slice @108ms
+</span></span></code></pre></td></tr></table></div></div><h3 id=désactivation-des-services>Désactivation des services</h3><p>Par exemple, si vous voulez désactiver le service virtualbox au démarrage</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># systemctl disable vboxautostart-service.service</span>
+</span></span></code></pre></td></tr></table></div></div><p>et ainsi de suite pour tous les services inutiles au démarrage</p><h2 id=analyse-du-démarrage-dun-service>Analyse du démarrage d&rsquo;un service</h2><p>Pour analyser le démarrage d&rsquo;un service, on peut utiliser la commande journalctl</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl><span class=c1># journalctl -b -u NetworkManager-wait-online.service</span>
+</span></span></code></pre></td></tr></table></div></div><h2 id=conclusion>Conclusion</h2><p>Après toutes ces étapes, j&rsquo;ai un système opérationnel. Il manque pas mal d&rsquo;outils ( ex. maven, npm, intellij,…). Ces outils tiennent plus du poste de développement.</p></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span>Mis à jour le 2023-03-02&nbsp;<a class=git-hash href=https://github.com/alexandre-touret/alexandre-touret.github.io/commit/375bd449aa0d25e75c30b33fdae2da7a4b75de66 target=_blank title="commit by Alexandre Touret(alexandre-touret@users.noreply.github.com) 375bd449aa0d25e75c30b33fdae2da7a4b75de66: twitter card images">
+<i class="fas fa-hashtag fa-fw" aria-hidden=true></i>375bd44</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a class=link-to-markdown href=/2018/02/10/ma-configuration-debian-9/index.md target=_blank>Lire Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Partager sur Twitter" data-sharer=twitter data-url=/2018/02/10/ma-configuration-debian-9/ data-title="Ma Configuration Debian 9" data-via=touret_alex data-hashtags=planetlibre,debian><i class="fab fa-twitter fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Partager sur Linkedin" data-sharer=linkedin data-url=/2018/02/10/ma-configuration-debian-9/><i class="fab fa-linkedin fa-fw" aria-hidden=true></i></a><a href=javascript:void(0); title="Partager sur Hacker News" data-sharer=hackernews data-url=/2018/02/10/ma-configuration-debian-9/ data-title="Ma Configuration Debian 9"><i class="fab fa-hacker-news fa-fw" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fas fa-tags fa-fw" aria-hidden=true></i>&nbsp;<a href=/tags/planetlibre/>planetlibre</a>,&nbsp;<a href=/tags/debian/>debian</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Retour</a></span>&nbsp;|&nbsp;<span><a href=/>Accueil</a></span></section></div><div class=post-nav><a href=/2018/02/09/migration-de-mon-blog/ class=prev rel=prev title="Migration de mon blog"><i class="fas fa-angle-left fa-fw" aria-hidden=true></i>Migration de mon blog</a>
+<a href=/2018/02/16/ma-configuration-cygwin/ class=next rel=next title="Ma configuration CYGWIN">Ma configuration CYGWIN<i class="fas fa-angle-right fa-fw" aria-hidden=true></i></a></div></div><div id=comments><div id=utterances class=comment></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://utteranc.es/>utterances</a>.</noscript></div></article></div></main><footer class=footer><div class=footer-container><div class=footer-line><a rel=me href=https://piaille.fr/@alexandre></a></div><div class=footer-line itemscope itemtype=http://schema.org/CreativeWork><i class="far fa-copyright fa-fw" aria-hidden=true></i><span itemprop=copyrightYear>2018 - 2023</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://blog.touret.info target=_blank>Alexandre Touret</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by/4.0/ target=_blank>CC BY 4.0</a></span></div></div></footer></div><div id=fixed-buttons><a href=# id=back-to-top class=fixed-button title="Retour en Haut"><i class="fas fa-arrow-up fa-fw" aria-hidden=true></i>
+</a><a href=# id=view-comments class=fixed-button title="Afficher les Commentaires"><i class="fas fa-comment fa-fw" aria-hidden=true></i></a></div><link rel=stylesheet href=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css><link rel=stylesheet href=/css/73ba3f.min.css><script type=text/javascript src=https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js></script><script type=text/javascript src=/lib/lunr/lunr.stemmer.support.min.js></script><script type=text/javascript src=/lib/lunr/lunr.fr.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/twemoji@14.0.2/dist/twemoji.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js></script><script type=text/javascript src=https://cdn.jsdelivr.net/npm/sharer.js@0.5.1/sharer.min.js></script><script type=text/javascript>window.config={code:{copyTitle:"Copier dans le presse-papiers",maxShownLines:50},comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"alexandre-touret/alexandre-touret.github.io"}},lightgallery:!0,search:{highlightTag:"em",lunrIndexURL:"/index.json",lunrLanguageCode:"fr",maxResultLength:10,noResultsFound:"Aucun résultat trouvé",snippetLength:50,type:"lunr"},twemoji:!0}</script><script type=text/javascript src=/js/theme.min.js></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","google-gtag",{anonymize_ip:!0})</script><script type=text/javascript src="https://www.googletagmanager.com/gtag/js?id=google-gtag" async></script></body></html>
