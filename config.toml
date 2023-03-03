@@ -1,4 +1,4 @@
-baseURL = "http://blog.touret.info/"
+xbaseURL = "http://blog.touret.info/"
 
 # theme
 theme = "LoveIt"
@@ -614,7 +614,10 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
 [privacy]
   # privacy of the Google Analytics (replaced by params.analytics.google)
   [privacy.googleAnalytics]
-    # ...
+    anonymizeIP = true
+    disable = false
+    respectDoNotTrack = true
+    useSessionStorage = false
   [privacy.twitter]
     enableDNT = true
   [privacy.youtube]
