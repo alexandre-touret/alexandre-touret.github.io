@@ -3,16 +3,6 @@ id: 201
 title: 'Comment coacher des jeunes développeurs &#8211; The last blood'
 date: 2019-09-11T21:16:44+02:00
 
-
-
-
-timeline_notification:
-  - "1568233009"
-publicize_twitter_user:
-  - touret_alex
-publicize_linkedin_url:
-  - ""
-
 gallery:
  - url: /assets/images/2019/09/yoda.jpg
    image_path: /assets/images/2019/09/yoda.jpg

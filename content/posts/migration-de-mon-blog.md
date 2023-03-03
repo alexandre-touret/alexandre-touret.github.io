@@ -3,13 +3,6 @@ id: 24
 title: Migration de mon blog
 date: 2018-02-09T11:12:03+01:00
 
-
-
-
-timeline_notification:
-  - "1518171127"
-publicize_twitter_user:
-  - littlewing1112
 ---
 Bon,
 

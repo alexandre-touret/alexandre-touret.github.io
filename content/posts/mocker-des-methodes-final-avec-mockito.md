@@ -8,7 +8,7 @@ date: 2019-08-16T08:26:57+02:00
 
 featuredImagePreview: /assets/images/2019/08/logo-mockito.png
 featuredImage: /assets/images/2019/08/logo-mockito.png
-og_image: /assets/images/2019/08/logo-mockito.png
+images: ["/assets/images/2019/08/logo-mockito.png"]
 
 
 timeline_notification:

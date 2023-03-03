@@ -6,11 +6,8 @@ date: 2019-07-17T21:03:59+02:00
 
 featuredImagePreview: /assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg
 featuredImage: /assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg
+images: ["/assets/images/2019/07/mari-lezhava-q65bne9fw-w-unsplash.jpg"]
 
-timeline_notification:
-  - "1563393924"
-publicize_twitter_user:
-  - touret_alex
 ---
 En changeant de société l'année dernière j'ai eu l'impression de monter d'un cran dans la pyramide des ages.  
 Pour faire plus simple, je me suis senti un peu plus vieux.

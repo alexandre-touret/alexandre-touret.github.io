@@ -5,14 +5,10 @@ date: 2020-05-10T08:22:00+02:00
 
 featuredImagePreview: /assets/images/2020/05/article_github_actions_k8s-1.png
 featuredImage: /assets/images/2020/05/article_github_actions_k8s-1.png
+images: ["/assets/images/2020/05/article_github_actions_k8s-1.png"]
+
 lightgallery: true
-publicize_twitter_user:
-  - touret_alex
-timeline_notification:
-  - "1624118296"
-publicize_linkedin_url:
-  - ""
-  - logiciels libres
+
 tags:
   - github
   - gradle

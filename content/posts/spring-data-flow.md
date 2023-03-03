@@ -2,8 +2,9 @@
 title: Déployer des batchs cloud native avec Spring Cloud Data Flow
 date: 2022-08-16 08:00:00
 
+featuredImage: /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp
 featuredImagePreview: /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp
-og_image: /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp
+images: ["/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"]
 
 tags:
   - cloud

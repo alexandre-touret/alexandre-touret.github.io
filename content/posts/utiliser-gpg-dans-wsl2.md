@@ -4,14 +4,8 @@ title: Utiliser GPG dans WSL2
 date: 2021-05-03T20:47:11+02:00
 
 featuredImagePreview: /assets/images/2021/05/pexels-photo-261621.jpeg
+images: ["/assets/images/2021/05/pexels-photo-261621.jpeg"]
 
-timeline_notification:
-  - "1620067634"
-publicize_twitter_user:
-  - touret_alex
-publicize_linkedin_url:
-  - ""
-  - logiciels libres
 tags:
   - git
   - gpg

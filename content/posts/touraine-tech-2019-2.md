@@ -4,14 +4,6 @@ title: Touraine Tech 2019
 date: 2019-02-02T09:59:35+01:00
 
 
-
-
-timeline_notification:
-  - "1549097978"
-publicize_linkedin_url:
-  - www.linkedin.com/updates?topic=6497387851951538176
-publicize_twitter_user:
-  - touret_alex
 tags:
   - architecture
   - conférence

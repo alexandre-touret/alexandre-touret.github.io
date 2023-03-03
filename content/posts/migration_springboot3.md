@@ -4,7 +4,7 @@ date: 2022-12-22 08:00:00
 
 featuredImagePreview: /assets/images/2022/12/spring.webp
 featuredImage: /assets/images/2022/12/spring.webp
-og_image: /assets/images/2022/12/spring.webp
+images: ["/assets/images/2022/12/spring.webp"]
 
 tags:
 - spring

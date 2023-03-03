@@ -4,7 +4,7 @@ date: 2022-06-10 08:00:00
 featuredImage: /assets/images/2022/06/camping_speakers_2.webp
 lightgallery: true
 featuredImagePreview: /assets/images/2022/06/camping_speakers_2.webp
-og_image: /assets/images/2022/06/camping_speakers_2.webp
+images: ["/assets/images/2022/06/camping_speakers_2.webp"]
 
 tags:
 - conference

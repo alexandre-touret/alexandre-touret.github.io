@@ -4,6 +4,7 @@ date: 2022-10-15 08:00:00
 
 featuredImagePreview: /assets/images/2022/10/devoxx_badge.webp
 featuredImage: /assets/images/2022/10/devoxx_badge.webp
+images: ["/assets/images/2022/10/devoxx_badge.webp"]
 
 tags:
 - conference

@@ -5,6 +5,7 @@ date: 2020-03-23T11:06:09+01:00
 
 featuredImage: /assets/images/2018/09/docker.png
 featuredImagePreview: /assets/images/2020/03/dell-inspiron-14-3493.jpg
+images: ["/assets/images/2020/03/dell-inspiron-14-3493.jpg"]
 
 timeline_notification:
   - "1584957972"

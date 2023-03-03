@@ -5,7 +5,7 @@ date: 2019-11-21T22:12:53+01:00
 
 featuredImagePreview: /assets/images/2019/11/gatling-new-design.png
 featuredImage: /assets/images/2019/11/gatling-new-design.png
-og_image: /assets/images/2019/11/gatling-new-design.png
+images: ["/assets/images/2019/11/gatling-new-design.png"]
 
 timeline_notification:
   - "1574370773"

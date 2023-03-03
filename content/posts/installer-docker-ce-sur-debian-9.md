@@ -6,9 +6,7 @@ date: 2018-09-26T12:28:21+02:00
 featuredImage: /assets/images/2018/09/docker.png
 
 featuredImagePreview: /assets/images/2018/09/docker.png
-og_image: /assets/images/2018/09/docker.png
-
-
+images: ["/assets/images/2018/09/docker.png"]
 
 geo_public:
   - "0"

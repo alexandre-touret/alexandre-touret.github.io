@@ -4,8 +4,7 @@ date: 2022-05-17 08:00:00
 
 featuredImagePreview: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp
 featuredImage: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp
-
-og_image: /assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp
+images: ["/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp"]
 
 tags:
   - cloud

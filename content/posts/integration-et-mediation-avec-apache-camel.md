@@ -7,7 +7,7 @@ date: 2018-04-10T15:15:05+02:00
 
 featuredImage: /assets/images/2018/04/apache-camel-logo.png
 featuredImagePreview: /assets/images/2018/04/apache-camel-logo.png
-og_image: /assets/images/2018/04/apache-camel-logo.png
+images: ["/assets/images/2018/04/apache-camel-logo.png"]
 
 
 
