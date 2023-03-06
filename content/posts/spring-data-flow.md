@@ -2,7 +2,6 @@
 title: Déployer des batchs cloud native avec Spring Cloud Data Flow
 date: 2022-08-16 08:00:00
 
-featuredImage: /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp
 featuredImagePreview: /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp
 images: ["/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"]
 
@@ -11,23 +10,6 @@ tags:
   - kubernetes
   - batch
   - spring
-
-galleryExecution:
- - url: /assets/images/2022/08/dataflow_config2.webp
-   image_path: /assets/images/2022/08/dataflow_config2.webp
-   alt: "create"
- - url: /assets/images/2022/08/dataflow_config10.webp
-   image_path: /assets/images/2022/08/dataflow_config10.webp
-   alt: "init"
- - url: /assets/images/2022/08/dataflow_config8.webp
-   image_path: /assets/images/2022/08/dataflow_config8.webp
-   alt: "init"
- - url: /assets/images/2022/08/dataflow_config7.webp
-   image_path: /assets/images/2022/08/dataflow_config7.webp
-   alt: "init"
- - url: /assets/images/2022/08/dataflow_config9.webp
-   image_path: /assets/images/2022/08/dataflow_config9.webp
-   alt: "init"
 
 ---
 
