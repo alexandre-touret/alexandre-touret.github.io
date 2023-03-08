@@ -40,7 +40,7 @@ Le monitoring et reporting des actions réalisées peut se faire par l'observabi
 {{</ style >}}
 
 Après plusieurs recherches, je suis tombé sur [Spring Data Flow](https://dataflow.spring.io/). 
-L'offre de ce module de [Spring Cloud](https://spring.io/projects/spring-cloud) va au delà des batchs. 
+L'offre de ce module de Spring Cloud va au delà des batchs. 
 Il permet notamment de gérer le streaming via une interface graphique ou via son [API](https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide).
 
 Dans cet article, je vais implémenter un exemple et le déployer dans [Minikube](https://minikube.sigs.k8s.io/).
@@ -104,7 +104,7 @@ On passe un prénom en paramètre et on obtient une liste de nationalités possi
 
 Vous trouverez les sources de cet exemple sur [mon Github](https://github.com/alexandre-touret/cloud-task).
 
-Aussi, [la documentation est bien faite, il suffit de la lire](https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/). 
+Aussi, la documentation est bien faite, il suffit de [la lire](https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/). 
 
 ### Initialisation
 
@@ -266,7 +266,7 @@ Vous noterez que selon où on positionne le curseur, l'une des deux solutions pe
 Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
 A mon avis, une solution telle que Spring Cloud Dataflow s'inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data. 
 
-N'hésitez pas à me donner votre avis ([sans troller svp](https://blog.touret.info/a-propos/)) en commentaire ou si ça concerne [l'exemple, directement dans Github](https://github.com/alexandre-touret/cloud-task).
+N'hésitez pas à me donner votre avis ([sans troller svp](https://blog.touret.info/a-propos/)) en commentaire ou si ça concerne l'exemple, directement [dans Github](https://github.com/alexandre-touret/cloud-task).
 
 |Architecture characteristic   |   K8s job rating| Spring Cloud Dataflow rating |
 |---|---|---| 
