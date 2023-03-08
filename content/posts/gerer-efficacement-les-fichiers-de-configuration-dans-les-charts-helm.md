@@ -8,7 +8,10 @@ featuredImagePreview: /assets/images/2021/01/loik-marras-sq0l3spwlhi-unsplash.jp
 images: ["/assets/images/2021/01/loik-marras-sq0l3spwlhi-unsplash.jpg"]
 
 ---
-  Dès qu'on veut déployer des environnements Kubernetes, <a href="https://helm.sh/">Helm </a>devient une des solutions à considérer.<br />Le déploiement des objets standards tels que <code>deployment</code>, <code>autoscaler </code>et autres se fait aisément car ces derniers ne changent pas d'un environnement à l'autre. Généralement on déploie la même infrastructure sur tous les environnements du développement à la production.
+Dès qu'on veut déployer des environnements Kubernetes, [helm](https://helm.sh/) devient une des
+solutions à considérer.
+
+Le déploiement des objets standards tels que ``deployment``, ``autoscaler`` et autres se fait aisément car ces derniers ne changent pas d'un environnement à l'autre. Généralement on déploie la même infrastructure sur tous les environnements du développement à la production.
 
 Bien évidemment on pourra limiter la taille des replicas sur l'environnement de développement par exemple mais au fond, le contenu des charts sera identique. Une des difficultés que l'on pourra rencontrer c'est dans la gestion des fichiers de configuration. 
 
