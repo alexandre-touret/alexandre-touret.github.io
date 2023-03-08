@@ -4,7 +4,11 @@ Si vous [provisionnez vos VM VirtualBox avec Vagrant](http://blog.touret.info/20
 
 Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez [Ansible.](https://www.ansible.com/)
 
-Ansible est un outil opensource permettant d'automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L'avantage par rapport à des outils tels que [Puppet](https://puppet.com), est qu'il ne nécessite pas l'installation [d'agent.](https://puppet.com/docs/puppet/6.0/man/agent.html) 
+{{< style "text-align:center" >}}
+![ansible](/assets/images/2019/06/ansible_logo.svg_.png)
+{{</ style >}}
+
+Ansible est un outil opensource permettant d'automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L'avantage par rapport à des outils tels que [Puppet](https://puppet.com), est qu'il ne nécessite pas l'installation d'agent.
 
 Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour [VirtualBox](https://www.virtualbox.org/).
 
