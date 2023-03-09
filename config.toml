@@ -23,7 +23,7 @@ googleAnalytics = ""
 copyright = "Creative Commons By 4.0"
 
 # whether to use robots.txt
-enableRobotsTXT = true
+enableRobotsTXT = false
 # whether to use git commit log
 enableGitInfo = true
 # whether to use emoji code
