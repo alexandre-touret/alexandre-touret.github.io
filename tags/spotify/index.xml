@@ -1,0 +1,7 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>spotify - Balise - Alexandre Touret's Blog</title><link>/tags/spotify/</link><description>spotify - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 09:49:36 +0100</lastBuildDate><atom:link href="/tags/spotify/" rel="self" type="application/rss+xml"/><item><title>Au secours! Spotify Connect ne fonctionne plus sur MoodeAudio</title><link>/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</link><pubDate>Fri, 15 Mar 2019 09:49:36 +0100</pubDate><author>Alexandre Touret</author><guid>/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2019/03/moode-r44.png" referrerpolicy="no-referrer">
+            </div>Après avoir mis à jour mon mot de passe Spotify ( oui, il faut modifier régulièrement ses mots de passe ) , j&rsquo;ai eu un petit soucis sur MoodeAudio ( version 4.4) et notamment sur la connexion avec Spotify.
+Après quelques recherches sur le forum de moodeaudio, j&rsquo;ai trouvé la correction qui allait bien.
+Voici comment faire :
+D&rsquo;abord on se connecte via SSH sur le raspberry pi
+1 $ ssh pi@192.]]></description></item></channel></rss>
