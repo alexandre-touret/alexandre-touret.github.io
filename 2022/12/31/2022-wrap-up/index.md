@@ -13,7 +13,7 @@ Après avoir changé de projet en début d'année, j'ai pu, grâce à mon employ
 * 2 meetups 
 * une présentation en ligne à [Malt Academy](https://www.malt-academy.com/)
 
-J'ai également écrit 6 articles sur [mon blog](https://blog.touret.info/https://blog.touret.info/) et 4 sur le [blog d'ingénierie de Worldline](https://blog.worldline.tech/authors/#alexandre-touret).
+J'ai également écrit 6 articles sur [mon blog](https://blog.touret.info/) et 4 sur le [blog d'ingénierie de Worldline](https://blog.worldline.tech/authors/#alexandre-touret).
 
 Je tiens à remercier mon employeur pour me permettre de vivre cette expérience ainsi que les organisatrices et organisateurs pour leur confiance et leur accueil (vous vous reconnaitrez).
 Merci également à toutes celles et ceux qui m'ont aidé également à monter en compétence en tant que speaker.  
@@ -35,7 +35,7 @@ After moving on to another project early 2022, I had the opportunity on behalf o
 * 2 meetups
 * 1 online presentation at [Malt Academy](https://www.malt-academy.com/)
 
-I also wrote 6 articles on [my blog](https://blog.touret.info/https://blog.touret.info/) and 4 on the [Worldline engineering blog](https://blog.worldline.tech/authors/#alexandre-touret).
+I also wrote 6 articles on [my blog](https://blog.touret.info/) and 4 on the [Worldline engineering blog](https://blog.worldline.tech/authors/#alexandre-touret).
 
 Thank you to my employer for giving me this opportunity and the organisers for their trust and their hospitality. I'm pretty sure you will recognise yourselves.
 Thanks then to who helped me in my speaker journey.
