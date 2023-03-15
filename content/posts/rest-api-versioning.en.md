@@ -41,7 +41,11 @@ Here is the design of this platform:
 ![c4 container diagram](/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg )
 {{</ style >}}
 
+{{< admonition info "To sum up" true >}}
 To cut long story short, we have a microservices platform based on the [Spring Boot](https://docs.spring.io/spring-boot/docs/)/[Cloud](https://docs.spring.io/spring-boot/docs/) Stack exposed through an [API Gateway](https://spring.io/projects/spring-cloud-gateway) and [secured](https://github.com/spring-projects/spring-authorization-server/) using [OpenID Connect](https://openid.net/).
+{{< /admonition >}}
+
+
 
 ## The platform and its roadmap
 
@@ -51,17 +55,17 @@ At as of now, we could think everything is _hunky dory_ isn't it?
 
 While engineers worked on improving the existing API, the sales representative have contracted with new customers.
 They enjoy this product and its functionalities.
-However, they also bring new requirements and concerns.
+However, they also ask for new requirements and concerns.
 
-Some of them are easy to apply. 
-A new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation)  for getting a ``summary`` for every book and additional REST operations. 
+Some of them are easy to apply, some not.
+For instance, a new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation)  for getting a ``summary`` for every book and additional REST operations. 
 
 _Easy!_
 
 However, last but not least, this customer would also get a list of authors for every book whereas the existing application only provides ONE author per book. 
 
 {{< style "text-align:center" >}}
-![c4 context diagram](/assets/images/2023/03/breaking_change.webp )
+![Breaking change](/assets/images/2023/03/breaking_change.webp )
 {{</ style >}}
 
 
@@ -86,7 +90,8 @@ I will describe in this article attention points I strived/struggled with in my 
 
 After answering to the first question: _Do I really need API versioning?_ you then have to answer to this new one: what should we consider versioning?
 
-You only have to version the service contract. 
+**You only have to version the service contract.**
+
 In the case of a simple web application based on a GUI and an API
 
 {{< style "text-align:center" >}}
@@ -98,7 +103,7 @@ If you change your database without impacting the APIs, why should you waste you
 
 On the other way around, when you evolve your service contract, you usually impact your database (e.g., see the first example of breaking change above).
 
-Moreover, the version is usually specified on the _"middleware"_ side, where your expose your API. 
+Moreover, the version **is usually specified on the _"middleware"_ side, where your expose your API.**
 
 
 What about the GAFAM?
