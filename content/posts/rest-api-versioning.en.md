@@ -106,16 +106,60 @@ On the other way around, when you evolve your service contract, you usually impa
 Moreover, the version **is usually specified on the _"middleware"_ side, where your expose your API.**
 
 
-What about the GAFAM?
+### How many versions must I handle?
+Tricky question!
 
+Throughout my different experiences struggling with API versioning, I have noticed the least worst solution was to only handle two versions: the current and the deprecated one. It's the most convenient trade-off for the API provider and customer/client. 
+
+### Where?
+Now, you have to answer to this question: Where should I handle the version?
+
+* On the Gateway?
+* On Every Backend?
+* On every service or on every set of services?
+* Directly in the code managed by different packages.
+
+Usually, I prefer manage it on the gateway side and don't bother with URL management on every backend? 
+It could avoid maintenance on both code and tests for every release.
+
+### How to define it?
+
+There are three ways to define API versions:
+
+* In the URL (e.g., ``/v1/api/books``)
+* In a HTTP header (e.g., ``X-API-VERSION: v1``)
+* In the content type (e.g., ``Accept: application/vnd.myname.v1+json``)
+
+I strongly prefer the first one. It is the most straightforward.
+
+## What about the main software/cloud providers?
+Before reinventing the wheel, let's see how the main actors of our industry deal with this topic.
+I looked around this topic and I found three examples:
+
+### Google
+* The version is specified in the URL 
+* It only represents the major versions which handle breaking changes
+
+### Spotify
+* The version is specified in the URL 
+* The API version is still ``V1`` ...
+
+### Apple
+* The version is specified in the URL 
+* The API version is still ``V1`` ...
+
+## Configuration management & delivery automation
 
 Few questions to ask to yourself ... and answer
 
 If you want to avoir or postone it
 
-Impacts
+You have then to be careful with your kind of architecture. 
+If it is a monolith, it will be really difficult to implement versioning. Why? Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
 
-## Configuration management & automation
+
+
+Impacts
 
 ## Authorisation management
 
