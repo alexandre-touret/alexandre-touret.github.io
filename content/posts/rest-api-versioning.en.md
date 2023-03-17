@@ -66,11 +66,6 @@ However, last but not least, this customer would also get a list of authors for 
 ![Breaking change](/assets/images/2023/03/breaking_change.webp )
 {{</ style >}}
 
-
-{{< admonition tip "" true >}}
-If your early customers had included this new functionality shortly in their applications, it would not have been any issue neither any need of versioning.
-{{< /admonition >}}
-
 **This is a breaking change!**
 
 {{< admonition info "What is a breaking change?" true >}}
