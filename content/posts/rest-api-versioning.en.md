@@ -157,8 +157,6 @@ If you want to avoir or postone it
 You have then to be careful with your kind of architecture. 
 If it is a monolith, it will be really difficult to implement versioning. Why? Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
 
-
-
 Impacts
 
 ## Authorisation management
