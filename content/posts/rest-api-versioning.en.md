@@ -18,11 +18,11 @@ tags:
 ## Once upon a time an API ...
 
 {{< admonition quote "Second Law of Consulting" true >}}
-“No matter how it looks at first, it’s always a people problem” - Gerald M. Weinberg
+_“No matter how it looks at first, it’s always a people problem” - Gerald M. Weinberg_
 {{< /admonition >}}
 
-Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand new IT product. 
-It aimed at a new way managing bookstores through a new software which provides a web interface and an API.
+Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand ne1w IT product. 
+It aimed at a new software to manage bookstores through a web interface and an API.
 
 In the first steps, the developers drew up a first roadmap of their API based on the expectations of their first customers.
 They therefore built and shipped a microservices platform and released their first service contract for their early adopters.
@@ -44,8 +44,6 @@ Here is the design of this platform:
 {{< admonition info "To sum up" true >}}
 To cut long story short, we have a microservices platform based on the [Spring Boot](https://docs.spring.io/spring-boot/docs/)/[Cloud](https://docs.spring.io/spring-boot/docs/) Stack exposed through an [API Gateway](https://spring.io/projects/spring-cloud-gateway) and [secured](https://github.com/spring-projects/spring-authorization-server/) using [OpenID Connect](https://openid.net/).
 {{< /admonition >}}
-
-
 
 ## The platform and its roadmap
 
@@ -73,12 +71,12 @@ However, last but not least, this customer would also get a list of authors for 
 If your early customers had included this new functionality shortly in their applications, it would not have been any issue neither any need of versioning.
 {{< /admonition >}}
 
-**This point is a breaking change!**
+**This is a breaking change!**
 
 {{< admonition info "What is a breaking change?" true >}}
 A breaking change occurs when the backward compatibility is broken between two following versions.
 
-For instance, when you completely change the service contract on your API, a client which uses the old API definition is unable to use your API.
+For instance, when you completely change the service contract on your API, a client which uses the old API definition is unable to use your current one.
 {{< /admonition >}}
 
 A common _theoretical_ approach could be to versionize our APIs and adapt it according to the customer. 
