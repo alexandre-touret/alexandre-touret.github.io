@@ -47,12 +47,12 @@ To cut long story short, we have a microservices platform based on the [Spring B
 
 ## The platform and its roadmap
 
-After shipping this platform into production, they drew up a roadmap for their existing customers to both improve the existing features and bring new ones.
+After shipping it into production, they drew up a roadmap for their existing customers to both improve the existing features and bring new ones.
 
 At as of now, we could think everything is _hunky dory_ isn't it?
 
 While engineers worked on improving the existing API, the sales representative have contracted with new customers.
-They enjoy this product and its functionalities.
+They enjoyed this product and its functionalities.
 However, they also ask for new requirements and concerns.
 
 Some of them are easy to apply, some not.
@@ -64,17 +64,20 @@ However, last but not least, this customer would also get a list of authors for 
 
 {{< style "text-align:center" >}}
 ![Breaking change](/assets/images/2023/03/breaking_change.webp )
-{{</ style >}}
 
 **This is a breaking change!**
+
+{{</ style >}}
+
 
 {{< admonition info "What is a breaking change?" true >}}
 A breaking change occurs when the backward compatibility is broken between two following versions.
 
-For instance, when you completely change the service contract on your API, a client which uses the old API definition is unable to use your current one.
+For instance, when you completely change the service contract on your API, a client which uses the old API definition is unable to use your new one.
 {{< /admonition >}}
 
 A common _theoretical_ approach could be to apply versions on our APIs and adapt it according to the customer. 
+
 Unfortunately, the devil is in the details.
 
 I will describe in this article attention points I strived/struggled with in my last projects.
@@ -113,7 +116,8 @@ Now, you have to answer to this question: Where should I handle the version?
 * Directly in the code managed by different packages.
 
 Usually, I prefer manage it on the gateway side and don't bother with URL management on every backend? 
-It could avoid maintenance on both code and tests for every release.
+It could avoid maintenance on both code and tests for every release. 
+However, you can't have this approach on monolithic applications (see below).
 
 ### How to define it?
 
@@ -127,7 +131,7 @@ I strongly prefer the first one. It is the most straightforward.
 
 ## What about the main software/cloud providers?
 Before reinventing the wheel, let's see how the main actors of our industry deal with this topic.
-I looked around this topic and I found three examples:
+I looked around and found three examples:
 
 ### Google
 * The version is specified in the URL 
@@ -143,8 +147,8 @@ I looked around this topic and I found three examples:
 
 ## Appropriate (or not) technologies
 
-In my opinion, technologies based on a monolith don't fit to handle _properly_ API Versioning.
-If you are not eager to execute two versions of your monolith, you would have to provide both of the two versions with the same app and runtime.
+In my opinion, technologies based on the [monolith pattern](https://microservices.io/patterns/monolithic.html) don't fit handling _properly_ API Versioning.
+If you are not eager to execute two versions of your [monolith](https://microservices.io/patterns/monolithic.html), you would have to provide both of the two versions within the same app and runtime.
 
 You see the point?
 
@@ -157,7 +161,7 @@ In my opinion, best associated technologies are more modular whether during the 
 
 For instance, if you built your app with Container based (Docker, Podman, K8S,..) stack, you would easily switch from one version to another, and sometimes you would be able to ship new features without impacting the oldest version.
 
-However, we need to organize our development and integration workflow to do that.
+However, we need to set up our development and integration workflow to do that.
 
 ## Configuration management & delivery automation
 
@@ -178,9 +182,8 @@ When you want to have two different versions in production, you must decouple yo
 
 For that, I usually put in place [GitFlow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
 
-{{< style "text-align:center" >}}
-![gitflow](/assets/images/2023/03/gitflow.svg)
-{{</ style >}}
+
+{{< figure src="/assets/images/2023/03/gitflow.svg" title="source: Atlassian" >}}
 
 Usually, using this workflow, we consider the ``develop``  branch serves as an integration branch. 
 But, now we have two separate versions? 
@@ -197,8 +200,8 @@ You can easily declare versions regarding your API versions.
 
 For instance:
 
-* ``release/api-1.0.1``
-* ``release/api-2.0.1``
+* ``release/book-api-1.0.1``
+* ``release/book-api-2.0.1``
 
 We can so have the following workflow:
 
@@ -210,21 +213,98 @@ We can so have the following workflow:
 
 ### Delivery process
 
+As of now, we saw how to design, create and handle versions.
+But, how to ship them?
+I you based your source code management on top of GitFlow, you would be able now to deliver releases available from git tags and release branches. 
+The good point is you can indeed build your binaries on top of these ones. 
+The bad one, is you must design and automatise this whole process in a CI/CD pipeline.
 
+{{< admonition tip "Share it" true >}}
+Don't forget to share it to all the stakeholders, whether developers, integrators or project leaders who are often involved in version definition.
+{{< /admonition >}}
+
+Hold on, these programs must be executed against a configuration, aren't they?
+Nowadays, if we respect the [12 factors](https://12factor.net/) during our design and implementation, the configuration is provided through environment variables. 
+
+Yes, your API versioning will also impact your configuration.
+It's so mandatory to externalise and versionize it.
+
+There are different ways to handle this point.
+
+You can, for example, deploy a configuration server.
+It will provide configurations according to a specific version.
+If you want an example, you will [get an example in a workshop I held this year at SnowcampIO](https://github.com/alexandre-touret/rest-apis-versioning-solution).
+The configuration is managed by [Spring Cloud Config](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_quick_start).
+
+You can also handle your configuration in your Helm Charts if you deploy your app on top of Kubernetes. 
+Your configuration values will be injected directly during the deployment. 
+
+Obviously if it's a monolith, it will be strongly difficult.
+Why?
+Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
 
 ## Authorisation management
+
+Here is another point to potentially address when we implement API versioning. 
+When you apply an authorisation mechanism on your APIs using [OAuthv2](https://oauth.net/2/) or [OpenID Connect](https://openid.net/), you would potentially have strong differences in your authorisation policies between two major releases.
+
+You would then restrict the usage of a version to specific [clients or end users](https://openid.net/specs/openid-connect-core-1_0.html#Terminology).
+One way to handle this is to use [scopes](https://openid.net/specs/openid-connect-core-1_0.html#ScopeClaims) stored in claims.
+
+In the use case we have been digging into, we can declare scopes such as: ``book:v1:write`` or ``number:v2:read`` to specify both the authorised action and the corresponding version.
+
+For example, here is a request to get an [access_token](https://oauth.net/2/access-tokens):
+
+```bash
+http --form post :8009/oauth2/token grant_type="client_credentials" client_id="customer1" client_secret="secret1" scope="openid book:v1:write book:v1:write number:v1:read"
+```
+
+And the response could be:
+
+```bash
+{
+    "access_token": "eyJraWQiOiIxNTk4NjZlMC0zNWRjLTQ5MDMtYmQ5MC1hMTM5ZDdjMmYyZjciLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJjdXN0b21lcjIiLCJhdWQiOiJjdXN0b21lcjIiLCJuYmYiOjE2NzI1MDQ0MTQsInNjb3BlIjpbImJvb2t2Mjp3cml0ZSIsIm51bWJlcnYyOnJlYWQiLCJvcGVuaWQiLCJib29rdjI6cmVhZCJdLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjgwMDkiLCJleHAiOjE2Nz
+I1MDQ3MTQsImlhdCI6MTY3MjUwNDQxNH0.gAaDcOaORse0NPIauMVK_rhFATqdKCTvLl41HSr2y80JEj_EHN9bSO5kg2pgkz6KIiauFQ6CT1NJPUlqWO8jc8-e5rMjwWuscRb8flBeQNs4-AkJjbevJeCoQoCi_bewuJy7Y7jqOXiGxglgMBk-0pr5Lt85dkepRaBSSg9vgVnF_X6fyRjXVSXNIDJh7DQcQQ-Li0z5EkeHUIUcXByh19IfiFuw-HmMYXu9EzeewofYj9Gsb_7qI0Ubo2x7y6W2tvzmr2PxkyWbmoioZdY9K0
+nP6btskFz2hLjkL_aS9fHJnhS6DS8Sz1J_t95SRUtUrBN8VjA6M-ofbYUi5Pb97Q",
+    "expires_in": 299,
+    "scope": "book:v2:write number:v2:read openid book:v2:read",
+    "token_type": "Bearer"
+}
+```
+
+Next, you must validate every API call with the version exposed by your API gateway and the requested scope.
+When a client tries to reach an API version with inappropriate scopes (e.g., using ``book:v1:read`` scope for a client which only uses the v2).
+
+You will throw this error:
+
+```json
+{
+    "error": "invalid_scope"
+}
+```
+
+## And now something completely different: How to avoid API versioning wisely!
+
+You probably understood it's a big deal and cumbersome.
+
+Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your customers. 
+
+**You can add new resources, operations and data without impacting your existing users.**
+With the help of serialization rules, your users would only use the data and operations they know and are confident with. 
+You will therefore bring backward compatibility of your API.
+
+Just in case, you can anticipate API versioning by declaring a ``V1`` prefix on your API URL and stick to it while it's not mandatory to upgrade it.
+That's how and why Spotify and Apple (see above) stick to the ``V1``.
 
 ## Conclusion
 
 You probably understood when getting into this topic it's a project management cause which have many technical consequences!
-
-
 
 Few questions to ask to yourself ... and answer
 
 If you want to avoir or postone it
 
 You have then to be careful with your kind of architecture. 
-If it is a monolith, it will be really difficult to implement versioning. Why? Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
-
-Impacts
+If it is a monolith, it will be really difficult to implement versioning.
+Why?
+Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
