@@ -152,7 +152,7 @@ If you are not eager to execute two versions of your [monolith](https://microser
 
 You see the point?
 
-You would therefore struggle with 
+You would therefore struggle with:
 * packaging
 * testing both of two releases for every deployment even if a new feature doesn't impact the deprecated version
 * removing, add new releases in the same source code,... and loosing your mind.
@@ -206,7 +206,7 @@ For instance:
 We can so have the following workflow:
 
 1. Develop features in feature branches and merge them into the ``develop`` branch.
-2. Release and use major releases numbers (or whatever) to identify breaking changes and your API version number
+2. Release and use major release numbers (or whatever) to identify breaking changes and your API version number
 3. Create binaries (see below) regarding the tags and release branches created
 4. Fix existing branches when you want to backport features brought by new features (e.g., when there is an impact on the database mapping), and release them using minor version numbers
 5. Apply fixes and create releases
@@ -214,7 +214,9 @@ We can so have the following workflow:
 ### Delivery process
 
 As of now, we saw how to design, create and handle versions.
+
 But, how to ship them?
+
 I you based your source code management on top of GitFlow, you would be able now to deliver releases available from git tags and release branches. 
 The good point is you can indeed build your binaries on top of these ones. 
 The bad one, is you must design and automatise this whole process in a CI/CD pipeline.
@@ -223,17 +225,20 @@ The bad one, is you must design and automatise this whole process in a CI/CD pip
 Don't forget to share it to all the stakeholders, whether developers, integrators or project leaders who are often involved in version definition.
 {{< /admonition >}}
 
-Hold on, these programs must be executed against a configuration, aren't they?
+_Hold on, these programs must be executed against a configuration, aren't they?_
+
+
 Nowadays, if we respect the [12 factors](https://12factor.net/) during our design and implementation, the configuration is provided through environment variables. 
 
 Yes, your API versioning will also impact your configuration.
 It's so mandatory to externalise and versionize it.
 
-There are different ways to handle this point.
+There are different ways.
 
 You can, for example, deploy a configuration server.
-It will provide configurations according to a specific version.
-If you want an example, you will [get an example in a workshop I held this year at SnowcampIO](https://github.com/alexandre-touret/rest-apis-versioning-solution).
+It will provide configuration key/values regarding the version.
+
+If you want a live example, you can [get an example in a workshop I held this year at SnowcampIO](https://github.com/alexandre-touret/rest-apis-versioning-solution).
 The configuration is managed by [Spring Cloud Config](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_quick_start).
 
 You can also handle your configuration in your Helm Charts if you deploy your app on top of Kubernetes. 
@@ -287,14 +292,14 @@ You will throw this error:
 
 You probably understood it's totally cumbersome.
 
-Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your customers. 
+Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your existing customers. 
 
 **You can add new resources, operations and data without impacting your existing users.**
 With the help of serialization rules, your users would only use the data and operations they know and are confident with. 
 You will therefore bring backward compatibility of your API.
 
 Just in case, you can anticipate API versioning by declaring a ``V1`` prefix on your API URL and stick to it while it's not mandatory to upgrade it.
-That's how and why Spotify and Apple (see above) stick to the ``V1``.
+That's how and why Spotify and Apple (see above) still stick to the ``V1``.
 
 ## Wrap-up
 
@@ -306,3 +311,5 @@ To sum up, you need to ask to yourself these questions:
 * Are my source code management and delivery practices compatible?
 
 After coping with all these points, if you must implement API versioning, you would need onboarding all the different stakeholders, not just developers, to be sure your whole development and delivery process is well aligned with practice.
+
+And I forgot: _Good luck!_
