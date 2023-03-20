@@ -283,9 +283,9 @@ You will throw this error:
 }
 ```
 
-## And now something completely different: How to avoid API versioning wisely!
+## And now something completely different: How to avoid versioning while evolving your API?
 
-You probably understood it's a big deal and cumbersome.
+You probably understood it's totally cumbersome.
 
 Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your customers. 
 
@@ -296,15 +296,13 @@ You will therefore bring backward compatibility of your API.
 Just in case, you can anticipate API versioning by declaring a ``V1`` prefix on your API URL and stick to it while it's not mandatory to upgrade it.
 That's how and why Spotify and Apple (see above) stick to the ``V1``.
 
-## Conclusion
+## Wrap-up
 
-You probably understood when getting into this topic it's a project management cause which have many technical consequences!
+You probably understood when getting into this topic it's a project management issue consequences that requires tackling difficult technical consequences
+To sum up, you need to ask to yourself these questions:
+* Do I need it?
+* Can I postpone API versioning by dealing with serialization rules and just adding new data or operations?
+* Is my architecture design compatible?
+* Are my source code management and delivery practices compatible?
 
-Few questions to ask to yourself ... and answer
-
-If you want to avoir or postone it
-
-You have then to be careful with your kind of architecture. 
-If it is a monolith, it will be really difficult to implement versioning.
-Why?
-Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
+After coping with all these points, if you must implement API versioning, you would need onboarding all the different stakeholders, not just developers, to be sure your whole development and delivery process is well aligned with practice.
