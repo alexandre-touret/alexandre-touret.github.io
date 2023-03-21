@@ -14,4 +14,4 @@ jobs:
           # https://docs.github.com/en/actions/security-guides/automatic-token-authentication#about-the-github_token-secret
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
         with:
-          files: content/posts/*.en.md
+          files: ../../content/posts/*.en.md
