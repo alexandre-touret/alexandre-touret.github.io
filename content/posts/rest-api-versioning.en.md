@@ -189,7 +189,7 @@ Usually, using this workflow, we consider the ``develop``  branch serves as an i
 But, now we have two separate versions? 
 Yes, but don't forget we have a **current** version and a **deprecated one**.
 
-{{< admonition info "Semver" true >}}
+{{< admonition info "SemVer" true >}}
 I base my versioning naming and numbers on [SemVer](https://semver.org/)
 
 {{< /admonition >}}
