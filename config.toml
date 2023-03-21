@@ -546,22 +546,17 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       link = ""
 
   # CDN config for third-party library files
-  # 第三方库文件的 CDN 设置
   [params.cdn]
     # CDN data file name, disabled by default
     # ["jsdelivr.yml"]
     # located in "themes/LoveIt/assets/data/cdn/" directory
     # you can store your own data files in the same path under your project:
     # "assets/data/cdn/"
-    # CDN 数据文件名称, 默认不启用
     # ["jsdelivr.yml"]
     # 位于 "themes/LoveIt/assets/data/cdn/" 目录
-    # 可以在你的项目下相同路径存放你自己的数据文件:
-    # "assets/data/cdn/"
     data = "jsdelivr.yml"
 
   # Compatibility config
-  # 兼容性设置
   [params.compatibility]
     # whether to use Polyfill.io to be compatible with older browsers
     # 是否使用 Polyfill.io 来兼容旧式浏览器
@@ -571,7 +566,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
     objectFit = false
 
 # Markup related configuration in Hugo
-# Hugo 解析文档的配置
 [markup]
   # Syntax Highlighting (https://gohugo.io/content-management/syntax-highlighting)
   [markup.highlight]
@@ -661,6 +655,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         title = ""
       [[languages.en.menu.main]]
         weight = 2
+        identifier = "tags"
+        pre = ""
+        post = ""
+        name = "Tags"
+        url = "/tags/"
+        title = ""
+      [[languages.en.menu.main]]
+        weight = 3
         identifier = "contact"
         pre = ""
         post = ""
@@ -682,15 +684,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         post = ""
         name = "About"
         url = "/about/"
-        title = ""
-      [[languages.en.menu.main]]
-        weight = 6
-        identifier = "RSS"
-        pre = ""
-        post = ""
-        name = ""
-        url = "https://blog.touret.info/index.xml"
-        title = ""
+        title = ""      
     [languages.en.params.search]
         enable = true
         type = "lunr"
@@ -720,6 +714,14 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         title = "Articles"
       [[languages.fr.menu.main]]
         weight = 2
+        identifier = "tags"
+        pre = ""
+        post = ""
+        name = "Tags"
+        url = "/tags/"
+        title = ""
+      [[languages.fr.menu.main]]
+        weight = 3
         identifier = "contact"
         pre = ""
         post = ""
@@ -727,7 +729,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         url = "/contact/"
         title = ""
       [[languages.fr.menu.main]]
-        weight = 3
+        weight = 4
         identifier = "talks"
         pre = ""
         post = ""
@@ -742,15 +744,6 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         name = "À propos"
         url = "/a-propos/"
         title = "À propos" 
-
-      [[languages.fr.menu.main]]
-        weight = 6
-        identifier = "RSS"
-        pre = "<i class='fa fa-rss-square fa-fw' aria-hidden='true'></i>"
-        post = ""
-        name = ""
-        url = "https://blog.touret.info/index.xml"
-        title = ""
       [languages.fr.permalinks]
         posts = '/:year/:month/:day/:filename/'
        
