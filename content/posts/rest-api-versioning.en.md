@@ -21,7 +21,7 @@ tags:
 _“No matter how it looks at first, it’s always a people problem” - Gerald M. Weinberg_
 {{< /admonition >}}
 
-Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand ne1w IT product. 
+Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand new IT product. 
 It aimed at a new software to manage bookstores through a web interface and an API.
 
 In the first steps, the developers drew up a first roadmap of their API based on the expectations of their first customers.
@@ -49,14 +49,14 @@ To cut long story short, we have a microservices platform based on the [Spring B
 
 After shipping it into production, they drew up a roadmap for their existing customers to both improve the existing features and bring new ones.
 
-At as of now, we could think everything is _hunky dory_ isn't it?
+As of now, we could think everything is _hunky-dory_ isn't it?
 
 While engineers worked on improving the existing API, the sales representative have contracted with new customers.
 They enjoyed this product and its functionalities.
 However, they also ask for new requirements and concerns.
 
 Some of them are easy to apply, some not.
-For instance, a new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation)  for getting a ``summary`` for every book and additional REST operations. 
+For instance, a new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation)  for getting a `summary` for every book and additional REST operations. 
 
 _Easy!_
 
@@ -80,7 +80,7 @@ A common _theoretical_ approach could be to apply versions on our APIs and adapt
 
 Unfortunately, the devil is in the details.
 
-I will describe in this article attention points I strived/struggled with in my last projects.
+I will describe in this article attention points I struggled with in my last projects.
 
 ## What do we versionize? How and where to apply it?
 
@@ -105,7 +105,7 @@ Moreover, the version **is usually specified on the _"middleware"_ side, where y
 ### How many versions must I handle?
 Tough question!
 
-Throughout my different experiences struggling with API versioning, I have noticed the least worst solution was to only handle two versions: the current and the deprecated one. It's the most convenient trade-off for the API provider and customer/client. 
+Throughout my different experiences struggling with API versioning, I have noticed the least bad solution was to only handle two versions: the current and the deprecated one. It's the most convenient trade-off for the API provider and customer/client. 
 
 ### Where?
 Now, you have to answer to this question: Where should I handle the version?
@@ -115,7 +115,7 @@ Now, you have to answer to this question: Where should I handle the version?
 * On every service or on every set of services?
 * Directly in the code managed by different packages.
 
-Usually, I prefer manage it on the gateway side and don't bother with URL management on every backend? 
+Usually, I prefer manage it on the gateway side and don't bother with URL management on every backend.
 It could avoid maintenance on both code and tests for every release. 
 However, you can't have this approach on monolithic applications (see below).
 
@@ -174,7 +174,7 @@ When I dug into API versioning, I realized it impacts projects organisation and,
 
 Yes **it IS a big deal**
 
-Here is _the least worst_ approach I think it works while addressing all of these concerns:
+Here is _the least bad_ approach I think it works while addressing all of these concerns:
 
 ### Source code configuration
 
