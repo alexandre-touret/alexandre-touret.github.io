@@ -190,7 +190,7 @@ But, now we have two separate versions?
 Yes, but don't forget we have a **current** version and a **deprecated one**.
 
 {{< admonition info "Semver" true >}}
-I base my versioning naming and numbers on on [SemVer](https://semver.org/)
+I base my versioning naming and numbers on [SemVer](https://semver.org/)
 
 {{< /admonition >}}
 
@@ -233,7 +233,7 @@ Nowadays, if we respect the [12 factors](https://12factor.net/) during our desig
 Yes, your API versioning will also impact your configuration.
 It's so mandatory to externalise and versionize it.
 
-There are different ways.
+You can do it in different ways.
 
 You can, for example, deploy a configuration server.
 It will provide configuration key/values regarding the version.
