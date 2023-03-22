@@ -10,3 +10,5 @@ middleware
 Atlassian
 APIs
 access_token
+Worldline
+webp

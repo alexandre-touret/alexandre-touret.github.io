@@ -1,8 +1,8 @@
 ---
 id: 8
-title: À propos
+title: About
 date: 2018-02-08T14:25:12+01:00
-permalink: /a-propos/
+permalink: /about/
 
 featuredImagePreview: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
 
@@ -11,6 +11,7 @@ sharing_disabled:
 switch_like_status:
   - 'a:1:{i:0;i:1;}'
 ---
+
 Ce blog ( oui il y en a encore ), me sert principalement à exposer mes tests, veilles technos et plein d'autres bidouillages de ce genre. Écrire tout ça me permet de ne pas oublier ce que j'ai pu faire quelques mois/années auparavant et d'en faire profiter modestement, la communauté.
 
   

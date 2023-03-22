@@ -667,7 +667,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         pre = ""
         post = ""
         name = "Contact"
-        url = "/contact/"
+        url = "/en/contact/"
         title = ""
       [[languages.en.menu.main]]
         weight = 4
@@ -675,7 +675,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         pre = ""
         post = ""
         name = "Talks"
-        url = "/talks/"
+        url = "/en/talks/"
         title = ""
       [[languages.en.menu.main]]
         weight = 5
@@ -683,7 +683,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         pre = ""
         post = ""
         name = "About"
-        url = "/about/"
+        url = "/en/about/"
         title = ""      
     [languages.en.params.search]
         enable = true
@@ -742,7 +742,7 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
         pre = ""
         post = ""
         name = "À propos"
-        url = "/a-propos/"
+        url = "/about/"
         title = "À propos" 
       [languages.fr.permalinks]
         posts = '/:year/:month/:day/:filename/'
