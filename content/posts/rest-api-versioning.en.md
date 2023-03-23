@@ -105,7 +105,7 @@ Moreover, the version **is usually specified on the _"middleware"_ side, where y
 ### How many versions must I handle?
 Tough question!
 
-Throughout my different experiences struggling with API versioning, I have noticed the least bad solution was to only handle two versions: the current and the deprecated one. It's the most convenient trade-off for the API provider and customer/client. 
+Throughout my different experiences struggling with API versioning, the most acceptable trade-off for both the API provider and customer/client was to only handle two versions: the current and the deprecated one.
 
 ### Where?
 Now, you have to answer to this question: Where should I handle the version?
@@ -128,6 +128,19 @@ Here are three ways to define API versions:
 * In the content type (e.g., ``Accept: application/vnd.myname.v1+json``)
 
 I strongly prefer the first one. It is the most straightforward.
+
+For instance, if you provide your books API first version, you can declare this URL in your OpenAPI specification:
+
+``/v1/api/books``.
+
+The version declared here is pretty clear and difficult to miss.
+If you specify the version in a HTTP header, it's less clear. 
+If you have this URL ``/api/books`` and the version specified in this header: ``X-API-VERSION: v1``, what would be the version called (or not) if you didn't specify the header? Is there any default version?
+
+Yes, you can read the documentation, but who (really) does? 
+
+The first solution (i.e., version in the URL) mandatory conveys the associated version. 
+It is so visble for all the stakeholders and could potentially avoir any mistakes or headaches while debugging.
 
 ## What about the main software/cloud providers?
 Before reinventing the wheel, let's see how the main actors of our industry deal with this topic.
