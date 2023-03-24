@@ -12,3 +12,12 @@ APIs
 access_token
 Worldline
 webp
+Katas
+katas
+Youtube
+Quarkus
+dans
+le
+avec
+ou
+d'architecture
