@@ -1,7 +1,6 @@
 ---
 title: Real life Rest API Versioning for dummies
-date: 2023-03-30 08:00:00
-draft: true
+date: 2023-03-28 08:00:00
 images: ["/assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
 featuredImage: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
