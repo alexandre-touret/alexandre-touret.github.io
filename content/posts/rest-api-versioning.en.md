@@ -140,7 +140,7 @@ If you have this URL ``/api/books`` and the version specified in this header: ``
 Yes, you can read the documentation, but who (really) does? 
 
 The first solution (i.e., version in the URL) mandatory conveys the associated version. 
-It is so visble for all the stakeholders and could potentially avoir any mistakes or headaches while debugging.
+It is so visible for all the stakeholders and could potentially avoir any mistakes or headaches while debugging.
 
 ## What about the main software/cloud providers?
 Before reinventing the wheel, let's see how the main actors of our industry deal with this topic.
