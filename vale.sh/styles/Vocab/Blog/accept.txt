@@ -14,7 +14,6 @@ Worldline
 webp
 Katas
 katas
-Youtube
 Quarkus
 dans
 le
