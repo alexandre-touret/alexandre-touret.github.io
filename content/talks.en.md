@@ -11,10 +11,10 @@ featuredImage: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
 
 {{< figure src="/assets/images/2021/11/pexels-skitterphoto-691485.webp" title="Talks" >}}
 
-You could find below slides and videos of my latest talks.
+You can find below slides and videos of my latest talks.
 
 
-You could also get [my slides on SpeakerDeck](https://speakerdeck.com/alexandretouret) and videos on this [Youtube playlist](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt).
+Additionally, you can also get [my slides on SpeakerDeck](https://speakerdeck.com/alexandretouret) and videos on this [Youtube playlist](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt).
 
 Here are some of them:
 
