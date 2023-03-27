@@ -1,4 +1,5 @@
-# À propos
+# About
+
 
 Ce blog ( oui il y en a encore ), me sert principalement à exposer mes tests, veilles technos et plein d'autres bidouillages de ce genre. Écrire tout ça me permet de ne pas oublier ce que j'ai pu faire quelques mois/années auparavant et d'en faire profiter modestement, la communauté.
 
