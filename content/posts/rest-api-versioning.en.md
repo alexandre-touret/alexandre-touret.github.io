@@ -4,7 +4,6 @@ date: 2023-03-27 08:00:00
 images: ["/assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
 featuredImage: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
-
 og_image: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
 
 tags:
