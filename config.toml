@@ -1,4 +1,4 @@
-xbaseURL = "http://blog.touret.info/"
+baseURL = "http://blog.touret.info/"
 
 # theme
 theme = "LoveIt"
