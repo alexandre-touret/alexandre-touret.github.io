@@ -1,11 +1,6 @@
 ---
 title: Real life Rest API Versioning for dummies
-<<<<<<< HEAD
-date: 2023-03-28 08:00:00
-=======
 date: 2023-03-27 08:00:00
-draft: true
->>>>>>> c83ae997... fix: typos
 images: ["/assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
 featuredImage: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
