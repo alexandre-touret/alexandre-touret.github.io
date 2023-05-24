@@ -31,7 +31,7 @@ Designing a new platform is always tricky to set up.
 
 How to start? What is the best strategy to adopt while designing a platform? What kind of architecture should we deploy: event streaming, orchestration, or choreography?
 
-For a brand-new platform: "Donut @ Home", we will proceed a live architecture study.
+For a brand-new platform: "Donuts @ Home", we will proceed a live architecture study.
 
 After analysing the customer needs, brainstorming, and exchanging our ideas, we will choose among all the potential solutions the *least worst* option.
 
@@ -43,13 +43,14 @@ At the end of this talk, you will have tips and tricks for thinking about it and
 
 * [Slides](https://speakerdeck.com/alexandretouret/vdb23-the-hitchhikers-guide-to-software-architecture-design)
 
-### Architecture Katas : Improve your system architecture design skills ina funny way
+### Architecture Katas : Improve your system architecture design skills in a funny way
 {{< admonition abstract "Abstract" false >}}
 
 How to learn architecture ? How to improve in this field ? How do we recognize a good or a bad architecture ?
-There are plenty of books and training sessions about this subject. The best thing is to practice!
-In the same way as coding dojos, I will present to you architecture katas. There are created by Ted Neward (http://blogs.tedneward.com/). His idea came from the following observation :
-"So how are we supposed to get great architects, if they only get the chance to architect fewer than a half-dozen times in their career?"
+Plenty of books and training sessions address this subject. The best thing is to practice!
+In the same way as CodingDojos, I will present to you architecture katas. 
+Ted NEWARD (http://blogs.tedneward.com/) created them. His idea came from the following observation :
+"How are we supposed to get great architects, if they only get the chance to architect fewer than a half-dozen times in their career?"
 One solution to this issue could be to practice regularly on several topics to gain experience.
 After a brief introduction of how to start designing an architecture, I will present architecture katas, and the conduct.
 To conclude, after this first try I will present the benefits I had benefited.
@@ -61,7 +62,7 @@ To conclude, after this first try I will present the benefits I had benefited.
 ### Kubernetes & Co, beyond the hype: 10 tips for designers who want to create cloud native apps
 
 {{< admonition abstract "Abstract" false >}}
-Kubernetes and cloud technologies are nowadays the new standard to deploy different cloud native applications: api, batchs, microservices and ... monoliths!
+Kubernetes and cloud technologies are nowadays the new standard to deploy different cloud native applications: API, BATCHES, microservices and ... monoliths!
 These technologies help to solve many issues but with some complexity.
 It could be difficult for developers and designers to identify the constraints of such architectures.
 
