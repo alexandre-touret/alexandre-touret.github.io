@@ -1,10 +1,10 @@
 ---
 title: Setup Fish shell (and beyond)
 date: 2023-08-01 08:00:00
-images: ["/assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp"]
-featuredImagePreview: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
-featuredImage: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
-og_image: /assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp
+images: ["/assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp"]
+featuredImagePreview: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
+featuredImage: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
+og_image: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
 draft: true
 tags:
 - shell
@@ -19,6 +19,8 @@ sudo apt install fish
 
 Nerd Font 
 https://www.nerdfonts.com/font-downloads
+
+I downloaded and used [JetBrains Mono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip)
 
 fc-cache -fv
 
