@@ -56,3 +56,7 @@ sdk ug
 y
 
 restart a shell
+$HOME/.config/fish/conf.d/config_gpgagent.fish
+
+set -gx GPG_TTY (tty)
+restart a shell
