@@ -19,13 +19,12 @@ At the opposite of the others, it's not [POSIX-compatible](https://fishshell.com
 
 Furthermore, to get (at least) the same functionalities as OhMyZsh, I choose to install et setup [Starship](https://starship.rs/).
 
-I will describe how I moved on and updated my existing tools such as [SdkMan](https://sdkman.io/); 
-
+As a reminder, I will describe how I moved on and updated my existing tools such as [SdkMan](https://sdkman.io/).
 
 ## FISH Installation
 
 {{< admonition info "OS" true >}}
-I applied these commands on both [Ubuntu20](http://ubuntu.com/)/[WSL2](https://learn.microsoft.com/fr-fr/windows/wsl/install) and (Linux Mint](https://linuxmint.com/). 
+I applied these commands on both [Ubuntu20](http://ubuntu.com/)/[WSL2](https://learn.microsoft.com/fr-fr/windows/wsl/install) and [Linux Mint](https://linuxmint.com/). 
 {{< /admonition >}}
 
 To install it
@@ -36,9 +35,9 @@ sudo apt install fish
 You must also to use a font available through [NerdFonts website](https://www.nerdfonts.com/font-downloads). 
 By the way, you can also use the fonts available through your package manager. 
 
-For instance, I choose to use [JetBrains Mono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip) 
+For instance, I chose using [JetBrains Mono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip) 
 
-After downloading , you can reload your font cache using this command:
+After downloading it, you can reload your font cache using this command:
 
 ```jshelllanguage
 fc-cache -fv
@@ -52,36 +51,46 @@ curl -sS https://starship.rs/install.sh | sh
 
 
 {{< admonition info "How to update starship" true >}}
-To update Starhip, you must use the same command.
+To update Starship, you must use the same command.
 {{< /admonition >}}
 
-I also add the following command at the end of ``~/.config/fish/config.fish`` 
+I also added the following command at the end of ``~/.config/fish/config.fish``:
+
 ```shell
 starship init fish | source
 ```
 
-Due to some WSL2 incompatibility, I also chose to use [the plain text presets](https://starship.rs/presets/plain-text.html) running this command:
+Due to some WSL2 incompatibilities, I also chose to use [the plain text presets](https://starship.rs/presets/plain-text.html) running this command:
 
 ```jshelllanguage
 starship preset plain-text-symbols -o ~/.config/starship.toml
 ```
 
-## SDKMAN compatibility
+## SDKMAN update
 
-Fisher https://github.com/jorgebucaran/fisher
+At this stage, Sdkman doesn't work anymore. To put it alive again,I had to install [Fisher](https://github.com/jorgebucaran/fisher) and a [Sdkman for fish plugin](https://github.com/reitzig/sdkman-for-fish)  
 
+### Fisher install
+Run this command:
+```jshelllanguage
 curl -sL https://raw.githubusercontent.com/jorgebucaran/fisher/main/functions/fisher.fish | source && fisher install jorgebucaran/fisher
-
-SDKMAN for fish https://github.com/reitzig/sdkman-for-fish
-
+```
+### Sdkman for fish plugin
+Run this command:
+```jshelllanguage
 fisher install reitzig/sdkman-for-fish@v2.0.0
+```
+### Run Sdkman 
 
+Run this command:
 
+```jshelllanguage
 sdk ug
+```
+Say yes and restart a shell.
 
-y
+## GPG 
 
-restart a shell
 $HOME/.config/fish/conf.d/config_gpgagent.fish
 
 set -gx GPG_TTY (tty)
