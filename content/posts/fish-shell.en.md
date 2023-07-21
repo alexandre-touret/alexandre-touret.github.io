@@ -88,8 +88,22 @@ Run this command:
 sdk ug
 ```
 Say yes and restart a shell.
+Now it should work.
 
-## GPG 
+## NVM
+I had the same issue with [NVM](https://github.com/nvm-sh/nvm).
+
+I then installed another plugin with Fisher:
+
+```jshelllanguage
+fisher install jorgebucaran/nvm.fish
+```
+
+## GnuPG 
+
+I use [GnuPG for signing my GIT commits](https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/).
+Installing Fisher broke my setup.
+I then 
 
 $HOME/.config/fish/conf.d/config_gpgagent.fish
 
