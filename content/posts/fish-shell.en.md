@@ -66,7 +66,7 @@ starship preset plain-text-symbols -o ~/.config/starship.toml
 ```
 
 ## SDKMAN update
-At this stage, SdkMan didn't work anymore. To put it alive again, I had to install [Fisher](https://github.com/jorgebucaran/fisher) and a [SdkMan for fish plugin](https://github.com/reitzig/sdkman-for-fish).
+At this stage, SdkMan didn't work at all. To put it alive again, I had to install [Fisher](https://github.com/jorgebucaran/fisher) and a [SdkMan for fish plugin](https://github.com/reitzig/sdkman-for-fish).
 
 ### Fisher install
 Run this command:
@@ -100,12 +100,12 @@ fisher install jorgebucaran/nvm.fish
 I use [GnuPG for signing my GIT commits](https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/).
 Installing Fisher broke my setup.
 
-I then add this new configuration file ``$HOME/.config/fish/conf.d/config_gpgagent.fish`` with the following content:   
+I then added this new configuration file ``$HOME/.config/fish/conf.d/config_gpgagent.fish`` with the following content:   
 
 ```jshelllanguage
 set -gx GPG_TTY /dev/pts/0
-``` 
-Restart your shell (again).
+```
+To activate it, restart your shell (again).
 
 ## Conclusion
 I can now use FISH for my daily job.
