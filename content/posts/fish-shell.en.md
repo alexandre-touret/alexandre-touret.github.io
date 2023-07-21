@@ -33,7 +33,7 @@ To install it, run this command:
 sudo apt install fish
 ```
 
-You must also to use a font available on the [NerdFonts website](https://www.nerdfonts.com/font-downloads). 
+You must also use a font available on the [NerdFonts website](https://www.nerdfonts.com/font-downloads). 
 By the way, you can also use the fonts available through your package manager. 
 
 For instance, I chose using [JetBrains Mono](https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip) 
@@ -108,7 +108,7 @@ set -gx GPG_TTY /dev/pts/0
 Restart your shell (again).
 
 ## Conclusion
-After all of these commands, I can use FISH for my daily job.
-As I said in preamble, this article is only a reminder for my next setups.
+I can now use FISH for my daily job.
+As I said first, this article is only a reminder for my next setups (aka when I will broke my GNU/Linux boxes and try to restore them).
 
 Hope it will help you!
