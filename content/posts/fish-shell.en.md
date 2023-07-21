@@ -1,11 +1,11 @@
 ---
 title: Moving on to Fish shell (and beyond)
-date: 2023-08-01 08:00:00
+date: 2023-07-24 08:00:00
 images: ["/assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
 featuredImage: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
 og_image: /assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp
-draft: true
+draft: false
 tags:
 - shell
 - GNU/Linux
