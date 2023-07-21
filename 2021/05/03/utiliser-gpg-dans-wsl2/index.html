@@ -62,17 +62,17 @@ Importer une clé GPG existante Utiliser GPG pour signer mes commits dans WSL2 I
 </span><span class=lnt>3
 </span><span class=lnt>4
 </span><span class=lnt>5
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl># Uncomment within config (or add this line)
-</span></span><span class=line><span class=cl># This tells gpg to use the gpg-agent
-</span></span><span class=line><span class=cl>use-agent
-</span></span><span class=line><span class=cl># Set the default key
-</span></span><span class=line><span class=cl>default-key CLE_ID
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-conf data-lang=conf><span class=line><span class=cl><span class=c># Uncomment within config (or add this line)
+</span></span></span><span class=line><span class=cl><span class=c># This tells gpg to use the gpg-agent
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nv>use-agent</span>
+</span></span><span class=line><span class=cl><span class=c># Set the default key
+</span></span></span><span class=line><span class=cl><span class=c></span><span class=nv>default-key</span> <span class=nv>CLE_ID</span>
 </span></span></code></pre></td></tr></table></div></div><p>Puis créez le fichier <code>~/.gnupg/gpg-agent.conf</code> avec le contenu ci-dessous:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span><span class=lnt>2
 </span><span class=lnt>3
-</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>default-cache-ttl 34560000
-</span></span><span class=line><span class=cl>max-cache-ttl 34560000
-</span></span><span class=line><span class=cl>pinentry-program /usr/bin/pinentry-curses
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-conf data-lang=conf><span class=line><span class=cl><span class=nv>default-cache-ttl</span> <span class=nv>34560000</span>
+</span></span><span class=line><span class=cl><span class=nv>max-cache-ttl</span> <span class=nv>34560000</span>
+</span></span><span class=line><span class=cl><span class=nv>pinentry-program</span> <span class=err>/</span><span class=nv>usr</span><span class=err>/</span><span class=nv>bin</span><span class=err>/</span><span class=nv>pinentry-curses</span>
 </span></span></code></pre></td></tr></table></div></div><p>Le cache ici est défini en secondes. Il est mis ici à 400 jours.</p><p>Ce dernier fichier fait référence au programme <code>pinentry</code>. Vous pouvez vérifier sa présence grâce à la commande:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
 </span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=line><span class=cl>ls /usr/bin/pinentry-curses 
 </span></span></code></pre></td></tr></table></div></div><p>Si vous ne l&rsquo;avez pas, vous pouvez l&rsquo;installer grâce à la commande suivante:</p><div class=highlight><div class=chroma><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
