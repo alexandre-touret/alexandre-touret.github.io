@@ -13,3 +13,10 @@ sudo apt install ./hugo_extended_0.110.0_linux-amd64.deb
 ```bash
 hugo serve -D -F
 ```
+
+
+## Update the theme
+
+```bash
+git submodule update --remote --merge
+```
