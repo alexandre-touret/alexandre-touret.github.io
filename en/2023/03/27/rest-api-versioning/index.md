@@ -7,7 +7,7 @@
 _“No matter how it looks at first, it’s always a people problem” - Gerald M. Weinberg_
 {{< /admonition >}}
 
-Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand new IT product. 
+Once upon a time, the [ACME Corporation](https://en.wikipedia.org/wiki/Acme_Corporation) was building a brand new IT product.
 It aimed at a new software to manage bookstores through a web interface and an API.
 
 In the first steps, the developers drew up a first roadmap of their API based on the expectations of their first customers.
@@ -42,11 +42,11 @@ They enjoyed this product and its functionalities.
 However, they also ask for new requirements and concerns.
 
 Some of them are easy to apply, some not.
-For instance, a new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation)  for getting a `summary` for every book and additional REST operations. 
+For instance, a new customer asked the [ACME engineers](https://en.wikipedia.org/wiki/Acme_Corporation) for getting a `summary` for every book and additional REST operations.
 
 _Easy!_
 
-However, last but not least, this customer would also get a list of authors for every book whereas the existing application only provides ONE author per book. 
+However, last but not least, this customer would also get a list of authors for every book whereas the existing application only provides ONE author per book.
 
 {{< style "text-align:center" >}}
 ![Breaking change](/assets/images/2023/03/breaking_change.webp )
@@ -68,7 +68,7 @@ Unfortunately, the devil is in the details.
 
 I will describe in this article attention points I struggled with in my last projects.
 
-## What do we versionize? How and where to apply it?
+## What to version? How and where to apply it?
 
 After answering to the first question: _Do I really need API versioning?_ you then have to answer to this new one: what should we consider versioning?
 
@@ -84,9 +84,13 @@ Versioning is applied in the service contract of your API.
 If you change your database without impacting the APIs, why should you waste your time creating and managing a version of your API?
 It doesn't make sense.
 
-On the other way around, when you evolve your service contract, you usually impact your database (e.g., see the first example of breaking change above).
+On the other way around, when you evolve your service contract, you usually impact your database (e.g., see the example of breaking change above).
 
-Moreover, the version **is usually specified on the _"middleware"_ side, where your expose your API.**
+Moreover, the version **is usually specified on the _"middleware"_ side, where your expose your API**.
+I'll come back to this point in a later section.
+
+If you want to dig into what is a breaking change and what to version, you can read [this guide on the Github website](https://docs.github.com/en/rest/overview/api-versions?apiVersion=2022-11-28).
+
 
 ### How many versions must I handle?
 Tough question!
@@ -113,19 +117,25 @@ Here are three ways to define API versions:
 * In a HTTP header (e.g., ``X-API-VERSION: v1``)
 * In the content type (e.g., ``Accept: application/vnd.myname.v1+json``)
 
+The last one is now deprecated.
+[The RFC 9110 deprecates now _custom_ usages of the ``accept`` HTTP header](https://www.rfc-editor.org/rfc/rfc9110.html#name-accept).
+
 I strongly prefer the first one. It is the most straightforward.
 
-For instance, if you provide your books API first version, you can declare this URL in your OpenAPI specification:
+For instance, if you provide your books API first version, you can declare this URL in your OpenAPI specification:``/v1/api/books``.
+The version declared here is pretty clear and difficult to miss.
 
-``/v1/api/books``.
+If you specify the version in a HTTP header, it's less clear.
+If you have this URL ``/api/books`` and the version specified in this header: ``X-API-VERSION: v1``, what would be the version called (or not) if you didn't specify the header? Is there any default version?
+Yes, you can read the documentation to answer these questions, but who (really) does?
 
 The version declared here is pretty clear and difficult to miss.
-If you specify the version in a HTTP header, it's less clear. 
+If you specify the version in a HTTP header, it's less clear.
 If you have this URL ``/api/books`` and the version specified in this header: ``X-API-VERSION: v1``, what would be the version called (or not) if you didn't specify the header? Is there any default version?
 
-Yes, you can read the documentation, but who (really) does? 
+Yes, you can read the documentation, but who (really) does?
 
-The first solution (i.e., version in the URL) mandatory conveys the associated version. 
+The first solution (i.e., version in the URL) mandatorily conveys the associated version.
 It is so visible for all the stakeholders and could potentially avoir any mistakes or headaches while debugging.
 
 ## What about the main software/cloud providers?
@@ -154,7 +164,7 @@ You see the point?
 You would therefore struggle with:
 * packaging
 * testing both of two releases for every deployment even if a new feature doesn't impact the deprecated version
-* removing, add new releases in the same source code,... and loosing your mind.
+* removing, add new releases in the same source code,... And loosing your mind.
 
 In my opinion, best associated technologies are more modular whether during the development or deployment phases.
 
@@ -164,7 +174,7 @@ However, we need to set up our development and integration workflow to do that.
 
 ## Configuration management & delivery automation
 
-When I dug into API versioning, I realized it impacts projects organisation and, by this way, the following items:
+When I dug into API versioning, I realised it impacts projects organisation and, by this way, the following items:
 
 * The source code management: _one version per branch or not?_
 * The release process: _How to create releases properly?_
@@ -184,8 +194,8 @@ For that, I usually put in place [GitFlow](https://www.atlassian.com/git/tutoria
 
 {{< figure src="/assets/images/2023/03/gitflow.svg" title="source: Atlassian" >}}
 
-Usually, using this workflow, we consider the ``develop``  branch serves as an integration branch. 
-But, now we have two separate versions? 
+Usually, using this workflow, we consider the ``develop`` branch serves as an integration branch.
+But, now we have two separate versions?
 Yes, but don't forget we have a **current** version and a **deprecated one**.
 
 {{< admonition info "SemVer" true >}}
@@ -216,40 +226,37 @@ As of now, we saw how to design, create and handle versions.
 
 But, how to ship them?
 
-I you based your source code management on top of GitFlow, you would be able now to deliver releases available from git tags and release branches. 
-The good point is you can indeed build your binaries on top of these ones. 
+If you based your source code management on top of GitFlow, you would be able now to deliver releases available from git tags and release branches.
+The good point is you can indeed build your binaries on top of these.
 The bad one, is you must design and automatise this whole process in a CI/CD pipeline.
 
-{{< admonition tip "Share it" true >}}
 Don't forget to share it to all the stakeholders, whether developers, integrators or project leaders who are often involved in version definition.
-{{< /admonition >}}
 
 _Hold on, these programs must be executed against a configuration, aren't they?_
 
+Nowadays, if we respect the [12 factors](https://12factor.net/) during our design and implementation, the configuration is provided through environment variables.
 
-Nowadays, if we respect the [12 factors](https://12factor.net/) during our design and implementation, the configuration is provided through environment variables. 
-
-Yes, your API versioning will also impact your configuration.
-It's so mandatory to externalise and versionize it.
+To cut long story short, your API versioning will also impact your configuration.
+Thus, it becomes mandatory to externalise it and version it.
 
 You can do it in different ways.
 
 You can, for example, deploy a configuration server.
 It will provide configuration key/values regarding the version.
-
 If you want a live example, you can [get an example in a workshop I held this year at SnowcampIO](https://github.com/alexandre-touret/rest-apis-versioning-solution).
 The configuration is managed by [Spring Cloud Config](https://docs.spring.io/spring-cloud-config/docs/current/reference/html/#_quick_start).
 
-You can also handle your configuration in your Helm Charts if you deploy your app on top of Kubernetes. 
-Your configuration values will be injected directly during the deployment. 
-
+You can also handle your configuration in your Helm Charts if you deploy your app on top of Kubernetes.
+Your configuration values will be injected directly during the deployment.
 Obviously if it's a monolith, it will be strongly difficult.
+
 Why?
-Because you will loose flexibility on version management and the capacity on deploying several versions of your service.
+
+Because you will lose flexibility on version management and the capacity on deploying several versions of your service.
 
 ## Authorisation management
 
-Here is another point to potentially address when we implement API versioning. 
+Here is another point to potentially address when we implement API versioning.
 When you apply an authorisation mechanism on your APIs using [OAuthv2](https://oauth.net/2/) or [OpenID Connect](https://openid.net/), you would potentially have strong differences in your authorisation policies between two major releases.
 
 You would then restrict the usage of a version to specific [clients or end users](https://openid.net/specs/openid-connect-core-1_0.html#Terminology).
@@ -257,7 +264,7 @@ One way to handle this is to use [scopes](https://openid.net/specs/openid-connec
 
 In the use case we have been digging into, we can declare scopes such as: ``book:v1:write`` or ``number:v2:read`` to specify both the authorised action and the corresponding version.
 
-For example, here is a request to get an [access_token](https://oauth.net/2/access-tokens):
+For example, here is a request to get an [access_token](https://oauth.net/2/access-tokens) from the v1 scopes:
 
 ```bash
 http --form post :8009/oauth2/token grant_type="client_credentials" client_id="customer1" client_secret="secret1" scope="openid book:v1:write book:v1:write number:v1:read"
@@ -271,7 +278,7 @@ And the response could be:
 I1MDQ3MTQsImlhdCI6MTY3MjUwNDQxNH0.gAaDcOaORse0NPIauMVK_rhFATqdKCTvLl41HSr2y80JEj_EHN9bSO5kg2pgkz6KIiauFQ6CT1NJPUlqWO8jc8-e5rMjwWuscRb8flBeQNs4-AkJjbevJeCoQoCi_bewuJy7Y7jqOXiGxglgMBk-0pr5Lt85dkepRaBSSg9vgVnF_X6fyRjXVSXNIDJh7DQcQQ-Li0z5EkeHUIUcXByh19IfiFuw-HmMYXu9EzeewofYj9Gsb_7qI0Ubo2x7y6W2tvzmr2PxkyWbmoioZdY9K0
 nP6btskFz2hLjkL_aS9fHJnhS6DS8Sz1J_t95SRUtUrBN8VjA6M-ofbYUi5Pb97Q",
     "expires_in": 299,
-    "scope": "book:v2:write number:v2:read openid book:v2:read",
+    "scope": "book:v1:write number:v1:read openid book:v1:read",
     "token_type": "Bearer"
 }
 ```
@@ -289,27 +296,30 @@ You will throw this error:
 
 ## And now something completely different: How to avoid versioning while evolving your API?
 
-You probably understood it's totally cumbersome.
+You probably understood that versioning is totally cumbersome.
 
-Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your existing customers. 
+Before putting in place all of these practices, there's another way to add functionalities on a NON-versioned API without impacting your existing customers.
 
 **You can add new resources, operations and data without impacting your existing users.**
-With the help of serialization rules, your users would only use the data and operations they know and are confident with. 
-You will therefore bring backward compatibility of your API.
+{: .notice--warning}
+
+With the help of serialization rules, your users would only use the data and operations they know and are confident with.
+You will therefore bring backward compatibility to your API.
 
 Just in case, you can anticipate API versioning by declaring a ``V1`` prefix on your API URL and stick to it while it's not mandatory to upgrade it.
 That's how and why Spotify and Apple (see above) still stick to the ``V1``.
 
 ## Wrap-up
 
-You probably understood when getting into this topic it's a project management issue consequences that requires tackling difficult technical consequences
-To sum up, you need to ask to yourself these questions:
+
+You probably understood when getting into this topic that API versioning is a project management issue with consequences that requires tackling difficult technical ones.
+To sum up, you need to ask yourself these questions:
 * Do I need it?
-* Can I postpone API versioning by dealing with serialization rules and just adding new data or operations?
+* Can I postpone API versioning by dealing with serialisation rules and just adding new data or operations?
 * Is my architecture design compatible?
 * Are my source code management and delivery practices compatible?
 
-After coping with all these points, if you must implement API versioning, you would need onboarding all the different stakeholders, not just developers, to be sure your whole development and delivery process is well aligned with practice.
+After coping with all these points, if you must implement API versioning, you would need to onboard all the different stakeholders, not just developers, to be sure your whole development and delivery process is well aligned with practice.
 
 And I forgot: _Good luck!_
 
