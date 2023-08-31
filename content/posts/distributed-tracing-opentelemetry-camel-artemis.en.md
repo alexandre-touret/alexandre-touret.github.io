@@ -46,54 +46,24 @@ I will not dig into the concepts of Distributed tracing in this article.
 [If you are interested in it, you can read my article on the Worldline Tech Blog](https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html).
 {{< /admonition >}}
 
-I will explain in this article two ways of gathering  asynchronous transaction traces using [Apache Camel](https://camel.apache.org/) and [Artemis](https://activemq.apache.org/components/artemis/) through JMS. 
-The first way is using [OpenTelemetry](https://opentelemetry.io/). The second is through [Elastic APM](https://www.elastic.co/fr/observability/application-performance-monitoring). 
+I will explain in this article how to set up and plug OpenTelementry to gather asynchronous transaction traces using [Apache Camel](https://camel.apache.org/) and [Artemis](https://activemq.apache.org/components/artemis/). 
 
 All the code snippets are part of [this project on GitHub](https://GitHub.com/alexandre-touret/camel-artemis-opentelemetry).
 (Normally) you can use and run it locally on your desktop.
 
-
-## OpenTelemetry
-
-### Architecture
-
+## Architecture
 The [SPANs](https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing) are broadcast through OpenTelemetry and gathered through [OpenTelemetry Collector](https://opentelemetry.io/docs/collector).
 It finally sends them to [Jaeger](https://www.jaegertracing.io/). 
 You can also opt for [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/). 
 
 Here is the architecture of such a platform:
 
-{{< mermaid >}}C4Container
-title Distributed Tracing w/ OpenTelemetry
 
+{{< style "text-align:center" >}}
+![OpenTelemetry Collector Architecture](/assets/images/2023/09/architecture.svg )
+{{</ style >}}
 
-      Person(customerA, "Customer", "A customer") 
-      
-
-      Enterprise_Boundary(b0, "Boundary") {
-        Container_Boundary(b1,"System"){
-            Container(gateway,"API Gateway","Spring Cloud Gateway","Exposes the APIs")
-            Container(producer,"Producer","Spring Boot, Cloud","Produces a message through an API")
-            ContainerQueue(messaging, "Messaging", "Artemis", "Broadcasts messages")
-            Container(consumer,"Consumer","Spring Boot, Cloud","Reads messages")
-            Container(collector,"OTEL Collector","OpenTelemetry Collector")
-            Container(jaeger,"Jaeger","Jaeger","Gathers and <br/> provides distributed tracing")
-        }
-      }
-
-      Rel(customerA,gateway, "Uses")
-      Rel(gateway, producer, "exposes")
-      Rel(producer, messaging, "sends messages")
-      Rel(consumer,messaging, "gets messages")
-      Rel(gateway,collector,"broadcasts spans")
-      Rel(producer,collector,"broadcasts spans")
-      Rel(consumer,collector,"broadcasts spans")
-      Rel(collector,jaeger,"broadcasts spans")
-      UpdateLayoutConfig($c4ShapeInRow="3")
-    
-{{< /mermaid >}}
-
-### OpenTelemetry Collector
+## OpenTelemetry Collector
 
 The cornerstone of this architecture is the [collector](https://opentelemetry.io/docs/collector/). 
 This tool can be compared to [Elastic LogStash](https://www.elastic.co/fr/logstash/) or an [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load). 
@@ -195,12 +165,12 @@ For the impatient readers here are a short explanation of this configuration fil
 3. What to do with it?
 4. What are the workloads to activate?
 
-### What about the code?
+## What about the code?
 
 The configuration to apply is pretty simple and straightforward. 
 To cut long story short, you need to include libraries, add some configuration stuff and run your application with an agent which will be responsible for broadcasting the SPANs.
 
-#### Libraries to include
+### Libraries to add
 
 For an Apache Camel based Java application, you need to add this starter first:
 
@@ -213,7 +183,7 @@ For an Apache Camel based Java application, you need to add this starter first:
 
 In case you set up a _basic_ [Spring Boot application](https://spring.io/), you only have to configure the agent (_see below_).
 
-#### In the code
+### In the code
 This step is not mandatory.
 However, if you are eager to get more details in your Jaeger dashboard, it is advised.
 
@@ -228,12 +198,17 @@ public class DemoApplication {
 
 If you want more details, you can check [the official documentation](https://camel.apache.org/components/3.20.x/others/opentelemetry.html).
 
-#### The Java Agent
+### The Java Agent
 
 The java agent is responsible for instrumenting Java 8+ code, capturing metrics and forwarding them to the collector.
 ...
 
 [Its documentation is available on GitHub](https://github.com/open-telemetry/opentelemetry-java-instrumentation).
+The detailed list of configuration parameters [is available here](https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/). 
+You can configure it through environment, system variables or a [configuration file](https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/#configuration-file).
+
+For instance, by default, the OpenTelemetry Collector default endpoint value is ``http://localhost:4317``. 
+You can customise it by setting the ``OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`` environment variable or the ``otel.exporter.otlp.metrics.endpoint`` java system variable (e.g., using ``-Dotel.exporter.otlp.metrics.endpoint`` option ).
 
 **Example of configuration**
 
@@ -293,7 +268,50 @@ The java agent is responsible for instrumenting Java 8+ code, capturing metrics 
 
 The variables in comment (e.g., ``otel.traces.sampler``) can be activated if you want [to sample your forwarded data based on a head rate limiting](https://opentelemetry.io/docs/concepts/sampling/).
 
+You can now run both the producer and the consumer:
 
-### Dashboard
+```jshelllanguage
+mvn clean spring-boot:run -Popentelemetry -f camel-producer/pom.xml
+```
 
-## Elastic APM
+```jshelllanguage
+mvn clean spring-boot:run -Popentelemetry -f camel-consumer/pom.xml
+```
+
+The gateway can also be run and instrumented in the same way. 
+You can run it as:
+
+```jshelllanguage
+mvn clean spring-boot:run -Popentelemetry -f gateway/pom.xml
+```
+
+## Dashboard
+
+To get traces, I ran this dumb command to inject traces in Jaeger:
+
+```jshelllanguage
+while true ; http :9080/camel/test; end
+```
+
+Now, you can browse Jaeger ([http://localhost:16686](http://localhost:16686)) and query it to find trace insights:
+
+{{< style "text-align:center" >}}
+![Jaeger front page](/assets/images/2023/09/jaeger-1.webp "Number of different apps")
+{{</ style >}}
+
+If you dig into one transaction, you will see the whole transaction:
+
+{{< style "text-align:center" >}}
+![Jaeger transaction page](/assets/images/2023/09/jaeger-2.webp "One transaction")
+{{</ style >}}
+
+And correlate two sub transactions:
+
+{{< style "text-align:center" >}}
+![Jaeger two sub transactions](/assets/images/2023/09/jaeger-3.webp "Two sub transactions")
+{{</ style >}}
+
+## Conclusion
+
+We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger. It was voluntarily simple.
+One of the key features of OpenTelemetry Collector is it becomes through the years a _standard_. Most suites, such as Elastic APM are compatible with it.
