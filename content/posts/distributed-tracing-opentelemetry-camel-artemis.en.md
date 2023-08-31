@@ -17,7 +17,7 @@ tags:
 
 ## Introduction
 Nowadays _Distributed Tracing is the new black._ 
-Among other things, it helps diving into distributed transactions and answering the burning questions: what are the different requests, their contexts and how long they are.
+Among other things, it helps diving into distributed transactions and answering to the burning questions: what are the different requests, their contexts and how long they are.
 
 Since [Google published Dapper](https://research.google/pubs/pub36356/), many solutions came out. 
 Now, [OpenTelemetry](https://opentelemetry.io/) is the most popular, but there are other solutions available such as [Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) or [DynaTrace](https://www.dynatrace.com/support/help/observe-and-explore/purepath-distributed-traces/distributed-traces-overview). 
@@ -29,14 +29,14 @@ The need for clarity is more important in this case.
 When your architecture is based on a messaging / event streaming broker, it is quite hard to get an outlook of the whole transaction.
 
 Why? 
-It is due to the split of the _functional transaction_ into two loose coupled sub transactions:
+It is due to the split of the _functional transaction_ into two [loose coupled](https://en.wikipedia.org/wiki/Loose_coupling) sub transactions:
 
 {{< mermaid >}}sequenceDiagram
 participant Producer
 participant Consumer
 participant Messaging/EventStreaming/Whatever
-Producer->>Messaging/EventStreaming/Whatever: Send message
-Consumer->>Messaging/EventStreaming/Whatever: Fetch message
+Producer->>Messaging/EventStreaming/Whatever: Send message (Transaction 1)
+Consumer->>Messaging/EventStreaming/Whatever: Fetch message (Transaction 2)
 {{< /mermaid >}}
 
 Hopefully you can rope OpenTelemetry in it to shed light.
@@ -52,12 +52,10 @@ All the code snippets are part of [this project on GitHub](https://GitHub.com/al
 (Normally) you can use and run it locally on your desktop.
 
 ## Architecture
-The [SPANs](https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing) are broadcast through OpenTelemetry and gathered through [OpenTelemetry Collector](https://opentelemetry.io/docs/collector).
-It finally sends them to [Jaeger](https://www.jaegertracing.io/). 
-You can also opt for [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/). 
+The [SPANs](https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing) are broadcast and gathered through [OpenTelemetry Collector](https://opentelemetry.io/docs/collector).
+It finally sends them to [Jaeger](https://www.jaegertracing.io/). I use it because it is simplest tool to set up. To be more _production ready_, you can opt for [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/) the tools I talked about above. 
 
 Here is the architecture of such a platform:
-
 
 {{< style "text-align:center" >}}
 ![OpenTelemetry Collector Architecture](/assets/images/2023/09/architecture.svg )
@@ -312,6 +310,10 @@ And correlate two sub transactions:
 {{</ style >}}
 
 ## Conclusion
-
 We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger. It was voluntarily simple.
-One of the key features of OpenTelemetry Collector is it becomes through the years a _standard_. Most suites, such as Elastic APM are compatible with it.
+One of the key features of OpenTelemetry Collector is it becomes through the years a _standard_. For instance,[Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) [is compatible with it](https://www.elastic.co/guide/en/apm/guide/current/open-telemetry.html).
+
+I then exposed how to enable this feature on Apache Camel applications. 
+It is easily applied in the same way [in several stacks](https://opentelemetry.io/docs/instrumentation/).
+
+In a next article, I will (probably) dive into [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/) implementation.
