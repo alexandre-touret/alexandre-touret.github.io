@@ -42,5 +42,3 @@ Il y a aussi certaines conférences ou j'ai eu un bon écho :
 Je pense qu'il y a encore bien d'autres conférences qui ont été très intéressantes. J' ai quelques heures de visionnage à prévoir dans mon agenda 🙂 . Quoi qu'il en soit, merci aux organisateurs pour cette édition. C'était top!
 
 Rendez vous l'année prochaine !
-
- 
