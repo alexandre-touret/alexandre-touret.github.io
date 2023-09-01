@@ -45,7 +45,8 @@ All the code snippets are part of [this project on GitHub](https://GitHub.com/al
 
 ## Architecture
 The [SPANs](https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing) are broadcast and gathered through [OpenTelemetry Collector](https://opentelemetry.io/docs/collector).
-It finally sends them to [Jaeger](https://www.jaegertracing.io/). I use it because it is the simplest tool to set up. To be more _production ready_, you can opt for [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/) the tools I talked about above. 
+It finally sends them to [Jaeger](https://www.jaegertracing.io/). I use it in this article because it is the simplest tool to set up.
+To be more _production ready_, you can opt for [Tempo](https://grafana.com/oss/tempo/) and [Grafana](https://grafana.com/) the tools I talked about above. 
 
 Here is the architecture of such a platform:
 
