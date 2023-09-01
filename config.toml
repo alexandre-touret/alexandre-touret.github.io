@@ -487,7 +487,9 @@ ignoreErrors = ["error-remote-getjson", "error-missing-instagram-accesstoken"]
       [params.page.seo.publisher]
         name = "Alexandre Touret"
         logoUrl = "/images/alexandre-touret.webp"
-
+    [params.page.related]
+      enable = false
+      count = 2
   # TypeIt config
   [params.typeit]
     # typing speed between each step (measured in milliseconds)
