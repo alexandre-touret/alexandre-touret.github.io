@@ -15,6 +15,8 @@ tags:
 - Grafana
 - Tempo
 ---
+{{< style "text-align:center; " >}}
+_Picture Credit: [Nick Fewings](https://unsplash.com/@jannerboy62)_{{< /style >}}
 
 ## Introduction
 In today's dynamic landscape, Distributed Tracing has emerged as an indispensable practice.
@@ -28,7 +30,7 @@ This toolkit seamlessly aligns with APIs and synchronous transactions, catering 
 
 However, what about asynchronous transactions? 
 The necessity for clarity becomes even more pronounced in such cases.
-Particularly in architectures built around messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.
+Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.
 
 Why does this challenge arise? 
 It's a consequence of functional transactions fragmenting into two loosely coupled subprocesses:
@@ -208,7 +210,7 @@ The detailed list of configuration parameters [is available here](https://opente
 You can configure it through environment, system variables or a [configuration file](https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/#configuration-file).
 
 For instance, by default, the OpenTelemetry Collector default endpoint value is ``http://localhost:4317``. 
-You can customise it by setting the ``OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`` environment variable or the ``otel.exporter.otlp.metrics.endpoint`` java system variable (e.g., using ``-Dotel.exporter.otlp.metrics.endpoint`` option ).
+You can alter it by setting the ``OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`` environment variable or the ``otel.exporter.otlp.metrics.endpoint`` java system variable (e.g., using ``-Dotel.exporter.otlp.metrics.endpoint`` option ).
 
 In my example, we use Maven configuration to download the agent JAR file and run our application with it as an agent.
 
@@ -268,9 +270,9 @@ In my example, we use Maven configuration to download the agent JAR file and run
 </profile>
 ```
 
-The variables in comment (e.g., ``otel.traces.sampler``) can be activated if you want [to sample your forwarded data based on a head rate limiting](https://opentelemetry.io/docs/concepts/sampling/).
+The variables in comment (e.g., ``otel.traces.sampler``) can be turned on if you want [to sample your forwarded data based on a head rate limiting](https://opentelemetry.io/docs/concepts/sampling/).
 
-Before running the whole application ([gateway](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/gateway), [producer](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-producer),[consumer](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-consumer)), you must run the infrastructure with [Docker compose](https://docs.docker.com/compose/). 
+Before running the whole application ([gateway](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/gateway), [producer](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-producer),[consumer](https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-consumer)), you must ramp up the infrastructure with [Docker compose](https://docs.docker.com/compose/). 
 The source is available [here](https://github.com/alexandre-touret/camel-artemis-opentelemetry/blob/main/containers/docker-compose.yml). 
  
 ```jshelllanguage
@@ -288,7 +290,7 @@ mvn clean spring-boot:run -Popentelemetry -f camel-producer/pom.xml
 mvn clean spring-boot:run -Popentelemetry -f camel-consumer/pom.xml
 ```
 
-The gateway can also be run and instrumented in the same way. 
+The gateway can also be turned on and instrumented in the same way. 
 You can run it as:
 
 ```jshelllanguage
@@ -322,11 +324,40 @@ It allows to Jaeger to correlate our two transactions.
 For your information, here are all the headers available while consuming the message
 
 ```json
-HEADERS {__AMQ_CID=ID:WL-941Y493-43925-1693567817862-0:1, accept=*/*, accept-encoding=gzip, deflate, CamelHttpCharacterEncoding=UTF-8, CamelHttpMethod=GET, CamelHttpPath
-=, CamelHttpUri=/camel/test, CamelHttpUrl=http://127.0.0.1:8080/camel/test, CamelMessageTimestamp=1693567851901, CamelServletContextPath=/test, content-length=0, forwarded=proto=http;host="localhost:9080";for="127.0.0.1:39352", host=127.0.0.1:8080, JMSCorrel
-ationID=null, JMSCorrelationIDAsBytes=null, JMSDeliveryMode=2, JMSDestination=queue://HELLO.WORLD, JMSExpiration=0, JMSMessageID=ID:WL-941Y493-43925-1693567817862-1:1:1:1:75, JMSPriority=4, JMSRedelivered=false, JMSReplyTo=null, JMSTimestamp=1693567851901, J
-MSType=null, JMSXGroupID=null, JMSXUserID=null, traceparent=00-dea6abbd4357819b7416236bab19e557-8840b18dd799cfac-01, user-agent=HTTPie/1.0.3, x-forwarded-for=127.0.0.1, x-forwarded-host=localhost:9080, x-forwarded-port=9080, x-forwarded-proto=http}
-
+{__AMQ_CID=ID:XXXX-0:1, 
+  accept=*/*, 
+  accept-encoding=gzip, 
+  deflate, 
+  CamelHttpCharacterEncoding=UTF-8, 
+  CamelHttpMethod=GET, 
+  CamelHttpPath=, 
+  CamelHttpUri=/camel/test, 
+  CamelHttpUrl=http://127.0.0.1:8080/camel/test, 
+  CamelMessageTimestamp=1693567851901,
+  CamelServletContextPath=/test,
+  content-length=0, 
+  forwarded=proto=http;host="localhost:9080";for="127.0.0.1:39352", 
+  host=127.0.0.1:8080, 
+  JMSCorrelationID=null, 
+  JMSCorrelationIDAsBytes=null, 
+  JMSDeliveryMode=2, 
+  JMSDestination=queue://HELLO.WORLD, 
+  JMSExpiration=0, 
+  JMSMessageID=ID:XXXX-1:1:1:1:75, 
+  JMSPriority=4, 
+  JMSRedelivered=false, 
+  JMSReplyTo=null, 
+  JMSTimestamp=1693567851901, 
+  JMSType=null, 
+  JMSXGroupID=null, 
+  JMSXUserID=null, 
+  traceparent=00-dea6abbd4357819b7416236bab19e557-8840b18dd799cfac-01, 
+  user-agent=HTTPie/1.0.3, 
+  x-forwarded-for=127.0.0.1, 
+  x-forwarded-host=localhost:9080, 
+  x-forwarded-port=9080, 
+  x-forwarded-proto=http
+}
 ```
 
 ### Dashboard
