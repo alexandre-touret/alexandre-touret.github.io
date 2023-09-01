@@ -1,11 +1,11 @@
 ---
 title: "Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry" 
-date: 2023-09-10 08:00:00
+date: 2023-09-07 08:00:00
 images: ["/assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp
 featuredImage: /assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp
 og_image: /assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp
-draft: true
+draft: false
 
 tags:
 - OpenTelemetry
