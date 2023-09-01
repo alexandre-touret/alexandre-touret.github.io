@@ -8,11 +8,12 @@ og_image: /assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp
 draft: true
 
 tags:
-- AMQP
 - OpenTelemetry
 - Java
 - Camel
 - Artemis
+- Grafana
+- Tempo
 ---
 
 ## Introduction
