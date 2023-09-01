@@ -276,6 +276,10 @@ You can run it as:
 mvn clean spring-boot:run -Popentelemetry -f gateway/pom.xml
 ```
 
+### How is made the glue between the two applications?
+
+//TODO
+
 ## Dashboard
 
 To get traces, I ran this dumb command to inject traces in Jaeger:
