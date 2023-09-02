@@ -520,5 +520,3 @@ Last but not least, which solution is the best?
 I have not made any benchmark of Distributed Tracing solutions.
 However, for a _real life_ production setup, I would dive into Grafana and Tempo and check their features. 
 I am particularly interested in mixing logs, traces to orchestrate efficient alerting mechanisms.
-
-
