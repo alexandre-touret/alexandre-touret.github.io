@@ -20,13 +20,18 @@ tags:
 In today's dynamic landscape, Distributed Tracing has emerged as an indispensable practice.
 It helps to understand what is under the hood of distributed transactions, providing answers to pivotal questions: What comprises these diverse requests? What contextual information accompanies them? How extensive is their duration?
 
-Since the introduction of [Google's Dapper](https://research.google/pubs/pub36356/), a plethora of tracing solutions has flooded the scene. Among them, [OpenTelemetry](https://opentelemetry.io/)  has risen as the frontrunner. Other alternatives such as [Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) and [DynaTrace](https://www.dynatrace.com/support/help/observe-and-explore/purepath-distributed-traces/distributed-traces-overview) are also available.
+Since the introduction of [Google's Dapper](https://research.google/pubs/pub36356/), a plethora of tracing solutions has flooded the scene.
+Among them, [OpenTelemetry](https://opentelemetry.io/) has risen as the frontrunner.
+Other alternatives such as [Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) and [DynaTrace](https://www.dynatrace.com/support/help/observe-and-explore/purepath-distributed-traces/distributed-traces-overview) are also available.
 
 This toolkit seamlessly aligns with APIs and synchronous transactions, catering to a broad spectrum of scenarios.
 
-However, what about asynchronous transactions? The necessity for clarity becomes even more pronounced in such cases. Particularly in architectures built around messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.
+However, what about asynchronous transactions? 
+The necessity for clarity becomes even more pronounced in such cases.
+Particularly in architectures built around messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.
 
-Why does this challenge arise? It's a consequence of functional transactions fragmenting into two loosely coupled subprocesses:
+Why does this challenge arise? 
+It's a consequence of functional transactions fragmenting into two loosely coupled subprocesses:
 
 {{< style "text-align:center" >}}
 ![OpenTelemetry Collector Architecture](/assets/images/2023/09/loose-coupling-sequence.svg)
@@ -59,7 +64,7 @@ Here is the architecture of such a platform:
 ### OpenTelemetry Collector
 
 The cornerstone of this architecture is the [collector](https://opentelemetry.io/docs/collector/). 
-This tool can be compared to [Elastic LogStash](https://www.elastic.co/fr/logstash/) or an [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load). 
+It can be compared to [Elastic LogStash](https://www.elastic.co/fr/logstash/) or an [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load). 
 It will help us get, transform and export telemetry data.
 
 {{< style "text-align:center" >}}
@@ -151,15 +156,13 @@ service:
 **Short explanation**
 
 If you want further information about this configuration, you [can browse the documentation](https://opentelemetry.io/docs/collector/configuration/).
-For the impatient readers here are a short explanation of this configuration file:
+
+For the impatients, here are a short explanation of this configuration file:
 
 1. Where to pull data?
 2. Where to store data?
 3. What to do with it?
 4. What are the workloads to activate?
-
-
-
 
 ### What about the code?
 
@@ -197,7 +200,8 @@ If you want more details, you can check [the official documentation](https://cam
 #### The Java Agent
 
 The java agent is responsible for instrumenting Java 8+ code, capturing metrics and forwarding them to the collector.
-...
+
+In case you don't know what is a Java Agent, I recommend watch [this conference](https://www.youtube.com/watch?v=oflzFGONG08).
 
 [Its documentation is available on GitHub](https://github.com/open-telemetry/opentelemetry-java-instrumentation).
 The detailed list of configuration parameters [is available here](https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/). 
@@ -205,6 +209,8 @@ You can configure it through environment, system variables or a [configuration f
 
 For instance, by default, the OpenTelemetry Collector default endpoint value is ``http://localhost:4317``. 
 You can customise it by setting the ``OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`` environment variable or the ``otel.exporter.otlp.metrics.endpoint`` java system variable (e.g., using ``-Dotel.exporter.otlp.metrics.endpoint`` option ).
+
+In my example, we use Maven configuration to download the agent JAR file and run our application with it as an agent.
 
 **Example of configuration**
 
@@ -324,8 +330,7 @@ MSType=null, JMSXGroupID=null, JMSXUserID=null, traceparent=00-dea6abbd4357819b7
 ```
 
 ### Dashboard
-
-To get traces, I ran this dumb command to inject traces in Jaeger:
+To get traces, I ran this dumb command to inject traces into Jaeger:
 
 ```jshelllanguage
 while true ; http :9080/camel/test; end
@@ -343,24 +348,30 @@ If you dig into one transaction, you will see the whole transaction:
 ![Jaeger transaction page](/assets/images/2023/09/jaeger-2.webp "One transaction")
 {{</ style >}}
 
-And correlate two sub transactions:
+And now, you can correlate two sub transactions:
 
 {{< style "text-align:center" >}}
 ![Jaeger two sub transactions](/assets/images/2023/09/jaeger-3.webp "Two sub transactions")
 {{</ style >}}
 
 ## Tempo & Grafana
-This solution is pretty similar to the previous one. Instead of pushing all the data to Jaeger, we will use Tempo to store data and Grafana to render them.
-We don't need to modify the configuration made in the Java applications.
+This solution is pretty similar to the previous one. 
+Instead of pushing all the data to Jaeger, we will use Tempo to store data and Grafana to render them.
+We don't need to modify the configuration made in the existing Java applications.
 
 ### Architecture
+As mentioned above, the architecture is quite the same.
+Now, we have the collector which broadcast data to Tempo. 
+We will then configure Grafana to query to it to get traces.
+
 {{< style "text-align:center" >}}
 ![Architecture w/ Grafana & Tempo](/assets/images/2023/09/architecture-grafana.svg)
 {{</ style >}}
 
 ### Collector configuration
 
-The modification of the Collector is easy. We only have to specify the tempo URL.
+The modification of the Collector is easy (for this example).
+We only have to specify the tempo URL.
  
 ```yaml
 receivers:
@@ -448,7 +459,6 @@ search_enabled: true
 ```
 
 ### Grafana configuration
-
 Now we must configure Grafana to enable querying into our tempo instance. 
 The configuration is made here using a configuration file provided during the startup
 
@@ -478,7 +488,6 @@ datasources:
 ```
 
 ### Dashboard
-
 As we have done before, we must start the infrastructure using Docker Compose:
 
 ```jshelllanguage
@@ -492,12 +501,15 @@ Then, using the same rocket scientist maven commands, we can run the same comman
 ![Grafana transactions](/assets/images/2023/09/grafana-1.webp "Transactions")
 {{</ style >}}
 {{< style "text-align:center" >}}
-![Grafana transactions](/assets/images/2023/09/grafana-2.webp "Deep dive into one")
+![Grafana transactions](/assets/images/2023/09/grafana-2.webp "Deep dive into one transaction")
 {{</ style >}}
 
 ## Conclusion
-We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo & Grafana. It was voluntarily simple.
-A noteworthy aspect of OpenTelemetry Collector lies in its evolution into an industry-standard over time. 
+We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo & Grafana. 
+It was voluntarily simple.
+
+If you want to dig into [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector/) configuration, you can read [this article from Antik Anand](https://signoz.io/blog/opentelemetry-collector-complete-guide/) (Thanks [Nicolas Frankël](https://blog.frankel.ch/) for sharing it) and the [official documentation](https://github.com/open-telemetry/opentelemetry-collector/).
+A noteworthy aspect of [OpenTelemetry](https://github.com/open-telemetry/) lies in its evolution into an industry-standard over time. 
 For instance,[Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) [is compatible with it](https://www.elastic.co/guide/en/apm/guide/current/open-telemetry.html).
 
 I then exposed how to enable this feature on Apache Camel applications. 
@@ -505,7 +517,7 @@ It can be easily reproduced [with several stacks](https://opentelemetry.io/docs/
 
 Last but not least, which solution is the best?
 
-I have not made any benchmark of Distributed Tracing solutions neither any comparison.
+I have not made any benchmark of Distributed Tracing solutions.
 However, for a _real life_ production setup, I would dive into Grafana and Tempo and check their features. 
 I am particularly interested in mixing logs, traces to orchestrate efficient alerting mechanisms.
 
