@@ -199,7 +199,7 @@ If you want more details, you can check [the official documentation](https://cam
 #### The Java Agent
 The java agent is responsible for instrumenting Java 8+ code, capturing metrics and forwarding them to the collector.
 
-In case you don't know what is a Java Agent, I recommend watch [this conference](https://www.youtube.com/watch?v=oflzFGONG08).
+In case you don't know what is a Java Agent, I recommend watching [this conference](https://www.youtube.com/watch?v=oflzFGONG08).
 
 [Its documentation is available on GitHub](https://github.com/open-telemetry/opentelemetry-java-instrumentation).
 The detailed list of configuration parameters [is available here](https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/). 
