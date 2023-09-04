@@ -64,7 +64,6 @@ Here is the architecture of such a platform:
 {{</ style >}}
 
 ### OpenTelemetry Collector
-
 The cornerstone of this architecture is the [collector](https://opentelemetry.io/docs/collector/). 
 It can be compared to [Elastic LogStash](https://www.elastic.co/fr/logstash/) or an [ETL](https://en.wikipedia.org/wiki/Extract,_transform,_load). 
 It will help us get, transform and export telemetry data.
@@ -167,12 +166,10 @@ For the impatients, here are a short explanation of this configuration file:
 4. What are the workloads to activate?
 
 ### What about the code?
-
 The configuration to apply is pretty simple and straightforward. 
 To cut long story short, you need to include libraries, add some configuration lines and run your application with an agent which will be responsible for broadcasting the SPANs.
 
 #### Libraries to add
-
 For an Apache Camel based Java application, you need to add this starter first:
 
 ```xml
@@ -200,7 +197,6 @@ public class DemoApplication {
 If you want more details, you can check [the official documentation](https://camel.apache.org/components/3.20.x/others/opentelemetry.html).
 
 #### The Java Agent
-
 The java agent is responsible for instrumenting Java 8+ code, capturing metrics and forwarding them to the collector.
 
 In case you don't know what is a Java Agent, I recommend watch [this conference](https://www.youtube.com/watch?v=oflzFGONG08).
@@ -298,7 +294,6 @@ mvn clean spring-boot:run -Popentelemetry -f gateway/pom.xml
 ```
 
 #### How is made the glue between the two applications?
-
 The correlation is simply done using headers.
 For instance, in the consumer application, when we consume the messages as:
 
@@ -396,11 +391,10 @@ Now, we have the collector which broadcast data to Tempo.
 We will then configure Grafana to query to it to get traces.
 
 {{< style "text-align:center" >}}
-![Architecture w/ Grafana & Tempo](/assets/images/2023/09/architecture-grafana.svg)
+![Architecture w/ Grafana & Tempo](/assets/images/2023/09/architecture_grafana.svg)
 {{</ style >}}
 
 ### Collector configuration
-
 The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.
  
@@ -434,7 +428,6 @@ service:
 ```
 
 ### Tempo configuration
-
 I used here [the standard configuration provided in the documentation](https://github.com/grafana/tempo):
 
 ```yaml
