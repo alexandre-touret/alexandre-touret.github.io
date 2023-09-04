@@ -16,7 +16,7 @@ tags:
 - Tempo
 ---
 {{< style "text-align:center; " >}}
-_Picture Credit: [Nick Fewings](https://unsplash.com/@jannerboy62)_{{< /style >}}
+_Picture Credit: [Nick FEWINGS](https://unsplash.com/@jannerboy62)_{{< /style >}}
 
 ## Introduction
 In today's dynamic landscape, Distributed Tracing has emerged as an indispensable practice.
@@ -158,7 +158,7 @@ service:
 
 If you want further information about this configuration, you [can browse the documentation](https://opentelemetry.io/docs/collector/configuration/).
 
-For the impatients, here are a short explanation of this configuration file:
+For those who are impatient, here are a short explanation of this configuration file:
 
 1. Where to pull data?
 2. Where to store data?
@@ -532,7 +532,7 @@ Then, using the same rocket scientist maven commands, we can run the same comman
 We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo & Grafana. 
 It was voluntarily simple.
 
-If you want to dig into [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector/) configuration, you can read [this article from Antik Anand](https://signoz.io/blog/opentelemetry-collector-complete-guide/) (Thanks [Nicolas Frankël](https://blog.frankel.ch/) for sharing it) and the [official documentation](https://github.com/open-telemetry/opentelemetry-collector/).
+If you want to dig into [OpenTelemetry Collector](https://github.com/open-telemetry/opentelemetry-collector/) configuration, you can read [this article from Antik ANAND](https://signoz.io/blog/opentelemetry-collector-complete-guide/) (Thanks to [Nicolas FRANKËL](https://blog.frankel.ch/) for sharing it) and the [official documentation](https://github.com/open-telemetry/opentelemetry-collector/).
 A noteworthy aspect of [OpenTelemetry](https://github.com/open-telemetry/) lies in its evolution into an industry-standard over time. 
 For instance,[Elastic APM](https://www.elastic.co/observability/application-performance-monitoring) [is compatible with it](https://www.elastic.co/guide/en/apm/guide/current/open-telemetry.html).
 
