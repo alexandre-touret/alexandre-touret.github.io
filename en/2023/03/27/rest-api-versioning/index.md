@@ -89,7 +89,7 @@ On the other way around, when you evolve your service contract, you usually impa
 Moreover, the version **is usually specified on the _"middleware"_ side, where your expose your API**.
 I'll come back to this point in a later section.
 
-If you want to dig into what is a breaking change and what to version, you can read [this guide on the Github website](https://docs.github.com/en/rest/overview/api-versions?apiVersion=2022-11-28).
+If you want to dig into what is a breaking change and what to version, you can read [this guide on the GitHub website](https://docs.github.com/en/rest/overview/api-versions?apiVersion=2022-11-28).
 
 
 ### How many versions must I handle?

@@ -28,4 +28,3 @@ Je pense qu'il y a encore bien d'autres conférences qui ont été très intére
 
 Rendez vous l'année prochaine !
 
- 
