@@ -32,17 +32,24 @@ A la fin de cette présentation, vous aurez des clés pour penser et démarrer l
 * [Slides](https://speakerdeck.com/alexandretouret/tadx-23-une-plateforme-a-concevoir-deux-architectes-trois-possibilites)
 * [Vidéo](https://www.youtube.com/watch?v=Mkol6zyJN8Y&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt&index=2)
 
-### Améliorer les compétences et les infrastructures avec les katas d'architecture
+### Le versioning des APIs REST: dans la vraie vie on fait comment?
 
 {{< admonition abstract "Résumé" false >}}
-Comment devenir architecte ? Comment progresser dans ce domaine ? A quoi reconnaît-on une bonne ou une mauvaise architecture ? Il existe certes un grand nombre d' ouvrages et formations sur le sujet, mais le mieux est quand même de pratiquer !
-Une solution à ce problème pourrait être donc de s’entraîner régulièrement sur des sujets différents pour gagner en expérience.
-Pour rendre l’apprentissage de l’architecture et de la conception plus empirique - et plus ludique, nous allons découvrir les Katas d’Architecture au travers d’un retour d’expérience. Nous découvrirons comment les mettre en œuvre ainsi que les bénéfices que j’en ai tirés.
+Quand on souhaite publier des APIs avec par exemple, une solution d' API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
+
+Imaginez, vous travaillez sur un produit qui expose des APIs à plusieurs clients. Vous devez leur proposer des évolutions et nouvelles fonctionnalités tout en maîtrisant l'existant.
+Quelle stratégie adopter? Quelles solutions techniques peut-on mettre en place simplement ?
+
+Dans cette présentation, vous (re)découvrirez des conseils que j'ai pu mettre en pratique et qui m'ont aidé lors de mes derniers projets.
+
+Nous aborderons, au travers d'un cas concret la stratégie à mettre en oeuvre, les différentes possibilités d'implémentation ainsi que leurs contraintes.
+
+A l’issue de cette présentation, nous aurons une vue complète et objective des manières d'appréhender le versioning d'APIs.
+
 {{< /admonition >}}
 
-
-* [Slides](https://speakerdeck.com/alexandretouret/lyon-jug-2023-ameliorer-les-competences-et-les-infrastructures-avec-les-katas-darchitecture)
-* [Vidéo](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt&index=3)
+* [Slides](https://speakerdeck.com/alexandretouret/dfl23-le-versioning-des-apis-rest-dans-la-vraie-vie-on-fait-comment)
+* [Vidéo](https://www.youtube.com/watch?v=m8DbVbMDe2w)
 
 ### Le versioning des APIs REST par la pratique (Workshop)
 
@@ -64,6 +71,18 @@ A l’issue de cet atelier, nous aurons une vue complète et mis en pratique dif
 
 * [Slides](https://speakerdeck.com/alexandretouret/le-versioning-des-apis-rest-par-la-pratique)
 * [Workshop](https://github.com/alexandre-touret/rest-apis-versionning-workshop)
+
+### Améliorer les compétences et les infrastructures avec les katas d'architecture
+
+{{< admonition abstract "Résumé" false >}}
+Comment devenir architecte ? Comment progresser dans ce domaine ? A quoi reconnaît-on une bonne ou une mauvaise architecture ? Il existe certes un grand nombre d' ouvrages et formations sur le sujet, mais le mieux est quand même de pratiquer !
+Une solution à ce problème pourrait être donc de s’entraîner régulièrement sur des sujets différents pour gagner en expérience.
+Pour rendre l’apprentissage de l’architecture et de la conception plus empirique - et plus ludique, nous allons découvrir les Katas d’Architecture au travers d’un retour d’expérience. Nous découvrirons comment les mettre en œuvre ainsi que les bénéfices que j’en ai tirés.
+{{< /admonition >}}
+
+
+* [Slides](https://speakerdeck.com/alexandretouret/lyon-jug-2023-ameliorer-les-competences-et-les-infrastructures-avec-les-katas-darchitecture)
+* [Vidéo](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt&index=3)
 
 ### Java dans le cloud: avec Spring ou Quarkus?
 
