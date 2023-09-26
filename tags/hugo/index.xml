@@ -1,6 +1,181 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/hugo/</link><description>hugo - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 03 Mar 2023 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/hugo/" rel="self" type="application/rss+xml"/><item><title>Migrer un site Jekyll sur Hugo</title><link>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</link><pubDate>Fri, 03 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>hugo - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/hugo/</link><description>hugo - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 03 Mar 2023 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/hugo/" rel="self" type="application/rss+xml"/><item><title>Migrer un site Jekyll sur Hugo</title><link>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</link><pubDate>Fri, 03 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp" referrerpolicy="no-referrer">
-            </div>Il y a deux ans déjà, j&rsquo;ai migré mon site Wordpress sur un site statique hébergé sur Github Pages. Ce dernier était basé sur Ruby, Jekyll et Minimal mistakes.
-Bien que le projet Minimal Mistakes ne donnait plus trop de signes de vie, le rendu convenait.
-Cependant, j&rsquo;étais bloqué sur différents points:
-La gestion d&rsquo;articles en anglais et français Le thème dark (inutile donc indispensable) Quelques fonctionnalités manquantes: par ex. MermaidJS J&rsquo;ai donc décidé de le migrer sur Hugo.]]></description></item></channel></rss>
+            </div><p>Il y a deux ans déjà, j&rsquo;ai migré <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon site Wordpress sur un site statique hébergé sur Github Pages</a>.
+Ce dernier était basé sur <a href="https://www.ruby-lang.org/en/documentation/" target="_blank" rel="noopener noreferrer">Ruby</a>, <a href="https://www.ruby-lang.org/en/documentation/" target="_blank" rel="noopener noreferrer">Jekyll</a> et <a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">Minimal mistakes</a>.</p>
+<p>Bien que le projet Minimal Mistakes ne donnait plus trop de signes de vie, le rendu convenait.</p>
+<p>Cependant, j&rsquo;étais bloqué sur différents points:</p>
+<ul>
+<li>La gestion d&rsquo;articles en anglais et français</li>
+<li>Le thème dark (inutile donc indispensable)</li>
+<li>Quelques fonctionnalités manquantes: par ex. <a href="http://mermaid.js.org/" target="_blank" rel="noopener noreferrer">MermaidJS</a></li>
+</ul>
+<p>J&rsquo;ai donc décidé de le migrer sur <a href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a>.
+Ce générateur de site est basé sur <a href="https://go.dev" target="_blank" rel="noopener noreferrer">Go</a> et est très rapide d&rsquo;exécution.</p>
+<h2 id="démarrage" class="headerLink">
+    <a href="#d%c3%a9marrage" class="header-mark"></a>1 Démarrage</h2><p>Je n&rsquo;ai pas migré le site comme <a href="https://gohugo.io/commands/hugo_import_jekyll/" target="_blank" rel="noopener noreferrer">indiquait la documentation</a>.</p>
+<p>J&rsquo;ai préféré créer un nouveau site et copier coller le contenu existant, à savoir les images et les articles.</p>
+<p>Je vous conseille de lire <a href="https://gohugo.io/getting-started/quick-start/" target="_blank" rel="noopener noreferrer">la documentation</a> qui est bien faite.</p>
+<p>Ensuite, j&rsquo;ai choisi le <a href="https://themes.gohugo.io/themes/loveit/" target="_blank" rel="noopener noreferrer">thème LoveIt</a>.
+Pour l&rsquo;installer, il suffit de cloner le repo dans le répertoire <code>themes</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="reprise-de-données" class="headerLink">
+    <a href="#reprise-de-donn%c3%a9es" class="header-mark"></a>2 Reprise de données</h2><p>J&rsquo;ai copié les éléments suivants:</p>
+<ul>
+<li>Les fichiers statiques que j&rsquo;avais à disposition (<a href="https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site" target="_blank" rel="noopener noreferrer"><code>CNAME</code></a>, <code>robots.txt</code>) dans le répertoire <code>static</code></li>
+<li>Les images dansle répertoire <code>static/assets/images</code></li>
+<li>Les posts et pages statiques</li>
+</ul>
+<h2 id="travail-sur-les-posts-et-images" class="headerLink">
+    <a href="#travail-sur-les-posts-et-images" class="header-mark"></a>3 Travail sur les posts et images</h2><h3 id="les-posts" class="headerLink">
+    <a href="#les-posts" class="header-mark"></a>3.1 Les posts</h3><p>J&rsquo;ai ensuite modifié les noms des fichiers en enlevant les dates qui les préfixaient.</p>
+<p>Ensuite, j&rsquo;ai modifié les en-têtes de chaque post.
+J&rsquo;ai pu le faire en automatisant avec VS CODE.</p>
+<p>Voici le pattern que j&rsquo;ai modifié:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">header</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">teaser</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2018/02/2000px-cygwin_logo-svg.png</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>en</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yml" data-lang="yml"><span class="line"><span class="cl"><span class="nt">featuredImagePreview</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2022/12/review.webp</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ca c&rsquo;était le plus facile&hellip;</p>
+<h3 id="les-images" class="headerLink">
+    <a href="#les-images" class="header-mark"></a>3.2 Les images</h3><p>Dans chaque post, j&rsquo;ai revu les images et leur positionnement.</p>
+<p>J&rsquo;ai donc passé chaque article manuellement. C&rsquo;était réellement fastidieux. Pour être totalement franc, je n&rsquo;ai paas cherché à automatiser ça. Je pense qu&rsquo;un script shell, python aurait pu faire l&rsquo;affaire.
+Heureusement, je n&rsquo;en avais pas une centaine&hellip;</p>
+<p>J&rsquo;ai ajouté quand je pouvais l&rsquo;en-tête suivant (adaptez le chemin vers l&rsquo;image ;-) ):</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">featuredImage</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2022/12/review.webp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">images</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;/assets/images/2022/12/review.webp&#34;</span><span class="p">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Le premier attribut permet d&rsquo;avoir une image d&rsquo;en-tête pour l&rsquo;article.
+Le second permet d&rsquo;avoir l&rsquo;image lors d&rsquo;un partage sur un réseau social (ex. Twitter)</p>
+<p>j&rsquo;ai ajouté le code suivant pour centrer les images:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-markdown" data-lang="markdown"><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="err">&#34;</span><span class="na">text-align:center</span><span class="err">&#34;</span> <span class="p">&gt;</span><span class="err">}}</span>
+</span></span><span class="line"><span class="cl">![<span class="nt">dataflow</span>](<span class="na">/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp</span>)
+</span></span><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="p">&gt;</span><span class="err">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration" class="headerLink">
+    <a href="#configuration" class="header-mark"></a>4 Configuration</h2><p>Pour garder les mêmes URLs, j&rsquo;ai choisi de modifier le pattern d&rsquo; URL pour inclure la date. C&rsquo;est un vieux reliquat de mon blog Wordpress.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"> <span class="p">[</span><span class="nx">languages</span><span class="p">.</span><span class="nx">fr</span><span class="p">.</span><span class="nx">permalinks</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">posts</span> <span class="p">=</span> <span class="s1">&#39;/:year/:month/:day/:filename/&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pour le reste, j&rsquo;ai copié collé <a href="https://github.com/dillonzq/LoveIt/blob/master/exampleSite/config.toml" target="_blank" rel="noopener noreferrer">l&rsquo;exemple fourni par le thème</a> et renseigné les champs en fonction de ce que je voulais.</p>
+<p>J&rsquo;ai ensuite adapté <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/config.toml#L643" target="_blank" rel="noopener noreferrer">le multi langue pour avoir la possibilité de faire des articles en anglais et en français</a>.</p>
+<h3 id="moteur-de-recherche" class="headerLink">
+    <a href="#moteur-de-recherche" class="header-mark"></a>4.1 Moteur de recherche</h3><p>J&rsquo;utilise <a href="https://lunrjs.com/" target="_blank" rel="noopener noreferrer">Lunr</a>. Voici la configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl">    <span class="p">[</span><span class="nx">languages</span><span class="p">.</span><span class="nx">en</span><span class="p">.</span><span class="nx">params</span><span class="p">.</span><span class="nx">search</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">type</span> <span class="p">=</span> <span class="s2">&#34;lunr&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">contentLength</span> <span class="p">=</span> <span class="mi">4000</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">placeholder</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">maxResultLength</span> <span class="p">=</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">snippetLength</span> <span class="p">=</span> <span class="mi">50</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">highlightTag</span> <span class="p">=</span> <span class="s2">&#34;em&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">absoluteURL</span> <span class="p">=</span> <span class="kc">false</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il faut également penser à activer la sortie au format JSON:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># Options to make hugo output files</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">outputs</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">home</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;HTML&#34;</span><span class="p">,</span> <span class="s2">&#34;RSS&#34;</span><span class="p">,</span> <span class="s2">&#34;JSON&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">page</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;HTML&#34;</span><span class="p">,</span> <span class="s2">&#34;MarkDown&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">section</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;HTML&#34;</span><span class="p">,</span> <span class="s2">&#34;RSS&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">taxonomy</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;HTML&#34;</span><span class="p">,</span> <span class="s2">&#34;RSS&#34;</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">taxonomyTerm</span> <span class="p">=</span> <span class="p">[</span><span class="s2">&#34;HTML&#34;</span><span class="p">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="commentaires" class="headerLink">
+    <a href="#commentaires" class="header-mark"></a>4.2 Commentaires</h3><p>A l&rsquo;instar de mon blog avec Jekyll, j&rsquo;utilise <a href="https://utteranc.es/" target="_blank" rel="noopener noreferrer">Utteranc.es</a>.
+Voici la configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"> <span class="p">[</span><span class="nx">params</span><span class="p">.</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">.</span><span class="nx">utterances</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="c"># owner/repo</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">repo</span> <span class="p">=</span> <span class="s2">&#34;alexandre-touret/alexandre-touret.github.io&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">issueTerm</span> <span class="p">=</span> <span class="s2">&#34;pathname&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">label</span> <span class="p">=</span> <span class="s2">&#34;&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">lightTheme</span> <span class="p">=</span> <span class="s2">&#34;github-light&#34;</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">darkTheme</span> <span class="p">=</span> <span class="s2">&#34;github-dark&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Vous aurez bien compris que ma motivation principale derrière cette migration était d&rsquo; avoir un support multi langue un peu sympa.
+Vous avez dans cet article les principales actions que j&rsquo;ai réalisé.</p>
+<p>N&rsquo;hésitez pas à regarder <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/config.toml" target="_blank" rel="noopener noreferrer">la configuration</a> et <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/tree/main/content/posts" target="_blank" rel="noopener noreferrer">les articles</a> pour plus de détails.</p>
+]]></description></item></channel></rss>

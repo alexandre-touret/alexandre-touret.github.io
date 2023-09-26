@@ -1,16 +1,17 @@
 # About
 
 
-Ce blog ( oui il y en a encore ), me sert principalement à exposer mes tests, veilles technos et plein d'autres bidouillages de ce genre. Écrire tout ça me permet de ne pas oublier ce que j'ai pu faire quelques mois/années auparavant et d'en faire profiter modestement, la communauté.
+I expose on this blog my tests, technical musings and explorations.
+Among other things, it helps me reminding me what I did months/years ago and sharing it to the community.
 
-  
-J'accepte bien évidemment les remarques, les corrections (personne n'est parfait). Cependant je me réserve le droit de publier ou non un commentaire. En règle générale, je le publie sauf si c'est un [gros troll](https://fr.wikipedia.org/wiki/Troll_(Internet)).
+Obviously, I accept remarks, fixes (nobody is perfect). However, I reserve the right to publish or not a comment.
+Usually, I publish it except if I consider it as a [troll](https://en.wikipedia.org/wiki/Troll_(slang)).
 
 {{< image src="/assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp" caption="Stop " alt="stop">}}
 
+You probably understood it's a personal blog and not a professional one.
+I publish also articles on the [Worldline Technical Blog](https://blog.worldline.tech/).
 
-C' est bien évidemment un blog personnel et non professionnel. Je publie également des articles dans [le blog technologique de mon employeur](https://blog.worldline.tech/).  
+Finally, views and opinions exposed on this blog are my own and not of my employer.
   
-Enfin, les opinions, si il y en a, que j'expose ici sont les miennes et en aucun cas celles de mon employeur ou d'une quelconque personne.  
-  
-Sur ce, bonne lecture 🙂
+And now, have a good reading! 🙂

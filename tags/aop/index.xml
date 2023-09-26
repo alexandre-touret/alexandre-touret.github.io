@@ -1,5 +1,99 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>aop - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/aop/</link><description>aop - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 05 Nov 2019 18:12:54 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/aop/" rel="self" type="application/rss+xml"/><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>aop - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/aop/</link><description>aop - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 05 Nov 2019 18:12:54 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/aop/" rel="self" type="application/rss+xml"/><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.
-Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;AOP ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.
-Si vous faites du JAVA, vous utilisez déjà l&rsquo;AOP.]]></description></item></channel></rss>
+            </div><p>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.</p>
+<p>Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a> ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.<br>
+Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a>. En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté <code>@Transactional</code>, une transaction est initiée au début de la méthode et fermée à la fin.</p>
+<p>Avec <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html" target="_blank" rel="noopener noreferrer">Spring</a> et notamment dans <a href="https://github.com/spring-projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring boot</a>, voici comment initier l&rsquo;<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-api-advice" target="_blank" rel="noopener noreferrer">AOP</a>.</p>
+<h2 id="configuration-maven" class="headerLink">
+    <a href="#configuration-maven" class="header-mark"></a>1 Configuration maven</h2><p>Ajouter le starter AOP:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="activation-des-aspects" class="headerLink">
+    <a href="#activation-des-aspects" class="header-mark"></a>2 Activation des aspects</h2><p>Dans la configuration ci-dessous, je prendrai comme exemple le logging des méthodes ( un log en début de méthode et un log en fin ). </p>
+<p>La définition des aspects se fait dans des classes annotées par <code>@Configuration</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;debug.enabled&#34;</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&#34;true&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DebuggingConfiguration</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DebuggingConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">WITHIN_MY_PACKAGE</span> <span class="o">=</span> <span class="s">&#34;within(my.package..*)&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log before execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Before</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logBeforeExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log after execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@After</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logAfterExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>L&rsquo;utilisation de l&rsquo; annotation <code>@ConditionalOnProperty</code> me permet d&rsquo;activer cette classe de configuration seulement si la propriété <code>debug.enabled</code> est initialisée à <code>true</code>.</p>
+<p>Les annotations <code>@Before</code> et <code>@After</code> indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.</p>
+<p>Pour plus de détails sur la syntaxe et les possibilités, vous pouvez vous référer <a href="https://docs.spring.io/spring/docs/2.0.x/reference/aop.html" target="_blank" rel="noopener noreferrer">à la documentation</a>.</p>
+]]></description></item></channel></rss>

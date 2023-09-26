@@ -1,6 +1,31 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>mockito - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/mockito/</link><description>mockito - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 16 Aug 2019 08:26:57 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/mockito/" rel="self" type="application/rss+xml"/><item><title>Mocker des méthodes « final » avec Mockito</title><link>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</link><pubDate>Fri, 16 Aug 2019 08:26:57 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>mockito - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/mockito/</link><description>mockito - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 16 Aug 2019 08:26:57 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/mockito/" rel="self" type="application/rss+xml"/><item><title>Mocker des méthodes « final » avec Mockito</title><link>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</link><pubDate>Fri, 16 Aug 2019 08:26:57 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/08/logo-mockito.png" referrerpolicy="no-referrer">
-            </div>Auparavant, dans nos tests, quand on voulait mocker des méthodes « final » ou statiques, on devait passer par PowerMock.
-Depuis peu, si on utilise Mockito ( &gt;2.1) , on n&rsquo;a plus besoin d&rsquo;ajouter PowerMock pour mocker des méthodes « final ».
-Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu&rsquo;avec Mockito, mais cela va dans le bon sens.
-Voici comment activer en quelques commandes le mocking des méthodes « final ».]]></description></item></channel></rss>
+            </div><p>Auparavant, dans nos tests, quand on voulait <a href="https://fr.wikipedia.org/wiki/Mock_%28programmation_orient%C3%A9e_objet%29" target="_blank" rel="noopener noreferrer">mocker</a> des <a href="https://fr.wikipedia.org/wiki/Final_%28Java%29" target="_blank" rel="noopener noreferrer">méthodes « final »</a> ou <a href="https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods" target="_blank" rel="noopener noreferrer">statiques</a>, on devait passer par <a href="https://github.com/powermock/powermock" target="_blank" rel="noopener noreferrer">PowerMock</a>.</p>
+<p>Depuis peu, si on utilise Mockito ( &gt;2.1) , on n&rsquo;a plus besoin d&rsquo;ajouter PowerMock pour mocker des méthodes « final ».</p>
+<p>Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu&rsquo;avec <a href="https://github.com/mockito/mockito" target="_blank" rel="noopener noreferrer">Mockito</a>, mais cela va dans le bon sens.</p>
+<p>Voici comment activer en quelques commandes le mocking des méthodes « final ».</p>
+<p>Dans le répertoire src/test/resources, il faut créer un répertoire mockito-extensions avec un fichier nommé org.mockito.plugins.MockMaker.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">src/test/resources
+</span></span><span class="line"><span class="cl">└── mockito-extensions
+</span></span><span class="line"><span class="cl">└── org.mockito.plugins.MockMaker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A l&rsquo;intérieur de ce fichier, vous devrez ajouter le contenu suivant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mock-maker-inline
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Avec cette configuration, vous pourrez dorénavant mocker des méthodes « final » 🙂</p>
+<p>Enjoy</p>
+]]></description></item></channel></rss>

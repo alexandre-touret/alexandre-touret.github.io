@@ -1,24 +1,1320 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>github - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/github/</link><description>github - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/github/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>github - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/github/</link><description>github - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/github/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div>Pourquoi mettre en oeuvre des GITHUB ACTIONS ?Comme j&rsquo;ai pu l&rsquo;expliquer dans mon précédent article, je suis passé de Wordpress à GITHUB Pages.
-Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.
-J&rsquo;ai donc mis en oeuvre des GITHUB ACTIONS pour automatiser le plus d&rsquo;actions possibles et me passer de tâches manuelles souvent rébarbatives.]]></description></item><item><title>Migrer son blog Wordpress vers GitHub</title><link>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</link><pubDate>Mon, 06 Dec 2021 12:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</guid><description><![CDATA[<div class="featured-image">
+            </div><p><figure><a class="lightgallery" href="/assets/images/2021/12/github-1.jpg" title="github" data-thumbnail="/assets/images/2021/12/github-1.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/12/github-1.jpg"
+            srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
+            sizes="auto"
+            alt="github">
+    </a></figure></p>
+<h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
+    <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
+<p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>
+<p>J&rsquo;ai donc mis en oeuvre des GITHUB ACTIONS pour automatiser le plus d&rsquo;actions possibles et me passer de tâches manuelles souvent rébarbatives.</p>
+<p>Si vous souhaitez découvrir les GITHUB ACTIONS, je vous conseille <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">ce site</a>.</p>
+<h2 id="construction-du-site-et-déploiement" class="headerLink">
+    <a href="#construction-du-site-et-d%c3%a9ploiement" class="header-mark"></a>2 Construction du site et déploiement</h2><p>Dès qu&rsquo;on touche à Jekyll et à l&rsquo;hébergement sur Github Pages, on tombe sur certaines actions à réaliser telles que celle-ci:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bundle <span class="nb">exec</span> jekyll build 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai donc réalisé les workflows suivants:</p>
+<h3 id="pour-une-feature-branch-dans-une-pull-request" class="headerLink">
+    <a href="#pour-une-feature-branch-dans-une-pull-request" class="header-mark"></a>2.1 Pour une feature branch (dans une Pull Request)</h3><p>Je construis le site sans le déployer pour vérifier que la construction est correcte.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build Jekyll site</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches-ignore</span><span class="p">:</span><span class="w"> </span><span class="l">(1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">gh-pages</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jekyll</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w"> </span><span class="c"># can change this to ubuntu-latest if you prefer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">📂 setup (2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># include the lines below if you are using jekyll-last-modified-at</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># or if you would otherwise need to fetch the full commit history</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># however this may be very slow for large repositories!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># with:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c"># fetch-depth: &#39;0&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">💎 setup ruby  (3)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">ruby/setup-ruby@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ruby-version</span><span class="p">:</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="c"># can change this to 2.7 or whatever version you prefer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">bundler-cache</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 install dependencies &amp; build site (4)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">bundle exec jekyll build</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Voila ce que ce workflow réalise:</p>
+<ol>
+<li>Il est exécuté à chaque push excepté sur les branches main et gh-pages. Ce sont les branches que j&rsquo;utilise pour le déploiement du site après la validation d&rsquo;une pull request.</li>
+<li>Checkout du projet</li>
+<li>Initialisation de Ruby et téléchargement des dépendances comme le ferait la commande <code>bundle install</code>.</li>
+<li>Construction du site</li>
+</ol>
+<h3 id="pour-la-branche-main" class="headerLink">
+    <a href="#pour-la-branche-main" class="header-mark"></a>2.2 Pour la branche main</h3><p>Une fois que la pull request est validée, le code est poussé dans la branche main. On y exécute le code suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build and deploy Jekyll site to GitHub Pages</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">push</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">branches</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jekyll</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w"> </span><span class="c"># can change this to ubuntu-latest if you prefer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">📂 setup</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">💎 setup ruby</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">ruby/setup-ruby@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">ruby-version</span><span class="p">:</span><span class="w"> </span><span class="m">2.6</span><span class="w"> </span><span class="c"># can change this to 2.7 or whatever version you prefer</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">bundler-cache</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 install dependencies &amp; build site</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">bundle exec jekyll build</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🚀 deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">peaceiris/actions-gh-pages@v3</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">github_token</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">publish_dir</span><span class="p">:</span><span class="w"> </span><span class="l">./_site</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ce dernier reprend le code du workflow suivant ( oui, j&rsquo;aurai pu faire des workflows réutilisables&hellip; ) et ajoute l&rsquo;étape de déploiement.
+Le code généré sera copié dans la branche <code>gh-pages</code>.</p>
+<h2 id="publication-dun-article" class="headerLink">
+    <a href="#publication-dun-article" class="header-mark"></a>3 Publication d&rsquo;un article</h2><p>Pour rédiger un article, j&rsquo;utilise le mécanisme de feature branch et pull request. Pour automatiser la publication, le nommage des articles avec la date etc, j&rsquo;ai mis en oeuvre le workflow suivant:</p>
+<p>Je rédige les articles (comme celui-ci) et les positionne dans le répertoire <code>_drafts</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">ls -R _drafts                                                                                               
+</span></span><span class="line"><span class="cl">quelques-github-actions-utiles-pour-un-site-jekyll-heberge-sur-github-io.md
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;associe un <a href="https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/about-milestones" target="_blank" rel="noopener noreferrer">milestone</a> à la <a href="https://docs.github.com/en/pull-requests/collaborating-with-pull-requests/proposing-changes-to-your-work-with-pull-requests/about-pull-requests" target="_blank" rel="noopener noreferrer">pull request</a>.</p>
+<p>Dès que ces derniers sont terminés, le workflow décrit ci-dessous est exécuté.
+Il permet, via un script python de:</p>
+<ol>
+<li>Identifier les articles dans le répertoire <code>_drafts</code></li>
+<li>Vérifier que la date de publication spéficié dans l&rsquo;en-tête est antérieure à la date courante (<code>now()</code>)</li>
+<li>Copier le fichier dans le répertoire <code>_posts</code> en le renommant avec la date en préfixe.</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Publish Drafts</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="l">(1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">milestone</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">types</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">closed]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">workflow_dispatch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">ref</span><span class="p">:</span><span class="w"> </span><span class="l">main (2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">📂 setup python</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-python@v2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">python-version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;3.7.7&#39;</span><span class="w"> </span><span class="c"># install the python version needed</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">💎 install python packages (3)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        python -m pip install --upgrade pip 
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 execute py script  (4)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python publish_drafts.py</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 commit files (5)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">        if git ls-files -o  --exclude-standard; then
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.email &#34;action@github.com&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git config --local user.name &#34;GitHub Action&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git add -A
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git commit -m &#34;publish drafts&#34; -a
+</span></span></span><span class="line"><span class="cl"><span class="sd">          git push origin main
+</span></span></span><span class="line"><span class="cl"><span class="sd">        else
+</span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;No file to publish&#34;
+</span></span></span><span class="line"><span class="cl"><span class="sd">        fi
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Explication:</strong></p>
+<ol>
+<li>Déclenchement manuel ou à la clôture d&rsquo;un milestone</li>
+<li>Récupération de la branche <code>main</code></li>
+<li>Installation de packages python</li>
+<li>Exécution du <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/publish_drafts.py" target="_blank" rel="noopener noreferrer">script python réalisé pour l&rsquo;occasion</a></li>
+<li>Commit et push</li>
+</ol>
+<p>Une fois ce workflow réalisé, le workflow vu précédemment est automatiquement lancé et le site est généré une nouvelle fois. Bon ça fait deux constructions, mais au vu du temps pris, c&rsquo;est négligeable.</p>
+<h2 id="uptime" class="headerLink">
+    <a href="#uptime" class="header-mark"></a>4 Uptime</h2><p>J&rsquo;aurai pu utiliser un tiers service tel que <a href="https://uptimerobot.com/" target="_blank" rel="noopener noreferrer">uptime robot</a>.
+Pour mon besoin, j&rsquo;ai préféré opter pour un appel régulier du site et une vérification du code HTTP (<code>200</code>).</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># This is a basic workflow to help you get started with Actions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Uptime Monitoring</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="l">(1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">cron</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;*/60 * * * *&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">ping_site</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Ping the site</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Check the site</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">id</span><span class="p">:</span><span class="w"> </span><span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">srt32/uptime@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">url-to-hit</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;https://blog.touret.info/robots.txt&#34;</span><span class="w"> </span><span class="l">(2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">expected-statuses</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;200,301&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Explications</strong></p>
+<ol>
+<li>Déclenchement toutes les heures de ce workflow</li>
+<li>J&rsquo;ai utilisé une GITHUB ACTION existante qui ping une URL et vérifie le code retour. Dans mon cas, j&rsquo;ai utilisé l&rsquo;URL du fichier <a href="https://developers.google.com/search/docs/advanced/robots/intro?hl=fr" target="_blank" rel="noopener noreferrer">robots.txt</a> et je vérifie le code retour.</li>
+</ol>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>J&rsquo;ai réussi à plus ou moins automatiser tout le cycle de construction d&rsquo;articles.
+C&rsquo;est encore perfectible et loin de certaines fonctionnalités de Wordpress, mais je n&rsquo;en ai pas réellement besoin.</p>
+<p>Si vous souhaitez réutiliser ces workflows et les intégrer dans sites, vous pouvez les récupérer <a href="https://github.com/alexandre-touret/alexandre-touret.github.io" target="_blank" rel="noopener noreferrer">sur ce repo GITHUB</a>.</p>
+]]></description></item><item><title>Migrer son blog Wordpress vers GitHub</title><link>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</link><pubDate>Mon, 06 Dec 2021 12:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>L&rsquo;idée me trottait dans la tête depuis quelques mois environ: migrer mon blog de Wordpress vers un site basé sur Jekyll et hébergé directement sur Github. La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas. s
-L&rsquo; hébergement de sites web sur GithubGithub permet via son service Github Pages d&rsquo;héberger des sites statiques (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>L&rsquo;idée me trottait dans la tête depuis quelques mois environ: migrer mon blog de Wordpress vers un site basé sur Jekyll et hébergé directement sur Github.
+La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas.
+s</p>
+<h2 id="l-hébergement-de-sites-web-sur-github" class="headerLink">
+    <a href="#l-h%c3%a9bergement-de-sites-web-sur-github" class="header-mark"></a>1 L&rsquo; hébergement de sites web sur Github</h2><p><a href="https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll" target="_blank" rel="noopener noreferrer">Github permet via son service Github Pages d&rsquo;héberger des sites statiques</a> (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.
+Le certificat est automatiquement généré.</p>
+<p>Pour avoir un look un peu sympa, j&rsquo;ai donc mis en oeuvre les outils suivants:</p>
+<ul>
+<li><a href="https://jekyllrb.com" target="_blank" rel="noopener noreferrer">Jekyll</a></li>
+<li><a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">Minimal Mistakes</a></li>
+<li><a href="https://jekyllrb.com/docs/continuous-integration/github-actions/" target="_blank" rel="noopener noreferrer">Github Actions pour construire le site</a></li>
+<li><a href="https://www.markdownguide.org/" target="_blank" rel="noopener noreferrer">Markdown</a> pour écrire les différents articles</li>
+</ul>
+<h2 id="démarrer-avec-minimal-mistakes" class="headerLink">
+    <a href="#d%c3%a9marrer-avec-minimal-mistakes" class="header-mark"></a>2 Démarrer avec Minimal Mistakes</h2><p>Je vous conseille d&rsquo;aller sur <a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">ce site</a>.
+Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p>
+<h2 id="migration-des-données" class="headerLink">
+    <a href="#migration-des-donn%c3%a9es" class="header-mark"></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p>
+<ul>
+<li>Exporter les données si vous êtes hébergé sur wordpress.com</li>
+<li>Les ré-importer dans une instance locale</li>
+<li>Les exporter au format Jekyll</li>
+<li>Copier le contenu généré dans un nouveau site</li>
+</ul>
+<h3 id="exporter-les-données" class="headerLink">
+    <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png" title="wordpress_export" data-thumbnail="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
+            srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
+            sizes="auto"
+            alt="wordpress_export">
+    </a></figure></div>
+<p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
+<p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
+<h3 id="importer-les-données" class="headerLink">
+    <a href="#importer-les-donn%c3%a9es" class="header-mark"></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href="https://docs.docker.com/samples/wordpress/" target="_blank" rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p>
+<p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.9&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">db_data:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">somewordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_USER</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wordpress</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">wordpress_data:/var/www/html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8000:80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">db:3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db_data</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wordpress_data</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous aurez à lancer la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois lancé, vous aurez à une instance Wordpress via cette URL : http://localhost:8000</p>
+<p>Ensuite, il faut installer l&rsquo;extension <a href="https://wordpress.org/plugins/jekyll-exporter/" target="_blank" rel="noopener noreferrer">jekyll-exporter</a>.
+La procédure peut prendre un peu de temps.</p>
+<p>Une fois effectuée, vous aurez une archive ZIP contenant un site Jekyll avec les images et articles associés.</p>
+<h2 id="création-du-site" class="headerLink">
+    <a href="#cr%c3%a9ation-du-site" class="header-mark"></a>4 Création du site</h2><p>En attendant que ça se termine, j&rsquo;ai crée <a href="https://github.com/mmistakes/mm-github-pages-starter/generate" target="_blank" rel="noopener noreferrer">un site jekyll avec le starter du thème minimal mistakes</a>.</p>
+<p>J&rsquo;ai ensuite copié les articles (répertoire <code>/_posts</code>) et images (<code>/assets/img</code>).
+Au premier lancement des commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bundle install
+</span></span><span class="line"><span class="cl">bundle <span class="nb">exec</span> jekyll serve
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai eu quelques erreurs. J&rsquo;ai donc eu à nettoyer les fichiers via des recherche/remplace dans un éditeur</p>
+<p>Par exemple, j&rsquo;ai supprimé les références <code>author</code> et <code>layout</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l">post</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai également ajouté pour certains articles une image pour le teaser</p>
+<p>Exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">featuredImagePreview</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2021/07/rest-book-architecture.png</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="url-des-pages-et-compatibilité-wordpress--jekyll" class="headerLink">
+    <a href="#url-des-pages-et-compatibilit%c3%a9-wordpress--jekyll" class="header-mark"></a>4.1 URL des pages et compatibilité Wordpress &lt;&gt; Jekyll</h3><p>Pour me faciliter la vie dans les URLS et liens en tout genre, j&rsquo;ai gardé le format des URLS de Wordpress.
+Pour que ça soit le format par défaut de Jekyll, il faut modifier le paramètre <code>permalink</code> dans le fichier <code>_config.yml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l">/:year/:month/:day/:title/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="flux-rss-pour-un-tag-donné" class="headerLink">
+    <a href="#flux-rss-pour-un-tag-donn%c3%a9" class="header-mark"></a>4.2 Flux RSS pour un tag donné</h3><p>J&rsquo;utilisais une petite spécificité de Wordpress: la création d&rsquo;un flux RSS pour un tag donné.
+Pour le mettre en place dans Jekyll, il faut configurer le plugin <code>jekyll-feed</code> avec les propriété suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">feed</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="et-maintenant-" class="headerLink">
+    <a href="#et-maintenant-" class="header-mark"></a>5 Et maintenant ?</h2><p>J&rsquo;ai sans doute oublié quelques renommages/suppressions réalisés ici et là.
+Néanmoins, le principal est évoqué dans cet article.</p>
+<p>Il ne vous reste plus qu&rsquo;à éplucher la documentation du thème et de jekyll pour finaliser l&rsquo; installation de votre nouveau site.</p>
+]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/07/rest-book-architecture.png" referrerpolicy="no-referrer">
-            </div>Il y a quelques mois déjà, je discutais avec un collègue d&rsquo; observabilité, opentracing, … avec Quarkus. On est tombé sur un super exemple réalisé par Antonio Concalves. Ce projet démontre les capacités de Quarkus sur les sujets suivants:
-Circuit Breaker Observabilité OpenTracing Tests … Et la on peut se demander quid de Spring? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.]]></description></item><item><title>Music Scores As Code</title><link>http://blog.touret.info/2020/08/24/music-scores-as-code/</link><pubDate>Mon, 24 Aug 2020 12:42:46 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/08/24/music-scores-as-code/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Il y a quelques mois déjà, je discutais avec <a href="https://jefrajames.fr/" target="_blank" rel="noopener noreferrer">un collègue</a> d&rsquo; observabilité, <a href="https://github.com/opentracing-contrib/java-spring-cloud" target="_blank" rel="noopener noreferrer">opentracing</a>, … avec <a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a>. On est tombé sur <a href="https://github.com/agoncal/agoncal-fascicle-quarkus-pract" target="_blank" rel="noopener noreferrer">un super exemple réalisé par Antonio Concalves</a>. Ce projet démontre les capacités de Quarkus sur les sujets suivants:</p>
+<ul>
+<li>Circuit Breaker</li>
+<li>Observabilité</li>
+<li>OpenTracing</li>
+<li>Tests</li>
+<li>…</li>
+</ul>
+<p>Et la on peut se demander quid de <a href="http://spring.io/" target="_blank" rel="noopener noreferrer">Spring</a>? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.</p>
+<p>J&rsquo;ai donc réalisé un clone de <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">ce projet basé sur Spring Boot/Cloud</a>. Je ne vais pas détailler plus que ça les différentes fonctionnalités, vous pouvez vous référer au fichier <a href="https://github.com/alexandre-touret/bookstore_spring#readme" target="_blank" rel="noopener noreferrer">README</a>. Il est suffisamment détaillé pour que vous puissiez exécuter et les mettre en œuvre.</p>
+<h2 id="architecture-de-lapplication" class="headerLink">
+    <a href="#architecture-de-lapplication" class="header-mark"></a>1 Architecture de l&rsquo;application</h2><p>Vous trouverez ci-dessous un schéma d&rsquo;architecture de l&rsquo;application <a href="https://c4model.com/" target="_blank" rel="noopener noreferrer">au format C4</a>.</p>
+<h2 id="circuit-breaker" class="headerLink">
+    <a href="#circuit-breaker" class="header-mark"></a>2 Circuit Breaker</h2><p>Lors des appels entre le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">bookstore</a> et le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-number/src/main/java/info/touret/bookstore/spring/number/controller/BookNumbersController.java" target="_blank" rel="noopener noreferrer">booknumberservice</a>, il peut être intéressant d&rsquo; implémenter un <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breaker</a> pour pallier aux indisponibilités de ce dernier.<br>
+Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilience4j" target="_blank" rel="noopener noreferrer">Resilience4J</a> au travers de <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener noreferrer">Spring Cloud</a>. Tout ceci se fait de manière programmatique</p>
+<p>Il faut tout d&rsquo;abord <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/BookConfiguration.java" target="_blank" rel="noopener noreferrer">configurer les circuit breakers au travers d&rsquo;une classe Configuration</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
+<p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
+<h2 id="observabilité" class="headerLink">
+    <a href="#observabilit%c3%a9" class="header-mark"></a>3 Observabilité</h2><p>L&rsquo;observabilité est sans contexte la pierre angulaire (oui, rien que ça…) de toute application cloud native. Sans ça, pas de scalabilité, de redémarrage automatique,etc.<br>
+Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikipedia.org/wiki/Idempotence" target="_blank" rel="noopener noreferrer">idempotentes</a>. On a donc besoin d&rsquo;avoir toutes les informations à notre disposition. Heureusement, <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator" target="_blank" rel="noopener noreferrer">Spring fournit par le biais d&rsquo; Actuator</a> toutes les informations nécessaires. Ces dernières pourront soit être utilisées par <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (ex. le <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbe</a>) ou agrégées dans une base de données <a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
+<p>Pour activer certaines métriques d&rsquo;<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html" target="_blank" rel="noopener noreferrer">actuator</a>, il suffit de :</p>
+<p>Ajouter la/les dépendance(s)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Spécifier la configuration adéquate:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="opentracing" class="headerLink">
+    <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
+<p>Depuis quelques temps, le <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">CNCF</a> propose un projet (encore en incubation) : <a href="https://opentracing.io/" target="_blank" rel="noopener noreferrer">OpenTracing</a>. Ce dernier fait désormais partie d&rsquo;<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>.<br>
+Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de notre application microservices et pouvoir réaliser une corrélation « out of the box » grâce à l&rsquo;intégration avec <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
+<p>Pour activer la fonctionnalité il suffit d&rsquo;ajouter la dépendance au classpath:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.3.1&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>et de configurer l&rsquo;URL de Jaeger dans l&rsquo;application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Default values</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">opentracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">udp-sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6831</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
+<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger1">
+    </a></figure>
+<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger2">
+    </a></figure></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
+Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
+]]></description></item><item><title>Music Scores As Code</title><link>http://blog.touret.info/2020/08/24/music-scores-as-code/</link><pubDate>Mon, 24 Aug 2020 12:42:46 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/08/24/music-scores-as-code/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Derrière ce nom pompeux qui peut effrayer, je vais essayer d&rsquo;expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.
-En cherchant comment mettre de la documentation technique avec des diagrammes PlantUml dans des repos GITLAB et générés avec des pipelines, je me suis mis dans la tête de faire la même chose avec des partitions 🙂
-Depuis plusieurs années, j&rsquo;utilise lilypond pour créer mes partitions.]]></description></item><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Derrière ce nom pompeux qui peut effrayer, je vais essayer d&rsquo;expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.</p>
+<p>En cherchant comment mettre de la documentation technique avec des diagrammes <a href="https://plantuml.com/" target="_blank" rel="noopener noreferrer">PlantUml</a> dans des repos <a href="https://about.gitlab.com/" target="_blank" rel="noopener noreferrer">GITLAB</a> et générés avec des pipelines, je me suis mis dans la tête de faire la même chose avec des partitions 🙂</p>
+<p>Depuis plusieurs années, j&rsquo;utilise <a href="https://lilypond.org/" target="_blank" rel="noopener noreferrer">lilypond</a> pour créer mes partitions. C&rsquo;est un peu difficile de s&rsquo;y mettre, mais une fois la syntaxe assimilée, la saisie d&rsquo;une partition est beaucoup plus efficace. Le rendu des partitions est vraiment optimisé.<br>
+Si vous voulez plus de détails sur le pourquoi du comment je vous conseille <a href="https://lilypond.org/doc/v2.19/Documentation/essay-big-page" target="_blank" rel="noopener noreferrer">cette page</a>.</p>
+<p>Vous trouverez des exemples sur <a href="https://lilypond.org/text-input.fr.html" target="_blank" rel="noopener noreferrer">le site</a>.</p>
+<p>J&rsquo;ai donc eu l&rsquo;idée de:</p>
+<ul>
+<li>Stocker ces partitions sur un repo github (<em>jusque là rien d&rsquo;exceptionnel</em>)</li>
+<li>Générer automatiquement les partitions au format PDF, PNG et MIDI via une <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">github action</a> (<em>ça commence à devenir intéressant…</em>)</li>
+<li>Les publier avec <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">les github pages</a> (<em>tant qu&rsquo;à faire 🙂</em>)</li>
+</ul>
+<h2 id="stockage" class="headerLink">
+    <a href="#stockage" class="header-mark"></a>1 Stockage</h2><p>Pourquoi stocker dans un référentiel de sources tel que Github ? Pour les non informaticiens : les partitions sont stockées au format texte.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-latex" data-lang="latex"><span class="line"><span class="cl"><span class="k">\version</span> &#34;2.12.1&#34;
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">\header</span> <span class="nb">{</span>
+</span></span><span class="line"><span class="cl">  title=&#34;Try a little tenderness&#34;
+</span></span><span class="line"><span class="cl">  composer=&#34;Harry Woods, Jimmy Campbell <span class="nb">&amp;</span> Reg Connely&#34;
+</span></span><span class="line"><span class="cl">  subtitle = &#34;Commitments Version&#34;
+</span></span><span class="line"><span class="cl">  <span class="c">%poet = &#34;Poete&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  instrument = &#34;Piano&#34;
+</span></span><span class="line"><span class="cl">  editor = &#34;L&#39;éditeur&#34;
+</span></span><span class="line"><span class="cl">  <span class="c">%meter=\markup {\bold {&#34;Remarque sur le rhythme&#34;}}
+</span></span></span><span class="line"><span class="cl"><span class="c"></span>  style = &#34;Soul&#34;
+</span></span><span class="line"><span class="cl">  maintainer = &#34;Alexandre Touret&#34;
+</span></span><span class="line"><span class="cl">  maintainerEmail = &#34;alexandre.touret@free.fr&#34;
+</span></span><span class="line"><span class="cl">  maintainerWeb = &#34;http://blog.touret.info&#34;     
+</span></span><span class="line"><span class="cl">  lastupdated = &#34;&#34;
+</span></span><span class="line"><span class="cl">  source = &#34;Music room&#34;
+</span></span><span class="line"><span class="cl">  footer = &#34;Footer&#34;
+</span></span><span class="line"><span class="cl">  copyright =<span class="k">\markup</span> <span class="nb">{</span><span class="k">\fontsize</span> #-1.5
+</span></span><span class="line"><span class="cl"> &#34;Delivered by A TOURET&#34;<span class="nb">}</span>
+</span></span><span class="line"><span class="cl"><span class="nb">}</span>
+</span></span><span class="line"><span class="cl">upper=
+</span></span><span class="line"><span class="cl"><span class="k">\relative</span> c&#39;<span class="nb">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">\clef</span> treble
+</span></span><span class="line"><span class="cl">  <span class="k">\time</span> 4/4
+</span></span><span class="line"><span class="cl">  <span class="k">\tempo</span> 4=176
+</span></span><span class="line"><span class="cl">  <span class="k">\key</span> g <span class="k">\major</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  d&#39;2 (b4 e
+</span></span><span class="line"><span class="cl">  d2 b4 a 
+</span></span><span class="line"><span class="cl">  g2 g2 
+</span></span><span class="line"><span class="cl">  &lt;e g,&gt;2) &lt;fis, c&#39; d&gt; 
+</span></span><span class="line"><span class="cl">  <span class="k">\bar</span> &#34;||&#34;
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">GIT</a> et <a href="https://github.com" target="_blank" rel="noopener noreferrer">GITHUB</a> permettent de versionner facilement et pouvoir faire facilement un retour arrière en cas d&rsquo;erreur.<br>
+Aussi, GITHUB offre des <a href="https://docs.github.com/en/github/collaborating-with-issues-and-pull-requests/about-pull-requests" target="_blank" rel="noopener noreferrer">fonctionnalités « sociales » et collaboratives qui facilitent la revue des modifications</a> ( en cas de travail à plusieurs ).<br>
+Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;un retour arrière en cas d&rsquo;erreur.</p>
+<h2 id="générer-les-partitions-avec-une-github-action" class="headerLink">
+    <a href="#g%c3%a9n%c3%a9rer-les-partitions-avec-une-github-action" class="header-mark"></a>2 Générer les partitions avec une github action</h2><p>Les <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">github actions</a> sont des outils permettant:</p>
+<blockquote class="wp-block-quote">
+  <p>
+    GitHub Actions makes it easy to automate all your software workflows, now with world-class CI/CD. Build, test, and deploy your code right from GitHub. Make code reviews, branch management, and issue triaging work the way you want.
+  </p>
+</blockquote>
+<p>J&rsquo;ai donc décidé de créer un workflow qui permet de générer les partitions au format lilypond.</p>
+<p>J&rsquo;ai mis à disposition <a href="https://github.com/alexandre-touret/lilypond-github-action" target="_blank" rel="noopener noreferrer">le code sur github</a> sous <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noopener noreferrer">licence GNU GPLv3</a>. Elle est utilisable telle quelle.</p>
+<p>Pour créer l&rsquo;action, il faut créer un fichier action.yml à la racine du repo. Voici le contenu</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">name:</span> <span class="err">&#39;</span><span class="n">Lilypond</span> <span class="n">Generator</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">description:</span> <span class="err">&#39;</span><span class="n">Run</span> <span class="n">Lilypond</span> <span class="n">tool</span> <span class="n">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">set</span> <span class="n">of</span> <span class="n">arguments</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">music</span> <span class="n">sheets</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">author:</span> <span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">
+</span></span></span><span class="line"><span class="cl"><span class="nl">inputs:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">args</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">Arguments</span> <span class="k">for</span> <span class="n">Lilyponid</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">required</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="err">&#39;</span><span class="o">-</span><span class="n">h</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="nl">
+</span></span></span><span class="line"><span class="cl"><span class="nl">runs:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">using</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">docker</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">image</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">Dockerfile</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">$</span><span class="o">{{</span> <span class="n">inputs</span><span class="o">.</span><span class="na">args</span> <span class="o">}}</span>
+</span></span><span class="line"><span class="cl"><span class="nl">
+</span></span></span><span class="line"><span class="cl"><span class="nl">branding:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">icon</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">underline</span><span class="err">&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">color</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">blue</span><span class="err">&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Vous aurez compris que ce fichier fait référence à une <a href="https://github.com/alexandre-touret/lilypond-github-action/blob/master/Dockerfile" target="_blank" rel="noopener noreferrer">image Docker</a>. Cette dernière n&rsquo;est ni plus ni moins qu&rsquo;une Debian avec lilypond d&rsquo;installé.</p>
+<p>Pour l&rsquo;utiliser dans un repo github, on peut créer une action qui l&rsquo;utilise. Voici un exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">jobs:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">build_sheets</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runs</span><span class="o">-</span><span class="n">on</span><span class="o">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">latest</span>
+</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">LILYPOND_FILES</span><span class="o">:</span> <span class="s">&#34;*.ly&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">steps</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Checkout</span> <span class="n">Source</span> 
+</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v1</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Get</span> <span class="n">changed</span> <span class="n">files</span>
+</span></span><span class="line"><span class="cl">        <span class="n">id</span><span class="o">:</span> <span class="n">getfile</span>
+</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">          <span class="n">echo</span> <span class="s">&#34;::set-output name=files::$(find ${{github.workspace}} -name &#34;</span><span class="n">$</span><span class="o">{{</span> <span class="n">env</span><span class="o">.</span><span class="na">LILYPOND_FILES</span> <span class="o">}}</span><span class="s">&#34; -printf &#34;</span><span class="o">%</span><span class="n">P</span><span class="err">\</span><span class="n">n</span><span class="s">&#34; | xargs)&#34;</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">LILYPOND</span> <span class="n">files</span> <span class="n">considered</span> <span class="n">echo</span> <span class="n">output</span>
+</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">          <span class="n">echo</span> <span class="n">$</span><span class="o">{{</span> <span class="n">steps</span><span class="o">.</span><span class="na">getfile</span><span class="o">.</span><span class="na">outputs</span><span class="o">.</span><span class="na">files</span> <span class="o">}}</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Generate</span> <span class="n">PDF</span> <span class="n">music</span> <span class="n">sheets</span>
+</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">alexandre</span><span class="o">-</span><span class="n">touret</span><span class="o">/</span><span class="n">lilypond</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span>
+</span></span><span class="line"><span class="cl">        <span class="n">with</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">args</span><span class="o">:</span> <span class="o">-</span><span class="n">V</span> <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">pdf</span> <span class="n">$</span><span class="o">{{</span> <span class="n">steps</span><span class="o">.</span><span class="na">getfile</span><span class="o">.</span><span class="na">outputs</span><span class="o">.</span><span class="na">files</span> <span class="o">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A la dernière ligne on peut passer <a href="http://lilypond.org/doc/v2.18/Documentation/usage/command_002dline-usage" target="_blank" rel="noopener noreferrer">les arguments nécessaires à lilypond</a>.</p>
+<h2 id="publication" class="headerLink">
+    <a href="#publication" class="header-mark"></a>3 Publication</h2><p>La c&rsquo;est l&rsquo;étape la plus facile :). Il suffit d&rsquo;activer <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">les github pages</a> et de commiter et pusher les partitions générées</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Push</span> <span class="n">Local</span> <span class="n">Changes</span>
+</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
+</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">local</span> <span class="n">user</span><span class="o">.</span><span class="na">email</span> <span class="s">&#34;${{ secrets.GIT_USERNAME }}&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">local</span> <span class="n">user</span><span class="o">.</span><span class="na">name</span> <span class="s">&#34;${{ secrets.GIT_EMAIL }}&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
+</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#34;Add changes&#34;</span> <span class="o">-</span><span class="n">a</span>
+</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Push</span> <span class="n">changes</span>
+</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">ad</span><span class="o">-</span><span class="n">m</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">push</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span>
+</span></span><span class="line"><span class="cl">        <span class="n">with</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">github_token</span><span class="o">:</span> <span class="n">$</span><span class="o">{{</span> <span class="n">secrets</span><span class="o">.</span><span class="na">GITHUB_TOKEN</span> <span class="o">}}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il suffit de créer une page index.md à la racine et d&rsquo;ajouter des liens vers les partitions générées ( dans mon cas, ça se passe dans le répertoire /docs ).<br>
+Vous pouvez trouver un exemple <a href="https://alexandre-touret.github.io/piano-sheets-as-code/" target="_blank" rel="noopener noreferrer">ici</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>Voila comment on peut générer un site avec des partitions crées avec Lilypond.<br>
+Vous trouverez les différents liens ci-dessous. Peut être que je publierai cette action sur le marketplace une fois que j&rsquo;aurai publié une documentation digne de ce nom :).</p>
+<ul>
+<li><a href="https://github.com/alexandre-touret/lilypond-github-action" target="_blank" rel="noopener noreferrer">Action</a></li>
+<li><a href="https://github.com/alexandre-touret/piano-sheets-as-code" target="_blank" rel="noopener noreferrer">Exemple d&rsquo;utilisation</a></li>
+<li><a href="https://alexandre-touret.github.io/piano-sheets-as-code/" target="_blank" rel="noopener noreferrer">Exemple de site généré</a></li>
+</ul>
+]]></description></item><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/05/article_github_actions_k8s-1.png" referrerpolicy="no-referrer">
-            </div>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :
-Kotlin Quarkus Gradle Kubernetes pour le déploiement Oui, tant qu&rsquo;à faire, autant aller dans la hype …
-Mon projet est sur GITHUB. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.]]></description></item><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :</p>
+<ul>
+<li><a href="https://kotlinlang.org/" target="_blank" rel="noopener noreferrer">Kotlin</a></li>
+<li><a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a></li>
+<li><a href="https://gradle.org/" target="_blank" rel="noopener noreferrer">Gradle</a></li>
+<li><a href="http://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> pour le déploiement</li>
+</ul>
+<p>Oui, tant qu&rsquo;à faire, autant aller dans la hype …</p>
+<p><a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">Mon projet est sur GITHUB</a>. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.<br>
+Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">GITHUB Actions</a>.</p>
+<p>Ça permet, entre autres, de lancer des processus automatisé sur un push ou sur une action pour un commit GIT.</p>
+<p>La force de l&rsquo;outil est, selon moi, de facilement s&rsquo;intégrer avec beaucoup de services du cloud ( sonarcloud, google cloud, heroku,…). On aime ou on n&rsquo;aime pas, mais chez Microsoft, l&rsquo;intégration ils savent faire.</p>
+<p>Par exemple, si on veut lancer une compilation lors d&rsquo;un push, on peut placer un fichier <code>.github/workflows/build.xml</code> avec le contenu :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">CI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
+Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<h2 id="worflows-implémentés" class="headerLink">
+    <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
+<ul>
+<li><strong>CI</strong>: Build sur la feature branch</li>
+<li><strong>CD</strong>: Build sur master branch et déploiement</li>
+</ul>
+<p>On obtient donc dans mon cas:</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/05/workflow.png" title="workflow" data-thumbnail="/assets/images/2020/05/workflow.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/workflow.png"
+            srcset="/assets/images/2020/05/workflow.png, /assets/images/2020/05/workflow.png 1.5x, /assets/images/2020/05/workflow.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
+Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
+<h2 id="analyse-sonar" class="headerLink">
+    <a href="#analyse-sonar" class="header-mark"></a>2 Analyse SONAR</h2><p>J&rsquo;ai choisi d&rsquo;utiliser <a href="http://sonarcloud.io/" target="_blank" rel="noopener noreferrer">sonarcloud</a> pour analyser mon code. C&rsquo;est gratuit pour les projets opensource. L&rsquo;analyse se fait simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">sonarCloudTrigger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Trigger</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Scan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">SONAR_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SONAR_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew jacocoTestReport sonarqube</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans ce job j&rsquo;utilise deux <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank" rel="noopener noreferrer">secrets</a>. Ce sont des tokens qui permettent de ne pas stocker en dur les données dans les repos GITHUB.</p>
+<h2 id="création-dune-image-docker-et-déploiement-dans-le-registry-github" class="headerLink">
+    <a href="#cr%c3%a9ation-dune-image-docker-et-d%c3%a9ploiement-dans-le-registry-github" class="header-mark"></a>3 Création d&rsquo;une image Docker et déploiement dans le registry GITHUB</h2><p>Ici aussi, ça se fait simplement. La preuve :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">publish</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build in JVM Mode with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew quarkusBuild  [1]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Branch name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">echo running on branch ${GITHUB_REF##*/}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker build -f src/main/docker/Dockerfile.jvm -t docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest .  [2]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Login against github docker repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker login -u ${GITHUB_ACTOR} -p ${GITHUB_TOKEN}  docker.pkg.github.com   [3]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Publish the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest  [4]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>Création du binaire</li>
+<li>Création de l&rsquo;image docker en utilisant la commande docker et le Dockerfile fourni par Quarkus</li>
+<li>Identification sur la registry Docker de GITHUB</li>
+<li>Déploiement de l&rsquo;image</li>
+</ol>
+<p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
+<h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
+    <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
+<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/05/application-1.png" title="workflow" data-thumbnail="/assets/images/2020/05/application-1.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application-1.png"
+            srcset="/assets/images/2020/05/application-1.png, /assets/images/2020/05/application-1.png 1.5x, /assets/images/2020/05/application-1.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
+<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/05/application_gke.png" title="workflow" data-thumbnail="/assets/images/2020/05/application_gke.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application_gke.png"
+            srcset="/assets/images/2020/05/application_gke.png, /assets/images/2020/05/application_gke.png 1.5x, /assets/images/2020/05/application_gke.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>J&rsquo;utilise les objets suivants:</p>
+<ul>
+<li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
+<li>Un deployment pour l&rsquo;application</li>
+<li>Des pods car à un moment, il en faut…</li>
+<li>Un statefulset pour la base de données</li>
+</ul>
+<p>Vous pourrez trouver la définition de tous ces objets au format yaml via <a href="https://github.com/alexandre-touret/music-quote/tree/master/k8s" target="_blank" rel="noopener noreferrer">ce lien</a>. J&rsquo;ai fait très simple. Logiquement j&rsquo;aurai du créer un volume pour les bases de données ou utiliser une base de données en mode PAAS.</p>
+<p>Pour lancer le déploiement, il faut au préalable créer un secret ( fait manuellement pour ne pas stocker d&rsquo;objet yaml dans le repository GITHUB) pour se connecter au repo GITHUB via la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create secret docker-registry github-registry --docker-server<span class="o">=</span>docker.pkg.github.com --docker-username<span class="o">=</span>USER--docker-password<span class="o">=</span>PASSWORD --docker-email<span class="o">=</span>EMAIL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>On peut faire pareil pour les connexions base de données. J&rsquo;ai mis dans un configmap pour ne pas trop me prendre la tête…</p>
+<p>Après le déploiement via le pipeline se fait assez simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">GoogleCloudPlatform/github-actions/setup-gcloud@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;286.0.0&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_email</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_EMAIL }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Pour que ça marche il y a pas mal d&rsquo;étapes préalables ( des tokens à générer, un utilisateur technique, …).<br>
+J&rsquo;ai essayé de les référencer dans <a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">le README du projet</a>.<br>
+Si vous voulez tester l&rsquo;intégration Kubernetes dans le cloud google, sachez que vous pouvez disposer d&rsquo;un crédit de 300€ valable un an. Attention, avec ce genre d&rsquo;architecture, ça part vite…</p>
+]]></description></item><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Juste pour un pense bête, voici comment paramétrer GIT et GITHUB/GITLAB pour signer les commits avec GPG.
-Configuration GPGExécutez la commande suivante :
-1 2 gpg --full-generate-key Sélectionnez une clé RSA (question 1) de 4096 bits (question 2). Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:
-1 2 3 4 5 6 7 gpg --list-secret-keys --keyid-format LONG alexandre@.... /home/alexandre/.gnupg/pubring.kbx ---------------------------------- sec rsa4096/XXXXXXXXXX 2019-08-09 [SC] XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX uid [ ultime ] Alexandre Touret &lt;mon.]]></description></item></channel></rss>
+            </div><p>Juste pour un pense bête, voici comment paramétrer <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">GIT</a> et <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GITHUB</a>/<a href="https://about.gitlab.com/" target="_blank" rel="noopener noreferrer">GITLAB</a> pour signer les commits avec <a href="https://gnupg.org" target="_blank" rel="noopener noreferrer">GPG</a>.</p>
+<h2 id="configuration-gpg" class="headerLink">
+    <a href="#configuration-gpg" class="header-mark"></a>1 Configuration GPG</h2><p>Exécutez la commande suivante :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --full-generate-key
+</span></span><span class="line"><span class="cl">Sélectionnez une clé RSA <span class="o">(</span>question 1<span class="o">)</span> de <span class="m">4096</span> bits <span class="o">(</span>question 2<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format LONG alexandre@....
+</span></span><span class="line"><span class="cl">/home/alexandre/.gnupg/pubring.kbx
+</span></span><span class="line"><span class="cl">----------------------------------
+</span></span><span class="line"><span class="cl">sec rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>SC<span class="o">]</span>
+</span></span><span class="line"><span class="cl">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</span></span><span class="line"><span class="cl">uid <span class="o">[</span> ultime <span class="o">]</span> Alexandre Touret &lt;mon.mail.github.ou.gitlab@monprovider.fr&gt;
+</span></span><span class="line"><span class="cl">ssb rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>E<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, il faut exécuter cette commande</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --armor --export XXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-git" class="headerLink">
+    <a href="#configuration-git" class="header-mark"></a>2 Configuration GIT</h2><p>Indiquez la clé GPG à GIT</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local user.signingkey XXXXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et indiquez que vous voulez signer tous vos commits</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local commit.gpgsign <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si vous ne faites pas cette dernière commande, vous devrez ajouter l&rsquo;option -S à chaque exécution de la commande git commit.</p>
+<p>Exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git -a -S -m <span class="s2">&#34;Ajout javadoc&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-github" class="headerLink">
+    <a href="#configuration-github" class="header-mark"></a>3 Configuration GITHUB</h2><p>Sur Github ( il y a la même chose sur gitlab), vous pouvez <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer">dans vos paramètres</a> ajouter cette clé . De cette manière, vos prochains commits envoyés seront vérifiés.</p>
+<p>En espérant que ça serve à d&rsquo;autres 🙂</p>
+]]></description></item></channel></rss>

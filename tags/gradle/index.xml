@@ -1,8 +1,346 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gradle - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gradle/</link><description>gradle - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 10 May 2020 08:22:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gradle/" rel="self" type="application/rss+xml"/><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gradle - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gradle/</link><description>gradle - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 10 May 2020 08:22:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gradle/" rel="self" type="application/rss+xml"/><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/05/article_github_actions_k8s-1.png" referrerpolicy="no-referrer">
-            </div>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :
-Kotlin Quarkus Gradle Kubernetes pour le déploiement Oui, tant qu&rsquo;à faire, autant aller dans la hype …
-Mon projet est sur GITHUB. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.]]></description></item><item><title>Premiers pas avec Gradle</title><link>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</link><pubDate>Mon, 30 Dec 2019 15:03:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :</p>
+<ul>
+<li><a href="https://kotlinlang.org/" target="_blank" rel="noopener noreferrer">Kotlin</a></li>
+<li><a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a></li>
+<li><a href="https://gradle.org/" target="_blank" rel="noopener noreferrer">Gradle</a></li>
+<li><a href="http://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> pour le déploiement</li>
+</ul>
+<p>Oui, tant qu&rsquo;à faire, autant aller dans la hype …</p>
+<p><a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">Mon projet est sur GITHUB</a>. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.<br>
+Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">GITHUB Actions</a>.</p>
+<p>Ça permet, entre autres, de lancer des processus automatisé sur un push ou sur une action pour un commit GIT.</p>
+<p>La force de l&rsquo;outil est, selon moi, de facilement s&rsquo;intégrer avec beaucoup de services du cloud ( sonarcloud, google cloud, heroku,…). On aime ou on n&rsquo;aime pas, mais chez Microsoft, l&rsquo;intégration ils savent faire.</p>
+<p>Par exemple, si on veut lancer une compilation lors d&rsquo;un push, on peut placer un fichier <code>.github/workflows/build.xml</code> avec le contenu :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">CI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
+Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<h2 id="worflows-implémentés" class="headerLink">
+    <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
+<ul>
+<li><strong>CI</strong>: Build sur la feature branch</li>
+<li><strong>CD</strong>: Build sur master branch et déploiement</li>
+</ul>
+<p>On obtient donc dans mon cas:</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/05/workflow.png" title="workflow" data-thumbnail="/assets/images/2020/05/workflow.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/workflow.png"
+            srcset="/assets/images/2020/05/workflow.png, /assets/images/2020/05/workflow.png 1.5x, /assets/images/2020/05/workflow.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
+Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
+<h2 id="analyse-sonar" class="headerLink">
+    <a href="#analyse-sonar" class="header-mark"></a>2 Analyse SONAR</h2><p>J&rsquo;ai choisi d&rsquo;utiliser <a href="http://sonarcloud.io/" target="_blank" rel="noopener noreferrer">sonarcloud</a> pour analyser mon code. C&rsquo;est gratuit pour les projets opensource. L&rsquo;analyse se fait simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">sonarCloudTrigger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Trigger</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Scan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">SONAR_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SONAR_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew jacocoTestReport sonarqube</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans ce job j&rsquo;utilise deux <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank" rel="noopener noreferrer">secrets</a>. Ce sont des tokens qui permettent de ne pas stocker en dur les données dans les repos GITHUB.</p>
+<h2 id="création-dune-image-docker-et-déploiement-dans-le-registry-github" class="headerLink">
+    <a href="#cr%c3%a9ation-dune-image-docker-et-d%c3%a9ploiement-dans-le-registry-github" class="header-mark"></a>3 Création d&rsquo;une image Docker et déploiement dans le registry GITHUB</h2><p>Ici aussi, ça se fait simplement. La preuve :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">publish</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build in JVM Mode with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew quarkusBuild  [1]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Branch name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">echo running on branch ${GITHUB_REF##*/}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker build -f src/main/docker/Dockerfile.jvm -t docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest .  [2]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Login against github docker repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker login -u ${GITHUB_ACTOR} -p ${GITHUB_TOKEN}  docker.pkg.github.com   [3]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Publish the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest  [4]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>Création du binaire</li>
+<li>Création de l&rsquo;image docker en utilisant la commande docker et le Dockerfile fourni par Quarkus</li>
+<li>Identification sur la registry Docker de GITHUB</li>
+<li>Déploiement de l&rsquo;image</li>
+</ol>
+<p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
+<h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
+    <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
+<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/05/application-1.png" title="workflow" data-thumbnail="/assets/images/2020/05/application-1.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application-1.png"
+            srcset="/assets/images/2020/05/application-1.png, /assets/images/2020/05/application-1.png 1.5x, /assets/images/2020/05/application-1.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
+<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/05/application_gke.png" title="workflow" data-thumbnail="/assets/images/2020/05/application_gke.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application_gke.png"
+            srcset="/assets/images/2020/05/application_gke.png, /assets/images/2020/05/application_gke.png 1.5x, /assets/images/2020/05/application_gke.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>J&rsquo;utilise les objets suivants:</p>
+<ul>
+<li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
+<li>Un deployment pour l&rsquo;application</li>
+<li>Des pods car à un moment, il en faut…</li>
+<li>Un statefulset pour la base de données</li>
+</ul>
+<p>Vous pourrez trouver la définition de tous ces objets au format yaml via <a href="https://github.com/alexandre-touret/music-quote/tree/master/k8s" target="_blank" rel="noopener noreferrer">ce lien</a>. J&rsquo;ai fait très simple. Logiquement j&rsquo;aurai du créer un volume pour les bases de données ou utiliser une base de données en mode PAAS.</p>
+<p>Pour lancer le déploiement, il faut au préalable créer un secret ( fait manuellement pour ne pas stocker d&rsquo;objet yaml dans le repository GITHUB) pour se connecter au repo GITHUB via la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create secret docker-registry github-registry --docker-server<span class="o">=</span>docker.pkg.github.com --docker-username<span class="o">=</span>USER--docker-password<span class="o">=</span>PASSWORD --docker-email<span class="o">=</span>EMAIL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>On peut faire pareil pour les connexions base de données. J&rsquo;ai mis dans un configmap pour ne pas trop me prendre la tête…</p>
+<p>Après le déploiement via le pipeline se fait assez simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">GoogleCloudPlatform/github-actions/setup-gcloud@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;286.0.0&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_email</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_EMAIL }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Pour que ça marche il y a pas mal d&rsquo;étapes préalables ( des tokens à générer, un utilisateur technique, …).<br>
+J&rsquo;ai essayé de les référencer dans <a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">le README du projet</a>.<br>
+Si vous voulez tester l&rsquo;intégration Kubernetes dans le cloud google, sachez que vous pouvez disposer d&rsquo;un crédit de 300€ valable un an. Attention, avec ce genre d&rsquo;architecture, ça part vite…</p>
+]]></description></item><item><title>Premiers pas avec Gradle</title><link>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</link><pubDate>Mon, 30 Dec 2019 15:03:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/12/gradle_logo.png" referrerpolicy="no-referrer">
-            </div>Depuis quelques temps je me mets à Gradle. Après de (trop?) nombreuses années à utiliser Maven (depuis la version 0.9…), je me risque à modifier mon environnement de build. Du moins sur des projets démo.
-Quand on a fait pas mal de Maven, on est un peu dérouté au début. On a d&rsquo;un coté, la plupart des actions qui sont configurées de manière implicite et de l&rsquo;autre on peut tout coder/étendre ou presque.]]></description></item></channel></rss>
+            </div><p>Depuis quelques temps je me mets à <a href="https://gradle.org/" target="_blank" rel="noopener noreferrer">Gradle</a>. Après de (trop?) nombreuses années à utiliser Maven (depuis la version 0.9…), je me risque à modifier mon environnement de build. Du moins sur des projets démo.</p>
+<p>Quand on a fait pas mal de Maven, on est un peu dérouté au début. On a d&rsquo;un coté, la plupart des actions qui sont configurées de manière implicite et de l&rsquo;autre on peut tout coder/étendre ou presque.</p>
+<p>Je ne vais pas me risquer à faire un comparatif des deux outils. Gradle ( donc fortement orienté ) en <a href="https://gradle.org/maven-vs-gradle/" target="_blank" rel="noopener noreferrer">a fait un.</a></p>
+<p>Je vais plutôt décrire avec cet article comment on peut démarrer rapidement en configurant son environnement pour être utilisé en entreprise.</p>
+<h2 id="installation" class="headerLink">
+    <a href="#installation" class="header-mark"></a>1 Installation</h2><p>Le plus simple est d&rsquo;utiliser <a href="https://sdkman.io" target="_blank" rel="noopener noreferrer">SDKMAN</a>.</p>
+<p>Voici la manipulation pour l&rsquo;installer:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="s">&#34;https://get.sdkman.io&#34;</span> <span class="o">|</span> <span class="n">bash</span>
+</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">source</span> <span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">sdk</span> <span class="n">install</span> <span class="n">gradle</span> <span class="mi">6</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-dun-proxy" class="headerLink">
+    <a href="#configuration-dun-proxy" class="header-mark"></a>2 Configuration d&rsquo;un proxy</h2><p>Et oui comment souvent, passer le proxy d&rsquo;entreprise est la moitié du boulot :).<br>
+Pour le configurer de manière globale (c.-à-d. pour tous vos projets) sur votre poste de travail, vous devez créer un fichier <code>gradle.properties</code> dans le répertoire <code>$HOME/.gradle</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-dun-miroir-nexus-ou-artifactory" class="headerLink">
+    <a href="#configuration-dun-miroir-nexus-ou-artifactory" class="header-mark"></a>3 Configuration d&rsquo;un miroir Nexus ou Artifactory</h2><p>A l&rsquo;instar du proxy, on va essayer de mettre en place une configuration globale. Pour ce faire, on va utiliser <a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener noreferrer">les init scripts</a>. Cette fonctionnalité est très intéressante. Elle permet de centraliser des actions et configurations.<br>
+Pour créer un script, il faut tout d&rsquo;abord créer un fichier <code>.gradle</code> dans le répertoire <code>$HOME/.gradle/init.d</code>.</p>
+<p>Voici un exemple pour <a href="https://fr.sonatype.com/nexus-repository-sonatype" target="_blank" rel="noopener noreferrer">Nexus</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">buildscript</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mavenLocal</span><span class="o">()</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">maven</span> <span class="o">{</span><span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">repositories</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">mavenLocal</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-du-déploiement-dans-nexus--artifactory" class="headerLink">
+    <a href="#configuration-du-d%c3%a9ploiement-dans-nexus--artifactory" class="header-mark"></a>4 Configuration du déploiement dans Nexus / Artifactory</h2><p>Le déploiement dans Nexus est possible via <a href="https://docs.gradle.org/current/userguide/publishing_maven.html" target="_blank" rel="noopener noreferrer">le plugin maven publish</a>. La configuration fournie dans la documentation est tellement bien faite ( comme le reste d&rsquo;ailleurs ) que je ne vais que mettre un lien vers celle-là:<br>
+Voici <a href="https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:complete_example" target="_blank" rel="noopener noreferrer">le lien</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Après ces quelques actions vous pourrez démarrer des builds avec gradle tout en étant compatible avec un environnement « Maven ».<br>
+Enjoy 🙂</p>
+]]></description></item></channel></rss>

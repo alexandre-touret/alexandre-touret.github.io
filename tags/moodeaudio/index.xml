@@ -1,7 +1,27 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>moodeaudio - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/moodeaudio/</link><description>moodeaudio - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 09:49:36 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/moodeaudio/" rel="self" type="application/rss+xml"/><item><title>Au secours! Spotify Connect ne fonctionne plus sur MoodeAudio</title><link>http://blog.touret.info/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</link><pubDate>Fri, 15 Mar 2019 09:49:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>moodeaudio - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/moodeaudio/</link><description>moodeaudio - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 15 Mar 2019 09:49:36 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/moodeaudio/" rel="self" type="application/rss+xml"/><item><title>Au secours! Spotify Connect ne fonctionne plus sur MoodeAudio</title><link>http://blog.touret.info/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</link><pubDate>Fri, 15 Mar 2019 09:49:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/03/15/au-secours-spotify-connect-ne-fonctionne-plus-sur-moodeaudio/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/03/moode-r44.png" referrerpolicy="no-referrer">
-            </div>Après avoir mis à jour mon mot de passe Spotify ( oui, il faut modifier régulièrement ses mots de passe ) , j&rsquo;ai eu un petit soucis sur MoodeAudio ( version 4.4) et notamment sur la connexion avec Spotify.
-Après quelques recherches sur le forum de moodeaudio, j&rsquo;ai trouvé la correction qui allait bien.
-Voici comment faire :
-D&rsquo;abord on se connecte via SSH sur le raspberry pi
-1 $ ssh pi@192.]]></description></item></channel></rss>
+            </div><p>Après avoir mis à jour mon mot de passe Spotify ( oui, il faut modifier régulièrement ses mots de passe ) , j&rsquo;ai eu un petit soucis sur <a href="http://moodeaudio.org/" target="_blank" rel="noopener noreferrer">MoodeAudio</a> ( version 4.4) et notamment sur la connexion avec Spotify.</p>
+<p>Après quelques recherches sur <a href="http://moodeaudio.org/forum/showthread.php?tid=765&amp;page=2" target="_blank" rel="noopener noreferrer">le forum de moodeaudio</a>, j&rsquo;ai trouvé la correction qui allait bien.</p>
+<p>Voici comment faire :</p>
+<p>D&rsquo;abord on se connecte via SSH sur le raspberry pi</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ ssh pi@192.168.0.xx
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis on lance la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo mv /var/local/www/spotify_cache/credentials.json /home/pi/
+</span></span><span class="line"><span class="cl">$ sudo reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Normalement, <a href="https://www.spotify.com/fr/connect/" target="_blank" rel="noopener noreferrer">Spotify Connect</a> devrait fonctionner après le redémarrage 🙂</p>
+]]></description></item></channel></rss>

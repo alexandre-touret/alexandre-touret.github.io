@@ -1,34 +1,1213 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debian - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/debian/</link><description>debian - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 24 Apr 2020 20:06:13 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/debian/" rel="self" type="application/rss+xml"/><item><title>Améliorer le temps de démarrage de Debian 10</title><link>http://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</link><pubDate>Fri, 24 Apr 2020 20:06:13 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debian - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/debian/</link><description>debian - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 24 Apr 2020 20:06:13 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/debian/" rel="self" type="application/rss+xml"/><item><title>Améliorer le temps de démarrage de Debian 10</title><link>http://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</link><pubDate>Fri, 24 Apr 2020 20:06:13 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/boot_avant.png" referrerpolicy="no-referrer">
-            </div>Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal… J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.
-Boot time Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:
-1 systemd-analyze plot &gt; plot.]]></description></item><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>http://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal… J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.</p>
+<figure><img src="/assets/images/2020/04/boot_time.png"/><figcaption>
+            <h4>Boot time</h4>
+        </figcaption>
+</figure>
+
+<p>Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">systemd-analyze plot &gt; plot.svg
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai obtenu le graphique suivant:</p>
+<figure><img src="/assets/images/2020/04/boot_avant.png"/><figcaption>
+            <h4>Boot initial</h4>
+        </figcaption>
+</figure>
+
+<h2 id="configuration-grub" class="headerLink">
+    <a href="#configuration-grub" class="header-mark"></a>1 Configuration GRUB</h2><p>La première manipulation à réaliser est de désactiver le timeout de <a href="https://wiki.debian.org/Grub" target="_blank" rel="noopener noreferrer">GRUB</a>. Pour celà, vous pouvez modifier la variable <code>GRUB_TIMEOUT</code> dans le fichier <code>/etc/default/grub</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_TIMEOUT</span><span class="o">=</span><span class="s">0</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous devez mettre à jour la configuration <a href="https://wiki.debian.org/Grub" target="_blank" rel="noopener noreferrer">GRUB</a> en exécutant cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo update-grub2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Au prochain reboot, vous ne verrez plus le menu <a href="https://wiki.debian.org/Grub" target="_blank" rel="noopener noreferrer">GRUB</a>.</p>
+<h2 id="configuration-networkmanager" class="headerLink">
+    <a href="#configuration-networkmanager" class="header-mark"></a>2 Configuration NetworkManager</h2><p>Dans mon cas, le service <a href="https://askubuntu.com/questions/1018576/what-does-networkmanager-wait-online-service-do" target="_blank" rel="noopener noreferrer"><code>NetworkManager-wait-online.service</code> prenait près de 9 secondes</a>. Après avoir lu <a href="https://askubuntu.com/questions/1018576/what-does-networkmanager-wait-online-service-do" target="_blank" rel="noopener noreferrer">plusieurs billets</a> et rapports de bug, je me suis aperçu que je pouvais le désactiver au boot. Vous pouvez le faire en lançant la commande suivante</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl disable NetworkManager-wait-online.service
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-apt" class="headerLink">
+    <a href="#configuration-apt" class="header-mark"></a>3 Configuration Apt</h2><p>Un autre service qui prenait pas mal de temps était <a href="https://askubuntu.com/questions/1038923/do-i-really-need-apt-daily-service-and-apt-daily-upgrade-service" target="_blank" rel="noopener noreferrer">apt-daily.timer qui vérifiait au boot</a> qu&rsquo;il y avait des mises à jour de l&rsquo;OS. Après quelques recherches, j&rsquo; ai vu qu&rsquo;on pouvait soit le désactiver ( ce qui n&rsquo;est pas recommandé pour les mises à jour de sécurité ) soit décaler la recherche. J&rsquo;ai choisi cette solution. Vous devez donc exécuter la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl edit apt-daily.timer
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et renseigner le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Timer]</span>
+</span></span><span class="line"><span class="cl"><span class="na">OnBootSec</span><span class="o">=</span><span class="s">15min</span>
+</span></span><span class="line"><span class="cl"><span class="na">OnUnitActiveSec</span><span class="o">=</span><span class="s">1d</span>
+</span></span><span class="line"><span class="cl"><span class="na">AccuracySec</span><span class="o">=</span><span class="s">1h</span>
+</span></span><span class="line"><span class="cl"><span class="na">RandomizedDelaySec</span><span class="o">=</span><span class="s">30min</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ce service sera donc lancé 15 minutes après le boot. Ce qui est largement suffisant.</p>
+<p><strong>[EDIT]</strong> Vous pouvez appliquer la même configuration pour le service <code>apt-daily-upgrade</code> en exécutant la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl edit apt-daily-upgrade.timer
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous pouvez recharger la configuration en exécutant cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo systemctl daemon-reload
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="résultats" class="headerLink">
+    <a href="#r%c3%a9sultats" class="header-mark"></a>4 Résultats</h2><p>Après ces quelques manipulations qui peuvent prendre 5 minutes grand maximum, j&rsquo;ai réussi à optimiser le boot en réduisant le démarrage à <strong>5 secondes!</strong></p>
+<figure><img src="/assets/images/2020/04/boot_apres_header.png"/><figcaption>
+            <h4>Boot (après)</h4>
+        </figcaption>
+</figure>
+
+<p>Vous pourrez trouver le détail ci-dessous:<figure class="wp-block-gallery aligncenter columns-1 is-cropped"></p>
+<figure><img src="/assets/images/2020/04/boot_apres-2.png"/><figcaption>
+            <h4>Détail du Boot (après)</h4>
+        </figcaption>
+</figure>
+
+]]></description></item><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>http://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Avec les contraintes liées au confinement, les répétitions se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d&rsquo;un instrument et d&rsquo; improviser tout en ayant une bande son en fond musical.
-Il y a plusieurs logiciels payants/propriétaires sur différentes plateformes:
-Band in a box irealpro Garage band Jjazzlabs J&rsquo;ai découvert ce dernier récemment en naviguant sur le site Linux Mao.]]></description></item><item><title>Erreur 139 à l'exécution d'un container docker</title><link>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</link><pubDate>Wed, 01 Apr 2020 11:09:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Avec les contraintes liées au confinement, les <a href="http://george-abitbol.fr/v/c0bce857" target="_blank" rel="noopener noreferrer">répétitions</a> se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d&rsquo;un instrument et d&rsquo; improviser tout en ayant une bande son en fond musical.</p>
+<p>Il y a plusieurs logiciels payants/propriétaires sur différentes plateformes:</p>
+<ul>
+<li><a href="https://www.bandinabox.com/bb.php?os=win&amp;lang=fr" target="_blank" rel="noopener noreferrer">Band in a box</a></li>
+<li><a href="https://www.apple.com/fr/mac/garageband/" target="_blank" rel="noopener noreferrer">irealpro</a></li>
+<li><a href="https://www.apple.com/fr/mac/garageband/" target="_blank" rel="noopener noreferrer">Garage band</a></li>
+<li><a href="https://www.jjazzlab.com/en/" target="_blank" rel="noopener noreferrer">Jjazzlabs</a></li>
+</ul>
+<p>J&rsquo;ai découvert ce dernier récemment en naviguant sur le site <a href="http://linuxmao.org/JJazzLab" target="_blank" rel="noopener noreferrer">Linux Mao</a>. Il a l&rsquo;avantage d&rsquo;être gratuit (<a href="https://github.com/jjazzboss/JJazzLab-X" target="_blank" rel="noopener noreferrer">le moteur est sous licence LGPL 3.0</a>, pas le logiciel en tant que tel), de fonctionner sous GNU/LINUX, d&rsquo; offrir un son pas mal du tout et de permettre la configuration de la dynamique au fur et à mesure du morceau.</p>
+<p>Je vais expliquer comment l&rsquo;installer sur <a href="https://www.debian.org/" target="_blank" rel="noopener noreferrer">Debian</a>.</p>
+<h2 id="configuration-midi" class="headerLink">
+    <a href="#configuration-midi" class="header-mark"></a>1 Configuration Midi</h2><h3 id="activation-des-périphériques-virtuels-midi" class="headerLink">
+    <a href="#activation-des-p%c3%a9riph%c3%a9riques-virtuels-midi" class="header-mark"></a>1.1 Activation des périphériques virtuels MIDI</h3><p>Créer un fichier <code>/etc/modules.load.d/midi.conf</code> avec le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">snd-virmidi
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite créer le fichier <code>/etc/modprobe.d/midi.conf</code> avec le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">options snd-virmidi <span class="nv">midi_devs</span><span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Logiquement à ce stade, lors du prochain reboot, vous aurez un périphérique virtuel MIDI activé. En attendant vous pouvez lancer la commande suivante</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo modprobe snd-virmidi <span class="nv">midi_devs</span><span class="o">=</span><span class="m">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="synthétiser-du-midi" class="headerLink">
+    <a href="#synth%c3%a9tiser-du-midi" class="header-mark"></a>1.2 Synthétiser du MIDI</h3><p>Pour faire fonctionner ce logiciel, il faut installer une banque de son ( <a href="https://fr.wikipedia.org/wiki/SoundFont" target="_blank" rel="noopener noreferrer">au format SF2</a>) et un logiciel permettant de l&rsquo;utiliser pour synthétiser du MIDI.<br>
+La banque de son recommandée est disponible via <a href="https://musical-artifacts.com/artifacts/1036" target="_blank" rel="noopener noreferrer">ce lien</a>. Téléchargez là et copiez la dans un répertoire accessible.</p>
+<p>Pour le second, il vous faudra installer <a href="http://www.fluidsynth.org/" target="_blank" rel="noopener noreferrer">fluidsynth</a>. Voic les quelques commandes à lancer:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo apt install fluid-synth qsynth
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="petite-vérification8230" class="headerLink">
+    <a href="#petite-v%c3%a9rification8230" class="header-mark"></a>1.3 Petite vérification…</h3><p>Avant d&rsquo; aller plus loin dans la configuration de fluidsynth, vous pouvez vous assurer que tout est OK <a href="https://en.wikipedia.org/wiki/File:MIDI_sample.mid?qsrc=3044" target="_blank" rel="noopener noreferrer">en récupérant un fichier MIDI</a> et en lançant la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ fluidsynth -a pulseaudio -m alsa_seq -l -i /opt/JJazzLab-2.0-Linux/JJazzLab-SoundFont.sf2  MIDI_sample.mid
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Normalement vous devriez avoir du son.</p>
+<h3 id="configurer-fluidsynth" class="headerLink">
+    <a href="#configurer-fluidsynth" class="header-mark"></a>1.4 Configurer fluidsynth</h3><p>Lancez qsynth et cliquez sur le bouton « configuration »</p>
+<p>Vous trouverez ci-dessous la configuration que j&rsquo;ai appliqué. Elle diffère légèrement de <a href="https://www.jjazzlab.com/en/doc/fluidsynth/" target="_blank" rel="noopener noreferrer">celle présentée dans la documentation</a>.</p>
+<div id="id-1"><p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png" title="fluidsynth1" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
+            sizes="auto"
+            alt="fluidsynth1">
+    </a></figure></p>
+<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png" title="fluidsynth2" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
+            sizes="auto"
+            alt="fluidsynth2">
+    </a></figure></p>
+<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png" title="fluidsynth3" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
+            sizes="auto"
+            alt="fluidsynth3">
+    </a></figure></p>
+</div>
+<p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
+<h3 id="configurer-aconnect" class="headerLink">
+    <a href="#configurer-aconnect" class="header-mark"></a>1.5 Configurer aconnect</h3><p>Disclaimer: La c&rsquo;est la partie la plus obscure…</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp" title="aconnect" data-thumbnail="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
+            srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
+            sizes="auto"
+            alt="aconnect">
+    </a></figure></div>
+<p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
+Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
+<p>Exécutez la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ aconnect -lo                                            
+</span></span><span class="line"><span class="cl">client 14: <span class="s1">&#39;Midi Through&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>noyau<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;Midi Through Port-0&#39;</span>
+</span></span><span class="line"><span class="cl">client 24: <span class="s1">&#39;Virtual Raw MIDI 2-0&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>noyau,card<span class="o">=</span>2<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;VirMIDI 2-0     &#39;</span>
+</span></span><span class="line"><span class="cl">client 128: <span class="s1">&#39;FLUID Synth (JJLAB)&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>utilisateur,pid<span class="o">=</span>17838<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;Synth input port (JJLAB:0)&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans mon cas, je vais avoir à connecter le client 24:0 au synthétiseur 128:0 grâce à la commande :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ aconnect 24:0 128:0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, si on relance la commande <code>aconnect -lo</code> on obtient le résultat suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">client 14: <span class="s1">&#39;Midi Through&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>noyau<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;Midi Through Port-0&#39;</span>
+</span></span><span class="line"><span class="cl">client 24: <span class="s1">&#39;Virtual Raw MIDI 2-0&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>noyau,card<span class="o">=</span>2<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;VirMIDI 2-0     &#39;</span>
+</span></span><span class="line"><span class="cl">	Connexion À: 128:0
+</span></span><span class="line"><span class="cl">client 128: <span class="s1">&#39;FLUID Synth (JJLAB)&#39;</span> <span class="o">[</span><span class="nv">type</span><span class="o">=</span>utilisateur,pid<span class="o">=</span>17838<span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="m">0</span> <span class="s1">&#39;Synth input port (JJLAB:0)&#39;</span>
+</span></span><span class="line"><span class="cl">	Connecté Depuis: 24:0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Attention, cette commande devra être lancée ( ainsi que fluidsynth) avant chaque démarrage de jjazzlab.</p>
+<h2 id="installation-de-jjazzlab" class="headerLink">
+    <a href="#installation-de-jjazzlab" class="header-mark"></a>2 Installation de Jjazzlab</h2><p>Téléchargez les binaires sur <a href="https://www.jjazzlab.com/en/download/" target="_blank" rel="noopener noreferrer">ce site</a>, puis décompressez l&rsquo;archive dans le répertoire <code>/opt</code> par ex.</p>
+<p>Vous devez également installer java</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo apt install openjdk-11-jdk
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous devez créer le fichier <code>~/.local/share/applications/jjazzlab.desktop</code> avec le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Desktop Entry]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+</span></span><span class="line"><span class="cl"><span class="na">Name</span><span class="o">=</span><span class="s">JJazzLab</span>
+</span></span><span class="line"><span class="cl"><span class="na">GenericName</span><span class="o">=</span><span class="s">JJazzLab</span>
+</span></span><span class="line"><span class="cl"><span class="na">Icon</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="na">Exec</span><span class="o">=</span><span class="s">&#34;/opt/JJazzLab-2.0-Linux/bin/jjazzlab&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+</span></span><span class="line"><span class="cl"><span class="na">Categories</span><span class="o">=</span><span class="s">Audio;Music;Player;AudioVideo;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant vous pouvez directement démarrer JJazzlab via le menu.</p>
+<h2 id="configuration" class="headerLink">
+    <a href="#configuration" class="header-mark"></a>3 Configuration</h2><p>Une fois jjazzlab démarré, vous devez aller dans le menu « Tools&gt;Options » et sélectionnez les valeurs suivantes:</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div>
+<p>Ouvrez un fichier example (ex. sunny )</p>
+<p>Cliquez sur le menu décrit par un clavier</p>
+<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div>
+<p>Puis configurez comme suit:</p>
+<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
+            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div>
+<p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
+]]></description></item><item><title>Erreur 139 à l'exécution d'un container docker</title><link>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</link><pubDate>Wed, 01 Apr 2020 11:09:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/man-person-street-shoes-2882.webp" referrerpolicy="no-referrer">
-            </div>Voici un rapide article sur un problème rencontré récemment. Lors de l&rsquo;exécution d&rsquo;un container docker, j&rsquo;ai eu une erreur SIGSEGV 139. Un crash avec aucune log.
-Bref que du bonheur 🙂
-Avant d&rsquo;aller plus loin voici mon environnement:
-Debian 10 Docker CE 19.03.8 Après quelques recherches, je me suis rendu compte qu&rsquo;on pouvait reproduire ce comportement en exécutant cette commande:
-1 docker run -it gcc:4.8.5 Une des raisons trouvées serait un problème de compatibilité avec le noyau 4.]]></description></item><item><title>Ansible pour les provisionner tous !</title><link>http://blog.touret.info/2019/06/25/ansible-pour-les-provisionner-tous/</link><pubDate>Tue, 25 Jun 2019 11:34:51 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/06/25/ansible-pour-les-provisionner-tous/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Voici un rapide article sur un problème rencontré récemment. Lors de l&rsquo;exécution d&rsquo;un container docker, j&rsquo;ai eu une <a href="https://medium.com/better-programming/understanding-docker-container-exit-codes-5ee79a1d58f6" target="_blank" rel="noopener noreferrer">erreur SIGSEGV 139</a>. Un crash avec aucune log.</p>
+<p>Bref que du bonheur 🙂</p>
+<p>Avant d&rsquo;aller plus loin voici mon environnement:</p>
+<ul>
+<li><a href="http://www.debian.org/" target="_blank" rel="noopener noreferrer">Debian 10</a></li>
+<li><a href="https://docs.docker.com/install/linux/docker-ce/debian/" target="_blank" rel="noopener noreferrer">Docker CE</a> 19.03.8</li>
+</ul>
+<p>Après quelques recherches, je me suis rendu compte qu&rsquo;on pouvait reproduire ce comportement en exécutant cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker run -it gcc:4.8.5
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une des raisons trouvées serait <a href="https://github.com/moby/moby/issues/28705" target="_blank" rel="noopener noreferrer">un problème de compatibilité avec le noyau 4.8.5</a> (oui ça remonte…).<br>
+Une solution est d&rsquo;activer l&rsquo;émulation <a href="https://davisdoesdownunder.blogspot.com/2011/02/linux-syscall-vsyscall-and-vdso-oh-my.html" target="_blank" rel="noopener noreferrer">vsyscall</a>.</p>
+<p>Voici la configuration à effectuer:<br>
+Dans le fichier <code>/etc/default/grub</code>, ajouter la ligne suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">GRUB_CMDLINE_LINUX_DEFAULT</span><span class="o">=</span><span class="s">&#34;quiet vsyscall=emulate&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ sudo update-grub 
+</span></span><span class="line"><span class="cl">$ sudo reboot
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant le container devrait pouvoir s&rsquo;exécuter correctement.</p>
+]]></description></item><item><title>Ansible pour les provisionner tous !</title><link>http://blog.touret.info/2019/06/25/ansible-pour-les-provisionner-tous/</link><pubDate>Tue, 25 Jun 2019 11:34:51 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/06/25/ansible-pour-les-provisionner-tous/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/06/ansible_logo.svg_.png" referrerpolicy="no-referrer">
-            </div>Si vous provisionnez vos VM VirtualBox avec Vagrant, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.
-Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez Ansible.
-Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH).]]></description></item><item><title>Installer docker ce sur Debian 9</title><link>http://blog.touret.info/2018/09/26/installer-docker-ce-sur-debian-9/</link><pubDate>Wed, 26 Sep 2018 12:28:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/09/26/installer-docker-ce-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Si vous <a href="http://blog.touret.info/2018/03/15/installation-de-vagrant/" target="_blank" rel="noopener noreferrer">provisionnez vos VM VirtualBox avec Vagrant</a>, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.</p>
+<p>Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible.</a></p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2019/06/ansible_logo.svg_.png" title="ansible" data-thumbnail="/assets/images/2019/06/ansible_logo.svg_.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/06/ansible_logo.svg_.png"
+            srcset="/assets/images/2019/06/ansible_logo.svg_.png, /assets/images/2019/06/ansible_logo.svg_.png 1.5x, /assets/images/2019/06/ansible_logo.svg_.png 2x"
+            sizes="auto"
+            alt="ansible">
+    </a></figure></div>
+<p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href="https://puppet.com" target="_blank" rel="noopener noreferrer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation d&rsquo;agent.</p>
+<p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a>.</p>
+<h2 id="configuration-de-vagrant" class="headerLink">
+    <a href="#configuration-de-vagrant" class="header-mark"></a>1 Configuration de Vagrant</h2><p>Dans le fichier Vagrantfile, on active le provisionning via Ansible:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">config.vm.provision &#34;ansible_local&#34; </span>
+</span></span><span class="line"><span class="cl">  <span class="na">do |ansible| ansible.playbook</span> <span class="o">=</span> <span class="s">&#34;site.yml&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  ansible.install_mode = &#34;pip&#34;
+</span></span></span><span class="line"><span class="cl"><span class="s">  ansible.version = &#34;2.7.10&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">end</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Cette configuration fait référence à un fichier « playbook » site.yml. C&rsquo;est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.</p>
+<p>Voici un exemple de contenu:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">VirtualBox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">hosts</span><span class="p">:</span><span class="w"> </span><span class="l">all</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">become_user</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;root&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">become_method</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;sudo&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">roles</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">common</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">vars_files</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="l">vars/environment.yml</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Remove useless packages from the cache&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoclean</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Remove dependencies that are no longer required&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoremove</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Update and upgrade apt packages (may take a while)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">upgrade</span><span class="p">:</span><span class="w"> </span><span class="l">dist</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install useful packages&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">gcc</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">g++</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">zsh</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">firewalld</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">present</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">no</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ansible create directory example</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ home }}/.m2&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">directory</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Maven settings.xml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">copy</span><span class="p">:</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l">settings.xml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ home }}/.m2/settings.xml&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install Maven&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;curl -sL \&#34;http://mirror.ibcp.fr/pub/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz\&#34; -o /opt/apache-maven.tar.gz &amp;&amp; tar -zxf /opt/apache-maven.tar.gz -C /opt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become_method</span><span class="p">:</span><span class="w"> </span><span class="l">sudo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Change Maven Rights&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/*</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">touch</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">modification_time</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;preserve&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">access_time</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;preserve&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">maven_version: 3.5.4
+</span></span><span class="line"><span class="cl">username: vagrant
+</span></span><span class="line"><span class="cl">home: /home/vagrant
+</span></span><span class="line"><span class="cl">docker_compose_version: 1.22.0
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il y a <a href="https://docs.ansible.com/ansible/latest/modules/modules_by_category.html" target="_blank" rel="noopener noreferrer">une quantité impressionnante de modules Ansible que l&rsquo;on peut utiliser</a>. Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d&rsquo;un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.</p>
+<h3 id="configuration-spécifique-pour-virtualbox" class="headerLink">
+    <a href="#configuration-sp%c3%a9cifique-pour-virtualbox" class="header-mark"></a>1.1 Configuration spécifique pour VirtualBox</h3><p>Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentaires à la racine:</p>
+<h5 id="ansiblecfg" class="headerLink">
+    <a href="#ansiblecfg" class="header-mark"></a>1.1.0.1 ansible.cfg</h5><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[defaults]</span>
+</span></span><span class="line"><span class="cl">  <span class="na">hostfile</span> <span class="o">=</span> <span class="s">hosts</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h5 id="hosts" class="headerLink">
+    <a href="#hosts" class="header-mark"></a>1.1.0.2 hosts</h5><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[local]</span>
+</span></span><span class="line"><span class="cl">  <span class="na">localhost ansible_connection</span><span class="o">=</span><span class="s">local</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="provisionning" class="headerLink">
+    <a href="#provisionning" class="header-mark"></a>2 Provisionning</h2><h3 id="a-la-création" class="headerLink">
+    <a href="#a-la-cr%c3%a9ation" class="header-mark"></a>2.1 A la création</h3><p>le provisionning peut se faire au lancement de vagrant via la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">vagrant up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pour faire une mise à jour</p>
+<p>Directement dans la box, vous pouvez lancer les commandes suivantes :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo mount -t vboxsf vagrant /vagrant
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis, vous pouvez lancer les commandes suivantes dans la box:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">su -
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> /vagrant
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">ANSIBLE_CONFIG</span><span class="o">=</span>/vagrant
+</span></span><span class="line"><span class="cl">ansible-playbook site.yml
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>Installer docker ce sur Debian 9</title><link>http://blog.touret.info/2018/09/26/installer-docker-ce-sur-debian-9/</link><pubDate>Wed, 26 Sep 2018 12:28:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/09/26/installer-docker-ce-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/09/docker.png" referrerpolicy="no-referrer">
-            </div>Bon, ça fait quelques temps que je n&rsquo;ai rien posté…
-Voici un rapide tuto pour installer docker-ce sur une debian9. Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l&rsquo;installation de la version ce fournie par docker.
-Pré-requisSupprimer les éventuelles installations de docker et docker-compose
-1 #apt-get remove docker docker-compose InstallationLancer les commandes suivantes:]]></description></item><item><title>Activer l' equalizer sur Debian 9</title><link>http://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</link><pubDate>Sun, 25 Mar 2018 13:38:27 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Bon, ça fait quelques temps que je n&rsquo;ai rien posté…<br>
+Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/linux/docker-ce/debian/" target="_blank" rel="noopener noreferrer">docker-ce sur une debian9</a>. Oui, je sais, docker est déjà présent sur les dépôts, mais si vous souhaitez avoir une version un peu plus récente, vous pouvez passer par l&rsquo;installation de la version ce fournie par docker.</p>
+<h2 id="pré-requis" class="headerLink">
+    <a href="#pr%c3%a9-requis" class="header-mark"></a>1 Pré-requis</h2><p>Supprimer les éventuelles installations de docker et docker-compose</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#apt-get remove docker docker-compose  </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="installation" class="headerLink">
+    <a href="#installation" class="header-mark"></a>2 Installation</h2><p>Lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># apt-get install apt-transport-https ca-certificates  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add &amp;#8211;  </span>
+</span></span><span class="line"><span class="cl"><span class="c1"># add-apt-repository \  </span>
+</span></span><span class="line"><span class="cl"><span class="s2">&#34;deb [arch=amd64] https://download.docker.com/linux/debian \  
+</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \ stable&#34;</span>  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis lancer</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># apt update</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># apt install docker-ce</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="installation-de-docker-compose" class="headerLink">
+    <a href="#installation-de-docker-compose" class="header-mark"></a>2.1 Installation de docker-compose</h3><p>Lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># curl -L &#34;https://github.com/docker/compose/releases/download/1.22.0/docker-compose-$(uname -s)-$(uname -m)&#34; -o /usr/local/bin/docker-compose</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># chmod a+x /usr/local/bin/docker-compose  </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-des-droits" class="headerLink">
+    <a href="#configuration-des-droits" class="header-mark"></a>3 Configuration des droits</h2><p>Pour lancer docker depuis un utiliser non root, il faut lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># groupadd docker</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># adduser monutilisateur docker</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># usermod -aG docker monutilisateur</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Après ceci, vaut mieux redémarrer le pc …</p>
+<h2 id="configuration-du-démon" class="headerLink">
+    <a href="#configuration-du-d%c3%a9mon" class="header-mark"></a>4 Configuration du démon</h2><p>Voici quelques config à appliquer pour que le démon soit accessible par des outils tels que le plugin maven ou encore configurer l&rsquo;accès à un proxy</p>
+<h3 id="configuration-du-port" class="headerLink">
+    <a href="#configuration-du-port" class="header-mark"></a>4.1 Configuration du port</h3><p>Exécuter la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># systemctl edit docker.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Entrer le code suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="na">ExecStart</span><span class="o">=</span><span class="s">/usr/bin/dockerd -H tcp://0.0.0.0:2375 -H unix:///var/run/docker.sock</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et l&rsquo;enregistrer sous /etc/systemd/system/docker.service.d/docker.conf</p>
+<h3 id="configuration-du-proxy" class="headerLink">
+    <a href="#configuration-du-proxy" class="header-mark"></a>4.2 Configuration du proxy</h3><p>Avec la même commande</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># systemctl edit docker.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Entrer la configuration suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[Service]</span>
+</span></span><span class="line"><span class="cl"><span class="na">Environment</span><span class="o">=</span><span class="s">&#34;HTTP\_PROXY=http://mon\_proxy:mon_port/&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="na">Environment</span><span class="o">=</span><span class="s">&#34;NO_PROXY=127.0.0.1&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="activation-des-configurations" class="headerLink">
+    <a href="#activation-des-configurations" class="header-mark"></a>4.3 Activation des configurations</h3><p>Lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># systemctl daemon-reload # systemctl restart docker</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="validation" class="headerLink">
+    <a href="#validation" class="header-mark"></a>5 Validation</h2><p>Maintenant, vous pouvez valider votre configuration avec la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ docker run hello-world
+</span></span></code></pre></td></tr></table>
+</div>
+</div>]]></description></item><item><title>Activer l' equalizer sur Debian 9</title><link>http://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</link><pubDate>Sun, 25 Mar 2018 13:38:27 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/03/sc3a9lection_001.png" referrerpolicy="no-referrer">
-            </div>Et oui, il y a un equalizer dans debian….Pulse Audio dispose d&rsquo;un equalizer. Bon ce n&rsquo;est encore très user friendly, mais ça fonctionne!
-Installation de l&rsquo;equalizer 1 apt-get install pulseaudio-equalizer ActivationAjouter les lignes suivantes dans le fichier /etc/pulse/default.pa
-1 2 load-module module-equalizer-sink load-module module-dbus-protocol Relancer le démon pulseaudio
-1 \# pulseaudio -k &amp;&amp; pulseaudio -D A ce stade, vous devriez avoir dans le panneau de configuration la référence à l&rsquo;equalizer]]></description></item><item><title>Ma Configuration Debian 9</title><link>http://blog.touret.info/2018/02/10/ma-configuration-debian-9/</link><pubDate>Sat, 10 Feb 2018 08:58:47 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/02/10/ma-configuration-debian-9/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Et oui, il y a un equalizer dans debian….<a href="https://www.freedesktop.org/wiki/Software/PulseAudio/" target="_blank" rel="noopener noreferrer">Pulse Audio dispose d&rsquo;un equalizer</a>. Bon ce n&rsquo;est encore très user friendly, mais ça fonctionne!</p>
+<h2 id="installation-de-lequalizer" class="headerLink">
+    <a href="#installation-de-lequalizer" class="header-mark"></a>1 Installation de l&rsquo;equalizer</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">apt-get install pulseaudio-equalizer  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="activation" class="headerLink">
+    <a href="#activation" class="header-mark"></a>2 Activation</h2><p>Ajouter les lignes suivantes dans le fichier /etc/pulse/default.pa</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">load-module module-equalizer-sink  </span>
+</span></span><span class="line"><span class="cl"><span class="na">load-module module-dbus-protocol  </span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Relancer le démon pulseaudio</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="se">\#</span> pulseaudio -k <span class="o">&amp;&amp;</span> pulseaudio -D  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A ce stade, vous devriez avoir dans le panneau de configuration la référence à l&rsquo;equalizer</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2018/03/sc3a9lection_001.png" title="equalizer" data-thumbnail="/assets/images/2018/03/sc3a9lection_001.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2018/03/sc3a9lection_001.png"
+            srcset="/assets/images/2018/03/sc3a9lection_001.png, /assets/images/2018/03/sc3a9lection_001.png 1.5x, /assets/images/2018/03/sc3a9lection_001.png 2x"
+            sizes="auto"
+            alt="equalizer">
+    </a></figure></div>
+<h2 id="lancement" class="headerLink">
+    <a href="#lancement" class="header-mark"></a>3 Lancement</h2><p>En ligne de commande ( je vous disais que ce n&rsquo;était pas trop user-friendly), lancer la commande</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">$ qpaeq <span class="p">&amp;</span>  
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>On obtient cette interface:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2018/03/qpaeq_002.png" title="equalizer" data-thumbnail="/assets/images/2018/03/qpaeq_002.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2018/03/qpaeq_002.png"
+            srcset="/assets/images/2018/03/qpaeq_002.png, /assets/images/2018/03/qpaeq_002.png 1.5x, /assets/images/2018/03/qpaeq_002.png 2x"
+            sizes="auto"
+            alt="equalizer">
+    </a></figure></div>
+<p>Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)</p>
+<p>J&rsquo;ai essayé de poster mon soucis sur IRC, mais je n&rsquo;ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.</p>
+]]></description></item><item><title>Ma Configuration Debian 9</title><link>http://blog.touret.info/2018/02/10/ma-configuration-debian-9/</link><pubDate>Sat, 10 Feb 2018 08:58:47 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/02/10/ma-configuration-debian-9/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/02/220px-debian-openlogo-svg.png" referrerpolicy="no-referrer">
-            </div>Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .
-Voici ce que j&rsquo;ai réalisé post-installation:
-Ajout dépôts supplémentairesDans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.
-1 2 3 4 5 6 7 8 9 deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib deb http://security.]]></description></item></channel></rss>
+            </div><p>Désolé de remettre ça. Je remets sur mon blog ma configuration Debian. Histoire de ne pas la perdre tant qu&rsquo;elle est dans mon historique .</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2018/02/220px-debian-openlogo-svg.png" title="debian" data-thumbnail="/assets/images/2018/02/220px-debian-openlogo-svg.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2018/02/220px-debian-openlogo-svg.png"
+            srcset="/assets/images/2018/02/220px-debian-openlogo-svg.png, /assets/images/2018/02/220px-debian-openlogo-svg.png 1.5x, /assets/images/2018/02/220px-debian-openlogo-svg.png 2x"
+            sizes="auto"
+            alt="debian">
+    </a></figure></div>
+<p>Voici ce que j&rsquo;ai réalisé post-installation:</p>
+<h2 id="ajout-dépôts-supplémentaires" class="headerLink">
+    <a href="#ajout-d%c3%a9p%c3%b4ts-suppl%c3%a9mentaires" class="header-mark"></a>1 Ajout dépôts supplémentaires</h2><p>Dans le fichier /etc/apt/sources.list, ajouter les repo contrib et non-free . Activer également les mises à jour de sécurité.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">deb http://ftp.fr.debian.org/debian/ stretch main non-free contrib</span>
+</span></span><span class="line"><span class="cl"><span class="na">deb-src http://ftp.fr.debian.org/debian/ stretch main non-free contrib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="na">deb http://security.debian.org/debian-security stretch/updates main non-free contrib</span>
+</span></span><span class="line"><span class="cl"><span class="na">deb-src http://security.debian.org/debian-security stretch/updates main non-free contrib</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1"># stretch-updates, previously known as &#39;volatile&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="na">deb http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib</span>
+</span></span><span class="line"><span class="cl"><span class="na">deb-src http://ftp.fr.debian.org/debian/ stretch-updates main non-free contrib</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="logiciels-tiers" class="headerLink">
+    <a href="#logiciels-tiers" class="header-mark"></a>2 Logiciels tiers</h2><h3 id="etcher" class="headerLink">
+    <a href="#etcher" class="header-mark"></a>2.1 Etcher</h3><pre><code>#echo &quot;deb https://dl.bintray.com/resin-io/debian stable etcher&quot; | sudo tee /etc/apt/sources.list.d/etcher.list
+</code></pre>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">  &lt;pre&gt;#apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 379CE192D401AB61
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="virtualbox" class="headerLink">
+    <a href="#virtualbox" class="header-mark"></a>2.2 Virtualbox</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># wget -q https://www.virtualbox.org/download/oracle_vbox_2016.asc -O- | sudo apt-key add -</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans le fichier <code>/etc/apt/sources.list.d/virtualbox.list</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">deb https://download.virtualbox.org/virtualbox/debian stretch contrib</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="spotify" class="headerLink">
+    <a href="#spotify" class="header-mark"></a>2.3 Spotify</h3><p>Dans le fichier /etc/apt/sources.list.d/spotify.list</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">deb http://repository.spotify.com stable non-free</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="installation-paquets-supplémentaires" class="headerLink">
+    <a href="#installation-paquets-suppl%c3%a9mentaires" class="header-mark"></a>3 Installation paquets supplémentaires</h2><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># apt-get update</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># apt-get install firmware-iwlwifi virtualbox-5.2\</span>
+</span></span><span class="line"><span class="cl">ttf-mscorefonts-installer easytag tuxguitar-jsa htop<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> frescobaldi gparted grsync ntfs-config chromium autofs<span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> openjdk-8-jdk openjdk-8-jre gnome-tweak-tool ntfs-config <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>ntfs-3g cifs-utils geogebra-gnome arduino libmediainfo <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>libmediainfo0v5 network-manager-openvpn-gnome dirmngr <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>spotify-client spotify-client-gnome-support <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span> etcher apt-transport-https etcher-electron vim <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>fonts-powerline audacity ffmpeg lame unrar rar gdebi <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>sound-juicer traceroute scala net-tools nmap <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>gnome-shell-pomodoro hplip dig dnsutils build-essential <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>linux-headers-amd64 firmware-linux-nonfree lshw ethtool <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>libsane-hpaio xsane autofs vlc
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-autofs" class="headerLink">
+    <a href="#configuration-autofs" class="header-mark"></a>4 Configuration autofs</h2><p>Pour ceux qui ne connaissent pas , <a href="https://wiki.debian.org/AutoFs" target="_blank" rel="noopener noreferrer">autofs</a> est un outil permettant de monter directement des partages <a href="https://linuxconfig.org/how-to-configure-nfs-on-debian-9-stretch-linux" target="_blank" rel="noopener noreferrer">nfs</a> et cicfs à l&rsquo;utilisation et non au démarrage de l&rsquo;ordinateur.</p>
+<p>Dans le fichier /etc/auto.master</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">/mnt/SERV1/nfs /etc/auto.nfs --ghost, --timeout</span><span class="o">=</span><span class="s">60 </span>
+</span></span><span class="line"><span class="cl"><span class="na">/mnt/SERV1/cifs /etc/auto.SERV1.cifs --ghost, --timeout</span><span class="o">=</span><span class="s">60 </span>
+</span></span><span class="line"><span class="cl"><span class="na">/mnt/SERV2 /etc/auto.cifs --ghost, --timeout</span><span class="o">=</span><span class="s">60</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>ensuite insérer la configuration adéquate dans les fichiers référencés :</p>
+<h3 id="autocicfs" class="headerLink">
+    <a href="#autocicfs" class="header-mark"></a>4.1 auto.cicfs</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">data -fstype</span><span class="o">=</span><span class="s">cifs,credentials=/home/USER/.cred-file,user=littlewing,uid=1000,gid=1000 ://192.168.0.XX/REPERTOIRE</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Les identifiants / mots de passe sont stockés dans un fichier .cred-file stocké à la racine du répertoire utilisateur.</p>
+<p>Voici un exemple :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">username</span><span class="o">=</span><span class="s">user</span>
+</span></span><span class="line"><span class="cl"><span class="na">password</span><span class="o">=</span><span class="s">password</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Le fichier auto.SERV1.cifs reprend la même structure</p>
+<h3 id="autonfs" class="headerLink">
+    <a href="#autonfs" class="header-mark"></a>4.2 auto.nfs</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">REP1 -fstype</span><span class="o">=</span><span class="s">nfs,rw,intr 192.168.0.XX:/volume1/REP1</span>
+</span></span><span class="line"><span class="cl"><span class="na">REP2 -fstype</span><span class="o">=</span><span class="s">nfs,rw,intr 192.168.0.XX:/volume1/REP2</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="installation-datom" class="headerLink">
+    <a href="#installation-datom" class="header-mark"></a>5 Installation d&rsquo;atom</h2><p>J&rsquo;ai choisi d&rsquo;installer <a href="https://atom.io/" target="_blank" rel="noopener noreferrer">atom</a> via le package .deb fourni par <a href="http://github.com/" target="_blank" rel="noopener noreferrer">github</a>. Afin d&rsquo;automatiser l&rsquo;installation et la mise à jour, voici le script que j&rsquo;ai réalisé :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
+</span></span><span class="line"><span class="cl">wget -O <span class="nv">$SETUP_ROOT</span>/atom.deb <span class="s2">&#34;https://atom.io/download/deb&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Installation du paquet...&#34;</span>
+</span></span><span class="line"><span class="cl">dpkg -i <span class="nv">$SETUP_ROOT</span>/atom.deb
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Fini :)&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ce script est placé dans le répertoire /usr/local/sbin et lancé comme suit :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># upgrade-atom.sh</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="installation-de-firefox" class="headerLink">
+    <a href="#installation-de-firefox" class="header-mark"></a>6 Installation de Firefox</h2><p>Afin d&rsquo;avoir la dernière version de firefox, voici le script que j&rsquo;ai réalisé:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/sh
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
+</span></span><span class="line"><span class="cl"><span class="nv">BIN_ROOT</span><span class="o">=</span>/usr/local/firefox
+</span></span><span class="line"><span class="cl"><span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span>
+</span></span><span class="line"><span class="cl"><span class="nv">OLD_EXE</span><span class="o">=</span>/usr/lib/firefox-esr/firefox-esr
+</span></span><span class="line"><span class="cl">wget -O <span class="nv">$SETUP_ROOT</span>/FirefoxSetup.tar.bz2 <span class="s2">&#34;https://download.mozilla.org/?product=firefox-latest&amp;os=linux64&amp;lang=fr&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Extraction de l&#39;archive...&#34;</span>
+</span></span><span class="line"><span class="cl">tar xjf <span class="nv">$SETUP_ROOT</span>/FirefoxSetup.tar.bz2 -C /usr/local
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Changement des droits utilisateur&#34;</span>
+</span></span><span class="line"><span class="cl">chown -R :users <span class="nv">$BIN_ROOT</span>
+</span></span><span class="line"><span class="cl">chmod a+x <span class="nv">$BIN_ROOT</span>/firefox
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Sauvegarde de l&#39;ancien binaire et Creation des liens symboliques&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> -e <span class="nv">$OLD_EXE</span> <span class="o">]</span>
+</span></span><span class="line"><span class="cl"><span class="k">then</span>
+</span></span><span class="line"><span class="cl"> <span class="nv">OLD_BINARY</span><span class="o">=</span><span class="si">${</span><span class="nv">OLD_EXE</span><span class="si">}</span>_orig_<span class="si">${</span><span class="nv">DATE</span><span class="si">}</span>
+</span></span><span class="line"><span class="cl"> mv <span class="nv">$OLD_EXE</span> <span class="nv">$OLD_BINARY</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span> 
+</span></span><span class="line"><span class="cl">ln -s <span class="nv">$BIN_ROOT</span>/firefox <span class="nv">$OLD_EXE</span>
+</span></span><span class="line"><span class="cl">chmod a+x <span class="nv">$OLD_EXE</span>
+</span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Fini :)&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="minecraft" class="headerLink">
+    <a href="#minecraft" class="header-mark"></a>7 Minecraft</h2><p>Voila l&rsquo;étape la plus importante, du moins pour mes enfants …</p>
+<p>J&rsquo;ai crée le script /usr/local/bin/minecraft.sh</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="cp">#!/bin/bash
+</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">cd</span> /usr/local/minecraft
+</span></span><span class="line"><span class="cl">java -Xmx1G -Xms512M -cp /usr/local/minecraft/Minecraft.jar net.minecraft.bootstrap.Bootstrap
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai placé le JAR en question dans le répertoire /usr/local/minecraft.</p>
+<p>Enfin, j&rsquo;ai crée le fichier « lanceur gnome » /usr/share/applications/minecraft.desktop</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">[Desktop Entry] </span>
+</span></span><span class="line"><span class="cl"><span class="na">Name</span><span class="o">=</span><span class="s">Minecraft</span>
+</span></span><span class="line"><span class="cl"><span class="na">Comment</span><span class="o">=</span>
+</span></span><span class="line"><span class="cl"><span class="na">Categories</span><span class="o">=</span><span class="s">Game;BoardGame;</span>
+</span></span><span class="line"><span class="cl"><span class="na">Exec</span><span class="o">=</span><span class="s">/usr/local/bin/minecraft.sh</span>
+</span></span><span class="line"><span class="cl"><span class="na">Icon</span><span class="o">=</span><span class="s">Minecraft_Block</span>
+</span></span><span class="line"><span class="cl"><span class="na">Terminal</span><span class="o">=</span><span class="s">false</span>
+</span></span><span class="line"><span class="cl"><span class="na">Type</span><span class="o">=</span><span class="s">Application</span>
+</span></span><span class="line"><span class="cl"><span class="na">StartupNotify</span><span class="o">=</span><span class="s">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai également mis une icone SVG dans le répertoire /usr/share/icons/</p>
+<h2 id="optimisation-du-boot" class="headerLink">
+    <a href="#optimisation-du-boot" class="header-mark"></a>8 Optimisation du boot</h2><p>Après toutes ces installations, il faut vérifier que les performances, notamment au démarrage ne sont pas trop altérées</p>
+<p>Pour avoir le détail du boot, il faut utiliser la commande systemd-analyze</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#systemd-analyze blame</span>
+</span></span><span class="line"><span class="cl"> 8.113s NetworkManager-wait-online.service
+</span></span><span class="line"><span class="cl"> 2.549s apt-daily-upgrade.service
+</span></span><span class="line"><span class="cl"> 803ms networking.service
+</span></span><span class="line"><span class="cl"> 228ms colord.service
+</span></span><span class="line"><span class="cl"> 213ms dev-sda1.device
+</span></span><span class="line"><span class="cl"> 145ms systemd-timesyncd.service
+</span></span><span class="line"><span class="cl"> 128ms ModemManager.service
+</span></span><span class="line"><span class="cl"> 102ms autofs.service
+</span></span><span class="line"><span class="cl">....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>On peut également voir le chemin critique avec cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1">#systemd-analyze critical-chain </span>
+</span></span><span class="line"><span class="cl">The <span class="nb">time</span> after the unit is active or started is printed after the <span class="s2">&#34;@&#34;</span> character.
+</span></span><span class="line"><span class="cl">The <span class="nb">time</span> the unit takes to start is printed after the <span class="s2">&#34;+&#34;</span> character.
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">graphical.target @8.944s
+</span></span><span class="line"><span class="cl">└─multi-user.target @8.944s
+</span></span><span class="line"><span class="cl"> └─autofs.service @8.841s +102ms
+</span></span><span class="line"><span class="cl"> └─network-online.target @8.841s
+</span></span><span class="line"><span class="cl"> └─NetworkManager-wait-online.service @723ms +8.113s
+</span></span><span class="line"><span class="cl"> └─NetworkManager.service @642ms +80ms
+</span></span><span class="line"><span class="cl"> └─dbus.service @612ms
+</span></span><span class="line"><span class="cl"> └─basic.target @612ms
+</span></span><span class="line"><span class="cl"> └─paths.target @612ms
+</span></span><span class="line"><span class="cl"> └─acpid.path @610ms
+</span></span><span class="line"><span class="cl"> └─sysinit.target @608ms
+</span></span><span class="line"><span class="cl"> └─systemd-backlight@backlight:acpi_video0.service @1.042s +8ms
+</span></span><span class="line"><span class="cl"> └─system-systemd<span class="se">\x</span>2dbacklight.slice @1.042s
+</span></span><span class="line"><span class="cl"> └─system.slice @119ms
+</span></span><span class="line"><span class="cl"> └─-.slice @108ms
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="désactivation-des-services" class="headerLink">
+    <a href="#d%c3%a9sactivation-des-services" class="header-mark"></a>8.1 Désactivation des services</h3><p>Par exemple, si vous voulez désactiver le service virtualbox au démarrage</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># systemctl disable vboxautostart-service.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>et ainsi de suite pour tous les services inutiles au démarrage</p>
+<h2 id="analyse-du-démarrage-dun-service" class="headerLink">
+    <a href="#analyse-du-d%c3%a9marrage-dun-service" class="header-mark"></a>9 Analyse du démarrage d&rsquo;un service</h2><p>Pour analyser le démarrage d&rsquo;un service, on peut utiliser la commande journalctl</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># journalctl -b -u NetworkManager-wait-online.service</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>10 Conclusion</h2><p>Après toutes ces étapes, j&rsquo;ai un système opérationnel. Il manque pas mal d&rsquo;outils ( ex. maven, npm, intellij,…). Ces outils tiennent plus du poste de développement.</p>
+]]></description></item></channel></rss>

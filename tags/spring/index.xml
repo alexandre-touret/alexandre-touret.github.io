@@ -1,23 +1,1301 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>spring - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/spring/</link><description>spring - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 22 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/spring/" rel="self" type="application/rss+xml"/><item><title>Migrer son application Spring Boot vers la version 3</title><link>http://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>spring - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/spring/</link><description>spring - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 22 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/spring/" rel="self" type="application/rss+xml"/><item><title>Migrer son application Spring Boot vers la version 3</title><link>http://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/spring.webp" referrerpolicy="no-referrer">
-            </div>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.
-Je suis actuellement en cours de préparation d&rsquo;un workshop pour l&rsquo;édition 2023 de SnowcampIO. J&rsquo;aborderai dans ce dernier le versioning des APIs REST. Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la stack Spring.
-Container Tools Comments API Gateway Spring Cloud Gateway 2022.0.0-RC2 Bookstore API JAVA 17,Spring Boot 3.0.X ISBN API JAVA 17,Spring Boot 3.]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.</p>
+<p>Je suis actuellement en cours de préparation d&rsquo;un workshop pour <a href="https://snowcamp.io/fr/" target="_blank" rel="noopener noreferrer">l&rsquo;édition 2023 de SnowcampIO</a>.
+J&rsquo;aborderai dans <a href="https://sessionize.com/s/alexandre-touret/rest-apis-versioning-hands-on/60048" target="_blank" rel="noopener noreferrer">ce dernier le versioning des APIs REST</a>.
+Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la <a href="https://spring.io/" target="_blank" rel="noopener noreferrer">stack Spring</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Tools</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Gateway</td>
+<td>Spring Cloud Gateway 2022.0.0-RC2</td>
+<td></td>
+</tr>
+<tr>
+<td>Bookstore API</td>
+<td>JAVA 17,Spring Boot 3.0.X</td>
+<td></td>
+</tr>
+<tr>
+<td>ISBN API</td>
+<td>JAVA 17,Spring Boot 3.0.X</td>
+<td></td>
+</tr>
+<tr>
+<td>Configuration Server</td>
+<td>Spring Cloud Config 2022.0.0-RC2</td>
+<td></td>
+</tr>
+<tr>
+<td>Database</td>
+<td>PostgreSQL</td>
+<td></td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>JAVA 17,Spring Boot 3.0.X, Spring Authorization Server 1.0.0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>En résumé, j&rsquo;utilise <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a>, <a href="https://spring.io/cloud" target="_blank" rel="noopener noreferrer">Cloud</a>, <a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener noreferrer">Security</a>, <a href="https://spring.io/projects/spring-authorization-server" target="_blank" rel="noopener noreferrer">Authorization Server</a>, <a href="https://spring.io/projects/spring-cloud-circuitbreaker" target="_blank" rel="noopener noreferrer">Circuit Breaker</a>, <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a>,&hellip;</p>
+<p>J&rsquo;ai démarré le développement avant <a href="https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga" target="_blank" rel="noopener noreferrer">l&rsquo;annonce officielle de la version 3.0 de Spring Boot</a>.
+Ce n&rsquo;était pas réellement obligatoire pour cet atelier, mais j&rsquo;ai souhaité quand même migrer cette application dans la dernière version de Spring Boot/Framework.</p>
+<p>Je vais décrire dans cet article comment j&rsquo;ai réussi à migrer toute cette stack et les choix que j&rsquo;ai fait pour que ça fonctionne.</p>
+<p>Bien évidemment, cette application n&rsquo;est pas une <em>&ldquo;vraie&rdquo;</em> application en production.
+Par exemple, je n&rsquo;ai qu&rsquo;une seule entité JPA&hellip;
+Cependant, je la trouve représentative et espère (très modestement) que mon retour d&rsquo;expérience pourra servir.</p>
+<p><a href="https://github.com/alexandre-touret/rest-apis-versioning-workshop/pull/11/files" target="_blank" rel="noopener noreferrer">La Pull Request correspondante est disponible sur GitHub</a>.</p>
+<h2 id="pré-requis" class="headerLink">
+    <a href="#pr%c3%a9-requis" class="header-mark"></a>1 Pré-requis</h2><p>Une documentation existe.
+Vous pouvez la consulter <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide" target="_blank" rel="noopener noreferrer">ici</a>.
+Il existe aussi plusieurs articles sur le blog du projet Spring. Voici <a href="https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0" target="_blank" rel="noopener noreferrer">un exemple</a>.</p>
+<h2 id="dépendances-et-configuration-des-plugins" class="headerLink">
+    <a href="#d%c3%a9pendances-et-configuration-des-plugins" class="header-mark"></a>2 Dépendances et configuration des plugins</h2><h3 id="jdk" class="headerLink">
+    <a href="#jdk" class="header-mark"></a>2.1 JDK</h3><p>Pour Spring Boot 3, il faut impérativement utiliser un <a href="https://openjdk.org/projects/jdk/17/" target="_blank" rel="noopener noreferrer">JDK &gt;=17</a>.</p>
+<h3 id="mises-à-jour" class="headerLink">
+    <a href="#mises-%c3%a0-jour" class="header-mark"></a>2.2 Mises à jour</h3><p>L&rsquo;une des premières actions à réaliser est de migrer votre application vers <a href="https://spring.io/blog/2022/06/23/spring-boot-2-7-1-available-now" target="_blank" rel="noopener noreferrer">la version 2.7</a>.</p>
+<p>À l&rsquo;heure où j&rsquo;écris cet article, la version de Spring Cloud est encore en version RC.
+J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Spring:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">&#39;https://repo.spring.io/milestone&#39;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenCentral</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, j&rsquo;ai utilisé les versions suivantes pour les différents composants spring:</p>
+<ul>
+<li>Spring Boot : 3.0.0</li>
+<li>Spring Cloud : 2022.0.0-RC2</li>
+<li>Spring Dependency Management : 1.1.0</li>
+</ul>
+<p>Dans mon application, j&rsquo;utilisais certains plugins Gradle pour la génération du code notamment <a href="https://openapi-generator.tech/docs/generators/spring/" target="_blank" rel="noopener noreferrer">OpenAPIGenerator</a>. Pour ce dernier, j&rsquo;ai ajouté un paramètre pour le rendre compatible avec spring boot 3:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"> <span class="n">useSpringBoot3</span>       <span class="o">:</span> <span class="s2">&#34;true&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Bref, il faut impérativement tous les mettre à jour et vérifier la compatibilité !</p>
+<h2 id="ajout-de-nouvelles-dépendances" class="headerLink">
+    <a href="#ajout-de-nouvelles-d%c3%a9pendances" class="header-mark"></a>3 Ajout de nouvelles dépendances</h2><p>Pour vérifier la pertinence de certaines propriétés dans la nouvelle version, Spring a mis à disposition ce plugin:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl">   <span class="n">runtimeOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-properties-migrator&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il permet de notifier à l&rsquo;exécution si un paramètre est déprécié ou totalement inutile.</p>
+<h2 id="migration-namespace-javax-vers-jakartaee" class="headerLink">
+    <a href="#migration-namespace-javax-vers-jakartaee" class="header-mark"></a>4 Migration namespace javax vers jakartaee</h2><p>Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d&rsquo;innombrables maux de tête.</p>
+<p>Si vous utilisez Spring Boot au-dessus d&rsquo;un Tomcat (c.-à-d. en mode <em>old school</em>), il  vous faudra mettre à jour le conteneur de servlet à une version compatible.</p>
+<p>Dans mon application, je n&rsquo;ai eu qu&rsquo;à modifier les imports dans les entités,  filtres et méthodes annotées par l&rsquo;annotation <code>@PostConstruct()</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Column</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Entity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GeneratedValue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GenerationType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
+<h2 id="distributed-tracing-et-observabilité" class="headerLink">
+    <a href="#distributed-tracing-et-observabilit%c3%a9" class="header-mark"></a>5 Distributed Tracing et observabilité</h2><p>Spring embarque désormais plusieurs fonctionnalités liées à l&rsquo;observabilité sous forme de starters.
+Dans mon cas, <a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">j&rsquo;avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger</a>.</p>
+<p>J&rsquo;ai suivi <a href="https://spring.io/blog/2022/10/12/observability-with-spring-boot-3" target="_blank" rel="noopener noreferrer">cet article</a> paru sur le blog de Spring.
+J&rsquo;ai par conséquent basculé sur <a href="https://zipkin.io/" target="_blank" rel="noopener noreferrer">Zipkin</a> (pour mon Workshop, l&rsquo;utilisation du distributed tracing est un peu la cerise sur le gâteau).</p>
+<p>Voici les starters que j&rsquo;ai intégrés :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-tracing-bridge-brave&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.zipkin.reporter2:zipkin-reporter-brave&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentelemetry:opentelemetry-exporter-zipkin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-aop&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai par la suite intégré les propriétés suivantes dans la configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:9411</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sampling</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">probability</span><span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">percentiles-histogram</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">requests</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Je pense que j&rsquo;aurai pu faire fonctionner <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.
+Je n&rsquo;ai pas voulu perdre de temps (SnowcampIO arrive bientôt&hellip;).</p>
+<h2 id="securité" class="headerLink">
+    <a href="#securit%c3%a9" class="header-mark"></a>6 Securité</h2><p>J&rsquo;ai eu quelques soucis après avoir mis à jour Spring Authorization Server et Spring Security.
+Je pense que la version précédente de Spring était plus permissive sur l&rsquo;injection et le nom des beans chargés dans les classes Configuration.</p>
+<p>J&rsquo;ai donc revu <a href="https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006" target="_blank" rel="noopener noreferrer">la validation côté gateway et plus particulièrement la validation du jeton JWT</a>.</p>
+<p>J&rsquo;ai dû notamment ajouter le paramètre <code>jwk-set-uri</code> qui est obligatoire maintenant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceserver</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">jwt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">jwk-set-uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8009</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Je n&rsquo;ai pas eu de <a href="https://github.com/spring-projects/spring-authorization-server/" target="_blank" rel="noopener noreferrer">réels problèmes coté Authorization Server car j&rsquo;avais déjà migré vers la version 0.4.0</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>7 Conclusion</h2><p>Vous l&rsquo;aurez compris, si vous faites l&rsquo;effort de suivre régulièrement les versions de Spring, vous devriez venir à bout facilement de la migration vers la dernière version de Spring.</p>
+<p>Néanmoins, sur des projets conséquents (et je ne parle pas de ceux où il n&rsquo;y a de tests automatisés&hellip;) ça peut s&rsquo;avérer coûteux.
+Certaines actions et contournements peuvent prendre du temps (ex. javax &ndash;&gt; jakarta).</p>
+<p>Enfin, je vous conseille d&rsquo;attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour <em>&ldquo;de vrai&rdquo;</em>.
+Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d&rsquo;attendre que les premiers correctifs soient publiés avant de vous lancer.</p>
+]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
-            </div>Dans mon dernier article, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.
-J&rsquo;ai par la suite testé plus en détails les jobs et cron jobs Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet. Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer. Si ces derniers sont terminés avec succès - Vous allez me dire, il faut bien les coder - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
+            </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
+            srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
+Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
+Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
+J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2022/08/luke_cage.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/luke_cage.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/luke_cage.webp"
+            srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
+Loin de là.</p>
+<p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
+Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2022/08/spring_dataflow_logo.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/spring_dataflow_logo.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/spring_dataflow_logo.webp"
+            srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
+L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
+Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
+<p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener noreferrer">Minikube</a>.</p>
+<h2 id="installation-et-configuration-de-minikube" class="headerLink">
+    <a href="#installation-et-configuration-de-minikube" class="header-mark"></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener noreferrer">le site officiel</a>.</p>
+<p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+</span></span><span class="line"><span class="cl">sudo install minikube-linux-amd64 /usr/local/bin/minikube
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Au premier démarrage, vous finirez l&rsquo;installation</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="installation-de-spring-cloud-data-flow" class="headerLink">
+    <a href="#installation-de-spring-cloud-data-flow" class="header-mark"></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add bitnami https://charts.bitnami.com/bitnami
+</span></span><span class="line"><span class="cl">helm install my-release bitnami/spring-cloud-dataflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Après quelques minutes de téléchargement, vous devriez avoir le retour suivante à l&rsquo;exécution de la commande <code>kubectl get pods</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">~ » kubectl get pods                                                                           
+</span></span><span class="line"><span class="cl">NAME  READY   STATUS             RESTARTS      AGE
+</span></span><span class="line"><span class="cl">dataflow-mariadb-0  1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-rabbitmq-0 1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-server-75db59d6cb-lrwp8   1/1 Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="accès-au-dashboard" class="headerLink">
+    <a href="#acc%c3%a8s-au-dashboard" class="header-mark"></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href="https://cloud.spring.io/spring-cloud-dataflow-ui/" target="_blank" rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SERVICE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].port}&#34;</span> services dataflow-spring-cloud-dataflow-server<span class="k">)</span>
+</span></span><span class="line"><span class="cl">kubectl port-forward --namespace default svc/dataflow-spring-cloud-dataflow-server <span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>:<span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous pourrez accéder à la console web via l&rsquo;URL <code>http://localhost:8080/dashboard</code>.</p>
+<h2 id="développement-dune-task" class="headerLink">
+    <a href="#d%c3%a9veloppement-dune-task" class="header-mark"></a>2 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
+Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" target="_blank" rel="noopener noreferrer">https://api.nationalize.io/</a>.</p>
+<p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p>
+<p>Vous trouverez les sources de cet exemple sur <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">mon Github</a>.</p>
+<p>Aussi, la documentation est bien faite, il suffit de <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/" target="_blank" rel="noopener noreferrer">la lire</a>.</p>
+<h3 id="initialisation" class="headerLink">
+    <a href="#initialisation" class="header-mark"></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-web&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.cloud:spring-cloud-starter-task&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">developmentOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-devtools&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">testImplementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-test&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-jdbc&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runtimeOnly</span> <span class="s1">&#39;org.mariadb.jdbc:mariadb-java-client&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dependencyManagement</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">imports</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenBom</span> <span class="s2">&#34;org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p>
+<h3 id="construction-de-la-tâche" class="headerLink">
+    <a href="#construction-de-la-t%c3%a2che" class="header-mark"></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableTask</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaskConfiguration</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">CommandLineRunner</span> <span class="nf">createCommandLineRunner</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">commandLinePropertySource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleCommandLinePropertySource</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span> <span class="o">+</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">commandLinePropertySource</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;BLANK&#34;</span><span class="o">),</span> <span class="n">NationalizeResponseDTO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="o">,</span> <span class="n">entity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">(),</span> <span class="n">entity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">};</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p>
+<p>Voici un exemple d&rsquo;exécution :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">2022-08-12 15:11:07.885  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span class="o">(</span>s<span class="o">)</span>: <span class="m">8080</span> <span class="o">(</span>http<span class="o">)</span> with context path <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">2022-08-12 15:11:07.894  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.b.cloudtask.CloudTaskApplication     : Started CloudTaskApplication in 17.704 seconds <span class="o">(</span>JVM running <span class="k">for</span> 19.18<span class="o">)</span>
+</span></span><span class="line"><span class="cl">2022-08-12 15:11:10.722  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class="o">[</span><span class="m">200</span> OK<span class="o">]</span>: NationalizeResponseDTO<span class="o">{</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Alexandre&#39;</span>, <span class="nv">countries</span><span class="o">=[</span>CountryDTO<span class="o">{</span><span class="nv">countryId</span><span class="o">=</span><span class="s1">&#39;BR&#39;</span>, pr....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="packaging" class="headerLink">
+    <a href="#packaging" class="header-mark"></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew build
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="déploiement" class="headerLink">
+    <a href="#d%c3%a9ploiement" class="header-mark"></a>3 Déploiement</h2><h3 id="création-et-déploiement-de-limage-docker" class="headerLink">
+    <a href="#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker" class="header-mark"></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p>
+<p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, il nous reste à créer l&rsquo;image Docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew bootBuildImage --imageName<span class="o">=</span>info.touret/cloud-task:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube image ls <span class="p">|</span> grep cloud-task                                                                                                                                                                          
+</span></span><span class="line"><span class="cl">info.touret/cloud-task:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="création-de-lapplication" class="headerLink">
+    <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
+<figure><img src="/assets/images/2022/08/dataflow_config5.webp"/>
+</figure>
+
+<p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
+<h3 id="création-de-la-tâche" class="headerLink">
+    <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config3.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config3.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config3.webp"
+            srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config4.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config4.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config4.webp"
+            srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
+<h2 id="exécution" class="headerLink">
+    <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
+Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config2.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config2.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config2.webp"
+            srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config10.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config10.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config10.webp"
+            srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config8.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config8.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config8.webp"
+            srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config7.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config7.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config7.webp"
+            srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config9.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config9.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config9.webp"
+            srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+<p>J&rsquo;ai pu également accéder aux logs.</p>
+<p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods <span class="p">|</span> grep cloud-task                                                                                                                                                                           
+</span></span><span class="line"><span class="cl">cloud-task-7mp72gzpwo                                    1/1     Running            <span class="m">0</span>               57m
+</span></span><span class="line"><span class="cl">cloud-task-pymdkr182p                                    1/1     Running            <span class="m">0</span>               65m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A chaque exécution il y aura donc un pod d&rsquo;alloué.</p>
+<h2 id="aller-plus-loin" class="headerLink">
+    <a href="#aller-plus-loin" class="header-mark"></a>5 Aller plus loin</h2><p>Parmi les fonctionnalités que j&rsquo;ai découvert, on peut :</p>
+<ul>
+<li>relancer un traitement</li>
+<li>le programmer</li>
+<li>nettoyer les exécutions</li>
+<li>les pistes d&rsquo;audit</li>
+<li>le chaînage des différentes tâches</li>
+</ul>
+<p>Gros inconvénient pour le nettoyage: je n&rsquo;ai pas constaté un impact dans les pods alloués.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
+Je vais donc utiliser la liste des caractéristiques présentée par <a href="https://fundamentalsofsoftwarearchitecture.com/" target="_blank" rel="noopener noreferrer">M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>Bien évidemment, cette notation est purement personnelle.
+Vous noterez que selon où on positionne le curseur, l&rsquo;une des deux solutions peut s&rsquo;avérer meilleure (ou pas).</p>
+<p>Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
+A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data.</p>
+<p>N&rsquo;hésitez pas à me donner votre avis (<a href="https://blog.touret.info/a-propos/" target="_blank" rel="noopener noreferrer">sans troller svp</a>) en commentaire ou si ça concerne l&rsquo;exemple, directement <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">dans Github</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Architecture characteristic</th>
+<th>K8s job rating</th>
+<th>Spring Cloud Dataflow rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partitioning type</td>
+<td>Domain &amp; technical</td>
+<td>Domain &amp; technical</td>
+</tr>
+<tr>
+<td>Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+<td>1</td>
+<td>1 to many</td>
+</tr>
+<tr>
+<td>Deployability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Elasticity</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Evolutionary</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Fault Tolerance</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Overall cost</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Reliability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Simplicity</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Testability</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>A lire absolument!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>~ Nombre de livrables indépendants fortement couplés&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/07/rest-book-architecture.png" referrerpolicy="no-referrer">
-            </div>Il y a quelques mois déjà, je discutais avec un collègue d&rsquo; observabilité, opentracing, … avec Quarkus. On est tombé sur un super exemple réalisé par Antonio Concalves. Ce projet démontre les capacités de Quarkus sur les sujets suivants:
-Circuit Breaker Observabilité OpenTracing Tests … Et la on peut se demander quid de Spring? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.]]></description></item><item><title>Ajouter un mode « maintenance » à votre API grâce à Spring boot</title><link>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</link><pubDate>Thu, 10 Jun 2021 17:01:20 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Il y a quelques mois déjà, je discutais avec <a href="https://jefrajames.fr/" target="_blank" rel="noopener noreferrer">un collègue</a> d&rsquo; observabilité, <a href="https://github.com/opentracing-contrib/java-spring-cloud" target="_blank" rel="noopener noreferrer">opentracing</a>, … avec <a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a>. On est tombé sur <a href="https://github.com/agoncal/agoncal-fascicle-quarkus-pract" target="_blank" rel="noopener noreferrer">un super exemple réalisé par Antonio Concalves</a>. Ce projet démontre les capacités de Quarkus sur les sujets suivants:</p>
+<ul>
+<li>Circuit Breaker</li>
+<li>Observabilité</li>
+<li>OpenTracing</li>
+<li>Tests</li>
+<li>…</li>
+</ul>
+<p>Et la on peut se demander quid de <a href="http://spring.io/" target="_blank" rel="noopener noreferrer">Spring</a>? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.</p>
+<p>J&rsquo;ai donc réalisé un clone de <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">ce projet basé sur Spring Boot/Cloud</a>. Je ne vais pas détailler plus que ça les différentes fonctionnalités, vous pouvez vous référer au fichier <a href="https://github.com/alexandre-touret/bookstore_spring#readme" target="_blank" rel="noopener noreferrer">README</a>. Il est suffisamment détaillé pour que vous puissiez exécuter et les mettre en œuvre.</p>
+<h2 id="architecture-de-lapplication" class="headerLink">
+    <a href="#architecture-de-lapplication" class="header-mark"></a>1 Architecture de l&rsquo;application</h2><p>Vous trouverez ci-dessous un schéma d&rsquo;architecture de l&rsquo;application <a href="https://c4model.com/" target="_blank" rel="noopener noreferrer">au format C4</a>.</p>
+<h2 id="circuit-breaker" class="headerLink">
+    <a href="#circuit-breaker" class="header-mark"></a>2 Circuit Breaker</h2><p>Lors des appels entre le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">bookstore</a> et le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-number/src/main/java/info/touret/bookstore/spring/number/controller/BookNumbersController.java" target="_blank" rel="noopener noreferrer">booknumberservice</a>, il peut être intéressant d&rsquo; implémenter un <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breaker</a> pour pallier aux indisponibilités de ce dernier.<br>
+Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilience4j" target="_blank" rel="noopener noreferrer">Resilience4J</a> au travers de <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener noreferrer">Spring Cloud</a>. Tout ceci se fait de manière programmatique</p>
+<p>Il faut tout d&rsquo;abord <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/BookConfiguration.java" target="_blank" rel="noopener noreferrer">configurer les circuit breakers au travers d&rsquo;une classe Configuration</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
+<p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
+<h2 id="observabilité" class="headerLink">
+    <a href="#observabilit%c3%a9" class="header-mark"></a>3 Observabilité</h2><p>L&rsquo;observabilité est sans contexte la pierre angulaire (oui, rien que ça…) de toute application cloud native. Sans ça, pas de scalabilité, de redémarrage automatique,etc.<br>
+Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikipedia.org/wiki/Idempotence" target="_blank" rel="noopener noreferrer">idempotentes</a>. On a donc besoin d&rsquo;avoir toutes les informations à notre disposition. Heureusement, <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator" target="_blank" rel="noopener noreferrer">Spring fournit par le biais d&rsquo; Actuator</a> toutes les informations nécessaires. Ces dernières pourront soit être utilisées par <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (ex. le <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbe</a>) ou agrégées dans une base de données <a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
+<p>Pour activer certaines métriques d&rsquo;<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html" target="_blank" rel="noopener noreferrer">actuator</a>, il suffit de :</p>
+<p>Ajouter la/les dépendance(s)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Spécifier la configuration adéquate:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="opentracing" class="headerLink">
+    <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
+<p>Depuis quelques temps, le <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">CNCF</a> propose un projet (encore en incubation) : <a href="https://opentracing.io/" target="_blank" rel="noopener noreferrer">OpenTracing</a>. Ce dernier fait désormais partie d&rsquo;<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>.<br>
+Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de notre application microservices et pouvoir réaliser une corrélation « out of the box » grâce à l&rsquo;intégration avec <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
+<p>Pour activer la fonctionnalité il suffit d&rsquo;ajouter la dépendance au classpath:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.3.1&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>et de configurer l&rsquo;URL de Jaeger dans l&rsquo;application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Default values</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">opentracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">udp-sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6831</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
+<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger1">
+    </a></figure>
+<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger2">
+    </a></figure></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
+Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
+]]></description></item><item><title>Ajouter un mode « maintenance » à votre API grâce à Spring boot</title><link>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</link><pubDate>Thu, 10 Jun 2021 17:01:20 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/06/pexels-photo-257736.jpeg" referrerpolicy="no-referrer">
-            </div>Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l&rsquo;application en mode « maintenance ».
-Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (Apache HTTPD, WAF)
-Kubernetes a introduit ( ou popularisé ) les notions de « probes » et plus particulièrement les livenessProbes et readinessProbes.]]></description></item><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l&rsquo;application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (<a href="https://httpd.apache.org/" target="_blank" rel="noopener noreferrer">Apache HTTPD</a>, <a href="https://fr.wikipedia.org/wiki/Web_application_firewall" target="_blank" rel="noopener noreferrer">WAF</a>)</p>
+<p><a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">Kubernetes a introduit ( ou popularisé ) les notions de « probes »</a> et plus particulièrement les <a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbes</a> et <a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">readinessProbes</a>.<br>
+Le premier nous indique si l&rsquo;application est en état de fonctionnement, le second nous permet de savoir si cette dernière est apte à recevoir des requêtes (ex. lors d&rsquo;un démarrage).</p>
+<p>Je vais exposer dans cet article comment utiliser au mieux ces probes et <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener noreferrer">les APIs SPRING</a> pour intégrer dans une API un mode « maintenance »</p>
+<h2 id="stack-utilisée" class="headerLink">
+    <a href="#stack-utilis%c3%a9e" class="header-mark"></a>1 Stack utilisée</h2><p>Dans l&rsquo;exemple que j&rsquo;ai développé, j&rsquo;ai pu utiliser les briques suivantes:</p>
+<ul>
+<li>OpenJDK 11.0.10</li>
+<li>Spring Boot 2.5.0 (web, actuator)</li>
+<li>Maven 3.8.1</li>
+</ul>
+<p>Bref, rien de neuf à l&rsquo;horizon 🙂</p>
+<h2 id="configuration-de-spring-actuator" class="headerLink">
+    <a href="#configuration-de-spring-actuator" class="header-mark"></a>2 Configuration de Spring Actuator</h2><p>Pour activer les différents probes, vous devez activer <a href="https://docs.spring.io/spring-boot/docs/2.4.0/actuator-api/" target="_blank" rel="noopener noreferrer">Actuator</a>.</p>
+<p>Dans le fichier pom.xml, vous devez ajouter le starter correspondant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis vous devez déclarer ces differentes <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/resources/application.properties" target="_blank" rel="noopener noreferrer">propriétés</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">management.endpoints.enabled-by-default</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.health.livenessstate.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.health.readinessstate.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.show-details</span><span class="o">=</span><span class="s">always</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.probes.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Après avoir redémarré votre application, vous pourrez connaître son statut grâce à un appel HTTP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://localhost:8080/actuator/health/readiness 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="comment-récupérer-le-statut-des-probes" class="headerLink">
+    <a href="#comment-r%c3%a9cup%c3%a9rer-le-statut-des-probes" class="header-mark"></a>3 Comment récupérer le statut des probes?</h2><p>Avec Spring, vous pouvez modifier les différents statuts avec les classes <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisher.html" target="_blank" rel="noopener noreferrer">ApplicationEventPublisher</a> et <a href="https://docs.spring.io/spring-boot/docs/2.4.4/api/org/springframework/boot/availability/ApplicationAvailability.html" target="_blank" rel="noopener noreferrer">ApplicationAvailability</a>.</p>
+<p>Par exemple, pour connaître le statut <a href="https://docs.spring.io/spring-boot/docs/2.5.0-SNAPSHOT/api/org/springframework/boot/availability/ReadinessState.html" target="_blank" rel="noopener noreferrer">Readiness</a> vous pouvez exécuter le code suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;200&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Checks if the application in under maitenance&#34;</span><span class="o">)})</span>
+</span></span><span class="line"><span class="cl"> <span class="nd">@GetMapping</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">MaintenanceDTO</span><span class="o">&gt;</span> <span class="nf">retreiveInMaintenance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">var</span> <span class="n">lastChangeEvent</span> <span class="o">=</span> <span class="n">availability</span><span class="o">.</span><span class="na">getLastChangeEvent</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="n">MaintenanceDTO</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">),</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getTimestamp</span><span class="o">())));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et la modification ?</p>
+<p>Grâce à la même API, on peut également modifier ce statut dans via du code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;204&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Put the app under maitenance&#34;</span><span class="o">)})</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@PutMapping</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">initInMaintenance</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">inMaintenance</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AvailabilityChangeEvent</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">eventPublisher</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">inMaintenance</span><span class="o">)</span> <span class="o">?</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span> <span class="o">:</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">ACCEPTING_TRAFFIC</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">noContent</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="headerLink">
+    <a href="#filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="header-mark"></a>4 Filtre les appels et indiquer que l&rsquo;application est en maintenance</h2><p>Maintenant qu&rsquo;on a codé les mécanismes de récupération du statut de l&rsquo;application et de la mise en maintenance, on peut ajouter le mécanisme permettant de traiter ou non les appels entrants.<br>
+Pour ça on va utiliser un <a href="http://blog.paumard.org/cours/servlet/chap04-filtre-mise-en-place.html" target="_blank" rel="noopener noreferrer">bon vieux filtre servlet</a>.</p>
+<p>Ce dernier aura la tâche de laisser passer les requêtes entrantes si l&rsquo;application n&rsquo;est pas en maintenance et de déclencher une <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/exception/MaintenanceException.java" target="_blank" rel="noopener noreferrer">MaintenanceException</a> le cas échéant qui sera traité par <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/GlobalExceptionHandler.java" target="_blank" rel="noopener noreferrer">la gestion d&rsquo;erreur globale de l&rsquo;application</a> ( traité via un <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestControllerAdvice.html" target="_blank" rel="noopener noreferrer">@RestControllerAdvice</a>).</p>
+<p>Pour que l&rsquo;exception soit bien traitée par ce mécanisme, il faut le déclencher via le <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerExceptionResolver.html" target="_blank" rel="noopener noreferrer">HandlerExceptionResolver</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckMaintenanceFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">CheckMaintenanceFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">ApplicationAvailability</span> <span class="n">availability</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;handlerExceptionResolver&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">HandlerExceptionResolver</span> <span class="n">exceptionHandler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Checks if the application is under maintenance. If it is and if the requested URI is not &#39;/api/maintenance&#39;, it throws a &lt;code&gt;MaintenanceException&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param request
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param response
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param chain
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws IOException
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws ServletException
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws info.touret.spring.maintenancemode.exception.MaintenanceException the application is under maintenance
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">availability</span><span class="o">.</span><span class="na">getReadinessState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">!((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">API_MAINTENANCE_URI</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Message handled during maintenance [{}]&#34;</span><span class="o">,</span> <span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exceptionHandler</span><span class="o">.</span><span class="na">resolveException</span><span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">,</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="n">MaintenanceException</span><span class="o">(</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Enfin, voici la gestion des erreurs de l&rsquo;API:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Indicates that the application is on maintenance
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">MaintenanceException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">maintenance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Any other exception
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">({</span><span class="n">RuntimeException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">anyException</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;An unexpected server error occured&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>On a pu voir comment intéragir simplement avec les APIS SPRING pour gérer le statut de l&rsquo;application pour répondre à cette question :Est-elle disponible ou non?<br>
+Bien évidemment, selon le contexte, il conviendra d&rsquo;ajouter un peu de sécurité pour que cette API ne soit pas disponible à tout le monde 🙂</p>
+<p>Le code exposé ici est disponible sur <a href="https://github.com/alexandre-touret/maintenance-mode/" target="_blank" rel="noopener noreferrer">Github</a>. Le <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/README.md" target="_blank" rel="noopener noreferrer">Readme</a> est suffisamment détaillé pour que vous puissiez tester et réutiliser le code.</p>
+]]></description></item><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.
-Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;AOP ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.
-Si vous faites du JAVA, vous utilisez déjà l&rsquo;AOP.]]></description></item><item><title>Tracer (facilement) les entrées sorties d'une API REST</title><link>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</link><pubDate>Sat, 01 Dec 2018 15:51:50 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.</p>
+<p>Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a> ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.<br>
+Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a>. En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté <code>@Transactional</code>, une transaction est initiée au début de la méthode et fermée à la fin.</p>
+<p>Avec <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html" target="_blank" rel="noopener noreferrer">Spring</a> et notamment dans <a href="https://github.com/spring-projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring boot</a>, voici comment initier l&rsquo;<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-api-advice" target="_blank" rel="noopener noreferrer">AOP</a>.</p>
+<h2 id="configuration-maven" class="headerLink">
+    <a href="#configuration-maven" class="header-mark"></a>1 Configuration maven</h2><p>Ajouter le starter AOP:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="activation-des-aspects" class="headerLink">
+    <a href="#activation-des-aspects" class="header-mark"></a>2 Activation des aspects</h2><p>Dans la configuration ci-dessous, je prendrai comme exemple le logging des méthodes ( un log en début de méthode et un log en fin ). </p>
+<p>La définition des aspects se fait dans des classes annotées par <code>@Configuration</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;debug.enabled&#34;</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&#34;true&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DebuggingConfiguration</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DebuggingConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">WITHIN_MY_PACKAGE</span> <span class="o">=</span> <span class="s">&#34;within(my.package..*)&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log before execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Before</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logBeforeExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log after execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@After</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logAfterExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>L&rsquo;utilisation de l&rsquo; annotation <code>@ConditionalOnProperty</code> me permet d&rsquo;activer cette classe de configuration seulement si la propriété <code>debug.enabled</code> est initialisée à <code>true</code>.</p>
+<p>Les annotations <code>@Before</code> et <code>@After</code> indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.</p>
+<p>Pour plus de détails sur la syntaxe et les possibilités, vous pouvez vous référer <a href="https://docs.spring.io/spring/docs/2.0.x/reference/aop.html" target="_blank" rel="noopener noreferrer">à la documentation</a>.</p>
+]]></description></item><item><title>Tracer (facilement) les entrées sorties d'une API REST</title><link>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</link><pubDate>Sat, 01 Dec 2018 15:51:50 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" referrerpolicy="no-referrer">
-            </div>Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une API REST en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
-Travaillant sur une stack SpringBoot, vous allez me dire : oui tu peux faire des filtres. Pour être franc, j&rsquo;ai essayé d&rsquo; appliquer des interceptor et filtres mais dans mon contexte, ça ne collait pas.
-Me voilà donc à la recherche d&rsquo;une solution faisant le taff et qui soit peu intrusive dans mon contexte.]]></description></item></channel></rss>
+            </div><p>Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une <a href="https://fr.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noopener noreferrer">API REST</a> en appliquant quelques formatages, des filtres, et des insertions en base si besoin.</p>
+<p>Travaillant sur une stack <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">SpringBoot</a>, vous allez me dire : oui tu peux faire des filtres. Pour être franc, j&rsquo;ai essayé d&rsquo; appliquer des <a href="https://www.baeldung.com/spring-mvc-handlerinterceptor" target="_blank" rel="noopener noreferrer">interceptor</a> et <a href="https://www.baeldung.com/spring-boot-add-filter" target="_blank" rel="noopener noreferrer">filtres</a> mais dans mon contexte, ça ne collait pas.</p>
+<p>Me voilà donc à la recherche d&rsquo;une solution faisant le taff et qui soit peu intrusive dans mon contexte.</p>
+<p>J&rsquo;ai trouvé par hasard au fil de mes lectures sur Stackoverflow le framework <a href="https://github.com/zalando/logbook" target="_blank" rel="noopener noreferrer">logbook</a> réalisé par … Zalando ( et oui, ils ne font pas que des chaussures) en licence MIT. <br>
+Ce composant ne fait qu&rsquo;une seule chose, mais il le fait bien !</p>
+<p>Il permet entre autres de s&rsquo;intégrer dans une stack JAVA ( JAX-RS ou SpringMVC), de filtrer, récupérer les différentes informations des requêtes et réponses et enfin de formatter selon l&rsquo;envie (ex. JSON).</p>
+<p>Voici un exemple de mise en œuvre dans un projet SpringBoot:</p>
+<p>Dans le  fichier pom.xml, ajouter cette dépendance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;groupId&gt;</span>org.zalando<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;artifactId&gt;</span>logbook-spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;version&gt;</span>1.11.2<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans une de vos classes <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html" target="_blank" rel="noopener noreferrer">Configuration</a>, définir la factory de Logbook</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Logbook</span> <span class="nf">createLogBook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// too easy : return Logbook.create();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">Logbook</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">condition</span><span class="o">(</span><span class="n">Conditions</span><span class="o">.</span><span class="na">requestTo</span><span class="o">(</span><span class="s">&#34;/helloworld&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">formatter</span><span class="o">(</span><span class="k">new</span> <span class="n">JsonHttpLogFormatter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans mon cas j&rsquo;ai fait un filtre en n&rsquo;incluant que l&rsquo; API /helloworld et j&rsquo;ai formatté en JSON.<br>
+On peut également modifier le processus d&rsquo;écriture pour ne pas écrire dans un fichier mais en base par ex.</p>
+<p>Ensuite, j&rsquo;ai ajouté la configuration du logger dans le fichier application.properties</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">logging.level.org.zalando.logbook:TRACE</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et voila !</p>
+<p>Dans la console, lors d&rsquo;un appel ou d&rsquo;une réponse à mon API, j&rsquo;ai le message suivant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">018-12-01 15:14:18.373 TRACE <span class="m">3605</span> --- <span class="o">[</span>nio-8080-exec-1<span class="o">]</span> org.zalando.logbook.Logbook              : <span class="o">{</span><span class="s2">&#34;origin&#34;</span>:<span class="s2">&#34;remote&#34;</span>,<span class="s2">&#34;type&#34;</span>:<span class="s2">&#34;request&#34;</span>,<span class="s2">&#34;correlation&#34;</span>:<span class="s2">&#34;c6b345013835273f&#34;</span>,<span class="s2">&#34;protocol&#34;</span>:<span class="s2">&#34;HTTP/1.1&#34;</span>,<span class="s2">&#34;remote&#34;</span>:<span class="s2">&#34;127.0.0.1&#34;</span>,<span class="s2">&#34;method&#34;</span>:<span class="s2">&#34;GET&#34;</span>,<span class="s2">&#34;uri&#34;</span>:<span class="s2">&#34;http://127.0.0.1:8080/helloworld&#34;</span>,<span class="s2">&#34;headers&#34;</span>:<span class="o">{</span><span class="s2">&#34;accept&#34;</span>:<span class="o">[</span><span class="s2">&#34;/&#34;</span><span class="o">]</span>,<span class="s2">&#34;host&#34;</span>:<span class="o">[</span><span class="s2">&#34;127.0.0.1:8080&#34;</span><span class="o">]</span>,<span class="s2">&#34;user-agent&#34;</span>:<span class="o">[</span><span class="s2">&#34;curl/7.52.1&#34;</span><span class="o">]}}</span>
+</span></span><span class="line"><span class="cl">2018-12-01 15:14:18.418 TRACE <span class="m">3605</span> --- <span class="o">[</span>nio-8080-exec-1<span class="o">]</span> org.zalando.logbook.Logbook              : <span class="o">{</span><span class="s2">&#34;origin&#34;</span>:<span class="s2">&#34;local&#34;</span>,<span class="s2">&#34;type&#34;</span>:<span class="s2">&#34;response&#34;</span>,<span class="s2">&#34;correlation&#34;</span>:<span class="s2">&#34;c6b345013835273f&#34;</span>,<span class="s2">&#34;duration&#34;</span>:48,<span class="s2">&#34;protocol&#34;</span>:<span class="s2">&#34;HTTP/1.1&#34;</span>,<span class="s2">&#34;status&#34;</span>:200,<span class="s2">&#34;headers&#34;</span>:<span class="o">{</span><span class="s2">&#34;Content-Length&#34;</span>:<span class="o">[</span><span class="s2">&#34;11&#34;</span><span class="o">]</span>,<span class="s2">&#34;Content-Type&#34;</span>:<span class="o">[</span><span class="s2">&#34;text/plain;charset=UTF-8&#34;</span><span class="o">]</span>,<span class="s2">&#34;Date&#34;</span>:<span class="o">[</span><span class="s2">&#34;Sat, 01 Dec 2018 14:14:18 GMT&#34;</span><span class="o">]}</span>,<span class="s2">&#34;body&#34;</span>:<span class="s2">&#34;Hello world&#34;</span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Vous remarquerez que les requêtes / réponses peuvent désormais être associés grâce à un identifiant de corrélation. On peut facilement déterminer le temps de traitement d&rsquo;une requête ou encore faciliter les recherches.</p>
+<p>Vous trouverez tout le code dans <a href="https://github.com/littlewing/demo-logbook" target="_blank" rel="noopener noreferrer">ce repo github</a>.</p>
+]]></description></item></channel></rss>

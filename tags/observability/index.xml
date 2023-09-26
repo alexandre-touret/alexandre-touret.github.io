@@ -1,8 +1,472 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>observability - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/observability/</link><description>observability - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 26 Jul 2021 11:53:49 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/observability/" rel="self" type="application/rss+xml"/><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>observability - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/observability/</link><description>observability - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 26 Jul 2021 11:53:49 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/observability/" rel="self" type="application/rss+xml"/><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/07/rest-book-architecture.png" referrerpolicy="no-referrer">
-            </div>Il y a quelques mois déjà, je discutais avec un collègue d&rsquo; observabilité, opentracing, … avec Quarkus. On est tombé sur un super exemple réalisé par Antonio Concalves. Ce projet démontre les capacités de Quarkus sur les sujets suivants:
-Circuit Breaker Observabilité OpenTracing Tests … Et la on peut se demander quid de Spring? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.]]></description></item><item><title>Ajouter un mode « maintenance » à votre API grâce à Spring boot</title><link>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</link><pubDate>Thu, 10 Jun 2021 17:01:20 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Il y a quelques mois déjà, je discutais avec <a href="https://jefrajames.fr/" target="_blank" rel="noopener noreferrer">un collègue</a> d&rsquo; observabilité, <a href="https://github.com/opentracing-contrib/java-spring-cloud" target="_blank" rel="noopener noreferrer">opentracing</a>, … avec <a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a>. On est tombé sur <a href="https://github.com/agoncal/agoncal-fascicle-quarkus-pract" target="_blank" rel="noopener noreferrer">un super exemple réalisé par Antonio Concalves</a>. Ce projet démontre les capacités de Quarkus sur les sujets suivants:</p>
+<ul>
+<li>Circuit Breaker</li>
+<li>Observabilité</li>
+<li>OpenTracing</li>
+<li>Tests</li>
+<li>…</li>
+</ul>
+<p>Et la on peut se demander quid de <a href="http://spring.io/" target="_blank" rel="noopener noreferrer">Spring</a>? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.</p>
+<p>J&rsquo;ai donc réalisé un clone de <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">ce projet basé sur Spring Boot/Cloud</a>. Je ne vais pas détailler plus que ça les différentes fonctionnalités, vous pouvez vous référer au fichier <a href="https://github.com/alexandre-touret/bookstore_spring#readme" target="_blank" rel="noopener noreferrer">README</a>. Il est suffisamment détaillé pour que vous puissiez exécuter et les mettre en œuvre.</p>
+<h2 id="architecture-de-lapplication" class="headerLink">
+    <a href="#architecture-de-lapplication" class="header-mark"></a>1 Architecture de l&rsquo;application</h2><p>Vous trouverez ci-dessous un schéma d&rsquo;architecture de l&rsquo;application <a href="https://c4model.com/" target="_blank" rel="noopener noreferrer">au format C4</a>.</p>
+<h2 id="circuit-breaker" class="headerLink">
+    <a href="#circuit-breaker" class="header-mark"></a>2 Circuit Breaker</h2><p>Lors des appels entre le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">bookstore</a> et le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-number/src/main/java/info/touret/bookstore/spring/number/controller/BookNumbersController.java" target="_blank" rel="noopener noreferrer">booknumberservice</a>, il peut être intéressant d&rsquo; implémenter un <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breaker</a> pour pallier aux indisponibilités de ce dernier.<br>
+Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilience4j" target="_blank" rel="noopener noreferrer">Resilience4J</a> au travers de <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener noreferrer">Spring Cloud</a>. Tout ceci se fait de manière programmatique</p>
+<p>Il faut tout d&rsquo;abord <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/BookConfiguration.java" target="_blank" rel="noopener noreferrer">configurer les circuit breakers au travers d&rsquo;une classe Configuration</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
+<p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
+<h2 id="observabilité" class="headerLink">
+    <a href="#observabilit%c3%a9" class="header-mark"></a>3 Observabilité</h2><p>L&rsquo;observabilité est sans contexte la pierre angulaire (oui, rien que ça…) de toute application cloud native. Sans ça, pas de scalabilité, de redémarrage automatique,etc.<br>
+Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikipedia.org/wiki/Idempotence" target="_blank" rel="noopener noreferrer">idempotentes</a>. On a donc besoin d&rsquo;avoir toutes les informations à notre disposition. Heureusement, <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator" target="_blank" rel="noopener noreferrer">Spring fournit par le biais d&rsquo; Actuator</a> toutes les informations nécessaires. Ces dernières pourront soit être utilisées par <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (ex. le <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbe</a>) ou agrégées dans une base de données <a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
+<p>Pour activer certaines métriques d&rsquo;<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html" target="_blank" rel="noopener noreferrer">actuator</a>, il suffit de :</p>
+<p>Ajouter la/les dépendance(s)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Spécifier la configuration adéquate:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="opentracing" class="headerLink">
+    <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
+<p>Depuis quelques temps, le <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">CNCF</a> propose un projet (encore en incubation) : <a href="https://opentracing.io/" target="_blank" rel="noopener noreferrer">OpenTracing</a>. Ce dernier fait désormais partie d&rsquo;<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>.<br>
+Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de notre application microservices et pouvoir réaliser une corrélation « out of the box » grâce à l&rsquo;intégration avec <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
+<p>Pour activer la fonctionnalité il suffit d&rsquo;ajouter la dépendance au classpath:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.3.1&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>et de configurer l&rsquo;URL de Jaeger dans l&rsquo;application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Default values</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">opentracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">udp-sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6831</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
+<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger1">
+    </a></figure>
+<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger2">
+    </a></figure></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
+Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
+]]></description></item><item><title>Ajouter un mode « maintenance » à votre API grâce à Spring boot</title><link>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</link><pubDate>Thu, 10 Jun 2021 17:01:20 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/06/10/ajouter-un-mode-maintenance-a-votre-api-grace-a-spring-boot/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/06/pexels-photo-257736.jpeg" referrerpolicy="no-referrer">
-            </div>Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l&rsquo;application en mode « maintenance ».
-Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (Apache HTTPD, WAF)
-Kubernetes a introduit ( ou popularisé ) les notions de « probes » et plus particulièrement les livenessProbes et readinessProbes.]]></description></item></channel></rss>
+            </div><p>Quand vous avez une API, et a fortiori une application, il peut être parfois nécessaire de passer l&rsquo;application en mode « maintenance ».<br />Pour certaines applications il est parfois inutile de le traiter au niveau applicatif, car ça peut être pris géré par certaines couches de sécurité ou frontaux web par ex. (<a href="https://httpd.apache.org/" target="_blank" rel="noopener noreferrer">Apache HTTPD</a>, <a href="https://fr.wikipedia.org/wiki/Web_application_firewall" target="_blank" rel="noopener noreferrer">WAF</a>)</p>
+<p><a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">Kubernetes a introduit ( ou popularisé ) les notions de « probes »</a> et plus particulièrement les <a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbes</a> et <a href="https://kubernetes.io/fr/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">readinessProbes</a>.<br>
+Le premier nous indique si l&rsquo;application est en état de fonctionnement, le second nous permet de savoir si cette dernière est apte à recevoir des requêtes (ex. lors d&rsquo;un démarrage).</p>
+<p>Je vais exposer dans cet article comment utiliser au mieux ces probes et <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener noreferrer">les APIs SPRING</a> pour intégrer dans une API un mode « maintenance »</p>
+<h2 id="stack-utilisée" class="headerLink">
+    <a href="#stack-utilis%c3%a9e" class="header-mark"></a>1 Stack utilisée</h2><p>Dans l&rsquo;exemple que j&rsquo;ai développé, j&rsquo;ai pu utiliser les briques suivantes:</p>
+<ul>
+<li>OpenJDK 11.0.10</li>
+<li>Spring Boot 2.5.0 (web, actuator)</li>
+<li>Maven 3.8.1</li>
+</ul>
+<p>Bref, rien de neuf à l&rsquo;horizon 🙂</p>
+<h2 id="configuration-de-spring-actuator" class="headerLink">
+    <a href="#configuration-de-spring-actuator" class="header-mark"></a>2 Configuration de Spring Actuator</h2><p>Pour activer les différents probes, vous devez activer <a href="https://docs.spring.io/spring-boot/docs/2.4.0/actuator-api/" target="_blank" rel="noopener noreferrer">Actuator</a>.</p>
+<p>Dans le fichier pom.xml, vous devez ajouter le starter correspondant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">	<span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-actuator<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis vous devez déclarer ces differentes <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/resources/application.properties" target="_blank" rel="noopener noreferrer">propriétés</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">management.endpoints.enabled-by-default</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.health.livenessstate.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.health.readinessstate.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.show-details</span><span class="o">=</span><span class="s">always</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.probes.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoint.health.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Après avoir redémarré votre application, vous pourrez connaître son statut grâce à un appel HTTP</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -s http://localhost:8080/actuator/health/readiness 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="comment-récupérer-le-statut-des-probes" class="headerLink">
+    <a href="#comment-r%c3%a9cup%c3%a9rer-le-statut-des-probes" class="header-mark"></a>3 Comment récupérer le statut des probes?</h2><p>Avec Spring, vous pouvez modifier les différents statuts avec les classes <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/ApplicationEventPublisher.html" target="_blank" rel="noopener noreferrer">ApplicationEventPublisher</a> et <a href="https://docs.spring.io/spring-boot/docs/2.4.4/api/org/springframework/boot/availability/ApplicationAvailability.html" target="_blank" rel="noopener noreferrer">ApplicationAvailability</a>.</p>
+<p>Par exemple, pour connaître le statut <a href="https://docs.spring.io/spring-boot/docs/2.5.0-SNAPSHOT/api/org/springframework/boot/availability/ReadinessState.html" target="_blank" rel="noopener noreferrer">Readiness</a> vous pouvez exécuter le code suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;200&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Checks if the application in under maitenance&#34;</span><span class="o">)})</span>
+</span></span><span class="line"><span class="cl"> <span class="nd">@GetMapping</span>
+</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">MaintenanceDTO</span><span class="o">&gt;</span> <span class="nf">retreiveInMaintenance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">var</span> <span class="n">lastChangeEvent</span> <span class="o">=</span> <span class="n">availability</span><span class="o">.</span><span class="na">getLastChangeEvent</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="n">MaintenanceDTO</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">),</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getTimestamp</span><span class="o">())));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et la modification ?</p>
+<p>Grâce à la même API, on peut également modifier ce statut dans via du code:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;204&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Put the app under maitenance&#34;</span><span class="o">)})</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@PutMapping</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">initInMaintenance</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">inMaintenance</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">AvailabilityChangeEvent</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">eventPublisher</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">inMaintenance</span><span class="o">)</span> <span class="o">?</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span> <span class="o">:</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">ACCEPTING_TRAFFIC</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">noContent</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="headerLink">
+    <a href="#filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="header-mark"></a>4 Filtre les appels et indiquer que l&rsquo;application est en maintenance</h2><p>Maintenant qu&rsquo;on a codé les mécanismes de récupération du statut de l&rsquo;application et de la mise en maintenance, on peut ajouter le mécanisme permettant de traiter ou non les appels entrants.<br>
+Pour ça on va utiliser un <a href="http://blog.paumard.org/cours/servlet/chap04-filtre-mise-en-place.html" target="_blank" rel="noopener noreferrer">bon vieux filtre servlet</a>.</p>
+<p>Ce dernier aura la tâche de laisser passer les requêtes entrantes si l&rsquo;application n&rsquo;est pas en maintenance et de déclencher une <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/exception/MaintenanceException.java" target="_blank" rel="noopener noreferrer">MaintenanceException</a> le cas échéant qui sera traité par <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/src/main/java/info/touret/spring/maintenancemode/GlobalExceptionHandler.java" target="_blank" rel="noopener noreferrer">la gestion d&rsquo;erreur globale de l&rsquo;application</a> ( traité via un <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/bind/annotation/RestControllerAdvice.html" target="_blank" rel="noopener noreferrer">@RestControllerAdvice</a>).</p>
+<p>Pour que l&rsquo;exception soit bien traitée par ce mécanisme, il faut le déclencher via le <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/web/servlet/HandlerExceptionResolver.html" target="_blank" rel="noopener noreferrer">HandlerExceptionResolver</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckMaintenanceFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">CheckMaintenanceFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">ApplicationAvailability</span> <span class="n">availability</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;handlerExceptionResolver&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">HandlerExceptionResolver</span> <span class="n">exceptionHandler</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Checks if the application is under maintenance. If it is and if the requested URI is not &#39;/api/maintenance&#39;, it throws a &lt;code&gt;MaintenanceException&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     *
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param request
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param response
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @param chain
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws IOException
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws ServletException
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws info.touret.spring.maintenancemode.exception.MaintenanceException the application is under maintenance
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">availability</span><span class="o">.</span><span class="na">getReadinessState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">!((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">API_MAINTENANCE_URI</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Message handled during maintenance [{}]&#34;</span><span class="o">,</span> <span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">exceptionHandler</span><span class="o">.</span><span class="na">resolveException</span><span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">,</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="n">MaintenanceException</span><span class="o">(</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Enfin, voici la gestion des erreurs de l&rsquo;API:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Indicates that the application is on maintenance
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">MaintenanceException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">maintenance</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Any other exception
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">({</span><span class="n">RuntimeException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">anyException</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;An unexpected server error occured&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>On a pu voir comment intéragir simplement avec les APIS SPRING pour gérer le statut de l&rsquo;application pour répondre à cette question :Est-elle disponible ou non?<br>
+Bien évidemment, selon le contexte, il conviendra d&rsquo;ajouter un peu de sécurité pour que cette API ne soit pas disponible à tout le monde 🙂</p>
+<p>Le code exposé ici est disponible sur <a href="https://github.com/alexandre-touret/maintenance-mode/" target="_blank" rel="noopener noreferrer">Github</a>. Le <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/README.md" target="_blank" rel="noopener noreferrer">Readme</a> est suffisamment détaillé pour que vous puissiez tester et réutiliser le code.</p>
+]]></description></item></channel></rss>

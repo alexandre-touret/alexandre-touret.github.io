@@ -1,6 +1,78 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gitlab - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gitlab/</link><description>gitlab - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 09 Aug 2019 16:13:21 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gitlab/" rel="self" type="application/rss+xml"/><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gitlab - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gitlab/</link><description>gitlab - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 09 Aug 2019 16:13:21 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gitlab/" rel="self" type="application/rss+xml"/><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Juste pour un pense bête, voici comment paramétrer GIT et GITHUB/GITLAB pour signer les commits avec GPG.
-Configuration GPGExécutez la commande suivante :
-1 2 gpg --full-generate-key Sélectionnez une clé RSA (question 1) de 4096 bits (question 2). Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:
-1 2 3 4 5 6 7 gpg --list-secret-keys --keyid-format LONG alexandre@.... /home/alexandre/.gnupg/pubring.kbx ---------------------------------- sec rsa4096/XXXXXXXXXX 2019-08-09 [SC] XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX uid [ ultime ] Alexandre Touret &lt;mon.]]></description></item></channel></rss>
+            </div><p>Juste pour un pense bête, voici comment paramétrer <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">GIT</a> et <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GITHUB</a>/<a href="https://about.gitlab.com/" target="_blank" rel="noopener noreferrer">GITLAB</a> pour signer les commits avec <a href="https://gnupg.org" target="_blank" rel="noopener noreferrer">GPG</a>.</p>
+<h2 id="configuration-gpg" class="headerLink">
+    <a href="#configuration-gpg" class="header-mark"></a>1 Configuration GPG</h2><p>Exécutez la commande suivante :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --full-generate-key
+</span></span><span class="line"><span class="cl">Sélectionnez une clé RSA <span class="o">(</span>question 1<span class="o">)</span> de <span class="m">4096</span> bits <span class="o">(</span>question 2<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format LONG alexandre@....
+</span></span><span class="line"><span class="cl">/home/alexandre/.gnupg/pubring.kbx
+</span></span><span class="line"><span class="cl">----------------------------------
+</span></span><span class="line"><span class="cl">sec rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>SC<span class="o">]</span>
+</span></span><span class="line"><span class="cl">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</span></span><span class="line"><span class="cl">uid <span class="o">[</span> ultime <span class="o">]</span> Alexandre Touret &lt;mon.mail.github.ou.gitlab@monprovider.fr&gt;
+</span></span><span class="line"><span class="cl">ssb rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>E<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, il faut exécuter cette commande</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --armor --export XXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-git" class="headerLink">
+    <a href="#configuration-git" class="header-mark"></a>2 Configuration GIT</h2><p>Indiquez la clé GPG à GIT</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local user.signingkey XXXXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et indiquez que vous voulez signer tous vos commits</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local commit.gpgsign <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si vous ne faites pas cette dernière commande, vous devrez ajouter l&rsquo;option -S à chaque exécution de la commande git commit.</p>
+<p>Exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git -a -S -m <span class="s2">&#34;Ajout javadoc&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-github" class="headerLink">
+    <a href="#configuration-github" class="header-mark"></a>3 Configuration GITHUB</h2><p>Sur Github ( il y a la même chose sur gitlab), vous pouvez <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer">dans vos paramètres</a> ajouter cette clé . De cette manière, vos prochains commits envoyés seront vérifiés.</p>
+<p>En espérant que ça serve à d&rsquo;autres 🙂</p>
+]]></description></item></channel></rss>

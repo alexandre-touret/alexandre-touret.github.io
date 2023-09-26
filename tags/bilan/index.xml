@@ -1,6 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>bilan - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/bilan/</link><description>bilan - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/bilan/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>http://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>bilan - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/bilan/</link><description>bilan - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/bilan/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>http://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
-            </div>You can read the English version below
-2022 en quelques mots2023 est tout proche. Il est temps de faire un rapide bilan sur cette année 2022 (d&rsquo;un point pro).
-Après avoir changé de projet en début d&rsquo;année, j&rsquo;ai pu, grâce à mon employeur Worldline, participer en tant que speaker à
-8 conférences en français et anglais 2 meetups une présentation en ligne à Malt Academy J&rsquo;ai également écrit 6 articles sur mon blog et 4 sur le blog d&rsquo;ingénierie de Worldline.]]></description></item></channel></rss>
+            </div><p><em>You can read the English version below</em></p>
+<h2 id="2022-en-quelques-mots" class="headerLink">
+    <a href="#2022-en-quelques-mots" class="header-mark"></a>1 2022 en quelques mots</h2><p>2023 est tout proche.
+Il est temps de faire un rapide bilan sur cette année 2022 (d&rsquo;un point pro).</p>
+<p>Après avoir changé de projet en début d&rsquo;année, j&rsquo;ai pu, grâce à mon employeur <a href="https://worldline.com/" target="_blank" rel="noopener noreferrer">Worldline</a>, participer en tant que speaker à</p>
+<ul>
+<li>8 conférences en français et anglais</li>
+<li>2 meetups</li>
+<li>une présentation en ligne à <a href="https://www.malt-academy.com/" target="_blank" rel="noopener noreferrer">Malt Academy</a></li>
+</ul>
+<p>J&rsquo;ai également écrit 6 articles sur <a href="https://blog.touret.info/" target="_blank" rel="noopener noreferrer">mon blog</a> et 4 sur le <a href="https://blog.worldline.tech/authors/#alexandre-touret" target="_blank" rel="noopener noreferrer">blog d&rsquo;ingénierie de Worldline</a>.</p>
+<p>Je tiens à remercier mon employeur pour me permettre de vivre cette expérience ainsi que les organisatrices et organisateurs pour leur confiance et leur accueil (vous vous reconnaitrez).
+Merci également à toutes celles et ceux qui m&rsquo;ont aidé également à monter en compétence en tant que speaker.</p>
+<h2 id="et-maintenant" class="headerLink">
+    <a href="#et-maintenant" class="header-mark"></a>2 Et maintenant?</h2><p>Grâce à l&rsquo;initiative <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>Tech-Rel de Worldline, j&rsquo;ai pu faire des super rencontres et progresser techniquement dans certains domaines : Préparer et proposer un sujet technique vous impose de le creuser à fond et de le maîtriser.
+Pour l&rsquo;année prochaine, on a quelques idées. J&rsquo;espère pouvoir communiquer là-dessus rapidement.</p>
+<p>Je vous souhaite en attendant un bon réveillon et si vous découvrez mon article en 2023 une bonne année.</p>
+<hr>
+<h2 id="2022-in-few-words" class="headerLink">
+    <a href="#2022-in-few-words" class="header-mark"></a>3 2022 in few words</h2><p>2023 is coming.
+It is time to review 2022 in a professional point of view.</p>
+<p>After moving on to another project early 2022, I had the opportunity on behalf of my company Worldline, to participate as a speaker to:</p>
+<ul>
+<li>8 tech conferences</li>
+<li>2 meetups</li>
+<li>1 online presentation at <a href="https://www.malt-academy.com/" target="_blank" rel="noopener noreferrer">Malt Academy</a></li>
+</ul>
+<p>I also wrote 6 articles on <a href="https://blog.touret.info/" target="_blank" rel="noopener noreferrer">my blog</a> and 4 on the <a href="https://blog.worldline.tech/authors/#alexandre-touret" target="_blank" rel="noopener noreferrer">Worldline engineering blog</a>.</p>
+<p>Thank you to my employer for giving me this opportunity and the organisers for their trust and their hospitality. I&rsquo;m pretty sure you will recognise yourselves.
+Thanks then to who helped me in my speaker journey.</p>
+<h2 id="and-now-something-completely-different" class="headerLink">
+    <a href="#and-now-something-completely-different" class="header-mark"></a>4 And now, something completely different?</h2><p>On behalf of the <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>Worldline tech rel initiative, I had the chance to meet great people and move forward in some technical domains. Drawing up and submitting a talk about a technical topic requires you to dig into it and be proficient on it.
+I already have ideas for the next year. I hope communicating about it shortly.</p>
+<p>Best wishes for the new year eve and if you come across this article in 2023: Happy new year!!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>c&rsquo;est comme des dev rel mais on essaye d&rsquo;inclure au delà des devs (ex. les OPS, SRE).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>It is just like dev rel, but we would like to include all the tech crew (e.g., OPS &amp; SRE)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item></channel></rss>

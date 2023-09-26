@@ -1,5 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>integration - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/integration/</link><description>integration - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 10 Apr 2018 15:15:05 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/integration/" rel="self" type="application/rss+xml"/><item><title>Intégration et médiation avec Apache Camel</title><link>http://blog.touret.info/2018/04/10/integration-et-mediation-avec-apache-camel/</link><pubDate>Tue, 10 Apr 2018 15:15:05 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/04/10/integration-et-mediation-avec-apache-camel/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>integration - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/integration/</link><description>integration - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 10 Apr 2018 15:15:05 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/integration/" rel="self" type="application/rss+xml"/><item><title>Intégration et médiation avec Apache Camel</title><link>http://blog.touret.info/2018/04/10/integration-et-mediation-avec-apache-camel/</link><pubDate>Tue, 10 Apr 2018 15:15:05 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/04/10/integration-et-mediation-avec-apache-camel/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/04/apache-camel-logo.png" referrerpolicy="no-referrer">
-            </div>Depuis quelques jours, je teste Apache Camel pour la mise en œuvre de médiations.
-Apache Camel est un framework assez ancien. Il est similaire à Spring Intégration et permet l&rsquo; implémentation de patterns d&rsquo;intégration.
-Les patterns d&rsquo;intégrationQu&rsquo;est-ce qu&rsquo;un pattern d&rsquo;intégration allez-vous me dire ? C&rsquo;est une solution d&rsquo;architecture ou plus simplement une recette de cuisine permettant d&rsquo;avoir une solution toute prête à une problématique d&rsquo;intégration donnée. L&rsquo;ensemble de ces patterns est décrit sur ce site ( ne vous attardez pas sur le look des années 90 … ).]]></description></item></channel></rss>
+            </div><p>Depuis quelques jours, je teste <a href="https://camel.apache.org/" target="_blank" rel="noopener noreferrer">Apache Camel</a> pour la mise en œuvre  de médiations.</p>
+<p><a href="https://camel.apache.org/" target="_blank" rel="noopener noreferrer">Apache Camel</a> est un framework assez ancien. Il est similaire à <a href="https://projects.spring.io/spring-integration/" target="_blank" rel="noopener noreferrer">Spring Intégration</a> et permet l&rsquo; implémentation de <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html" target="_blank" rel="noopener noreferrer">patterns d&rsquo;intégration</a>.</p>
+<h2 id="les-patterns-dintégration" class="headerLink">
+    <a href="#les-patterns-dint%c3%a9gration" class="header-mark"></a>1 Les patterns d&rsquo;intégration</h2><p>Qu&rsquo;est-ce qu&rsquo;un <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html" target="_blank" rel="noopener noreferrer">pattern d&rsquo;intégration</a> allez-vous me dire ? C&rsquo;est une solution d&rsquo;architecture ou plus simplement une recette de cuisine permettant d&rsquo;avoir une solution toute prête à une problématique d&rsquo;intégration donnée. L&rsquo;ensemble de ces patterns est décrit sur <a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener noreferrer">ce site</a> ( ne vous attardez pas sur le look des années 90 … ).</p>
+<p>Exemple :</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2018/04/publishsubscribesolution.gif" title="publish_subscribe" data-thumbnail="/assets/images/2018/04/publishsubscribesolution.gif">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2018/04/publishsubscribesolution.gif"
+            srcset="/assets/images/2018/04/publishsubscribesolution.gif, /assets/images/2018/04/publishsubscribesolution.gif 1.5x, /assets/images/2018/04/publishsubscribesolution.gif 2x"
+            sizes="auto"
+            alt="publish_subscribe">
+    </a></figure></div>
+<p>Camel permet simplement de gérer l&rsquo;intégration via un DSL.</p>
+<h3 id="choix-dimplémentations" class="headerLink">
+    <a href="#choix-dimpl%c3%a9mentations" class="header-mark"></a>1.1 Choix d&rsquo;implémentations</h3><p>On peut faire pas mal de choses avec ce FRAMEWORK et de plusieurs manières. J&rsquo;ai fait les choix d&rsquo;implémentation suivants :</p>
+<ul>
+<li>Tout se fera avec SPRING … et pas en XML 🙂</li>
+<li>Il faut que toutes les médiations soient testables</li>
+<li>J&rsquo;exécute le code dans un FATJAR ( pourquoi avec springboot )</li>
+</ul>
+<h2 id="configuration-de-la-route" class="headerLink">
+    <a href="#configuration-de-la-route" class="header-mark"></a>2 Configuration de la route</h2><p>Apache Camel définit les médiations dans des routes. Elles se définissent assez rapidement .</p>
+<p>Les routes commencent par une instruction from et se terminent par une ou plusieurs instructions to.</p>
+<p>Pour mon exemple, j&rsquo;extrais les données d&rsquo;une table et les stocke dans un fichier.</p>
+<p>Tout se configure par des URLs. La première permet d&rsquo;extraire les données via JPA/HIBERNATE. Une entité Address permet le requêtage. La seconde permet le stockage dans un fichier texte JSON.</p>
+<p>Elles sont externalisées dans des fichiers de configuration pour faciliter les tests et accessibles via SPRING.</p>
+<p><script type="application/javascript" src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js.js"></script>
+
+<script type="application/javascript" src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js"></script>
+</p>
+<h2 id="lancement-de-la-route" class="headerLink">
+    <a href="#lancement-de-la-route" class="header-mark"></a>3 Lancement de la route</h2><p>Le lancement de la route se fait dans une méthode main() :</p>
+<script type="application/javascript" src="https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59.js.js"></script>
+
+<h2 id="tests" class="headerLink">
+    <a href="#tests" class="header-mark"></a>4 Tests</h2><p>Camel fournit une API de test assez bien fournie. Elle permet notamment de mocker des endpoints existants (ex. : le fichier de sortie de mon cas de test).</p>
+<p>Dans mon cas, j&rsquo;ai décidé de remplacer la base de données que j&rsquo;interroge en input par une <a href="http://hsqldb.org/doc/guide/ch01.html#N101CA" target="_blank" rel="noopener noreferrer">base HSQLDB chargée en mémoire</a>. Le fichier de sortie est, lui, remplacé dynamiquement par un <a href="https://camel.apache.org/mock.html" target="_blank" rel="noopener noreferrer">mock</a>. Pour ce faire, j&rsquo;ai utilisé les « adviceWith »</p>
+<script type="application/javascript" src="https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5.js.js"></script>
+
+<h2 id="pour-aller-plus-loin" class="headerLink">
+    <a href="#pour-aller-plus-loin" class="header-mark"></a>5 Pour aller plus loin</h2><p>Il y a pas mal d&rsquo;exemples sur le GITHUB de CAMEL. Vous pouvez également acheter <a href="https://www.manning.com/books/camel-in-action-second-edition" target="_blank" rel="noopener noreferrer">le livre « Camel In Action »</a>. Ca ne vaut pas <a href="https://www.amazon.fr/dp/B00B8V09HY/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" target="_blank" rel="noopener noreferrer">Effective Java</a> 🙂 , mais vu qu&rsquo;il est écrit par le principal développeur, c&rsquo;est une très bonne référence.</p>
+<p> </p>
+<p> </p>
+]]></description></item></channel></rss>

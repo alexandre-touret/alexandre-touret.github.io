@@ -1,4 +1,188 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>wordpress - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/wordpress/</link><description>wordpress - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 06 Dec 2021 12:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/wordpress/" rel="self" type="application/rss+xml"/><item><title>Migrer son blog Wordpress vers GitHub</title><link>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</link><pubDate>Mon, 06 Dec 2021 12:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>wordpress - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/wordpress/</link><description>wordpress - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 06 Dec 2021 12:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/wordpress/" rel="self" type="application/rss+xml"/><item><title>Migrer son blog Wordpress vers GitHub</title><link>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</link><pubDate>Mon, 06 Dec 2021 12:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/sebastien-goldberg-AW5MxlFDVzc-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>L&rsquo;idée me trottait dans la tête depuis quelques mois environ: migrer mon blog de Wordpress vers un site basé sur Jekyll et hébergé directement sur Github. La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas. s
-L&rsquo; hébergement de sites web sur GithubGithub permet via son service Github Pages d&rsquo;héberger des sites statiques (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.]]></description></item></channel></rss>
+            </div><p>L&rsquo;idée me trottait dans la tête depuis quelques mois environ: migrer mon blog de Wordpress vers un site basé sur Jekyll et hébergé directement sur Github.
+La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas.
+s</p>
+<h2 id="l-hébergement-de-sites-web-sur-github" class="headerLink">
+    <a href="#l-h%c3%a9bergement-de-sites-web-sur-github" class="header-mark"></a>1 L&rsquo; hébergement de sites web sur Github</h2><p><a href="https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll" target="_blank" rel="noopener noreferrer">Github permet via son service Github Pages d&rsquo;héberger des sites statiques</a> (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.
+Le certificat est automatiquement généré.</p>
+<p>Pour avoir un look un peu sympa, j&rsquo;ai donc mis en oeuvre les outils suivants:</p>
+<ul>
+<li><a href="https://jekyllrb.com" target="_blank" rel="noopener noreferrer">Jekyll</a></li>
+<li><a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">Minimal Mistakes</a></li>
+<li><a href="https://jekyllrb.com/docs/continuous-integration/github-actions/" target="_blank" rel="noopener noreferrer">Github Actions pour construire le site</a></li>
+<li><a href="https://www.markdownguide.org/" target="_blank" rel="noopener noreferrer">Markdown</a> pour écrire les différents articles</li>
+</ul>
+<h2 id="démarrer-avec-minimal-mistakes" class="headerLink">
+    <a href="#d%c3%a9marrer-avec-minimal-mistakes" class="header-mark"></a>2 Démarrer avec Minimal Mistakes</h2><p>Je vous conseille d&rsquo;aller sur <a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">ce site</a>.
+Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p>
+<h2 id="migration-des-données" class="headerLink">
+    <a href="#migration-des-donn%c3%a9es" class="header-mark"></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p>
+<ul>
+<li>Exporter les données si vous êtes hébergé sur wordpress.com</li>
+<li>Les ré-importer dans une instance locale</li>
+<li>Les exporter au format Jekyll</li>
+<li>Copier le contenu généré dans un nouveau site</li>
+</ul>
+<h3 id="exporter-les-données" class="headerLink">
+    <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png" title="wordpress_export" data-thumbnail="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
+            srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
+            sizes="auto"
+            alt="wordpress_export">
+    </a></figure></div>
+<p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
+<p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
+<h3 id="importer-les-données" class="headerLink">
+    <a href="#importer-les-donn%c3%a9es" class="header-mark"></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href="https://docs.docker.com/samples/wordpress/" target="_blank" rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p>
+<p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.9&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">db_data:/var/lib/mysql</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_ROOT_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">somewordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_DATABASE</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_USER</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">MYSQL_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wordpress</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">depends_on</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">db</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress:latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">wordpress_data:/var/www/html</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8000:80&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">restart</span><span class="p">:</span><span class="w"> </span><span class="l">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">environment</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_HOST</span><span class="p">:</span><span class="w"> </span><span class="l">db:3306</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db_data</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wordpress_data</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous aurez à lancer la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">docker-compose up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois lancé, vous aurez à une instance Wordpress via cette URL : http://localhost:8000</p>
+<p>Ensuite, il faut installer l&rsquo;extension <a href="https://wordpress.org/plugins/jekyll-exporter/" target="_blank" rel="noopener noreferrer">jekyll-exporter</a>.
+La procédure peut prendre un peu de temps.</p>
+<p>Une fois effectuée, vous aurez une archive ZIP contenant un site Jekyll avec les images et articles associés.</p>
+<h2 id="création-du-site" class="headerLink">
+    <a href="#cr%c3%a9ation-du-site" class="header-mark"></a>4 Création du site</h2><p>En attendant que ça se termine, j&rsquo;ai crée <a href="https://github.com/mmistakes/mm-github-pages-starter/generate" target="_blank" rel="noopener noreferrer">un site jekyll avec le starter du thème minimal mistakes</a>.</p>
+<p>J&rsquo;ai ensuite copié les articles (répertoire <code>/_posts</code>) et images (<code>/assets/img</code>).
+Au premier lancement des commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">bundle install
+</span></span><span class="line"><span class="cl">bundle <span class="nb">exec</span> jekyll serve
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai eu quelques erreurs. J&rsquo;ai donc eu à nettoyer les fichiers via des recherche/remplace dans un éditeur</p>
+<p>Par exemple, j&rsquo;ai supprimé les références <code>author</code> et <code>layout</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l">post</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai également ajouté pour certains articles une image pour le teaser</p>
+<p>Exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">featuredImagePreview</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2021/07/rest-book-architecture.png</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="url-des-pages-et-compatibilité-wordpress--jekyll" class="headerLink">
+    <a href="#url-des-pages-et-compatibilit%c3%a9-wordpress--jekyll" class="header-mark"></a>4.1 URL des pages et compatibilité Wordpress &lt;&gt; Jekyll</h3><p>Pour me faciliter la vie dans les URLS et liens en tout genre, j&rsquo;ai gardé le format des URLS de Wordpress.
+Pour que ça soit le format par défaut de Jekyll, il faut modifier le paramètre <code>permalink</code> dans le fichier <code>_config.yml</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">permalink</span><span class="p">:</span><span class="w"> </span><span class="l">/:year/:month/:day/:title/</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="flux-rss-pour-un-tag-donné" class="headerLink">
+    <a href="#flux-rss-pour-un-tag-donn%c3%a9" class="header-mark"></a>4.2 Flux RSS pour un tag donné</h3><p>J&rsquo;utilisais une petite spécificité de Wordpress: la création d&rsquo;un flux RSS pour un tag donné.
+Pour le mettre en place dans Jekyll, il faut configurer le plugin <code>jekyll-feed</code> avec les propriété suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">feed</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tags</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="et-maintenant-" class="headerLink">
+    <a href="#et-maintenant-" class="header-mark"></a>5 Et maintenant ?</h2><p>J&rsquo;ai sans doute oublié quelques renommages/suppressions réalisés ici et là.
+Néanmoins, le principal est évoqué dans cet article.</p>
+<p>Il ne vous reste plus qu&rsquo;à éplucher la documentation du thème et de jekyll pour finaliser l&rsquo; installation de votre nouveau site.</p>
+]]></description></item></channel></rss>

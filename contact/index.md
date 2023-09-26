@@ -1,3 +1,3 @@
 # Contact
 
-Si vous souhaitez me contacter, n'hésitez pas à le faire via [Twitter](https://twitter.com/touret_alex) ou [LinkedIn](https://www.linkedin.com/in/atouret/).
+You can reach out to me through [Twitter](https://twitter.com/touret_alex) or [LinkedIn](https://www.linkedin.com/in/atouret/).

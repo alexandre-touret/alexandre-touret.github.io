@@ -1,3 +1,36 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>raspberry-pi - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/raspberry-pi/</link><description>raspberry-pi - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 07 Mar 2019 08:30:44 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/raspberry-pi/" rel="self" type="application/rss+xml"/><item><title>Une radio connectée DIY</title><link>http://blog.touret.info/2019/03/07/une-radio-connectee-diy/</link><pubDate>Thu, 07 Mar 2019 08:30:44 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/03/07/une-radio-connectee-diy/</guid><description><![CDATA[Dans la série j&rsquo;équipe ma maison en Raspberry PI, j&rsquo;ai décidé de me doter d&rsquo;une station radio connectée qui me permettrait de « moderniser » un peu ma chaîne HI-FI.
-Mes besoins sont:
-Connexion en analogique à une chaîne HI-FI Jouer des MP3/FLAC stockés dans un NAS Jouer des web radios (ex. FIP, TSF JAZZ) Connexion SPOTIFY Une interface web sympa Après quelques recherches, j&rsquo;ai donc opté pour une solution basée sur un DAC JustBoom, un Raspberry PI et la distribution MoodeAudio.]]></description></item></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>raspberry-pi - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/raspberry-pi/</link><description>raspberry-pi - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 07 Mar 2019 08:30:44 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/raspberry-pi/" rel="self" type="application/rss+xml"/><item><title>Une radio connectée DIY</title><link>http://blog.touret.info/2019/03/07/une-radio-connectee-diy/</link><pubDate>Thu, 07 Mar 2019 08:30:44 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/03/07/une-radio-connectee-diy/</guid><description><![CDATA[<p>Dans la série j&rsquo;équipe ma maison en <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener noreferrer">Raspberry PI</a>, j&rsquo;ai décidé de me doter d&rsquo;une station radio connectée qui me permettrait de « moderniser » un peu ma chaîne HI-FI.</p>
+<p>Mes besoins sont:</p>
+<ul>
+<li>Connexion en analogique à une chaîne HI-FI</li>
+<li>Jouer des MP3/FLAC stockés dans un NAS</li>
+<li>Jouer des web radios (ex. FIP, TSF JAZZ)</li>
+<li>Connexion SPOTIFY</li>
+<li>Une interface web sympa</li>
+</ul>
+<p>Après quelques recherches, j&rsquo;ai donc opté pour une solution basée sur un <a href="https://www.justboom.co/product/justboom-dac-hat/" target="_blank" rel="noopener noreferrer">DAC JustBoom</a>, un Raspberry PI et la distribution <a href="http://moodeaudio.org/" target="_blank" rel="noopener noreferrer">MoodeAudio</a>.</p>
+<p>Voici le DAC que l&rsquo;on branche directement sur le port GPIO du Raspberry PI:</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2019/03/f1228179-02.jpg" title="dac" data-thumbnail="/assets/images/2019/03/f1228179-02.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/03/f1228179-02.jpg"
+            srcset="/assets/images/2019/03/f1228179-02.jpg, /assets/images/2019/03/f1228179-02.jpg 1.5x, /assets/images/2019/03/f1228179-02.jpg 2x"
+            sizes="auto"
+            alt="dac">
+    </a></figure></div>
+<p>L&rsquo;installation et la configuration du DAC se sont très bien passées. L&rsquo;installation se fait comme avec des LEGOs.</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2019/03/img_20190306_234555.jpg" title="it&amp;rsquo;s alive" data-thumbnail="/assets/images/2019/03/img_20190306_234555.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/03/img_20190306_234555.jpg"
+            srcset="/assets/images/2019/03/img_20190306_234555.jpg, /assets/images/2019/03/img_20190306_234555.jpg 1.5x, /assets/images/2019/03/img_20190306_234555.jpg 2x"
+            sizes="auto"
+            alt="it&amp;rsquo;s alive">
+    </a></figure></div>
+<p>Pour la configuration, j&rsquo;ai testé dans un premier temps <a href="https://volumio.org/" target="_blank" rel="noopener noreferrer">Volumio</a> puis <a href="http://moodeaudio.org/" target="_blank" rel="noopener noreferrer">MoodeAudio</a>. Pour  l&rsquo;instant, je reste sur cette dernière. Toutes les fonctionnalités que je souhaite sont en standard. Pas besoin de plugins tiers.</p>
+<p>Toutes les étapes d&rsquo; installation et de configuration pour que le DAC soit reconnu sont décrites <a href="https://www.justboom.co/software/configure-justboom-with-moode/" target="_blank" rel="noopener noreferrer">ici</a>. Les gens de chez JustBoom ont bien documenté la configuration pour les principales distributions.</p>
+<p>Le seul reproche que je trouve à <a href="http://moodeaudio.org" target="_blank" rel="noopener noreferrer">MoodeAudio</a> est l&rsquo;ergonomie. Sur un téléphone, ce n&rsquo;est pas top. Surtout sur l&rsquo;accès aux menus d&rsquo;administration. J&rsquo;ai du également ajouter des radios manuellement alors que dans Volumio, avec le plugin TuneIn, ça pouvait se faire automatiquement. Je me suis basé sur les informations fournies par <a href="https://fluxradios.blogspot.com/2014/07/flux-url-tsf-jazz.html" target="_blank" rel="noopener noreferrer">ce site</a>.</p>
+<p>Quoi qu&rsquo;il en soit, tout ce que je souhaitais fonctionne super bien! <a href="https://www.spotify.com/fr/connect/" target="_blank" rel="noopener noreferrer">Spotify Connect</a>, l&rsquo;écoute de <a href="https://www.tsfjazz.com/" target="_blank" rel="noopener noreferrer">TSF JAZZ</a>, la lecture des morceaux de ma bibliothèque fonctionnent nickel !</p>
+<p> </p>
+]]></description></item></channel></rss>

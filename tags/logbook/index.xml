@@ -1,5 +1,73 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>logbook - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/logbook/</link><description>logbook - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 01 Dec 2018 15:51:50 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/logbook/" rel="self" type="application/rss+xml"/><item><title>Tracer (facilement) les entrées sorties d'une API REST</title><link>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</link><pubDate>Sat, 01 Dec 2018 15:51:50 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>logbook - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/logbook/</link><description>logbook - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 01 Dec 2018 15:51:50 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/logbook/" rel="self" type="application/rss+xml"/><item><title>Tracer (facilement) les entrées sorties d'une API REST</title><link>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</link><pubDate>Sat, 01 Dec 2018 15:51:50 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/12/01/tracer-facilement-les-entrees-sorties-dune-api-rest/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/street_city_people_blackandwhite_bw_man_detail_project-248333-jpgd.jpeg" referrerpolicy="no-referrer">
-            </div>Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une API REST en appliquant quelques formatages, des filtres, et des insertions en base si besoin.
-Travaillant sur une stack SpringBoot, vous allez me dire : oui tu peux faire des filtres. Pour être franc, j&rsquo;ai essayé d&rsquo; appliquer des interceptor et filtres mais dans mon contexte, ça ne collait pas.
-Me voilà donc à la recherche d&rsquo;une solution faisant le taff et qui soit peu intrusive dans mon contexte.]]></description></item></channel></rss>
+            </div><p>Il y a quelques jours, je cherchais comment tracer rapidement et simplement les entrées sorties d&rsquo;une <a href="https://fr.wikipedia.org/wiki/Representational_state_transfer" target="_blank" rel="noopener noreferrer">API REST</a> en appliquant quelques formatages, des filtres, et des insertions en base si besoin.</p>
+<p>Travaillant sur une stack <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">SpringBoot</a>, vous allez me dire : oui tu peux faire des filtres. Pour être franc, j&rsquo;ai essayé d&rsquo; appliquer des <a href="https://www.baeldung.com/spring-mvc-handlerinterceptor" target="_blank" rel="noopener noreferrer">interceptor</a> et <a href="https://www.baeldung.com/spring-boot-add-filter" target="_blank" rel="noopener noreferrer">filtres</a> mais dans mon contexte, ça ne collait pas.</p>
+<p>Me voilà donc à la recherche d&rsquo;une solution faisant le taff et qui soit peu intrusive dans mon contexte.</p>
+<p>J&rsquo;ai trouvé par hasard au fil de mes lectures sur Stackoverflow le framework <a href="https://github.com/zalando/logbook" target="_blank" rel="noopener noreferrer">logbook</a> réalisé par … Zalando ( et oui, ils ne font pas que des chaussures) en licence MIT. <br>
+Ce composant ne fait qu&rsquo;une seule chose, mais il le fait bien !</p>
+<p>Il permet entre autres de s&rsquo;intégrer dans une stack JAVA ( JAX-RS ou SpringMVC), de filtrer, récupérer les différentes informations des requêtes et réponses et enfin de formatter selon l&rsquo;envie (ex. JSON).</p>
+<p>Voici un exemple de mise en œuvre dans un projet SpringBoot:</p>
+<p>Dans le  fichier pom.xml, ajouter cette dépendance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;groupId&gt;</span>org.zalando<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;artifactId&gt;</span>logbook-spring-boot-starter<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"> <span class="nt">&lt;version&gt;</span>1.11.2<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans une de vos classes <a href="https://docs.spring.io/spring-framework/docs/current/javadoc-api/org/springframework/context/annotation/Configuration.html" target="_blank" rel="noopener noreferrer">Configuration</a>, définir la factory de Logbook</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Logbook</span> <span class="nf">createLogBook</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">// too easy : return Logbook.create();
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">Logbook</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">condition</span><span class="o">(</span><span class="n">Conditions</span><span class="o">.</span><span class="na">requestTo</span><span class="o">(</span><span class="s">&#34;/helloworld&#34;</span><span class="o">))</span>
+</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">formatter</span><span class="o">(</span><span class="k">new</span> <span class="n">JsonHttpLogFormatter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans mon cas j&rsquo;ai fait un filtre en n&rsquo;incluant que l&rsquo; API /helloworld et j&rsquo;ai formatté en JSON.<br>
+On peut également modifier le processus d&rsquo;écriture pour ne pas écrire dans un fichier mais en base par ex.</p>
+<p>Ensuite, j&rsquo;ai ajouté la configuration du logger dans le fichier application.properties</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">logging.level.org.zalando.logbook:TRACE</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et voila !</p>
+<p>Dans la console, lors d&rsquo;un appel ou d&rsquo;une réponse à mon API, j&rsquo;ai le message suivant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">018-12-01 15:14:18.373 TRACE <span class="m">3605</span> --- <span class="o">[</span>nio-8080-exec-1<span class="o">]</span> org.zalando.logbook.Logbook              : <span class="o">{</span><span class="s2">&#34;origin&#34;</span>:<span class="s2">&#34;remote&#34;</span>,<span class="s2">&#34;type&#34;</span>:<span class="s2">&#34;request&#34;</span>,<span class="s2">&#34;correlation&#34;</span>:<span class="s2">&#34;c6b345013835273f&#34;</span>,<span class="s2">&#34;protocol&#34;</span>:<span class="s2">&#34;HTTP/1.1&#34;</span>,<span class="s2">&#34;remote&#34;</span>:<span class="s2">&#34;127.0.0.1&#34;</span>,<span class="s2">&#34;method&#34;</span>:<span class="s2">&#34;GET&#34;</span>,<span class="s2">&#34;uri&#34;</span>:<span class="s2">&#34;http://127.0.0.1:8080/helloworld&#34;</span>,<span class="s2">&#34;headers&#34;</span>:<span class="o">{</span><span class="s2">&#34;accept&#34;</span>:<span class="o">[</span><span class="s2">&#34;/&#34;</span><span class="o">]</span>,<span class="s2">&#34;host&#34;</span>:<span class="o">[</span><span class="s2">&#34;127.0.0.1:8080&#34;</span><span class="o">]</span>,<span class="s2">&#34;user-agent&#34;</span>:<span class="o">[</span><span class="s2">&#34;curl/7.52.1&#34;</span><span class="o">]}}</span>
+</span></span><span class="line"><span class="cl">2018-12-01 15:14:18.418 TRACE <span class="m">3605</span> --- <span class="o">[</span>nio-8080-exec-1<span class="o">]</span> org.zalando.logbook.Logbook              : <span class="o">{</span><span class="s2">&#34;origin&#34;</span>:<span class="s2">&#34;local&#34;</span>,<span class="s2">&#34;type&#34;</span>:<span class="s2">&#34;response&#34;</span>,<span class="s2">&#34;correlation&#34;</span>:<span class="s2">&#34;c6b345013835273f&#34;</span>,<span class="s2">&#34;duration&#34;</span>:48,<span class="s2">&#34;protocol&#34;</span>:<span class="s2">&#34;HTTP/1.1&#34;</span>,<span class="s2">&#34;status&#34;</span>:200,<span class="s2">&#34;headers&#34;</span>:<span class="o">{</span><span class="s2">&#34;Content-Length&#34;</span>:<span class="o">[</span><span class="s2">&#34;11&#34;</span><span class="o">]</span>,<span class="s2">&#34;Content-Type&#34;</span>:<span class="o">[</span><span class="s2">&#34;text/plain;charset=UTF-8&#34;</span><span class="o">]</span>,<span class="s2">&#34;Date&#34;</span>:<span class="o">[</span><span class="s2">&#34;Sat, 01 Dec 2018 14:14:18 GMT&#34;</span><span class="o">]}</span>,<span class="s2">&#34;body&#34;</span>:<span class="s2">&#34;Hello world&#34;</span><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Vous remarquerez que les requêtes / réponses peuvent désormais être associés grâce à un identifiant de corrélation. On peut facilement déterminer le temps de traitement d&rsquo;une requête ou encore faciliter les recherches.</p>
+<p>Vous trouverez tout le code dans <a href="https://github.com/littlewing/demo-logbook" target="_blank" rel="noopener noreferrer">ce repo github</a>.</p>
+]]></description></item></channel></rss>

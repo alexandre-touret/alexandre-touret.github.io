@@ -1,16 +1,1020 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kubernetes - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/kubernetes/</link><description>kubernetes - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/kubernetes/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kubernetes - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/kubernetes/</link><description>kubernetes - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/kubernetes/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
-            </div>Dans mon dernier article, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.
-J&rsquo;ai par la suite testé plus en détails les jobs et cron jobs Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet. Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer. Si ces derniers sont terminés avec succès - Vous allez me dire, il faut bien les coder - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.]]></description></item><item><title>Faire des batchs "Cloud Native" dans Kubernetes</title><link>http://blog.touret.info/2022/05/17/cloud-native-batchs/</link><pubDate>Tue, 17 May 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/05/17/cloud-native-batchs/</guid><description><![CDATA[<div class="featured-image">
+            </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
+            srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
+Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
+Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
+J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2022/08/luke_cage.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/luke_cage.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/luke_cage.webp"
+            srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
+Loin de là.</p>
+<p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
+Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2022/08/spring_dataflow_logo.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/spring_dataflow_logo.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/spring_dataflow_logo.webp"
+            srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
+            sizes="auto"
+            alt="dataflow">
+    </a></figure></div>
+<p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
+L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
+Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
+<p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener noreferrer">Minikube</a>.</p>
+<h2 id="installation-et-configuration-de-minikube" class="headerLink">
+    <a href="#installation-et-configuration-de-minikube" class="header-mark"></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener noreferrer">le site officiel</a>.</p>
+<p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+</span></span><span class="line"><span class="cl">sudo install minikube-linux-amd64 /usr/local/bin/minikube
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Au premier démarrage, vous finirez l&rsquo;installation</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="installation-de-spring-cloud-data-flow" class="headerLink">
+    <a href="#installation-de-spring-cloud-data-flow" class="header-mark"></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add bitnami https://charts.bitnami.com/bitnami
+</span></span><span class="line"><span class="cl">helm install my-release bitnami/spring-cloud-dataflow
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Après quelques minutes de téléchargement, vous devriez avoir le retour suivante à l&rsquo;exécution de la commande <code>kubectl get pods</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">~ » kubectl get pods                                                                           
+</span></span><span class="line"><span class="cl">NAME  READY   STATUS             RESTARTS      AGE
+</span></span><span class="line"><span class="cl">dataflow-mariadb-0  1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-rabbitmq-0 1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-server-75db59d6cb-lrwp8   1/1 Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="accès-au-dashboard" class="headerLink">
+    <a href="#acc%c3%a8s-au-dashboard" class="header-mark"></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href="https://cloud.spring.io/spring-cloud-dataflow-ui/" target="_blank" rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SERVICE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].port}&#34;</span> services dataflow-spring-cloud-dataflow-server<span class="k">)</span>
+</span></span><span class="line"><span class="cl">kubectl port-forward --namespace default svc/dataflow-spring-cloud-dataflow-server <span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>:<span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, vous pourrez accéder à la console web via l&rsquo;URL <code>http://localhost:8080/dashboard</code>.</p>
+<h2 id="développement-dune-task" class="headerLink">
+    <a href="#d%c3%a9veloppement-dune-task" class="header-mark"></a>2 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
+Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" target="_blank" rel="noopener noreferrer">https://api.nationalize.io/</a>.</p>
+<p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p>
+<p>Vous trouverez les sources de cet exemple sur <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">mon Github</a>.</p>
+<p>Aussi, la documentation est bien faite, il suffit de <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/" target="_blank" rel="noopener noreferrer">la lire</a>.</p>
+<h3 id="initialisation" class="headerLink">
+    <a href="#initialisation" class="header-mark"></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-web&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.cloud:spring-cloud-starter-task&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">developmentOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-devtools&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">testImplementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-test&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-jdbc&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">runtimeOnly</span> <span class="s1">&#39;org.mariadb.jdbc:mariadb-java-client&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dependencyManagement</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">imports</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenBom</span> <span class="s2">&#34;org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p>
+<h3 id="construction-de-la-tâche" class="headerLink">
+    <a href="#construction-de-la-t%c3%a2che" class="header-mark"></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@EnableTask</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaskConfiguration</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">CommandLineRunner</span> <span class="nf">createCommandLineRunner</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">commandLinePropertySource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleCommandLinePropertySource</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span> <span class="o">+</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">commandLinePropertySource</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;BLANK&#34;</span><span class="o">),</span> <span class="n">NationalizeResponseDTO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="o">,</span> <span class="n">entity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">(),</span> <span class="n">entity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">};</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p>
+<p>Voici un exemple d&rsquo;exécution :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">2022-08-12 15:11:07.885  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span class="o">(</span>s<span class="o">)</span>: <span class="m">8080</span> <span class="o">(</span>http<span class="o">)</span> with context path <span class="s1">&#39;&#39;</span>
+</span></span><span class="line"><span class="cl">2022-08-12 15:11:07.894  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.b.cloudtask.CloudTaskApplication     : Started CloudTaskApplication in 17.704 seconds <span class="o">(</span>JVM running <span class="k">for</span> 19.18<span class="o">)</span>
+</span></span><span class="line"><span class="cl">2022-08-12 15:11:10.722  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class="o">[</span><span class="m">200</span> OK<span class="o">]</span>: NationalizeResponseDTO<span class="o">{</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Alexandre&#39;</span>, <span class="nv">countries</span><span class="o">=[</span>CountryDTO<span class="o">{</span><span class="nv">countryId</span><span class="o">=</span><span class="s1">&#39;BR&#39;</span>, pr....
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="packaging" class="headerLink">
+    <a href="#packaging" class="header-mark"></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew build
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="déploiement" class="headerLink">
+    <a href="#d%c3%a9ploiement" class="header-mark"></a>3 Déploiement</h2><h3 id="création-et-déploiement-de-limage-docker" class="headerLink">
+    <a href="#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker" class="header-mark"></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p>
+<p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, il nous reste à créer l&rsquo;image Docker</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew bootBuildImage --imageName<span class="o">=</span>info.touret/cloud-task:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube image ls <span class="p">|</span> grep cloud-task                                                                                                                                                                          
+</span></span><span class="line"><span class="cl">info.touret/cloud-task:latest
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="création-de-lapplication" class="headerLink">
+    <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
+<figure><img src="/assets/images/2022/08/dataflow_config5.webp"/>
+</figure>
+
+<p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
+<h3 id="création-de-la-tâche" class="headerLink">
+    <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config3.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config3.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config3.webp"
+            srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config4.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config4.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config4.webp"
+            srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
+<h2 id="exécution" class="headerLink">
+    <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
+Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config2.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config2.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config2.webp"
+            srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config10.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config10.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config10.webp"
+            srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config8.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config8.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config8.webp"
+            srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config7.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config7.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config7.webp"
+            srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config9.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config9.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/08/dataflow_config9.webp"
+            srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+<p>J&rsquo;ai pu également accéder aux logs.</p>
+<p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods <span class="p">|</span> grep cloud-task                                                                                                                                                                           
+</span></span><span class="line"><span class="cl">cloud-task-7mp72gzpwo                                    1/1     Running            <span class="m">0</span>               57m
+</span></span><span class="line"><span class="cl">cloud-task-pymdkr182p                                    1/1     Running            <span class="m">0</span>               65m
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A chaque exécution il y aura donc un pod d&rsquo;alloué.</p>
+<h2 id="aller-plus-loin" class="headerLink">
+    <a href="#aller-plus-loin" class="header-mark"></a>5 Aller plus loin</h2><p>Parmi les fonctionnalités que j&rsquo;ai découvert, on peut :</p>
+<ul>
+<li>relancer un traitement</li>
+<li>le programmer</li>
+<li>nettoyer les exécutions</li>
+<li>les pistes d&rsquo;audit</li>
+<li>le chaînage des différentes tâches</li>
+</ul>
+<p>Gros inconvénient pour le nettoyage: je n&rsquo;ai pas constaté un impact dans les pods alloués.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
+Je vais donc utiliser la liste des caractéristiques présentée par <a href="https://fundamentalsofsoftwarearchitecture.com/" target="_blank" rel="noopener noreferrer">M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
+<p>Bien évidemment, cette notation est purement personnelle.
+Vous noterez que selon où on positionne le curseur, l&rsquo;une des deux solutions peut s&rsquo;avérer meilleure (ou pas).</p>
+<p>Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
+A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data.</p>
+<p>N&rsquo;hésitez pas à me donner votre avis (<a href="https://blog.touret.info/a-propos/" target="_blank" rel="noopener noreferrer">sans troller svp</a>) en commentaire ou si ça concerne l&rsquo;exemple, directement <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">dans Github</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Architecture characteristic</th>
+<th>K8s job rating</th>
+<th>Spring Cloud Dataflow rating</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Partitioning type</td>
+<td>Domain &amp; technical</td>
+<td>Domain &amp; technical</td>
+</tr>
+<tr>
+<td>Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+<td>1</td>
+<td>1 to many</td>
+</tr>
+<tr>
+<td>Deployability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Elasticity</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Evolutionary</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Fault Tolerance</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Modularity</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Overall cost</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Performance</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Reliability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Scalability</td>
+<td>⭐⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Simplicity</td>
+<td>⭐⭐⭐⭐⭐</td>
+<td>⭐⭐⭐</td>
+</tr>
+<tr>
+<td>Testability</td>
+<td>⭐⭐⭐</td>
+<td>⭐⭐⭐⭐</td>
+</tr>
+</tbody>
+</table>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>A lire absolument!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>~ Nombre de livrables indépendants fortement couplés&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Faire des batchs "Cloud Native" dans Kubernetes</title><link>http://blog.touret.info/2022/05/17/cloud-native-batchs/</link><pubDate>Tue, 17 May 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/05/17/cloud-native-batchs/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp" referrerpolicy="no-referrer">
-            </div>Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs. Mais qu&rsquo;en est-il des batchs?
-Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore. Ils ont même eu une deuxième jeunesse avec le Big Data et l&rsquo;explosion des volumétries dans l&rsquo;IT.
-Je vais essayer de faire un tour d&rsquo;horizon dans cet article des batchs dans un environnement Cloud et plus particulièrement dans Kubernetes.]]></description></item><item><title>K8S, HELM et Cie: au delà de la hype</title><link>http://blog.touret.info/2020/10/08/k8s-helm-et-cie-au-dela-de-la-hype/</link><pubDate>Thu, 08 Oct 2020 10:09:59 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/10/08/k8s-helm-et-cie-au-dela-de-la-hype/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs.
+Mais qu&rsquo;en est-il des batchs?</p>
+<p>Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore.
+Ils ont même eu une deuxième jeunesse avec le Big Data et l&rsquo;explosion des volumétries dans l&rsquo;IT.</p>
+<p>Je vais essayer de faire un tour d&rsquo;horizon dans cet article des batchs dans un environnement Cloud et plus particulièrement dans Kubernetes.</p>
+<p>Les exemples présentés dans cet article seront (sans doute) approfondis dans un second article et d&rsquo;ores et déjà disponibles dans <a href="https://github.com/alexandre-touret/k8s-batch" target="_blank" rel="noopener noreferrer">mon GitHub</a>.</p>
+<h2 id="pourquoi-des-batchs-dans-le-cloud" class="headerLink">
+    <a href="#pourquoi-des-batchs-dans-le-cloud" class="header-mark"></a>1 Pourquoi des batchs dans le Cloud?</h2><p>A ce titre un peu provocateur, j&rsquo;ajouterais aussi <em>&ldquo;Pourquoi des batchs dans Kubernetes ?&rdquo;</em>.</p>
+<p>Oui, aujourd&rsquo;hui encore,comme j&rsquo;ai pu l&rsquo;indiquer précédemment, on doit créer des traitements batchs. A coté des APIs qui représentent le cas d&rsquo;utilisation &ldquo;standard&rdquo; du Cloud, on peut également avoir à traiter des fichiers volumineux allant de plusieurs centaines de Mo à quelques Go.</p>
+<p>Parmi les cas d&rsquo;utilisation qui nécessitent ce genre de traitement, on pourra avoir:</p>
+<ul>
+<li>Les reprises de données (suite à des erreurs ou lors d&rsquo;une initialisation)</li>
+<li>Traitement suite à une réception de fichiers (par ex. traitement de fichiers OPENDATA)</li>
+</ul>
+<p>Si vous êtes déjà passé sur le Cloud pour vos applications transactionnelles, vous vous poserez cette question: <em>Puis-je également déployer des batchs?</em></p>
+<h3 id="pourquoi-se-poser-cette-question" class="headerLink">
+    <a href="#pourquoi-se-poser-cette-question" class="header-mark"></a>1.1 Pourquoi se poser cette question?</h3><p>Les réponses sont multiples.
+Elles sont tout d&rsquo;abord liées à une rationalisation des environnements.
+Vous avez votre application dans le cloud, votre base de données y est également gérée pour éviter la latence réseau.
+Vous devez donc déployer des traitements tiers au plus proche de celle-ci pour vous soustraire des mêmes soucis.</p>
+<p>De plus, l&rsquo;écosystème lié au cloud offre des technologies et pratiques qui rendent la vie plus simple (si, si, je vous assure) aux développeurs et ops.
+Le déploiement via <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">l&rsquo;Infra As Code</a> est un bon exemple : Avoir toute l&rsquo;infrastructure liée aux traitements batchs et transactionnels versionnées et instantiables à la demande est quelque chose dont on a du mal à se passer!</p>
+<h2 id="difficultés-par-rapport-aux-apis" class="headerLink">
+    <a href="#difficult%c3%a9s-par-rapport-aux-apis" class="header-mark"></a>2 Difficulté(s) par rapport aux APIs</h2><p>Quand on déploie une API dans le cloud, généralement tout va bien.
+On peut voir rapidement que cet environnement convient bien à ce genre de traitements.</p>
+<p>Pour les batchs, c&rsquo;est une autre affaire!
+Selon les sociétés, il peut y avoir un fort historique et beaucoup plus d&rsquo;exigences que pour les APIs.
+Ces dernières pourront être liées aux performances, à la qualité de service ou plus simplement à l&rsquo;utilisation.</p>
+<p>Il faut donc, à l&rsquo;instar de toute architecture, déterminer quel sera l&rsquo;environnement technique de ce type de traitement.
+Cette fois, on aura à concilier performances, fichiers volumineux et reprises sur erreur.</p>
+<h3 id="quelques-technologies" class="headerLink">
+    <a href="#quelques-technologies" class="header-mark"></a>2.1 Quelques technologies</h3><p>On pourra retrouver dans notre future architecture les briques suivantes:</p>
+<ul>
+<li>Une passerelle de fichiers (File Gateway) pour permettre l&rsquo;envoi des fichiers de manière sécurisée</li>
+<li>Un stockage objet pour la distribution de fichiers ou l&rsquo;archivage.</li>
+<li>Les éléments nécessaires à l&rsquo;API : bases de données, <a href="https://en.wikipedia.org/wiki/Hardware_security_module" target="_blank" rel="noopener noreferrer">HSMs</a>, Cluster Kubernetes,&hellip;</li>
+</ul>
+<h2 id="modes-de-déclenchement" class="headerLink">
+    <a href="#modes-de-d%c3%a9clenchement" class="header-mark"></a>3 Modes de déclenchement</h2><p>Si on regarde de plus près les exigences techniques liées aux cas d&rsquo;utilisation, on pourrait résumer les différents modes de déclenchement de la manière suivante:</p>
+<ul>
+<li>Traitement sur réception de fichiers</li>
+<li>Traitement déclenché par un ordonnanceur/orchestrateur centralisé (ex. <a href="https://dkron.io/" target="_blank" rel="noopener noreferrer">https://dkron.io/</a>) de manière régulière ou non.</li>
+<li>Traitement déclenché par <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener noreferrer">CRON</a> (qui est un ordonnanceur, mais un peu plus roots)</li>
+</ul>
+<p>J&rsquo;ai volontairement exclu les traitements sur présence de messages (ex. Kafka). Je les considère plus liés au monde transactionnel.</p>
+<p>Dans les paragraphes suivants, je vais décrire des solutions d&rsquo;architecture qui permettent de déployer ces traitements dans Kubernetes. J&rsquo;aborderai sans doute un exemple dans un autre article</p>
+<h2 id="contraintes" class="headerLink">
+    <a href="#contraintes" class="header-mark"></a>4 Contraintes</h2><p>Dès qu&rsquo;on s&rsquo;aventure dans ce type de conception, nous aurons, au-delà des <a href="https://12factor.net/" target="_blank" rel="noopener noreferrer">12 factors</a>, les contraintes suivantes à traiter:</p>
+<h3 id="gestion-des-erreurs-et-indisponibilités" class="headerLink">
+    <a href="#gestion-des-erreurs-et-indisponibilit%c3%a9s" class="header-mark"></a>4.1 Gestion des erreurs et indisponibilités</h3><p>Dans un cluster Kubernetes, le crash d&rsquo;un POD n&rsquo;est pas rédhibitoire.
+Le cluster permet de redémarrer immédiatement une autre instance.</p>
+<p>Pour les APIs, ce n&rsquo;est pas un problème.
+Pour les batchs, c&rsquo;est une autre paire de manches.
+Quid du crash en plein milieu du traitement d&rsquo;un fichier?</p>
+<p>Il faut donc penser à ce cas (et à d&rsquo;autres) et archiver les fichiers pour un éventuel rejeu.</p>
+<h3 id="données-et-idempotence-des-traitements" class="headerLink">
+    <a href="#donn%c3%a9es-et-idempotence-des-traitements" class="header-mark"></a>4.2 Données et idempotence des traitements</h3><p>Idéalement, les fichiers doivent avoir des lignes indépendantes qui peuvent être insérées individuellement et dans n&rsquo;importe quel ordre.
+Aussi, chaque modification et traitement de données doivent être idempotentes.</p>
+<p>Pourquoi? Pas seulement par ce que c&rsquo;est sympa et l&rsquo;état de l&rsquo;art, mais dans ce nouvel environnement, vous ne pourrez pas forcément garantir l&rsquo;ordre des traitements.
+L&rsquo;une des solutions potentielles de traitement est de découpler la lecture et l&rsquo;insertion par du queueing (Artemis, Kafka <em>- oui ce n&rsquo;est pas du queuing, mais vous avez compris&hellip;</em>).
+Dans ce cas, si votre traitement n&rsquo;est pas idempotent, vous devrez lutter avec des doublons en base.</p>
+<h3 id="gestion-des-ressources" class="headerLink">
+    <a href="#gestion-des-ressources" class="header-mark"></a>4.3 Gestion des ressources</h3><p>Imaginez, vous recevez un fichier de 1Go.
+Vos ressources systèmes sont des PODs avec un 1 Go de RAM.</p>
+<p>Vous voyez le soucis?</p>
+<p>Cet exemple, qui n&rsquo;est pas trop éloigné de la réalité, mets en évidence l&rsquo;une des contraintes techniques que vous devrez prendre dès le début de votre conception.</p>
+<p>L&rsquo;une des solutions serait, par exemple, le traitement quasi systématique du streaming de fichiers et l&rsquo;obligation d&rsquo;avoir des fichiers avec des lignes de données indépendantes (c.-à-d. sans avoir à faire de liens inter lignes pendant le traitement).</p>
+<h2 id="traitement-sur-réception-de-fichiers" class="headerLink">
+    <a href="#traitement-sur-r%c3%a9ception-de-fichiers" class="header-mark"></a>5 Traitement sur réception de fichiers</h2><p>Dans ce cas, nous avons un processus qui est déclenché lors de la réception d&rsquo;un fichier. Nous pourrons par exemple avec ce genre d&rsquo;architecture un fichier qui est envoyé dans espace de stockage objet. Ce dernier est ensuite traité par un programme.
+J&rsquo;ai fait le choix ici de mettre en oeuvre un couplage lâche (on ne se refait pas) entre l&rsquo;espace de réception de fichiers et le traitement.</p>
+<p>Je traite ici le risque de crash d&rsquo;un POD en gardant systématiquement les fichiers dans un stockage objet. De cette manière, si le traitement a échoué, un autre POD pourra le télécharger et rejouer le processus batch.</p>
+<p>Ce découplage permet de gérer facilement la scalabilité et les arrêts/relances de PODs.</p>
+<figure><img src="/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg"/><figcaption>
+            <h4>Batch démarré sur présence de fichier</h4>
+        </figcaption>
+</figure>
+
+<p>Dans ce cas, le batch pourra être déployé sous la forme d&rsquo;un <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">déploiement Kubernetes</a>.</p>
+<h2 id="traitement-déclenché-à-distance-par-ex-par-un-orchestrateur-de-traitements" class="headerLink">
+    <a href="#traitement-d%c3%a9clench%c3%a9-%c3%a0-distance-par-ex-par-un-orchestrateur-de-traitements" class="header-mark"></a>6 Traitement déclenché à distance (par ex. par un orchestrateur de traitements)</h2><p>Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers ou tout simplement lancé à distance.
+Généralement, dans le monde de l&rsquo;entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener noreferrer">CRON Jobs</a>.</p>
+<p>Dans ce cas, on a deux manières de procéder:</p>
+<ul>
+<li>Avoir un traitement qui fournit une API permettant de démarrer des traitements et d&rsquo;avoir leurs statuts.</li>
+<li>Lancer des jobs.</li>
+</ul>
+<h3 id="avec-une-api" class="headerLink">
+    <a href="#avec-une-api" class="header-mark"></a>6.1 Avec une API</h3><p>Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu&rsquo;à l&rsquo;instar de la solution précédente, le programme tourne toujours et n&rsquo;est vraiment utile que lorsqu&rsquo;il est appelé via un endpoint REST.</p>
+<p>Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l&rsquo;intégration d&rsquo;un Job Kubernetes est problématique pour vous (voir ci-dessous).</p>
+<p>L&rsquo;un des avantages que l&rsquo;on pourra trouver est que le <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">mode de déploiement est assez simple et similaire aux APIs</a>.</p>
+<figure><img src="/assets/images/2022/05/traitement_api.svg"/><figcaption>
+            <h4>Batch démarré par une API</h4>
+        </figcaption>
+</figure>
+
+<h3 id="avec-des-jobs" class="headerLink">
+    <a href="#avec-des-jobs" class="header-mark"></a>6.2 Avec des jobs</h3><p>Si votre ordonnanceur peut exécuter le client kubectl, vous pourrez considérer les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs  kubernetes</a>.</p>
+<p>En résumé, ils permettent de créer un POD et exécute une action en gérant les erreurs potentielles jusqu&rsquo;à complétion du traitement.</p>
+<p>Par exemple, voici un job permettant de faire un &ldquo;Hello World!&rdquo;:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Job</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello-world</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helloworld</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;echo&#34;</span><span class="p">,</span><span class="w">  </span><span class="s2">&#34;Hello World!&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Never</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">backoffLimit</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois déployé avec Helm, vous pouvez les voir avec la commande <code>kubectl get jobs</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube kubectl -- get <span class="nb">jobs</span>
+</span></span><span class="line"><span class="cl">NAME          COMPLETIONS   DURATION   AGE
+</span></span><span class="line"><span class="cl">hello-world   0/1           25s        25s
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Pour les logs et voir le résultat de la commande lancé, cela se passe d&rsquo;une manière assez habituelle:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube kubectl -- logs hello-world-zx4wh
+</span></span><span class="line"><span class="cl">Hello World!
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="traitement-déclenché-par-cron" class="headerLink">
+    <a href="#traitement-d%c3%a9clench%c3%a9-par-cron" class="header-mark"></a>7 Traitement déclenché par CRON</h2><p>Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRON.
+Bien que je ne suis pas trop fan de ne pas centraliser l&rsquo;ordonnancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.</p>
+<p>Si vous êtes dans ce cas-là, vous pouvez utiliser l&rsquo;objet <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">CronJob</a> qui n&rsquo;est ni plus ni moins qu&rsquo;un <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">Job</a> exécuté de manière périodique.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;* * * * *&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helloworld-cron</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;echo&#34;</span><span class="p">,</span><span class="w">  </span><span class="s2">&#34;Hello World!&#34;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OnFailure</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="panorama-des-solutions-logicielles-possibles" class="headerLink">
+    <a href="#panorama-des-solutions-logicielles-possibles" class="header-mark"></a>8 Panorama des solutions logicielles possibles</h2><p>Une fois qu&rsquo;on s&rsquo;est posé toutes (en tout cas certaines) les questions possibles sur nos exigences techniques et la conception, on peut voir quelles sont les technologies possibles pour implémenter des batchs &ldquo;cloud natifs&rdquo;.</p>
+<p>Ça ne sera pas une surprise, je vais m&rsquo;attarder à la plateforme Java. Il est bien évidemment possible d&rsquo;utiliser d&rsquo;autres langages et frameworks tels que Go.</p>
+<p>En Java, vous avez le choix entre différents frameworks :</p>
+<ul>
+<li>[Spring avec spring batch]([Spring avec spring batch et/ou integration
+) et/ou <a href="https://spring.io/projects/spring-integration" target="_blank" rel="noopener noreferrer">integration</a></li>
+<li><a href="https://camel.apache.org/" target="_blank" rel="noopener noreferrer">Camel</a> qui peut être utilisé avec <a href="https://camel.apache.org/manual/spring.html" target="_blank" rel="noopener noreferrer">Spring</a> ou <a href="https://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a></li>
+<li><a href="https://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a> avec la <a href="https://github.com/quarkiverse/quarkus-jberet" target="_blank" rel="noopener noreferrer">JSR 352</a></li>
+</ul>
+<p>Si vous allez du côté du BigData, vous pouvez aussi envisager d&rsquo;utiliser des technologies telles qu&rsquo;<a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer">Apache Spark</a>.
+Ces dernières vous permettront de <a href="https://spark.apache.org/docs/latest/running-on-kubernetes.html" target="_blank" rel="noopener noreferrer">découper &ldquo;plus facilement&rdquo; vos traitements</a>.</p>
+<h2 id="le-diable-se-cache-dans-les-détails" class="headerLink">
+    <a href="#le-diable-se-cache-dans-les-d%c3%a9tails" class="header-mark"></a>9 Le diable se cache dans les détails</h2><p>Déployer un batch dans Kubernetes peut se faire assez facilement (en développement) une fois qu&rsquo;on a compris quelques principes.
+Cependant, les soucis peuvent survenir une fois arrivé en production.</p>
+<p>La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement (rejeu) en production.
+Il vous faudra ainsi bien <a href="https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/" target="_blank" rel="noopener noreferrer">identifier et évaluer les risques liés à votre application</a> et voir quelles sont les actions à mener.</p>
+<p>Aussi, si vous devez manipuler des fichiers volumineux, il faudra faire attention au système de fichiers utilisé et ses performances. Habituellement, avec ce type d&rsquo;architecture, on utilise généralement du SAN. En fonction de vos exigences, un <a href="https://www.redhat.com/fr/topics/data-storage/file-block-object-storage" target="_blank" rel="noopener noreferrer">stockage block</a> pourra être plus adapté.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>10 Conclusion</h2><p>Pour conclure cet article, vous aurez compris que le sujet des batchs dans Kubernetes peut s&rsquo;avérer assez complexe à gérer.
+Au-delà des technologies qui peuvent faire le job (<em>désolé du mauvais jeu de mots</em>), il vous faudra faire très attention à tout l&rsquo;environnement dans lequel votre programme devra interagir. Les bases, le réseau, les performances de votre matériel seront des prérequis indispensables.</p>
+<p>Aussi, il vous faudra faire attention à la manière dont sont transmises les données et dont vous les traitez.
+Bref, il faut étudier la solution dans son ensemble du développement à l&rsquo;exploitation pour s&rsquo;assurer de ne rien oublier.</p>
+<p>Enfin, cet article n&rsquo;est bien évidemment pas exhaustif que cela soit sur les solutions ou les contraintes à adresser.
+J&rsquo;ai néanmoins essayé d&rsquo;apporter quelques cas concrets et retours d&rsquo;expérience.</p>
+<p>J&rsquo;essaierai de détailler un cas concret dans un prochain article.</p>
+]]></description></item><item><title>K8S, HELM et Cie: au delà de la hype</title><link>http://blog.touret.info/2020/10/08/k8s-helm-et-cie-au-dela-de-la-hype/</link><pubDate>Thu, 08 Oct 2020 10:09:59 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/10/08/k8s-helm-et-cie-au-dela-de-la-hype/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/10/gartner_hype_cycle.svg_.png" referrerpolicy="no-referrer">
-            </div>Depuis quelques années, Kubernetes (K8S) et son écosystème deviennent l&rsquo;environnement d&rsquo; exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D&rsquo;autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d&rsquo;une telle plateforme.
-Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas au cycle du hype et à la fameuse courbe du Gartner.
-Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.]]></description></item><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Depuis quelques années, <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (K8S) et <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">son écosystème</a> deviennent l&rsquo;environnement d&rsquo; exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D&rsquo;autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d&rsquo;une telle plateforme.<br>
+Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas <a href="https://fr.wikipedia.org/wiki/Cycle_du_hype" target="_blank" rel="noopener noreferrer">au cycle du hype</a> et à la fameuse courbe du Gartner.</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/10/gartner_hype_cycle.svg_.png" title="cycle hype" data-thumbnail="/assets/images/2020/10/gartner_hype_cycle.svg_.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/10/gartner_hype_cycle.svg_.png"
+            srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png, /assets/images/2020/10/gartner_hype_cycle.svg_.png 1.5x, /assets/images/2020/10/gartner_hype_cycle.svg_.png 2x"
+            sizes="auto"
+            alt="cycle hype">
+    </a></figure></div>
+<p>Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.<br>
+Bien évidemment, ce n&rsquo;est que mon avis, j&rsquo;ai sans doute omis certaines informations qui pourraient être indispensables pour d&rsquo; autres.</p>
+<h2 id="pourquoi-et-dans-quelles-conditions-il-ne-faut-pas-utiliser-k8s-" class="headerLink">
+    <a href="#pourquoi-et-dans-quelles-conditions-il-ne-faut-pas-utiliser-k8s-" class="header-mark"></a>1 Pourquoi et dans quelles conditions il ne faut pas utiliser K8S ?</h2><p>Avant de présenter les avantages des applications cloud, je vais essayer de réaliser l&rsquo;anti thèse de mon propos.</p>
+<h3 id="en-avez-vous-vraiment-besoin-" class="headerLink">
+    <a href="#en-avez-vous-vraiment-besoin-" class="header-mark"></a>1.1 En avez vous (vraiment) besoin ?</h3><p>Vaste sujet et question délicate pour la population informaticienne qui a tendance à suivre les tendances du marché.</p>
+<figure><img src="/assets/images/2020/10/aaron-blanco-tejedor-vbe9zj-jhbs-unsplash.png" width="50%"/><figcaption>
+            <h4>Cycle Hype</h4>
+        </figcaption>
+</figure>
+
+<p>Avant de foncer tête baissée dans cette technologie qui est très intéressante au demeurant, il est important de se poser ces quelques questions:</p>
+<ul>
+<li>Est-ce que mes <a href="https://fr.wikipedia.org/wiki/Service-level_objectives" target="_blank" rel="noopener noreferrer">SLO</a> sont contraignantes?</li>
+<li>Quel le cycle de déploiement de mes applications?</li>
+<li>Qui gère les environnements ?</li>
+</ul>
+<p>Bref, il faut savoir si le jeu en vaut la chandelle. Si vous avez une application qui doit scaler dynamiquement, encaisser les pics, et avoir du <a href="https://dzone.com/articles/zero-downtime-deployment" target="_blank" rel="noopener noreferrer">zero downtime durant les mises à jour</a>, Kubernetes est fait pour vous. Si vous avez une application de gestion qui n&rsquo;a pas d&rsquo;exigences fortes si ce n&rsquo;est de répondre aux besoins fonctionnels, l&rsquo;utilisation de Kubernetes est discutable.</p>
+<h3 id="êtes-vous-taillé-pour-" class="headerLink">
+    <a href="#%c3%aates-vous-taill%c3%a9-pour-" class="header-mark"></a>1.2 Êtes vous taillé pour ?</h3><p>Kubernetes et son écosystème peuvent s&rsquo;avérer complexes à appréhender. Si votre entreprise opte pour une utilisation « <a href="https://en.wikipedia.org/wiki/On-premises_software" target="_blank" rel="noopener noreferrer">on premise</a>« , c&rsquo;est pire. Vous devrez avoir une équipe dédiée qui gérera cette plateforme et offrir une expertise aux équipes de développement.<br>
+Ne vous trompez pas. Si votre rôle est de développer des applications métier, il vous sera très difficile d&rsquo;avoir également une expertise sur l&rsquo;administration de cette plateforme. Vous pourrez l&rsquo;utiliser et être à l&rsquo;aise, mais l&rsquo;administration d&rsquo;une telle technologie est très compliquée.</p>
+<p>Le seul conseil que je pourrais vous donner, c&rsquo;est de ne partir sur Kubernetes que si vous avez une <strong>équipe support à disposition</strong>. C&rsquo;est vrai si vous utilisez des services du Cloud tels que Google Cloud ou AWS. Ça l&rsquo;est encore plus si vous utilisez des services « on premise » tels qu&rsquo; Openshift.</p>
+<h3 id="est-ce-que-vos-développements-sont-cloud-nativehttpswwwredhatcomfrtopicscloud-native-apps-" class="headerLink">
+    <a href="#est-ce-que-vos-d%c3%a9veloppements-sont-cloud-nativehttpswwwredhatcomfrtopicscloud-native-apps-" class="header-mark"></a>1.3 Est-ce que vos développements sont <a href="https://www.redhat.com/fr/topics/cloud-native-apps" target="_blank" rel="noopener noreferrer">« cloud native »</a> ?</h3><p>Au delà de la plateforme, vous devrez monter en compétence sur le développement et la conception de vos applications.</p>
+<p>Il vous faudra prendre en considération <a href="https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology" target="_blank" rel="noopener noreferrer">les 12 facteurs clés</a> dans vos applications. Il n&rsquo;est pas forcément la peine de passer sur des microservices. Il est également possible de faire des monolithes modulaires qui peuvent être légers et stateless. Beaucoup de ces facteurs sont communément admis comme des bonnes pratiques de développement logiciel (ex. Il faut une intégration continue).</p>
+<p>Aussi, cela va sans dire, il faut également monter (réellement) en compétence sur les conteneurs et leurs contraintes. Si vous n&rsquo;avez pas l&rsquo;habitude de travailler avec des conteneurs ( construction, déploiement, disponibilité d&rsquo;une <a href="https://docs.docker.com/registry/" target="_blank" rel="noopener noreferrer">registry</a>). Il est préférable de définir une trajectoire avec des étapes intermédiaires.</p>
+<p>Bref, tous ces sujets doivent être adressés et compris pour toutes les parties prenantes de vos équipes que ça soit les développeurs, les chefs de projet et les équipes métiers à une moindre mesure. Cette technologie représente réellement un grand pas à franchir. Si vous ne vous sentez pas de le faire, ou si vous devez gagner en maturité sur ces sujets, attendez avant de vous lancer sur Kubernetes.</p>
+<p>On ne pourra jamais vous reprocher de ne pas opter sur Kubernetes si vous ne remplissez pas tous les pré-requis. Pour ce qui est du contraire…</p>
+<h3 id="avez-vous-des-interactions-avec-des-services-tiers-qui-sont-compatible-avec-kubernetes-" class="headerLink">
+    <a href="#avez-vous-des-interactions-avec-des-services-tiers-qui-sont-compatible-avec-kubernetes-" class="header-mark"></a>1.4 Avez vous des interactions avec des services tiers qui sont compatible avec Kubernetes ?</h3><p>Quand vous restez dans votre cluster Kubernetes, généralement, tout va bien. Dès que vous avez des interactions avec des services tiers, ça peut se compliquer.<br>
+En effet, généralement vous devrez vous connecter à des services tiers qui ne sont pas orienté cloud : <a href="https://en.wikipedia.org/wiki/Hardware_security_module" target="_blank" rel="noopener noreferrer">des boitiers crypto</a>, des passerelles de transfert, …<br>
+Il se peut que certains protocoles soient également incompatibles avec Kubernetes. Il vous faudra vous assurer que tout la galaxie de logiciels et systèmes gravitant autour de votre application sera compatible avec une telle architecture. Ceci n&rsquo;est pas une mince affaire. L&rsquo;aide d&rsquo;une équipe support (voir ci-dessus) vous sera d&rsquo;une grande utilité.</p>
+<h2 id="pourquoi-sauter-le-pas-" class="headerLink">
+    <a href="#pourquoi-sauter-le-pas-" class="header-mark"></a>2 Pourquoi sauter le pas ?</h2><h3 id="la-scalabilité-et-la-résistance-à-la-panne" class="headerLink">
+    <a href="#la-scalabilit%c3%a9-et-la-r%c3%a9sistance-%c3%a0-la-panne" class="header-mark"></a>2.1 La scalabilité et la résistance à la panne</h3><p>Personnellement, la première fonctionnalité qui m&rsquo;a intéressé c&rsquo;est la gestion de la scalabilité. Si vous avez des objectifs de 99.9% de disponibilité. Kubernetes sera une plus value indéniable dans votre architecture. Après quelques <s>jours</s> heures à batailler avec les fichiers YAML, vous pourrez gérer automatiquement la scalabilité en fonction de plusieurs indicateurs qu&rsquo;ils soient techniques (ce sont les plus faciles à gérer) ou un peu plus métier <a href="https://www.metricfire.com/blog/prometheus-metrics-based-autoscaling-in-kubernetes/" target="_blank" rel="noopener noreferrer">en utilisant Prometheus</a> – et oui encore une technologie supplémentaire à connaître.</p>
+<p>En effet, au lieu de vous en soucier une fois arrivé en production, vous aurez lors du développement l&rsquo;obligation de prendre en considération l&rsquo;observabilité de votre application. Par exemple, vous aurez à renseigner <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">si votre application est prête et/ou disponible pour traiter les requêtes</a>. Ces indicateurs vous permettront de scaler <strong>automatiquement</strong> et de re-créer si nécessaire un <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank" rel="noopener noreferrer">POD</a> en cas de panne.</p>
+<p>J&rsquo;ai trouvé que cette pratique était vertueuse. Bien évidemment, pas besoin d&rsquo;être sur Kubernetes pour avoir de l&rsquo;observabilité dans des applications. Par contre, ici, c&rsquo;est obligatoire et implémenté dès le développement.</p>
+<p>La scalabilité automatique est aussi très intéressante. On a souvent vu des serveurs en production qui n&rsquo;étaient pas suffisamment utilisés. Ici vous n&rsquo;aurez que les instances nécessaires pour votre cas d&rsquo;utilisation.<br>
+La contrainte que l&rsquo;on peut voir à cette fonctionnalité et qu&rsquo;on ne maitrise pas complètement le nombre d&rsquo;instances disponibles. C&rsquo;est Kubernetes qui s&rsquo;en charge en prenant en compte le paramétrage que vous aurez renseigné dans vos <a href="https://helm.sh/docs/chart_best_practices/templates/" target="_blank" rel="noopener noreferrer">templates HELM</a>.</p>
+<h3 id="le-déploiement" class="headerLink">
+    <a href="#le-d%c3%a9ploiement" class="header-mark"></a>2.2 Le déploiement</h3><p>Avant de déployer (dans la vraie vie), vous aurez à mettre en place un pipeline CI/CD qui orchestre les différents déploiements sur tous vos environnements. Attention, ce n&rsquo;est pas une mince affaire 🙂 !</p>
+<p>Une fois réalisé, vous verrez automatiquement le gain. Vos déploiements seront réellement fluides. Bon OK, on peut le faire sur des <a href="https://en.wikipedia.org/wiki/Virtual_machine" target="_blank" rel="noopener noreferrer">VMS</a> standards. Mais on peut améliorer la procédure de déploiement pour mettre en place du <a href="https://dzone.com/articles/zero-downtime-deployment" target="_blank" rel="noopener noreferrer">zero downtime</a> pour ne pas interrompre le service lors d&rsquo;un déploiement.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">strategy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RollingUpdate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rollingUpdate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">0</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="linfrastructure-as-code" class="headerLink">
+    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png" title="infrastructure as code" data-thumbnail="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png"
+            srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 1.5x, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 2x"
+            sizes="auto"
+            alt="infrastructure as code">
+    </a></figure></div>
+<p>Quand on pense à Kubernetes, et au cloud, on ne pense pas trop à l&rsquo;<a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">Infrastructure As Code</a> au début. Cependant, cette pratique est pour moi l&rsquo;une des plus utiles.</p>
+<p>En effet, avoir votre système décrit dans des fichiers, versionnés vous permet de le tester dès le développement. Ça évite ( dans la majorité des cas ) les erreurs lors des installations d&rsquo;environnement. La mise à jour des logiciels est largement accélérée.</p>
+<p>Bien évidemment, il existe <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> et <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> pour le provisionning des environnements. Ici je trouve qu&rsquo;on pousse le concept encore plus loin. L&rsquo;automatisation est à mon avis poussé à paroxysme.<br>
+Prenons par exemple la gestion des systèmes d&rsquo;exploitation. La mise à jour sur des serveurs physiques ou virtuels peut prendre énormément de temps et générer des erreurs. Avec de l&rsquo;infra as code, ceci est testé et validé automatiquement via des tests unitaires dès l&rsquo;environnement de développement.<br>
+On peut suivre la gestion des environnements via un gestionnaire de sources et la promotion vers les autres environnements (recette[1-n], pré-production, production) est grandement accélérée.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>3 Conclusion</h2><p>Bon, vous l&rsquo;aurez peut être compris, cette galaxie de technologies est intéressante et peut vous aider dans vos projets. Avant d&rsquo;arriver à l&rsquo;utiliser sereinement, il vous faudra sans doute définir une trajectoire et appréhender plusieurs sujets avant d&rsquo;arriver à déployer vos applications sur un cloud interne ou externe.<br>
+J&rsquo;espère que cet article vous aura permis de mettre en évidence les pour et contre d&rsquo;une telle technologie et le cas échéant vous donnera envie de franchir le pas.</p>
+]]></description></item><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/05/article_github_actions_k8s-1.png" referrerpolicy="no-referrer">
-            </div>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :
-Kotlin Quarkus Gradle Kubernetes pour le déploiement Oui, tant qu&rsquo;à faire, autant aller dans la hype …
-Mon projet est sur GITHUB. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.]]></description></item></channel></rss>
+            </div><p>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :</p>
+<ul>
+<li><a href="https://kotlinlang.org/" target="_blank" rel="noopener noreferrer">Kotlin</a></li>
+<li><a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a></li>
+<li><a href="https://gradle.org/" target="_blank" rel="noopener noreferrer">Gradle</a></li>
+<li><a href="http://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> pour le déploiement</li>
+</ul>
+<p>Oui, tant qu&rsquo;à faire, autant aller dans la hype …</p>
+<p><a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">Mon projet est sur GITHUB</a>. Pour automatiser certaines actions et, disons-le, par fierté personnelle, j&rsquo;ai choisi d&rsquo;automatiser certaines actions par la mise en œuvre de pipelines CI/CD.<br>
+Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://github.com/features/actions" target="_blank" rel="noopener noreferrer">GITHUB Actions</a>.</p>
+<p>Ça permet, entre autres, de lancer des processus automatisé sur un push ou sur une action pour un commit GIT.</p>
+<p>La force de l&rsquo;outil est, selon moi, de facilement s&rsquo;intégrer avec beaucoup de services du cloud ( sonarcloud, google cloud, heroku,…). On aime ou on n&rsquo;aime pas, mais chez Microsoft, l&rsquo;intégration ils savent faire.</p>
+<p>Par exemple, si on veut lancer une compilation lors d&rsquo;un push, on peut placer un fichier <code>.github/workflows/build.xml</code> avec le contenu :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">CI</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">on</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">push]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">build</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
+Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png" title="Music Quote" data-thumbnail="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png"
+            srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 2x"
+            sizes="auto"
+            alt="Music Quote">
+    </a></figure></div>
+<h2 id="worflows-implémentés" class="headerLink">
+    <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
+<ul>
+<li><strong>CI</strong>: Build sur la feature branch</li>
+<li><strong>CD</strong>: Build sur master branch et déploiement</li>
+</ul>
+<p>On obtient donc dans mon cas:</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/05/workflow.png" title="workflow" data-thumbnail="/assets/images/2020/05/workflow.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/workflow.png"
+            srcset="/assets/images/2020/05/workflow.png, /assets/images/2020/05/workflow.png 1.5x, /assets/images/2020/05/workflow.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
+Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
+<h2 id="analyse-sonar" class="headerLink">
+    <a href="#analyse-sonar" class="header-mark"></a>2 Analyse SONAR</h2><p>J&rsquo;ai choisi d&rsquo;utiliser <a href="http://sonarcloud.io/" target="_blank" rel="noopener noreferrer">sonarcloud</a> pour analyser mon code. C&rsquo;est gratuit pour les projets opensource. L&rsquo;analyse se fait simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">sonarCloudTrigger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Trigger</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">SonarCloud Scan</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">SONAR_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.SONAR_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew jacocoTestReport sonarqube</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Dans ce job j&rsquo;utilise deux <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/creating-and-storing-encrypted-secrets" target="_blank" rel="noopener noreferrer">secrets</a>. Ce sont des tokens qui permettent de ne pas stocker en dur les données dans les repos GITHUB.</p>
+<h2 id="création-dune-image-docker-et-déploiement-dans-le-registry-github" class="headerLink">
+    <a href="#cr%c3%a9ation-dune-image-docker-et-d%c3%a9ploiement-dans-le-registry-github" class="header-mark"></a>3 Création d&rsquo;une image Docker et déploiement dans le registry GITHUB</h2><p>Ici aussi, ça se fait simplement. La preuve :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">publish</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">runs-on</span><span class="p">:</span><span class="w"> </span><span class="l">ubuntu-latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/checkout@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Set up JDK 11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">actions/setup-java@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">java-version</span><span class="p">:</span><span class="w"> </span><span class="m">11</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build in JVM Mode with Gradle without testing</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew quarkusBuild  [1]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Branch name</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">echo running on branch ${GITHUB_REF##*/}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Build the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker build -f src/main/docker/Dockerfile.jvm -t docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest .  [2]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Login against github docker repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">GITHUB_TOKEN</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GITHUB_TOKEN }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker login -u ${GITHUB_ACTOR} -p ${GITHUB_TOKEN}  docker.pkg.github.com   [3]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Publish the Docker image Quarkus JVM</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">docker push docker.pkg.github.com/${GITHUB_REPOSITORY}/music-quote-jvm:latest  [4]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><ol>
+<li>Création du binaire</li>
+<li>Création de l&rsquo;image docker en utilisant la commande docker et le Dockerfile fourni par Quarkus</li>
+<li>Identification sur la registry Docker de GITHUB</li>
+<li>Déploiement de l&rsquo;image</li>
+</ol>
+<p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
+<h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
+    <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
+<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/05/application-1.png" title="workflow" data-thumbnail="/assets/images/2020/05/application-1.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application-1.png"
+            srcset="/assets/images/2020/05/application-1.png, /assets/images/2020/05/application-1.png 1.5x, /assets/images/2020/05/application-1.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
+<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/05/application_gke.png" title="workflow" data-thumbnail="/assets/images/2020/05/application_gke.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2020/05/application_gke.png"
+            srcset="/assets/images/2020/05/application_gke.png, /assets/images/2020/05/application_gke.png 1.5x, /assets/images/2020/05/application_gke.png 2x"
+            sizes="auto"
+            alt="workflow">
+    </a></figure></div>
+<p>J&rsquo;utilise les objets suivants:</p>
+<ul>
+<li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
+<li>Un deployment pour l&rsquo;application</li>
+<li>Des pods car à un moment, il en faut…</li>
+<li>Un statefulset pour la base de données</li>
+</ul>
+<p>Vous pourrez trouver la définition de tous ces objets au format yaml via <a href="https://github.com/alexandre-touret/music-quote/tree/master/k8s" target="_blank" rel="noopener noreferrer">ce lien</a>. J&rsquo;ai fait très simple. Logiquement j&rsquo;aurai du créer un volume pour les bases de données ou utiliser une base de données en mode PAAS.</p>
+<p>Pour lancer le déploiement, il faut au préalable créer un secret ( fait manuellement pour ne pas stocker d&rsquo;objet yaml dans le repository GITHUB) pour se connecter au repo GITHUB via la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl create secret docker-registry github-registry --docker-server<span class="o">=</span>docker.pkg.github.com --docker-username<span class="o">=</span>USER--docker-password<span class="o">=</span>PASSWORD --docker-email<span class="o">=</span>EMAIL
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>On peut faire pareil pour les connexions base de données. J&rsquo;ai mis dans un configmap pour ne pas trop me prendre la tête…</p>
+<p>Après le déploiement via le pipeline se fait assez simplement:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="p">[</span><span class="l">...]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">uses</span><span class="p">:</span><span class="w"> </span><span class="l">GoogleCloudPlatform/github-actions/setup-gcloud@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;286.0.0&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_email</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_EMAIL }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">service_account_key</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_SA_KEY }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Pour que ça marche il y a pas mal d&rsquo;étapes préalables ( des tokens à générer, un utilisateur technique, …).<br>
+J&rsquo;ai essayé de les référencer dans <a href="https://github.com/alexandre-touret/music-quote" target="_blank" rel="noopener noreferrer">le README du projet</a>.<br>
+Si vous voulez tester l&rsquo;intégration Kubernetes dans le cloud google, sachez que vous pouvez disposer d&rsquo;un crédit de 300€ valable un an. Attention, avec ce genre d&rsquo;architecture, ça part vite…</p>
+]]></description></item></channel></rss>

@@ -1,18 +1,192 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>conference - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/conference/</link><description>conference - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>http://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>conference - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/conference/</link><description>conference - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>http://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
-            </div>You can read the English version below
-2022 en quelques mots2023 est tout proche. Il est temps de faire un rapide bilan sur cette année 2022 (d&rsquo;un point pro).
-Après avoir changé de projet en début d&rsquo;année, j&rsquo;ai pu, grâce à mon employeur Worldline, participer en tant que speaker à
-8 conférences en français et anglais 2 meetups une présentation en ligne à Malt Academy J&rsquo;ai également écrit 6 articles sur mon blog et 4 sur le blog d&rsquo;ingénierie de Worldline.]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>http://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
+            </div><p><em>You can read the English version below</em></p>
+<h2 id="2022-en-quelques-mots" class="headerLink">
+    <a href="#2022-en-quelques-mots" class="header-mark"></a>1 2022 en quelques mots</h2><p>2023 est tout proche.
+Il est temps de faire un rapide bilan sur cette année 2022 (d&rsquo;un point pro).</p>
+<p>Après avoir changé de projet en début d&rsquo;année, j&rsquo;ai pu, grâce à mon employeur <a href="https://worldline.com/" target="_blank" rel="noopener noreferrer">Worldline</a>, participer en tant que speaker à</p>
+<ul>
+<li>8 conférences en français et anglais</li>
+<li>2 meetups</li>
+<li>une présentation en ligne à <a href="https://www.malt-academy.com/" target="_blank" rel="noopener noreferrer">Malt Academy</a></li>
+</ul>
+<p>J&rsquo;ai également écrit 6 articles sur <a href="https://blog.touret.info/" target="_blank" rel="noopener noreferrer">mon blog</a> et 4 sur le <a href="https://blog.worldline.tech/authors/#alexandre-touret" target="_blank" rel="noopener noreferrer">blog d&rsquo;ingénierie de Worldline</a>.</p>
+<p>Je tiens à remercier mon employeur pour me permettre de vivre cette expérience ainsi que les organisatrices et organisateurs pour leur confiance et leur accueil (vous vous reconnaitrez).
+Merci également à toutes celles et ceux qui m&rsquo;ont aidé également à monter en compétence en tant que speaker.</p>
+<h2 id="et-maintenant" class="headerLink">
+    <a href="#et-maintenant" class="header-mark"></a>2 Et maintenant?</h2><p>Grâce à l&rsquo;initiative <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>Tech-Rel de Worldline, j&rsquo;ai pu faire des super rencontres et progresser techniquement dans certains domaines : Préparer et proposer un sujet technique vous impose de le creuser à fond et de le maîtriser.
+Pour l&rsquo;année prochaine, on a quelques idées. J&rsquo;espère pouvoir communiquer là-dessus rapidement.</p>
+<p>Je vous souhaite en attendant un bon réveillon et si vous découvrez mon article en 2023 une bonne année.</p>
+<hr>
+<h2 id="2022-in-few-words" class="headerLink">
+    <a href="#2022-in-few-words" class="header-mark"></a>3 2022 in few words</h2><p>2023 is coming.
+It is time to review 2022 in a professional point of view.</p>
+<p>After moving on to another project early 2022, I had the opportunity on behalf of my company Worldline, to participate as a speaker to:</p>
+<ul>
+<li>8 tech conferences</li>
+<li>2 meetups</li>
+<li>1 online presentation at <a href="https://www.malt-academy.com/" target="_blank" rel="noopener noreferrer">Malt Academy</a></li>
+</ul>
+<p>I also wrote 6 articles on <a href="https://blog.touret.info/" target="_blank" rel="noopener noreferrer">my blog</a> and 4 on the <a href="https://blog.worldline.tech/authors/#alexandre-touret" target="_blank" rel="noopener noreferrer">Worldline engineering blog</a>.</p>
+<p>Thank you to my employer for giving me this opportunity and the organisers for their trust and their hospitality. I&rsquo;m pretty sure you will recognise yourselves.
+Thanks then to who helped me in my speaker journey.</p>
+<h2 id="and-now-something-completely-different" class="headerLink">
+    <a href="#and-now-something-completely-different" class="header-mark"></a>4 And now, something completely different?</h2><p>On behalf of the <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>Worldline tech rel initiative, I had the chance to meet great people and move forward in some technical domains. Drawing up and submitting a talk about a technical topic requires you to dig into it and be proficient on it.
+I already have ideas for the next year. I hope communicating about it shortly.</p>
+<p>Best wishes for the new year eve and if you come across this article in 2023: Happy new year!!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>c&rsquo;est comme des dev rel mais on essaye d&rsquo;inclure au delà des devs (ex. les OPS, SRE).&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>It is just like dev rel, but we would like to include all the tech crew (e.g., OPS &amp; SRE)&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>http://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/10/devoxx_badge.webp" referrerpolicy="no-referrer">
-            </div>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, Devoxx Belgium était de retour à Anvers. Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.
-C&rsquo;était donc une première pour moi.
-Pour y aller, j&rsquo;ai eu trois fois de la chance:
-J&rsquo;ai eu cette opportunité grâce à Worldline - mon employeur J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch Ma présentation au format Quickie a été retenue.]]></description></item><item><title>Mon Camping des Speakers</title><link>http://blog.touret.info/2022/06/10/camping-speakers-2022/</link><pubDate>Fri, 10 Jun 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/06/10/camping-speakers-2022/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, <a href="https://www.devoxx.be" target="_blank" rel="noopener noreferrer">Devoxx Belgium</a> était de retour à Anvers.
+Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.</p>
+<p>C&rsquo;était donc une première pour moi.</p>
+<p>Pour y aller, j&rsquo;ai eu trois fois de la chance:</p>
+<ol>
+<li>J&rsquo;ai eu cette opportunité grâce à <a href="https://worldline.com/" target="_blank" rel="noopener noreferrer">Worldline - mon employeur</a></li>
+<li>J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch</li>
+<li><a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">Ma présentation au format Quickie a été retenue</a>. J&rsquo;ai présenté un talk à Devoxx!!!!!!!</li>
+</ol>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-1.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-1.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/10/devoxx-be-22-1.webp"
+            srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-2.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-2.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/10/devoxx-be-22-2.webp"
+            srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+<p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
+<h2 id="impressions-générales" class="headerLink">
+    <a href="#impressions-g%c3%a9n%c3%a9rales" class="header-mark"></a>1 Impressions générales</h2><p>Tout d&rsquo;abord, j&rsquo;ai pu assister à de nombreux <a href="https://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">Devoxx France</a>. J&rsquo;ai cru naïvement que les deux évènements se ressembleraient.</p>
+<p>Je me suis trompé.</p>
+<p>Je ne dirai pas lequel est le meilleur<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Je ne saurais le dire. On est sur un autre type de conférence.</p>
+<p>Il y a un peu moins de feedback de la communauté, même si il y a eu <a href="https://www.youtube.com/watch?v=LoF2vkYiICo" target="_blank" rel="noopener noreferrer">une présentation de Doctolib</a> et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling).</p>
+<p>Aussi, alors que la ligne éditoriale de Devoxx France s&rsquo;est tournée au fil des années sur d&rsquo;autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur.</p>
+<p>Les (très) grands speakers de l&rsquo;écosystème sont présents et on fait des super talks: <a href="https://en.wikipedia.org/wiki/James_Gosling" target="_blank" rel="noopener noreferrer">James Gosling</a>, <a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a>, <a href="https://developers.redhat.com/authors/mario-fusco" target="_blank" rel="noopener noreferrer">Mario Fusco</a>, <a href="https://in.relation.to/gavin-king/" target="_blank" rel="noopener noreferrer">Gavin King</a> ou <a href="https://blogs.oracle.com/java/post/new-java-champion-jos%C3%A9-paumard" target="_blank" rel="noopener noreferrer">José Paumard</a>.</p>
+<p>En résumé, le coeur de la communauté <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29" target="_blank" rel="noopener noreferrer">Java</a> bat à Anvers pendant une semaine.
+Une majorité de <a href="https://dev.java/community/jcs/" target="_blank" rel="noopener noreferrer">Java champions</a> sont +/- présents et nous font partager leur expertise.</p>
+<h2 id="les-tendances" class="headerLink">
+    <a href="#les-tendances" class="header-mark"></a>2 Les tendances</h2><p>Les grandes tendances étaient:</p>
+<ul>
+<li>L&rsquo;IA et les applications</li>
+<li>Le projet Loom</li>
+<li>GraalVM</li>
+</ul>
+<h2 id="quelques-conférences" class="headerLink">
+    <a href="#quelques-conf%c3%a9rences" class="header-mark"></a>3 Quelques conférences</h2><p>L&rsquo;ensemble des conférences <a href="https://www.youtube.com/c/Devoxx2015/videos" target="_blank" rel="noopener noreferrer">est déjà publié sur Youtube</a>. N&rsquo; hésitez pas à les consulter. Il y a beaucoup de talks de qualité.</p>
+<h3 id="artificial-intelligence-you-are-here-by-alan-d-thompson" class="headerLink">
+    <a href="#artificial-intelligence-you-are-here-by-alan-d-thompson" class="header-mark"></a>3.1 Artificial Intelligence: You Are Here by Alan D Thompson</h3><p>Le <a href="https://lifearchitect.ai/" target="_blank" rel="noopener noreferrer">Dr Alan D. Thompson</a> est un expert en intelligence artificielle.
+Il nous a donné une présentation pendant la keynote sur ce que l&rsquo; IA peut réellement faire de nos jours.
+C&rsquo;est de plus en plus utilisé dans notre industrie au travers de Github Copilot, <a href="https://github.com/THUDM/CodeGeeX" target="_blank" rel="noopener noreferrer">Codegeex</a>,&hellip;</p>
+<p>Après nous avoir rappellé <a href="https://lifearchitect.ai/timeline/" target="_blank" rel="noopener noreferrer">la timeline de l&rsquo;adoption de l&rsquo; IA</a>, il a illustré avec des peintures déssinées par une IA comment un ordinateur peut maintenant comprendre une phrase en langage naturel et la traduire en image.</p>
+<p>Il a également présenté <a href="https://en.wikipedia.org/wiki/GPT-3" target="_blank" rel="noopener noreferrer">le langage de modélisation GPT3</a>.</p>
+<p>Vous pouvez trouver <a href="https://www.youtube.com/watch?v=xjYy91BxdPo" target="_blank" rel="noopener noreferrer">la vidéo ici</a>.</p>
+<h2 id="revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="headerLink">
+    <a href="#revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="header-mark"></a>4 Revolutionizing Java-Based Applications with GraalVM by Alina Yurenko and Thomas Wuerthinger</h2><p>Dans cette présentation, les présentateurs d&rsquo;Oracle ont abordé une autre grande tendance du marché: le retour au natif qui permet de limiter l&rsquo;impact sur le démarrage, la mémoire et la taille des packages.</p>
+<p>Au travers d&rsquo;un exemple basé sur <a href="https://micronaut.io/" target="_blank" rel="noopener noreferrer">Micronaut</a>, ils ont expliqué comment <a href="https://www.graalvm.org/" target="_blank" rel="noopener noreferrer">GraalVM</a> peut répondre à ces enjeux. Ils ont également démystifié plusieurs mythes liés à GraalVM. Par exemple, GraalVM supporte la réflexion (&hellip; et parfois non). On peut utiliser également [Java Flight Recorder](Java Flight Recorder) pendant la compilation. Le support à l&rsquo;exécution des applications est bientôt prévu.</p>
+<p>La developer experience était également à l&rsquo;ordre du jour. Comment offrir une bonne expérience alors que la compilation prend plus de temps?</p>
+<p>Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode <a href="https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk" target="_blank" rel="noopener noreferrer">JIT</a> avec une JVM pendant le développement et d&rsquo;utiliser l&rsquo; <a href="https://devblogs.microsoft.com/java/aot-compilation-in-hotspot-introduction/" target="_blank" rel="noopener noreferrer">AOT</a> pour le déploiement final. Ceci permet de disposer d&rsquo;une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.</p>
+<p><a href="https://www.youtube.com/watch?v=mhmqomex1zk" target="_blank" rel="noopener noreferrer">La vidéo est disponible ici</a></p>
+<h2 id="the-lost-art-of-software-design-by-simon-brown" class="headerLink">
+    <a href="#the-lost-art-of-software-design-by-simon-brown" class="header-mark"></a>5 The lost art of software design by Simon Brown</h2><p>J&rsquo;utilise <a href="https://www.c4model.com/" target="_blank" rel="noopener noreferrer">le modèle C4</a> depuis plusieurs années.
+Je l&rsquo;ai même présenté très brièvement dans mon talk.</p>
+<p>Aussi, j&rsquo;ai été très impressionné quand j&rsquo;ai pu assister à la présentation de <a href="https://simonbrown.je/" target="_blank" rel="noopener noreferrer">Simon Brown</a> sur la conception logicielle.
+Il a expliqué pourquoi la conception n&rsquo;était pas conflictuelle avec les méthodes agiles.
+Ca permet notamment d&rsquo; identtifier et de gérer les risques.</p>
+<p>Au delà du modèle C4, <a href="https://riskstorming.com/" target="_blank" rel="noopener noreferrer">il a montré comment identifier et évaluer les différents risques avec le &ldquo;Risk Storming&rdquo;</a>.</p>
+<p>Enfin, il a répondu à la question à un million d&rsquo;euros: &ldquo;Quand arrêter la conception?&rdquo;</p>
+<p><a href="https://www.youtube.com/watch?v=36OTe7LNd6M" target="_blank" rel="noopener noreferrer">Vous trouverez la réponse ici</a>.</p>
+<h3 id="ahead-of-time-and-native-in-spring-boot-30-by-stéphane-nicoll--brian-clozel" class="headerLink">
+    <a href="#ahead-of-time-and-native-in-spring-boot-30-by-st%c3%a9phane-nicoll--brian-clozel" class="header-mark"></a>5.1 Ahead Of Time and Native in Spring Boot 3.0 by Stéphane Nicoll &amp; Brian Clozel</h3><p>Une autre conférence qui met en avant GraalVM!
+Cette fois on abordait le support de l&rsquo; AOT et du mode natif dans la future version de Spring Boot.</p>
+<p>Les présentateurs ont expliqués comment Spring supportait le mode natif: le processus appliqué, la gestion des métadonnées et l&rsquo;analyse réalisée.
+En (très très bref) résumé, l&rsquo; AOT génère des sources dont le chargement des Bean Definition.</p>
+<p>Ils ont également pointé du doigt des changements que je considère bloquants:</p>
+<ul>
+<li>On ne peut pas utiliser changer les profils au runtime</li>
+<li>La surcharge des propriétés et variable d&rsquo;environnement n&rsquo;est pas possible à l&rsquo;exécution</li>
+<li>On ne peut pas utiliser de Java Agent.</li>
+</ul>
+<p>Pour ce dernier point, cela risque de poser de nombreux soucis que ça soit l&rsquo;utilisation d&rsquo;un <a href="https://www.dynatrace.com/news/blog/what-is-apm-2/" target="_blank" rel="noopener noreferrer">APM tel que Dynatrace</a> ou le support de <a href="https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/aop.html" target="_blank" rel="noopener noreferrer">l&rsquo;AOP</a>.</p>
+<p>A la fin de cette présentation, ils ont donné quelques recommendations. Parmi celles-ci:</p>
+<ul>
+<li>Exécuter en développement l&rsquo;application en mode AOT avec une JVM</li>
+<li>Exécuter les tests en mode natif</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=TS4DpYSmfXk" target="_blank" rel="noopener noreferrer">Vous trouverez la vidéo ici</a></p>
+<h3 id="the-art-of-java-language-pattern-matching-by-simon-ritter" class="headerLink">
+    <a href="#the-art-of-java-language-pattern-matching-by-simon-ritter" class="header-mark"></a>5.2 The Art of Java Language Pattern Matching by Simon Ritter</h3><p><a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a> a exploré toutes les possibilité du <a href="https://docs.oracle.com/en/java/javase/15/language/pattern-matching-instanceof-operator.html" target="_blank" rel="noopener noreferrer">pattern matching en Java</a>.
+Toutes les fonctionnalités ne sont pas encore disponibles. On peut néanmoins faire beaucoup de choses.</p>
+<p>Après un rappel sur les nouvelles fonctionnalités depuis le JDK11 (<a href="https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html" target="_blank" rel="noopener noreferrer">Sealed classes</a>, <a href="https://docs.oracle.com/en/java/javase/15/language/records.html" target="_blank" rel="noopener noreferrer">Records</a>), Simon Ritter a illustré leur utilisation dans ce contexte.</p>
+<p>Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fortement de regarder ce talk.</p>
+<p><a href="https://www.youtube.com/watch?v=OlW724WaJJQ" target="_blank" rel="noopener noreferrer">Voici la vidéo</a></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Voila les quelques talks qui m&rsquo;ont interpellé. Il y en a beaucoup d&rsquo;autres tels que ceux de <a href="https://devoxx.be/talk/?id=2352" target="_blank" rel="noopener noreferrer">Julien TOPCU</a> ou <a href="https://devoxx.be/talk/?id=19402" target="_blank" rel="noopener noreferrer">Marcy ERICKA CHARELLOIS</a>.
+Cette première participation était très enrichissante. J&rsquo;ai eu à plusieurs reprises l&rsquo;impression d&rsquo;avoir l&rsquo;information à la source (ex. pour Spring).</p>
+<p>Si j&rsquo;ai autant de chance, je pense rééditer l&rsquo;expérience l&rsquo;année prochaine.</p>
+<p>En tant que speaker pour une conférence ou un workshop? Seul l&rsquo;avenir nous le dira!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.imdb.com/title/tt0250223/characters/nm0046347" target="_blank" rel="noopener noreferrer"><em>Vous savez, moi je ne crois pas qu&rsquo;il y aient de bonnes ou mauvaises conférences. Moi, si je devais résumer ma vie aujourd’hui avec vous, je dirais que c’est d’abord des rencontres, des gens qui m’ont tendu la main&hellip;</em></a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Mon Camping des Speakers</title><link>http://blog.touret.info/2022/06/10/camping-speakers-2022/</link><pubDate>Fri, 10 Jun 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/06/10/camping-speakers-2022/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/06/camping_speakers_2.webp" referrerpolicy="no-referrer">
-            </div>Au début de l&rsquo;année, j&rsquo;ai interpelé mes managers: &ldquo;J&rsquo;ai été retenu au Camping des Speakers&rdquo;!
-Unanimement, j&rsquo;ai eu la même réponse: &ldquo;Le QUOI ???!!!&rdquo;
-Oui j&rsquo;en conviens le titre peut paraître à première vue tout sauf sérieux. Il faut dire que le lieu est un camping en Bretagne dans le golfe du Morbihan.
-Et pourtant !
-La programmation était de qualité et a tenu ses promesses.
-Je vais essayer de retranscrire quelques sujets qui ont retenu mon attention.]]></description></item></channel></rss>
+            </div><p>Au début de l&rsquo;année, j&rsquo;ai interpelé mes managers: <em>&ldquo;J&rsquo;ai été retenu au <a href="https://camping-speakers.fr/" target="_blank" rel="noopener noreferrer">Camping des Speakers&rdquo;</a>!</em></p>
+<p>Unanimement, j&rsquo;ai eu la même réponse: <em>&ldquo;Le QUOI ???!!!&rdquo;</em></p>
+<p>Oui j&rsquo;en conviens le titre peut paraître à première vue tout sauf sérieux.
+Il faut dire que le lieu est un camping en Bretagne dans le golfe du Morbihan.</p>
+<p>Et pourtant !</p>
+<p>La programmation était de qualité et a tenu ses promesses.</p>
+<p>Je vais essayer de retranscrire quelques sujets qui ont retenu mon attention. J&rsquo;en oublierai sans doute beaucoup. Je m&rsquo;en excuse d&rsquo;avance.</p>
+<p>Tout d&rsquo;abord, l&rsquo;intérêt de cette conférence réside, selon moi, au-delà des talks donnés.</p>
+<p>Le cadre atypique (un camping dans le Morbihan), des conférences <em>slideless</em> données en extérieur en mode &ldquo;feu de camp&rdquo; a eu le même effet, enfin il me semble, sur tous les participantes et participants qu&rsquo;ils soient speakers ou non.</p>
+<p>Chose originale que j&rsquo;ai pu constater lors de ces talks, on passait beaucoup de temps à échanger avec les speakers <strong>pendant</strong> leur présentation.
+C&rsquo;était génial pour les spectateurs, peut-être un peu moins pour la gestion du timing :).</p>
+<p>Vous l&rsquo;aurez compris. L&rsquo;environnement mis en place par les organisateurs permettait de réels échanges&hellip; Et on avait le temps de le faire.</p>
+<p>Ensuite, la programmation donnait la part belle à des sujets non techniques.</p>
+<p>Par exemple, j&rsquo;ai enfin pu voir la conférence de mon ancienne collègue <a href="https://camping-speakers.fr/sessions/rendez_lagilite_aux_developpeurs/" target="_blank" rel="noopener noreferrer">Fanny Klauk : &ldquo;Rendez l&rsquo;agilité aux développeur(se)s !&rdquo;</a> qui, au travers d&rsquo;une histoire dont est le héros, a mis en évidence les travers des (grosses) organisations. Les solutions sont <em>&ldquo;naturelles&rdquo;</em> dans la théorie, mais permettent de donner plus d&rsquo;agilité et de sens aux développeurs.</p>
+<p>Un autre sujet &ldquo;non technique&rdquo; m&rsquo;a très intéressé, c&rsquo;était <a href="https://camping-speakers.fr/sessions/le_voyage_du_heros/" target="_blank" rel="noopener noreferrer">&ldquo;Le voyage du héros de l&rsquo;IT&rdquo; d&rsquo; Olivier Beautier</a>.
+Après nous avoir présenté <a href="https://archive.org/details/leguideduscenari0000vogl" target="_blank" rel="noopener noreferrer">le guide du scénariste de C. VOGLER</a>, on a construit une histoire d&rsquo;une développeuse.
+Au travers de cette histoire, on a pu voir entre autres l&rsquo;importance du mentorat dans notre métier.</p>
+<p>Puis, j&rsquo;ai vu la conférence <a href="https://camping-speakers.fr/sessions/java_a_la_vitesse_de_la_lumiere_grace_au_graal/" target="_blank" rel="noopener noreferrer">d&rsquo;A. PENA &ldquo;Java à la vitesse de la lumière grâce au Graal !&rdquo;</a>.
+Il a présenté GraalVM, une comparaison avec HotSpot et les perspectives d&rsquo;évolution de cette JVM. Nul doute que le mode natif sera de plus en plus utilisé dans les prochaines années.</p>
+<p>Ensuite, avec <a href="https://davidaparicio.github.io/website/fr/event/" target="_blank" rel="noopener noreferrer">D. APARICIO</a>, nous avons pu voir les travers d&rsquo;une (mauvaise) modélisation de données au travers de son retour d&rsquo;expérience <a href="https://camping-speakers.fr/sessions/au_secours_jai_un_homonyme/" target="_blank" rel="noopener noreferrer">&ldquo;Au secours 😨! J&rsquo;ai un homonyme !! &ldquo;</a>
+Il a illustré l&rsquo;importance de bien modéliser pour ne pas avoir que le nom et prénom comme identifiants dans un système par ex. ainsi que les impacts dans la vie courante.</p>
+<p>Vous l&rsquo;aurez compris, il y avait beaucoup de conférences intéressantes qui donnaient lieu à des discussions tout aussi passionnantes.</p>
+<p><em>Last but not least</em>, j&rsquo;ai eu la chance de présenter les katas d&rsquo;architecture, comment les mettre en œuvre et quels sont les bénéfices qu&rsquo;on peut en tirer.
+Je tiens à remercier <a href="https://julientopcu.com/" target="_blank" rel="noopener noreferrer">Julien TOPCU</a> et <a href="https://craftsrecords.org/" target="_blank" rel="noopener noreferrer">Craft Records</a> pour l&rsquo;accompagnement dans la préparation.</p>
+<p>Vous pourrez trouver les slides sur <a href="https://speakerdeck.com/alexandretouret/ameliorer-les-competences-et-les-infrastructures-avec-les-katas-darchitecture-cc629dfb-87f6-4033-aabd-472472ae5655" target="_blank" rel="noopener noreferrer">ma page speackerdeck</a>.</p>
+<p>Pour finir, je conseille cette expérience à toutes les personnes qui veulent apprendre, échanger dans un environnement convivial et zen.</p>
+<p>Si vous n&rsquo;êtes toujours pas convaincu, sachez qu&rsquo;il y a également des mashmallows.</p>
+<p><em>Avec cet argument massue, on devrait convaincre les plus sceptiques! ;)</em></p>
+<figure><img src="/assets/images/2022/06/camping_speakers_1.webp"/><figcaption>
+            <h4>Camping des speakers spirit</h4>
+        </figcaption>
+</figure>
+
+<p>Merci encore aux organisatrices et organisateurs pour ces deux jours.</p>
+<p>À l&rsquo;année prochaine !!</p>
+]]></description></item></channel></rss>

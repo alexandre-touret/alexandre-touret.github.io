@@ -1,11 +1,239 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gpg - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gpg/</link><description>gpg - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 03 May 2021 20:47:11 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gpg/" rel="self" type="application/rss+xml"/><item><title>Utiliser GPG dans WSL2</title><link>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</link><pubDate>Mon, 03 May 2021 20:47:11 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gpg - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/gpg/</link><description>gpg - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 03 May 2021 20:47:11 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/gpg/" rel="self" type="application/rss+xml"/><item><title>Utiliser GPG dans WSL2</title><link>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</link><pubDate>Mon, 03 May 2021 20:47:11 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/05/pexels-photo-261621.jpeg" referrerpolicy="no-referrer">
-            </div>Pourquoi utiliser GPG ? Par exemple pour signer les commits GIT. Maintenant comment faire quand on est sous Windows 10 et qu&rsquo;on souhaite utiliser le sous système Linux (WSL2)?
-Sous GNU/Linux, l&rsquo;installation et l&rsquo;utilisation avec git est très simple. Avec WSL2,… il faut un peu d&rsquo;huile de coude 🙂
-Je vais tâcher de décrire dans cet article les différentes manipulations nécessaires pour:
-Importer une clé GPG existante Utiliser GPG pour signer mes commits dans WSL2 Importer une clé GPG existante Export de la clé GPG Identifier l&rsquo; ID de la cléLancez la commande suivante:]]></description></item><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
+            </div><p><figure><a class="lightgallery" href="/assets/images/2021/05/pexels-photo-261621.jpeg" title="pexel photo" data-thumbnail="/assets/images/2021/05/pexels-photo-261621.jpeg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/05/pexels-photo-261621.jpeg"
+            srcset="/assets/images/2021/05/pexels-photo-261621.jpeg, /assets/images/2021/05/pexels-photo-261621.jpeg 1.5x, /assets/images/2021/05/pexels-photo-261621.jpeg 2x"
+            sizes="auto"
+            alt="pexel photo">
+    </a></figure></p>
+<p>Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank" rel="noopener noreferrer">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/" target="_blank" rel="noopener noreferrer">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu&rsquo;on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">le sous système Linux (WSL2)</a>?</p>
+<p>Sous GNU/Linux, l&rsquo;installation et l&rsquo;utilisation avec git est très simple. Avec <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">WSL2</a>,… il faut un peu d&rsquo;huile de coude 🙂</p>
+<p>Je vais tâcher de décrire dans cet article les différentes manipulations nécessaires pour:</p>
+<ul>
+<li>Importer une clé GPG existante</li>
+<li>Utiliser GPG pour signer mes commits dans WSL2</li>
+</ul>
+<h2 id="importer-une-clé-gpg-existante" class="headerLink">
+    <a href="#importer-une-cl%c3%a9-gpg-existante" class="header-mark"></a>1 Importer une clé GPG existante</h2><h3 id="export-de-la-clé-gpg" class="headerLink">
+    <a href="#export-de-la-cl%c3%a9-gpg" class="header-mark"></a>1.1 Export de la clé GPG</h3><h4 id="identifier-l-id-de-la-clé" class="headerLink">
+    <a href="#identifier-l-id-de-la-cl%c3%a9" class="header-mark"></a>1.1.1 Identifier l&rsquo; ID de la clé</h4><p>Lancez la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --export <span class="si">${</span><span class="nv">ID</span><span class="si">}</span> &gt; public.key
+</span></span><span class="line"><span class="cl">gpg --export-secret-key <span class="si">${</span><span class="nv">ID</span><span class="si">}</span> &gt; private.key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="import" class="headerLink">
+    <a href="#import" class="header-mark"></a>1.2 Import</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --import public.key
+</span></span><span class="line"><span class="cl">gpg --import private.key
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="vérification" class="headerLink">
+    <a href="#v%c3%a9rification" class="header-mark"></a>1.3 Vérification</h3><p>Pour vérifier que la clé est bien configurée, vous pouvez lancer la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format LONG   alexandre@....
+</span></span><span class="line"><span class="cl">sec   rsa4096/CLE_ID 2019-12-20 <span class="o">[</span>SC<span class="o">]</span>
+</span></span><span class="line"><span class="cl">      ********************
+</span></span><span class="line"><span class="cl">uid                <span class="o">[</span>  ultime <span class="o">]</span> Alexandre &lt;alexandre@....&gt;
+</span></span><span class="line"><span class="cl">ssb   rsa4096/SUB 2019-12-20 <span class="o">[</span>E<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si la clé n&rsquo;est pas reconnue comme ultime ou comme de confiance, il faudra l&rsquo;éditer:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --edit-key CLE_ID
+</span></span><span class="line"><span class="cl">Please decide how far you trust this user to correctly verify other users<span class="s1">&#39; keys
+</span></span></span><span class="line"><span class="cl"><span class="s1">(by looking at passports, checking fingerprints from different sources, etc.)
+</span></span></span><span class="line"><span class="cl"><span class="s1">  1 = I don&#39;</span>t know or won<span class="err">&#39;</span>t say
+</span></span><span class="line"><span class="cl">  <span class="nv">2</span> <span class="o">=</span> I <span class="k">do</span> NOT trust
+</span></span><span class="line"><span class="cl">  <span class="nv">3</span> <span class="o">=</span> I trust marginally
+</span></span><span class="line"><span class="cl">  <span class="nv">4</span> <span class="o">=</span> I trust fully
+</span></span><span class="line"><span class="cl">  <span class="nv">5</span> <span class="o">=</span> I trust ultimately
+</span></span><span class="line"><span class="cl">  <span class="nv">m</span> <span class="o">=</span> back to the main menu
+</span></span><span class="line"><span class="cl">Your decision? 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si vous ne voulez pas trop vous compliquer, je vous conseille de répondre <code>5</code>.</p>
+<h2 id="configuration-gpg-pour-wsl2" class="headerLink">
+    <a href="#configuration-gpg-pour-wsl2" class="header-mark"></a>2 Configuration GPG pour WSL2</h2><p>Avant de configurer l&rsquo;agent GPG, vous pouvez vous référer <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/" target="_blank" rel="noopener noreferrer">à cet article</a> pour configurer GIT et GPG. La configuration est équivalente.</p>
+<p>Ensuite, créez le fichier <code>~/.gnupg/gpg.conf</code> avec le contenu suivant:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"># Uncomment within config (or add this line)
+</span></span><span class="line"><span class="cl"># This tells gpg to use the gpg-agent
+</span></span><span class="line"><span class="cl">use-agent
+</span></span><span class="line"><span class="cl"># Set the default key
+</span></span><span class="line"><span class="cl">default-key CLE_ID
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Puis créez le fichier <code>~/.gnupg/gpg-agent.conf</code> avec le contenu ci-dessous:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">default-cache-ttl 34560000
+</span></span><span class="line"><span class="cl">max-cache-ttl 34560000
+</span></span><span class="line"><span class="cl">pinentry-program /usr/bin/pinentry-curses
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Le cache ici est défini en secondes. Il est mis ici à 400 jours.</p>
+<p>Ce dernier fichier fait référence au programme <code>pinentry</code>. Vous pouvez vérifier sa présence grâce à la commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">ls /usr/bin/pinentry-curses 
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si vous ne l&rsquo;avez pas, vous pouvez l&rsquo;installer grâce à la commande suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo apt install pinentry-curses
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, on peut configurer l&rsquo;environnement BASH en modifiant le fichier <code>~/.bashrc</code></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># enable GPG signing</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GPG_TTY</span><span class="o">=</span><span class="k">$(</span>tty<span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">[</span> ! -f ~/.gnupg/S.gpg-agent <span class="o">]</span><span class="p">;</span> <span class="k">then</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">eval</span> <span class="k">$(</span> gpg-agent --daemon --options ~/.gnupg/gpg-agent.conf <span class="k">)</span>
+</span></span><span class="line"><span class="cl"><span class="k">fi</span>
+</span></span><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">GPG_AGENT_INFO</span><span class="o">=</span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/.gnupg/S.gpg-agent:0:1
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Redémarrez ensuite WSL2 pour que ça soit pris en compte.</p>
+<p>A la première utilisation de GPG ( par ex. lors d&rsquo;un commit, vous aurez une interface <a href="https://fr.wikipedia.org/wiki/Ncurses" target="_blank" rel="noopener noreferrer">Ncurses</a> qui apparaîtra dans votre prompt WSL2. Vous aurez à renseigner le mot de passe de votre clé.</p>
+]]></description></item><item><title>Vérifier les commit GIT avec GPG</title><link>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</link><pubDate>Fri, 09 Aug 2019 16:13:21 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Juste pour un pense bête, voici comment paramétrer GIT et GITHUB/GITLAB pour signer les commits avec GPG.
-Configuration GPGExécutez la commande suivante :
-1 2 gpg --full-generate-key Sélectionnez une clé RSA (question 1) de 4096 bits (question 2). Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:
-1 2 3 4 5 6 7 gpg --list-secret-keys --keyid-format LONG alexandre@.... /home/alexandre/.gnupg/pubring.kbx ---------------------------------- sec rsa4096/XXXXXXXXXX 2019-08-09 [SC] XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX uid [ ultime ] Alexandre Touret &lt;mon.]]></description></item></channel></rss>
+            </div><p>Juste pour un pense bête, voici comment paramétrer <a href="https://git-scm.com/" target="_blank" rel="noopener noreferrer">GIT</a> et <a href="https://github.com/" target="_blank" rel="noopener noreferrer">GITHUB</a>/<a href="https://about.gitlab.com/" target="_blank" rel="noopener noreferrer">GITLAB</a> pour signer les commits avec <a href="https://gnupg.org" target="_blank" rel="noopener noreferrer">GPG</a>.</p>
+<h2 id="configuration-gpg" class="headerLink">
+    <a href="#configuration-gpg" class="header-mark"></a>1 Configuration GPG</h2><p>Exécutez la commande suivante :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --full-generate-key
+</span></span><span class="line"><span class="cl">Sélectionnez une clé RSA <span class="o">(</span>question 1<span class="o">)</span> de <span class="m">4096</span> bits <span class="o">(</span>question 2<span class="o">)</span>.
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois cette commande effectuée, vous pouvez récupérer votre clé GPG avec cette commande:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --list-secret-keys --keyid-format LONG alexandre@....
+</span></span><span class="line"><span class="cl">/home/alexandre/.gnupg/pubring.kbx
+</span></span><span class="line"><span class="cl">----------------------------------
+</span></span><span class="line"><span class="cl">sec rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>SC<span class="o">]</span>
+</span></span><span class="line"><span class="cl">XXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+</span></span><span class="line"><span class="cl">uid <span class="o">[</span> ultime <span class="o">]</span> Alexandre Touret &lt;mon.mail.github.ou.gitlab@monprovider.fr&gt;
+</span></span><span class="line"><span class="cl">ssb rsa4096/XXXXXXXXXX 2019-08-09 <span class="o">[</span>E<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, il faut exécuter cette commande</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gpg --armor --export XXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-git" class="headerLink">
+    <a href="#configuration-git" class="header-mark"></a>2 Configuration GIT</h2><p>Indiquez la clé GPG à GIT</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local user.signingkey XXXXXXXXXXXX
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Et indiquez que vous voulez signer tous vos commits</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git config --local commit.gpgsign <span class="nb">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Si vous ne faites pas cette dernière commande, vous devrez ajouter l&rsquo;option -S à chaque exécution de la commande git commit.</p>
+<p>Exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git -a -S -m <span class="s2">&#34;Ajout javadoc&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-github" class="headerLink">
+    <a href="#configuration-github" class="header-mark"></a>3 Configuration GITHUB</h2><p>Sur Github ( il y a la même chose sur gitlab), vous pouvez <a href="https://github.com/settings/keys" target="_blank" rel="noopener noreferrer">dans vos paramètres</a> ajouter cette clé . De cette manière, vos prochains commits envoyés seront vérifiés.</p>
+<p>En espérant que ça serve à d&rsquo;autres 🙂</p>
+]]></description></item></channel></rss>

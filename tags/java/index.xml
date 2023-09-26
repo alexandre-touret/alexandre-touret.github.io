@@ -1,37 +1,1798 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>java - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/java/</link><description>java - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 22 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/java/" rel="self" type="application/rss+xml"/><item><title>Migrer son application Spring Boot vers la version 3</title><link>http://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>java - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/java/</link><description>java - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 05 Sep 2023 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/java/" rel="self" type="application/rss+xml"/><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-1"><em>Picture Credit: <a href="https://unsplash.com/@jannerboy62" target="_blank" rel="noopener noreferrer">Nick FEWINGS</a></em></div>
+<h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>In today&rsquo;s dynamic landscape, Distributed Tracing has emerged as an indispensable practice.
+It helps to understand what is under the hood of distributed transactions, providing answers to pivotal questions: What comprises these diverse requests? What contextual information accompanies them? How extensive is their duration?</p>
+<p>Since the introduction of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Google&rsquo;s Dapper</a>, a plethora of tracing solutions has flooded the scene.
+Among them, <a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> has risen as the frontrunner.
+Other alternatives such as <a href="https://www.elastic.co/observability/application-performance-monitoring" target="_blank" rel="noopener noreferrer">Elastic APM</a> and <a href="https://www.dynatrace.com/support/help/observe-and-explore/purepath-distributed-traces/distributed-traces-overview" target="_blank" rel="noopener noreferrer">DynaTrace</a> are also available.</p>
+<p>This toolkit seamlessly aligns with APIs and synchronous transactions, catering to a broad spectrum of scenarios.</p>
+<p>However, what about asynchronous transactions?
+The necessity for clarity becomes even more pronounced in such cases.
+Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.</p>
+<p>Why does this challenge arise?
+It&rsquo;s a consequence of functional transactions fragmenting into two loosely coupled subprocesses:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/09/loose-coupling-sequence.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/loose-coupling-sequence.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/loose-coupling-sequence.svg"
+            srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
+            sizes="auto"
+            alt="OpenTelemetry Collector Architecture">
+    </a></figure></div>
+<p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
+<div class="details admonition info open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-info-circle fa-fw"></i>What about the main concepts of Distributed Tracing?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">I will not dig into the concepts of Distributed tracing in this article.
+<a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">If you are interested in it, you can read my article on the Worldline Tech Blog</a>.</div>
+        </div>
+    </div>
+<p>I will explain in this article how to set up and plug OpenTelementry to gather asynchronous transaction traces using <a href="https://camel.apache.org/" target="_blank" rel="noopener noreferrer">Apache Camel</a> and <a href="https://activemq.apache.org/components/artemis/" target="_blank" rel="noopener noreferrer">Artemis</a>.
+The first part will use Jaeger and the second one,  <a href="https://grafana.com/oss/tempo/" target="_blank" rel="noopener noreferrer">Tempo</a> and <a href="https://grafana.com/" target="_blank" rel="noopener noreferrer">Grafana</a> to be more <em>production ready</em>.</p>
+<p>All the code snippets are part of <a href="https://GitHub.com/alexandre-touret/camel-artemis-opentelemetry" target="_blank" rel="noopener noreferrer">this project on GitHub</a>.
+(Normally) you can use and run it locally on your desktop.</p>
+<h2 id="jaeger" class="headerLink">
+    <a href="#jaeger" class="header-mark"></a>2 Jaeger</h2><h3 id="architecture" class="headerLink">
+    <a href="#architecture" class="header-mark"></a>2.1 Architecture</h3><p>The <a href="https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing" target="_blank" rel="noopener noreferrer">SPANs</a> are broadcast and gathered through <a href="https://opentelemetry.io/docs/collector" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a>.
+It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
+<p>Here is the architecture of such a platform:</p>
+<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/architecture.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/architecture.svg"
+            srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
+            sizes="auto"
+            alt="OpenTelemetry Collector Architecture">
+    </a></figure></div>
+<h3 id="opentelemetry-collector" class="headerLink">
+    <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
+It can be compared to <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">Elastic LogStash</a> or an <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener noreferrer">ETL</a>.
+It will help us get, transform and export telemetry data.</p>
+<div id="id-4"><p><figure><a class="lightgallery" href="/assets/images/2023/09/otel-diagram.svg" title="OpenTelemetry Collector Functionalities" data-thumbnail="/assets/images/2023/09/otel-diagram.svg" data-sub-html="<h2>Source: https://opentelemetry.io/docs/collector/</h2><p>OpenTelemetry Collector Functionalities</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/otel-diagram.svg"
+            srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
+            sizes="auto"
+            alt="OpenTelemetry Collector Functionalities">
+    </a><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
+    </figure></p>
+</div>
+<p>For our use case, the configuration is quite simple.</p>
+<p>First, here is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Docker Compose configuration</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otel-collector</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">otel/opentelemetry-collector:0.75.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">container_name</span><span class="p">:</span><span class="w"> </span><span class="l">otel-collector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w"> </span><span class="s2">&#34;--config=/etc/otel-collector-config.yaml&#34;</span><span class="w"> </span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">./docker/otel-collector-config.yaml:/etc/otel-collector-config.yaml</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">ports</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;1888:1888&#34;</span><span class="w">   </span><span class="c"># pprof extension</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8888:8888&#34;</span><span class="w">   </span><span class="c"># Prometheus metrics exposed by the collector</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;8889:8889&#34;</span><span class="w">   </span><span class="c"># Prometheus exporter metrics</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;13133:13133&#34;</span><span class="w"> </span><span class="c"># health_check extension</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;4317:4317&#34;</span><span class="w">   </span><span class="c"># OTLP gRPC receiver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="s2">&#34;55670:55679&#34;</span><span class="w"> </span><span class="c"># zpages extension</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>and the <a href="https://github.com/alexandre-touret/camel-artemis-opentelemetry/blob/main/containers/docker/otel-collector-config.yaml" target="_blank" rel="noopener noreferrer"><code>otel-collector-config.yaml</code></a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span><span class="lnt">57
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># (1)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0:4317&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0:4318&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;test&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/actuator/prometheus&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;host.docker.internal:8080&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#  prometheus:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#    endpoint: &#34;0.0.0.0:8889&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#    const_labels:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#      label1: value1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">logging</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">jaeger:14250</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">insecure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  zipkin:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#    endpoint: http://zipkin:9411/api/v2/spans</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#    tls:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#      insecure: true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (3)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">extensions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">health_check</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pprof</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="p">:</span><span class="m">1888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">zpages</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="p">:</span><span class="m">55679</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (4)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">extensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">pprof, zpages, health_check]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">logging, jaeger]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">batch]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">logging]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><strong>Short explanation</strong></p>
+<p>If you want further information about this configuration, you <a href="https://opentelemetry.io/docs/collector/configuration/" target="_blank" rel="noopener noreferrer">can browse the documentation</a>.</p>
+<p>For those who are impatient, here are a short explanation of this configuration file:</p>
+<ol>
+<li>Where to pull data?</li>
+<li>Where to store data?</li>
+<li>What to do with it?</li>
+<li>What are the workloads to activate?</li>
+</ol>
+<h3 id="what-about-the-code" class="headerLink">
+    <a href="#what-about-the-code" class="header-mark"></a>2.3 What about the code?</h3><p>The configuration to apply is pretty simple and straightforward.
+To cut long story short, you need to include libraries, add some configuration lines and run your application with an agent which will be responsible for broadcasting the SPANs.</p>
+<h4 id="libraries-to-add" class="headerLink">
+    <a href="#libraries-to-add" class="header-mark"></a>2.3.1 Libraries to add</h4><p>For an Apache Camel based Java application, you need to add this starter first:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;groupId&gt;</span>org.apache.camel.springboot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">   <span class="nt">&lt;artifactId&gt;</span>camel-opentelemetry-starter<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>In case you set up a <em>basic</em> <a href="https://spring.io/" target="_blank" rel="noopener noreferrer">Spring Boot application</a>, you only have to configure the agent (<em>see below</em>).</p>
+<h4 id="what-about-the-code-1" class="headerLink">
+    <a href="#what-about-the-code-1" class="header-mark"></a>2.3.2 What about the code?</h4><p>This step is not mandatory.
+However, if you are eager to get more details in your Jaeger dashboard, it is advised.</p>
+<p>In the application class, you only have to put the <code>@CamelOpenTelemetry</code> annotation.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you want more details, you can check <a href="https://camel.apache.org/components/3.20.x/others/opentelemetry.html" target="_blank" rel="noopener noreferrer">the official documentation</a>.</p>
+<h4 id="the-java-agent" class="headerLink">
+    <a href="#the-java-agent" class="header-mark"></a>2.3.3 The Java Agent</h4><p>The java agent is responsible for instrumenting Java 8+ code, capturing metrics and forwarding them to the collector.</p>
+<p>In case you don&rsquo;t know what is a Java Agent, I recommend watching <a href="https://www.youtube.com/watch?v=oflzFGONG08" target="_blank" rel="noopener noreferrer">this conference</a>.</p>
+<p><a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation" target="_blank" rel="noopener noreferrer">Its documentation is available on GitHub</a>.
+The detailed list of configuration parameters <a href="https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/" target="_blank" rel="noopener noreferrer">is available here</a>.
+You can configure it through environment, system variables or a <a href="https://opentelemetry.io/docs/instrumentation/java/automatic/agent-config/#configuration-file" target="_blank" rel="noopener noreferrer">configuration file</a>.</p>
+<p>For instance, by default, the OpenTelemetry Collector default endpoint value is <code>http://localhost:4317</code>.
+You can alter it by setting the <code>OTEL_EXPORTER_OTLP_METRICS_ENDPOINT</code> environment variable or the <code>otel.exporter.otlp.metrics.endpoint</code> java system variable (e.g., using <code>-Dotel.exporter.otlp.metrics.endpoint</code> option ).</p>
+<p>In my example, we use Maven configuration to download the agent JAR file and run our application with it as an agent.</p>
+<p><strong>Example of configuration</strong></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;profile&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;id&gt;</span>opentelemetry<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;activation&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;property&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;name&gt;</span>apm<span class="nt">&lt;/name&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;value&gt;</span>otel<span class="nt">&lt;/value&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/property&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/activation&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;build&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;plugins&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.apache.maven.plugins<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>maven-dependency-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;executions&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;execution&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;id&gt;</span>copy-javaagent<span class="nt">&lt;/id&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;phase&gt;</span>process-resources<span class="nt">&lt;/phase&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;goals&gt;</span>
+</span></span><span class="line"><span class="cl">                            <span class="nt">&lt;goal&gt;</span>copy<span class="nt">&lt;/goal&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;/goals&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">                            <span class="nt">&lt;artifactItems&gt;</span>
+</span></span><span class="line"><span class="cl">                                <span class="nt">&lt;artifactItem&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;groupId&gt;</span>io.opentelemetry.javaagent<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;artifactId&gt;</span>opentelemetry-javaagent<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;version&gt;</span>${opentelemetry-agent.version}<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;overWrite&gt;</span>true<span class="nt">&lt;/overWrite&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;outputDirectory&gt;</span>${project.build.directory}/javaagents<span class="nt">&lt;/outputDirectory&gt;</span>
+</span></span><span class="line"><span class="cl">                                    <span class="nt">&lt;destFileName&gt;</span>javaagent.jar<span class="nt">&lt;/destFileName&gt;</span>
+</span></span><span class="line"><span class="cl">                                <span class="nt">&lt;/artifactItem&gt;</span>
+</span></span><span class="line"><span class="cl">                            <span class="nt">&lt;/artifactItems&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;/execution&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/executions&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;artifactId&gt;</span>spring-boot-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;agents&gt;</span>
+</span></span><span class="line"><span class="cl">                        <span class="nt">&lt;agent&gt;</span>${project.build.directory}/javaagents/javaagent.jar<span class="nt">&lt;/agent&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="nt">&lt;/agents&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="c">&lt;!--                    &lt;systemPropertyVariables&gt;--&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="c">&lt;!--                        &lt;otel.traces.sampler&gt;parentbased_traceidratio&lt;/otel.traces.sampler&gt;--&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="c">&lt;!--                        &lt;otel.traces.sampler.arg&gt;0.2&lt;/otel.traces.sampler.arg&gt;--&gt;</span>
+</span></span><span class="line"><span class="cl">                    <span class="c">&lt;!--                    &lt;/systemPropertyVariables&gt;--&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/plugin&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/plugins&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/build&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/profile&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The variables in comment (e.g., <code>otel.traces.sampler</code>) can be turned on if you want <a href="https://opentelemetry.io/docs/concepts/sampling/" target="_blank" rel="noopener noreferrer">to sample your forwarded data based on a head rate limiting</a>.</p>
+<p>Before running the whole application (<a href="https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/gateway" target="_blank" rel="noopener noreferrer">gateway</a>, <a href="https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-producer" target="_blank" rel="noopener noreferrer">producer</a>,<a href="https://github.com/alexandre-touret/camel-artemis-opentelemetry/tree/main/camel-consumer" target="_blank" rel="noopener noreferrer">consumer</a>), you must ramp up the infrastructure with <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a>.
+The source is available <a href="https://github.com/alexandre-touret/camel-artemis-opentelemetry/blob/main/containers/docker-compose.yml" target="_blank" rel="noopener noreferrer">here</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd containers
+</span></span><span class="line"><span class="cl">docker compose up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can now start both the producer and the consumer:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mvn clean spring-boot:run -Popentelemetry -f camel-producer/pom.xml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mvn clean spring-boot:run -Popentelemetry -f camel-consumer/pom.xml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>The gateway can also be turned on and instrumented in the same way.
+You can run it as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">mvn clean spring-boot:run -Popentelemetry -f gateway/pom.xml
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h4 id="how-is-made-the-glue-between-the-two-applications" class="headerLink">
+    <a href="#how-is-made-the-glue-between-the-two-applications" class="header-mark"></a>2.3.4 How is made the glue between the two applications?</h4><p>The correlation is simply done using headers.
+For instance, in the consumer application, when we consume the messages as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">   <span class="n">from</span><span class="o">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeId</span><span class="o">(</span><span class="s">&#34;consume-message&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeDescription</span><span class="o">(</span><span class="s">&#34;Consumer example&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">LoggingLevel</span><span class="o">.</span><span class="na">INFO</span><span class="o">,</span> <span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">end</span><span class="o">();</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>I logged on purpose the <code>traceparent</code> header.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl"> New message with trace=00-1a4f6943b7ace96d7efae4c4404009d8-cfbdb98266a772d7-01
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It allows to Jaeger to correlate our two transactions.</p>
+<p>For your information, here are all the headers available while consuming the message</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span><span class="err">__AMQ_CID=ID:XXXX-0:1,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">accept=*/*,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">accept-encoding=gzip,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">deflate,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">CamelHttpCharacterEncoding=UTF-8,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">CamelHttpMethod=GET,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">CamelHttpPath=,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">CamelHttpUri=/camel/test,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">CamelHttpUrl=http:</span><span class="c1">//127.0.0.1:8080/camel/test, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">CamelMessageTimestamp=1693567851901,</span>
+</span></span><span class="line"><span class="cl">  <span class="err">CamelServletContextPath=/test,</span>
+</span></span><span class="line"><span class="cl">  <span class="err">content-length=0,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">forwarded=proto=http;host=</span><span class="nt">&#34;localhost:9080&#34;</span><span class="err">;for=</span><span class="s2">&#34;127.0.0.1:39352&#34;</span><span class="p">,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">host=127.0.0.1:8080,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSCorrelationID=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSCorrelationIDAsBytes=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSDeliveryMode=2,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSDestination=queue:</span><span class="c1">//HELLO.WORLD, 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">JMSExpiration=0,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSMessageID=ID:XXXX-1:1:1:1:75,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSPriority=4,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSRedelivered=false,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSReplyTo=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSTimestamp=1693567851901,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSType=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSXGroupID=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">JMSXUserID=null,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">traceparent=00-dea6abbd4357819b7416236bab19e557-8840b18dd799cfac-01,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">user-agent=HTTPie/1.0.3,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">x-forwarded-for=127.0.0.1,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">x-forwarded-host=localhost:9080,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">x-forwarded-port=9080,</span> 
+</span></span><span class="line"><span class="cl">  <span class="err">x-forwarded-proto=http</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="dashboard" class="headerLink">
+    <a href="#dashboard" class="header-mark"></a>2.4 Dashboard</h3><p>To get traces, I ran this dumb command to inject traces into Jaeger:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">while true ; http :9080/camel/test; end
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now, you can browse Jaeger (<a href="http://localhost:16686" target="_blank" rel="noopener noreferrer">http://localhost:16686</a>) and query it to find trace insights:</p>
+<div id="id-5"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-1.webp" title="Jaeger front page" data-thumbnail="/assets/images/2023/09/jaeger-1.webp" data-sub-html="<h2>Number of different apps</h2><p>Jaeger front page</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/jaeger-1.webp"
+            srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
+            sizes="auto"
+            alt="Jaeger front page">
+    </a><figcaption class="image-caption">Number of different apps</figcaption>
+    </figure></p>
+</div>
+<p>If you dig into one transaction, you will see the whole transaction:</p>
+<div id="id-6"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-2.webp" title="Jaeger transaction page" data-thumbnail="/assets/images/2023/09/jaeger-2.webp" data-sub-html="<h2>One transaction</h2><p>Jaeger transaction page</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/jaeger-2.webp"
+            srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
+            sizes="auto"
+            alt="Jaeger transaction page">
+    </a><figcaption class="image-caption">One transaction</figcaption>
+    </figure></p>
+</div>
+<p>And now, you can correlate two sub transactions:</p>
+<div id="id-7"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-3.webp" title="Jaeger two sub transactions" data-thumbnail="/assets/images/2023/09/jaeger-3.webp" data-sub-html="<h2>Two sub transactions</h2><p>Jaeger two sub transactions</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/jaeger-3.webp"
+            srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
+            sizes="auto"
+            alt="Jaeger two sub transactions">
+    </a><figcaption class="image-caption">Two sub transactions</figcaption>
+    </figure></p>
+</div>
+<h2 id="tempo--grafana" class="headerLink">
+    <a href="#tempo--grafana" class="header-mark"></a>3 Tempo &amp; Grafana</h2><p>This solution is pretty similar to the previous one.
+Instead of pushing all the data to Jaeger, we will use Tempo to store data and Grafana to render them.
+We don&rsquo;t need to modify the configuration made in the existing Java applications.</p>
+<h3 id="architecture-1" class="headerLink">
+    <a href="#architecture-1" class="header-mark"></a>3.1 Architecture</h3><p>As mentioned above, the architecture is quite the same.
+Now, we have the collector which broadcast data to Tempo.
+We will then configure Grafana to query to it to get traces.</p>
+<div id="id-8"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture_grafana.svg" title="Architecture w/ Grafana &amp;amp; Tempo" data-thumbnail="/assets/images/2023/09/architecture_grafana.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/architecture_grafana.svg"
+            srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
+            sizes="auto"
+            alt="Architecture w/ Grafana &amp;amp; Tempo">
+    </a></figure></div>
+<h3 id="collector-configuration" class="headerLink">
+    <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
+We only have to specify the tempo URL.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0:4317&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;0.0.0.0:4318&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">config</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;test&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;/actuator/prometheus&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;host.docker.internal:8080&#39;</span><span class="p">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">tempo:4317</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">insecure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">exporters</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="tempo-configuration" class="headerLink">
+    <a href="#tempo-configuration" class="header-mark"></a>3.3 Tempo configuration</h3><p>I used here <a href="https://github.com/grafana/tempo" target="_blank" rel="noopener noreferrer">the standard configuration provided in the documentation</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">http_listen_port</span><span class="p">:</span><span class="w"> </span><span class="m">3200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">distributor</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">receivers</span><span class="p">:</span><span class="w">                           </span><span class="c"># this configuration will listen on all ports and protocols that tempo is capable of.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">                            </span><span class="c"># the receives all come from the OpenTelemetry collector.  more configuration information can</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocols:                       # be found there</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">thrift_http</span><span class="p">:</span><span class="w">                   </span><span class="c">#</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">grpc</span><span class="p">:</span><span class="w">                          </span><span class="c"># for a production deployment you should only enable the receivers you need!</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">thrift_binary</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">thrift_compact</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">opencensus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ingester</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">max_block_duration</span><span class="p">:</span><span class="w"> </span><span class="l">5m              </span><span class="w"> </span><span class="c"># cut the headblock when this much time passes. this is being set for demo purposes and should probably be left alone normally</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">compactor</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">compaction</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">block_retention</span><span class="p">:</span><span class="w"> </span><span class="l">1h               </span><span class="w"> </span><span class="c"># overall Tempo trace retention. set for demo purposes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metrics_generator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">cluster</span><span class="p">:</span><span class="w"> </span><span class="l">docker-compose</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">storage</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tmp/tempo/generator/wal</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">remote_write</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://prometheus:9090/api/v1/write</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">send_exemplars</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">storage</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">trace</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l">local                    </span><span class="w"> </span><span class="c"># backend configuration to use</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">wal</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tmp/tempo/wal            </span><span class="w"> </span><span class="c"># where to store the wal locally</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">local</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tmp/tempo/blocks</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overrides</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics_generator_processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">service-graphs, span-metrics]</span><span class="w"> </span><span class="c"># enables metrics generator</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">search_enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="grafana-configuration" class="headerLink">
+    <a href="#grafana-configuration" class="header-mark"></a>3.4 Grafana configuration</h3><p>Now we must configure Grafana to enable querying into our tempo instance.
+The configuration is made here using a configuration file provided during the startup</p>
+<p>The datasource file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">datasources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Prometheus backend where metrics are sent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://prometheus:9090</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">httpMethod</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://tempo:3200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">httpMethod</span><span class="p">:</span><span class="w"> </span><span class="l">GET</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serviceMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;prometheus&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="dashboard-1" class="headerLink">
+    <a href="#dashboard-1" class="header-mark"></a>3.5 Dashboard</h3><p>As we have done before, we must start the infrastructure using Docker Compose:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">cd containers
+</span></span><span class="line"><span class="cl">docker compose -f docker-compose-grafana.yml up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Then, using the same rocket scientist maven commands, we can run the same commands and browse now Grafana (<code>http://localhost:3000</code>) to see our traces:</p>
+<p><div id="id-9"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-1.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-1.webp" data-sub-html="<h2>Transactions</h2><p>Grafana transactions</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/grafana-1.webp"
+            srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
+            sizes="auto"
+            alt="Grafana transactions">
+    </a><figcaption class="image-caption">Transactions</figcaption>
+    </figure></p>
+</div>
+<div id="id-10"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-2.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-2.webp" data-sub-html="<h2>Deep dive into one transaction</h2><p>Grafana transactions</p>">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/09/grafana-2.webp"
+            srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
+            sizes="auto"
+            alt="Grafana transactions">
+    </a><figcaption class="image-caption">Deep dive into one transaction</figcaption>
+    </figure></p>
+</div></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo &amp; Grafana.
+It was voluntarily simple.</p>
+<p>If you want to dig into <a href="https://github.com/open-telemetry/opentelemetry-collector/" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a> configuration, you can read <a href="https://signoz.io/blog/opentelemetry-collector-complete-guide/" target="_blank" rel="noopener noreferrer">this article from Antik ANAND</a> (Thanks to <a href="https://blog.frankel.ch/" target="_blank" rel="noopener noreferrer">Nicolas FRANKËL</a> for sharing it) and the <a href="https://github.com/open-telemetry/opentelemetry-collector/" target="_blank" rel="noopener noreferrer">official documentation</a>.
+A noteworthy aspect of <a href="https://github.com/open-telemetry/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a> lies in its evolution into an industry-standard over time.
+For instance,<a href="https://www.elastic.co/observability/application-performance-monitoring" target="_blank" rel="noopener noreferrer">Elastic APM</a> <a href="https://www.elastic.co/guide/en/apm/guide/current/open-telemetry.html" target="_blank" rel="noopener noreferrer">is compatible with it</a>.</p>
+<p>I then exposed how to enable this feature on Apache Camel applications.
+It can be easily reproduced <a href="https://opentelemetry.io/docs/instrumentation/" target="_blank" rel="noopener noreferrer">with several stacks</a>.</p>
+<p>Last but not least, which solution is the best?</p>
+<p>I have not made any benchmark of Distributed Tracing solutions.
+However, for a <em>real life</em> production setup, I would dive into Grafana and Tempo and check their features.
+I am particularly interested in mixing logs, traces to orchestrate efficient alerting mechanisms.</p>
+]]></description></item><item><title>Migrer son application Spring Boot vers la version 3</title><link>http://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/spring.webp" referrerpolicy="no-referrer">
-            </div>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.
-Je suis actuellement en cours de préparation d&rsquo;un workshop pour l&rsquo;édition 2023 de SnowcampIO. J&rsquo;aborderai dans ce dernier le versioning des APIs REST. Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la stack Spring.
-Container Tools Comments API Gateway Spring Cloud Gateway 2022.0.0-RC2 Bookstore API JAVA 17,Spring Boot 3.0.X ISBN API JAVA 17,Spring Boot 3.]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>http://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.</p>
+<p>Je suis actuellement en cours de préparation d&rsquo;un workshop pour <a href="https://snowcamp.io/fr/" target="_blank" rel="noopener noreferrer">l&rsquo;édition 2023 de SnowcampIO</a>.
+J&rsquo;aborderai dans <a href="https://sessionize.com/s/alexandre-touret/rest-apis-versioning-hands-on/60048" target="_blank" rel="noopener noreferrer">ce dernier le versioning des APIs REST</a>.
+Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la <a href="https://spring.io/" target="_blank" rel="noopener noreferrer">stack Spring</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Container</th>
+<th>Tools</th>
+<th>Comments</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Gateway</td>
+<td>Spring Cloud Gateway 2022.0.0-RC2</td>
+<td></td>
+</tr>
+<tr>
+<td>Bookstore API</td>
+<td>JAVA 17,Spring Boot 3.0.X</td>
+<td></td>
+</tr>
+<tr>
+<td>ISBN API</td>
+<td>JAVA 17,Spring Boot 3.0.X</td>
+<td></td>
+</tr>
+<tr>
+<td>Configuration Server</td>
+<td>Spring Cloud Config 2022.0.0-RC2</td>
+<td></td>
+</tr>
+<tr>
+<td>Database</td>
+<td>PostgreSQL</td>
+<td></td>
+</tr>
+<tr>
+<td>Authorization Server</td>
+<td>JAVA 17,Spring Boot 3.0.X, Spring Authorization Server 1.0.0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>En résumé, j&rsquo;utilise <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a>, <a href="https://spring.io/cloud" target="_blank" rel="noopener noreferrer">Cloud</a>, <a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener noreferrer">Security</a>, <a href="https://spring.io/projects/spring-authorization-server" target="_blank" rel="noopener noreferrer">Authorization Server</a>, <a href="https://spring.io/projects/spring-cloud-circuitbreaker" target="_blank" rel="noopener noreferrer">Circuit Breaker</a>, <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a>,&hellip;</p>
+<p>J&rsquo;ai démarré le développement avant <a href="https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga" target="_blank" rel="noopener noreferrer">l&rsquo;annonce officielle de la version 3.0 de Spring Boot</a>.
+Ce n&rsquo;était pas réellement obligatoire pour cet atelier, mais j&rsquo;ai souhaité quand même migrer cette application dans la dernière version de Spring Boot/Framework.</p>
+<p>Je vais décrire dans cet article comment j&rsquo;ai réussi à migrer toute cette stack et les choix que j&rsquo;ai fait pour que ça fonctionne.</p>
+<p>Bien évidemment, cette application n&rsquo;est pas une <em>&ldquo;vraie&rdquo;</em> application en production.
+Par exemple, je n&rsquo;ai qu&rsquo;une seule entité JPA&hellip;
+Cependant, je la trouve représentative et espère (très modestement) que mon retour d&rsquo;expérience pourra servir.</p>
+<p><a href="https://github.com/alexandre-touret/rest-apis-versioning-workshop/pull/11/files" target="_blank" rel="noopener noreferrer">La Pull Request correspondante est disponible sur GitHub</a>.</p>
+<h2 id="pré-requis" class="headerLink">
+    <a href="#pr%c3%a9-requis" class="header-mark"></a>1 Pré-requis</h2><p>Une documentation existe.
+Vous pouvez la consulter <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide" target="_blank" rel="noopener noreferrer">ici</a>.
+Il existe aussi plusieurs articles sur le blog du projet Spring. Voici <a href="https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0" target="_blank" rel="noopener noreferrer">un exemple</a>.</p>
+<h2 id="dépendances-et-configuration-des-plugins" class="headerLink">
+    <a href="#d%c3%a9pendances-et-configuration-des-plugins" class="header-mark"></a>2 Dépendances et configuration des plugins</h2><h3 id="jdk" class="headerLink">
+    <a href="#jdk" class="header-mark"></a>2.1 JDK</h3><p>Pour Spring Boot 3, il faut impérativement utiliser un <a href="https://openjdk.org/projects/jdk/17/" target="_blank" rel="noopener noreferrer">JDK &gt;=17</a>.</p>
+<h3 id="mises-à-jour" class="headerLink">
+    <a href="#mises-%c3%a0-jour" class="header-mark"></a>2.2 Mises à jour</h3><p>L&rsquo;une des premières actions à réaliser est de migrer votre application vers <a href="https://spring.io/blog/2022/06/23/spring-boot-2-7-1-available-now" target="_blank" rel="noopener noreferrer">la version 2.7</a>.</p>
+<p>À l&rsquo;heure où j&rsquo;écris cet article, la version de Spring Cloud est encore en version RC.
+J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Spring:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">&#39;https://repo.spring.io/milestone&#39;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">mavenCentral</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Ensuite, j&rsquo;ai utilisé les versions suivantes pour les différents composants spring:</p>
+<ul>
+<li>Spring Boot : 3.0.0</li>
+<li>Spring Cloud : 2022.0.0-RC2</li>
+<li>Spring Dependency Management : 1.1.0</li>
+</ul>
+<p>Dans mon application, j&rsquo;utilisais certains plugins Gradle pour la génération du code notamment <a href="https://openapi-generator.tech/docs/generators/spring/" target="_blank" rel="noopener noreferrer">OpenAPIGenerator</a>. Pour ce dernier, j&rsquo;ai ajouté un paramètre pour le rendre compatible avec spring boot 3:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"> <span class="n">useSpringBoot3</span>       <span class="o">:</span> <span class="s2">&#34;true&#34;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Bref, il faut impérativement tous les mettre à jour et vérifier la compatibilité !</p>
+<h2 id="ajout-de-nouvelles-dépendances" class="headerLink">
+    <a href="#ajout-de-nouvelles-d%c3%a9pendances" class="header-mark"></a>3 Ajout de nouvelles dépendances</h2><p>Pour vérifier la pertinence de certaines propriétés dans la nouvelle version, Spring a mis à disposition ce plugin:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl">   <span class="n">runtimeOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-properties-migrator&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il permet de notifier à l&rsquo;exécution si un paramètre est déprécié ou totalement inutile.</p>
+<h2 id="migration-namespace-javax-vers-jakartaee" class="headerLink">
+    <a href="#migration-namespace-javax-vers-jakartaee" class="header-mark"></a>4 Migration namespace javax vers jakartaee</h2><p>Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d&rsquo;innombrables maux de tête.</p>
+<p>Si vous utilisez Spring Boot au-dessus d&rsquo;un Tomcat (c.-à-d. en mode <em>old school</em>), il  vous faudra mettre à jour le conteneur de servlet à une version compatible.</p>
+<p>Dans mon application, je n&rsquo;ai eu qu&rsquo;à modifier les imports dans les entités,  filtres et méthodes annotées par l&rsquo;annotation <code>@PostConstruct()</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Column</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Entity</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GeneratedValue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GenerationType</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
+<h2 id="distributed-tracing-et-observabilité" class="headerLink">
+    <a href="#distributed-tracing-et-observabilit%c3%a9" class="header-mark"></a>5 Distributed Tracing et observabilité</h2><p>Spring embarque désormais plusieurs fonctionnalités liées à l&rsquo;observabilité sous forme de starters.
+Dans mon cas, <a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">j&rsquo;avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger</a>.</p>
+<p>J&rsquo;ai suivi <a href="https://spring.io/blog/2022/10/12/observability-with-spring-boot-3" target="_blank" rel="noopener noreferrer">cet article</a> paru sur le blog de Spring.
+J&rsquo;ai par conséquent basculé sur <a href="https://zipkin.io/" target="_blank" rel="noopener noreferrer">Zipkin</a> (pour mon Workshop, l&rsquo;utilisation du distributed tracing est un peu la cerise sur le gâteau).</p>
+<p>Voici les starters que j&rsquo;ai intégrés :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-tracing-bridge-brave&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.zipkin.reporter2:zipkin-reporter-brave&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentelemetry:opentelemetry-exporter-zipkin&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-aop&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>J&rsquo;ai par la suite intégré les propriétés suivantes dans la configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:9411</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sampling</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">probability</span><span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">percentiles-histogram</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">http</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">server</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">requests</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Je pense que j&rsquo;aurai pu faire fonctionner <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.
+Je n&rsquo;ai pas voulu perdre de temps (SnowcampIO arrive bientôt&hellip;).</p>
+<h2 id="securité" class="headerLink">
+    <a href="#securit%c3%a9" class="header-mark"></a>6 Securité</h2><p>J&rsquo;ai eu quelques soucis après avoir mis à jour Spring Authorization Server et Spring Security.
+Je pense que la version précédente de Spring était plus permissive sur l&rsquo;injection et le nom des beans chargés dans les classes Configuration.</p>
+<p>J&rsquo;ai donc revu <a href="https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006" target="_blank" rel="noopener noreferrer">la validation côté gateway et plus particulièrement la validation du jeton JWT</a>.</p>
+<p>J&rsquo;ai dû notamment ajouter le paramètre <code>jwk-set-uri</code> qui est obligatoire maintenant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceserver</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">jwt</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">jwk-set-uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8009</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Je n&rsquo;ai pas eu de <a href="https://github.com/spring-projects/spring-authorization-server/" target="_blank" rel="noopener noreferrer">réels problèmes coté Authorization Server car j&rsquo;avais déjà migré vers la version 0.4.0</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>7 Conclusion</h2><p>Vous l&rsquo;aurez compris, si vous faites l&rsquo;effort de suivre régulièrement les versions de Spring, vous devriez venir à bout facilement de la migration vers la dernière version de Spring.</p>
+<p>Néanmoins, sur des projets conséquents (et je ne parle pas de ceux où il n&rsquo;y a de tests automatisés&hellip;) ça peut s&rsquo;avérer coûteux.
+Certaines actions et contournements peuvent prendre du temps (ex. javax &ndash;&gt; jakarta).</p>
+<p>Enfin, je vous conseille d&rsquo;attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour <em>&ldquo;de vrai&rdquo;</em>.
+Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d&rsquo;attendre que les premiers correctifs soient publiés avant de vous lancer.</p>
+]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>http://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/10/devoxx_badge.webp" referrerpolicy="no-referrer">
-            </div>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, Devoxx Belgium était de retour à Anvers. Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.
-C&rsquo;était donc une première pour moi.
-Pour y aller, j&rsquo;ai eu trois fois de la chance:
-J&rsquo;ai eu cette opportunité grâce à Worldline - mon employeur J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch Ma présentation au format Quickie a été retenue.]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, <a href="https://www.devoxx.be" target="_blank" rel="noopener noreferrer">Devoxx Belgium</a> était de retour à Anvers.
+Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.</p>
+<p>C&rsquo;était donc une première pour moi.</p>
+<p>Pour y aller, j&rsquo;ai eu trois fois de la chance:</p>
+<ol>
+<li>J&rsquo;ai eu cette opportunité grâce à <a href="https://worldline.com/" target="_blank" rel="noopener noreferrer">Worldline - mon employeur</a></li>
+<li>J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch</li>
+<li><a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">Ma présentation au format Quickie a été retenue</a>. J&rsquo;ai présenté un talk à Devoxx!!!!!!!</li>
+</ol>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-1.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-1.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/10/devoxx-be-22-1.webp"
+            srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-2.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-2.webp">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2022/10/devoxx-be-22-2.webp"
+            srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
+            sizes="auto"
+            alt="configuration">
+    </a></figure></div></div>
+
+<p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
+<h2 id="impressions-générales" class="headerLink">
+    <a href="#impressions-g%c3%a9n%c3%a9rales" class="header-mark"></a>1 Impressions générales</h2><p>Tout d&rsquo;abord, j&rsquo;ai pu assister à de nombreux <a href="https://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">Devoxx France</a>. J&rsquo;ai cru naïvement que les deux évènements se ressembleraient.</p>
+<p>Je me suis trompé.</p>
+<p>Je ne dirai pas lequel est le meilleur<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Je ne saurais le dire. On est sur un autre type de conférence.</p>
+<p>Il y a un peu moins de feedback de la communauté, même si il y a eu <a href="https://www.youtube.com/watch?v=LoF2vkYiICo" target="_blank" rel="noopener noreferrer">une présentation de Doctolib</a> et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling).</p>
+<p>Aussi, alors que la ligne éditoriale de Devoxx France s&rsquo;est tournée au fil des années sur d&rsquo;autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur.</p>
+<p>Les (très) grands speakers de l&rsquo;écosystème sont présents et on fait des super talks: <a href="https://en.wikipedia.org/wiki/James_Gosling" target="_blank" rel="noopener noreferrer">James Gosling</a>, <a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a>, <a href="https://developers.redhat.com/authors/mario-fusco" target="_blank" rel="noopener noreferrer">Mario Fusco</a>, <a href="https://in.relation.to/gavin-king/" target="_blank" rel="noopener noreferrer">Gavin King</a> ou <a href="https://blogs.oracle.com/java/post/new-java-champion-jos%C3%A9-paumard" target="_blank" rel="noopener noreferrer">José Paumard</a>.</p>
+<p>En résumé, le coeur de la communauté <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29" target="_blank" rel="noopener noreferrer">Java</a> bat à Anvers pendant une semaine.
+Une majorité de <a href="https://dev.java/community/jcs/" target="_blank" rel="noopener noreferrer">Java champions</a> sont +/- présents et nous font partager leur expertise.</p>
+<h2 id="les-tendances" class="headerLink">
+    <a href="#les-tendances" class="header-mark"></a>2 Les tendances</h2><p>Les grandes tendances étaient:</p>
+<ul>
+<li>L&rsquo;IA et les applications</li>
+<li>Le projet Loom</li>
+<li>GraalVM</li>
+</ul>
+<h2 id="quelques-conférences" class="headerLink">
+    <a href="#quelques-conf%c3%a9rences" class="header-mark"></a>3 Quelques conférences</h2><p>L&rsquo;ensemble des conférences <a href="https://www.youtube.com/c/Devoxx2015/videos" target="_blank" rel="noopener noreferrer">est déjà publié sur Youtube</a>. N&rsquo; hésitez pas à les consulter. Il y a beaucoup de talks de qualité.</p>
+<h3 id="artificial-intelligence-you-are-here-by-alan-d-thompson" class="headerLink">
+    <a href="#artificial-intelligence-you-are-here-by-alan-d-thompson" class="header-mark"></a>3.1 Artificial Intelligence: You Are Here by Alan D Thompson</h3><p>Le <a href="https://lifearchitect.ai/" target="_blank" rel="noopener noreferrer">Dr Alan D. Thompson</a> est un expert en intelligence artificielle.
+Il nous a donné une présentation pendant la keynote sur ce que l&rsquo; IA peut réellement faire de nos jours.
+C&rsquo;est de plus en plus utilisé dans notre industrie au travers de Github Copilot, <a href="https://github.com/THUDM/CodeGeeX" target="_blank" rel="noopener noreferrer">Codegeex</a>,&hellip;</p>
+<p>Après nous avoir rappellé <a href="https://lifearchitect.ai/timeline/" target="_blank" rel="noopener noreferrer">la timeline de l&rsquo;adoption de l&rsquo; IA</a>, il a illustré avec des peintures déssinées par une IA comment un ordinateur peut maintenant comprendre une phrase en langage naturel et la traduire en image.</p>
+<p>Il a également présenté <a href="https://en.wikipedia.org/wiki/GPT-3" target="_blank" rel="noopener noreferrer">le langage de modélisation GPT3</a>.</p>
+<p>Vous pouvez trouver <a href="https://www.youtube.com/watch?v=xjYy91BxdPo" target="_blank" rel="noopener noreferrer">la vidéo ici</a>.</p>
+<h2 id="revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="headerLink">
+    <a href="#revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="header-mark"></a>4 Revolutionizing Java-Based Applications with GraalVM by Alina Yurenko and Thomas Wuerthinger</h2><p>Dans cette présentation, les présentateurs d&rsquo;Oracle ont abordé une autre grande tendance du marché: le retour au natif qui permet de limiter l&rsquo;impact sur le démarrage, la mémoire et la taille des packages.</p>
+<p>Au travers d&rsquo;un exemple basé sur <a href="https://micronaut.io/" target="_blank" rel="noopener noreferrer">Micronaut</a>, ils ont expliqué comment <a href="https://www.graalvm.org/" target="_blank" rel="noopener noreferrer">GraalVM</a> peut répondre à ces enjeux. Ils ont également démystifié plusieurs mythes liés à GraalVM. Par exemple, GraalVM supporte la réflexion (&hellip; et parfois non). On peut utiliser également [Java Flight Recorder](Java Flight Recorder) pendant la compilation. Le support à l&rsquo;exécution des applications est bientôt prévu.</p>
+<p>La developer experience était également à l&rsquo;ordre du jour. Comment offrir une bonne expérience alors que la compilation prend plus de temps?</p>
+<p>Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode <a href="https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk" target="_blank" rel="noopener noreferrer">JIT</a> avec une JVM pendant le développement et d&rsquo;utiliser l&rsquo; <a href="https://devblogs.microsoft.com/java/aot-compilation-in-hotspot-introduction/" target="_blank" rel="noopener noreferrer">AOT</a> pour le déploiement final. Ceci permet de disposer d&rsquo;une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.</p>
+<p><a href="https://www.youtube.com/watch?v=mhmqomex1zk" target="_blank" rel="noopener noreferrer">La vidéo est disponible ici</a></p>
+<h2 id="the-lost-art-of-software-design-by-simon-brown" class="headerLink">
+    <a href="#the-lost-art-of-software-design-by-simon-brown" class="header-mark"></a>5 The lost art of software design by Simon Brown</h2><p>J&rsquo;utilise <a href="https://www.c4model.com/" target="_blank" rel="noopener noreferrer">le modèle C4</a> depuis plusieurs années.
+Je l&rsquo;ai même présenté très brièvement dans mon talk.</p>
+<p>Aussi, j&rsquo;ai été très impressionné quand j&rsquo;ai pu assister à la présentation de <a href="https://simonbrown.je/" target="_blank" rel="noopener noreferrer">Simon Brown</a> sur la conception logicielle.
+Il a expliqué pourquoi la conception n&rsquo;était pas conflictuelle avec les méthodes agiles.
+Ca permet notamment d&rsquo; identtifier et de gérer les risques.</p>
+<p>Au delà du modèle C4, <a href="https://riskstorming.com/" target="_blank" rel="noopener noreferrer">il a montré comment identifier et évaluer les différents risques avec le &ldquo;Risk Storming&rdquo;</a>.</p>
+<p>Enfin, il a répondu à la question à un million d&rsquo;euros: &ldquo;Quand arrêter la conception?&rdquo;</p>
+<p><a href="https://www.youtube.com/watch?v=36OTe7LNd6M" target="_blank" rel="noopener noreferrer">Vous trouverez la réponse ici</a>.</p>
+<h3 id="ahead-of-time-and-native-in-spring-boot-30-by-stéphane-nicoll--brian-clozel" class="headerLink">
+    <a href="#ahead-of-time-and-native-in-spring-boot-30-by-st%c3%a9phane-nicoll--brian-clozel" class="header-mark"></a>5.1 Ahead Of Time and Native in Spring Boot 3.0 by Stéphane Nicoll &amp; Brian Clozel</h3><p>Une autre conférence qui met en avant GraalVM!
+Cette fois on abordait le support de l&rsquo; AOT et du mode natif dans la future version de Spring Boot.</p>
+<p>Les présentateurs ont expliqués comment Spring supportait le mode natif: le processus appliqué, la gestion des métadonnées et l&rsquo;analyse réalisée.
+En (très très bref) résumé, l&rsquo; AOT génère des sources dont le chargement des Bean Definition.</p>
+<p>Ils ont également pointé du doigt des changements que je considère bloquants:</p>
+<ul>
+<li>On ne peut pas utiliser changer les profils au runtime</li>
+<li>La surcharge des propriétés et variable d&rsquo;environnement n&rsquo;est pas possible à l&rsquo;exécution</li>
+<li>On ne peut pas utiliser de Java Agent.</li>
+</ul>
+<p>Pour ce dernier point, cela risque de poser de nombreux soucis que ça soit l&rsquo;utilisation d&rsquo;un <a href="https://www.dynatrace.com/news/blog/what-is-apm-2/" target="_blank" rel="noopener noreferrer">APM tel que Dynatrace</a> ou le support de <a href="https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/aop.html" target="_blank" rel="noopener noreferrer">l&rsquo;AOP</a>.</p>
+<p>A la fin de cette présentation, ils ont donné quelques recommendations. Parmi celles-ci:</p>
+<ul>
+<li>Exécuter en développement l&rsquo;application en mode AOT avec une JVM</li>
+<li>Exécuter les tests en mode natif</li>
+</ul>
+<p><a href="https://www.youtube.com/watch?v=TS4DpYSmfXk" target="_blank" rel="noopener noreferrer">Vous trouverez la vidéo ici</a></p>
+<h3 id="the-art-of-java-language-pattern-matching-by-simon-ritter" class="headerLink">
+    <a href="#the-art-of-java-language-pattern-matching-by-simon-ritter" class="header-mark"></a>5.2 The Art of Java Language Pattern Matching by Simon Ritter</h3><p><a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a> a exploré toutes les possibilité du <a href="https://docs.oracle.com/en/java/javase/15/language/pattern-matching-instanceof-operator.html" target="_blank" rel="noopener noreferrer">pattern matching en Java</a>.
+Toutes les fonctionnalités ne sont pas encore disponibles. On peut néanmoins faire beaucoup de choses.</p>
+<p>Après un rappel sur les nouvelles fonctionnalités depuis le JDK11 (<a href="https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html" target="_blank" rel="noopener noreferrer">Sealed classes</a>, <a href="https://docs.oracle.com/en/java/javase/15/language/records.html" target="_blank" rel="noopener noreferrer">Records</a>), Simon Ritter a illustré leur utilisation dans ce contexte.</p>
+<p>Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fortement de regarder ce talk.</p>
+<p><a href="https://www.youtube.com/watch?v=OlW724WaJJQ" target="_blank" rel="noopener noreferrer">Voici la vidéo</a></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Voila les quelques talks qui m&rsquo;ont interpellé. Il y en a beaucoup d&rsquo;autres tels que ceux de <a href="https://devoxx.be/talk/?id=2352" target="_blank" rel="noopener noreferrer">Julien TOPCU</a> ou <a href="https://devoxx.be/talk/?id=19402" target="_blank" rel="noopener noreferrer">Marcy ERICKA CHARELLOIS</a>.
+Cette première participation était très enrichissante. J&rsquo;ai eu à plusieurs reprises l&rsquo;impression d&rsquo;avoir l&rsquo;information à la source (ex. pour Spring).</p>
+<p>Si j&rsquo;ai autant de chance, je pense rééditer l&rsquo;expérience l&rsquo;année prochaine.</p>
+<p>En tant que speaker pour une conférence ou un workshop? Seul l&rsquo;avenir nous le dira!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p><a href="https://www.imdb.com/title/tt0250223/characters/nm0046347" target="_blank" rel="noopener noreferrer"><em>Vous savez, moi je ne crois pas qu&rsquo;il y aient de bonnes ou mauvaises conférences. Moi, si je devais résumer ma vie aujourd’hui avec vous, je dirais que c’est d’abord des rencontres, des gens qui m’ont tendu la main&hellip;</em></a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Observabilité et Circuit Breaker avec Spring</title><link>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</link><pubDate>Mon, 26 Jul 2021 11:53:49 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/07/rest-book-architecture.png" referrerpolicy="no-referrer">
-            </div>Il y a quelques mois déjà, je discutais avec un collègue d&rsquo; observabilité, opentracing, … avec Quarkus. On est tombé sur un super exemple réalisé par Antonio Concalves. Ce projet démontre les capacités de Quarkus sur les sujets suivants:
-Circuit Breaker Observabilité OpenTracing Tests … Et la on peut se demander quid de Spring? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.]]></description></item><item><title>Passer votre application Java8 en Java11</title><link>http://blog.touret.info/2020/02/03/passer-votre-application-java8-en-java11/</link><pubDate>Mon, 03 Feb 2020 15:44:27 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/02/03/passer-votre-application-java8-en-java11/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Il y a quelques mois déjà, je discutais avec <a href="https://jefrajames.fr/" target="_blank" rel="noopener noreferrer">un collègue</a> d&rsquo; observabilité, <a href="https://github.com/opentracing-contrib/java-spring-cloud" target="_blank" rel="noopener noreferrer">opentracing</a>, … avec <a href="http://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a>. On est tombé sur <a href="https://github.com/agoncal/agoncal-fascicle-quarkus-pract" target="_blank" rel="noopener noreferrer">un super exemple réalisé par Antonio Concalves</a>. Ce projet démontre les capacités de Quarkus sur les sujets suivants:</p>
+<ul>
+<li>Circuit Breaker</li>
+<li>Observabilité</li>
+<li>OpenTracing</li>
+<li>Tests</li>
+<li>…</li>
+</ul>
+<p>Et la on peut se demander quid de <a href="http://spring.io/" target="_blank" rel="noopener noreferrer">Spring</a>? Je me doutais que ces fonctionnalités étaient soient disponibles par défaut soient facilement intégrables vu la richesse de l&rsquo;écosystème.</p>
+<p>J&rsquo;ai donc réalisé un clone de <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">ce projet basé sur Spring Boot/Cloud</a>. Je ne vais pas détailler plus que ça les différentes fonctionnalités, vous pouvez vous référer au fichier <a href="https://github.com/alexandre-touret/bookstore_spring#readme" target="_blank" rel="noopener noreferrer">README</a>. Il est suffisamment détaillé pour que vous puissiez exécuter et les mettre en œuvre.</p>
+<h2 id="architecture-de-lapplication" class="headerLink">
+    <a href="#architecture-de-lapplication" class="header-mark"></a>1 Architecture de l&rsquo;application</h2><p>Vous trouverez ci-dessous un schéma d&rsquo;architecture de l&rsquo;application <a href="https://c4model.com/" target="_blank" rel="noopener noreferrer">au format C4</a>.</p>
+<h2 id="circuit-breaker" class="headerLink">
+    <a href="#circuit-breaker" class="header-mark"></a>2 Circuit Breaker</h2><p>Lors des appels entre le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">bookstore</a> et le <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-number/src/main/java/info/touret/bookstore/spring/number/controller/BookNumbersController.java" target="_blank" rel="noopener noreferrer">booknumberservice</a>, il peut être intéressant d&rsquo; implémenter un <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breaker</a> pour pallier aux indisponibilités de ce dernier.<br>
+Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilience4j" target="_blank" rel="noopener noreferrer">Resilience4J</a> au travers de <a href="https://spring.io/projects/spring-cloud" target="_blank" rel="noopener noreferrer">Spring Cloud</a>. Tout ceci se fait de manière programmatique</p>
+<p>Il faut tout d&rsquo;abord <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/BookConfiguration.java" target="_blank" rel="noopener noreferrer">configurer les circuit breakers au travers d&rsquo;une classe Configuration</a>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
+</span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
+</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
+</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
+<p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
+</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
+<h2 id="observabilité" class="headerLink">
+    <a href="#observabilit%c3%a9" class="header-mark"></a>3 Observabilité</h2><p>L&rsquo;observabilité est sans contexte la pierre angulaire (oui, rien que ça…) de toute application cloud native. Sans ça, pas de scalabilité, de redémarrage automatique,etc.<br>
+Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikipedia.org/wiki/Idempotence" target="_blank" rel="noopener noreferrer">idempotentes</a>. On a donc besoin d&rsquo;avoir toutes les informations à notre disposition. Heureusement, <a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/#actuator" target="_blank" rel="noopener noreferrer">Spring fournit par le biais d&rsquo; Actuator</a> toutes les informations nécessaires. Ces dernières pourront soit être utilisées par <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (ex. le <a href="https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-startup-probes/" target="_blank" rel="noopener noreferrer">livenessProbe</a>) ou agrégées dans une base de données <a href="https://prometheus.io/docs/prometheus/latest/storage/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
+<p>Pour activer certaines métriques d&rsquo;<a href="https://docs.spring.io/spring-boot/docs/current/reference/html/actuator.html" target="_blank" rel="noopener noreferrer">actuator</a>, il suffit de :</p>
+<p>Ajouter la/les dépendance(s)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">     <span class="o">[...]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Spécifier la configuration adéquate:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
+</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="opentracing" class="headerLink">
+    <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
+<p>Depuis quelques temps, le <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">CNCF</a> propose un projet (encore en incubation) : <a href="https://opentracing.io/" target="_blank" rel="noopener noreferrer">OpenTracing</a>. Ce dernier fait désormais partie d&rsquo;<a href="https://opentelemetry.io/" target="_blank" rel="noopener noreferrer">OpenTelemetry</a>.<br>
+Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de notre application microservices et pouvoir réaliser une corrélation « out of the box » grâce à l&rsquo;intégration avec <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
+<p>Pour activer la fonctionnalité il suffit d&rsquo;ajouter la dépendance au classpath:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentracing.contrib:opentracing-spring-jaeger-cloud-starter:3.3.1&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>et de configurer l&rsquo;URL de Jaeger dans l&rsquo;application</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># Default values</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">opentracing</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">udp-sender</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">host</span><span class="p">:</span><span class="w"> </span><span class="l">localhost</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="m">6831</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
+<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger1">
+    </a></figure>
+<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+            sizes="auto"
+            alt="jaeger2">
+    </a></figure></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
+Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
+]]></description></item><item><title>Passer votre application Java8 en Java11</title><link>http://blog.touret.info/2020/02/03/passer-votre-application-java8-en-java11/</link><pubDate>Mon, 03 Feb 2020 15:44:27 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/02/03/passer-votre-application-java8-en-java11/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/02/blake-wisz-eevhwmstyg8-unsplash-1.webp" referrerpolicy="no-referrer">
-            </div>Java 8 est encore largement utilisé dans les entreprises aujourd&rsquo;hui. Il y a même certains frameworks qui n&rsquo;ont pas encore sauté le pas.
-Je vais essayer d&rsquo;exposer dans cette article les étapes à réaliser pour migrer (simplement) votre application JAVA8 en JAVA 11.
-Dans cet article, je prendrai comme postulat que l&rsquo;application se construit avec Maven.
-Pré-requisTout d&rsquo;abord vérifiez votre environnement d&rsquo;exécution cible! Faites un tour du coté de la documentation et regardez le support de JAVA.]]></description></item><item><title>Premiers pas avec Gradle</title><link>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</link><pubDate>Mon, 30 Dec 2019 15:03:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Java 8 est encore largement utilisé dans les entreprises aujourd&rsquo;hui. Il y a même certains frameworks qui n&rsquo;ont pas encore sauté le pas.<br>
+Je vais essayer d&rsquo;exposer dans cette article les étapes à réaliser pour migrer (simplement) votre application JAVA8 en JAVA 11.</p>
+<p>Dans cet article, je prendrai comme postulat que l&rsquo;application se construit avec Maven.</p>
+<h2 id="pré-requis" class="headerLink">
+    <a href="#pr%c3%a9-requis" class="header-mark"></a>1 Pré-requis</h2><p>Tout d&rsquo;abord vérifiez votre environnement d&rsquo;exécution cible! Faites un tour du coté de la documentation et regardez le support de JAVA.</p>
+<p>Si vous utilisez des FRAMEWORKS qui utilisent des FAT JARS, faites de même (ex. pour spring boot, utilisez au moins la version 2.1.X).</p>
+<p>Ensuite, vous aurez sans doute à mettre à jour maven ou gradle. Préférez les dernières versions.</p>
+<h2 id="configuration-maven" class="headerLink">
+    <a href="#configuration-maven" class="header-mark"></a>2 Configuration maven</h2><p>Les trois plugins à mettre à jour obligatoirement sont :</p>
+<ul>
+<li><a href="https://maven.apache.org/plugins/maven-compiler-plugin/" target="_blank" rel="noopener noreferrer">maven-compiler-plugin</a></li>
+<li><a href="https://maven.apache.org/surefire/maven-surefire-plugin/" target="_blank" rel="noopener noreferrer">maven-surefire-plugin</a></li>
+<li><a href="https://maven.apache.org/surefire/maven-failsafe-plugin/" target="_blank" rel="noopener noreferrer">maven-failsafe-plugin</a></li>
+</ul>
+<h3 id="maven-compiler-plugin" class="headerLink">
+    <a href="#maven-compiler-plugin" class="header-mark"></a>2.1 Maven compiler plugin</h3><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>maven-compiler-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;version&gt;</span>3.8.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;release&gt;</span>11<span class="nt">&lt;/release&gt;</span>
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;encoding&gt;</span>UTF-8<span class="nt">&lt;/encoding&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/plugin&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="maven-surefire--failsafe-plugin" class="headerLink">
+    <a href="#maven-surefire--failsafe-plugin" class="header-mark"></a>3 maven surefire / failsafe plugin</h2><p>Pour ces deux plugins, ajouter la configuration suivante:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
+</span><span class="lnt">9
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;plugin&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;artifactId&gt;</span>maven-surefire-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;version&gt;</span>2.22.2<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;configuration&gt;</span>
+</span></span><span class="line"><span class="cl">        [...]
+</span></span><span class="line"><span class="cl">          <span class="nt">&lt;argLine&gt;</span>--illegal-access=permit<span class="nt">&lt;/argLine&gt;</span>
+</span></span><span class="line"><span class="cl">          [...]
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/configuration&gt;</span>
+</span></span><span class="line"><span class="cl">      <span class="nt">&lt;/plugin&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="mise-à-jour-des-librairies" class="headerLink">
+    <a href="#mise-%c3%a0-jour-des-librairies" class="header-mark"></a>4 Mise à jour des librairies</h2><p>Bon,la il n&rsquo;y a pas de magie. Vous devez mettre à jour toutes vos librairies. Mis à part si vous utilisez des librairies exotiques, la plupart supportent JAVA 11 maintenant.</p>
+<p>C&rsquo;est une bonne opportunité de faire le ménage dans vos fichiers <code>pom.xml</code> 🙂</p>
+<h2 id="apis-supprimées-du-jdk" class="headerLink">
+    <a href="#apis-supprim%c3%a9es-du-jdk" class="header-mark"></a>5 APIS supprimées du JDK</h2><p>Si vous faites du XML, SOAP ou que vous utilisiez l&rsquo;API activation, vous devez désormais embarquer ces librairies. Le JDK ne les inclut plus par défaut.</p>
+<p>Par exemple:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>com.sun.xml.bind<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>jaxb-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;version&gt;</span>2.3.0.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>com.sun.xml.bind<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>jaxb-impl<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;version&gt;</span>2.3.0.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>javax.xml.bind<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>jaxb-api<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;version&gt;</span>2.3.1<span class="nt">&lt;/version&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="modularisation-avec-jigsaw" class="headerLink">
+    <a href="#modularisation-avec-jigsaw" class="header-mark"></a>6 Modularisation avec JIGSAW</h2><p>Bon là … je vous déconseille de partir directement sur la modularisation, surtout si vous migrez une application existante. Bien que la modularité puisse aider à réduire vos images docker en construisant vos propres JRE et d&rsquo;améliorer la sécurité, elle apporte son lot de complexité.<br>
+Bref pour la majorité des applications, je vous déconseille de l&rsquo;intégrer.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>7 Conclusion</h2><p>Avec toutes ces manipulations, vous devriez pouvoir porter vos applications sur JAVA11. Il y aura sans doute quelques bugs. Personnellement, j&rsquo;en ai eu avec CGLIB vs Spring AOP sur une classe instrumentée avec un constructeur privé. Sur ce coup j&rsquo;ai contourné ce problème ( je vous laisse deviner comment 🙂 ).</p>
+]]></description></item><item><title>Premiers pas avec Gradle</title><link>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</link><pubDate>Mon, 30 Dec 2019 15:03:36 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/12/30/premiers-pas-avec-gradle/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/12/gradle_logo.png" referrerpolicy="no-referrer">
-            </div>Depuis quelques temps je me mets à Gradle. Après de (trop?) nombreuses années à utiliser Maven (depuis la version 0.9…), je me risque à modifier mon environnement de build. Du moins sur des projets démo.
-Quand on a fait pas mal de Maven, on est un peu dérouté au début. On a d&rsquo;un coté, la plupart des actions qui sont configurées de manière implicite et de l&rsquo;autre on peut tout coder/étendre ou presque.]]></description></item><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Depuis quelques temps je me mets à <a href="https://gradle.org/" target="_blank" rel="noopener noreferrer">Gradle</a>. Après de (trop?) nombreuses années à utiliser Maven (depuis la version 0.9…), je me risque à modifier mon environnement de build. Du moins sur des projets démo.</p>
+<p>Quand on a fait pas mal de Maven, on est un peu dérouté au début. On a d&rsquo;un coté, la plupart des actions qui sont configurées de manière implicite et de l&rsquo;autre on peut tout coder/étendre ou presque.</p>
+<p>Je ne vais pas me risquer à faire un comparatif des deux outils. Gradle ( donc fortement orienté ) en <a href="https://gradle.org/maven-vs-gradle/" target="_blank" rel="noopener noreferrer">a fait un.</a></p>
+<p>Je vais plutôt décrire avec cet article comment on peut démarrer rapidement en configurant son environnement pour être utilisé en entreprise.</p>
+<h2 id="installation" class="headerLink">
+    <a href="#installation" class="header-mark"></a>1 Installation</h2><p>Le plus simple est d&rsquo;utiliser <a href="https://sdkman.io" target="_blank" rel="noopener noreferrer">SDKMAN</a>.</p>
+<p>Voici la manipulation pour l&rsquo;installer:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="s">&#34;https://get.sdkman.io&#34;</span> <span class="o">|</span> <span class="n">bash</span>
+</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">source</span> <span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">sdk</span> <span class="n">install</span> <span class="n">gradle</span> <span class="mi">6</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-dun-proxy" class="headerLink">
+    <a href="#configuration-dun-proxy" class="header-mark"></a>2 Configuration d&rsquo;un proxy</h2><p>Et oui comment souvent, passer le proxy d&rsquo;entreprise est la moitié du boulot :).<br>
+Pour le configurer de manière globale (c.-à-d. pour tous vos projets) sur votre poste de travail, vous devez créer un fichier <code>gradle.properties</code> dans le répertoire <code>$HOME/.gradle</code> :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
+</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-dun-miroir-nexus-ou-artifactory" class="headerLink">
+    <a href="#configuration-dun-miroir-nexus-ou-artifactory" class="header-mark"></a>3 Configuration d&rsquo;un miroir Nexus ou Artifactory</h2><p>A l&rsquo;instar du proxy, on va essayer de mettre en place une configuration globale. Pour ce faire, on va utiliser <a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener noreferrer">les init scripts</a>. Cette fonctionnalité est très intéressante. Elle permet de centraliser des actions et configurations.<br>
+Pour créer un script, il faut tout d&rsquo;abord créer un fichier <code>.gradle</code> dans le répertoire <code>$HOME/.gradle/init.d</code>.</p>
+<p>Voici un exemple pour <a href="https://fr.sonatype.com/nexus-repository-sonatype" target="_blank" rel="noopener noreferrer">Nexus</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">  <span class="n">buildscript</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">mavenLocal</span><span class="o">()</span> 
+</span></span><span class="line"><span class="cl">      <span class="n">maven</span> <span class="o">{</span><span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span> 
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="n">repositories</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">    <span class="n">mavenLocal</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl">    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="configuration-du-déploiement-dans-nexus--artifactory" class="headerLink">
+    <a href="#configuration-du-d%c3%a9ploiement-dans-nexus--artifactory" class="header-mark"></a>4 Configuration du déploiement dans Nexus / Artifactory</h2><p>Le déploiement dans Nexus est possible via <a href="https://docs.gradle.org/current/userguide/publishing_maven.html" target="_blank" rel="noopener noreferrer">le plugin maven publish</a>. La configuration fournie dans la documentation est tellement bien faite ( comme le reste d&rsquo;ailleurs ) que je ne vais que mettre un lien vers celle-là:<br>
+Voici <a href="https://docs.gradle.org/current/userguide/publishing_maven.html#publishing_maven:complete_example" target="_blank" rel="noopener noreferrer">le lien</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Après ces quelques actions vous pourrez démarrer des builds avec gradle tout en étant compatible avec un environnement « Maven ».<br>
+Enjoy 🙂</p>
+]]></description></item><item><title>Programmmation par aspect avec Spring AOP</title><link>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</link><pubDate>Tue, 05 Nov 2019 18:12:54 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/05/programmmation-par-aspect-avec-spring-aop/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/11/stanley-dai-73ozynjvoni-unsplash.jpg" referrerpolicy="no-referrer">
-            </div>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.
-Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;AOP ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.
-Si vous faites du JAVA, vous utilisez déjà l&rsquo;AOP.]]></description></item><item><title>Mocker des méthodes « final » avec Mockito</title><link>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</link><pubDate>Fri, 16 Aug 2019 08:26:57 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Une fois n&rsquo;est pas coutume, voici un article qui reprend des basiques de la programmation. J&rsquo;aborde une stack JAVA, mais c&rsquo;est applicable à d&rsquo;autres langages.</p>
+<p>Il existe une fonctionnalité très intéressante dans Spring (et dans J(akarta)EE) que l&rsquo;on oublie assez souvent : l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a> ou encore la programmation par aspect. Cette manière de programmer permet notamment de séparer le code fonctionnel et technique.<br>
+Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikipedia.org/wiki/Programmation_orient%C3%A9e_aspect" target="_blank" rel="noopener noreferrer">AOP</a>. En effet, quand vous faites une insertion en base via JPA dans un EJB ou un bean annoté <code>@Transactional</code>, une transaction est initiée au début de la méthode et fermée à la fin.</p>
+<p>Avec <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html" target="_blank" rel="noopener noreferrer">Spring</a> et notamment dans <a href="https://github.com/spring-projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring boot</a>, voici comment initier l&rsquo;<a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/core.html#aop-api-advice" target="_blank" rel="noopener noreferrer">AOP</a>.</p>
+<h2 id="configuration-maven" class="headerLink">
+    <a href="#configuration-maven" class="header-mark"></a>1 Configuration maven</h2><p>Ajouter le starter AOP:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;dependency&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;groupId&gt;</span>org.springframework.boot<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;artifactId&gt;</span>spring-boot-starter-aop<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/dependency&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="activation-des-aspects" class="headerLink">
+    <a href="#activation-des-aspects" class="header-mark"></a>2 Activation des aspects</h2><p>Dans la configuration ci-dessous, je prendrai comme exemple le logging des méthodes ( un log en début de méthode et un log en fin ). </p>
+<p>La définition des aspects se fait dans des classes annotées par <code>@Configuration</code>.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;debug.enabled&#34;</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&#34;true&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DebuggingConfiguration</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DebuggingConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">WITHIN_MY_PACKAGE</span> <span class="o">=</span> <span class="s">&#34;within(my.package..*)&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log before execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@Before</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logBeforeExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">* Log after execution
+</span></span></span><span class="line"><span class="cl"><span class="cm">*
+</span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
+</span></span><span class="line"><span class="cl"><span class="nd">@After</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logAfterExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>L&rsquo;utilisation de l&rsquo; annotation <code>@ConditionalOnProperty</code> me permet d&rsquo;activer cette classe de configuration seulement si la propriété <code>debug.enabled</code> est initialisée à <code>true</code>.</p>
+<p>Les annotations <code>@Before</code> et <code>@After</code> indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.</p>
+<p>Pour plus de détails sur la syntaxe et les possibilités, vous pouvez vous référer <a href="https://docs.spring.io/spring/docs/2.0.x/reference/aop.html" target="_blank" rel="noopener noreferrer">à la documentation</a>.</p>
+]]></description></item><item><title>Mocker des méthodes « final » avec Mockito</title><link>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</link><pubDate>Fri, 16 Aug 2019 08:26:57 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/08/16/mocker-des-methodes-final-avec-mockito/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/08/logo-mockito.png" referrerpolicy="no-referrer">
-            </div>Auparavant, dans nos tests, quand on voulait mocker des méthodes « final » ou statiques, on devait passer par PowerMock.
-Depuis peu, si on utilise Mockito ( &gt;2.1) , on n&rsquo;a plus besoin d&rsquo;ajouter PowerMock pour mocker des méthodes « final ».
-Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu&rsquo;avec Mockito, mais cela va dans le bon sens.
-Voici comment activer en quelques commandes le mocking des méthodes « final ».]]></description></item><item><title>Devoxx 2019</title><link>http://blog.touret.info/2019/04/20/devoxx-2019/</link><pubDate>Sat, 20 Apr 2019 08:14:09 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/04/20/devoxx-2019/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>Auparavant, dans nos tests, quand on voulait <a href="https://fr.wikipedia.org/wiki/Mock_%28programmation_orient%C3%A9e_objet%29" target="_blank" rel="noopener noreferrer">mocker</a> des <a href="https://fr.wikipedia.org/wiki/Final_%28Java%29" target="_blank" rel="noopener noreferrer">méthodes « final »</a> ou <a href="https://stackoverflow.com/questions/2671496/java-when-to-use-static-methods" target="_blank" rel="noopener noreferrer">statiques</a>, on devait passer par <a href="https://github.com/powermock/powermock" target="_blank" rel="noopener noreferrer">PowerMock</a>.</p>
+<p>Depuis peu, si on utilise Mockito ( &gt;2.1) , on n&rsquo;a plus besoin d&rsquo;ajouter PowerMock pour mocker des méthodes « final ».</p>
+<p>Bon il reste toujours la gestion des méthodes statiques à gérer autrement qu&rsquo;avec <a href="https://github.com/mockito/mockito" target="_blank" rel="noopener noreferrer">Mockito</a>, mais cela va dans le bon sens.</p>
+<p>Voici comment activer en quelques commandes le mocking des méthodes « final ».</p>
+<p>Dans le répertoire src/test/resources, il faut créer un répertoire mockito-extensions avec un fichier nommé org.mockito.plugins.MockMaker.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">src/test/resources
+</span></span><span class="line"><span class="cl">└── mockito-extensions
+</span></span><span class="line"><span class="cl">└── org.mockito.plugins.MockMaker
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>A l&rsquo;intérieur de ce fichier, vous devrez ajouter le contenu suivant :</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">mock-maker-inline
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Avec cette configuration, vous pourrez dorénavant mocker des méthodes « final » 🙂</p>
+<p>Enjoy</p>
+]]></description></item><item><title>Devoxx 2019</title><link>http://blog.touret.info/2019/04/20/devoxx-2019/</link><pubDate>Sat, 20 Apr 2019 08:14:09 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/04/20/devoxx-2019/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/04/img_20190419_161746.jpg" referrerpolicy="no-referrer">
-            </div>En attendant de prendre mon train, j&rsquo;essaye de me remettre de cette nouvelle édition. Cette année JAVA est revenu au premier plan. Que ça soit via la spécification microprofile, quarkus , graalvm ou encore par les problématiques de migration JDK 8 -&gt; 11. On a pas mal vu des architectures micro services à base de service mesh (istio) et kubernetes.
-A coté des sujets techniques, un des sujets majeurs était le bien être et la bienveillance au travail.]]></description></item><item><title>Devoxx 2018</title><link>http://blog.touret.info/2018/04/20/devoxx-2018/</link><pubDate>Fri, 20 Apr 2018 13:18:43 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/04/20/devoxx-2018/</guid><description><![CDATA[<div class="featured-image">
+            </div><p>En attendant de prendre mon train, j&rsquo;essaye de me remettre de cette nouvelle édition. Cette année JAVA est revenu au premier plan. Que ça soit via la spécification <a href="http://microprofile.io/" target="_blank" rel="noopener noreferrer">microprofile</a>, <a href="https://quarkus.io/" target="_blank" rel="noopener noreferrer">quarkus</a> , <a href="https://www.graalvm.org/" target="_blank" rel="noopener noreferrer">graalvm</a> ou encore par les problématiques de migration JDK 8 -&gt; 11. On a pas mal vu des architectures micro services à base de <a href="https://www.redhat.com/fr/topics/microservices/what-is-a-service-mesh" target="_blank" rel="noopener noreferrer">service mesh</a> (<a href="https://istio.io/" target="_blank" rel="noopener noreferrer">istio</a>) et <a href="https://kubernetes.io/fr/" target="_blank" rel="noopener noreferrer">kubernetes</a>.</p>
+<p>A coté des sujets techniques, un des sujets majeurs  était le bien être et la bienveillance au travail.</p>
+<p>Les vidéos des conférences seront bientôt retransmises sur <a href="https://www.youtube.com/channel/UCsVPQfo5RZErDL41LoWvk0A" target="_blank" rel="noopener noreferrer">le channel Youtube de DevoxxFR</a>.</p>
+<p>D&rsquo;une manière générale, le niveau des conférences est toujours très bon.</p>
+<p>J&rsquo;ai particulièrement apprécié les confs suivantes. N&rsquo;hésitez pas à les visionnez une fois qu&rsquo;elles seront disponibles sur Youtube.</p>
+<ul>
+<li><a href="https://cfp.devoxx.fr/2019/talk/HAT-9594/Cycle_de_vie_des_applications_dans_Kubernetes" target="_blank" rel="noopener noreferrer">Cycle de vie des applications dans k8s</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/LGU-0798/Creer_facilement_des_microservices__%28ou_cloud_native_java%29_avec_Eclipse_MicroProfile" target="_blank" rel="noopener noreferrer">Créer facilement des microservices avec Eclipse microprofile</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/LVJ-5031/Back_to_Basics_:_Ne_perdez_plus_votre_Temps_avec_les_Dates" target="_blank" rel="noopener noreferrer">Back to Basics, ne perdez plus de temps avec les dates</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/GDA-0693/Hexagonal_at_Scale,_ou_l%27art_de_decouper_et_organiser_ses_services" target="_blank" rel="noopener noreferrer">Hexagonal at scale</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/PQL-0969/Comment_concevoir_une_API_RESTful_%3F" target="_blank" rel="noopener noreferrer">Comment concevoir une API REST</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/SQO-0767/D%E2%80%99architecte_a_Metarchitecte_:_une_evolution_necessaire" target="_blank" rel="noopener noreferrer">D&rsquo;Architecte à MetaArchitecte: Une évolution nécessaire</a></li>
+</ul>
+<p>Il y a aussi certaines conférences ou j&rsquo;ai eu un bon écho :</p>
+<ul>
+<li><a href="https://cfp.devoxx.fr/2019/talk/YPH-1256/Oubliez_Java_EE,_voila_Jakarta_EE_!" target="_blank" rel="noopener noreferrer">Oubliez JavaEE, voilà JakartaEE</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/LVJ-5031/Back_to_Basics_:_Ne_perdez_plus_votre_Temps_avec_les_Dates" target="_blank" rel="noopener noreferrer">Back to Basics, ne perdez plus de temps avec les dates</a></li>
+<li><a href="https://cfp.devoxx.fr/2019/talk/HGT-7027/Comprendre_les_GC_a_faible_latence" target="_blank" rel="noopener noreferrer">Comprendre les GC à faible latence</a></li>
+</ul>
+<p>Je pense qu&rsquo;il y a encore bien d&rsquo;autres conférences qui ont été très intéressantes. J&rsquo; ai quelques heures de visionnage à prévoir dans mon agenda 🙂 . Quoi qu&rsquo;il en soit, merci aux organisateurs pour cette édition. C&rsquo;était top!</p>
+<p>Rendez vous l&rsquo;année prochaine !</p>
+]]></description></item><item><title>Devoxx 2018</title><link>http://blog.touret.info/2018/04/20/devoxx-2018/</link><pubDate>Fri, 20 Apr 2018 13:18:43 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/04/20/devoxx-2018/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/04/img_20180419_155256624099247.jpg" referrerpolicy="no-referrer">
-            </div>L&rsquo;édition 2018 de DEVOXX touche bientôt à sa fin. Pour ceux qui ne connaissent pas cette conférence, c&rsquo;est LA conférence sur le développement en France. A titre personnel, je peux plus apprendre en trois jours à cette conférence qu&rsquo;en formation.
-Tout d&rsquo;abord un grand merci aux organisateurs. Ils assurent réellement. Bon, pour l&rsquo;année prochaine, n&rsquo;hésitez à retenir ma conférence 😉
-Si vous n&rsquo;avez pas eu la chance d&rsquo;assister aux trois jours, il faut savoir que vous pourrez voir les rediff sur la chaine youtube.]]></description></item></channel></rss>
+            </div><p>L&rsquo;édition 2018 de <a href="http://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">DEVOXX</a> touche bientôt à sa fin. Pour ceux qui ne connaissent pas cette conférence, c&rsquo;est <strong>LA</strong> conférence sur le développement en France. A titre personnel, je peux plus apprendre en trois jours à cette conférence qu&rsquo;en formation.</p>
+<p>Tout d&rsquo;abord un grand merci aux organisateurs. Ils assurent réellement. Bon, pour l&rsquo;année prochaine, n&rsquo;hésitez à retenir ma conférence 😉</p>
+<p>Si vous n&rsquo;avez pas eu la chance d&rsquo;assister aux trois jours, il faut savoir que vous pourrez voir les rediff sur <a href="https://www.youtube.com/channel/UCsVPQfo5RZErDL41LoWvk0A" target="_blank" rel="noopener noreferrer">la chaine youtube</a>.</p>
+<h2 id="les-tendances" class="headerLink">
+    <a href="#les-tendances" class="header-mark"></a>1 Les tendances</h2><p>Voici les tendances que  j&rsquo;ai retenu :</p>
+<ul>
+<li>Spring, spring et encore spring</li>
+<li>Du réactif en veux tu en voila</li>
+<li>Du <a href="https://blog.octo.com/domain-driven-design-des-armes-pour-affronter-la-complexite/" target="_blank" rel="noopener noreferrer">DDD</a> sinon rien</li>
+<li>Du devops</li>
+</ul>
+<p>et le plus impressionnant pour moi était la conférence de <a href="https://g.co/kgs/5RKDhS" target="_blank" rel="noopener noreferrer">JOSHUA BLOCH(!!!) sur Effective Java.</a> Pas tant dans le contenu, car il reprenait peu ou prou celui du livre, mais de voir une personne de ce calibre (dans le monde JAVA, c&rsquo;est une rock star) en France, c&rsquo;est assez impressionnant.</p>
+<p>Les keynotes ( dont celle sur le smart building) étaient dans l&rsquo;ensemble très intéressantes. Les conférences étaient également d&rsquo;un très bon niveau. J&rsquo;ai pu découvrir par exemple l&rsquo;avance que peut avoir <a href="https://e-resident.gov.ee/" target="_blank" rel="noopener noreferrer">l&rsquo;Estonie sur l&rsquo;IT</a> ( voir le projet <a href="https://e-estonia.com/solutions/interoperability-services/x-road/" target="_blank" rel="noopener noreferrer">x-road</a> )  par rapport à la France qui lance le <a href="http://www.french-road.fr/" target="_blank" rel="noopener noreferrer">projet french road</a>.</p>
+<p>Voici quelques conférences qui m&rsquo;ont plu et interpelé :</p>
+<ul>
+<li><a href="https://cfp.devoxx.fr/2018/talk/UTJ-8549/Etre_architecte_logiciel_en_2018" target="_blank" rel="noopener noreferrer">Être architecte en 2018</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/XDA-2796/Le_Smart_Building_:_par_ou_commencer_%3F" target="_blank" rel="noopener noreferrer">Le smart building</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/IQJ-6767/Chaos_Engineering,_principes_et_mise_en_application" target="_blank" rel="noopener noreferrer">Chaos Engineering</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/TXO-1273/Effective_Java,_Third_Edition:_Keepin%27_it_Effective" target="_blank" rel="noopener noreferrer">Effective java</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/PTA-9920/Pourquoi_vous_avez_besoin_d%27une_Clean_Architecture" target="_blank" rel="noopener noreferrer">Pourquoi vous avez besoin d&rsquo;une clean architecture</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/DKA-0580/Securite_des_applications_Web_:_les_bons_reflexes_a_avoir" target="_blank" rel="noopener noreferrer">Sécurité des web applications</a></li>
+<li><a href="https://cfp.devoxx.fr/2018/talk/PCF-2127/Apres_Java_8,_Java_9_et_10" target="_blank" rel="noopener noreferrer">Après java 8, java 9 et 10</a></li>
+</ul>
+<p>Je ne vais pas trop les décrire ( voire pas du tout ), elles seront disponibles prochainement sur <a href="https://www.youtube.com/channel/UCsVPQfo5RZErDL41LoWvk0A" target="_blank" rel="noopener noreferrer">la chaine youtube</a> .</p>
+]]></description></item></channel></rss>

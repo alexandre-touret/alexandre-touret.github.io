@@ -1,5 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>scala - Balise - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/scala/</link><description>scala - Balise - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>fr</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 21 Nov 2019 22:12:53 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/scala/" rel="self" type="application/rss+xml"/><item><title>Partager des variables entre scénarios gatling</title><link>http://blog.touret.info/2019/11/21/partager-des-variables-entre-scenarios-gatling/</link><pubDate>Thu, 21 Nov 2019 22:12:53 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/21/partager-des-variables-entre-scenarios-gatling/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>scala - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/scala/</link><description>scala - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 21 Nov 2019 22:12:53 +0100</lastBuildDate><atom:link href="http://blog.touret.info/tags/scala/" rel="self" type="application/rss+xml"/><item><title>Partager des variables entre scénarios gatling</title><link>http://blog.touret.info/2019/11/21/partager-des-variables-entre-scenarios-gatling/</link><pubDate>Thu, 21 Nov 2019 22:12:53 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2019/11/21/partager-des-variables-entre-scenarios-gatling/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2019/11/gatling-new-design.png" referrerpolicy="no-referrer">
-            </div>Je suis en train de mettre en œuvre des tests de performance avec Gatling. Un des principaux outils libres de tests de performance.
-J&rsquo;ai eu récemment à résoudre un « petit » soucis : je souhaitai partager des variables entre plusieurs scénarios. Il existe pas mal de solutions sur stackoverflow. J&rsquo;ai condensé certaines d&rsquo;entre elles pour les adapter à mon besoin.
-Ces variables sont issues de exécution d&rsquo;une seule requête et sont automatiquement injectées dans les scénarios suivants.]]></description></item></channel></rss>
+            </div><p>Je suis en train de mettre en œuvre des tests de performance avec <a href="https://gatling.io/" target="_blank" rel="noopener noreferrer">Gatling</a>. Un des principaux outils libres de tests de performance.</p>
+<p>J&rsquo;ai eu récemment à résoudre un « petit » soucis : je souhaitai partager des variables entre plusieurs <a href="https://gatling.io/docs/2.2/general/scenario" target="_blank" rel="noopener noreferrer">scénarios</a>. Il existe pas mal de solutions sur stackoverflow. J&rsquo;ai condensé certaines d&rsquo;entre elles pour les adapter à mon besoin.<br>
+Ces variables sont issues de exécution d&rsquo;une seule requête et sont automatiquement injectées dans les scénarios suivants. Ce mécanisme permet par exemple de récupérer un jeton d&rsquo;un serveur d&rsquo;identification et de l&rsquo;injecter pour le scénario que l&rsquo;on souhaite tester.</p>
+<p>Pour ce faire, il faut ajouter une variable de type <code>LinkedBlockingDeque</code> et injecter le contenu choisi via la session</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span> <span class="n">holder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedBlockingDeque</span><span class="o">[</span><span class="n">String</span><span class="o">]()</span> 
+</span></span><span class="line"><span class="cl"><span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">val</span> <span class="n">firstScenario</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&#34;First Simulation&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">&#34;first scenario&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">			<span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="s">&#34;/base/url1&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">			<span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">&#34;$.my_variable&#34;</span><span class="o">).</span><span class="na">find</span><span class="o">.</span><span class="na">saveAs</span><span class="o">(</span><span class="s">&#34;variable&#34;</span><span class="o">)))</span>
+</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">session</span> <span class="o">=&gt;</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">holder</span><span class="o">.</span><span class="na">offerLast</span><span class="o">(</span><span class="n">session</span><span class="o">(</span><span class="s">&#34;variable&#34;</span><span class="o">).</span><span class="na">as</span><span class="o">[</span><span class="n">String</span><span class="o">])</span>
+</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="o">}</span>       
+</span></span><span class="line"><span class="cl">        <span class="o">);</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Maintenant on peut l&rsquo;utiliser dans un autre scénario comme <a href="https://gatling.io/docs/2.2/session/feeder/" target="_blank" rel="noopener noreferrer">feeder</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span> <span class="n">secondScenario</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&#34;Second Simulation&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">feed</span><span class="o">(</span><span class="n">sharedDataFeeder</span><span class="o">)</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>Voici l&rsquo;exemple complet</p>
+<script type="application/javascript" src="https://gist.github.com/alexandre-touret/bdba509353c7b42de85d9a90c0352aa7.js"></script>
+
+<p>En espérant que cela puisse aider à certain.e.s d&rsquo;entre vous 🙂</p>
+]]></description></item></channel></rss>
