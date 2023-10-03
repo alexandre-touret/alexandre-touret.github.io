@@ -13,7 +13,8 @@ Additionally, you can also get [my slides on SpeakerDeck](https://speakerdeck.co
 ## Talks
 
 Here is a bunch of talks I presented at various tech events (meetups, conferences).
-You can find talks in French on [the corresponding part of this blog](/talks).
+
+You can find them either in French or English.
 
 ### The Hitchhiker's guide to software architecture design
 
