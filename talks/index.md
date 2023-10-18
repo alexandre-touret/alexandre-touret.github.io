@@ -6,7 +6,7 @@
 You can find below the slides and videos of my latest talks in French and English.
 I held most of them in both two languages.
 
-Additionally, you can also get [my slides on SpeakerDeck](https://speakerdeck.com/alexandretouret) and videos on this [Youtube playlist](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt):
+You can also get [my slides on SpeakerDeck](https://speakerdeck.com/alexandretouret) and videos on this [Youtube playlist](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt):
 
 {{<youtubepl id="PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt">}}
 
