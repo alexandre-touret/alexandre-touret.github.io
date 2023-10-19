@@ -3,7 +3,7 @@ id: 601
 title: Talks
 date: 2022-07-02T09:41:07+01:00
 permalink: /en/talks/
-
+comments: false
 featuredImagePreview: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
 featuredImage: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
 
