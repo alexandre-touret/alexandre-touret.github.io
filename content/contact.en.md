@@ -3,7 +3,7 @@ id: 9
 title: Contact
 date: 2018-02-08T14:25:11+01:00
 permalink: /en/contact/
-
+comments: false
 featuredImagePreview: /assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp 
 ---
 
