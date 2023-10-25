@@ -31,7 +31,7 @@ The data is then sent to the Elastic APM.
 ![c4 context diagram](/assets/images/2023/10/architecture_system.svg )
 {{</ style >}}
 
-Now, if we dive into the "Wonderful System", we can see the Java application and the agent:
+Now, if we dive into the _"Wonderful System"_, we can see the _Wonderful Java application_ and the agent:
 
 {{< style "text-align:center" >}}
 ![c4 context diagram](/assets/images/2023/10/architecture_container.svg )
@@ -39,7 +39,7 @@ Now, if we dive into the "Wonderful System", we can see the Java application and
 
 We can basically implement this architecture in two ways:
 
-1. Deploy the agent in all Docker images
+1. Deploy the agent in all of our Docker images
 2. Deploy the agent asides from the Docker images and use initContainers to bring the agent at the startup of our applications  
 ## Why not bringing APM agents in all of our Docker images?
 
@@ -53,5 +53,60 @@ What's why I prefer loose coupling the _"business"_ applications Docker images t
 
 While looking around how to achieve this, I came across to the [Kubernetes initContainers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).
 
-The only constraint is to declare a volume in your function
+This kind of container is run only once during the startup of every pod. 
+A bunch of commands is ran then on top of it.
+For our current use case, it will copy the javaagent into a volume such as an [empty directory volume](https://kubernetes.io/docs/concepts/storage/volumes/#emptydir).
 
+### Impacts in the "_Wonderful Java Application_ Docker image
+The main impact is to declare a volume in your Docker image:
+
+```dockerfile
+VOLUME /opt/agent
+```
+It will be used by both the Docker container and the initContainer.
+
+Now, let's build our initContainer Docker image.
+
+### InitContainer Docker Image creation
+It's really straightforward:
+
+```dockerfile
+FROM alpine:latest
+RUN mkdir -p /opt/agent_setup
+RUN mkdir /opt/agent
+COPY ./javaagent.jar /opt/agent_setup/javaagent.jar
+VOLUME /opt/agent
+```
+
+### Kubernetes configuration
+We can now set up our Kubernetes Deployment to start the corresponding container and copy the Java agent.
+
+```yaml
+kind: Deployment
+spec:
+  containers:
+  - name: java-app
+    image: repo/my-wonderful-java-app:v1
+    volumeMounts:
+    - mountPath: /opt/agent
+      name: apm-agent-volume
+  initContainers:
+  - command:
+    - cp
+    - /opt/agent_setup/javaagent.jar
+    - /opt/agent
+    name: apm-agent-init
+	image: repo/apm-agent:v1
+    volumeMounts:
+    - mountPath: /opt/agent
+      name: appd-agent-volume
+  volumes:
+    - name: appd-agent-volume
+      emptyDir: {}
+```
+
+{{< admonition tip "Why not copying the java agent directly in the initContainer Docker image execution?" >}}
+The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Docker file). 
+Why?
+The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.
+{{</ admonition >}}
