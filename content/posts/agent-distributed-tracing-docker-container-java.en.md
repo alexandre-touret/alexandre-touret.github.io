@@ -1,6 +1,6 @@
 ---
-title: "Deploy your Elastic APM Agent to Kubernetes and instrument your Java applications in a smart way"
-date: 2023-10-24T10:28:11+02:00
+title: "Deploy your Java Application to Kubernetes and get your traces through Elastic APM Agent in a smart way"
+date: 2023-11-06T08:00:00+02:00
 draft: true
 
 images: ["/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp"]
