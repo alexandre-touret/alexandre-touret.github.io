@@ -1,5 +1,5 @@
 ---
-title: "Deploy your Java Application to Kubernetes and get your traces through Elastic APM Agent in a smart way"
+title: "Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes"
 date: 2023-11-06T08:00:00+02:00
 draft: true
 
