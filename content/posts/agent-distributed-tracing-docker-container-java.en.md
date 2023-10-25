@@ -16,15 +16,16 @@ tags:
   - Elastic
 ---
 
-In [my last article](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/), I dug into enabling distributed tracing and exposed how to enable it in Java applications.
+In [my last article](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/), I dug into distributed tracing and exposed how to enable it in Java applications.
 We didn't see how to deploy an application on Kubernetes and get distributed tracing insights. 
-The are several strategies to achieve that, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.
+Several strategies can be considered, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.
 
-In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of Kubernetes through Docker containers.
+In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of [Kubernetes](https://kubernetes.io/) through [Docker containers](https://www.docker.com/resources/what-container/).
 
 In addition, to make it easy, I will illustrate this setup by the following use case:
-We have an API _"My wonderful API"_ which is instrumented through an [Elastic APM agent](https://www.elastic.co/guide/en/apm/agent/index.html). 
-The data is then sent to the [Elastic APM](https://www.elastic.co/guide/en/apm).
+
+* We have an API _"My wonderful API"_ which is instrumented through an [Elastic APM agent](https://www.elastic.co/guide/en/apm/agent/index.html). 
+* The data is then sent to the [Elastic APM](https://www.elastic.co/guide/en/apm).
 
 {{< style "text-align:center" >}}
 ![c4 context diagram](/assets/images/2023/10/architecture_system.svg )
@@ -41,12 +42,12 @@ We can basically implement this architecture in two different ways:
 1. Deploying the agent in all of our Docker images
 2. Deploying the agent asides from the Docker images and using initContainers to bring the agent at the startup of our applications
 
-## Why not bringing APM agents in all of our Docker images?
-It could be really easy to put the APM agents in the application's Docker images.
+## Why not bringing APM agents in our Docker images?
+It could be really tempting to put the APM agents in the application's Docker image.
 Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.
-For regular upgrades, it won't bother you, but, if you encounter a bug, it could be tricky and annoying to do that.
+For regular upgrades, it will not bother you, but, if you encounter a bug, it will be tricky and annoying to do that.
 
-What's why I prefer loose coupling the _"business"_ applications Docker images to technical tools such as APM agents.
+What is why I prefer loose coupling the _"business"_ applications Docker images to technical tools such as APM agents.
 
 ## Deploy an APM agent through initContainers
 While looking around how to achieve this, I came across to the [Kubernetes initContainers](https://kubernetes.io/docs/concepts/workloads/pods/init-containers/).
@@ -66,6 +67,8 @@ We can consider it as a "bridge" between these two containers.
 
 We also have to declare one environment variable: ``JAVA_OPTS``.
 
+For instance:
+
 ```dockerfile
 ENV JAVA_OPTS=$JAVA_OPTS
 [...]
@@ -77,7 +80,7 @@ Il will be used during the deployment to set up our _Wonderful Java Application_
 Now, let's build our initContainer Docker image.
 
 ### InitContainer Docker Image creation
-It's really straightforward. 
+It is really straightforward. 
 We can use such a configuration:
 
 ```dockerfile
@@ -115,7 +118,7 @@ spec:
       emptyDir: {}
 ```
 
-{{< admonition tip "Why not copying the java agent directly in the initContainer Docker image execution?" >}}
+{{< admonition tip "Why not copying the Java agent directly in the initContainer Docker image execution?" >}}
 The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Docker file). 
 Why?
 The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.
@@ -143,4 +146,15 @@ spec:
       value: -javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200
 ```
 
+_Et voila!_
+
 ## Conclusion
+
+We have seen how to enable Java APM configuration on Java Applications deployed on top of Docker images.
+Obviously, my technical choice of using an InitContainer can be challenged regarding the technical context and how you are confortable with your delivery practices.
+You probably noticed I use an emptyDir to deploy the Java agent.
+_Normally_ it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.
+
+Anyway, I think it is worth it and the tradeoffs are more than acceptable because this approach are, in my opinion, more flexible than the first one.
+
+Hope this helps!
