@@ -16,8 +16,8 @@ tags:
   - Elastic
 ---
 
-In [my last article](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/), I dug into distributed tracing and exposed how to enable it in Java applications.
-We didn't see how to deploy an application on Kubernetes and get distributed tracing insights. 
+In [my last article](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/), I dug into [Distributed Tracing](https://www.w3.org/TR/trace-context/) and exposed how to enable it in Java applications.
+We didn't see yet how to deploy an application on Kubernetes and get distributed tracing insights. 
 Several strategies can be considered, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.
 
 In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of [Kubernetes](https://kubernetes.io/) through [Docker containers](https://www.docker.com/resources/what-container/).
@@ -37,6 +37,13 @@ Now, if we dive into the _"Wonderful System"_, we can see the _Wonderful Java ap
 ![c4 context diagram](/assets/images/2023/10/architecture_container.svg )
 {{</ style >}}
 
+{{< admonition tip "Elastic APM vs Grafana/OpenTelemetry" >}}
+In this article I delve into how to package an [Elastic APM agent](https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html) and enable Distributed Tracing with the [Elastic APM suite](https://www.elastic.co/guide/en/apm/index.html). 
+
+You can do that in the same way with an OpenTelemetry Agent. 
+Furthermore, [Elastic APM is compatible with OpenTelemetry](https://www.elastic.co/fr/blog/native-opentelemetry-support-in-elastic-observability).
+{{</ admonition >}}
+
 We can basically implement this architecture in two different ways:
 
 1. Deploying the agent in all of our Docker images
@@ -44,8 +51,16 @@ We can basically implement this architecture in two different ways:
 
 ## Why not bringing APM agents in our Docker images?
 It could be really tempting to put the APM agents in the application's Docker image.
+
+As an example, we can add the following lines of code in our Docker images definition:
+
+```dockerfile
+RUN mkdir /opt/agent
+COPY ./javaagent.jar /opt/agent/javaagent.jar
+```
+
 Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.
-For regular upgrades, it will not bother you, but, if you encounter a bug, it will be tricky and annoying to do that.
+For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.
 
 What is why I prefer loose coupling the _"business"_ applications Docker images to technical tools such as APM agents.
 
@@ -81,7 +96,7 @@ Now, let's build our initContainer Docker image.
 
 ### InitContainer Docker Image creation
 It is really straightforward. 
-We can use such a configuration:
+We can use for example, the following configuration:
 
 ```dockerfile
 FROM alpine:latest
@@ -119,14 +134,15 @@ spec:
 ```
 
 {{< admonition tip "Why not copying the Java agent directly in the initContainer Docker image execution?" >}}
-The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Docker file). 
+The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Dockerfile). 
 Why?
 The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.
 {{</ admonition >}}
 
 
 ## Start the Java Application with the agent
-Last but not least, we can now configure our pods which run our Java applications.
+Last but not least, we can now configure the [pods](https://kubernetes.io/docs/concepts/workloads/pods/) where we run our Java applications.
+
 We will use the ``JAVA_OPTS`` environment variable to configure the location of the Java agent, and [the Elastic APM Java system properties](https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html).
 
 For instance: 
@@ -150,7 +166,7 @@ _Et voila!_
 
 ## Conclusion
 
-We have seen how to enable Java APM configuration on Java Applications deployed on top of Docker images.
+We have seen how to pack and deploy Distributed Tracing java agents and Java Applications deployed on top of Docker images.
 Obviously, my technical choice of using an InitContainer can be challenged regarding the technical context and how you are confortable with your delivery practices.
 You probably noticed I use an emptyDir to deploy the Java agent.
 _Normally_ it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.
