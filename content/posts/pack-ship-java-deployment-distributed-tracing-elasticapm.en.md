@@ -49,10 +49,12 @@ We can basically implement this architecture in two different ways:
 1. Deploying the agent in all of our Docker images
 2. Deploying the agent asides from the Docker images and using initContainers to bring the agent at the startup of our applications
 
+We will then see how to lose couple application docker images to the apm agent one. 
+
 ## Why not bringing APM agents in our Docker images?
 It could be really tempting to put the APM agents in the application's Docker image.
 
-As an example, we can add the following lines of code in our Docker images definition:
+We can illustrate it adding the following lines of code in our Docker images definition:
 
 ```dockerfile
 RUN mkdir /opt/agent
