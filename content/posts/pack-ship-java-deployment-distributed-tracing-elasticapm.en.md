@@ -40,7 +40,7 @@ Now, if we dive into the _"Wonderful System"_, we can see the _Wonderful Java ap
 {{< admonition tip "Elastic APM vs Grafana/OpenTelemetry" >}}
 In this article I delve into how to package an [Elastic APM agent](https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html) and enable Distributed Tracing with the [Elastic APM suite](https://www.elastic.co/guide/en/apm/index.html). 
 
-You can do that in the same way with an OpenTelemetry Agent. 
+You can do that in the same way with an [OpenTelemetry Agent](https://github.com/open-telemetry/opentelemetry-java-instrumentation). 
 Furthermore, [Elastic APM is compatible with OpenTelemetry](https://www.elastic.co/fr/blog/native-opentelemetry-support-in-elastic-observability).
 {{</ admonition >}}
 
@@ -137,7 +137,7 @@ spec:
       emptyDir: {}
 ```
 
-{{< admonition tip "Why not copying the Java agent directly in the initContainer Docker image execution?" >}}
+{{< admonition tip "Why not just copying the Java agent directly in the initContainer Docker image execution?" >}}
 The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Dockerfile). 
 Why?
 The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.
