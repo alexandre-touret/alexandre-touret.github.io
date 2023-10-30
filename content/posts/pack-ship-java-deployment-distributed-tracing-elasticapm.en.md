@@ -1,7 +1,7 @@
 ---
 title: "Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes"
-date: 2023-11-06T08:00:00+02:00
-draft: true
+date: 2023-11-02T08:00:00+02:00
+draft: false
 
 images: ["/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp
@@ -22,7 +22,7 @@ Several strategies can be considered, but the main point is how to minimize the 
 
 In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of [Kubernetes](https://kubernetes.io/) through [Docker containers](https://www.docker.com/resources/what-container/).
 
-In addition, to make it easy, I will illustrate this setup by the following use case:
+To make it clearer, I will illustrate this setup by the following use case:
 
 * We have an API _"My wonderful API"_ which is instrumented through an [Elastic APM agent](https://www.elastic.co/guide/en/apm/agent/index.html). 
 * The data is then sent to the [Elastic APM](https://www.elastic.co/guide/en/apm).
@@ -54,7 +54,8 @@ We will then see how to lose couple application docker images to the apm agent o
 ## Why not bringing APM agents in our Docker images?
 It could be really tempting to put the APM agents in the application's Docker image.
 
-We can illustrate it adding the following lines of code in our Docker images definition:
+Why? 
+Because you just have to add the following lines of code in our Docker images definition:
 
 ```dockerfile
 RUN mkdir /opt/agent
@@ -62,6 +63,7 @@ COPY ./javaagent.jar /opt/agent/javaagent.jar
 ```
 
 Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.
+
 For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.
 
 What is why I prefer loose coupling the _"business"_ applications Docker images to technical tools such as APM agents.
@@ -80,7 +82,7 @@ The main impact is to declare a volume in your Docker image:
 VOLUME /opt/agent
 ```
 It will be used by both the Docker container and the initContainer.
-We can consider it as a "bridge" between these two containers.
+We can consider it as a "bridge" between these two ones.
 
 We also have to declare one environment variable: ``JAVA_OPTS``.
 
@@ -94,7 +96,7 @@ ENTRYPOINT ["sh", "-c", "java ${JAVA_OPTS} org.springframework.boot.loader.JarLa
 
 Il will be used during the deployment to set up our _Wonderful Java Application_.
 
-Now, let's build our initContainer Docker image.
+Now, let's build our initContainer's Docker image.
 
 ### InitContainer Docker Image creation
 It is really straightforward. 
@@ -168,8 +170,8 @@ _Et voila!_
 
 ## Conclusion
 
-We have seen how to pack and deploy Distributed Tracing java agents and Java Applications deployed on top of Docker images.
-Obviously, my technical choice of using an InitContainer can be challenged regarding the technical context and how you are confortable with your delivery practices.
+We have seen how to pack and deploy Distributed Tracing java agents and Java Applications built on top of Docker images.
+Obviously, my technical choice of using an InitContainer can be challenged regarding your technical context and how you are confortable with your delivery practices.
 You probably noticed I use an emptyDir to deploy the Java agent.
 _Normally_ it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.
 
