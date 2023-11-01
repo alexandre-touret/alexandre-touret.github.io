@@ -1,6 +1,6 @@
 ---
 title: "Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes"
-date: 2023-11-02T08:00:00+02:00
+date: 2023-11-01T08:00:00+02:00
 draft: false
 
 images: ["/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp"]
