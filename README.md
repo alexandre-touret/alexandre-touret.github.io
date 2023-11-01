@@ -1,3 +1,6 @@
+
+## Status
+
 [![Build and deploy to GitHub Pages](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/gh-pages.yml)
 
 ## Setup
@@ -14,9 +17,20 @@ sudo apt install ./hugo_extended_0.110.0_linux-amd64.deb
 hugo serve -D -F
 ```
 
-
 ## Update the theme
 
 ```bash
 git submodule update --remote --merge
+```
+
+## Run Markdown Linter
+
+```bash
+docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "*.md" --disable MD041
+```
+
+## Run Vale
+
+```bash
+. ./run-vale.sh
 ```
