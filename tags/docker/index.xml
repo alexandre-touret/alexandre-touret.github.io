@@ -1,4 +1,219 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>docker - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/docker/</link><description>docker - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 24 Aug 2020 12:42:46 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Music Scores As Code</title><link>http://blog.touret.info/2020/08/24/music-scores-as-code/</link><pubDate>Mon, 24 Aug 2020 12:42:46 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/08/24/music-scores-as-code/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>docker - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/docker/</link><description>docker - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 08:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp" referrerpolicy="no-referrer">
+            </div><p>In <a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">my last article</a>, I dug into <a href="https://www.w3.org/TR/trace-context/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a> and exposed how to enable it in Java applications.
+We didn&rsquo;t see yet how to deploy an application on Kubernetes and get distributed tracing insights.
+Several strategies can be considered, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.</p>
+<p>In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> through <a href="https://www.docker.com/resources/what-container/" target="_blank" rel="noopener noreferrer">Docker containers</a>.</p>
+<p>To make it clearer, I will illustrate this setup by the following use case:</p>
+<ul>
+<li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
+<li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
+</ul>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_system.svg"
+            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_container.svg"
+            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>In this article I delve into how to package an <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a> and enable Distributed Tracing with the <a href="https://www.elastic.co/guide/en/apm/index.html" target="_blank" rel="noopener noreferrer">Elastic APM suite</a>.</p>
+<p>You can do that in the same way with an <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation" target="_blank" rel="noopener noreferrer">OpenTelemetry Agent</a>.
+Furthermore, <a href="https://www.elastic.co/fr/blog/native-opentelemetry-support-in-elastic-observability" target="_blank" rel="noopener noreferrer">Elastic APM is compatible with OpenTelemetry</a>.</p>
+</div>
+        </div>
+    </div>
+<p>We can basically implement this architecture in two different ways:</p>
+<ol>
+<li>Deploying the agent in all of our Docker images</li>
+<li>Deploying the agent asides from the Docker images and using initContainers to bring the agent at the startup of our applications</li>
+</ol>
+<p>We will then see how to lose couple application docker images to the apm agent one.</p>
+<h2 id="why-not-bringing-apm-agents-in-our-docker-images" class="headerLink">
+    <a href="#why-not-bringing-apm-agents-in-our-docker-images" class="header-mark"></a>1 Why not bringing APM agents in our Docker images?</h2><p>It could be really tempting to put the APM agents in the application&rsquo;s Docker image.</p>
+<p>Why?
+Because you just have to add the following lines of code in our Docker images definition:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent/javaagent.jar<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.</p>
+<p>For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.</p>
+<p>What is why I prefer loose coupling the <em>&ldquo;business&rdquo;</em> applications Docker images to technical tools such as APM agents.</p>
+<h2 id="deploy-an-apm-agent-through-initcontainers" class="headerLink">
+    <a href="#deploy-an-apm-agent-through-initcontainers" class="header-mark"></a>2 Deploy an APM agent through initContainers</h2><p>While looking around how to achieve this, I came across to the <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/" target="_blank" rel="noopener noreferrer">Kubernetes initContainers</a>.</p>
+<p>This kind of container is run only once during the startup of every pod.
+A bunch of commands is ran then on top of it.
+For our current use case, it will copy the javaagent into a volume such as an <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir" target="_blank" rel="noopener noreferrer">empty directory volume</a>.</p>
+<h3 id="impacts-in-the-_wonderful-java-application_-docker-image" class="headerLink">
+    <a href="#impacts-in-the-_wonderful-java-application_-docker-image" class="header-mark"></a>2.1 Impacts in the &ldquo;<em>Wonderful Java Application</em> Docker image</h3><p>The main impact is to declare a volume in your Docker image:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>It will be used by both the Docker container and the initContainer.
+We can consider it as a &ldquo;bridge&rdquo; between these two ones.</p>
+<p>We also have to declare one environment variable: <code>JAVA_OPTS</code>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">ENV</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="nv">$JAVA_OPTS</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">[</span>...<span class="o">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il will be used during the deployment to set up our <em>Wonderful Java Application</em>.</p>
+<p>Now, let&rsquo;s build our initContainer&rsquo;s Docker image.</p>
+<h3 id="initcontainer-docker-image-creation" class="headerLink">
+    <a href="#initcontainer-docker-image-creation" class="header-mark"></a>2.2 InitContainer Docker Image creation</h3><p>It is really straightforward.
+We can use for example, the following configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> alpine:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /opt/agent_setup<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent_setup/javaagent.jar<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="kubernetes-configuration" class="headerLink">
+    <a href="#kubernetes-configuration" class="header-mark"></a>2.3 Kubernetes configuration</h3><p>We can now set up our Kubernetes Deployment to start the corresponding container and copy the Java agent.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/my-wonderful-java-app:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">cp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent_setup/javaagent.jar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-init</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/apm-agent:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Why not just copying the Java agent directly in the initContainer Docker image execution?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Dockerfile).
+Why?
+The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.</div>
+        </div>
+    </div>
+<h2 id="start-the-java-application-with-the-agent" class="headerLink">
+    <a href="#start-the-java-application-with-the-agent" class="header-mark"></a>3 Start the Java Application with the agent</h2><p>Last but not least, we can now configure the <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank" rel="noopener noreferrer">pods</a> where we run our Java applications.</p>
+<p>We will use the <code>JAVA_OPTS</code> environment variable to configure the location of the Java agent, and <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">the Elastic APM Java system properties</a>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">JAVA_OPTS=-javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can then configure your Kubernetes deployment as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA_OPTS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span>-<span class="l">javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>Et voila!</em></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We have seen how to pack and deploy Distributed Tracing java agents and Java Applications built on top of Docker images.
+Obviously, my technical choice of using an InitContainer can be challenged regarding your technical context and how you are confortable with your delivery practices.
+You probably noticed I use an emptyDir to deploy the Java agent.
+<em>Normally</em> it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.</p>
+<p>Anyway, I think it is worth it and the tradeoffs are more than acceptable because this approach are, in my opinion, more flexible than the first one.</p>
+<p>Hope this helps!</p>
+]]></description></item><item><title>Music Scores As Code</title><link>http://blog.touret.info/2020/08/24/music-scores-as-code/</link><pubDate>Mon, 24 Aug 2020 12:42:46 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/08/24/music-scores-as-code/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/08/cesar-abner-martinez-aguilar-_lmekwwtiwy-unsplash.jpg" referrerpolicy="no-referrer">
             </div><p>Derrière ce nom pompeux qui peut effrayer, je vais essayer d&rsquo;expliquer dans cet article comment on peut versionner facilement ses partitions et les publier sur le web.</p>
 <p>En cherchant comment mettre de la documentation technique avec des diagrammes <a href="https://plantuml.com/" target="_blank" rel="noopener noreferrer">PlantUml</a> dans des repos <a href="https://about.gitlab.com/" target="_blank" rel="noopener noreferrer">GITLAB</a> et générés avec des pipelines, je me suis mis dans la tête de faire la même chose avec des partitions 🙂</p>
@@ -119,26 +334,26 @@ Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">name:</span> <span class="err">&#39;</span><span class="n">Lilypond</span> <span class="n">Generator</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nl">description:</span> <span class="err">&#39;</span><span class="n">Run</span> <span class="n">Lilypond</span> <span class="n">tool</span> <span class="n">with</span> <span class="n">the</span> <span class="n">given</span> <span class="n">set</span> <span class="n">of</span> <span class="n">arguments</span> <span class="n">to</span> <span class="n">generate</span> <span class="n">music</span> <span class="n">sheets</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nl">author:</span> <span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nl">
-</span></span></span><span class="line"><span class="cl"><span class="nl">inputs:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">args</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">description</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">Arguments</span> <span class="k">for</span> <span class="n">Lilyponid</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">required</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="o">:</span> <span class="err">&#39;</span><span class="o">-</span><span class="n">h</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="nl">
-</span></span></span><span class="line"><span class="cl"><span class="nl">runs:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">using</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">docker</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">image</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">Dockerfile</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">args</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">$</span><span class="o">{{</span> <span class="n">inputs</span><span class="o">.</span><span class="na">args</span> <span class="o">}}</span>
-</span></span><span class="line"><span class="cl"><span class="nl">
-</span></span></span><span class="line"><span class="cl"><span class="nl">branding:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">icon</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">underline</span><span class="err">&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">color</span><span class="o">:</span> <span class="err">&#39;</span><span class="n">blue</span><span class="err">&#39;</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Lilypond</span><span class="w"> </span><span class="n">Generator</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Run</span><span class="w"> </span><span class="n">Lilypond</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arguments</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Arguments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Lilyponid</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="o">-</span><span class="n">h</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">runs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">using</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">docker</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Dockerfile</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">args</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">inputs</span><span class="p">.</span><span class="na">args</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">branding</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">underline</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">blue</span><span class="err">&#39;</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Vous aurez compris que ce fichier fait référence à une <a href="https://github.com/alexandre-touret/lilypond-github-action/blob/master/Dockerfile" target="_blank" rel="noopener noreferrer">image Docker</a>. Cette dernière n&rsquo;est ni plus ni moins qu&rsquo;une Debian avec lilypond d&rsquo;installé.</p>
 <p>Pour l&rsquo;utiliser dans un repo github, on peut créer une action qui l&rsquo;utilise. Voici un exemple:</p>
@@ -165,26 +380,26 @@ Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;
 </span><span class="lnt">19
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">jobs:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">build_sheets</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">runs</span><span class="o">-</span><span class="n">on</span><span class="o">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">latest</span>
-</span></span><span class="line"><span class="cl">    <span class="n">env</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">LILYPOND_FILES</span><span class="o">:</span> <span class="s">&#34;*.ly&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">steps</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Checkout</span> <span class="n">Source</span> 
-</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v1</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Get</span> <span class="n">changed</span> <span class="n">files</span>
-</span></span><span class="line"><span class="cl">        <span class="n">id</span><span class="o">:</span> <span class="n">getfile</span>
-</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
-</span></span><span class="line"><span class="cl">          <span class="n">echo</span> <span class="s">&#34;::set-output name=files::$(find ${{github.workspace}} -name &#34;</span><span class="n">$</span><span class="o">{{</span> <span class="n">env</span><span class="o">.</span><span class="na">LILYPOND_FILES</span> <span class="o">}}</span><span class="s">&#34; -printf &#34;</span><span class="o">%</span><span class="n">P</span><span class="err">\</span><span class="n">n</span><span class="s">&#34; | xargs)&#34;</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">LILYPOND</span> <span class="n">files</span> <span class="n">considered</span> <span class="n">echo</span> <span class="n">output</span>
-</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
-</span></span><span class="line"><span class="cl">          <span class="n">echo</span> <span class="n">$</span><span class="o">{{</span> <span class="n">steps</span><span class="o">.</span><span class="na">getfile</span><span class="o">.</span><span class="na">outputs</span><span class="o">.</span><span class="na">files</span> <span class="o">}}</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Generate</span> <span class="n">PDF</span> <span class="n">music</span> <span class="n">sheets</span>
-</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">alexandre</span><span class="o">-</span><span class="n">touret</span><span class="o">/</span><span class="n">lilypond</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span>
-</span></span><span class="line"><span class="cl">        <span class="n">with</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">args</span><span class="o">:</span> <span class="o">-</span><span class="n">V</span> <span class="o">-</span><span class="n">f</span> <span class="o">--</span><span class="n">pdf</span> <span class="n">$</span><span class="o">{{</span> <span class="n">steps</span><span class="o">.</span><span class="na">getfile</span><span class="o">.</span><span class="na">outputs</span><span class="o">.</span><span class="na">files</span> <span class="o">}}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">jobs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">build_sheets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">runs</span><span class="o">-</span><span class="n">on</span><span class="p">:</span><span class="w"> </span><span class="n">ubuntu</span><span class="o">-</span><span class="n">latest</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">LILYPOND_FILES</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;*.ly&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">steps</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">Checkout</span><span class="w"> </span><span class="n">Source</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">uses</span><span class="p">:</span><span class="w"> </span><span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">Get</span><span class="w"> </span><span class="n">changed</span><span class="w"> </span><span class="n">files</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">id</span><span class="p">:</span><span class="w"> </span><span class="n">getfile</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">run</span><span class="p">:</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">echo</span><span class="w"> </span><span class="s">&#34;::set-output name=files::$(find ${{github.workspace}} -name &#34;</span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">env</span><span class="p">.</span><span class="na">LILYPOND_FILES</span><span class="w"> </span><span class="p">}}</span><span class="s">&#34; -printf &#34;</span><span class="o">%</span><span class="n">P</span><span class="err">\</span><span class="n">n</span><span class="s">&#34; | xargs)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">LILYPOND</span><span class="w"> </span><span class="n">files</span><span class="w"> </span><span class="n">considered</span><span class="w"> </span><span class="n">echo</span><span class="w"> </span><span class="n">output</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">run</span><span class="p">:</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">echo</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">steps</span><span class="p">.</span><span class="na">getfile</span><span class="p">.</span><span class="na">outputs</span><span class="p">.</span><span class="na">files</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">Generate</span><span class="w"> </span><span class="n">PDF</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">uses</span><span class="p">:</span><span class="w"> </span><span class="n">alexandre</span><span class="o">-</span><span class="n">touret</span><span class="o">/</span><span class="n">lilypond</span><span class="o">-</span><span class="n">github</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">args</span><span class="p">:</span><span class="w"> </span><span class="o">-</span><span class="n">V</span><span class="w"> </span><span class="o">-</span><span class="n">f</span><span class="w"> </span><span class="o">--</span><span class="n">pdf</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">steps</span><span class="p">.</span><span class="na">getfile</span><span class="p">.</span><span class="na">outputs</span><span class="p">.</span><span class="na">files</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>A la dernière ligne on peut passer <a href="http://lilypond.org/doc/v2.18/Documentation/usage/command_002dline-usage" target="_blank" rel="noopener noreferrer">les arguments nécessaires à lilypond</a>.</p>
 <h2 id="publication" class="headerLink">
@@ -203,17 +418,17 @@ Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Push</span> <span class="n">Local</span> <span class="n">Changes</span>
-</span></span><span class="line"><span class="cl">        <span class="n">run</span><span class="o">:</span> <span class="o">|</span>
-</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">local</span> <span class="n">user</span><span class="o">.</span><span class="na">email</span> <span class="s">&#34;${{ secrets.GIT_USERNAME }}&#34;</span>
-</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">config</span> <span class="o">--</span><span class="n">local</span> <span class="n">user</span><span class="o">.</span><span class="na">name</span> <span class="s">&#34;${{ secrets.GIT_EMAIL }}&#34;</span>
-</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">add</span> <span class="o">.</span>
-</span></span><span class="line"><span class="cl">          <span class="n">git</span> <span class="n">commit</span> <span class="o">-</span><span class="n">m</span> <span class="s">&#34;Add changes&#34;</span> <span class="o">-</span><span class="n">a</span>
-</span></span><span class="line"><span class="cl">      <span class="o">-</span> <span class="n">name</span><span class="o">:</span> <span class="n">Push</span> <span class="n">changes</span>
-</span></span><span class="line"><span class="cl">        <span class="n">uses</span><span class="o">:</span> <span class="n">ad</span><span class="o">-</span><span class="n">m</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">push</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span>
-</span></span><span class="line"><span class="cl">        <span class="n">with</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">          <span class="n">github_token</span><span class="o">:</span> <span class="n">$</span><span class="o">{{</span> <span class="n">secrets</span><span class="o">.</span><span class="na">GITHUB_TOKEN</span> <span class="o">}}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">Push</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">Changes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">run</span><span class="p">:</span><span class="w"> </span><span class="o">|</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="n">local</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">email</span><span class="w"> </span><span class="s">&#34;${{ secrets.GIT_USERNAME }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">git</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">--</span><span class="n">local</span><span class="w"> </span><span class="n">user</span><span class="p">.</span><span class="na">name</span><span class="w"> </span><span class="s">&#34;${{ secrets.GIT_EMAIL }}&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">git</span><span class="w"> </span><span class="n">add</span><span class="w"> </span><span class="p">.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">git</span><span class="w"> </span><span class="n">commit</span><span class="w"> </span><span class="o">-</span><span class="n">m</span><span class="w"> </span><span class="s">&#34;Add changes&#34;</span><span class="w"> </span><span class="o">-</span><span class="n">a</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">name</span><span class="p">:</span><span class="w"> </span><span class="n">Push</span><span class="w"> </span><span class="n">changes</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">uses</span><span class="p">:</span><span class="w"> </span><span class="n">ad</span><span class="o">-</span><span class="n">m</span><span class="o">/</span><span class="n">github</span><span class="o">-</span><span class="n">push</span><span class="o">-</span><span class="n">action</span><span class="nd">@master</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">with</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">github_token</span><span class="p">:</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">secrets</span><span class="p">.</span><span class="na">GITHUB_TOKEN</span><span class="w"> </span><span class="p">}}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Il suffit de créer une page index.md à la racine et d&rsquo;ajouter des liens vers les partitions générées ( dans mon cas, ça se passe dans le répertoire /docs ).<br>
 Vous pouvez trouver un exemple <a href="https://alexandre-touret.github.io/piano-sheets-as-code/" target="_blank" rel="noopener noreferrer">ici</a>.</p>

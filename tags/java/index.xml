@@ -1,4 +1,219 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>java - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/java/</link><description>java - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 05 Sep 2023 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/java/" rel="self" type="application/rss+xml"/><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>java - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/java/</link><description>java - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 08:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/tags/java/" rel="self" type="application/rss+xml"/><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp" referrerpolicy="no-referrer">
+            </div><p>In <a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">my last article</a>, I dug into <a href="https://www.w3.org/TR/trace-context/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a> and exposed how to enable it in Java applications.
+We didn&rsquo;t see yet how to deploy an application on Kubernetes and get distributed tracing insights.
+Several strategies can be considered, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.</p>
+<p>In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> through <a href="https://www.docker.com/resources/what-container/" target="_blank" rel="noopener noreferrer">Docker containers</a>.</p>
+<p>To make it clearer, I will illustrate this setup by the following use case:</p>
+<ul>
+<li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
+<li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
+</ul>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_system.svg"
+            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_container.svg"
+            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>In this article I delve into how to package an <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a> and enable Distributed Tracing with the <a href="https://www.elastic.co/guide/en/apm/index.html" target="_blank" rel="noopener noreferrer">Elastic APM suite</a>.</p>
+<p>You can do that in the same way with an <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation" target="_blank" rel="noopener noreferrer">OpenTelemetry Agent</a>.
+Furthermore, <a href="https://www.elastic.co/fr/blog/native-opentelemetry-support-in-elastic-observability" target="_blank" rel="noopener noreferrer">Elastic APM is compatible with OpenTelemetry</a>.</p>
+</div>
+        </div>
+    </div>
+<p>We can basically implement this architecture in two different ways:</p>
+<ol>
+<li>Deploying the agent in all of our Docker images</li>
+<li>Deploying the agent asides from the Docker images and using initContainers to bring the agent at the startup of our applications</li>
+</ol>
+<p>We will then see how to lose couple application docker images to the apm agent one.</p>
+<h2 id="why-not-bringing-apm-agents-in-our-docker-images" class="headerLink">
+    <a href="#why-not-bringing-apm-agents-in-our-docker-images" class="header-mark"></a>1 Why not bringing APM agents in our Docker images?</h2><p>It could be really tempting to put the APM agents in the application&rsquo;s Docker image.</p>
+<p>Why?
+Because you just have to add the following lines of code in our Docker images definition:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent/javaagent.jar<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.</p>
+<p>For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.</p>
+<p>What is why I prefer loose coupling the <em>&ldquo;business&rdquo;</em> applications Docker images to technical tools such as APM agents.</p>
+<h2 id="deploy-an-apm-agent-through-initcontainers" class="headerLink">
+    <a href="#deploy-an-apm-agent-through-initcontainers" class="header-mark"></a>2 Deploy an APM agent through initContainers</h2><p>While looking around how to achieve this, I came across to the <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/" target="_blank" rel="noopener noreferrer">Kubernetes initContainers</a>.</p>
+<p>This kind of container is run only once during the startup of every pod.
+A bunch of commands is ran then on top of it.
+For our current use case, it will copy the javaagent into a volume such as an <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir" target="_blank" rel="noopener noreferrer">empty directory volume</a>.</p>
+<h3 id="impacts-in-the-_wonderful-java-application_-docker-image" class="headerLink">
+    <a href="#impacts-in-the-_wonderful-java-application_-docker-image" class="header-mark"></a>2.1 Impacts in the &ldquo;<em>Wonderful Java Application</em> Docker image</h3><p>The main impact is to declare a volume in your Docker image:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>It will be used by both the Docker container and the initContainer.
+We can consider it as a &ldquo;bridge&rdquo; between these two ones.</p>
+<p>We also have to declare one environment variable: <code>JAVA_OPTS</code>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">ENV</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="nv">$JAVA_OPTS</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">[</span>...<span class="o">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il will be used during the deployment to set up our <em>Wonderful Java Application</em>.</p>
+<p>Now, let&rsquo;s build our initContainer&rsquo;s Docker image.</p>
+<h3 id="initcontainer-docker-image-creation" class="headerLink">
+    <a href="#initcontainer-docker-image-creation" class="header-mark"></a>2.2 InitContainer Docker Image creation</h3><p>It is really straightforward.
+We can use for example, the following configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> alpine:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /opt/agent_setup<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent_setup/javaagent.jar<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="kubernetes-configuration" class="headerLink">
+    <a href="#kubernetes-configuration" class="header-mark"></a>2.3 Kubernetes configuration</h3><p>We can now set up our Kubernetes Deployment to start the corresponding container and copy the Java agent.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/my-wonderful-java-app:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">cp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent_setup/javaagent.jar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-init</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/apm-agent:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Why not just copying the Java agent directly in the initContainer Docker image execution?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Dockerfile).
+Why?
+The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.</div>
+        </div>
+    </div>
+<h2 id="start-the-java-application-with-the-agent" class="headerLink">
+    <a href="#start-the-java-application-with-the-agent" class="header-mark"></a>3 Start the Java Application with the agent</h2><p>Last but not least, we can now configure the <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank" rel="noopener noreferrer">pods</a> where we run our Java applications.</p>
+<p>We will use the <code>JAVA_OPTS</code> environment variable to configure the location of the Java agent, and <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">the Elastic APM Java system properties</a>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">JAVA_OPTS=-javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can then configure your Kubernetes deployment as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA_OPTS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span>-<span class="l">javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>Et voila!</em></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We have seen how to pack and deploy Distributed Tracing java agents and Java Applications built on top of Docker images.
+Obviously, my technical choice of using an InitContainer can be challenged regarding your technical context and how you are confortable with your delivery practices.
+You probably noticed I use an emptyDir to deploy the Java agent.
+<em>Normally</em> it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.</p>
+<p>Anyway, I think it is worth it and the tradeoffs are more than acceptable because this approach are, in my opinion, more flexible than the first one.</p>
+<p>Hope this helps!</p>
+]]></description></item><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-1"><em>Picture Credit: <a href="https://unsplash.com/@jannerboy62" target="_blank" rel="noopener noreferrer">Nick FEWINGS</a></em></div>
 <h2 id="introduction" class="headerLink">
@@ -261,11 +476,11 @@ However, if you are eager to get more details in your Jaeger dashboard, it is ad
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SpringBootApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>If you want more details, you can check <a href="https://camel.apache.org/components/3.20.x/others/opentelemetry.html" target="_blank" rel="noopener noreferrer">the official documentation</a>.</p>
 <h4 id="the-java-agent" class="headerLink">
@@ -441,15 +656,15 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="n">from</span><span class="o">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeId</span><span class="o">(</span><span class="s">&#34;consume-message&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeDescription</span><span class="o">(</span><span class="s">&#34;Consumer example&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">LoggingLevel</span><span class="o">.</span><span class="na">INFO</span><span class="o">,</span> <span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">end</span><span class="o">();</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">from</span><span class="p">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeId</span><span class="p">(</span><span class="s">&#34;consume-message&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeDescription</span><span class="p">(</span><span class="s">&#34;Consumer example&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">LoggingLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">toString</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">end</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>I logged on purpose the <code>traceparent</code> header.</p>
 <div class="highlight"><div class="chroma">
@@ -979,12 +1194,12 @@ J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Sp
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Column</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Entity</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GeneratedValue</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GenerationType</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Column</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GeneratedValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GenerationType</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
 <h2 id="distributed-tracing-et-observabilité" class="headerLink">
@@ -1221,25 +1436,25 @@ Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilienc
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">createDefaultCustomizer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">configureDefault</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resilience4JConfigBuilder</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">timeLimiterConfig</span><span class="p">(</span><span class="n">TimeLimiterConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">timeoutInSec</span><span class="p">)).</span><span class="na">build</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">circuitBreakerConfig</span><span class="p">(</span><span class="n">CircuitBreakerConfig</span><span class="p">.</span><span class="na">ofDefaults</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">createSlowNumbersAPICallCustomizer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">builder</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="na">circuitBreakerConfig</span><span class="p">(</span><span class="n">CircuitBreakerConfig</span><span class="p">.</span><span class="na">ofDefaults</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">timeLimiterConfig</span><span class="p">(</span><span class="n">TimeLimiterConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">timeoutInSec</span><span class="p">)).</span><span class="na">build</span><span class="p">()),</span><span class="w"> </span><span class="s">&#34;slowNumbers&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
 <p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
@@ -1255,15 +1470,15 @@ Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilienc
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
-</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">        <span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Book</span><span class="w"> </span><span class="nf">registerBook</span><span class="p">(</span><span class="nd">@Valid</span><span class="w"> </span><span class="n">Book</span><span class="w"> </span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">circuitBreakerFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="p">).</span><span class="na">run</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">persistBook</span><span class="p">(</span><span class="n">book</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">throwable</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">fallbackPersistBook</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">bookRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">book</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
 <h2 id="observabilité" class="headerLink">
@@ -1328,41 +1543,41 @@ Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikip
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">endpoints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">include</span><span class="p">:</span><span class="w"> </span><span class="sc">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">jmx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">include</span><span class="p">:</span><span class="w"> </span><span class="sc">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">endpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">health</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="p">:</span><span class="w"> </span><span class="n">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">probes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">shutdown</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">health</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">livenessstate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">readinessstate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">datasource</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">client</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">autotime</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="opentracing" class="headerLink">
     <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
@@ -1552,10 +1767,10 @@ Bref pour la majorité des applications, je vous déconseille de l&rsquo;intégr
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="s">&#34;https://get.sdkman.io&#34;</span> <span class="o">|</span> <span class="n">bash</span>
-</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">source</span> <span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">sdk</span> <span class="n">install</span> <span class="n">gradle</span> <span class="mi">6</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="s">&#34;https://get.sdkman.io&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">$</span><span class="w"> </span><span class="n">sdk</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">gradle</span><span class="w"> </span><span class="n">6</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-dun-proxy" class="headerLink">
     <a href="#configuration-dun-proxy" class="header-mark"></a>2 Configuration d&rsquo;un proxy</h2><p>Et oui comment souvent, passer le proxy d&rsquo;entreprise est la moitié du boulot :).<br>
@@ -1570,13 +1785,13 @@ Pour le configurer de manière globale (c.-à-d. pour tous vos projets) sur votr
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="n">8888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="n">127</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="n">8888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="n">127</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-dun-miroir-nexus-ou-artifactory" class="headerLink">
     <a href="#configuration-dun-miroir-nexus-ou-artifactory" class="header-mark"></a>3 Configuration d&rsquo;un miroir Nexus ou Artifactory</h2><p>A l&rsquo;instar du proxy, on va essayer de mettre en place une configuration globale. Pour ce faire, on va utiliser <a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener noreferrer">les init scripts</a>. Cette fonctionnalité est très intéressante. Elle permet de centraliser des actions et configurations.<br>
@@ -1598,19 +1813,19 @@ Pour créer un script, il faut tout d&rsquo;abord créer un fichier <code>.gradl
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">buildscript</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">mavenLocal</span><span class="o">()</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">maven</span> <span class="o">{</span><span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">repositories</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">mavenLocal</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">mavenLocal</span><span class="p">()</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="n">url</span><span class="w"> </span><span class="s">&#34;https://url-nexus&#34;</span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">mavenLocal</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">&#34;https://url-nexus&#34;</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-du-déploiement-dans-nexus--artifactory" class="headerLink">
     <a href="#configuration-du-d%c3%a9ploiement-dans-nexus--artifactory" class="header-mark"></a>4 Configuration du déploiement dans Nexus / Artifactory</h2><p>Le déploiement dans Nexus est possible via <a href="https://docs.gradle.org/current/userguide/publishing_maven.html" target="_blank" rel="noopener noreferrer">le plugin maven publish</a>. La configuration fournie dans la documentation est tellement bien faite ( comme le reste d&rsquo;ailleurs ) que je ne vais que mettre un lien vers celle-là:<br>
@@ -1679,39 +1894,39 @@ Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikiped
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;debug.enabled&#34;</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&#34;true&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DebuggingConfiguration</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DebuggingConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">WITHIN_MY_PACKAGE</span> <span class="o">=</span> <span class="s">&#34;within(my.package..*)&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Aspect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ConditionalOnProperty</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;debug.enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">havingValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;true&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DebuggingConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="n">LOGGER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoggerFactory</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">DebuggingConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">WITHIN_MY_PACKAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;within(my.package..*)&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">* Log before execution
 </span></span></span><span class="line"><span class="cl"><span class="cm">*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@Before</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logBeforeExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Before</span><span class="p">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">logBeforeExecution</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LOGGER</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">LOGGER</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">* Log after execution
 </span></span></span><span class="line"><span class="cl"><span class="cm">*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@After</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logAfterExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@After</span><span class="p">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">logAfterExecution</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LOGGER</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">LOGGER</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>L&rsquo;utilisation de l&rsquo; annotation <code>@ConditionalOnProperty</code> me permet d&rsquo;activer cette classe de configuration seulement si la propriété <code>debug.enabled</code> est initialisée à <code>true</code>.</p>
 <p>Les annotations <code>@Before</code> et <code>@After</code> indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.</p>
@@ -1769,30 +1984,4 @@ Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikiped
 </ul>
 <p>Je pense qu&rsquo;il y a encore bien d&rsquo;autres conférences qui ont été très intéressantes. J&rsquo; ai quelques heures de visionnage à prévoir dans mon agenda 🙂 . Quoi qu&rsquo;il en soit, merci aux organisateurs pour cette édition. C&rsquo;était top!</p>
 <p>Rendez vous l&rsquo;année prochaine !</p>
-]]></description></item><item><title>Devoxx 2018</title><link>http://blog.touret.info/2018/04/20/devoxx-2018/</link><pubDate>Fri, 20 Apr 2018 13:18:43 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/04/20/devoxx-2018/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2018/04/img_20180419_155256624099247.jpg" referrerpolicy="no-referrer">
-            </div><p>L&rsquo;édition 2018 de <a href="http://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">DEVOXX</a> touche bientôt à sa fin. Pour ceux qui ne connaissent pas cette conférence, c&rsquo;est <strong>LA</strong> conférence sur le développement en France. A titre personnel, je peux plus apprendre en trois jours à cette conférence qu&rsquo;en formation.</p>
-<p>Tout d&rsquo;abord un grand merci aux organisateurs. Ils assurent réellement. Bon, pour l&rsquo;année prochaine, n&rsquo;hésitez à retenir ma conférence 😉</p>
-<p>Si vous n&rsquo;avez pas eu la chance d&rsquo;assister aux trois jours, il faut savoir que vous pourrez voir les rediff sur <a href="https://www.youtube.com/channel/UCsVPQfo5RZErDL41LoWvk0A" target="_blank" rel="noopener noreferrer">la chaine youtube</a>.</p>
-<h2 id="les-tendances" class="headerLink">
-    <a href="#les-tendances" class="header-mark"></a>1 Les tendances</h2><p>Voici les tendances que  j&rsquo;ai retenu :</p>
-<ul>
-<li>Spring, spring et encore spring</li>
-<li>Du réactif en veux tu en voila</li>
-<li>Du <a href="https://blog.octo.com/domain-driven-design-des-armes-pour-affronter-la-complexite/" target="_blank" rel="noopener noreferrer">DDD</a> sinon rien</li>
-<li>Du devops</li>
-</ul>
-<p>et le plus impressionnant pour moi était la conférence de <a href="https://g.co/kgs/5RKDhS" target="_blank" rel="noopener noreferrer">JOSHUA BLOCH(!!!) sur Effective Java.</a> Pas tant dans le contenu, car il reprenait peu ou prou celui du livre, mais de voir une personne de ce calibre (dans le monde JAVA, c&rsquo;est une rock star) en France, c&rsquo;est assez impressionnant.</p>
-<p>Les keynotes ( dont celle sur le smart building) étaient dans l&rsquo;ensemble très intéressantes. Les conférences étaient également d&rsquo;un très bon niveau. J&rsquo;ai pu découvrir par exemple l&rsquo;avance que peut avoir <a href="https://e-resident.gov.ee/" target="_blank" rel="noopener noreferrer">l&rsquo;Estonie sur l&rsquo;IT</a> ( voir le projet <a href="https://e-estonia.com/solutions/interoperability-services/x-road/" target="_blank" rel="noopener noreferrer">x-road</a> )  par rapport à la France qui lance le <a href="http://www.french-road.fr/" target="_blank" rel="noopener noreferrer">projet french road</a>.</p>
-<p>Voici quelques conférences qui m&rsquo;ont plu et interpelé :</p>
-<ul>
-<li><a href="https://cfp.devoxx.fr/2018/talk/UTJ-8549/Etre_architecte_logiciel_en_2018" target="_blank" rel="noopener noreferrer">Être architecte en 2018</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/XDA-2796/Le_Smart_Building_:_par_ou_commencer_%3F" target="_blank" rel="noopener noreferrer">Le smart building</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/IQJ-6767/Chaos_Engineering,_principes_et_mise_en_application" target="_blank" rel="noopener noreferrer">Chaos Engineering</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/TXO-1273/Effective_Java,_Third_Edition:_Keepin%27_it_Effective" target="_blank" rel="noopener noreferrer">Effective java</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/PTA-9920/Pourquoi_vous_avez_besoin_d%27une_Clean_Architecture" target="_blank" rel="noopener noreferrer">Pourquoi vous avez besoin d&rsquo;une clean architecture</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/DKA-0580/Securite_des_applications_Web_:_les_bons_reflexes_a_avoir" target="_blank" rel="noopener noreferrer">Sécurité des web applications</a></li>
-<li><a href="https://cfp.devoxx.fr/2018/talk/PCF-2127/Apres_Java_8,_Java_9_et_10" target="_blank" rel="noopener noreferrer">Après java 8, java 9 et 10</a></li>
-</ul>
-<p>Je ne vais pas trop les décrire ( voire pas du tout ), elles seront disponibles prochainement sur <a href="https://www.youtube.com/channel/UCsVPQfo5RZErDL41LoWvk0A" target="_blank" rel="noopener noreferrer">la chaine youtube</a> .</p>
 ]]></description></item></channel></rss>

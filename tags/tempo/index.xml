@@ -261,11 +261,11 @@ However, if you are eager to get more details in your Jaeger dashboard, it is ad
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SpringBootApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>If you want more details, you can check <a href="https://camel.apache.org/components/3.20.x/others/opentelemetry.html" target="_blank" rel="noopener noreferrer">the official documentation</a>.</p>
 <h4 id="the-java-agent" class="headerLink">
@@ -441,15 +441,15 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="n">from</span><span class="o">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeId</span><span class="o">(</span><span class="s">&#34;consume-message&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeDescription</span><span class="o">(</span><span class="s">&#34;Consumer example&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">LoggingLevel</span><span class="o">.</span><span class="na">INFO</span><span class="o">,</span> <span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">end</span><span class="o">();</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">from</span><span class="p">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeId</span><span class="p">(</span><span class="s">&#34;consume-message&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeDescription</span><span class="p">(</span><span class="s">&#34;Consumer example&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">LoggingLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">toString</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">end</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>I logged on purpose the <code>traceparent</code> header.</p>
 <div class="highlight"><div class="chroma">

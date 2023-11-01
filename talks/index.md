@@ -84,7 +84,7 @@ A l’issue de cet atelier, nous aurons une vue complète et mis en pratique dif
 How to learn architecture ? How to improve in this field ? How do we recognize a good or a bad architecture ?
 Plenty of books and training sessions address this subject. The best thing is to practice!
 In the same way as CodingDojos, I will present to you architecture katas. 
-Ted NEWARD (http://blogs.tedneward.com/) created them. His idea came from the following observation :
+[Ted NEWARD](http://blogs.tedneward.com/) created them. His idea came from the following observation :
 "How are we supposed to get great architects, if they only get the chance to architect fewer than a half-dozen times in their career?"
 One solution to this issue could be to practice regularly on several topics to gain experience.
 After a brief introduction of how to start designing an architecture, I will present architecture katas, and the conduct.

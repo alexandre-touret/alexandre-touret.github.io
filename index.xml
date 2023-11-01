@@ -1,4 +1,219 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>http://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 05 Sep 2023 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>http://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 08:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp" referrerpolicy="no-referrer">
+            </div><p>In <a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">my last article</a>, I dug into <a href="https://www.w3.org/TR/trace-context/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a> and exposed how to enable it in Java applications.
+We didn&rsquo;t see yet how to deploy an application on Kubernetes and get distributed tracing insights.
+Several strategies can be considered, but the main point is how to minimize the impact of deploying APM agents on the whole delivery process.</p>
+<p>In this article, I will expose how to ship APM agents for instrumenting Java applications deployed on top of <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> through <a href="https://www.docker.com/resources/what-container/" target="_blank" rel="noopener noreferrer">Docker containers</a>.</p>
+<p>To make it clearer, I will illustrate this setup by the following use case:</p>
+<ul>
+<li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
+<li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
+</ul>
+<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_system.svg"
+            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
+<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/10/architecture_container.svg"
+            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+            sizes="auto"
+            alt="c4 context diagram">
+    </a></figure></div>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>In this article I delve into how to package an <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a> and enable Distributed Tracing with the <a href="https://www.elastic.co/guide/en/apm/index.html" target="_blank" rel="noopener noreferrer">Elastic APM suite</a>.</p>
+<p>You can do that in the same way with an <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation" target="_blank" rel="noopener noreferrer">OpenTelemetry Agent</a>.
+Furthermore, <a href="https://www.elastic.co/fr/blog/native-opentelemetry-support-in-elastic-observability" target="_blank" rel="noopener noreferrer">Elastic APM is compatible with OpenTelemetry</a>.</p>
+</div>
+        </div>
+    </div>
+<p>We can basically implement this architecture in two different ways:</p>
+<ol>
+<li>Deploying the agent in all of our Docker images</li>
+<li>Deploying the agent asides from the Docker images and using initContainers to bring the agent at the startup of our applications</li>
+</ol>
+<p>We will then see how to lose couple application docker images to the apm agent one.</p>
+<h2 id="why-not-bringing-apm-agents-in-our-docker-images" class="headerLink">
+    <a href="#why-not-bringing-apm-agents-in-our-docker-images" class="header-mark"></a>1 Why not bringing APM agents in our Docker images?</h2><p>It could be really tempting to put the APM agents in the application&rsquo;s Docker image.</p>
+<p>Why?
+Because you just have to add the following lines of code in our Docker images definition:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent/javaagent.jar<span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.</p>
+<p>For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.</p>
+<p>What is why I prefer loose coupling the <em>&ldquo;business&rdquo;</em> applications Docker images to technical tools such as APM agents.</p>
+<h2 id="deploy-an-apm-agent-through-initcontainers" class="headerLink">
+    <a href="#deploy-an-apm-agent-through-initcontainers" class="header-mark"></a>2 Deploy an APM agent through initContainers</h2><p>While looking around how to achieve this, I came across to the <a href="https://kubernetes.io/docs/concepts/workloads/pods/init-containers/" target="_blank" rel="noopener noreferrer">Kubernetes initContainers</a>.</p>
+<p>This kind of container is run only once during the startup of every pod.
+A bunch of commands is ran then on top of it.
+For our current use case, it will copy the javaagent into a volume such as an <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir" target="_blank" rel="noopener noreferrer">empty directory volume</a>.</p>
+<h3 id="impacts-in-the-_wonderful-java-application_-docker-image" class="headerLink">
+    <a href="#impacts-in-the-_wonderful-java-application_-docker-image" class="header-mark"></a>2.1 Impacts in the &ldquo;<em>Wonderful Java Application</em> Docker image</h3><p>The main impact is to declare a volume in your Docker image:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>It will be used by both the Docker container and the initContainer.
+We can consider it as a &ldquo;bridge&rdquo; between these two ones.</p>
+<p>We also have to declare one environment variable: <code>JAVA_OPTS</code>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">ENV</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="nv">$JAVA_OPTS</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">[</span>...<span class="o">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher&#34;</span><span class="p">]</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Il will be used during the deployment to set up our <em>Wonderful Java Application</em>.</p>
+<p>Now, let&rsquo;s build our initContainer&rsquo;s Docker image.</p>
+<h3 id="initcontainer-docker-image-creation" class="headerLink">
+    <a href="#initcontainer-docker-image-creation" class="header-mark"></a>2.2 InitContainer Docker Image creation</h3><p>It is really straightforward.
+We can use for example, the following configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-dockerfile" data-lang="dockerfile"><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> alpine:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /opt/agent_setup<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent_setup/javaagent.jar<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">VOLUME</span><span class="s"> /opt/agent</span><span class="err">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h3 id="kubernetes-configuration" class="headerLink">
+    <a href="#kubernetes-configuration" class="header-mark"></a>2.3 Kubernetes configuration</h3><p>We can now set up our Kubernetes Deployment to start the corresponding container and copy the Java agent.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/my-wonderful-java-app:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">initContainers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">command</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">cp</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent_setup/javaagent.jar</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">apm-agent-init</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/apm-agent:v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumeMounts</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">mountPath</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/agent</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">appd-agent-volume</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">emptyDir</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>Why not just copying the Java agent directly in the initContainer Docker image execution?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The copy must be run with a command specified in the initContainer declaration and cannot be done during the initContainer execution (i.e., specified in its Dockerfile).
+Why?
+The volume is mounted just after the initContainer execution and drops the JAR file copied earlier.</div>
+        </div>
+    </div>
+<h2 id="start-the-java-application-with-the-agent" class="headerLink">
+    <a href="#start-the-java-application-with-the-agent" class="header-mark"></a>3 Start the Java Application with the agent</h2><p>Last but not least, we can now configure the <a href="https://kubernetes.io/docs/concepts/workloads/pods/" target="_blank" rel="noopener noreferrer">pods</a> where we run our Java applications.</p>
+<p>We will use the <code>JAVA_OPTS</code> environment variable to configure the location of the Java agent, and <a href="https://www.elastic.co/guide/en/apm/agent/java/current/configuration.html" target="_blank" rel="noopener noreferrer">the Elastic APM Java system properties</a>.</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">JAVA_OPTS=-javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can then configure your Kubernetes deployment as:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">env</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">JAVA_OPTS</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">value</span><span class="p">:</span><span class="w"> </span>-<span class="l">javaagent:/opt/agent/javaagent.jar -Delastic.apm.service_name=my-wonderful-application -Delastic.apm.application_packages=org.mywonderfulapp -Delastic.apm.server_url=http://apm:8200</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>Et voila!</em></p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We have seen how to pack and deploy Distributed Tracing java agents and Java Applications built on top of Docker images.
+Obviously, my technical choice of using an InitContainer can be challenged regarding your technical context and how you are confortable with your delivery practices.
+You probably noticed I use an emptyDir to deploy the Java agent.
+<em>Normally</em> it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.</p>
+<p>Anyway, I think it is worth it and the tradeoffs are more than acceptable because this approach are, in my opinion, more flexible than the first one.</p>
+<p>Hope this helps!</p>
+]]></description></item><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-1"><em>Picture Credit: <a href="https://unsplash.com/@jannerboy62" target="_blank" rel="noopener noreferrer">Nick FEWINGS</a></em></div>
 <h2 id="introduction" class="headerLink">
@@ -261,11 +476,11 @@ However, if you are eager to get more details in your Jaeger dashboard, it is ad
 </span><span class="lnt">4
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoApplication</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="o">[...]</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SpringBootApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>If you want more details, you can check <a href="https://camel.apache.org/components/3.20.x/others/opentelemetry.html" target="_blank" rel="noopener noreferrer">the official documentation</a>.</p>
 <h4 id="the-java-agent" class="headerLink">
@@ -441,15 +656,15 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">   <span class="n">from</span><span class="o">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeId</span><span class="o">(</span><span class="s">&#34;consume-message&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">routeDescription</span><span class="o">(</span><span class="s">&#34;Consumer example&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="n">LoggingLevel</span><span class="o">.</span><span class="na">INFO</span><span class="o">,</span> <span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">).</span><span class="na">toString</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">log</span><span class="o">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">end</span><span class="o">();</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">   </span><span class="n">from</span><span class="p">(</span><span class="s">&#34;activemq:queue:HELLO.WORLD?disableReplyTo=true&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeId</span><span class="p">(</span><span class="s">&#34;consume-message&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">routeDescription</span><span class="p">(</span><span class="s">&#34;Consumer example&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="n">LoggingLevel</span><span class="p">.</span><span class="na">INFO</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;New message with trace=${header.traceparent}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;----&gt; &#34;</span><span class="o">+</span><span class="n">bodyAs</span><span class="p">(</span><span class="n">String</span><span class="p">.</span><span class="na">class</span><span class="p">).</span><span class="na">toString</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">log</span><span class="p">(</span><span class="s">&#34;HEADERS ${in.headers}&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">end</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>I logged on purpose the <code>traceparent</code> header.</p>
 <div class="highlight"><div class="chroma">
@@ -1644,12 +1859,12 @@ J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Sp
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Column</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Entity</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GeneratedValue</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GenerationType</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Column</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GeneratedValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GenerationType</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
 <h2 id="distributed-tracing-et-observabilité" class="headerLink">
@@ -2012,12 +2227,12 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@EnableTask</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaskConfiguration</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableTask</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TaskConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
 <div class="highlight"><div class="chroma">
@@ -2032,15 +2247,15 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">CommandLineRunner</span> <span class="nf">createCommandLineRunner</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">commandLinePropertySource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleCommandLinePropertySource</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span> <span class="o">+</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">commandLinePropertySource</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;BLANK&#34;</span><span class="o">),</span> <span class="n">NationalizeResponseDTO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="o">,</span> <span class="n">entity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">(),</span> <span class="n">entity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">        <span class="o">};</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">CommandLineRunner</span><span class="w"> </span><span class="nf">createCommandLineRunner</span><span class="p">(</span><span class="n">RestTemplate</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">commandLinePropertySource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleCommandLinePropertySource</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">.</span><span class="na">getForEntity</span><span class="p">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="n">commandLinePropertySource</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)).</span><span class="na">orElse</span><span class="p">(</span><span class="s">&#34;BLANK&#34;</span><span class="p">),</span><span class="w"> </span><span class="n">NationalizeResponseDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">(),</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getBody</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p>
 <p>Voici un exemple d&rsquo;exécution :</p>
@@ -2327,227 +2542,4 @@ Je tiens à remercier <a href="https://julientopcu.com/" target="_blank" rel="no
 
 <p>Merci encore aux organisatrices et organisateurs pour ces deux jours.</p>
 <p>À l&rsquo;année prochaine !!</p>
-]]></description></item><item><title>Faire des batchs "Cloud Native" dans Kubernetes</title><link>http://blog.touret.info/2022/05/17/cloud-native-batchs/</link><pubDate>Tue, 17 May 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/05/17/cloud-native-batchs/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2022/05/pat-whelen-xSsWBa4rb6E-unsplash.webp" referrerpolicy="no-referrer">
-            </div><p>Quand on parle du Cloud et de Kubernetes, généralement on pense aux APIs.
-Mais qu&rsquo;en est-il des batchs?</p>
-<p>Oui, depuis plusieurs années, on pensait les éradiquer, mais ils sont encore là et on en a encore besoin pour quelques années encore.
-Ils ont même eu une deuxième jeunesse avec le Big Data et l&rsquo;explosion des volumétries dans l&rsquo;IT.</p>
-<p>Je vais essayer de faire un tour d&rsquo;horizon dans cet article des batchs dans un environnement Cloud et plus particulièrement dans Kubernetes.</p>
-<p>Les exemples présentés dans cet article seront (sans doute) approfondis dans un second article et d&rsquo;ores et déjà disponibles dans <a href="https://github.com/alexandre-touret/k8s-batch" target="_blank" rel="noopener noreferrer">mon GitHub</a>.</p>
-<h2 id="pourquoi-des-batchs-dans-le-cloud" class="headerLink">
-    <a href="#pourquoi-des-batchs-dans-le-cloud" class="header-mark"></a>1 Pourquoi des batchs dans le Cloud?</h2><p>A ce titre un peu provocateur, j&rsquo;ajouterais aussi <em>&ldquo;Pourquoi des batchs dans Kubernetes ?&rdquo;</em>.</p>
-<p>Oui, aujourd&rsquo;hui encore,comme j&rsquo;ai pu l&rsquo;indiquer précédemment, on doit créer des traitements batchs. A coté des APIs qui représentent le cas d&rsquo;utilisation &ldquo;standard&rdquo; du Cloud, on peut également avoir à traiter des fichiers volumineux allant de plusieurs centaines de Mo à quelques Go.</p>
-<p>Parmi les cas d&rsquo;utilisation qui nécessitent ce genre de traitement, on pourra avoir:</p>
-<ul>
-<li>Les reprises de données (suite à des erreurs ou lors d&rsquo;une initialisation)</li>
-<li>Traitement suite à une réception de fichiers (par ex. traitement de fichiers OPENDATA)</li>
-</ul>
-<p>Si vous êtes déjà passé sur le Cloud pour vos applications transactionnelles, vous vous poserez cette question: <em>Puis-je également déployer des batchs?</em></p>
-<h3 id="pourquoi-se-poser-cette-question" class="headerLink">
-    <a href="#pourquoi-se-poser-cette-question" class="header-mark"></a>1.1 Pourquoi se poser cette question?</h3><p>Les réponses sont multiples.
-Elles sont tout d&rsquo;abord liées à une rationalisation des environnements.
-Vous avez votre application dans le cloud, votre base de données y est également gérée pour éviter la latence réseau.
-Vous devez donc déployer des traitements tiers au plus proche de celle-ci pour vous soustraire des mêmes soucis.</p>
-<p>De plus, l&rsquo;écosystème lié au cloud offre des technologies et pratiques qui rendent la vie plus simple (si, si, je vous assure) aux développeurs et ops.
-Le déploiement via <a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">l&rsquo;Infra As Code</a> est un bon exemple : Avoir toute l&rsquo;infrastructure liée aux traitements batchs et transactionnels versionnées et instantiables à la demande est quelque chose dont on a du mal à se passer!</p>
-<h2 id="difficultés-par-rapport-aux-apis" class="headerLink">
-    <a href="#difficult%c3%a9s-par-rapport-aux-apis" class="header-mark"></a>2 Difficulté(s) par rapport aux APIs</h2><p>Quand on déploie une API dans le cloud, généralement tout va bien.
-On peut voir rapidement que cet environnement convient bien à ce genre de traitements.</p>
-<p>Pour les batchs, c&rsquo;est une autre affaire!
-Selon les sociétés, il peut y avoir un fort historique et beaucoup plus d&rsquo;exigences que pour les APIs.
-Ces dernières pourront être liées aux performances, à la qualité de service ou plus simplement à l&rsquo;utilisation.</p>
-<p>Il faut donc, à l&rsquo;instar de toute architecture, déterminer quel sera l&rsquo;environnement technique de ce type de traitement.
-Cette fois, on aura à concilier performances, fichiers volumineux et reprises sur erreur.</p>
-<h3 id="quelques-technologies" class="headerLink">
-    <a href="#quelques-technologies" class="header-mark"></a>2.1 Quelques technologies</h3><p>On pourra retrouver dans notre future architecture les briques suivantes:</p>
-<ul>
-<li>Une passerelle de fichiers (File Gateway) pour permettre l&rsquo;envoi des fichiers de manière sécurisée</li>
-<li>Un stockage objet pour la distribution de fichiers ou l&rsquo;archivage.</li>
-<li>Les éléments nécessaires à l&rsquo;API : bases de données, <a href="https://en.wikipedia.org/wiki/Hardware_security_module" target="_blank" rel="noopener noreferrer">HSMs</a>, Cluster Kubernetes,&hellip;</li>
-</ul>
-<h2 id="modes-de-déclenchement" class="headerLink">
-    <a href="#modes-de-d%c3%a9clenchement" class="header-mark"></a>3 Modes de déclenchement</h2><p>Si on regarde de plus près les exigences techniques liées aux cas d&rsquo;utilisation, on pourrait résumer les différents modes de déclenchement de la manière suivante:</p>
-<ul>
-<li>Traitement sur réception de fichiers</li>
-<li>Traitement déclenché par un ordonnanceur/orchestrateur centralisé (ex. <a href="https://dkron.io/" target="_blank" rel="noopener noreferrer">https://dkron.io/</a>) de manière régulière ou non.</li>
-<li>Traitement déclenché par <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener noreferrer">CRON</a> (qui est un ordonnanceur, mais un peu plus roots)</li>
-</ul>
-<p>J&rsquo;ai volontairement exclu les traitements sur présence de messages (ex. Kafka). Je les considère plus liés au monde transactionnel.</p>
-<p>Dans les paragraphes suivants, je vais décrire des solutions d&rsquo;architecture qui permettent de déployer ces traitements dans Kubernetes. J&rsquo;aborderai sans doute un exemple dans un autre article</p>
-<h2 id="contraintes" class="headerLink">
-    <a href="#contraintes" class="header-mark"></a>4 Contraintes</h2><p>Dès qu&rsquo;on s&rsquo;aventure dans ce type de conception, nous aurons, au-delà des <a href="https://12factor.net/" target="_blank" rel="noopener noreferrer">12 factors</a>, les contraintes suivantes à traiter:</p>
-<h3 id="gestion-des-erreurs-et-indisponibilités" class="headerLink">
-    <a href="#gestion-des-erreurs-et-indisponibilit%c3%a9s" class="header-mark"></a>4.1 Gestion des erreurs et indisponibilités</h3><p>Dans un cluster Kubernetes, le crash d&rsquo;un POD n&rsquo;est pas rédhibitoire.
-Le cluster permet de redémarrer immédiatement une autre instance.</p>
-<p>Pour les APIs, ce n&rsquo;est pas un problème.
-Pour les batchs, c&rsquo;est une autre paire de manches.
-Quid du crash en plein milieu du traitement d&rsquo;un fichier?</p>
-<p>Il faut donc penser à ce cas (et à d&rsquo;autres) et archiver les fichiers pour un éventuel rejeu.</p>
-<h3 id="données-et-idempotence-des-traitements" class="headerLink">
-    <a href="#donn%c3%a9es-et-idempotence-des-traitements" class="header-mark"></a>4.2 Données et idempotence des traitements</h3><p>Idéalement, les fichiers doivent avoir des lignes indépendantes qui peuvent être insérées individuellement et dans n&rsquo;importe quel ordre.
-Aussi, chaque modification et traitement de données doivent être idempotentes.</p>
-<p>Pourquoi? Pas seulement par ce que c&rsquo;est sympa et l&rsquo;état de l&rsquo;art, mais dans ce nouvel environnement, vous ne pourrez pas forcément garantir l&rsquo;ordre des traitements.
-L&rsquo;une des solutions potentielles de traitement est de découpler la lecture et l&rsquo;insertion par du queueing (Artemis, Kafka <em>- oui ce n&rsquo;est pas du queuing, mais vous avez compris&hellip;</em>).
-Dans ce cas, si votre traitement n&rsquo;est pas idempotent, vous devrez lutter avec des doublons en base.</p>
-<h3 id="gestion-des-ressources" class="headerLink">
-    <a href="#gestion-des-ressources" class="header-mark"></a>4.3 Gestion des ressources</h3><p>Imaginez, vous recevez un fichier de 1Go.
-Vos ressources systèmes sont des PODs avec un 1 Go de RAM.</p>
-<p>Vous voyez le soucis?</p>
-<p>Cet exemple, qui n&rsquo;est pas trop éloigné de la réalité, mets en évidence l&rsquo;une des contraintes techniques que vous devrez prendre dès le début de votre conception.</p>
-<p>L&rsquo;une des solutions serait, par exemple, le traitement quasi systématique du streaming de fichiers et l&rsquo;obligation d&rsquo;avoir des fichiers avec des lignes de données indépendantes (c.-à-d. sans avoir à faire de liens inter lignes pendant le traitement).</p>
-<h2 id="traitement-sur-réception-de-fichiers" class="headerLink">
-    <a href="#traitement-sur-r%c3%a9ception-de-fichiers" class="header-mark"></a>5 Traitement sur réception de fichiers</h2><p>Dans ce cas, nous avons un processus qui est déclenché lors de la réception d&rsquo;un fichier. Nous pourrons par exemple avec ce genre d&rsquo;architecture un fichier qui est envoyé dans espace de stockage objet. Ce dernier est ensuite traité par un programme.
-J&rsquo;ai fait le choix ici de mettre en oeuvre un couplage lâche (on ne se refait pas) entre l&rsquo;espace de réception de fichiers et le traitement.</p>
-<p>Je traite ici le risque de crash d&rsquo;un POD en gardant systématiquement les fichiers dans un stockage objet. De cette manière, si le traitement a échoué, un autre POD pourra le télécharger et rejouer le processus batch.</p>
-<p>Ce découplage permet de gérer facilement la scalabilité et les arrêts/relances de PODs.</p>
-<figure><img src="/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg"/><figcaption>
-            <h4>Batch démarré sur présence de fichier</h4>
-        </figcaption>
-</figure>
-
-<p>Dans ce cas, le batch pourra être déployé sous la forme d&rsquo;un <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">déploiement Kubernetes</a>.</p>
-<h2 id="traitement-déclenché-à-distance-par-ex-par-un-orchestrateur-de-traitements" class="headerLink">
-    <a href="#traitement-d%c3%a9clench%c3%a9-%c3%a0-distance-par-ex-par-un-orchestrateur-de-traitements" class="header-mark"></a>6 Traitement déclenché à distance (par ex. par un orchestrateur de traitements)</h2><p>Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers ou tout simplement lancé à distance.
-Généralement, dans le monde de l&rsquo;entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des <a href="https://en.wikipedia.org/wiki/Cron" target="_blank" rel="noopener noreferrer">CRON Jobs</a>.</p>
-<p>Dans ce cas, on a deux manières de procéder:</p>
-<ul>
-<li>Avoir un traitement qui fournit une API permettant de démarrer des traitements et d&rsquo;avoir leurs statuts.</li>
-<li>Lancer des jobs.</li>
-</ul>
-<h3 id="avec-une-api" class="headerLink">
-    <a href="#avec-une-api" class="header-mark"></a>6.1 Avec une API</h3><p>Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu&rsquo;à l&rsquo;instar de la solution précédente, le programme tourne toujours et n&rsquo;est vraiment utile que lorsqu&rsquo;il est appelé via un endpoint REST.</p>
-<p>Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l&rsquo;intégration d&rsquo;un Job Kubernetes est problématique pour vous (voir ci-dessous).</p>
-<p>L&rsquo;un des avantages que l&rsquo;on pourra trouver est que le <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">mode de déploiement est assez simple et similaire aux APIs</a>.</p>
-<figure><img src="/assets/images/2022/05/traitement_api.svg"/><figcaption>
-            <h4>Batch démarré par une API</h4>
-        </figcaption>
-</figure>
-
-<h3 id="avec-des-jobs" class="headerLink">
-    <a href="#avec-des-jobs" class="header-mark"></a>6.2 Avec des jobs</h3><p>Si votre ordonnanceur peut exécuter le client kubectl, vous pourrez considérer les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs  kubernetes</a>.</p>
-<p>En résumé, ils permettent de créer un POD et exécute une action en gérant les erreurs potentielles jusqu&rsquo;à complétion du traitement.</p>
-<p>Par exemple, voici un job permettant de faire un &ldquo;Hello World!&rdquo;:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Job</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello-world</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helloworld</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;echo&#34;</span><span class="p">,</span><span class="w">  </span><span class="s2">&#34;Hello World!&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">Never</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">backoffLimit</span><span class="p">:</span><span class="w"> </span><span class="m">4</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Une fois déployé avec Helm, vous pouvez les voir avec la commande <code>kubectl get jobs</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube kubectl -- get <span class="nb">jobs</span>
-</span></span><span class="line"><span class="cl">NAME          COMPLETIONS   DURATION   AGE
-</span></span><span class="line"><span class="cl">hello-world   0/1           25s        25s
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Pour les logs et voir le résultat de la commande lancé, cela se passe d&rsquo;une manière assez habituelle:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube kubectl -- logs hello-world-zx4wh
-</span></span><span class="line"><span class="cl">Hello World!
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="traitement-déclenché-par-cron" class="headerLink">
-    <a href="#traitement-d%c3%a9clench%c3%a9-par-cron" class="header-mark"></a>7 Traitement déclenché par CRON</h2><p>Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRON.
-Bien que je ne suis pas trop fan de ne pas centraliser l&rsquo;ordonnancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.</p>
-<p>Si vous êtes dans ce cas-là, vous pouvez utiliser l&rsquo;objet <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">CronJob</a> qui n&rsquo;est ni plus ni moins qu&rsquo;un <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">Job</a> exécuté de manière périodique.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;* * * * *&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">template</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">spec</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">containers</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">helloworld-cron</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">busybox</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">command</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;echo&#34;</span><span class="p">,</span><span class="w">  </span><span class="s2">&#34;Hello World!&#34;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">restartPolicy</span><span class="p">:</span><span class="w"> </span><span class="l">OnFailure</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="panorama-des-solutions-logicielles-possibles" class="headerLink">
-    <a href="#panorama-des-solutions-logicielles-possibles" class="header-mark"></a>8 Panorama des solutions logicielles possibles</h2><p>Une fois qu&rsquo;on s&rsquo;est posé toutes (en tout cas certaines) les questions possibles sur nos exigences techniques et la conception, on peut voir quelles sont les technologies possibles pour implémenter des batchs &ldquo;cloud natifs&rdquo;.</p>
-<p>Ça ne sera pas une surprise, je vais m&rsquo;attarder à la plateforme Java. Il est bien évidemment possible d&rsquo;utiliser d&rsquo;autres langages et frameworks tels que Go.</p>
-<p>En Java, vous avez le choix entre différents frameworks :</p>
-<ul>
-<li>[Spring avec spring batch]([Spring avec spring batch et/ou integration
-) et/ou <a href="https://spring.io/projects/spring-integration" target="_blank" rel="noopener noreferrer">integration</a></li>
-<li><a href="https://camel.apache.org/" target="_blank" rel="noopener noreferrer">Camel</a> qui peut être utilisé avec <a href="https://camel.apache.org/manual/spring.html" target="_blank" rel="noopener noreferrer">Spring</a> ou <a href="https://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a></li>
-<li><a href="https://quarkus.io/" target="_blank" rel="noopener noreferrer">Quarkus</a> avec la <a href="https://github.com/quarkiverse/quarkus-jberet" target="_blank" rel="noopener noreferrer">JSR 352</a></li>
-</ul>
-<p>Si vous allez du côté du BigData, vous pouvez aussi envisager d&rsquo;utiliser des technologies telles qu&rsquo;<a href="https://spark.apache.org/" target="_blank" rel="noopener noreferrer">Apache Spark</a>.
-Ces dernières vous permettront de <a href="https://spark.apache.org/docs/latest/running-on-kubernetes.html" target="_blank" rel="noopener noreferrer">découper &ldquo;plus facilement&rdquo; vos traitements</a>.</p>
-<h2 id="le-diable-se-cache-dans-les-détails" class="headerLink">
-    <a href="#le-diable-se-cache-dans-les-d%c3%a9tails" class="header-mark"></a>9 Le diable se cache dans les détails</h2><p>Déployer un batch dans Kubernetes peut se faire assez facilement (en développement) une fois qu&rsquo;on a compris quelques principes.
-Cependant, les soucis peuvent survenir une fois arrivé en production.</p>
-<p>La gestion des erreurs est beaucoup plus complexe que les APIs. Il vous faudra donc définir avec les différentes parties prenantes quel est le meilleur fonctionnement (rejeu) en production.
-Il vous faudra ainsi bien <a href="https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/" target="_blank" rel="noopener noreferrer">identifier et évaluer les risques liés à votre application</a> et voir quelles sont les actions à mener.</p>
-<p>Aussi, si vous devez manipuler des fichiers volumineux, il faudra faire attention au système de fichiers utilisé et ses performances. Habituellement, avec ce type d&rsquo;architecture, on utilise généralement du SAN. En fonction de vos exigences, un <a href="https://www.redhat.com/fr/topics/data-storage/file-block-object-storage" target="_blank" rel="noopener noreferrer">stockage block</a> pourra être plus adapté.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>10 Conclusion</h2><p>Pour conclure cet article, vous aurez compris que le sujet des batchs dans Kubernetes peut s&rsquo;avérer assez complexe à gérer.
-Au-delà des technologies qui peuvent faire le job (<em>désolé du mauvais jeu de mots</em>), il vous faudra faire très attention à tout l&rsquo;environnement dans lequel votre programme devra interagir. Les bases, le réseau, les performances de votre matériel seront des prérequis indispensables.</p>
-<p>Aussi, il vous faudra faire attention à la manière dont sont transmises les données et dont vous les traitez.
-Bref, il faut étudier la solution dans son ensemble du développement à l&rsquo;exploitation pour s&rsquo;assurer de ne rien oublier.</p>
-<p>Enfin, cet article n&rsquo;est bien évidemment pas exhaustif que cela soit sur les solutions ou les contraintes à adresser.
-J&rsquo;ai néanmoins essayé d&rsquo;apporter quelques cas concrets et retours d&rsquo;expérience.</p>
-<p>J&rsquo;essaierai de détailler un cas concret dans un prochain article.</p>
 ]]></description></item></channel></rss>

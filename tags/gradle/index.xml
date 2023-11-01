@@ -277,10 +277,10 @@ Si vous voulez tester l&rsquo;intégration Kubernetes dans le cloud google, sach
 </span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span> <span class="n">curl</span> <span class="o">-</span><span class="n">s</span> <span class="s">&#34;https://get.sdkman.io&#34;</span> <span class="o">|</span> <span class="n">bash</span>
-</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">source</span> <span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="n">$</span> <span class="n">sdk</span> <span class="n">install</span> <span class="n">gradle</span> <span class="mi">6</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">$</span><span class="w"> </span><span class="n">curl</span><span class="w"> </span><span class="o">-</span><span class="n">s</span><span class="w"> </span><span class="s">&#34;https://get.sdkman.io&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">bash</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">$</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="s">&#34;$HOME/.sdkman/bin/sdkman-init.sh&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">$</span><span class="w"> </span><span class="n">sdk</span><span class="w"> </span><span class="n">install</span><span class="w"> </span><span class="n">gradle</span><span class="w"> </span><span class="n">6</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-dun-proxy" class="headerLink">
     <a href="#configuration-dun-proxy" class="header-mark"></a>2 Configuration d&rsquo;un proxy</h2><p>Et oui comment souvent, passer le proxy d&rsquo;entreprise est la moitié du boulot :).<br>
@@ -295,13 +295,13 @@ Pour le configurer de manière globale (c.-à-d. pour tous vos projets) sur votr
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">http</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="mi">8888</span>
-</span></span><span class="line"><span class="cl"><span class="n">systemProp</span><span class="o">.</span><span class="na">https</span><span class="o">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="mi">127</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">0</span><span class="o">.</span><span class="na">1</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="n">8888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">http</span><span class="p">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="n">127</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">proxyHost</span><span class="o">=</span><span class="n">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">proxyPort</span><span class="o">=</span><span class="n">8888</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">systemProp</span><span class="p">.</span><span class="na">https</span><span class="p">.</span><span class="na">nonProxyHosts</span><span class="o">=</span><span class="n">localhost</span><span class="o">|</span><span class="n">127</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">0</span><span class="p">.</span><span class="na">1</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-dun-miroir-nexus-ou-artifactory" class="headerLink">
     <a href="#configuration-dun-miroir-nexus-ou-artifactory" class="header-mark"></a>3 Configuration d&rsquo;un miroir Nexus ou Artifactory</h2><p>A l&rsquo;instar du proxy, on va essayer de mettre en place une configuration globale. Pour ce faire, on va utiliser <a href="https://docs.gradle.org/current/userguide/init_scripts.html" target="_blank" rel="noopener noreferrer">les init scripts</a>. Cette fonctionnalité est très intéressante. Elle permet de centraliser des actions et configurations.<br>
@@ -323,19 +323,19 @@ Pour créer un script, il faut tout d&rsquo;abord créer un fichier <code>.gradl
 </span><span class="lnt">12
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">  <span class="n">buildscript</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">repositories</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">      <span class="n">mavenLocal</span><span class="o">()</span> 
-</span></span><span class="line"><span class="cl">      <span class="n">maven</span> <span class="o">{</span><span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span> 
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="n">repositories</span> <span class="o">{</span> 
-</span></span><span class="line"><span class="cl">    <span class="n">mavenLocal</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl">    <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s">&#34;https://url-nexus&#34;</span><span class="o">}</span>
-</span></span><span class="line"><span class="cl">  <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">allprojects</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">buildscript</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">mavenLocal</span><span class="p">()</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="n">url</span><span class="w"> </span><span class="s">&#34;https://url-nexus&#34;</span><span class="p">}</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">repositories</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">mavenLocal</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">maven</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">url</span><span class="w"> </span><span class="s">&#34;https://url-nexus&#34;</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="configuration-du-déploiement-dans-nexus--artifactory" class="headerLink">
     <a href="#configuration-du-d%c3%a9ploiement-dans-nexus--artifactory" class="header-mark"></a>4 Configuration du déploiement dans Nexus / Artifactory</h2><p>Le déploiement dans Nexus est possible via <a href="https://docs.gradle.org/current/userguide/publishing_maven.html" target="_blank" rel="noopener noreferrer">le plugin maven publish</a>. La configuration fournie dans la documentation est tellement bien faite ( comme le reste d&rsquo;ailleurs ) que je ne vais que mettre un lien vers celle-là:<br>

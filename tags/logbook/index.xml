@@ -36,14 +36,14 @@ Ce composant ne fait qu&rsquo;une seule chose, mais il le fait bien !</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Logbook</span> <span class="nf">createLogBook</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// too easy : return Logbook.create();
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">Logbook</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">condition</span><span class="o">(</span><span class="n">Conditions</span><span class="o">.</span><span class="na">requestTo</span><span class="o">(</span><span class="s">&#34;/helloworld&#34;</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">formatter</span><span class="o">(</span><span class="k">new</span> <span class="n">JsonHttpLogFormatter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Logbook</span><span class="w"> </span><span class="nf">createLogBook</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// too easy : return Logbook.create();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">Logbook</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="p">.</span><span class="na">condition</span><span class="p">(</span><span class="n">Conditions</span><span class="p">.</span><span class="na">requestTo</span><span class="p">(</span><span class="s">&#34;/helloworld&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="p">.</span><span class="na">formatter</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">JsonHttpLogFormatter</span><span class="p">()).</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Dans mon cas j&rsquo;ai fait un filtre en n&rsquo;incluant que l&rsquo; API /helloworld et j&rsquo;ai formatté en JSON.<br>
 On peut également modifier le processus d&rsquo;écriture pour ne pas écrire dans un fichier mais en base par ex.</p>

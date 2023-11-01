@@ -18,17 +18,17 @@ Ces variables sont issues de exécution d&rsquo;une seule requête et sont autom
 </span><span class="lnt">10
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span> <span class="n">holder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">LinkedBlockingDeque</span><span class="o">[</span><span class="n">String</span><span class="o">]()</span> 
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="n">val</span> <span class="n">firstScenario</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&#34;First Simulation&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">http</span><span class="o">(</span><span class="s">&#34;first scenario&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">			<span class="o">.</span><span class="na">post</span><span class="o">(</span><span class="s">&#34;/base/url1&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">			<span class="o">.</span><span class="na">check</span><span class="o">(</span><span class="n">jsonPath</span><span class="o">(</span><span class="s">&#34;$.my_variable&#34;</span><span class="o">).</span><span class="na">find</span><span class="o">.</span><span class="na">saveAs</span><span class="o">(</span><span class="s">&#34;variable&#34;</span><span class="o">)))</span>
-</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">exec</span><span class="o">(</span><span class="n">session</span> <span class="o">=&gt;</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">holder</span><span class="o">.</span><span class="na">offerLast</span><span class="o">(</span><span class="n">session</span><span class="o">(</span><span class="s">&#34;variable&#34;</span><span class="o">).</span><span class="na">as</span><span class="o">[</span><span class="n">String</span><span class="o">])</span>
-</span></span><span class="line"><span class="cl">            <span class="n">session</span><span class="o">}</span>       
-</span></span><span class="line"><span class="cl">        <span class="o">);</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span><span class="w"> </span><span class="n">holder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">LinkedBlockingDeque</span><span class="o">[</span><span class="n">String</span><span class="o">]</span><span class="p">()</span><span class="w"> 
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">val</span><span class="w"> </span><span class="n">firstScenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scenario</span><span class="p">(</span><span class="s">&#34;First Simulation&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">.</span><span class="na">exec</span><span class="p">(</span><span class="n">http</span><span class="p">(</span><span class="s">&#34;first scenario&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">.</span><span class="na">post</span><span class="p">(</span><span class="s">&#34;/base/url1&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">.</span><span class="na">check</span><span class="p">(</span><span class="n">jsonPath</span><span class="p">(</span><span class="s">&#34;$.my_variable&#34;</span><span class="p">).</span><span class="na">find</span><span class="p">.</span><span class="na">saveAs</span><span class="p">(</span><span class="s">&#34;variable&#34;</span><span class="p">)))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">.</span><span class="na">exec</span><span class="p">(</span><span class="n">session</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">holder</span><span class="p">.</span><span class="na">offerLast</span><span class="p">(</span><span class="n">session</span><span class="p">(</span><span class="s">&#34;variable&#34;</span><span class="p">).</span><span class="na">as</span><span class="o">[</span><span class="n">String</span><span class="o">]</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">session</span><span class="p">}</span><span class="w">       
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Maintenant on peut l&rsquo;utiliser dans un autre scénario comme <a href="https://gatling.io/docs/2.2/session/feeder/" target="_blank" rel="noopener noreferrer">feeder</a>:</p>
 <div class="highlight"><div class="chroma">
@@ -37,9 +37,9 @@ Ces variables sont issues de exécution d&rsquo;une seule requête et sont autom
 </span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span> <span class="n">secondScenario</span> <span class="o">=</span> <span class="n">scenario</span><span class="o">(</span><span class="s">&#34;Second Simulation&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">		<span class="o">.</span><span class="na">feed</span><span class="o">(</span><span class="n">sharedDataFeeder</span><span class="o">)</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">val</span><span class="w"> </span><span class="n">secondScenario</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">scenario</span><span class="p">(</span><span class="s">&#34;Second Simulation&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">.</span><span class="na">feed</span><span class="p">(</span><span class="n">sharedDataFeeder</span><span class="p">)</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Voici l&rsquo;exemple complet</p>
 <script type="application/javascript" src="https://gist.github.com/alexandre-touret/bdba509353c7b42de85d9a90c0352aa7.js"></script>

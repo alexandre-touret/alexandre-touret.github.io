@@ -118,12 +118,12 @@ J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Sp
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Column</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.Entity</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GeneratedValue</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="nn">jakarta.persistence.GenerationType</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl"><span class="o">...</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Column</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Entity</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GeneratedValue</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GenerationType</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
 <h2 id="distributed-tracing-et-observabilité" class="headerLink">
@@ -379,12 +379,12 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span><span class="lnt">5
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@EnableTask</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">TaskConfiguration</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="o">...</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableTask</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TaskConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
 <div class="highlight"><div class="chroma">
@@ -399,15 +399,15 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl">    <span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">CommandLineRunner</span> <span class="nf">createCommandLineRunner</span><span class="o">(</span><span class="n">RestTemplate</span> <span class="n">restTemplate</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">args</span> <span class="o">-&gt;</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">commandLinePropertySource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">SimpleCommandLinePropertySource</span><span class="o">(</span><span class="n">args</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">var</span> <span class="n">entity</span> <span class="o">=</span> <span class="n">restTemplate</span><span class="o">.</span><span class="na">getForEntity</span><span class="o">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span> <span class="o">+</span> <span class="n">Optional</span><span class="o">.</span><span class="na">ofNullable</span><span class="o">(</span><span class="n">commandLinePropertySource</span><span class="o">.</span><span class="na">getProperty</span><span class="o">(</span><span class="s">&#34;name&#34;</span><span class="o">)).</span><span class="na">orElse</span><span class="o">(</span><span class="s">&#34;BLANK&#34;</span><span class="o">),</span> <span class="n">NationalizeResponseDTO</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">info</span><span class="o">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="o">,</span> <span class="n">entity</span><span class="o">.</span><span class="na">getStatusCode</span><span class="o">(),</span> <span class="n">entity</span><span class="o">.</span><span class="na">getBody</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">        <span class="o">};</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">CommandLineRunner</span><span class="w"> </span><span class="nf">createCommandLineRunner</span><span class="p">(</span><span class="n">RestTemplate</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">commandLinePropertySource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleCommandLinePropertySource</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">.</span><span class="na">getForEntity</span><span class="p">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="n">commandLinePropertySource</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)).</span><span class="na">orElse</span><span class="p">(</span><span class="s">&#34;BLANK&#34;</span><span class="p">),</span><span class="w"> </span><span class="n">NationalizeResponseDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">(),</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getBody</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">};</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p>
 <p>Voici un exemple d&rsquo;exécution :</p>
@@ -697,25 +697,25 @@ Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilienc
 </span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createDefaultCustomizer</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configureDefault</span><span class="o">(</span><span class="n">id</span> <span class="o">-&gt;</span> <span class="k">new</span> <span class="n">Resilience4JConfigBuilder</span><span class="o">(</span><span class="n">id</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">build</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">createDefaultCustomizer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">configureDefault</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Resilience4JConfigBuilder</span><span class="p">(</span><span class="n">id</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">timeLimiterConfig</span><span class="p">(</span><span class="n">TimeLimiterConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">timeoutInSec</span><span class="p">)).</span><span class="na">build</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">circuitBreakerConfig</span><span class="p">(</span><span class="n">CircuitBreakerConfig</span><span class="p">.</span><span class="na">ofDefaults</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">build</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * Creates a circuit breaker customizer applying a timeout specified by the &lt;code&gt;booknumbers.api.timeout_sec&lt;/code&gt; property.
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * This customizer could be reached using this id: &lt;code&gt;slowNumbers&lt;/code&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @return the circuit breaker customizer to apply when calling to numbers api
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span> <span class="nf">createSlowNumbersAPICallCustomizer</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">factory</span> <span class="o">-&gt;</span> <span class="n">factory</span><span class="o">.</span><span class="na">configure</span><span class="o">(</span><span class="n">builder</span> <span class="o">-&gt;</span> <span class="n">builder</span><span class="o">.</span><span class="na">circuitBreakerConfig</span><span class="o">(</span><span class="n">CircuitBreakerConfig</span><span class="o">.</span><span class="na">ofDefaults</span><span class="o">())</span>
-</span></span><span class="line"><span class="cl">                <span class="o">.</span><span class="na">timeLimiterConfig</span><span class="o">(</span><span class="n">TimeLimiterConfig</span><span class="o">.</span><span class="na">custom</span><span class="o">().</span><span class="na">timeoutDuration</span><span class="o">(</span><span class="n">Duration</span><span class="o">.</span><span class="na">ofSeconds</span><span class="o">(</span><span class="n">timeoutInSec</span><span class="o">)).</span><span class="na">build</span><span class="o">()),</span> <span class="s">&#34;slowNumbers&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Customizer</span><span class="o">&lt;</span><span class="n">Resilience4JCircuitBreakerFactory</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">createSlowNumbersAPICallCustomizer</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">factory</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">factory</span><span class="p">.</span><span class="na">configure</span><span class="p">(</span><span class="n">builder</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">builder</span><span class="p">.</span><span class="na">circuitBreakerConfig</span><span class="p">(</span><span class="n">CircuitBreakerConfig</span><span class="p">.</span><span class="na">ofDefaults</span><span class="p">())</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">.</span><span class="na">timeLimiterConfig</span><span class="p">(</span><span class="n">TimeLimiterConfig</span><span class="p">.</span><span class="na">custom</span><span class="p">().</span><span class="na">timeoutDuration</span><span class="p">(</span><span class="n">Duration</span><span class="p">.</span><span class="na">ofSeconds</span><span class="p">(</span><span class="n">timeoutInSec</span><span class="p">)).</span><span class="na">build</span><span class="p">()),</span><span class="w"> </span><span class="s">&#34;slowNumbers&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Grâce à ces instanciations, on référence les différents <a href="https://martinfowler.com/bliki/CircuitBreaker.html" target="_blank" rel="noopener noreferrer">circuit breakers</a>.</p>
 <p>Maintenant, on peut les utiliser dans le code de la manière suivante:</p>
@@ -731,15 +731,15 @@ Avec Spring, on peut utiliser <a href="https://github.com/resilience4j/resilienc
 </span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Book</span> <span class="nf">registerBook</span><span class="o">(</span><span class="nd">@Valid</span> <span class="n">Book</span> <span class="n">book</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">circuitBreakerFactory</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="o">).</span><span class="na">run</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">                <span class="o">()</span> <span class="o">-&gt;</span> <span class="n">persistBook</span><span class="o">(</span><span class="n">book</span><span class="o">),</span>
-</span></span><span class="line"><span class="cl">                <span class="n">throwable</span> <span class="o">-&gt;</span> <span class="n">fallbackPersistBook</span><span class="o">(</span><span class="n">book</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">        <span class="o">);</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">bookRepository</span><span class="o">.</span><span class="na">save</span><span class="o">(</span><span class="n">book</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">Book</span><span class="w"> </span><span class="nf">registerBook</span><span class="p">(</span><span class="nd">@Valid</span><span class="w"> </span><span class="n">Book</span><span class="w"> </span><span class="n">book</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">circuitBreakerFactory</span><span class="p">.</span><span class="na">create</span><span class="p">(</span><span class="s">&#34;slowNumbers&#34;</span><span class="p">).</span><span class="na">run</span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="p">()</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">persistBook</span><span class="p">(</span><span class="n">book</span><span class="p">),</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="n">throwable</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">fallbackPersistBook</span><span class="p">(</span><span class="n">book</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">bookRepository</span><span class="p">.</span><span class="na">save</span><span class="p">(</span><span class="n">book</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Maintenant, il ne reste plus qu&rsquo;à créer <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/main/java/info/touret/bookstore/spring/book/service/BookService.java" target="_blank" rel="noopener noreferrer">une méthode de « fallback » utilisée si un service est indisponible</a>. Cette dernière nous permettra, par exemple, de mettre le payload dans un fichier pour futur traitement batch.</p>
 <h2 id="observabilité" class="headerLink">
@@ -804,41 +804,41 @@ Les architectures de ce type d&rsquo;applications sont <a href="https://en.wikip
 </span><span class="lnt">34
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management:</span>
-</span></span><span class="line"><span class="cl">  <span class="n">endpoints</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">jmx</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">exposure</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">include</span><span class="o">:</span> <span class="sc">&#39;*&#39;</span>
-</span></span><span class="line"><span class="cl">  <span class="n">endpoint</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">health</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="o">:</span> <span class="n">always</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">      <span class="n">probes</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">shutdown</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">prometheus</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">metrics</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="n">health</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">livenessstate</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">readinessstate</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">    <span class="n">datasource</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span><span class="line"><span class="cl">  <span class="n">metrics</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">    <span class="n">web</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">      <span class="n">client</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">        <span class="n">request</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">          <span class="n">autotime</span><span class="o">:</span>
-</span></span><span class="line"><span class="cl">            <span class="n">enabled</span><span class="o">:</span> <span class="kc">true</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nl">management</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">endpoints</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">enabled</span><span class="o">-</span><span class="n">by</span><span class="o">-</span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">include</span><span class="p">:</span><span class="w"> </span><span class="sc">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">jmx</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">exposure</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">include</span><span class="p">:</span><span class="w"> </span><span class="sc">&#39;*&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">endpoint</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">health</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">show</span><span class="o">-</span><span class="n">details</span><span class="p">:</span><span class="w"> </span><span class="n">always</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">probes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">shutdown</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">prometheus</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">health</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">livenessstate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">readinessstate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">datasource</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">metrics</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">web</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="n">client</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">request</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="n">autotime</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="opentracing" class="headerLink">
     <a href="#opentracing" class="header-mark"></a>4 OpenTracing</h2><p>Sur les applications distribuées, il peut s&rsquo;avérer compliqué de concentrer les logs et de les corréler. Certes, avec un ID de corrélation, on peut avoir certaines informations. Cependant, il faut que les logs soient bien positionnées dans le code. On peut également passer à travers de certaines informations (ex. connexion aux bases de données, temps d&rsquo;exécution des APIS,…). Je ne vous parle pas des soucis de volumétrie engendrées par des index Elasticsearch/Splunk sur des applications à forte volumétrie.</p>
@@ -969,14 +969,14 @@ Le premier nous indique si l&rsquo;application est en état de fonctionnement, l
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"> <span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;200&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Checks if the application in under maitenance&#34;</span><span class="o">)})</span>
-</span></span><span class="line"><span class="cl"> <span class="nd">@GetMapping</span>
-</span></span><span class="line"><span class="cl"> <span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">MaintenanceDTO</span><span class="o">&gt;</span> <span class="nf">retreiveInMaintenance</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">var</span> <span class="n">lastChangeEvent</span> <span class="o">=</span> <span class="n">availability</span><span class="o">.</span><span class="na">getLastChangeEvent</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">ok</span><span class="o">(</span><span class="k">new</span> <span class="n">MaintenanceDTO</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">),</span> <span class="k">new</span> <span class="n">Date</span><span class="o">(</span><span class="n">lastChangeEvent</span><span class="o">.</span><span class="na">getTimestamp</span><span class="o">())));</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nd">@ApiResponse</span><span class="p">(</span><span class="n">responseCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;200&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Checks if the application in under maitenance&#34;</span><span class="p">)})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nd">@GetMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">MaintenanceDTO</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">retreiveInMaintenance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="kd">var</span><span class="w"> </span><span class="n">lastChangeEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">availability</span><span class="p">.</span><span class="na">getLastChangeEvent</span><span class="p">(</span><span class="n">ReadinessState</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">MaintenanceDTO</span><span class="p">(</span><span class="n">lastChangeEvent</span><span class="p">.</span><span class="na">getState</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ReadinessState</span><span class="p">.</span><span class="na">REFUSING_TRAFFIC</span><span class="p">),</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">Date</span><span class="p">(</span><span class="n">lastChangeEvent</span><span class="p">.</span><span class="na">getTimestamp</span><span class="p">())));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Et la modification ?</p>
 <p>Grâce à la même API, on peut également modifier ce statut dans via du code:</p>
@@ -991,14 +991,14 @@ Le premier nous indique si l&rsquo;application est en état de fonctionnement, l
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="o">(</span><span class="n">value</span> <span class="o">=</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@ApiResponse</span><span class="o">(</span><span class="n">responseCode</span> <span class="o">=</span> <span class="s">&#34;204&#34;</span><span class="o">,</span> <span class="n">description</span> <span class="o">=</span> <span class="s">&#34;Put the app under maitenance&#34;</span><span class="o">)})</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@PutMapping</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span> <span class="nf">initInMaintenance</span><span class="o">(</span><span class="nd">@NotNull</span> <span class="nd">@RequestBody</span> <span class="n">String</span> <span class="n">inMaintenance</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">AvailabilityChangeEvent</span><span class="o">.</span><span class="na">publish</span><span class="o">(</span><span class="n">eventPublisher</span><span class="o">,</span> <span class="k">this</span><span class="o">,</span> <span class="n">Boolean</span><span class="o">.</span><span class="na">valueOf</span><span class="o">(</span><span class="n">inMaintenance</span><span class="o">)</span> <span class="o">?</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span> <span class="o">:</span> <span class="n">ReadinessState</span><span class="o">.</span><span class="na">ACCEPTING_TRAFFIC</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">ResponseEntity</span><span class="o">.</span><span class="na">noContent</span><span class="o">().</span><span class="na">build</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ApiResponses</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ApiResponse</span><span class="p">(</span><span class="n">responseCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;204&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">description</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;Put the app under maitenance&#34;</span><span class="p">)})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@PutMapping</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">Void</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">initInMaintenance</span><span class="p">(</span><span class="nd">@NotNull</span><span class="w"> </span><span class="nd">@RequestBody</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">inMaintenance</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">AvailabilityChangeEvent</span><span class="p">.</span><span class="na">publish</span><span class="p">(</span><span class="n">eventPublisher</span><span class="p">,</span><span class="w"> </span><span class="k">this</span><span class="p">,</span><span class="w"> </span><span class="n">Boolean</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">inMaintenance</span><span class="p">)</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">ReadinessState</span><span class="p">.</span><span class="na">REFUSING_TRAFFIC</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">ReadinessState</span><span class="p">.</span><span class="na">ACCEPTING_TRAFFIC</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">noContent</span><span class="p">().</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="headerLink">
     <a href="#filtre-les-appels-et-indiquer-que-lapplication-est-en-maintenance" class="header-mark"></a>4 Filtre les appels et indiquer que l&rsquo;application est en maintenance</h2><p>Maintenant qu&rsquo;on a codé les mécanismes de récupération du statut de l&rsquo;application et de la mise en maintenance, on peut ajouter le mécanisme permettant de traiter ou non les appels entrants.<br>
@@ -1041,17 +1041,17 @@ Pour ça on va utiliser un <a href="http://blog.paumard.org/cours/servlet/chap04
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">CheckMaintenanceFilter</span> <span class="kd">implements</span> <span class="n">Filter</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kd">static</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">CheckMaintenanceFilter</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">ApplicationAvailability</span> <span class="n">availability</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nd">@Autowired</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Qualifier</span><span class="o">(</span><span class="s">&#34;handlerExceptionResolver&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">HandlerExceptionResolver</span> <span class="n">exceptionHandler</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Component</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CheckMaintenanceFilter</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Filter</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="n">LOGGER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoggerFactory</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">CheckMaintenanceFilter</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">ApplicationAvailability</span><span class="w"> </span><span class="n">availability</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Autowired</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Qualifier</span><span class="p">(</span><span class="s">&#34;handlerExceptionResolver&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">HandlerExceptionResolver</span><span class="w"> </span><span class="n">exceptionHandler</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * Checks if the application is under maintenance. If it is and if the requested URI is not &#39;/api/maintenance&#39;, it throws a &lt;code&gt;MaintenanceException&lt;/code&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm">     *
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @param request
@@ -1060,20 +1060,20 @@ Pour ça on va utiliser un <a href="http://blog.paumard.org/cours/servlet/chap04
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws IOException
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws ServletException
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * @throws info.touret.spring.maintenancemode.exception.MaintenanceException the application is under maintenance
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@Override</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">doFilter</span><span class="o">(</span><span class="n">ServletRequest</span> <span class="n">request</span><span class="o">,</span> <span class="n">ServletResponse</span> <span class="n">response</span><span class="o">,</span> <span class="n">FilterChain</span> <span class="n">chain</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">IOException</span><span class="o">,</span> <span class="n">ServletException</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">availability</span><span class="o">.</span><span class="na">getReadinessState</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">ReadinessState</span><span class="o">.</span><span class="na">REFUSING_TRAFFIC</span><span class="o">)</span> <span class="o">&amp;&amp;</span>
-</span></span><span class="line"><span class="cl">                <span class="o">!((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">().</span><span class="na">equals</span><span class="o">(</span><span class="n">API_MAINTENANCE_URI</span><span class="o">))</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">LOGGER</span><span class="o">.</span><span class="na">warn</span><span class="o">(</span><span class="s">&#34;Message handled during maintenance [{}]&#34;</span><span class="o">,</span> <span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">).</span><span class="na">getRequestURI</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl">            <span class="n">exceptionHandler</span><span class="o">.</span><span class="na">resolveException</span><span class="o">((</span><span class="n">HttpServletRequest</span><span class="o">)</span> <span class="n">request</span><span class="o">,</span> <span class="o">(</span><span class="n">HttpServletResponse</span><span class="o">)</span> <span class="n">response</span><span class="o">,</span> <span class="kc">null</span><span class="o">,</span> <span class="k">new</span> <span class="n">MaintenanceException</span><span class="o">(</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">));</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">            <span class="n">chain</span><span class="o">.</span><span class="na">doFilter</span><span class="o">(</span><span class="n">request</span><span class="o">,</span> <span class="n">response</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">        <span class="o">}</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Override</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">doFilter</span><span class="p">(</span><span class="n">ServletRequest</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">ServletResponse</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="n">FilterChain</span><span class="w"> </span><span class="n">chain</span><span class="p">)</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">IOException</span><span class="p">,</span><span class="w"> </span><span class="n">ServletException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">availability</span><span class="p">.</span><span class="na">getReadinessState</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">ReadinessState</span><span class="p">.</span><span class="na">REFUSING_TRAFFIC</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                </span><span class="o">!</span><span class="p">((</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">request</span><span class="p">).</span><span class="na">getRequestURI</span><span class="p">().</span><span class="na">equals</span><span class="p">(</span><span class="n">API_MAINTENANCE_URI</span><span class="p">))</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">warn</span><span class="p">(</span><span class="s">&#34;Message handled during maintenance [{}]&#34;</span><span class="p">,</span><span class="w"> </span><span class="p">((</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">request</span><span class="p">).</span><span class="na">getRequestURI</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">exceptionHandler</span><span class="p">.</span><span class="na">resolveException</span><span class="p">((</span><span class="n">HttpServletRequest</span><span class="p">)</span><span class="w"> </span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">HttpServletResponse</span><span class="p">)</span><span class="w"> </span><span class="n">response</span><span class="p">,</span><span class="w"> </span><span class="kc">null</span><span class="p">,</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">MaintenanceException</span><span class="p">(</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="p">));</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">chain</span><span class="p">.</span><span class="na">doFilter</span><span class="p">(</span><span class="n">request</span><span class="p">,</span><span class="w"> </span><span class="n">response</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Enfin, voici la gestion des erreurs de l&rsquo;API:</p>
 <div class="highlight"><div class="chroma">
@@ -1101,28 +1101,28 @@ Pour ça on va utiliser un <a href="http://blog.paumard.org/cours/servlet/chap04
 </span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@RestControllerAdvice</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">GlobalExceptionHandler</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * Indicates that the application is on maintenance
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">(</span><span class="n">MaintenanceException</span><span class="o">.</span><span class="na">class</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">maintenance</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">I_AM_A_TEAPOT</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ResponseStatus</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">I_AM_A_TEAPOT</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ExceptionHandler</span><span class="p">(</span><span class="n">MaintenanceException</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">APIError</span><span class="w"> </span><span class="nf">maintenance</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">APIError</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">I_AM_A_TEAPOT</span><span class="p">.</span><span class="na">value</span><span class="p">(),</span><span class="s">&#34;Service currently in maintenance&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">     * Any other exception
-</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@ResponseStatus</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nd">@ExceptionHandler</span><span class="o">({</span><span class="n">RuntimeException</span><span class="o">.</span><span class="na">class</span><span class="o">,</span> <span class="n">Exception</span><span class="o">.</span><span class="na">class</span><span class="o">})</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">APIError</span> <span class="nf">anyException</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">new</span> <span class="n">APIError</span><span class="o">(</span><span class="n">HttpStatus</span><span class="o">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="o">.</span><span class="na">value</span><span class="o">(),</span><span class="s">&#34;An unexpected server error occured&#34;</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">     */</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ResponseStatus</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ExceptionHandler</span><span class="p">({</span><span class="n">RuntimeException</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">Exception</span><span class="p">.</span><span class="na">class</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">APIError</span><span class="w"> </span><span class="nf">anyException</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">APIError</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">.</span><span class="na">value</span><span class="p">(),</span><span class="s">&#34;An unexpected server error occured&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>On a pu voir comment intéragir simplement avec les APIS SPRING pour gérer le statut de l&rsquo;application pour répondre à cette question :Est-elle disponible ou non?<br>
@@ -1189,39 +1189,39 @@ Si vous faites du JAVA, vous utilisez déjà l&rsquo;<a href="https://fr.wikiped
 </span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@Aspect</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@ConditionalOnProperty</span><span class="o">(</span><span class="n">name</span> <span class="o">=</span> <span class="s">&#34;debug.enabled&#34;</span><span class="o">,</span> <span class="n">havingValue</span> <span class="o">=</span> <span class="s">&#34;true&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DebuggingConfiguration</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Logger</span> <span class="n">LOGGER</span> <span class="o">=</span> <span class="n">LoggerFactory</span><span class="o">.</span><span class="na">getLogger</span><span class="o">(</span><span class="n">DebuggingConfiguration</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
-</span></span><span class="line"><span class="cl"><span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">String</span> <span class="n">WITHIN_MY_PACKAGE</span> <span class="o">=</span> <span class="s">&#34;within(my.package..*)&#34;</span><span class="o">;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">/**
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Aspect</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ConditionalOnProperty</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;debug.enabled&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">havingValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;true&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DebuggingConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">Logger</span><span class="w"> </span><span class="n">LOGGER</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LoggerFactory</span><span class="p">.</span><span class="na">getLogger</span><span class="p">(</span><span class="n">DebuggingConfiguration</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">WITHIN_MY_PACKAGE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;within(my.package..*)&#34;</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">* Log before execution
 </span></span></span><span class="line"><span class="cl"><span class="cm">*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@Before</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logBeforeExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Before</span><span class="p">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">logBeforeExecution</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LOGGER</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">LOGGER</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&#34;Beginning of method : [{}]&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm">* Log after execution
 </span></span></span><span class="line"><span class="cl"><span class="cm">*
 </span></span></span><span class="line"><span class="cl"><span class="cm">* @param joinPoint the current method
-</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span>
-</span></span><span class="line"><span class="cl"><span class="nd">@After</span><span class="o">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">void</span> <span class="nf">logAfterExecution</span><span class="o">(</span><span class="n">JoinPoint</span> <span class="n">joinPoint</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="k">if</span> <span class="o">(</span><span class="n">LOGGER</span><span class="o">.</span><span class="na">isTraceEnabled</span><span class="o">())</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl"><span class="n">LOGGER</span><span class="o">.</span><span class="na">trace</span><span class="o">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="o">,</span> <span class="n">joinPoint</span><span class="o">.</span><span class="na">getSignature</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@After</span><span class="p">(</span><span class="n">WITHIN_MY_PACKAGE</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">logAfterExecution</span><span class="p">(</span><span class="n">JoinPoint</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">LOGGER</span><span class="p">.</span><span class="na">isTraceEnabled</span><span class="p">())</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">LOGGER</span><span class="p">.</span><span class="na">trace</span><span class="p">(</span><span class="s">&#34;End of method : [{}]&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">joinPoint</span><span class="p">.</span><span class="na">getSignature</span><span class="p">().</span><span class="na">getName</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>L&rsquo;utilisation de l&rsquo; annotation <code>@ConditionalOnProperty</code> me permet d&rsquo;activer cette classe de configuration seulement si la propriété <code>debug.enabled</code> est initialisée à <code>true</code>.</p>
 <p>Les annotations <code>@Before</code> et <code>@After</code> indiquent à Spring AOP quand exécuter ces méthodes ou sur quelles méthodes. Dans mon cas, quand les méthodes appelées sont définies dans les classes d&rsquo;un package défini.</p>
@@ -1264,14 +1264,14 @@ Ce composant ne fait qu&rsquo;une seule chose, mais il le fait bien !</p>
 </span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span>
-</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Logbook</span> <span class="nf">createLogBook</span><span class="o">()</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">  <span class="c1">// too easy : return Logbook.create();
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="k">return</span> <span class="n">Logbook</span><span class="o">.</span><span class="na">builder</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">condition</span><span class="o">(</span><span class="n">Conditions</span><span class="o">.</span><span class="na">requestTo</span><span class="o">(</span><span class="s">&#34;/helloworld&#34;</span><span class="o">))</span>
-</span></span><span class="line"><span class="cl">                  <span class="o">.</span><span class="na">formatter</span><span class="o">(</span><span class="k">new</span> <span class="n">JsonHttpLogFormatter</span><span class="o">()).</span><span class="na">build</span><span class="o">();</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">Logbook</span><span class="w"> </span><span class="nf">createLogBook</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c1">// too easy : return Logbook.create();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">Logbook</span><span class="p">.</span><span class="na">builder</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="p">.</span><span class="na">condition</span><span class="p">(</span><span class="n">Conditions</span><span class="p">.</span><span class="na">requestTo</span><span class="p">(</span><span class="s">&#34;/helloworld&#34;</span><span class="p">))</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">                  </span><span class="p">.</span><span class="na">formatter</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">JsonHttpLogFormatter</span><span class="p">()).</span><span class="na">build</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Dans mon cas j&rsquo;ai fait un filtre en n&rsquo;incluant que l&rsquo; API /helloworld et j&rsquo;ai formatté en JSON.<br>
 On peut également modifier le processus d&rsquo;écriture pour ne pas écrire dans un fichier mais en base par ex.</p>
