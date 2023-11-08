@@ -7,6 +7,11 @@ images: ["/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp
 featuredImage: /assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp
 
+tags:
+  - WSL2
+  - Rancher_Desktop
+  - Docker
+
 ---
 
 I just downloaded and sat up Rancher Desktop on my laptop.
