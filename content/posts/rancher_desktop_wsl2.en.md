@@ -14,13 +14,15 @@ tags:
 
 ---
 
-I just downloaded and sat up Rancher Desktop on my laptop.
-Here is a (very) short reminder about how to configure WSL2 Ubuntu virtual machines and Docker with it. 
+I just [downloaded and sat up Rancher Desktop on my laptop](https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows).
+Here is a (very) short reminder about how to configure WSL2 Ubuntu virtual machines and Docker with it.
+
+If you want to get into Rancher Desktop and  discover how to install Skaffold, you [can read this article](https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/). 
 
 ## Install & configure Rancher Desktop
 
-The setup is pretty straightforward. 
-I chose to install Moby to use Docker and Docker Compose.
+The [setup is pretty straightforward](https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows). 
+I chose to install [Moby](https://github.com/moby/moby) to use [Docker](https://www.docker.com/) and [Docker Compose](https://docs.docker.com/compose/).
 
 After installing it, you have to [plug your VM to expose the Docker daemon and the relative commands](https://docs.rancherdesktop.io/ui/preferences/wsl/).
 
