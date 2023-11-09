@@ -1,7 +1,6 @@
 ---
 title: "Configuring WSL2 for Seamless Compatibility with Rancher Desktop"
-date: 2023-11-07T14:35:16+01:00
-draft: true
+date: 2023-11-09T08:00:16+01:00
 
 images: ["/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp"]
 featuredImagePreview: /assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp
