@@ -1,4 +1,73 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>http://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 01 Nov 2023 08:00:00 +0200</lastBuildDate><atom:link href="http://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>http://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="http://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>http://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp" referrerpolicy="no-referrer">
+            </div><p>Just out of curiosity, I <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">downloaded and sat up Rancher Desktop on my laptop</a>.</p>
+<p>I daily use <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a> on top of <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> using <em>home made mechanism/tooling</em>
+I would then see if Rancher Desktop fits well in this case and could help me.</p>
+<p>In this (very short) article, we&rsquo;ll go over the necessary steps to configure <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> Ubuntu virtual machines and Docker with Rancher Desktop.</p>
+<p>If you want to get into Rancher Desktop in another way and discover how to install <a href="https://skaffold.dev/" target="_blank" rel="noopener noreferrer">Skaffold</a>, you <a href="https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/" target="_blank" rel="noopener noreferrer">can read this article</a>.</p>
+<h2 id="install--configure-rancher-desktop" class="headerLink">
+    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/11/rancher-desktop-logo.svg" title="rancher desktop logo" data-thumbnail="/assets/images/2023/11/rancher-desktop-logo.svg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2023/11/rancher-desktop-logo.svg"
+            srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
+            sizes="auto"
+            alt="rancher desktop logo">
+    </a></figure></div>
+<p>The setup is quite straightforward.
+Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
+Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p>
+<p>During the setup process, I chose to install <a href="https://github.com/moby/moby" target="_blank" rel="noopener noreferrer">Moby</a> to use <a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker Compose</a>.</p>
+<p>After installing Rancher Desktop, you will need to ensure your virtual machine (VM) is connected to expose the Docker daemon and related commands.
+You can find detailed steps in the Rancher Desktop documentation under <a href="https://docs.rancherdesktop.io/ui/preferences/wsl/" target="_blank" rel="noopener noreferrer">WSL Preferences</a>.
+Don&rsquo;t forget that in some cases, you may need to restart both WSL2 and Rancher Desktop for the changes to take effect.</p>
+<h2 id="configure-docker-credential-store" class="headerLink">
+    <a href="#configure-docker-credential-store" class="header-mark"></a>2 Configure Docker Credential Store</h2><p>When you start your Docker compose infrastructure and encounter an error like this:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Error saving credentials: error storing credentials - err: exit status 1,
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You&rsquo;ll need to configure Docker&rsquo;s credential store.
+To resolve this issue, follow these steps:</p>
+<ol>
+<li>Inside your WSL2 VM, create or edit the <code>~/.docker/config.json</code> file.</li>
+<li>Add the following content to the <code>config.json</code> file:</li>
+</ol>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-json" data-lang="json"><span class="line"><span class="cl"><span class="p">{</span>                            
+</span></span><span class="line"><span class="cl"><span class="nt">&#34;credsStore&#34;</span><span class="p">:</span> <span class="s2">&#34;wincred.exe&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>   
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This configuration points to the <code>docker-credential-wincred.exe</code> binary and will resolve the credential storage problem when using Docker.</p>
+<h2 id="get-containers-output-in-the-console" class="headerLink">
+    <a href="#get-containers-output-in-the-console" class="header-mark"></a>3 Get container&rsquo;s output in the console</h2><p>A common issue with Docker containers in Rancher Desktop is the lack of output in the console when running a container, such as with the command <code>docker run hello-world</code>.
+This issue is well-documented in <a href="https://github.com/rancher-sandbox/rancher-desktop/issues/1558" target="_blank" rel="noopener noreferrer">this GitHub issue</a>.</p>
+<p>To view the container&rsquo;s output in the console, you need to start your commands with the <code>-i</code> option. For example:</p>
+<p>For instance:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">docker run -i hello-world
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This option tells Docker to attach to the container&rsquo;s standard input, allowing you to see the output directly in your console.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>I hope this article has been helpful for you, and you&rsquo;re now ready to <em>supercharge</em> your development workflow with Rancher Desktop and Docker!</p>
+]]></description></item><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>In <a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">my last article</a>, I dug into <a href="https://www.w3.org/TR/trace-context/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a> and exposed how to enable it in Java applications.
 We didn&rsquo;t see yet how to deploy an application on Kubernetes and get distributed tracing insights.
@@ -2505,41 +2574,4 @@ A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfait
 </li>
 </ol>
 </div>
-]]></description></item><item><title>Mon Camping des Speakers</title><link>http://blog.touret.info/2022/06/10/camping-speakers-2022/</link><pubDate>Fri, 10 Jun 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/06/10/camping-speakers-2022/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2022/06/camping_speakers_2.webp" referrerpolicy="no-referrer">
-            </div><p>Au début de l&rsquo;année, j&rsquo;ai interpelé mes managers: <em>&ldquo;J&rsquo;ai été retenu au <a href="https://camping-speakers.fr/" target="_blank" rel="noopener noreferrer">Camping des Speakers&rdquo;</a>!</em></p>
-<p>Unanimement, j&rsquo;ai eu la même réponse: <em>&ldquo;Le QUOI ???!!!&rdquo;</em></p>
-<p>Oui j&rsquo;en conviens le titre peut paraître à première vue tout sauf sérieux.
-Il faut dire que le lieu est un camping en Bretagne dans le golfe du Morbihan.</p>
-<p>Et pourtant !</p>
-<p>La programmation était de qualité et a tenu ses promesses.</p>
-<p>Je vais essayer de retranscrire quelques sujets qui ont retenu mon attention. J&rsquo;en oublierai sans doute beaucoup. Je m&rsquo;en excuse d&rsquo;avance.</p>
-<p>Tout d&rsquo;abord, l&rsquo;intérêt de cette conférence réside, selon moi, au-delà des talks donnés.</p>
-<p>Le cadre atypique (un camping dans le Morbihan), des conférences <em>slideless</em> données en extérieur en mode &ldquo;feu de camp&rdquo; a eu le même effet, enfin il me semble, sur tous les participantes et participants qu&rsquo;ils soient speakers ou non.</p>
-<p>Chose originale que j&rsquo;ai pu constater lors de ces talks, on passait beaucoup de temps à échanger avec les speakers <strong>pendant</strong> leur présentation.
-C&rsquo;était génial pour les spectateurs, peut-être un peu moins pour la gestion du timing :).</p>
-<p>Vous l&rsquo;aurez compris. L&rsquo;environnement mis en place par les organisateurs permettait de réels échanges&hellip; Et on avait le temps de le faire.</p>
-<p>Ensuite, la programmation donnait la part belle à des sujets non techniques.</p>
-<p>Par exemple, j&rsquo;ai enfin pu voir la conférence de mon ancienne collègue <a href="https://camping-speakers.fr/sessions/rendez_lagilite_aux_developpeurs/" target="_blank" rel="noopener noreferrer">Fanny Klauk : &ldquo;Rendez l&rsquo;agilité aux développeur(se)s !&rdquo;</a> qui, au travers d&rsquo;une histoire dont est le héros, a mis en évidence les travers des (grosses) organisations. Les solutions sont <em>&ldquo;naturelles&rdquo;</em> dans la théorie, mais permettent de donner plus d&rsquo;agilité et de sens aux développeurs.</p>
-<p>Un autre sujet &ldquo;non technique&rdquo; m&rsquo;a très intéressé, c&rsquo;était <a href="https://camping-speakers.fr/sessions/le_voyage_du_heros/" target="_blank" rel="noopener noreferrer">&ldquo;Le voyage du héros de l&rsquo;IT&rdquo; d&rsquo; Olivier Beautier</a>.
-Après nous avoir présenté <a href="https://archive.org/details/leguideduscenari0000vogl" target="_blank" rel="noopener noreferrer">le guide du scénariste de C. VOGLER</a>, on a construit une histoire d&rsquo;une développeuse.
-Au travers de cette histoire, on a pu voir entre autres l&rsquo;importance du mentorat dans notre métier.</p>
-<p>Puis, j&rsquo;ai vu la conférence <a href="https://camping-speakers.fr/sessions/java_a_la_vitesse_de_la_lumiere_grace_au_graal/" target="_blank" rel="noopener noreferrer">d&rsquo;A. PENA &ldquo;Java à la vitesse de la lumière grâce au Graal !&rdquo;</a>.
-Il a présenté GraalVM, une comparaison avec HotSpot et les perspectives d&rsquo;évolution de cette JVM. Nul doute que le mode natif sera de plus en plus utilisé dans les prochaines années.</p>
-<p>Ensuite, avec <a href="https://davidaparicio.github.io/website/fr/event/" target="_blank" rel="noopener noreferrer">D. APARICIO</a>, nous avons pu voir les travers d&rsquo;une (mauvaise) modélisation de données au travers de son retour d&rsquo;expérience <a href="https://camping-speakers.fr/sessions/au_secours_jai_un_homonyme/" target="_blank" rel="noopener noreferrer">&ldquo;Au secours 😨! J&rsquo;ai un homonyme !! &ldquo;</a>
-Il a illustré l&rsquo;importance de bien modéliser pour ne pas avoir que le nom et prénom comme identifiants dans un système par ex. ainsi que les impacts dans la vie courante.</p>
-<p>Vous l&rsquo;aurez compris, il y avait beaucoup de conférences intéressantes qui donnaient lieu à des discussions tout aussi passionnantes.</p>
-<p><em>Last but not least</em>, j&rsquo;ai eu la chance de présenter les katas d&rsquo;architecture, comment les mettre en œuvre et quels sont les bénéfices qu&rsquo;on peut en tirer.
-Je tiens à remercier <a href="https://julientopcu.com/" target="_blank" rel="noopener noreferrer">Julien TOPCU</a> et <a href="https://craftsrecords.org/" target="_blank" rel="noopener noreferrer">Craft Records</a> pour l&rsquo;accompagnement dans la préparation.</p>
-<p>Vous pourrez trouver les slides sur <a href="https://speakerdeck.com/alexandretouret/ameliorer-les-competences-et-les-infrastructures-avec-les-katas-darchitecture-cc629dfb-87f6-4033-aabd-472472ae5655" target="_blank" rel="noopener noreferrer">ma page speackerdeck</a>.</p>
-<p>Pour finir, je conseille cette expérience à toutes les personnes qui veulent apprendre, échanger dans un environnement convivial et zen.</p>
-<p>Si vous n&rsquo;êtes toujours pas convaincu, sachez qu&rsquo;il y a également des mashmallows.</p>
-<p><em>Avec cet argument massue, on devrait convaincre les plus sceptiques! ;)</em></p>
-<figure><img src="/assets/images/2022/06/camping_speakers_1.webp"/><figcaption>
-            <h4>Camping des speakers spirit</h4>
-        </figcaption>
-</figure>
-
-<p>Merci encore aux organisatrices et organisateurs pour ces deux jours.</p>
-<p>À l&rsquo;année prochaine !!</p>
 ]]></description></item></channel></rss>
