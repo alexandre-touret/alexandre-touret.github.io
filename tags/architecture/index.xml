@@ -40,15 +40,14 @@ Pour chacun, vous devrez définir ces trois caractéristiques : cause, probabili
 <p>A coté de ça, vous aurez à identifier si possible le temps d&rsquo;indisponibilité du service.</p>
 <h3 id="synthèse" class="headerLink">
     <a href="#synth%c3%a8se" class="header-mark"></a>1.2 Synthèse</h3><p>Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2022/02/Risk-Based-Audit_technical.webp" title="analyse de risques" data-thumbnail="/assets/images/2022/02/Risk-Based-Audit_technical.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/02/Risk-Based-Audit_technical.webp"
-            srcset="/assets/images/2022/02/Risk-Based-Audit_technical.webp, /assets/images/2022/02/Risk-Based-Audit_technical.webp 1.5x, /assets/images/2022/02/Risk-Based-Audit_technical.webp 2x"
-            sizes="auto"
-            alt="analyse de risques">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/02/Risk-Based-Audit_technical.webp"
+        srcset="/assets/images/2022/02/Risk-Based-Audit_technical.webp, /assets/images/2022/02/Risk-Based-Audit_technical.webp 1.5x, /assets/images/2022/02/Risk-Based-Audit_technical.webp 2x"
+        sizes="auto"
+        alt="analyse de risques"
+        title="analyse de risques" ></figure></div>
 <p>En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d&rsquo;action.</p>
 <p>Prenons la définition d&rsquo;une plateforme:
 Si votre API doit traiter de manière régulière des PAYLOADs volumineux (bon déjà, la ce n&rsquo;est pas top).
@@ -67,15 +66,14 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
 <p><strong>Oui, ce travail préalable permet de faire simple!</strong></p>
 <h2 id="un-exemple-concret" class="headerLink">
     <a href="#un-exemple-concret" class="header-mark"></a>4 Un exemple concret</h2><p>Si je reprends l&rsquo;application <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">bookstore</a> que j&rsquo;ai décrite dans <a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">un précédent article</a>:</p>
-<p><figure><a class="lightgallery" href="/assets/images/2021/07/rest-book-architecture.png" title="bookstore architecture" data-thumbnail="/assets/images/2021/07/rest-book-architecture.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/rest-book-architecture.png"
-            srcset="/assets/images/2021/07/rest-book-architecture.png, /assets/images/2021/07/rest-book-architecture.png 1.5x, /assets/images/2021/07/rest-book-architecture.png 2x"
-            sizes="auto"
-            alt="bookstore architecture">
-    </a></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/rest-book-architecture.png"
+        srcset="/assets/images/2021/07/rest-book-architecture.png, /assets/images/2021/07/rest-book-architecture.png 1.5x, /assets/images/2021/07/rest-book-architecture.png 2x"
+        sizes="auto"
+        alt="bookstore architecture"
+        title="bookstore architecture" ></figure></p>
 <h3 id="exigences-techniques" class="headerLink">
     <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
     <a href="#slos--slis" class="header-mark"></a>4.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
@@ -194,15 +192,14 @@ Ce sujet y est abordé.</p>
 <p>{% include gallery caption=&ldquo;Un kata d&rsquo;architecture à TNT&rdquo;  layout=&ldquo;half&rdquo; %}</p>
 <p>La cave à vin connecté a remporté un franc succès, du moins pendant la présentation des sujets 🙂</p>
 <p>Voici le feedback que j&rsquo;ai eu sur ma présentation:</p>
-<p><figure><a class="lightgallery" href="/assets/images/2019/02/img_20190201_174057.jpg" title="Feedback" data-thumbnail="/assets/images/2019/02/img_20190201_174057.jpg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2019/02/img_20190201_174057.jpg"
-            srcset="/assets/images/2019/02/img_20190201_174057.jpg, /assets/images/2019/02/img_20190201_174057.jpg 1.5x, /assets/images/2019/02/img_20190201_174057.jpg 2x"
-            sizes="auto"
-            alt="Feedback">
-    </a></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2019/02/img_20190201_174057.jpg"
+        srcset="/assets/images/2019/02/img_20190201_174057.jpg, /assets/images/2019/02/img_20190201_174057.jpg 1.5x, /assets/images/2019/02/img_20190201_174057.jpg 2x"
+        sizes="auto"
+        alt="Feedback"
+        title="Feedback" ></figure></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item><item><title>Touraine Tech 2019</title><link>http://blog.touret.info/2018/12/25/touraine-tech-2019/</link><pubDate>Tue, 25 Dec 2018 17:24:29 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2018/12/25/touraine-tech-2019/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/touraine_tech.png" referrerpolicy="no-referrer">

@@ -1,41 +1,38 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>kubernetes - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/kubernetes/</link><description>kubernetes - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/kubernetes/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
-            srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
+        srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
 Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
 J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2022/08/luke_cage.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/luke_cage.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/luke_cage.webp"
-            srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/luke_cage.webp"
+        srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
 <p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2022/08/spring_dataflow_logo.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/spring_dataflow_logo.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/spring_dataflow_logo.webp"
-            srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/spring_dataflow_logo.webp"
+        srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
 Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
@@ -258,69 +255,62 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
 <h3 id="création-de-la-tâche" class="headerLink">
     <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
-<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config3.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config3.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config3.webp"
-            srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config4.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config4.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config4.webp"
-            srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config3.webp"
+        srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config4.webp"
+        srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
 <h2 id="exécution" class="headerLink">
     <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
 Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config2.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config2.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config2.webp"
-            srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config10.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config10.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config10.webp"
-            srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config8.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config8.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config8.webp"
-            srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config7.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config7.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config7.webp"
-            srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config9.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config9.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config9.webp"
-            srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config2.webp"
+        srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config10.webp"
+        srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config8.webp"
+        srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config7.webp"
+        srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config9.webp"
+        srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 <p>J&rsquo;ai pu également accéder aux logs.</p>
 <p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
@@ -669,15 +659,14 @@ J&rsquo;ai néanmoins essayé d&rsquo;apporter quelques cas concrets et retours 
                 <img src="/assets/images/2020/10/gartner_hype_cycle.svg_.png" referrerpolicy="no-referrer">
             </div><p>Depuis quelques années, <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (K8S) et <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">son écosystème</a> deviennent l&rsquo;environnement d&rsquo; exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D&rsquo;autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d&rsquo;une telle plateforme.<br>
 Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas <a href="https://fr.wikipedia.org/wiki/Cycle_du_hype" target="_blank" rel="noopener noreferrer">au cycle du hype</a> et à la fameuse courbe du Gartner.</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/10/gartner_hype_cycle.svg_.png" title="cycle hype" data-thumbnail="/assets/images/2020/10/gartner_hype_cycle.svg_.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/10/gartner_hype_cycle.svg_.png"
-            srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png, /assets/images/2020/10/gartner_hype_cycle.svg_.png 1.5x, /assets/images/2020/10/gartner_hype_cycle.svg_.png 2x"
-            sizes="auto"
-            alt="cycle hype">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/10/gartner_hype_cycle.svg_.png"
+        srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png, /assets/images/2020/10/gartner_hype_cycle.svg_.png 1.5x, /assets/images/2020/10/gartner_hype_cycle.svg_.png 2x"
+        sizes="auto"
+        alt="cycle hype"
+        title="cycle hype" ></figure></div>
 <p>Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.<br>
 Bien évidemment, ce n&rsquo;est que mon avis, j&rsquo;ai sans doute omis certaines informations qui pourraient être indispensables pour d&rsquo; autres.</p>
 <h2 id="pourquoi-et-dans-quelles-conditions-il-ne-faut-pas-utiliser-k8s-" class="headerLink">
@@ -737,15 +726,14 @@ La contrainte que l&rsquo;on peut voir à cette fonctionnalité et qu&rsquo;on n
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="linfrastructure-as-code" class="headerLink">
-    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png" title="infrastructure as code" data-thumbnail="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png"
-            srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 1.5x, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 2x"
-            sizes="auto"
-            alt="infrastructure as code">
-    </a></figure></div>
+    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png"
+        srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 1.5x, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 2x"
+        sizes="auto"
+        alt="infrastructure as code"
+        title="infrastructure as code" ></figure></div>
 <p>Quand on pense à Kubernetes, et au cloud, on ne pense pas trop à l&rsquo;<a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">Infrastructure As Code</a> au début. Cependant, cette pratique est pour moi l&rsquo;une des plus utiles.</p>
 <p>En effet, avoir votre système décrit dans des fichiers, versionnés vous permet de le tester dès le développement. Ça évite ( dans la majorité des cas ) les erreurs lors des installations d&rsquo;environnement. La mise à jour des logiciels est largement accélérée.</p>
 <p>Bien évidemment, il existe <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> et <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> pour le provisionning des environnements. Ici je trouve qu&rsquo;on pousse le concept encore plus loin. L&rsquo;automatisation est à mon avis poussé à paroxysme.<br>

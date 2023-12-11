@@ -1,14 +1,13 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>github - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/github/</link><description>github - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/github/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div><p><figure><a class="lightgallery" href="/assets/images/2021/12/github-1.jpg" title="github" data-thumbnail="/assets/images/2021/12/github-1.jpg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/12/github-1.jpg"
-            srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
-            sizes="auto"
-            alt="github">
-    </a></figure></p>
+            </div><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/12/github-1.jpg"
+        srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
+        sizes="auto"
+        alt="github"
+        title="github" ></figure></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
 <p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>
@@ -352,15 +351,14 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
 </ul>
 <h3 id="exporter-les-données" class="headerLink">
     <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png" title="wordpress_export" data-thumbnail="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
-            srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
-            sizes="auto"
-            alt="wordpress_export">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
+        srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
+        sizes="auto"
+        alt="wordpress_export"
+        title="wordpress_export" ></figure></div>
 <p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
 <p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
 <h3 id="importer-les-données" class="headerLink">
@@ -729,24 +727,22 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger1">
-    </a></figure>
-<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger2">
-    </a></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger1"
+        title="jaeger1" ></figure>
+<figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger2"
+        title="jaeger2" ></figure></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>

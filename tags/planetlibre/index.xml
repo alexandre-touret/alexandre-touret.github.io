@@ -1,14 +1,13 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>planetlibre - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/planetlibre/</link><description>planetlibre - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/planetlibre/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div><p><figure><a class="lightgallery" href="/assets/images/2021/12/github-1.jpg" title="github" data-thumbnail="/assets/images/2021/12/github-1.jpg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/12/github-1.jpg"
-            srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
-            sizes="auto"
-            alt="github">
-    </a></figure></p>
+            </div><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/12/github-1.jpg"
+        srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
+        sizes="auto"
+        alt="github"
+        title="github" ></figure></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
 <p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>
@@ -352,15 +351,14 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
 </ul>
 <h3 id="exporter-les-données" class="headerLink">
     <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png" title="wordpress_export" data-thumbnail="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
-            srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
-            sizes="auto"
-            alt="wordpress_export">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
+        srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
+        sizes="auto"
+        alt="wordpress_export"
+        title="wordpress_export" ></figure></div>
 <p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
 <p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
 <h3 id="importer-les-données" class="headerLink">
@@ -729,24 +727,22 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger1">
-    </a></figure>
-<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger2">
-    </a></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger1"
+        title="jaeger1" ></figure>
+<figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger2"
+        title="jaeger2" ></figure></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
@@ -984,15 +980,14 @@ Bien évidemment, selon le contexte, il conviendra d&rsquo;ajouter un peu de sé
 <p>Le code exposé ici est disponible sur <a href="https://github.com/alexandre-touret/maintenance-mode/" target="_blank" rel="noopener noreferrer">Github</a>. Le <a href="https://github.com/alexandre-touret/maintenance-mode/blob/main/README.md" target="_blank" rel="noopener noreferrer">Readme</a> est suffisamment détaillé pour que vous puissiez tester et réutiliser le code.</p>
 ]]></description></item><item><title>Utiliser GPG dans WSL2</title><link>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</link><pubDate>Mon, 03 May 2021 20:47:11 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/05/03/utiliser-gpg-dans-wsl2/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/05/pexels-photo-261621.jpeg" referrerpolicy="no-referrer">
-            </div><p><figure><a class="lightgallery" href="/assets/images/2021/05/pexels-photo-261621.jpeg" title="pexel photo" data-thumbnail="/assets/images/2021/05/pexels-photo-261621.jpeg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/05/pexels-photo-261621.jpeg"
-            srcset="/assets/images/2021/05/pexels-photo-261621.jpeg, /assets/images/2021/05/pexels-photo-261621.jpeg 1.5x, /assets/images/2021/05/pexels-photo-261621.jpeg 2x"
-            sizes="auto"
-            alt="pexel photo">
-    </a></figure></p>
+            </div><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/05/pexels-photo-261621.jpeg"
+        srcset="/assets/images/2021/05/pexels-photo-261621.jpeg, /assets/images/2021/05/pexels-photo-261621.jpeg 1.5x, /assets/images/2021/05/pexels-photo-261621.jpeg 2x"
+        sizes="auto"
+        alt="pexel photo"
+        title="pexel photo" ></figure></p>
 <p>Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank" rel="noopener noreferrer">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/" target="_blank" rel="noopener noreferrer">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu&rsquo;on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">le sous système Linux (WSL2)</a>?</p>
 <p>Sous GNU/Linux, l&rsquo;installation et l&rsquo;utilisation avec git est très simple. Avec <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">WSL2</a>,… il faut un peu d&rsquo;huile de coude 🙂</p>
 <p>Je vais tâcher de décrire dans cet article les différentes manipulations nécessaires pour:</p>
@@ -1564,46 +1559,42 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
 <h3 id="configurer-fluidsynth" class="headerLink">
     <a href="#configurer-fluidsynth" class="header-mark"></a>1.4 Configurer fluidsynth</h3><p>Lancez qsynth et cliquez sur le bouton « configuration »</p>
 <p>Vous trouverez ci-dessous la configuration que j&rsquo;ai appliqué. Elle diffère légèrement de <a href="https://www.jjazzlab.com/en/doc/fluidsynth/" target="_blank" rel="noopener noreferrer">celle présentée dans la documentation</a>.</p>
-<div id="id-1"><p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png" title="fluidsynth1" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
-            sizes="auto"
-            alt="fluidsynth1">
-    </a></figure></p>
-<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png" title="fluidsynth2" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
-            sizes="auto"
-            alt="fluidsynth2">
-    </a></figure></p>
-<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png" title="fluidsynth3" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
-            sizes="auto"
-            alt="fluidsynth3">
-    </a></figure></p>
+<div id="id-1"><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
+        sizes="auto"
+        alt="fluidsynth1"
+        title="fluidsynth1" ></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
+        sizes="auto"
+        alt="fluidsynth2"
+        title="fluidsynth2" ></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
+        sizes="auto"
+        alt="fluidsynth3"
+        title="fluidsynth3" ></figure></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
 <h3 id="configurer-aconnect" class="headerLink">
     <a href="#configurer-aconnect" class="header-mark"></a>1.5 Configurer aconnect</h3><p>Disclaimer: La c&rsquo;est la partie la plus obscure…</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp" title="aconnect" data-thumbnail="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
-            srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
-            sizes="auto"
-            alt="aconnect">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
+        srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
+        sizes="auto"
+        alt="aconnect"
+        title="aconnect" ></figure></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
 <p>Exécutez la commande suivante:</p>
@@ -1697,36 +1688,33 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
 </div><p>Maintenant vous pouvez directement démarrer JJazzlab via le menu.</p>
 <h2 id="configuration" class="headerLink">
     <a href="#configuration" class="header-mark"></a>3 Configuration</h2><p>Une fois jjazzlab démarré, vous devez aller dans le menu « Tools&gt;Options » et sélectionnez les valeurs suivantes:</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
-<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-4"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Puis configurez comme suit:</p>
-<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-5"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item><item><title>Erreur 139 à l'exécution d'un container docker</title><link>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</link><pubDate>Wed, 01 Apr 2020 11:09:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/man-person-street-shoes-2882.webp" referrerpolicy="no-referrer">

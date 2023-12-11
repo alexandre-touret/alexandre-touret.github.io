@@ -9,25 +9,23 @@ Several strategies can be considered, but the main point is how to minimize the 
 <li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
 <li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
 </ul>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_system.svg"
-            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_system.svg"
+        srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_container.svg"
-            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_container.svg"
+        srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>

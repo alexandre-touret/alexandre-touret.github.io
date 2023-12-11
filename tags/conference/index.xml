@@ -56,23 +56,21 @@ Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.<
 <li>J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch</li>
 <li><a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">Ma présentation au format Quickie a été retenue</a>. J&rsquo;ai présenté un talk à Devoxx!!!!!!!</li>
 </ol>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-1.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-1.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/10/devoxx-be-22-1.webp"
-            srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-2.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-2.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/10/devoxx-be-22-2.webp"
-            srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/10/devoxx-be-22-1.webp"
+        srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/10/devoxx-be-22-2.webp"
+        srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 <p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
 <h2 id="impressions-générales" class="headerLink">

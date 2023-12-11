@@ -32,15 +32,14 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>A ce stade, vous devriez avoir dans le panneau de configuration la référence à l&rsquo;equalizer</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2018/03/sc3a9lection_001.png" title="equalizer" data-thumbnail="/assets/images/2018/03/sc3a9lection_001.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2018/03/sc3a9lection_001.png"
-            srcset="/assets/images/2018/03/sc3a9lection_001.png, /assets/images/2018/03/sc3a9lection_001.png 1.5x, /assets/images/2018/03/sc3a9lection_001.png 2x"
-            sizes="auto"
-            alt="equalizer">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2018/03/sc3a9lection_001.png"
+        srcset="/assets/images/2018/03/sc3a9lection_001.png, /assets/images/2018/03/sc3a9lection_001.png 1.5x, /assets/images/2018/03/sc3a9lection_001.png 2x"
+        sizes="auto"
+        alt="equalizer"
+        title="equalizer" ></figure></div>
 <h2 id="lancement" class="headerLink">
     <a href="#lancement" class="header-mark"></a>3 Lancement</h2><p>En ligne de commande ( je vous disais que ce n&rsquo;était pas trop user-friendly), lancer la commande</p>
 <div class="highlight"><div class="chroma">
@@ -52,15 +51,14 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>On obtient cette interface:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2018/03/qpaeq_002.png" title="equalizer" data-thumbnail="/assets/images/2018/03/qpaeq_002.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2018/03/qpaeq_002.png"
-            srcset="/assets/images/2018/03/qpaeq_002.png, /assets/images/2018/03/qpaeq_002.png 1.5x, /assets/images/2018/03/qpaeq_002.png 2x"
-            sizes="auto"
-            alt="equalizer">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2018/03/qpaeq_002.png"
+        srcset="/assets/images/2018/03/qpaeq_002.png, /assets/images/2018/03/qpaeq_002.png 1.5x, /assets/images/2018/03/qpaeq_002.png 2x"
+        sizes="auto"
+        alt="equalizer"
+        title="equalizer" ></figure></div>
 <p>Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)</p>
 <p>J&rsquo;ai essayé de poster mon soucis sur IRC, mais je n&rsquo;ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.</p>
 ]]></description></item></channel></rss>

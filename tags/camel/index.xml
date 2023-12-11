@@ -13,15 +13,14 @@ The necessity for clarity becomes even more pronounced in such cases.
 Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.</p>
 <p>Why does this challenge arise?
 It&rsquo;s a consequence of functional transactions fragmenting into two loosely coupled subprocesses:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/09/loose-coupling-sequence.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/loose-coupling-sequence.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/loose-coupling-sequence.svg"
-            srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Architecture">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/loose-coupling-sequence.svg"
+        srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Architecture"
+        title="OpenTelemetry Collector Architecture" ></figure></div>
 <p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
@@ -41,30 +40,27 @@ The first part will use Jaeger and the second one,  <a href="https://grafana.com
     <a href="#architecture" class="header-mark"></a>2.1 Architecture</h3><p>The <a href="https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing" target="_blank" rel="noopener noreferrer">SPANs</a> are broadcast and gathered through <a href="https://opentelemetry.io/docs/collector" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a>.
 It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
 <p>Here is the architecture of such a platform:</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/architecture.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/architecture.svg"
-            srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Architecture">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/architecture.svg"
+        srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Architecture"
+        title="OpenTelemetry Collector Architecture" ></figure></div>
 <h3 id="opentelemetry-collector" class="headerLink">
     <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
 It can be compared to <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">Elastic LogStash</a> or an <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener noreferrer">ETL</a>.
 It will help us get, transform and export telemetry data.</p>
-<div id="id-4"><p><figure><a class="lightgallery" href="/assets/images/2023/09/otel-diagram.svg" title="OpenTelemetry Collector Functionalities" data-thumbnail="/assets/images/2023/09/otel-diagram.svg" data-sub-html="<h2>Source: https://opentelemetry.io/docs/collector/</h2><p>OpenTelemetry Collector Functionalities</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/otel-diagram.svg"
-            srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Functionalities">
-    </a><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
-    </figure></p>
-</div>
+<div id="id-4"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/otel-diagram.svg"
+        srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Functionalities"
+        title="OpenTelemetry Collector Functionalities" ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
+    </figure></div>
 <p>For our use case, the configuration is quite simple.</p>
 <p>First, here is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Docker Compose configuration</a>:</p>
 <div class="highlight"><div class="chroma">
@@ -547,41 +543,35 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now, you can browse Jaeger (<a href="http://localhost:16686" target="_blank" rel="noopener noreferrer">http://localhost:16686</a>) and query it to find trace insights:</p>
-<div id="id-5"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-1.webp" title="Jaeger front page" data-thumbnail="/assets/images/2023/09/jaeger-1.webp" data-sub-html="<h2>Number of different apps</h2><p>Jaeger front page</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-1.webp"
-            srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
-            sizes="auto"
-            alt="Jaeger front page">
-    </a><figcaption class="image-caption">Number of different apps</figcaption>
-    </figure></p>
-</div>
+<div id="id-5"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-1.webp"
+        srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
+        sizes="auto"
+        alt="Jaeger front page"
+        title="Jaeger front page" ><figcaption class="image-caption">Number of different apps</figcaption>
+    </figure></div>
 <p>If you dig into one transaction, you will see the whole transaction:</p>
-<div id="id-6"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-2.webp" title="Jaeger transaction page" data-thumbnail="/assets/images/2023/09/jaeger-2.webp" data-sub-html="<h2>One transaction</h2><p>Jaeger transaction page</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-2.webp"
-            srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
-            sizes="auto"
-            alt="Jaeger transaction page">
-    </a><figcaption class="image-caption">One transaction</figcaption>
-    </figure></p>
-</div>
+<div id="id-6"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-2.webp"
+        srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
+        sizes="auto"
+        alt="Jaeger transaction page"
+        title="Jaeger transaction page" ><figcaption class="image-caption">One transaction</figcaption>
+    </figure></div>
 <p>And now, you can correlate two sub transactions:</p>
-<div id="id-7"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-3.webp" title="Jaeger two sub transactions" data-thumbnail="/assets/images/2023/09/jaeger-3.webp" data-sub-html="<h2>Two sub transactions</h2><p>Jaeger two sub transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-3.webp"
-            srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
-            sizes="auto"
-            alt="Jaeger two sub transactions">
-    </a><figcaption class="image-caption">Two sub transactions</figcaption>
-    </figure></p>
-</div>
+<div id="id-7"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-3.webp"
+        srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
+        sizes="auto"
+        alt="Jaeger two sub transactions"
+        title="Jaeger two sub transactions" ><figcaption class="image-caption">Two sub transactions</figcaption>
+    </figure></div>
 <h2 id="tempo--grafana" class="headerLink">
     <a href="#tempo--grafana" class="header-mark"></a>3 Tempo &amp; Grafana</h2><p>This solution is pretty similar to the previous one.
 Instead of pushing all the data to Jaeger, we will use Tempo to store data and Grafana to render them.
@@ -590,15 +580,14 @@ We don&rsquo;t need to modify the configuration made in the existing Java applic
     <a href="#architecture-1" class="header-mark"></a>3.1 Architecture</h3><p>As mentioned above, the architecture is quite the same.
 Now, we have the collector which broadcast data to Tempo.
 We will then configure Grafana to query to it to get traces.</p>
-<div id="id-8"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture_grafana.svg" title="Architecture w/ Grafana &amp;amp; Tempo" data-thumbnail="/assets/images/2023/09/architecture_grafana.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/architecture_grafana.svg"
-            srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
-            sizes="auto"
-            alt="Architecture w/ Grafana &amp;amp; Tempo">
-    </a></figure></div>
+<div id="id-8"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/architecture_grafana.svg"
+        srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
+        sizes="auto"
+        alt="Architecture w/ Grafana &amp;amp; Tempo"
+        title="Architecture w/ Grafana &amp;amp; Tempo" ></figure></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.</p>
@@ -825,28 +814,24 @@ The configuration is made here using a configuration file provided during the st
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Then, using the same rocket scientist maven commands, we can run the same commands and browse now Grafana (<code>http://localhost:3000</code>) to see our traces:</p>
-<p><div id="id-9"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-1.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-1.webp" data-sub-html="<h2>Transactions</h2><p>Grafana transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/grafana-1.webp"
-            srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
-            sizes="auto"
-            alt="Grafana transactions">
-    </a><figcaption class="image-caption">Transactions</figcaption>
-    </figure></p>
-</div>
-<div id="id-10"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-2.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-2.webp" data-sub-html="<h2>Deep dive into one transaction</h2><p>Grafana transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/grafana-2.webp"
-            srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
-            sizes="auto"
-            alt="Grafana transactions">
-    </a><figcaption class="image-caption">Deep dive into one transaction</figcaption>
-    </figure></p>
-</div></p>
+<p><div id="id-9"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/grafana-1.webp"
+        srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
+        sizes="auto"
+        alt="Grafana transactions"
+        title="Grafana transactions" ><figcaption class="image-caption">Transactions</figcaption>
+    </figure></div>
+<div id="id-10"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/grafana-2.webp"
+        srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
+        sizes="auto"
+        alt="Grafana transactions"
+        title="Grafana transactions" ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
+    </figure></div></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo &amp; Grafana.
 It was voluntarily simple.</p>
@@ -866,15 +851,14 @@ I am particularly interested in mixing logs, traces to orchestrate efficient ale
 <h2 id="les-patterns-dintégration" class="headerLink">
     <a href="#les-patterns-dint%c3%a9gration" class="header-mark"></a>1 Les patterns d&rsquo;intégration</h2><p>Qu&rsquo;est-ce qu&rsquo;un <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html" target="_blank" rel="noopener noreferrer">pattern d&rsquo;intégration</a> allez-vous me dire ? C&rsquo;est une solution d&rsquo;architecture ou plus simplement une recette de cuisine permettant d&rsquo;avoir une solution toute prête à une problématique d&rsquo;intégration donnée. L&rsquo;ensemble de ces patterns est décrit sur <a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener noreferrer">ce site</a> ( ne vous attardez pas sur le look des années 90 … ).</p>
 <p>Exemple :</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2018/04/publishsubscribesolution.gif" title="publish_subscribe" data-thumbnail="/assets/images/2018/04/publishsubscribesolution.gif">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2018/04/publishsubscribesolution.gif"
-            srcset="/assets/images/2018/04/publishsubscribesolution.gif, /assets/images/2018/04/publishsubscribesolution.gif 1.5x, /assets/images/2018/04/publishsubscribesolution.gif 2x"
-            sizes="auto"
-            alt="publish_subscribe">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2018/04/publishsubscribesolution.gif"
+        srcset="/assets/images/2018/04/publishsubscribesolution.gif, /assets/images/2018/04/publishsubscribesolution.gif 1.5x, /assets/images/2018/04/publishsubscribesolution.gif 2x"
+        sizes="auto"
+        alt="publish_subscribe"
+        title="publish_subscribe" ></figure></div>
 <p>Camel permet simplement de gérer l&rsquo;intégration via un DSL.</p>
 <h3 id="choix-dimplémentations" class="headerLink">
     <a href="#choix-dimpl%c3%a9mentations" class="header-mark"></a>1.1 Choix d&rsquo;implémentations</h3><p>On peut faire pas mal de choses avec ce FRAMEWORK et de plusieurs manières. J&rsquo;ai fait les choix d&rsquo;implémentation suivants :</p>
@@ -889,18 +873,18 @@ I am particularly interested in mixing logs, traces to orchestrate efficient ale
 <p>Pour mon exemple, j&rsquo;extrais les données d&rsquo;une table et les stocke dans un fichier.</p>
 <p>Tout se configure par des URLs. La première permet d&rsquo;extraire les données via JPA/HIBERNATE. Une entité Address permet le requêtage. La seconde permet le stockage dans un fichier texte JSON.</p>
 <p>Elles sont externalisées dans des fichiers de configuration pour faciliter les tests et accessibles via SPRING.</p>
-<p><script type="application/javascript" src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js.js"></script>
+<p><script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js.js"></script>
 
-<script type="application/javascript" src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js"></script>
+<script src="https://gist.github.com/alexandre-touret/470b84ac760c4f70d093753c63ec153b.js"></script>
 </p>
 <h2 id="lancement-de-la-route" class="headerLink">
     <a href="#lancement-de-la-route" class="header-mark"></a>3 Lancement de la route</h2><p>Le lancement de la route se fait dans une méthode main() :</p>
-<script type="application/javascript" src="https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59.js.js"></script>
+<script src="https://gist.github.com/alexandre-touret/40f3cfa13f5947aa922fc1f796668c59.js.js"></script>
 
 <h2 id="tests" class="headerLink">
     <a href="#tests" class="header-mark"></a>4 Tests</h2><p>Camel fournit une API de test assez bien fournie. Elle permet notamment de mocker des endpoints existants (ex. : le fichier de sortie de mon cas de test).</p>
 <p>Dans mon cas, j&rsquo;ai décidé de remplacer la base de données que j&rsquo;interroge en input par une <a href="http://hsqldb.org/doc/guide/ch01.html#N101CA" target="_blank" rel="noopener noreferrer">base HSQLDB chargée en mémoire</a>. Le fichier de sortie est, lui, remplacé dynamiquement par un <a href="https://camel.apache.org/mock.html" target="_blank" rel="noopener noreferrer">mock</a>. Pour ce faire, j&rsquo;ai utilisé les « adviceWith »</p>
-<script type="application/javascript" src="https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5.js.js"></script>
+<script src="https://gist.github.com/alexandre-touret/391305e01510e65703a26c46c2e233f5.js.js"></script>
 
 <h2 id="pour-aller-plus-loin" class="headerLink">
     <a href="#pour-aller-plus-loin" class="header-mark"></a>5 Pour aller plus loin</h2><p>Il y a pas mal d&rsquo;exemples sur le GITHUB de CAMEL. Vous pouvez également acheter <a href="https://www.manning.com/books/camel-in-action-second-edition" target="_blank" rel="noopener noreferrer">le livre « Camel In Action »</a>. Ca ne vaut pas <a href="https://www.amazon.fr/dp/B00B8V09HY/ref=dp-kindle-redirect?_encoding=UTF8&amp;btkr=1" target="_blank" rel="noopener noreferrer">Effective Java</a> 🙂 , mais vu qu&rsquo;il est écrit par le principal développeur, c&rsquo;est une très bonne référence.</p>

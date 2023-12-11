@@ -1,14 +1,13 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>github-actions - Tag - Alexandre Touret's Blog</title><link>http://blog.touret.info/tags/github-actions/</link><description>github-actions - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="http://blog.touret.info/tags/github-actions/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div><p><figure><a class="lightgallery" href="/assets/images/2021/12/github-1.jpg" title="github" data-thumbnail="/assets/images/2021/12/github-1.jpg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/12/github-1.jpg"
-            srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
-            sizes="auto"
-            alt="github">
-    </a></figure></p>
+            </div><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/12/github-1.jpg"
+        srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
+        sizes="auto"
+        alt="github"
+        title="github" ></figure></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
 <p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>

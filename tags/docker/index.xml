@@ -6,15 +6,14 @@ I would then see if Rancher Desktop fits well in this case and could help me.</p
 <p>In this (very short) article, we&rsquo;ll go over the necessary steps to configure <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> Ubuntu virtual machines and Docker with Rancher Desktop.</p>
 <p>If you want to get into Rancher Desktop in another way and discover how to install <a href="https://skaffold.dev/" target="_blank" rel="noopener noreferrer">Skaffold</a>, you <a href="https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/" target="_blank" rel="noopener noreferrer">can read this article</a>.</p>
 <h2 id="install--configure-rancher-desktop" class="headerLink">
-    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/11/rancher-desktop-logo.svg" title="rancher desktop logo" data-thumbnail="/assets/images/2023/11/rancher-desktop-logo.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/11/rancher-desktop-logo.svg"
-            srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
-            sizes="auto"
-            alt="rancher desktop logo">
-    </a></figure></div>
+    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/11/rancher-desktop-logo.svg"
+        srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
+        sizes="auto"
+        alt="rancher desktop logo"
+        title="rancher desktop logo" ></figure></div>
 <p>The setup is quite straightforward.
 Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
 Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p>
@@ -78,25 +77,23 @@ Several strategies can be considered, but the main point is how to minimize the 
 <li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
 <li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
 </ul>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_system.svg"
-            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_system.svg"
+        srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_container.svg"
-            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_container.svg"
+        srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>

@@ -65,46 +65,42 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
 <h3 id="configurer-fluidsynth" class="headerLink">
     <a href="#configurer-fluidsynth" class="header-mark"></a>1.4 Configurer fluidsynth</h3><p>Lancez qsynth et cliquez sur le bouton « configuration »</p>
 <p>Vous trouverez ci-dessous la configuration que j&rsquo;ai appliqué. Elle diffère légèrement de <a href="https://www.jjazzlab.com/en/doc/fluidsynth/" target="_blank" rel="noopener noreferrer">celle présentée dans la documentation</a>.</p>
-<div id="id-1"><p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png" title="fluidsynth1" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
-            sizes="auto"
-            alt="fluidsynth1">
-    </a></figure></p>
-<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png" title="fluidsynth2" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
-            sizes="auto"
-            alt="fluidsynth2">
-    </a></figure></p>
-<p><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png" title="fluidsynth3" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
-            sizes="auto"
-            alt="fluidsynth3">
-    </a></figure></p>
+<div id="id-1"><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
+        sizes="auto"
+        alt="fluidsynth1"
+        title="fluidsynth1" ></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
+        sizes="auto"
+        alt="fluidsynth2"
+        title="fluidsynth2" ></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
+        sizes="auto"
+        alt="fluidsynth3"
+        title="fluidsynth3" ></figure></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
 <h3 id="configurer-aconnect" class="headerLink">
     <a href="#configurer-aconnect" class="header-mark"></a>1.5 Configurer aconnect</h3><p>Disclaimer: La c&rsquo;est la partie la plus obscure…</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp" title="aconnect" data-thumbnail="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
-            srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
-            sizes="auto"
-            alt="aconnect">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
+        srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
+        sizes="auto"
+        alt="aconnect"
+        title="aconnect" ></figure></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
 <p>Exécutez la commande suivante:</p>
@@ -198,35 +194,32 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
 </div><p>Maintenant vous pouvez directement démarrer JJazzlab via le menu.</p>
 <h2 id="configuration" class="headerLink">
     <a href="#configuration" class="header-mark"></a>3 Configuration</h2><p>Une fois jjazzlab démarré, vous devez aller dans le menu « Tools&gt;Options » et sélectionnez les valeurs suivantes:</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
-<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-4"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Puis configurez comme suit:</p>
-<div id="id-5"><figure><a class="lightgallery" href="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png" title="configuration" data-thumbnail="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
-            srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div>
+<div id="id-5"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
+        srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item></channel></rss>

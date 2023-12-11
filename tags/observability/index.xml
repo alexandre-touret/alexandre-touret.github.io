@@ -216,24 +216,22 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png" title="jaeger1" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger1">
-    </a></figure>
-<figure><a class="lightgallery" href="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png" title="jaeger2" data-thumbnail="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
-            srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
-            sizes="auto"
-            alt="jaeger2">
-    </a></figure></p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger1"
+        title="jaeger1" ></figure>
+<figure><img
+        
+        loading="lazy"
+        src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
+        srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
+        sizes="auto"
+        alt="jaeger2"
+        title="jaeger2" ></figure></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>

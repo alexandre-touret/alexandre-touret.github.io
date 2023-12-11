@@ -6,15 +6,14 @@ I would then see if Rancher Desktop fits well in this case and could help me.</p
 <p>In this (very short) article, we&rsquo;ll go over the necessary steps to configure <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> Ubuntu virtual machines and Docker with Rancher Desktop.</p>
 <p>If you want to get into Rancher Desktop in another way and discover how to install <a href="https://skaffold.dev/" target="_blank" rel="noopener noreferrer">Skaffold</a>, you <a href="https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/" target="_blank" rel="noopener noreferrer">can read this article</a>.</p>
 <h2 id="install--configure-rancher-desktop" class="headerLink">
-    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/11/rancher-desktop-logo.svg" title="rancher desktop logo" data-thumbnail="/assets/images/2023/11/rancher-desktop-logo.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/11/rancher-desktop-logo.svg"
-            srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
-            sizes="auto"
-            alt="rancher desktop logo">
-    </a></figure></div>
+    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/11/rancher-desktop-logo.svg"
+        srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
+        sizes="auto"
+        alt="rancher desktop logo"
+        title="rancher desktop logo" ></figure></div>
 <p>The setup is quite straightforward.
 Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
 Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p>
@@ -78,25 +77,23 @@ Several strategies can be considered, but the main point is how to minimize the 
 <li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
 <li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
 </ul>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_system.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_system.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_system.svg"
-            srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_system.svg"
+        srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/10/architecture_container.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/10/architecture_container.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/10/architecture_container.svg"
-            srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/10/architecture_container.svg"
+        srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-lightbulb fa-fw"></i>Elastic APM vs Grafana/OpenTelemetry<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -297,15 +294,14 @@ The necessity for clarity becomes even more pronounced in such cases.
 Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.</p>
 <p>Why does this challenge arise?
 It&rsquo;s a consequence of functional transactions fragmenting into two loosely coupled subprocesses:</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/09/loose-coupling-sequence.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/loose-coupling-sequence.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/loose-coupling-sequence.svg"
-            srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Architecture">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/loose-coupling-sequence.svg"
+        srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Architecture"
+        title="OpenTelemetry Collector Architecture" ></figure></div>
 <p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
@@ -325,30 +321,27 @@ The first part will use Jaeger and the second one,  <a href="https://grafana.com
     <a href="#architecture" class="header-mark"></a>2.1 Architecture</h3><p>The <a href="https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing" target="_blank" rel="noopener noreferrer">SPANs</a> are broadcast and gathered through <a href="https://opentelemetry.io/docs/collector" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a>.
 It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
 <p>Here is the architecture of such a platform:</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture.svg" title="OpenTelemetry Collector Architecture" data-thumbnail="/assets/images/2023/09/architecture.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/architecture.svg"
-            srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Architecture">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/architecture.svg"
+        srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Architecture"
+        title="OpenTelemetry Collector Architecture" ></figure></div>
 <h3 id="opentelemetry-collector" class="headerLink">
     <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
 It can be compared to <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">Elastic LogStash</a> or an <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener noreferrer">ETL</a>.
 It will help us get, transform and export telemetry data.</p>
-<div id="id-4"><p><figure><a class="lightgallery" href="/assets/images/2023/09/otel-diagram.svg" title="OpenTelemetry Collector Functionalities" data-thumbnail="/assets/images/2023/09/otel-diagram.svg" data-sub-html="<h2>Source: https://opentelemetry.io/docs/collector/</h2><p>OpenTelemetry Collector Functionalities</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/otel-diagram.svg"
-            srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
-            sizes="auto"
-            alt="OpenTelemetry Collector Functionalities">
-    </a><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
-    </figure></p>
-</div>
+<div id="id-4"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/otel-diagram.svg"
+        srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
+        sizes="auto"
+        alt="OpenTelemetry Collector Functionalities"
+        title="OpenTelemetry Collector Functionalities" ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
+    </figure></div>
 <p>For our use case, the configuration is quite simple.</p>
 <p>First, here is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Docker Compose configuration</a>:</p>
 <div class="highlight"><div class="chroma">
@@ -831,41 +824,35 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Now, you can browse Jaeger (<a href="http://localhost:16686" target="_blank" rel="noopener noreferrer">http://localhost:16686</a>) and query it to find trace insights:</p>
-<div id="id-5"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-1.webp" title="Jaeger front page" data-thumbnail="/assets/images/2023/09/jaeger-1.webp" data-sub-html="<h2>Number of different apps</h2><p>Jaeger front page</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-1.webp"
-            srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
-            sizes="auto"
-            alt="Jaeger front page">
-    </a><figcaption class="image-caption">Number of different apps</figcaption>
-    </figure></p>
-</div>
+<div id="id-5"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-1.webp"
+        srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
+        sizes="auto"
+        alt="Jaeger front page"
+        title="Jaeger front page" ><figcaption class="image-caption">Number of different apps</figcaption>
+    </figure></div>
 <p>If you dig into one transaction, you will see the whole transaction:</p>
-<div id="id-6"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-2.webp" title="Jaeger transaction page" data-thumbnail="/assets/images/2023/09/jaeger-2.webp" data-sub-html="<h2>One transaction</h2><p>Jaeger transaction page</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-2.webp"
-            srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
-            sizes="auto"
-            alt="Jaeger transaction page">
-    </a><figcaption class="image-caption">One transaction</figcaption>
-    </figure></p>
-</div>
+<div id="id-6"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-2.webp"
+        srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
+        sizes="auto"
+        alt="Jaeger transaction page"
+        title="Jaeger transaction page" ><figcaption class="image-caption">One transaction</figcaption>
+    </figure></div>
 <p>And now, you can correlate two sub transactions:</p>
-<div id="id-7"><p><figure><a class="lightgallery" href="/assets/images/2023/09/jaeger-3.webp" title="Jaeger two sub transactions" data-thumbnail="/assets/images/2023/09/jaeger-3.webp" data-sub-html="<h2>Two sub transactions</h2><p>Jaeger two sub transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/jaeger-3.webp"
-            srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
-            sizes="auto"
-            alt="Jaeger two sub transactions">
-    </a><figcaption class="image-caption">Two sub transactions</figcaption>
-    </figure></p>
-</div>
+<div id="id-7"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/jaeger-3.webp"
+        srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
+        sizes="auto"
+        alt="Jaeger two sub transactions"
+        title="Jaeger two sub transactions" ><figcaption class="image-caption">Two sub transactions</figcaption>
+    </figure></div>
 <h2 id="tempo--grafana" class="headerLink">
     <a href="#tempo--grafana" class="header-mark"></a>3 Tempo &amp; Grafana</h2><p>This solution is pretty similar to the previous one.
 Instead of pushing all the data to Jaeger, we will use Tempo to store data and Grafana to render them.
@@ -874,15 +861,14 @@ We don&rsquo;t need to modify the configuration made in the existing Java applic
     <a href="#architecture-1" class="header-mark"></a>3.1 Architecture</h3><p>As mentioned above, the architecture is quite the same.
 Now, we have the collector which broadcast data to Tempo.
 We will then configure Grafana to query to it to get traces.</p>
-<div id="id-8"><figure><a class="lightgallery" href="/assets/images/2023/09/architecture_grafana.svg" title="Architecture w/ Grafana &amp;amp; Tempo" data-thumbnail="/assets/images/2023/09/architecture_grafana.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/architecture_grafana.svg"
-            srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
-            sizes="auto"
-            alt="Architecture w/ Grafana &amp;amp; Tempo">
-    </a></figure></div>
+<div id="id-8"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/architecture_grafana.svg"
+        srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
+        sizes="auto"
+        alt="Architecture w/ Grafana &amp;amp; Tempo"
+        title="Architecture w/ Grafana &amp;amp; Tempo" ></figure></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.</p>
@@ -1109,28 +1095,24 @@ The configuration is made here using a configuration file provided during the st
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>Then, using the same rocket scientist maven commands, we can run the same commands and browse now Grafana (<code>http://localhost:3000</code>) to see our traces:</p>
-<p><div id="id-9"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-1.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-1.webp" data-sub-html="<h2>Transactions</h2><p>Grafana transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/grafana-1.webp"
-            srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
-            sizes="auto"
-            alt="Grafana transactions">
-    </a><figcaption class="image-caption">Transactions</figcaption>
-    </figure></p>
-</div>
-<div id="id-10"><p><figure><a class="lightgallery" href="/assets/images/2023/09/grafana-2.webp" title="Grafana transactions" data-thumbnail="/assets/images/2023/09/grafana-2.webp" data-sub-html="<h2>Deep dive into one transaction</h2><p>Grafana transactions</p>">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/09/grafana-2.webp"
-            srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
-            sizes="auto"
-            alt="Grafana transactions">
-    </a><figcaption class="image-caption">Deep dive into one transaction</figcaption>
-    </figure></p>
-</div></p>
+<p><div id="id-9"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/grafana-1.webp"
+        srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
+        sizes="auto"
+        alt="Grafana transactions"
+        title="Grafana transactions" ><figcaption class="image-caption">Transactions</figcaption>
+    </figure></div>
+<div id="id-10"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/09/grafana-2.webp"
+        srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
+        sizes="auto"
+        alt="Grafana transactions"
+        title="Grafana transactions" ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
+    </figure></div></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo &amp; Grafana.
 It was voluntarily simple.</p>
@@ -1296,25 +1278,23 @@ It aimed at a new software to manage bookstores through a web interface and an A
 They therefore built and shipped a microservices platform and released their first service contract for their early adopters.</p>
 <p>Here is the design of this platform:</p>
 <p><strong>The High level design</strong></p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg" title="c4 context diagram" data-thumbnail="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg"
-            srcset="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 2x"
-            sizes="auto"
-            alt="c4 context diagram">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg"
+        srcset="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 2x"
+        sizes="auto"
+        alt="c4 context diagram"
+        title="c4 context diagram" ></figure></div>
 <p><strong>More in depth</strong></p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg" title="c4 container diagram" data-thumbnail="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg"
-            srcset="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 2x"
-            sizes="auto"
-            alt="c4 container diagram">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg"
+        srcset="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 2x"
+        sizes="auto"
+        alt="c4 container diagram"
+        title="c4 container diagram" ></figure></div>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
             <i class="icon fas fa-info-circle fa-fw"></i>To sum up<i class="details-icon fas fa-angle-right fa-fw"></i>
@@ -1333,15 +1313,14 @@ However, they also ask for new requirements and concerns.</p>
 For instance, a new customer asked the <a href="https://en.wikipedia.org/wiki/Acme_Corporation" target="_blank" rel="noopener noreferrer">ACME engineers</a> for getting a <code>summary</code> for every book and additional REST operations.</p>
 <p><em>Easy!</em></p>
 <p>However, last but not least, this customer would also get a list of authors for every book whereas the existing application only provides ONE author per book.</p>
-<div id="id-3"><p><figure><a class="lightgallery" href="/assets/images/2023/03/breaking_change.webp" title="Breaking change" data-thumbnail="/assets/images/2023/03/breaking_change.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/03/breaking_change.webp"
-            srcset="/assets/images/2023/03/breaking_change.webp, /assets/images/2023/03/breaking_change.webp 1.5x, /assets/images/2023/03/breaking_change.webp 2x"
-            sizes="auto"
-            alt="Breaking change">
-    </a></figure></p>
+<div id="id-3"><p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/03/breaking_change.webp"
+        srcset="/assets/images/2023/03/breaking_change.webp, /assets/images/2023/03/breaking_change.webp 1.5x, /assets/images/2023/03/breaking_change.webp 2x"
+        sizes="auto"
+        alt="Breaking change"
+        title="Breaking change" ></figure></p>
 <p><strong>This is a breaking change!</strong></p>
 </div>
 <div class="details admonition info open">
@@ -1361,15 +1340,14 @@ For instance, a new customer asked the <a href="https://en.wikipedia.org/wiki/Ac
     <a href="#what-to-version-how-and-where-to-apply-it" class="header-mark"></a>3 What to version? How and where to apply it?</h2><p>After answering to the first question: <em>Do I really need API versioning?</em> you then have to answer to this new one: what should we consider versioning?</p>
 <p><strong>You only have to version the service contract.</strong></p>
 <p>In the case of a simple web application based on a GUI and an API</p>
-<div id="id-4"><figure><a class="lightgallery" href="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg" title="c4 monolith" data-thumbnail="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg"
-            srcset="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 1.5x, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 2x"
-            sizes="auto"
-            alt="c4 monolith">
-    </a></figure></div>
+<div id="id-4"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg"
+        srcset="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 1.5x, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 2x"
+        sizes="auto"
+        alt="c4 monolith"
+        title="c4 monolith" ></figure></div>
 <p>Versioning is applied in the service contract of your API.
 If you change your database without impacting the APIs, why should you waste your time creating and managing a version of your API?
 It doesn&rsquo;t make sense.</p>
@@ -2034,23 +2012,21 @@ Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.<
 <li>J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch</li>
 <li><a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">Ma présentation au format Quickie a été retenue</a>. J&rsquo;ai présenté un talk à Devoxx!!!!!!!</li>
 </ol>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-1.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-1.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/10/devoxx-be-22-1.webp"
-            srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/10/devoxx-be-22-2.webp" title="configuration" data-thumbnail="/assets/images/2022/10/devoxx-be-22-2.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/10/devoxx-be-22-2.webp"
-            srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/10/devoxx-be-22-1.webp"
+        srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/10/devoxx-be-22-2.webp"
+        srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 <p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
 <h2 id="impressions-générales" class="headerLink">
@@ -2133,41 +2109,38 @@ Cette première participation était très enrichissante. J&rsquo;ai eu à plusi
 ]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
-            srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
+        srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
 Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
 J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-2"><figure><a class="lightgallery" href="/assets/images/2022/08/luke_cage.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/luke_cage.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/luke_cage.webp"
-            srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/luke_cage.webp"
+        srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
 <p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-3"><figure><a class="lightgallery" href="/assets/images/2022/08/spring_dataflow_logo.webp" title="dataflow" data-thumbnail="/assets/images/2022/08/spring_dataflow_logo.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/spring_dataflow_logo.webp"
-            srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
-            sizes="auto"
-            alt="dataflow">
-    </a></figure></div>
+<div id="id-3"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/spring_dataflow_logo.webp"
+        srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
+        sizes="auto"
+        alt="dataflow"
+        title="dataflow" ></figure></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
 Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
@@ -2390,69 +2363,62 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
 <h3 id="création-de-la-tâche" class="headerLink">
     <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
-<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config3.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config3.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config3.webp"
-            srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config4.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config4.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config4.webp"
-            srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config3.webp"
+        srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config4.webp"
+        srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
 <h2 id="exécution" class="headerLink">
     <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
 Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config2.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config2.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config2.webp"
-            srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config10.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config10.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config10.webp"
-            srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config8.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config8.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config8.webp"
-            srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config7.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config7.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config7.webp"
-            srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div><div class="img-wrapper"><figure><a class="lightgallery" href="/assets/images/2022/08/dataflow_config9.webp" title="configuration" data-thumbnail="/assets/images/2022/08/dataflow_config9.webp">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2022/08/dataflow_config9.webp"
-            srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
-            sizes="auto"
-            alt="configuration">
-    </a></figure></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config2.webp"
+        srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config10.webp"
+        srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config8.webp"
+        srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config7.webp"
+        srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2022/08/dataflow_config9.webp"
+        srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
+        sizes="auto"
+        alt="configuration"
+        title="configuration" ></figure></div></div>
 
 <p>J&rsquo;ai pu également accéder aux logs.</p>
 <p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>

@@ -2,15 +2,14 @@
                 <img src="/assets/images/2020/10/gartner_hype_cycle.svg_.png" referrerpolicy="no-referrer">
             </div><p>Depuis quelques années, <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (K8S) et <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">son écosystème</a> deviennent l&rsquo;environnement d&rsquo; exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D&rsquo;autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d&rsquo;une telle plateforme.<br>
 Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas <a href="https://fr.wikipedia.org/wiki/Cycle_du_hype" target="_blank" rel="noopener noreferrer">au cycle du hype</a> et à la fameuse courbe du Gartner.</p>
-<div id="id-1"><figure><a class="lightgallery" href="/assets/images/2020/10/gartner_hype_cycle.svg_.png" title="cycle hype" data-thumbnail="/assets/images/2020/10/gartner_hype_cycle.svg_.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/10/gartner_hype_cycle.svg_.png"
-            srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png, /assets/images/2020/10/gartner_hype_cycle.svg_.png 1.5x, /assets/images/2020/10/gartner_hype_cycle.svg_.png 2x"
-            sizes="auto"
-            alt="cycle hype">
-    </a></figure></div>
+<div id="id-1"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/10/gartner_hype_cycle.svg_.png"
+        srcset="/assets/images/2020/10/gartner_hype_cycle.svg_.png, /assets/images/2020/10/gartner_hype_cycle.svg_.png 1.5x, /assets/images/2020/10/gartner_hype_cycle.svg_.png 2x"
+        sizes="auto"
+        alt="cycle hype"
+        title="cycle hype" ></figure></div>
 <p>Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.<br>
 Bien évidemment, ce n&rsquo;est que mon avis, j&rsquo;ai sans doute omis certaines informations qui pourraient être indispensables pour d&rsquo; autres.</p>
 <h2 id="pourquoi-et-dans-quelles-conditions-il-ne-faut-pas-utiliser-k8s-" class="headerLink">
@@ -70,15 +69,14 @@ La contrainte que l&rsquo;on peut voir à cette fonctionnalité et qu&rsquo;on n
 </span></span></span></code></pre></td></tr></table>
 </div>
 </div><h3 id="linfrastructure-as-code" class="headerLink">
-    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-2"><figure><a class="lightgallery" href="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png" title="infrastructure as code" data-thumbnail="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png">
-        <img
-            
-            loading="lazy"
-            src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png"
-            srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 1.5x, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 2x"
-            sizes="auto"
-            alt="infrastructure as code">
-    </a></figure></div>
+    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-2"><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png"
+        srcset="/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 1.5x, /assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png 2x"
+        sizes="auto"
+        alt="infrastructure as code"
+        title="infrastructure as code" ></figure></div>
 <p>Quand on pense à Kubernetes, et au cloud, on ne pense pas trop à l&rsquo;<a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">Infrastructure As Code</a> au début. Cependant, cette pratique est pour moi l&rsquo;une des plus utiles.</p>
 <p>En effet, avoir votre système décrit dans des fichiers, versionnés vous permet de le tester dès le développement. Ça évite ( dans la majorité des cas ) les erreurs lors des installations d&rsquo;environnement. La mise à jour des logiciels est largement accélérée.</p>
 <p>Bien évidemment, il existe <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> et <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> pour le provisionning des environnements. Ici je trouve qu&rsquo;on pousse le concept encore plus loin. L&rsquo;automatisation est à mon avis poussé à paroxysme.<br>
