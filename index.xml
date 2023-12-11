@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>http://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="http://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>http://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>Just out of curiosity, I <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">downloaded and sat up Rancher Desktop on my laptop</a>.</p>
 <p>I daily use <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a> on top of <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> using <em>home made mechanism/tooling</em>
@@ -66,7 +66,7 @@ This issue is well-documented in <a href="https://github.com/rancher-sandbox/ran
 </div><p>This option tells Docker to attach to the container&rsquo;s standard input, allowing you to see the output directly in your console.</p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>I hope this article has been helpful for you, and you&rsquo;re now ready to <em>supercharge</em> your development workflow with Rancher Desktop and Docker!</p>
-]]></description></item><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Streamline Java Application Deployment: Pack, Ship, and Unlock Distributed Tracing with Elastic APM on Kubernetes</title><link>https://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</link><pubDate>Wed, 01 Nov 2023 08:00:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/01/pack-ship-java-deployment-distributed-tracing-elasticapm/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/10/claudio-schwarz-q8kR_ie6WnI-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>In <a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">my last article</a>, I dug into <a href="https://www.w3.org/TR/trace-context/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a> and exposed how to enable it in Java applications.
 We didn&rsquo;t see yet how to deploy an application on Kubernetes and get distributed tracing insights.
@@ -279,7 +279,7 @@ You probably noticed I use an emptyDir to deploy the Java agent.
 <em>Normally</em> it will not be a big deal, but I advise you to check this usage with your Kubernetes SRE/Ops/Administrator first.</p>
 <p>Anyway, I think it is worth it and the tradeoffs are more than acceptable because this approach are, in my opinion, more flexible than the first one.</p>
 <p>Hope this helps!</p>
-]]></description></item><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</title><link>https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</link><pubDate>Tue, 05 Sep 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/09/nick-fewings-4dI5OP2Ee64-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-1"><em>Picture Credit: <a href="https://unsplash.com/@jannerboy62" target="_blank" rel="noopener noreferrer">Nick FEWINGS</a></em></div>
 <h2 id="introduction" class="headerLink">
@@ -1125,7 +1125,7 @@ It can be easily reproduced <a href="https://opentelemetry.io/docs/instrumentati
 <p>I have not made any benchmark of Distributed Tracing solutions.
 However, for a <em>real life</em> production setup, I would dive into Grafana and Tempo and check their features.
 I am particularly interested in mixing logs, traces to orchestrate efficient alerting mechanisms.</p>
-]]></description></item><item><title>Moving on to Fish shell (and beyond)</title><link>http://blog.touret.info/2023/07/21/fish-shell/</link><pubDate>Fri, 21 Jul 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/07/21/fish-shell/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Moving on to Fish shell (and beyond)</title><link>https://blog.touret.info/2023/07/21/fish-shell/</link><pubDate>Fri, 21 Jul 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/07/21/fish-shell/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/07/jakub-kapusnak-vLQzopDRSNI-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>While chatting with one of <a href="https://twitter.com/foxlegend" target="_blank" rel="noopener noreferrer">my WL colleague</a>, I stumbled upon <a href="https://fishshell.com/" target="_blank" rel="noopener noreferrer">Fish shell</a>.
 I immediately liked its autocompletion and extensibility mechanisms.
@@ -1261,7 +1261,7 @@ Installing Fisher broke my setup.</p>
     <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>I can now use FISH for my daily job.
 As I said first, this article is only a reminder for my next setups (aka when I will broke my GNU/Linux boxes and try to restore them).</p>
 <p>Hope it will help you!</p>
-]]></description></item><item><title>Real life Rest API Versioning for dummies</title><link>http://blog.touret.info/2023/03/27/rest-api-versioning/</link><pubDate>Mon, 27 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/03/27/rest-api-versioning/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Real life Rest API Versioning for dummies</title><link>https://blog.touret.info/2023/03/27/rest-api-versioning/</link><pubDate>Mon, 27 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/03/27/rest-api-versioning/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/03/vardan-papikyan-DnXqvmS0eXM-unsplash.webp" referrerpolicy="no-referrer">
             </div><h2 id="once-upon-a-time-an-api-" class="headerLink">
     <a href="#once-upon-a-time-an-api-" class="header-mark"></a>1 Once upon a time an API &hellip;</h2><div class="details admonition quote open">
@@ -1559,7 +1559,7 @@ To sum up, you need to ask yourself these questions:</p>
 </ul>
 <p>After coping with all these points, if you must implement API versioning, you would need to onboard all the different stakeholders, not just developers, to be sure your whole development and delivery process is well aligned with practice.</p>
 <p>And I forgot: <em>Good luck!</em></p>
-]]></description></item><item><title>Migrer un site Jekyll sur Hugo</title><link>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</link><pubDate>Fri, 03 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Migrer un site Jekyll sur Hugo</title><link>https://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</link><pubDate>Fri, 03 Mar 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/03/03/migrer-un-site-jekyll-sur-hugo/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/03/artiom-vallat-wKqm1UQMRqA-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>Il y a deux ans déjà, j&rsquo;ai migré <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon site Wordpress sur un site statique hébergé sur Github Pages</a>.
 Ce dernier était basé sur <a href="https://www.ruby-lang.org/en/documentation/" target="_blank" rel="noopener noreferrer">Ruby</a>, <a href="https://www.ruby-lang.org/en/documentation/" target="_blank" rel="noopener noreferrer">Jekyll</a> et <a href="https://mmistakes.github.io/minimal-mistakes/" target="_blank" rel="noopener noreferrer">Minimal mistakes</a>.</p>
@@ -1739,7 +1739,7 @@ Voici la configuration:</p>
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Vous aurez bien compris que ma motivation principale derrière cette migration était d&rsquo; avoir un support multi langue un peu sympa.
 Vous avez dans cet article les principales actions que j&rsquo;ai réalisé.</p>
 <p>N&rsquo;hésitez pas à regarder <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/config.toml" target="_blank" rel="noopener noreferrer">la configuration</a> et <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/tree/main/content/posts" target="_blank" rel="noopener noreferrer">les articles</a> pour plus de détails.</p>
-]]></description></item><item><title>2022 en quelques chiffres</title><link>http://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>2022 en quelques chiffres</title><link>https://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
             </div><p><em>You can read the English version below</em></p>
 <h2 id="2022-en-quelques-mots" class="headerLink">
@@ -1786,7 +1786,7 @@ I already have ideas for the next year. I hope communicating about it shortly.</
 </li>
 </ol>
 </div>
-]]></description></item><item><title>Migrer son application Spring Boot vers la version 3</title><link>http://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Migrer son application Spring Boot vers la version 3</title><link>https://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/spring.webp" referrerpolicy="no-referrer">
             </div><p>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.</p>
 <p>Je suis actuellement en cours de préparation d&rsquo;un workshop pour <a href="https://snowcamp.io/fr/" target="_blank" rel="noopener noreferrer">l&rsquo;édition 2023 de SnowcampIO</a>.
@@ -2001,7 +2001,7 @@ Je pense que la version précédente de Spring était plus permissive sur l&rsqu
 Certaines actions et contournements peuvent prendre du temps (ex. javax &ndash;&gt; jakarta).</p>
 <p>Enfin, je vous conseille d&rsquo;attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour <em>&ldquo;de vrai&rdquo;</em>.
 Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d&rsquo;attendre que les premiers correctifs soient publiés avant de vous lancer.</p>
-]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>http://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>https://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/10/devoxx_badge.webp" referrerpolicy="no-referrer">
             </div><p>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, <a href="https://www.devoxx.be" target="_blank" rel="noopener noreferrer">Devoxx Belgium</a> était de retour à Anvers.
 Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.</p>
@@ -2106,7 +2106,7 @@ Cette première participation était très enrichissante. J&rsquo;ai eu à plusi
 </li>
 </ol>
 </div>
-]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>http://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>http://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
+]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
 <div id="id-1"><figure><img
