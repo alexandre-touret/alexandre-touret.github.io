@@ -1,61 +1,54 @@
 ---
-title: 2023 Wrap up
+title: Reflecting on 2023
 date: 2023-12-20 08:00:00
-
 images: ["/assets/images/2022/12/review.webp"]
 featuredImagePreview: /assets/images/2022/12/review.webp
 featuredImage: /assets/images/2022/12/review.webp
-
 og_image: /assets/images/2022/12/review.webp
-
 tags:
-- wrap up
-
+  - wrap up
 ---
-## 2023 in few words
-2024 is coming.
-It is time to review 2023 in a professional point of view.
 
-I have been carrying on working on both a customer project and on behalf of the Worldline TechRel[^1] initiative. 
+## 2023 in a Nutshell
+As we approach 2024, it’s time to cast a professional eye back on 2023.
 
-Among other things, I feel lucky to have participated as a speaker to:
-* 6 tech conferences
-* 3 meetups
-* 1 online presentation (i.e., BBL) for ABBEAL
+Throughout the year, I've balanced work on a customer project alongside my contributions to the Worldline TechRel[^1] initiative. Each involvement has fueled the other, offering a reciprocal flow of inspiration. Involvement in real-life projects has often sparked new ideas for talks and topics to delve into. In turn, my experiences in Dev Rel have offered fresh perspectives and external feedback, enriching the implementation process.
 
-Unlike last year, It happened to me to present two talks or one talk and one workshop at the same conference.
-It was tricky, exhausting but exciting at once!
+Highlights of my speaking engagements this year include:
+- 6 tech conferences
+- 4 meetups
+- A Worldline tech event in Barcelona
+- An online presentation (i.e., [BBL](http://www.brownbaglunch.fr/)) for [ABBEAL](https://www.abbeal.com/)
 
-I therefore presented as many talks as in 2022.
+This year, unlike the previous one, I found myself presenting two talks or a talk and a workshop at the same conference—a challenging but exciting experience! Consequently, I delivered a similar number of talks compared to 2022.
 
-I proposed this year three main topics:
-* [Rest API Versioning](https://www.youtube.com/watch?v=m8DbVbMDe2w)
-* [The Hitchhiker's guide to software architecture design](https://youtu.be/vxwqD3KwdEY?si=n7L4p0USvdADFuct)
-* [The architecture katas](https://youtu.be/xLhb3mvweDI)
+My primary topics this year included:
+- [Rest API Versioning](https://www.youtube.com/watch?v=m8DbVbMDe2w)
+- [The Hitchhiker's Guide to Software Architecture Design](https://youtu.be/vxwqD3KwdEY?si=n7L4p0USvdADFuct)
+- [The Architecture Katas](https://youtu.be/xLhb3mvweDI)
 
-I furthermore was also part of the last [JChateau Edition](http://jchateau.org/). 
-It was my first time attending an "unconference".
-I was a blast! 
+Notably, I co-presented the second talk with my colleague [Raphaël Semeteys](https://fr.linkedin.com/in/raphaelsemeteys), extending my collaborative speaking initiatives that commenced in 2022 with [Jean-François James](https://fr.linkedin.com/in/jefrajames) (I shared [the stage with him at LyonJUG](https://lyonjug.org/2023/02/21/architecture-katas-and-microservices.html)). 
+This collaborative process has been immensely rewarding, and I intend to explore more partnerships in the future.
 
-I met and chatted on various topics with many interesting and inspiring people such as [Jean-Michel Doudoux](https://www.linkedin.com/in/jmdoudoux/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D), [Andres Almirez](https://www.linkedin.com/in/aalmiray/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D) or [José Paumard](https://www.linkedin.com/in/jos%C3%A9-paumard-2458ba5/).
+Moreover, I participated in the recent [JChateau Edition](http://jchateau.org/), my initiation into the world of "unconferences" ([JunConf](https://www.junconf.org/))—an incredibly enriching experience! Interacting with inspiring individuals like [Jean-Michel Doudoux](https://www.linkedin.com/in/jmdoudoux/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D), [Andres Almirez](https://www.linkedin.com/in/aalmiray/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D), and [José Paumard](https://www.linkedin.com/in/jos%C3%A9-paumard-2458ba5/) was truly inspiring.
 
-I also wrote 6 articles on [my blog](https://blog.touret.info/) and 1 on the [Worldline engineering blog](https://blog.worldline.tech/authors/#alexandre-touret).
+During the year, I released six articles on [my blog](https://blog.touret.info/) and one on the [Worldline engineering blog](https://blog.worldline.tech/authors/#alexandre-touret).
 
-Thank you to my employer for giving me this opportunity and the organisers for their trust and their hospitality. I'm pretty sure you will recognise yourselves.
-Thanks then to who helped me in my speaker journey.
+I express my gratitude to my employer for the continued opportunities and to the organizers for their unwavering trust and hospitality. Your support has been instrumental in my journey.
 
-## And now, something completely different?
+The Worldline TechRel initiative has been instrumental in exploring new topics and facilitating collaborations with colleagues. 
+It has enabled me to share, gather feedback on submissions, and conduct live rehearsals.
 
-On behalf of the [^2]Worldline tech rel initiative, I had the chance to meet great people and move forward in some technical domains. Drawing up and submitting a talk about a technical topic requires you to dig into it and be proficient on it.
-I already have ideas for the next year.
-I will start with a bang because I will hold a workshop at NDC London in late January and present a new talk with my colleague Philippe Duval at [Touraine Tech](https://touraine.tech)
+Heartfelt thanks to all who have supported me along this journey!
 
-Best wishes for the new year eve and if you come across this article in 2024: Happy new year!!
+## What Lies Ahead?
 
+Through the [^2]Worldline TechRel initiative, I've had the privilege of meeting exceptional individuals and advancing in various technical domains. Crafting and presenting talks on technical subjects demand in-depth knowledge, and this has already sparked ideas for the upcoming year.
 
-[^1]: c'est comme des dev rel mais on essaye d'inclure au delà des devs (ex. les OPS, SRE).
-[^2]: It is just like dev rel, but we would like to include all the tech crew (e.g., OPS & SRE)
+Kicking off the new year with a bang, I am thrilled to announce a workshop at NDC London in late January ([details here](https://ndclondon.com/agenda/rest-apis-versioning-hands-on-0ah8/0srvy242ytv)). Additionally, I will be co-presenting a new talk with [my colleague Philippe Duval](malkav30.gitlab.io/) at [Touraine Tech](https://touraine.tech).
 
+Wishing everyone a fantastic New Year's Eve, and if you come across this article in 2024: Happy New Year!!
 
-
+[^1]: It’s akin to Dev Rel but aims to include a broader tech community encompassing OPS, SRE, etc.
+[^2]: Similar to Dev Rel, but aspires to involve all tech crew members (e.g., OPS & SRE).
 
