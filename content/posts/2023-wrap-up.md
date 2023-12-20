@@ -40,7 +40,7 @@ During the year, I released six articles on [my blog](https://blog.touret.info/)
 I express my gratitude to my employer for the continued opportunities and to the organizers for their unwavering trust and hospitality. Your support has been instrumental in my journey.
 
 The Worldline TechRel initiative has been instrumental in exploring new topics and facilitating collaborations with colleagues. 
-It has enabled me to share, gather feedback on submissions, and conduct live rehearsals.
+It has enabled me to share, gather feedback on submissions, and conduct live rehearsals (Thanks [Marie-Alice Blete](https://mariealiceblete.com/) & [Philippe Vincent](https://www.linkedin.com/in/philippe-vincent-732a3217/) and the others).
 
 Heartfelt thanks to all who have supported me along this journey!
 
