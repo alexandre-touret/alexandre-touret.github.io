@@ -28,7 +28,10 @@ My primary topics this year included:
 - [The Architecture Katas](https://youtu.be/xLhb3mvweDI)
 
 Notably, I co-presented the second talk with my colleague [Raphaël Semeteys](https://fr.linkedin.com/in/raphaelsemeteys), extending my collaborative speaking initiatives that commenced in 2022 with [Jean-François James](https://fr.linkedin.com/in/jefrajames) (I shared [the stage with him at LyonJUG](https://lyonjug.org/2023/02/21/architecture-katas-and-microservices.html)). 
-This collaborative process has been immensely rewarding, and I intend to explore more partnerships in the future.
+This collaborative process has been immensely rewarding. It helps me push me beyond my comfort zone, enabling me to approach various topics from a fresh perspective.
+A prime example was our exploration of discussing software architecture in a more light-hearted and unconventional manner, which initially seemed improbable to me.
+
+In fact, I intend to explore more partnerships in the future.
 
 Moreover, I participated in the recent [JChateau Edition](http://jchateau.org/), my initiation into the world of "unconferences" ([JunConf](https://www.junconf.org/))—an incredibly enriching experience! Interacting with inspiring individuals like [Jean-Michel Doudoux](https://www.linkedin.com/in/jmdoudoux/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D), [Andres Almirez](https://www.linkedin.com/in/aalmiray/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D), and [José Paumard](https://www.linkedin.com/in/jos%C3%A9-paumard-2458ba5/) was truly inspiring.
 
