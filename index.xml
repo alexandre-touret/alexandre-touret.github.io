@@ -1,4 +1,46 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 20 Dec 2023 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Reflecting on 2023</title><link>https://blog.touret.info/2023/12/20/2023-wrap-up/</link><pubDate>Wed, 20 Dec 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/12/20/2023-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
+            </div><h2 id="2023-in-a-nutshell" class="headerLink">
+    <a href="#2023-in-a-nutshell" class="header-mark"></a>1 2023 in a Nutshell</h2><p>As we approach 2024, it’s time to cast a professional eye back on 2023.</p>
+<p>Throughout the year, I&rsquo;ve balanced work on a customer project alongside my contributions to the Worldline TechRel<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup> initiative. Each involvement has fueled the other, offering a reciprocal flow of inspiration. Involvement in real-life projects has often sparked new ideas for talks and topics to delve into. In turn, my experiences in Dev Rel have offered fresh perspectives and external feedback, enriching the implementation process.</p>
+<p>Highlights of my speaking engagements this year include:</p>
+<ul>
+<li>6 tech conferences</li>
+<li>4 meetups</li>
+<li>A Worldline tech event in Barcelona</li>
+<li>An online presentation (i.e., <a href="http://www.brownbaglunch.fr/" target="_blank" rel="noopener noreferrer">BBL</a>) for <a href="https://www.abbeal.com/" target="_blank" rel="noopener noreferrer">ABBEAL</a></li>
+</ul>
+<p>This year, unlike the previous one, I found myself presenting two talks or a talk and a workshop at the same conference—a challenging but exciting experience! Consequently, I delivered a similar number of talks compared to 2022.</p>
+<p>My primary topics this year included:</p>
+<ul>
+<li><a href="https://www.youtube.com/watch?v=m8DbVbMDe2w" target="_blank" rel="noopener noreferrer">Rest API Versioning</a></li>
+<li><a href="https://youtu.be/vxwqD3KwdEY?si=n7L4p0USvdADFuct" target="_blank" rel="noopener noreferrer">The Hitchhiker&rsquo;s Guide to Software Architecture Design</a></li>
+<li><a href="https://youtu.be/xLhb3mvweDI" target="_blank" rel="noopener noreferrer">The Architecture Katas</a></li>
+</ul>
+<p>Notably, I co-presented the second talk with my colleague <a href="https://fr.linkedin.com/in/raphaelsemeteys" target="_blank" rel="noopener noreferrer">Raphaël Semeteys</a>, extending my collaborative speaking initiatives that commenced in 2022 with <a href="https://fr.linkedin.com/in/jefrajames" target="_blank" rel="noopener noreferrer">Jean-François James</a> (I shared <a href="https://lyonjug.org/2023/02/21/architecture-katas-and-microservices.html" target="_blank" rel="noopener noreferrer">the stage with him at LyonJUG</a>).
+This collaborative process has been immensely rewarding, and I intend to explore more partnerships in the future.</p>
+<p>Moreover, I participated in the recent <a href="http://jchateau.org/" target="_blank" rel="noopener noreferrer">JChateau Edition</a>, my initiation into the world of &ldquo;unconferences&rdquo; (<a href="https://www.junconf.org/" target="_blank" rel="noopener noreferrer">JunConf</a>)—an incredibly enriching experience! Interacting with inspiring individuals like <a href="https://www.linkedin.com/in/jmdoudoux/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D" target="_blank" rel="noopener noreferrer">Jean-Michel Doudoux</a>, <a href="https://www.linkedin.com/in/aalmiray/?lipi=urn%3Ali%3Apage%3Ad_flagship3_people_connections%3Bb0ogWmkZSA%2BqSqaqCW4rDw%3D%3D" target="_blank" rel="noopener noreferrer">Andres Almirez</a>, and <a href="https://www.linkedin.com/in/jos%C3%A9-paumard-2458ba5/" target="_blank" rel="noopener noreferrer">José Paumard</a> was truly inspiring.</p>
+<p>During the year, I released six articles on <a href="https://blog.touret.info/" target="_blank" rel="noopener noreferrer">my blog</a> and one on the <a href="https://blog.worldline.tech/authors/#alexandre-touret" target="_blank" rel="noopener noreferrer">Worldline engineering blog</a>.</p>
+<p>I express my gratitude to my employer for the continued opportunities and to the organizers for their unwavering trust and hospitality. Your support has been instrumental in my journey.</p>
+<p>The Worldline TechRel initiative has been instrumental in exploring new topics and facilitating collaborations with colleagues.
+It has enabled me to share, gather feedback on submissions, and conduct live rehearsals.</p>
+<p>Heartfelt thanks to all who have supported me along this journey!</p>
+<h2 id="what-lies-ahead" class="headerLink">
+    <a href="#what-lies-ahead" class="header-mark"></a>2 What Lies Ahead?</h2><p>Through the <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup>Worldline TechRel initiative, I&rsquo;ve had the privilege of meeting exceptional individuals and advancing in various technical domains. Crafting and presenting talks on technical subjects demand in-depth knowledge, and this has already sparked ideas for the upcoming year.</p>
+<p>Kicking off the new year with a bang, I am thrilled to announce a workshop at NDC London in late January (<a href="https://ndclondon.com/agenda/rest-apis-versioning-hands-on-0ah8/0srvy242ytv" target="_blank" rel="noopener noreferrer">details here</a>). Additionally, I will be co-presenting a new talk with <a href="malkav30.gitlab.io/" rel="">my colleague Philippe Duval</a> at <a href="https://touraine.tech" target="_blank" rel="noopener noreferrer">Touraine Tech</a>.</p>
+<p>Wishing everyone a fantastic New Year&rsquo;s Eve, and if you come across this article in 2024: Happy New Year!!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>It’s akin to Dev Rel but aims to include a broader tech community encompassing OPS, SRE, etc.&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+<li id="fn:2">
+<p>Similar to Dev Rel, but aspires to involve all tech crew members (e.g., OPS &amp; SRE).&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>Just out of curiosity, I <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">downloaded and sat up Rancher Desktop on my laptop</a>.</p>
 <p>I daily use <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a> on top of <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> using <em>home made mechanism/tooling</em>
@@ -2103,440 +2145,6 @@ Cette première participation était très enrichissante. J&rsquo;ai eu à plusi
 <ol>
 <li id="fn:1">
 <p><a href="https://www.imdb.com/title/tt0250223/characters/nm0046347" target="_blank" rel="noopener noreferrer"><em>Vous savez, moi je ne crois pas qu&rsquo;il y aient de bonnes ou mauvaises conférences. Moi, si je devais résumer ma vie aujourd’hui avec vous, je dirais que c’est d’abord des rencontres, des gens qui m’ont tendu la main&hellip;</em></a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
-]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
-            </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-1"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
-        srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
-        sizes="auto"
-        alt="dataflow"
-        title="dataflow" ></figure></div>
-<p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
-Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
-Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
-J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-2"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/luke_cage.webp"
-        srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
-        sizes="auto"
-        alt="dataflow"
-        title="dataflow" ></figure></div>
-<p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
-Loin de là.</p>
-<p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
-Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-3"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/spring_dataflow_logo.webp"
-        srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
-        sizes="auto"
-        alt="dataflow"
-        title="dataflow" ></figure></div>
-<p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
-L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
-Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
-<p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener noreferrer">Minikube</a>.</p>
-<h2 id="installation-et-configuration-de-minikube" class="headerLink">
-    <a href="#installation-et-configuration-de-minikube" class="header-mark"></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener noreferrer">le site officiel</a>.</p>
-<p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-</span></span><span class="line"><span class="cl">sudo install minikube-linux-amd64 /usr/local/bin/minikube
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Au premier démarrage, vous finirez l&rsquo;installation</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube start
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="installation-de-spring-cloud-data-flow" class="headerLink">
-    <a href="#installation-de-spring-cloud-data-flow" class="header-mark"></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">helm repo add bitnami https://charts.bitnami.com/bitnami
-</span></span><span class="line"><span class="cl">helm install my-release bitnami/spring-cloud-dataflow
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Après quelques minutes de téléchargement, vous devriez avoir le retour suivante à l&rsquo;exécution de la commande <code>kubectl get pods</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">~ » kubectl get pods                                                                           
-</span></span><span class="line"><span class="cl">NAME  READY   STATUS             RESTARTS      AGE
-</span></span><span class="line"><span class="cl">dataflow-mariadb-0  1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
-</span></span><span class="line"><span class="cl">dataflow-rabbitmq-0 1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
-</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-server-75db59d6cb-lrwp8   1/1 Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
-</span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="accès-au-dashboard" class="headerLink">
-    <a href="#acc%c3%a8s-au-dashboard" class="header-mark"></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href="https://cloud.spring.io/spring-cloud-dataflow-ui/" target="_blank" rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">export</span> <span class="nv">SERVICE_PORT</span><span class="o">=</span><span class="k">$(</span>kubectl get --namespace default -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s2">&#34;{.spec.ports[0].port}&#34;</span> services dataflow-spring-cloud-dataflow-server<span class="k">)</span>
-</span></span><span class="line"><span class="cl">kubectl port-forward --namespace default svc/dataflow-spring-cloud-dataflow-server <span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>:<span class="si">${</span><span class="nv">SERVICE_PORT</span><span class="si">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Ensuite, vous pourrez accéder à la console web via l&rsquo;URL <code>http://localhost:8080/dashboard</code>.</p>
-<h2 id="développement-dune-task" class="headerLink">
-    <a href="#d%c3%a9veloppement-dune-task" class="header-mark"></a>2 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
-Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" target="_blank" rel="noopener noreferrer">https://api.nationalize.io/</a>.</p>
-<p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p>
-<p>Vous trouverez les sources de cet exemple sur <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">mon Github</a>.</p>
-<p>Aussi, la documentation est bien faite, il suffit de <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/" target="_blank" rel="noopener noreferrer">la lire</a>.</p>
-<h3 id="initialisation" class="headerLink">
-    <a href="#initialisation" class="header-mark"></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-web&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.cloud:spring-cloud-starter-task&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">developmentOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-devtools&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">testImplementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-test&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-jdbc&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">runtimeOnly</span> <span class="s1">&#39;org.mariadb.jdbc:mariadb-java-client&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dependencyManagement</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">imports</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mavenBom</span> <span class="s2">&#34;org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p>
-<h3 id="construction-de-la-tâche" class="headerLink">
-    <a href="#construction-de-la-t%c3%a2che" class="header-mark"></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableTask</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TaskConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">...</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span><span class="lnt">8
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">CommandLineRunner</span><span class="w"> </span><span class="nf">createCommandLineRunner</span><span class="p">(</span><span class="n">RestTemplate</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">args</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">commandLinePropertySource</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">SimpleCommandLinePropertySource</span><span class="p">(</span><span class="n">args</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">entity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">restTemplate</span><span class="p">.</span><span class="na">getForEntity</span><span class="p">(</span><span class="s">&#34;https://api.nationalize.io/?name=&#34;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">Optional</span><span class="p">.</span><span class="na">ofNullable</span><span class="p">(</span><span class="n">commandLinePropertySource</span><span class="p">.</span><span class="na">getProperty</span><span class="p">(</span><span class="s">&#34;name&#34;</span><span class="p">)).</span><span class="na">orElse</span><span class="p">(</span><span class="s">&#34;BLANK&#34;</span><span class="p">),</span><span class="w"> </span><span class="n">NationalizeResponseDTO</span><span class="p">.</span><span class="na">class</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;RESPONSE[{}]: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getStatusCode</span><span class="p">(),</span><span class="w"> </span><span class="n">entity</span><span class="p">.</span><span class="na">getBody</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">};</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p>
-<p>Voici un exemple d&rsquo;exécution :</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">2022-08-12 15:11:07.885  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span class="o">(</span>s<span class="o">)</span>: <span class="m">8080</span> <span class="o">(</span>http<span class="o">)</span> with context path <span class="s1">&#39;&#39;</span>
-</span></span><span class="line"><span class="cl">2022-08-12 15:11:07.894  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.b.cloudtask.CloudTaskApplication     : Started CloudTaskApplication in 17.704 seconds <span class="o">(</span>JVM running <span class="k">for</span> 19.18<span class="o">)</span>
-</span></span><span class="line"><span class="cl">2022-08-12 15:11:10.722  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class="o">[</span><span class="m">200</span> OK<span class="o">]</span>: NationalizeResponseDTO<span class="o">{</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Alexandre&#39;</span>, <span class="nv">countries</span><span class="o">=[</span>CountryDTO<span class="o">{</span><span class="nv">countryId</span><span class="o">=</span><span class="s1">&#39;BR&#39;</span>, pr....
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="packaging" class="headerLink">
-    <a href="#packaging" class="header-mark"></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew build
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h2 id="déploiement" class="headerLink">
-    <a href="#d%c3%a9ploiement" class="header-mark"></a>3 Déploiement</h2><h3 id="création-et-déploiement-de-limage-docker" class="headerLink">
-    <a href="#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker" class="header-mark"></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p>
-<p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">eval</span> <span class="k">$(</span>minikube docker-env<span class="k">)</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Ensuite, il nous reste à créer l&rsquo;image Docker</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">./gradlew bootBuildImage --imageName<span class="o">=</span>info.touret/cloud-task:latest
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">minikube image ls <span class="p">|</span> grep cloud-task                                                                                                                                                                          
-</span></span><span class="line"><span class="cl">info.touret/cloud-task:latest
-</span></span></code></pre></td></tr></table>
-</div>
-</div><h3 id="création-de-lapplication" class="headerLink">
-    <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
-<figure><img src="/assets/images/2022/08/dataflow_config5.webp"/>
-</figure>
-
-<p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
-<h3 id="création-de-la-tâche" class="headerLink">
-    <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
-<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config3.webp"
-        srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config4.webp"
-        srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div></div>
-
-Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
-<h2 id="exécution" class="headerLink">
-    <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
-Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config2.webp"
-        srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config10.webp"
-        srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config8.webp"
-        srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config7.webp"
-        srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/08/dataflow_config9.webp"
-        srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div></div>
-
-<p>J&rsquo;ai pu également accéder aux logs.</p>
-<p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">kubectl get pods <span class="p">|</span> grep cloud-task                                                                                                                                                                           
-</span></span><span class="line"><span class="cl">cloud-task-7mp72gzpwo                                    1/1     Running            <span class="m">0</span>               57m
-</span></span><span class="line"><span class="cl">cloud-task-pymdkr182p                                    1/1     Running            <span class="m">0</span>               65m
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>A chaque exécution il y aura donc un pod d&rsquo;alloué.</p>
-<h2 id="aller-plus-loin" class="headerLink">
-    <a href="#aller-plus-loin" class="header-mark"></a>5 Aller plus loin</h2><p>Parmi les fonctionnalités que j&rsquo;ai découvert, on peut :</p>
-<ul>
-<li>relancer un traitement</li>
-<li>le programmer</li>
-<li>nettoyer les exécutions</li>
-<li>les pistes d&rsquo;audit</li>
-<li>le chaînage des différentes tâches</li>
-</ul>
-<p>Gros inconvénient pour le nettoyage: je n&rsquo;ai pas constaté un impact dans les pods alloués.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
-Je vais donc utiliser la liste des caractéristiques présentée par <a href="https://fundamentalsofsoftwarearchitecture.com/" target="_blank" rel="noopener noreferrer">M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
-<p>Bien évidemment, cette notation est purement personnelle.
-Vous noterez que selon où on positionne le curseur, l&rsquo;une des deux solutions peut s&rsquo;avérer meilleure (ou pas).</p>
-<p>Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
-A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data.</p>
-<p>N&rsquo;hésitez pas à me donner votre avis (<a href="https://blog.touret.info/a-propos/" target="_blank" rel="noopener noreferrer">sans troller svp</a>) en commentaire ou si ça concerne l&rsquo;exemple, directement <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">dans Github</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Architecture characteristic</th>
-<th>K8s job rating</th>
-<th>Spring Cloud Dataflow rating</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Partitioning type</td>
-<td>Domain &amp; technical</td>
-<td>Domain &amp; technical</td>
-</tr>
-<tr>
-<td>Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
-<td>1</td>
-<td>1 to many</td>
-</tr>
-<tr>
-<td>Deployability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Elasticity</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Evolutionary</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Fault Tolerance</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Modularity</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Overall cost</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Performance</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Reliability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Scalability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Simplicity</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Testability</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-</tbody>
-</table>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p>A lire absolument!&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-<li id="fn:2">
-<p>~ Nombre de livrables indépendants fortement couplés&#160;<a href="#fnref:2" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
 </li>
 </ol>
 </div>
