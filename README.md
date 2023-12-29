@@ -1,4 +1,3 @@
-
 ## Status
 
 [![Build and deploy to GitHub Pages](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/gh-pages.yml/badge.svg?branch=main)](https://github.com/alexandre-touret/alexandre-touret.github.io/actions/workflows/gh-pages.yml)
