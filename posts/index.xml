@@ -1,4 +1,68 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 20 Dec 2023 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Reflecting on 2023</title><link>https://blog.touret.info/2023/12/20/2023-wrap-up/</link><pubDate>Wed, 20 Dec 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/12/20/2023-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 20 Dec 2023 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Comment coacher des jeunes développeurs ? The last blood</title><link>https://blog.touret.info/2019/09/11/comment-coacher-des-jeunes-developpeurs-the-last-blood/</link><pubDate>Wed, 11 Sep 2019 21:16:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2019/09/11/comment-coacher-des-jeunes-developpeurs-the-last-blood/</guid><description><![CDATA[<p>Après avoir soumis <a href="http://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/" target="_blank" rel="noopener noreferrer">mon article sur le coaching des développeur</a>s, je me suis rendu compte que j&rsquo;ai oublié pas mal de points qui, à bien y réfléchir, me paraissent essentiels.<br>
+Dans mon précédent article ( the first blood pour le coup ) je me suis attardé sur le « quoi » : toutes les actions que j&rsquo;ai testé dans l&rsquo;encadrement des jeunes développeurs et des développeurs en général.</p>
+<p>Maintenant, je vais essayer de m&rsquo;attarder sur le « comment » : ma démarche, la posture que l&rsquo;on doit adopter ( ce n&rsquo;est que mon ressenti ) etc.</p>
+<p>Je vais commencer par ce dernier point. Quand on est architecte, développeur sénior ou bien encore tech lead, on est amené à encadrer techniquement des développeurs.</p>
+<p>Vous pouvez adopter plusieurs postures:</p>
+<p><a class="lightgallery" href="/assets/images/2019/09/yoda.jpg" title="Moode Aaudio" data-thumbnail="/assets/images/2019/09/yoda.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/09/yoda.jpg"
+            srcset="/assets/images/2019/09/yoda.jpg, /assets/images/2019/09/yoda.jpg 1.5x, /assets/images/2019/09/yoda.jpg 2x"
+            sizes="auto"
+            alt="Moode Aaudio">
+    </a>
+<a class="lightgallery" href="/assets/images/2019/09/pascal_le_grand_frere.jpg" title="Moode Aaudio" data-thumbnail="/assets/images/2019/09/pascal_le_grand_frere.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/09/pascal_le_grand_frere.jpg"
+            srcset="/assets/images/2019/09/pascal_le_grand_frere.jpg, /assets/images/2019/09/pascal_le_grand_frere.jpg 1.5x, /assets/images/2019/09/pascal_le_grand_frere.jpg 2x"
+            sizes="auto"
+            alt="Moode Aaudio">
+    </a>
+<a class="lightgallery" href="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg" title="Moode Aaudio" data-thumbnail="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg"
+            srcset="/assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg, /assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg 1.5x, /assets/images/2019/09/capture-kubrick-756b3f-0401x.jpeg 2x"
+            sizes="auto"
+            alt="Moode Aaudio">
+    </a>
+<a class="lightgallery" href="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg" title="Moode Aaudio" data-thumbnail="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg"
+            srcset="/assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg, /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg 1.5x, /assets/images/2019/09/gandalf-lord-of-the-rings-e1534255368438.jpg 2x"
+            sizes="auto"
+            alt="Moode Aaudio">
+    </a>
+<a class="lightgallery" href="/assets/images/2019/09/bisounours.jpg" title="Moode Aaudio" data-thumbnail="/assets/images/2019/09/bisounours.jpg">
+        <img
+            
+            loading="lazy"
+            src="/assets/images/2019/09/bisounours.jpg"
+            srcset="/assets/images/2019/09/bisounours.jpg, /assets/images/2019/09/bisounours.jpg 1.5x, /assets/images/2019/09/bisounours.jpg 2x"
+            sizes="auto"
+            alt="Moode Aaudio">
+    </a></p>
+<p>A ce stade de lecture de cet article, vous vous dites, quelle est la bonne photo et donc la posture à adopter ?<br>
+A mon avis, elles sont à proscrire individuellement. Je pense qu&rsquo;il faut les panacher.</p>
+<p>Tout d&rsquo;abord, il faut se souvenir de notre début de carrière et se rappeler du code que l&rsquo;on a réalisé. J&rsquo;ai par exemple gardé les premiers programmes réalisés en entreprise ( Servlet, JSP, JAVA 1.2, des méthodes de 3km de long, de la duplication de code en veux tu en voila, …) . Ça me permet de relativiser, d&rsquo;être assez compréhensif et d&rsquo;éviter de prendre les gens de haut.</p>
+<p>Cependant, cette prise de conscience ne doit pas vous empêcher de faire progresser votre entourage et surtout de leur faire éviter les écueils que vous avez vécu. Les ateliers et documentation que vous pourrez leur transmettre sont donc primordiaux. Par exemple, faire lire <a href="https://g.co/kgs/Xes2A3" target="_blank" rel="noopener noreferrer">« Clean Code »</a> ou <a href="https://g.co/kgs/WL4qUH" target="_blank" rel="noopener noreferrer">« Effective Java »</a> aux développeurs – je ne l&rsquo;oblige pas mais incite fortement – est un moyen de leur faire gagner du temps dans leur apprentissage du code.</p>
+<p>Ensuite, même si vos <em>padawans</em> vous voient soit comme Pascal le grand frère ou maître Yoda (pour flatter mon égo), il ne faut pas oublier les exigences que vous avez fixé. L&rsquo;industrie logicielle a gagnée en maturité en favorisant par exemple l&rsquo;industrialisation via les outils de CI/CD ou bien encore en facilitant l&rsquo;application de principes de qualité via des outils d&rsquo;analyse des dépendances (<a href="https://docs.dependencytrack.org/" target="_blank" rel="noopener noreferrer">dependency track</a>) et du code (<a href="https://www.sonarqube.org/" target="_blank" rel="noopener noreferrer">sonarqube</a>). Vous devez vous adapter, favoriser l&rsquo;adoption de ces pratiques et imposer quelques étapes qualité de préférence automatisée via de la CI.</p>
+<p>Pour favoriser l&rsquo;adoption de toutes vos exigences, je conseille d&rsquo;y aller progressivement. Il ne faut pas oublier que votre objectif est de faire « grandir » vos collègues. Pour cela essayez de les adapter et les faire évoluer dans le temps.<br>
+Par exemple, pour les tests unitaires, commencez pas mettre en place les différents indicateurs qui vous permettront de mesurer la couverture de code. Ensuite, exigez un niveau de couverture de code (ex. 30%). Suivez le, via les quality gates SonarQube et enfin augmentez le progressivement : 30% , 40%,… Si vous commencez dès le début par un objectif trop haut, ce dernier paraîtra inatteignable et découragera tout le monde. Mieux vaut commencer volontairement très bas pour favoriser l&rsquo;adoption.</p>
+<p>Dans un autre domaine, pour <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/" target="_blank" rel="noopener noreferrer">vos workflows GIT</a>, vous pouvez commencer dans un premier temps par <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow" target="_blank" rel="noopener noreferrer">le workflow de feature branch</a>. Ce dernier posera les bases des pipelines CI, des merge requests et des bonnes pratiques liées à la gestion de configuration. Une fois tout le cérémonial lié à GIT assimilé par votre équipe, passer à <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank" rel="noopener noreferrer">GITFLOW</a> sera beaucoup simple.</p>
+<p>Bref, cette démarche revient à parler <a href="https://fr.wikipedia.org/wiki/Conduite_du_changement" target="_blank" rel="noopener noreferrer">de conduite du changement</a>. Il faut <strong>identifier vos exigences minimales</strong>. Celles-ci doivent être acceptées par votre hiérarchie <strong>ET</strong> par vos collègues. Sans ça vous échouerez!</p>
+<p>Si ils vous soumettent quelques idées ou adaptations, n&rsquo;hésitez pas à les incorporer. Ça peut faciliter l&rsquo;adoption!</p>
+<p>Ensuite, planifiez une progression sur 1 ou 2 ans. Cela donnera à vos collègues dans un premier temps des premiers objectifs atteignables puis une marge de progression leur permettant de s&rsquo;améliorer.</p>
+<p>Enfin, n&rsquo;hésitez pas à faire un bilan ( par ex. au bout d&rsquo;un projet ou après la première année ). Ou encore mieux, faites le faire par un de vos collègues pour avoir son ressenti. Cela mettra en exergue le chemin parcouru … et ce qu&rsquo;il reste à faire 🙂</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>1 Conclusion</h2><p>A mon avis le management et l&rsquo;encadrement de personnes n&rsquo;est pas à prendre à la légère. Votre attitude ainsi que la démarche que vous voulez mettre en œuvre feront autant voir plus que toute la documentation et formations que vous mettrez en place.</p>
+]]></description></item><item><title>Reflecting on 2023</title><link>https://blog.touret.info/2023/12/20/2023-wrap-up/</link><pubDate>Wed, 20 Dec 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/12/20/2023-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
             </div><h2 id="2023-in-a-nutshell" class="headerLink">
     <a href="#2023-in-a-nutshell" class="header-mark"></a>1 2023 in a Nutshell</h2><p>As we approach 2024, it’s time to cast a professional eye back on 2023.</p>

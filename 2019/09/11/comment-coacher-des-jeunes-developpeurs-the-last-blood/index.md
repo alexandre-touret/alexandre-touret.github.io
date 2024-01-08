@@ -1,4 +1,4 @@
-# Comment coacher des jeunes développeurs &#8211; The last blood
+# Comment coacher des jeunes développeurs ? The last blood
 
 Après avoir soumis [mon article sur le coaching des développeur](http://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/)s, je me suis rendu compte que j'ai oublié pas mal de points qui, à bien y réfléchir, me paraissent essentiels.  
 Dans mon précédent article ( the first blood pour le coup ) je me suis attardé sur le « quoi » : toutes les actions que j'ai testé dans l'encadrement des jeunes développeurs et des développeurs en général.
@@ -42,3 +42,4 @@ Enfin, n'hésitez pas à faire un bilan ( par ex. au bout d'un projet ou après 
 ## Conclusion
 
 A mon avis le management et l'encadrement de personnes n'est pas à prendre à la légère. Votre attitude ainsi que la démarche que vous voulez mettre en œuvre feront autant voir plus que toute la documentation et formations que vous mettrez en place.
+
