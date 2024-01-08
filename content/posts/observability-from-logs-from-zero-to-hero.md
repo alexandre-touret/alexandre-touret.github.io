@@ -13,18 +13,20 @@ tags:
 
 ## The sad reality
 
-Imagine, it's Friday afternoon.
-You're eager to enjoy your weekend when an Ops engineer forwards you a blocking issue with an HTTP 500 error.
+Picture this: it's Friday afternoon, and you're eagerly looking forward to unwinding for the weekend. 
+Suddenly, an Ops engineer alerts you about a critical issue—a stubborn HTTP 500 error that's causing a major roadblock.
 
-Unfortunately, he couldn't identify the root cause due to a lack of contextual information.
-After a few hours, you finally manage to identify it by reproducing and debugging it on your computer.
+Despite their efforts, the Ops engineer couldn't pinpoint the root cause due to a lack of contextual information.
+
+Hours pass by, but you take it upon yourself to delve into the problem. Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.
 
 Do you think it is science fiction?
 Are you used with such a scenario? 
 If yes, you probably didn't identify one of your end users and their main usage: Your Ops and the observability!
 
-I will first address in this article some of the best practices I gathered and applied through the years. 
-I then show you how to combine logs and traces to provide clearer insights of your platform and make OPS your best friends.
+In this article, I aim to share a collection of best practices gleaned from years of experience.
+I will then outline how to merge logs and traces to gain clearer insights into your platform's workings. 
+By doing so, you can transform your relationship with Ops teams, making them your invaluable allies in maintaining system health and performance.
 
 ## Logs, Traces & Monitoring
 
