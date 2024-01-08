@@ -18,10 +18,12 @@ Suddenly, an Ops engineer alerts you about a critical issue—a stubborn HTTP 50
 
 Despite their efforts, the Ops engineer couldn't pinpoint the root cause due to a lack of contextual information.
 
-Hours pass by, but you take it upon yourself to delve into the problem. Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.
+Hours pass by, but you take it upon yourself to delve into the problem. 
+Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.
 
 Do you think it is science fiction?
 Are you used with such a scenario? 
+
 If yes, you probably didn't identify one of your end users and their main usage: Your Ops and the observability!
 
 In this article, I aim to share a collection of best practices gleaned from years of experience.
