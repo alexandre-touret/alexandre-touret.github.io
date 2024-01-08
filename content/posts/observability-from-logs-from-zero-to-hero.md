@@ -26,7 +26,7 @@ If yes, you probably didn't identify one of your end users and their main usage:
 
 In this article, I aim to share a collection of best practices gleaned from years of experience.
 I will then outline how to merge logs and traces to gain clearer insights into your platform's workings. 
-By doing so, you can transform your relationship with Ops teams, making them your invaluable allies in maintaining system health and performance.
+By doing so, you can transform your relationship with Ops teams, making them your best friends.
 
 ## Logs, Traces & Monitoring
 
