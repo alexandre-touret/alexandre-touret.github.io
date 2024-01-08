@@ -30,7 +30,22 @@ In this article, I aim to share a collection of best practices gleaned from year
 I will then outline how to merge logs and traces to gain clearer insights into your platform's workings. 
 By doing so, you can transform your relationship with Ops teams, making them your best friends.
 
+## A definition of Observability
+Observability is the ability to understand the internal state of a complex system. 
+When a system is observable, a user can identify the root cause of a performance problem by examining the data it produces, without additional testing or coding.
+
+This is one of the ways in which quality of service issues can be addressed.
+
 ## Logs, Traces & Monitoring
+
+To make a system fully observable, the following abilities must be implemented:
+* Logs
+* Metrics
+* Traces
+
+They can be defined as follows:
+
+![monitoring](/assets/images/2024/01/image-2023-8-1_9-44-11.webp)
 
 ## Logs
 
