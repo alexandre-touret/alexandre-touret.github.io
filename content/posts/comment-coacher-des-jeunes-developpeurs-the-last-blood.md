@@ -1,6 +1,6 @@
 ---
 id: 201
-title: 'Comment coacher des jeunes développeurs &#8211; The last blood'
+title: 'Comment coacher des jeunes développeurs ? The last blood'
 date: 2019-09-11T21:16:44+02:00
 
 gallery:
