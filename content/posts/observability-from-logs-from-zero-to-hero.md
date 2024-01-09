@@ -26,6 +26,13 @@ Are you used with such a scenario?
 
 If yes, you probably didn't identify one of your end users and their main usage: Your Ops and the observability!
 
+I already talked about observability. 
+Here are a bunch of articles I wrote on this blog or on the Worldline Tech Blog:
+
+* [Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/)
+* [Observabilité et Circuit Breaker avec Spring](https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/)
+* [Enabling distributed tracing on your microservices Spring app using Jaeger and OpenTracing](https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html)
+
 In this article, I aim to share a collection of best practices gleaned from years of experience.
 I will then outline how to merge logs and traces to gain clearer insights into your platform's workings. 
 By doing so, you can transform your relationship with Ops teams, making them your best friends.
