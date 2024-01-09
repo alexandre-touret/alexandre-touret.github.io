@@ -148,7 +148,9 @@ and create a [``logback-spring.xml``](https://github.com/alexandre-touret/observ
 
 _Et voilà!_
 
-Now if you
+After restarting your application, you can now get logs browsing Grafana reaching this URL : [http://localhost:3000/d/b23f3e4d-220d-49b1-86b0-81e6fbd334bd/loki?orgId=1&showCategory=Panel+links&from=1704785706842&to=1704807306842].
+
+Now you will put a log to indicate an exception has been thrown giving some contextual information:
 
 ## Traces
 
