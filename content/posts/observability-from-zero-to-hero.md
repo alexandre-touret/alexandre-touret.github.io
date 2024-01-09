@@ -1,5 +1,5 @@
 ---
-title: "Observability From Zero to Hero"
+title: "Observability From Zero to Hero with the Grafana stack"
 date: 2024-01-08T15:05:43+01:00
 draft: true
   
@@ -34,10 +34,10 @@ Here are a bunch of articles I wrote on this blog or on the Worldline Tech Blog:
 * [Enabling distributed tracing on your microservices Spring app using Jaeger and OpenTracing](https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html)
 
 In this article, I aim to share a collection of best practices gleaned from years of experience.
-I will then outline how to merge logs and traces to gain clearer insights into your platform's workings. 
+I will then outline how to merge logs and traces on the Grafana Stack to gain clearer insights into your platform's workings. 
 By doing so, you can transform your relationship with Ops teams, making them your best friends.
 
-// TODO GITHUB
+The examples provided in this article come from [this project hosted on Github](https://github.com/alexandre-touret/observability-from-zero-to-hero).
 
 ## A definition of Observability
 Observability is the ability to understand the internal state of a complex system. 
@@ -45,9 +45,30 @@ When a system is observable, a user can identify the root cause of a performance
 
 This is one of the ways in which quality of service issues can be addressed.
 
+## A short presentation of the Grafana stack
+
+This stack aims at a cockpit dashboard of your platforms.
+Through different tools, the [Grafana stack](https://grafana.com/oss/) provides all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.   
+
+In this article, I will particularly focus on:
+* [Grafana](https://grafana.com/oss/grafana/): The dashboard engine
+* [Loki](https://grafana.com/oss/loki/): The log storage engine
+* [Mimir](https://grafana.com/oss/mimir/): The TSDB metrics storage engine
+* [Tempo](https://grafana.com/oss/tempo/): The trace storage engine
+
+I create a [Docker Compose stack to run it on your desktop](https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker).
+
+You can run it as following:
+
+```bash
+cd docker
+docker compose up
+```
+
+
 ## Logs, Traces & Monitoring
 
-To make a system fully observable, the following abilities must be implemented:
+Let's go back to the basics: To make a system fully observable, the following abilities must be implemented:
 * Logs
 * Metrics
 * Traces
@@ -85,9 +106,49 @@ For the latter, you should apply some of these principles:
 * Logs must be read by an external tool (e.g., using a log aggregator)
 * Logs must not expose sensitive data: You must think about GDPR, PCI DSS standards
 
-If you want to dig into log levels and the importance to select wisely the good one, I suggest you reading [this article from my colleague Nicolas Carlier](https://blog.worldline.tech/2020/01/22/back-to-basics-logging.html).
+If you want to dig into log levels and the importance to indicate contextual information into your logs, I suggest you reading [this article from my colleague Nicolas Carlier](https://blog.worldline.tech/2020/01/22/back-to-basics-logging.html).
 
-### Some examples
+## What about Grafana Loki
+
+For this test, I chose to use [loki-logback-appender](https://github.com/loki4j/loki-logback-appender) to send the logs to Loki.
+
+The configuration for a Spring Boot application is pretty straightforward:
+
+You must add first the appender to your classpath:
+```groovy
+implementation 'com.github.loki4j:loki-logback-appender:1.4.2'
+```
+
+and create a [``logback-spring.xml``](https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml) to configure it:
+
+```xml
+ <appender name="LOKI" class="com.github.loki4j.logback.Loki4jAppender">
+        <http>
+            <url>http://localhost:3100/loki/api/v1/push</url>
+        </http>
+        <format>
+            <label>
+                <pattern>app=${name},host=${HOSTNAME},level=%level</pattern>
+                <readMarkers>true</readMarkers>
+            </label>
+            <message>
+                <pattern>
+                    {
+                    "level":"%level",
+                    "class":"%logger{36}",
+                    "thread":"%thread",
+                    "message": "%message",
+                    "requestId": "%X{X-Request-ID}"
+                    }
+                </pattern>
+            </message>
+        </format>
+    </appender>
+```
+
+_Et voilà!_
+
+Now if you
 
 ## Traces
 
