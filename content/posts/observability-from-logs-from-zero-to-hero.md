@@ -1,5 +1,5 @@
 ---
-title: "Observability From Logs From Zero to Hero"
+title: "Observability From Zero to Hero"
 date: 2024-01-08T15:05:43+01:00
 draft: true
   
