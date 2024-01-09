@@ -85,7 +85,7 @@ For the latter, you should apply some of these principles:
 * Logs must be read by an external tool (e.g., using a log aggregator)
 * Logs must not expose sensitive data: You must think about GDPR, PCI DSS standards
 
-### What about log levels?
+If you want to dig into log levels and the importance to select wisely the good one, I suggest you reading [this article from my colleague Nicolas Carlier](https://blog.worldline.tech/2020/01/22/back-to-basics-logging.html).
 
 ### Some examples
 
