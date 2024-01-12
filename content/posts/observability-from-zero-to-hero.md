@@ -246,6 +246,26 @@ tasks.named('test') {
 
 ### Head or Tail sampling? 
 
+One of the main drawback of this technology is the overhead it could add to the performance of the application instrumented.
+If you have high pressure APIs which create or broadcast SPAN for every transaction, you can strongly affect the SLOs of your platform.
+
+One solution is to sample the traces by, for instance, keeping only 20% of the transactions.
+
+There is two ways:
+* The head sampling: SPANs are sampled and filtered from the producer (ex. a backend)
+* The tail sampling: SPANs are sampled retrospectively, for instance by [the Open Telemetry Collector](https://opentelemetry.io/docs/collector/).
+
+Both have their pros & cons.
+The first is mandatory for heavily used platforms and is the most efficient: we only produce the spans we need and avoid useless SPANs broadcasting.
+However, you may lose important traces with failures. 
+This sampling is purely statistic (i.e., 10 or 20% of SPANs to sample and broadcast)
+The latter is really interesting because you can filter SPANs with many criteria such as the status of the transaction. 
+Unfortunately, it will not fix the overhead issue. 
+It means all the SPANs are broadcast and then filtered. 
+That is why, you can't really use it on strongly used.    
+
+If you want to dig into this problematic, you can read [this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
+
 ## Correlating Logs & Traces
 
 ## Conclusion
