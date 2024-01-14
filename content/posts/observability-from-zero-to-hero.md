@@ -291,7 +291,19 @@ Both approaches have their pros and cons, and the choice depends on the specific
 
 ## Correlating Logs & Traces
 
+Now, you have on one side the logs of your applications, and on the other the traces.
+To dig into errors and see what is behind the curtain of any error logged, it is really import to correlate both. 
 
+For that, you must specify in your logs the traceID and spanID of the corresponding trace.
+Hopefully, logback and the Loki appender can help you on this!
+We therefore will modify the pattern of the logs in the [``logback-spring.xml``](https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml) file:
+
+
+```xml
+ <pattern>
+    {"level":"%level","traceId":"%X{trace_id}","spanId":"%X{span_id}","class":"%logger{36}","thread":"%thread","message": "%message","requestId": "%X{X-Request-ID}"}
+</pattern>
+```
 
 ## Metrics
 
