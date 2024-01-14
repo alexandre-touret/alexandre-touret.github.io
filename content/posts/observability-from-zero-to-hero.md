@@ -238,6 +238,45 @@ tasks.named('test') {
 
 ```
 
+After restarting your application, you can reach the API with this command:
+
+```bash
+http :8080/api/events
+```
+
+This API is really simple.
+To illustrate how to handle errors using both the Spring stack and the Grafana stack, an error is always thrown using [the Problem Detail RFC 7807](https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html) while reaching it.
+
+Here the [service](https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityService.java):
+
+```java
+@Service
+public class ObservabilityService {
+    public void breakMethod() {
+        throw new IllegalStateException("Breaking method issue");
+    }
+}
+```
+
+And the [controller](https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityAPIController.java) which returns the error:
+
+```java
+@GetMapping("/api/event")
+public ResponseEntity<ObservabilityEventDto> getEvent() throws ErrorResponseException {
+        try {
+            observabilityService.breakMethod();
+            var observabilityEventDto = new ObservabilityEventDto(UUID.randomUUID().toString(), "OK");
+            return ResponseEntity.ok(observabilityEventDto);
+        } catch (Exception e) {
+            var observabilityEventDto = new ObservabilityEventDto(UUID.randomUUID().toString(), "Error");
+            LOGGER.error(e.getMessage());
+            throw new ErrorResponseException(HttpStatus.INTERNAL_SERVER_ERROR, ProblemDetail.forStatus(HttpStatus.INTERNAL_SERVER_ERROR), e);
+        }
+    }
+```
+
+After testing this service a few times, you can now see the traces on your Grafana dashboard.
+
 ### Head or Tail sampling? 
 
 One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there's a substantial risk of significantly impacting the [Service Level Objectives (SLOs)](https://sre.google/sre-book/service-level-objectives/) of your platform.
@@ -251,6 +290,8 @@ A viable solution to mitigate this challenge involves sampling the traces, such 
 Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to [this article]([this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
 
 ## Correlating Logs & Traces
+
+
 
 ## Metrics
 
