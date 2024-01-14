@@ -9,6 +9,8 @@ images: ["/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp"]
 
 tags:
   - Observability
+  - Spring
+  - Java
 ---
 
 ## The sad reality
