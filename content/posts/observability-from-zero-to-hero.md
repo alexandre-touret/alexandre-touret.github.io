@@ -16,32 +16,32 @@ tags:
 Picture this: it's Friday afternoon, and you're eagerly looking forward to unwinding for the weekend. 
 Suddenly, an Ops engineer alerts you about a critical issue—a stubborn HTTP 500 error that's causing a major roadblock.
 
-Despite their efforts, the Ops engineer couldn't pinpoint the root cause due to a lack of contextual information.
+Despite the dedicated efforts of the Ops engineers, the root cause remains elusive due to a lack of contextual information.
 
 Hours pass by, but you take it upon yourself to delve into the problem. 
 Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.
 
-Do you think it is science fiction?
-Are you used with such a scenario? 
+Does this sound like science fiction? If you've experienced a similar scenario, you're likely familiar with the challenges posed by unidentified end users and their unique usage patterns—enter Ops and observability!
 
-If yes, you probably didn't identify one of your end users and their main usage: Your Ops and the observability!
-
-I already talked about observability. 
-Here are a bunch of articles I wrote on this blog or on the Worldline Tech Blog:
+I've previously delved into the topic of observability. 
+Here are a bunch of articles I wrote on this blog or on the [Worldline Tech Blog](https://blog.worldline.tech):
 
 * [Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry](https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/)
 * [Observabilité et Circuit Breaker avec Spring](https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/)
 * [Enabling distributed tracing on your microservices Spring app using Jaeger and OpenTracing](https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html)
 
 In this article, I aim to highlight the importance of putting in place observability during the earliest stages of a project.
-I will then outline how to merge logs and traces on the Grafana Stack to gain clearer insights into your platform's workings. 
+I will then outline how to merge logs and traces from a good old [Spring Boot application](https://spring.io/projects/spring-boot/) on the [Grafana Stack](https://grafana.com/) to gain clearer insights into your platform's workings. 
 By doing so, you can transform your relationship with Ops teams, making them your best friends.
 
 The examples provided in this article come from [this project hosted on Github](https://github.com/alexandre-touret/observability-from-zero-to-hero).
 
 ## A definition of Observability
-Observability is the ability to understand the internal state of a complex system. 
-When a system is observable, a user can identify the root cause of a performance problem by examining the data it produces, without additional testing or coding.
+
+We can shortly define it as this:
+
+> Observability is the ability **to understand the internal state of a complex system**. 
+> When a system is observable, a user can **identify the root cause** of a performance problem by examining the data it produces, without additional testing or coding.
 
 This is one of the ways in which quality of service issues can be addressed.
 
@@ -67,16 +67,16 @@ docker compose up
 
 Let's go back to the basics: To make a system fully observable, the following abilities must be implemented:
 * Logs
-* Metrics
 * Traces
+* Metrics
 
-They can be defined as follows:
+They can be defined as follow:
 
 ![monitoring](/assets/images/2024/01/image-2023-8-1_9-44-11.webp)
 
 ## Logs
 
-When a program fails, OPS usually try to identify the underlying error analyzing log files.
+When a program fails, OPS usually tries to identify the underlying error analyzing log files.
 It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.
 
 In my opinion, most of the time developers don't really take care about this matter.
@@ -130,13 +130,7 @@ and create a [``logback-spring.xml``](https://github.com/alexandre-touret/observ
             </label>
             <message>
                 <pattern>
-                    {
-                    "level":"%level",
-                    "class":"%logger{36}",
-                    "thread":"%thread",
-                    "message": "%message",
-                    "requestId": "%X{X-Request-ID}"
-                    }
+                    {"level":"%level","class":"%logger{36}","thread":"%thread","message": "%message","requestId": "%X{X-Request-ID}"}
                 </pattern>
             </message>
         </format>
@@ -246,26 +240,18 @@ tasks.named('test') {
 
 ### Head or Tail sampling? 
 
-One of the main drawback of this technology is the overhead it could add to the performance of the application instrumented.
-If you have high pressure APIs which create or broadcast SPAN for every transaction, you can strongly affect the SLOs of your platform.
+One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there's a substantial risk of significantly impacting the [Service Level Objectives (SLOs)](https://sre.google/sre-book/service-level-objectives/) of your platform.
 
-One solution is to sample the traces by, for instance, keeping only 20% of the transactions.
+A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:
 
-There is two ways:
-* The head sampling: SPANs are sampled and filtered from the producer (ex. a backend)
-* The tail sampling: SPANs are sampled retrospectively, for instance by [the Open Telemetry Collector](https://opentelemetry.io/docs/collector/).
+1. **Head Sampling**: In this method, SPANs are sampled and filtered directly from the producer (e.g., a backend). This is essential for heavily utilized platforms and proves to be the most efficient, as it produces only the necessary spans, thereby avoiding the dissemination of unnecessary SPANs. However, it comes with the trade-off of potentially losing critical traces involving failures. The sampling rate is purely statistical (e.g., 10 or 20% of SPANs sampled and broadcast).
 
-Both have their pros & cons.
-The first is mandatory for heavily used platforms and is the most efficient: we only produce the spans we need and avoid useless SPANs broadcasting.
-However, you may lose important traces with failures. 
-This sampling is purely statistic (i.e., 10 or 20% of SPANs to sample and broadcast)
-The latter is really interesting because you can filter SPANs with many criteria such as the status of the transaction. 
-Unfortunately, it will not fix the overhead issue. 
-It means all the SPANs are broadcast and then filtered. 
-That is why, you can't really use it on strongly used.    
+2. **Tail Sampling**: Alternatively, SPANs are sampled retrospectively, often through tools like the [Open Telemetry Collector](https://opentelemetry.io/docs/collector/). While this method allows for filtering SPANs based on various criteria, such as the transaction status, it does not address the overhead issue. All SPANs are initially broadcast and then filtered, making it less suitable for heavily used scenarios.
 
-If you want to dig into this problematic, you can read [this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
+Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to [this article]([this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
 
 ## Correlating Logs & Traces
+
+## Metrics
 
 ## Conclusion
