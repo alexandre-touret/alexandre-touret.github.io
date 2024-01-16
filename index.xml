@@ -1,4 +1,549 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 20 Dec 2023 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Reflecting on 2023</title><link>https://blog.touret.info/2023/12/20/2023-wrap-up/</link><pubDate>Wed, 20 Dec 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/12/20/2023-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jan 2024 19:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp" referrerpolicy="no-referrer">
+            </div><h2 id="the-sad-reality" class="headerLink">
+    <a href="#the-sad-reality" class="header-mark"></a>1 The sad reality</h2><p>Picture this: it&rsquo;s Friday afternoon, and you&rsquo;re eagerly looking forward to unwinding for the weekend.
+Suddenly, an Ops engineer alerts you about a critical issue—a stubborn HTTP 500 error that&rsquo;s causing a major roadblock.</p>
+<p>Despite the dedicated efforts of the Ops engineers, the root cause remains elusive due to a lack of contextual information.</p>
+<p>Hours pass by, but you take it upon yourself to delve into the problem.
+Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.</p>
+<p>Does this sound like science fiction? If you&rsquo;ve experienced a similar scenario, you&rsquo;re likely familiar with the challenges posed by unidentified end users and their unique usage patterns—enter Ops and observability!</p>
+<p>I&rsquo;ve previously delved into the topic of observability.
+Here are a bunch of articles I wrote on this blog or on the <a href="https://blog.worldline.tech" target="_blank" rel="noopener noreferrer">Worldline Tech Blog</a>:</p>
+<ul>
+<li><a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</a></li>
+<li><a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">Observabilité et Circuit Breaker avec Spring</a></li>
+<li><a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">Enabling distributed tracing on your microservices Spring app using Jaeger and OpenTracing</a></li>
+</ul>
+<p>In this article, I aim to highlight the importance of putting in place observability during the earliest stages of a project.
+I will then outline how to merge logs and traces from a good old <a href="https://spring.io/projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring Boot application</a> on the <a href="https://grafana.com/" target="_blank" rel="noopener noreferrer">Grafana Stack</a> to gain clearer insights into your platform&rsquo;s workings.
+By doing so, you can transform your relationship with Ops teams, making them your best friends.</p>
+<div class="details admonition question open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-question-circle fa-fw"></i>What about the code?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">The examples provided in this article come from <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero" target="_blank" rel="noopener noreferrer">this project hosted on Github</a>.</div>
+        </div>
+    </div>
+<h2 id="a-definition-of-observability" class="headerLink">
+    <a href="#a-definition-of-observability" class="header-mark"></a>2 A definition of Observability</h2><p>We can shortly define it as this:</p>
+<blockquote>
+<p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
+When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
+<p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
+</blockquote>
+<h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
+    <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
+You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
+With regard to the topic of this article,it will provide us all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.</p>
+<p>I will therefore particularly focus on:</p>
+<ul>
+<li><a href="https://grafana.com/oss/grafana/" target="_blank" rel="noopener noreferrer">Grafana</a>: The dashboard engine</li>
+<li><a href="https://grafana.com/oss/loki/" target="_blank" rel="noopener noreferrer">Loki</a>: The log storage engine</li>
+<li><a href="https://grafana.com/oss/tempo/" target="_blank" rel="noopener noreferrer">Tempo</a>: The trace storage engine</li>
+</ul>
+<p>By the way, I also configured in this project a <a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener noreferrer">Prometheus TSDB to store metrics</a>.</p>
+<p>To get it started easily, I just created a <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker" target="_blank" rel="noopener noreferrer">Docker Compose stack to run it on your desktop</a>.</p>
+<p>You can run it with these commands:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> docker
+</span></span><span class="line"><span class="cl">docker compose up
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="logs-traces--monitoring" class="headerLink">
+    <a href="#logs-traces--monitoring" class="header-mark"></a>4 Logs, Traces &amp; Monitoring</h2><p>Let&rsquo;s go back to the basics: To make a system fully observable, the following abilities must be implemented:</p>
+<ul>
+<li>Logs</li>
+<li>Traces</li>
+<li>Metrics</li>
+</ul>
+<p>They can be defined as follows:</p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2024/01/image-2023-8-1_9-44-11.webp"
+        srcset="/assets/images/2024/01/image-2023-8-1_9-44-11.webp, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 1.5x, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 2x"
+        sizes="auto"
+        alt="monitoring"
+        title="monitoring" ></figure></p>
+<h2 id="logs" class="headerLink">
+    <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
+It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.</p>
+<p>In my opinion, most of the time developers don&rsquo;t really care about this matter.
+It is mainly due to they did not experience such a trouble.</p>
+<p>For two years, I had to administrate a proprietary customer relationship management solution.
+The only way to analyse errors was navigating through the logs, using the most appropriate error levels to get the root cause.
+We didn&rsquo;t have access to the source code (Long live to open source programs).
+Hopefully the log management system was really efficient.
+It helped us get into this product and administrate it efficiently.</p>
+<p>Furthermore, I strongly think we should systematise such experiences for developers.
+It could help them (us) know what is behind the curtain and make more observable and better programs.</p>
+<h3 id="key-principles" class="headerLink">
+    <a href="#key-principles" class="header-mark"></a>5.1 Key principles</h3><p>You must first dissociate the logs you make while you code (e.g., for debugging) from the production logs.
+The first should normally remove the first.
+For the latter, you should apply some of these principles:</p>
+<ul>
+<li>Identify and use the most appropriate level (<code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>,&hellip;)</li>
+<li>Provide a clear and useful message for OPS (yes you make this log for him/her)</li>
+<li>Provide business context (e.g., the creation of the contract <code>123456</code> failed)</li>
+<li>Logs must be read by an external tool (e.g., using a log aggregator)</li>
+<li>Logs must not expose sensitive data: You must think about GDPR, PCI DSS standards</li>
+</ul>
+<p>If you want to dig into log levels and the importance to indicate contextual information into your logs, I suggest you reading <a href="https://blog.worldline.tech/2020/01/22/back-to-basics-logging.html" target="_blank" rel="noopener noreferrer">this article from my colleague Nicolas Carlier</a>.</p>
+<h2 id="what-about-grafana-loki" class="headerLink">
+    <a href="#what-about-grafana-loki" class="header-mark"></a>6 What about Grafana Loki</h2><p>For this test, I chose to use <a href="https://github.com/loki4j/loki-logback-appender" target="_blank" rel="noopener noreferrer">loki-logback-appender</a> to send the logs to Loki.</p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>About this appender<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">I chose to use this appender for testing purpose.
+If you deploy your application on top of Kubernetes, you would probably opt for a more suitable solution such as <a href="https://www.fluentd.org/" target="_blank" rel="noopener noreferrer">FluentD</a>.</div>
+        </div>
+    </div>
+<p>The configuration for a Spring Boot application is pretty straightforward:</p>
+<p>You must add first the appender to your classpath:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;com.github.loki4j:loki-logback-appender:1.4.2&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>and create a <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml" target="_blank" rel="noopener noreferrer"><code>logback-spring.xml</code></a> to configure it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;LOKI&#34;</span> <span class="na">class=</span><span class="s">&#34;com.github.loki4j.logback.Loki4jAppender&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;http&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;url&gt;</span>http://localhost:3100/loki/api/v1/push<span class="nt">&lt;/url&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/http&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;format&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;label&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;pattern&gt;</span>app=${name},host=${HOSTNAME},level=%level<span class="nt">&lt;/pattern&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;readMarkers&gt;</span>true<span class="nt">&lt;/readMarkers&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/label&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;message&gt;</span>
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;pattern&gt;</span>
+</span></span><span class="line"><span class="cl">                    {&#34;level&#34;:&#34;%level&#34;,&#34;class&#34;:&#34;%logger{36}&#34;,&#34;thread&#34;:&#34;%thread&#34;,&#34;message&#34;: &#34;%message&#34;,&#34;requestId&#34;: &#34;%X{X-Request-ID}&#34;}
+</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/pattern&gt;</span>
+</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/message&gt;</span>
+</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/format&gt;</span>
+</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/appender&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><em>Et voilà!</em></p>
+<div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>About the format<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">It is just my 2 cents: more and more I tend to produce structured logs using JSON for instance.
+It is usually easier to manipulate them all along the log ingestion tools chain (e.g, with <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">LogStash</a>.</div>
+        </div>
+    </div>
+<p>After restarting your application:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gradle bootRun
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can now get logs browsing Grafana reaching this URL: <a href="http://localhost:3000/goto/M-VkkicSR?orgId=1" target="_blank" rel="noopener noreferrer">http://localhost:3000/goto/M-VkkicSR?orgId=1</a> and running some API calls with the following command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http :8080/api/events
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="traces" class="headerLink">
+    <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
+Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
+<p>The true value of distributed tracing becomes evident not only in the deployment of distributed architectures but across various platforms. In the complex landscape of production issues, identifying the root cause or understanding why a specific SQL query failed or took an extended duration can be challenging. Traditionally, attempts to replicate such issues in alternative environments often fall short due to the inherent complexities of data, server configurations, and benchmarking.</p>
+<p>This technology empowers you to gain valuable insights that were previously elusive. When grappling with production issues, you no longer need to rely solely on replication efforts; distributed tracing provides a clear and comprehensive perspective on what might be amiss.</p>
+<p>To sum up: <em>Try it, you&rsquo;ll like it!</em></p>
+<h3 id="the-setup" class="headerLink">
+    <a href="#the-setup" class="header-mark"></a>7.1 The setup</h3><p>There is several ways to set it up.
+Nowadays, OpenTelemetry is the <em>de facto</em> standard.
+Most of the solutions are compatible with it.</p>
+<p>Nevertheless, after challenging some APMs, I found some missing features which are really useful in real life projects.
+For instance, you can not easily ignore URLs, for instance the actuator endpoints, from the traces you will manage.
+You can do that in just <a href="https://www.elastic.co/guide/en/apm/agent/java/1.x/config-http.html#config-transaction-ignore-urls" target="_blank" rel="noopener noreferrer">one property with the Elastic APM agent</a>.
+There is <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation/issues/1060#issuecomment-1816716602" target="_blank" rel="noopener noreferrer">an issue about this feature</a>.</p>
+<p>I suggest using the agents.
+It is less intrusive than other solutions.</p>
+<p>For instance if you use the spring boot gradle plugin you can configure it as following:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
+</span><span class="lnt">36
+</span><span class="lnt">37
+</span><span class="lnt">38
+</span><span class="lnt">39
+</span><span class="lnt">40
+</span><span class="lnt">41
+</span><span class="lnt">42
+</span><span class="lnt">43
+</span><span class="lnt">44
+</span><span class="lnt">45
+</span><span class="lnt">46
+</span><span class="lnt">47
+</span><span class="lnt">48
+</span><span class="lnt">49
+</span><span class="lnt">50
+</span><span class="lnt">51
+</span><span class="lnt">52
+</span><span class="lnt">53
+</span><span class="lnt">54
+</span><span class="lnt">55
+</span><span class="lnt">56
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">plugins</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;java&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;org.springframework.boot&#39;</span> <span class="n">version</span> <span class="s1">&#39;3.2.1&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;io.spring.dependency-management&#39;</span> <span class="n">version</span> <span class="s1">&#39;1.1.4&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">ext</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">opentelemetryAgentVersion</span> <span class="o">=</span> <span class="s1">&#39;1.32.0&#39;</span> <span class="c1">// Mettez la version appropriée
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;info.touret.observability&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1-SNAPSHOT&#39;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">java</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="s1">&#39;21&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">repositories</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">mavenCentral</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-web&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">testImplementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-test&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;com.github.loki4j:loki-logback-appender:1.4.2&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s2">&#34;io.opentelemetry.javaagent:opentelemetry-javaagent:${opentelemetryAgentVersion}&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">task</span> <span class="nf">copyJavaAgent</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Copy</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">from</span> <span class="n">configurations</span><span class="o">.</span><span class="na">detachedConfiguration</span><span class="o">(</span>
+</span></span><span class="line"><span class="cl">            <span class="n">dependencies</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&#34;io.opentelemetry.javaagent:opentelemetry-javaagent:${opentelemetryAgentVersion}&#34;</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">into</span> <span class="s2">&#34;${project.getLayout().getBuildDirectory()}/javaagents&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">rename</span> <span class="o">{</span> <span class="s1">&#39;javaagent.jar&#39;</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">processResources</span><span class="o">.</span><span class="na">dependsOn</span> <span class="n">copyJavaAgent</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">bootRun</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">doFirst</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">jvmArgs</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;-javaagent:${project.getLayout().getBuildDirectory()}/javaagents/javaagent.jar&#34;</span><span class="o">]</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// systemProperties = [
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler&#39;: &#39;parentbased_traceidratio&#39;,
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler.arg&#39;: &#39;0.2&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ]
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s1">&#39;test&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">useJUnitPlatform</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After restarting your application, you can reach the API with this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http :8080/api/events
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>This API is really simple.
+To illustrate how to handle errors using both the Spring stack and the Grafana stack, an error is always thrown using <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html" target="_blank" rel="noopener noreferrer">the Problem Detail RFC 7807</a> while reaching it.</p>
+<p>Here the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityService.java" target="_blank" rel="noopener noreferrer">service</a>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ObservabilityService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">breakMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&#34;Breaking method issue&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>And the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityAPIController.java" target="_blank" rel="noopener noreferrer">controller</a> which returns the error:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/api/event&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ObservabilityEventDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getEvent</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">observabilityService</span><span class="p">.</span><span class="na">breakMethod</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">observabilityEventDto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservabilityEventDto</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;OK&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span><span class="n">observabilityEventDto</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">observabilityEventDto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservabilityEventDto</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;Error&#34;</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">,</span><span class="w"> </span><span class="n">ProblemDetail</span><span class="p">.</span><span class="na">forStatus</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">),</span><span class="w"> </span><span class="n">e</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
+<h3 id="head-or-tail-sampling" class="headerLink">
+    <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
+<p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
+<ol>
+<li>
+<p><strong>Head Sampling</strong>: In this method, SPANs are sampled and filtered directly from the producer (e.g., a backend). This is essential for heavily utilized platforms and proves to be the most efficient, as it produces only the necessary spans, thereby avoiding the dissemination of unnecessary SPANs. However, it comes with the trade-off of potentially losing critical traces involving failures. The sampling rate is purely statistical (e.g., 10 or 20% of SPANs sampled and broadcast).</p>
+</li>
+<li>
+<p><strong>Tail Sampling</strong>: Alternatively, SPANs are sampled retrospectively, often through tools like the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Open Telemetry Collector</a>. While this method allows for filtering SPANs based on various criteria, such as the transaction status, it does not address the overhead issue. All SPANs are initially broadcast and then filtered, making it less suitable for heavily used scenarios.</p>
+</li>
+</ol>
+<p>Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to <a href="https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling" target="_blank" rel="noopener noreferrer">this article</a>.</p>
+<h2 id="correlating-logs--traces" class="headerLink">
+    <a href="#correlating-logs--traces" class="header-mark"></a>8 Correlating Logs &amp; Traces</h2><p>Now, you have on one side the logs of your applications, and on the other the traces.
+To dig into errors and see what is behind the curtain of any error logged, it is really import to correlate both.</p>
+<p>For that, you must specify in your logs the traceID and spanID of the corresponding trace.
+Hopefully, logback and the Loki appender can help you on this!
+We therefore will modify the pattern of the logs in the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml" target="_blank" rel="noopener noreferrer"><code>logback-spring.xml</code></a> file:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;pattern&gt;</span>
+</span></span><span class="line"><span class="cl">    {&#34;level&#34;:&#34;%level&#34;,&#34;TraceID&#34;:&#34;%mdc{trace_id:-none}&#34;,&#34;spanId&#34;:&#34;%mdc{span_id:-none}&#34;,&#34;class&#34;:&#34;%logger{36}&#34;,&#34;thread&#34;:&#34;%thread&#34;,&#34;message&#34;: &#34;%message&#34;,&#34;requestId&#34;: &#34;%X{X-Request-ID}&#34;}
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/pattern&gt;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As a developer point of view, the job is done :)
+Now, it is time for the OPS/SRE to configure Grafana to link Loki and Tempo through the TraceID field.</p>
+<p>For that, you can create a derived field directly in the datasource configuration:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
+</span><span class="lnt">31
+</span><span class="lnt">32
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">datasources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://loki:3100</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">maxLines</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">derivedFields</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">matcherRegex</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;\&#34;TraceID\&#34;: \&#34;(\w+).*\&#34;&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">TraceID</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># url will be interpreted as query for the datasource</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;$${__value.raw}&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># optional for URL Label to set a custom display label for the link.</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">urlDisplayLabel</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;View Trace&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://tempo:3200</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeGraph</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serviceMap</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;mimir&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">tracesToLogs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">filterByTraceID</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">filterBySpanID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">mapTagNamesEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Now you will be able to browse directly to the corresponding trace from your log event and the other way around.</p>
+<h2 id="metrics" class="headerLink">
+    <a href="#metrics" class="header-mark"></a>9 Metrics</h2><p>Now, let us deep dive into the metrics of our application!
+We can do that through <a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
+<p>We can configure now Prometheus to grab the metrics exposed by our application.</p>
+<p>To do that, we need first to activate the Prometheus endpoint:</p>
+<p>We need to add this dependency first:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>And enable the corresponding endpoint:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">management.endpoints.web.exposure.include</span><span class="o">=</span><span class="s">health,info,prometheus</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After enabling it, as a developer point of view, it is done :-)</p>
+<p>The prometheus statistics can be scrapped by Prometheus itself using <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/docker/prometheus/prometheus.yml" target="_blank" rel="noopener noreferrer">this configuration</a></p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">honor_timestamps</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l">/actuator/prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">host.docker.internal:8080</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>Finally, you can directly browse it through Grafana to integrate all of these metrics into your dashboards 🎉.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>10 Conclusion</h2><p>I endeavored to provide you with a comprehensive overview of what an OPS professional could anticipate while investigating an issue and the corresponding topics that require attention.
+As you probably figured out, we only applied just a bunch of configuration sets.<br>
+One of the key merits of these tools lies in their non-intrusiveness within the code itself.
+To cut long story short: it is not a big deal!</p>
+<p>Integrating these configurations can be a significant stride forward, providing invaluable assistance to the entire IT team, from development to operations, as they navigate and troubleshoot issues—whether in production or elsewhere.</p>
+<p>I will finish this article by my opinion on such topics: regardless of the targeted tools, this set of configuration <strong>must be considered as the first feature to implement for every cloud native application</strong>.</p>
+]]></description></item><item><title>Reflecting on 2023</title><link>https://blog.touret.info/2023/12/20/2023-wrap-up/</link><pubDate>Wed, 20 Dec 2023 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/12/20/2023-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
             </div><h2 id="2023-in-a-nutshell" class="headerLink">
     <a href="#2023-in-a-nutshell" class="header-mark"></a>1 2023 in a Nutshell</h2><p>As we approach 2024, it’s time to cast a professional eye back on 2023.</p>
@@ -2045,109 +2590,4 @@ Je pense que la version précédente de Spring était plus permissive sur l&rsqu
 Certaines actions et contournements peuvent prendre du temps (ex. javax &ndash;&gt; jakarta).</p>
 <p>Enfin, je vous conseille d&rsquo;attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour <em>&ldquo;de vrai&rdquo;</em>.
 Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d&rsquo;attendre que les premiers correctifs soient publiés avant de vous lancer.</p>
-]]></description></item><item><title>Ma première participation à Devoxx Belgium</title><link>https://blog.touret.info/2022/10/15/devoxx-be-22/</link><pubDate>Sat, 15 Oct 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/10/15/devoxx-be-22/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2022/10/devoxx_badge.webp" referrerpolicy="no-referrer">
-            </div><p>Après trois ans d&rsquo;inactivité pour des raisons que l&rsquo;on connait malheureusement toutes et tous, <a href="https://www.devoxx.be" target="_blank" rel="noopener noreferrer">Devoxx Belgium</a> était de retour à Anvers.
-Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.</p>
-<p>C&rsquo;était donc une première pour moi.</p>
-<p>Pour y aller, j&rsquo;ai eu trois fois de la chance:</p>
-<ol>
-<li>J&rsquo;ai eu cette opportunité grâce à <a href="https://worldline.com/" target="_blank" rel="noopener noreferrer">Worldline - mon employeur</a></li>
-<li>J&rsquo;ai réussi à avoir un billet pendant les cinq minutes où se sont vendus les billets lors du premier batch</li>
-<li><a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">Ma présentation au format Quickie a été retenue</a>. J&rsquo;ai présenté un talk à Devoxx!!!!!!!</li>
-</ol>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/10/devoxx-be-22-1.webp"
-        srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div><div class="img-wrapper"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/10/devoxx-be-22-2.webp"
-        srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
-        sizes="auto"
-        alt="configuration"
-        title="configuration" ></figure></div></div>
-
-<p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
-<h2 id="impressions-générales" class="headerLink">
-    <a href="#impressions-g%c3%a9n%c3%a9rales" class="header-mark"></a>1 Impressions générales</h2><p>Tout d&rsquo;abord, j&rsquo;ai pu assister à de nombreux <a href="https://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">Devoxx France</a>. J&rsquo;ai cru naïvement que les deux évènements se ressembleraient.</p>
-<p>Je me suis trompé.</p>
-<p>Je ne dirai pas lequel est le meilleur<sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>. Je ne saurais le dire. On est sur un autre type de conférence.</p>
-<p>Il y a un peu moins de feedback de la communauté, même si il y a eu <a href="https://www.youtube.com/watch?v=LoF2vkYiICo" target="_blank" rel="noopener noreferrer">une présentation de Doctolib</a> et plus de présentations réalisées par des grands acteurs du marché ou par des grands speakers internationaux (ex. Simon Ritter, Simon Brown ou James Gosling).</p>
-<p>Aussi, alors que la ligne éditoriale de Devoxx France s&rsquo;est tournée au fil des années sur d&rsquo;autres langages et plateformes telles que NodeJS, Go, Scala, ici on est dans du Java pur et dur.</p>
-<p>Les (très) grands speakers de l&rsquo;écosystème sont présents et on fait des super talks: <a href="https://en.wikipedia.org/wiki/James_Gosling" target="_blank" rel="noopener noreferrer">James Gosling</a>, <a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a>, <a href="https://developers.redhat.com/authors/mario-fusco" target="_blank" rel="noopener noreferrer">Mario Fusco</a>, <a href="https://in.relation.to/gavin-king/" target="_blank" rel="noopener noreferrer">Gavin King</a> ou <a href="https://blogs.oracle.com/java/post/new-java-champion-jos%C3%A9-paumard" target="_blank" rel="noopener noreferrer">José Paumard</a>.</p>
-<p>En résumé, le coeur de la communauté <a href="https://en.wikipedia.org/wiki/Java_%28programming_language%29" target="_blank" rel="noopener noreferrer">Java</a> bat à Anvers pendant une semaine.
-Une majorité de <a href="https://dev.java/community/jcs/" target="_blank" rel="noopener noreferrer">Java champions</a> sont +/- présents et nous font partager leur expertise.</p>
-<h2 id="les-tendances" class="headerLink">
-    <a href="#les-tendances" class="header-mark"></a>2 Les tendances</h2><p>Les grandes tendances étaient:</p>
-<ul>
-<li>L&rsquo;IA et les applications</li>
-<li>Le projet Loom</li>
-<li>GraalVM</li>
-</ul>
-<h2 id="quelques-conférences" class="headerLink">
-    <a href="#quelques-conf%c3%a9rences" class="header-mark"></a>3 Quelques conférences</h2><p>L&rsquo;ensemble des conférences <a href="https://www.youtube.com/c/Devoxx2015/videos" target="_blank" rel="noopener noreferrer">est déjà publié sur Youtube</a>. N&rsquo; hésitez pas à les consulter. Il y a beaucoup de talks de qualité.</p>
-<h3 id="artificial-intelligence-you-are-here-by-alan-d-thompson" class="headerLink">
-    <a href="#artificial-intelligence-you-are-here-by-alan-d-thompson" class="header-mark"></a>3.1 Artificial Intelligence: You Are Here by Alan D Thompson</h3><p>Le <a href="https://lifearchitect.ai/" target="_blank" rel="noopener noreferrer">Dr Alan D. Thompson</a> est un expert en intelligence artificielle.
-Il nous a donné une présentation pendant la keynote sur ce que l&rsquo; IA peut réellement faire de nos jours.
-C&rsquo;est de plus en plus utilisé dans notre industrie au travers de Github Copilot, <a href="https://github.com/THUDM/CodeGeeX" target="_blank" rel="noopener noreferrer">Codegeex</a>,&hellip;</p>
-<p>Après nous avoir rappellé <a href="https://lifearchitect.ai/timeline/" target="_blank" rel="noopener noreferrer">la timeline de l&rsquo;adoption de l&rsquo; IA</a>, il a illustré avec des peintures déssinées par une IA comment un ordinateur peut maintenant comprendre une phrase en langage naturel et la traduire en image.</p>
-<p>Il a également présenté <a href="https://en.wikipedia.org/wiki/GPT-3" target="_blank" rel="noopener noreferrer">le langage de modélisation GPT3</a>.</p>
-<p>Vous pouvez trouver <a href="https://www.youtube.com/watch?v=xjYy91BxdPo" target="_blank" rel="noopener noreferrer">la vidéo ici</a>.</p>
-<h2 id="revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="headerLink">
-    <a href="#revolutionizing-java-based-applications-with-graalvm-by-alina-yurenko-and-thomas-wuerthinger" class="header-mark"></a>4 Revolutionizing Java-Based Applications with GraalVM by Alina Yurenko and Thomas Wuerthinger</h2><p>Dans cette présentation, les présentateurs d&rsquo;Oracle ont abordé une autre grande tendance du marché: le retour au natif qui permet de limiter l&rsquo;impact sur le démarrage, la mémoire et la taille des packages.</p>
-<p>Au travers d&rsquo;un exemple basé sur <a href="https://micronaut.io/" target="_blank" rel="noopener noreferrer">Micronaut</a>, ils ont expliqué comment <a href="https://www.graalvm.org/" target="_blank" rel="noopener noreferrer">GraalVM</a> peut répondre à ces enjeux. Ils ont également démystifié plusieurs mythes liés à GraalVM. Par exemple, GraalVM supporte la réflexion (&hellip; et parfois non). On peut utiliser également [Java Flight Recorder](Java Flight Recorder) pendant la compilation. Le support à l&rsquo;exécution des applications est bientôt prévu.</p>
-<p>La developer experience était également à l&rsquo;ordre du jour. Comment offrir une bonne expérience alors que la compilation prend plus de temps?</p>
-<p>Pour répondre à cette épineuse question, ils ont conseillé de gardé le mode <a href="https://developers.redhat.com/articles/2021/06/23/how-jit-compiler-boosts-java-performance-openjdk" target="_blank" rel="noopener noreferrer">JIT</a> avec une JVM pendant le développement et d&rsquo;utiliser l&rsquo; <a href="https://devblogs.microsoft.com/java/aot-compilation-in-hotspot-introduction/" target="_blank" rel="noopener noreferrer">AOT</a> pour le déploiement final. Ceci permet de disposer d&rsquo;une machine puissante et de garantir la compatibilité matérielle et OS de la machine de production.</p>
-<p><a href="https://www.youtube.com/watch?v=mhmqomex1zk" target="_blank" rel="noopener noreferrer">La vidéo est disponible ici</a></p>
-<h2 id="the-lost-art-of-software-design-by-simon-brown" class="headerLink">
-    <a href="#the-lost-art-of-software-design-by-simon-brown" class="header-mark"></a>5 The lost art of software design by Simon Brown</h2><p>J&rsquo;utilise <a href="https://www.c4model.com/" target="_blank" rel="noopener noreferrer">le modèle C4</a> depuis plusieurs années.
-Je l&rsquo;ai même présenté très brièvement dans mon talk.</p>
-<p>Aussi, j&rsquo;ai été très impressionné quand j&rsquo;ai pu assister à la présentation de <a href="https://simonbrown.je/" target="_blank" rel="noopener noreferrer">Simon Brown</a> sur la conception logicielle.
-Il a expliqué pourquoi la conception n&rsquo;était pas conflictuelle avec les méthodes agiles.
-Ca permet notamment d&rsquo; identtifier et de gérer les risques.</p>
-<p>Au delà du modèle C4, <a href="https://riskstorming.com/" target="_blank" rel="noopener noreferrer">il a montré comment identifier et évaluer les différents risques avec le &ldquo;Risk Storming&rdquo;</a>.</p>
-<p>Enfin, il a répondu à la question à un million d&rsquo;euros: &ldquo;Quand arrêter la conception?&rdquo;</p>
-<p><a href="https://www.youtube.com/watch?v=36OTe7LNd6M" target="_blank" rel="noopener noreferrer">Vous trouverez la réponse ici</a>.</p>
-<h3 id="ahead-of-time-and-native-in-spring-boot-30-by-stéphane-nicoll--brian-clozel" class="headerLink">
-    <a href="#ahead-of-time-and-native-in-spring-boot-30-by-st%c3%a9phane-nicoll--brian-clozel" class="header-mark"></a>5.1 Ahead Of Time and Native in Spring Boot 3.0 by Stéphane Nicoll &amp; Brian Clozel</h3><p>Une autre conférence qui met en avant GraalVM!
-Cette fois on abordait le support de l&rsquo; AOT et du mode natif dans la future version de Spring Boot.</p>
-<p>Les présentateurs ont expliqués comment Spring supportait le mode natif: le processus appliqué, la gestion des métadonnées et l&rsquo;analyse réalisée.
-En (très très bref) résumé, l&rsquo; AOT génère des sources dont le chargement des Bean Definition.</p>
-<p>Ils ont également pointé du doigt des changements que je considère bloquants:</p>
-<ul>
-<li>On ne peut pas utiliser changer les profils au runtime</li>
-<li>La surcharge des propriétés et variable d&rsquo;environnement n&rsquo;est pas possible à l&rsquo;exécution</li>
-<li>On ne peut pas utiliser de Java Agent.</li>
-</ul>
-<p>Pour ce dernier point, cela risque de poser de nombreux soucis que ça soit l&rsquo;utilisation d&rsquo;un <a href="https://www.dynatrace.com/news/blog/what-is-apm-2/" target="_blank" rel="noopener noreferrer">APM tel que Dynatrace</a> ou le support de <a href="https://docs.spring.io/spring-framework/docs/3.2.x/spring-framework-reference/html/aop.html" target="_blank" rel="noopener noreferrer">l&rsquo;AOP</a>.</p>
-<p>A la fin de cette présentation, ils ont donné quelques recommendations. Parmi celles-ci:</p>
-<ul>
-<li>Exécuter en développement l&rsquo;application en mode AOT avec une JVM</li>
-<li>Exécuter les tests en mode natif</li>
-</ul>
-<p><a href="https://www.youtube.com/watch?v=TS4DpYSmfXk" target="_blank" rel="noopener noreferrer">Vous trouverez la vidéo ici</a></p>
-<h3 id="the-art-of-java-language-pattern-matching-by-simon-ritter" class="headerLink">
-    <a href="#the-art-of-java-language-pattern-matching-by-simon-ritter" class="header-mark"></a>5.2 The Art of Java Language Pattern Matching by Simon Ritter</h3><p><a href="https://uk.linkedin.com/in/siritter" target="_blank" rel="noopener noreferrer">Simon Ritter</a> a exploré toutes les possibilité du <a href="https://docs.oracle.com/en/java/javase/15/language/pattern-matching-instanceof-operator.html" target="_blank" rel="noopener noreferrer">pattern matching en Java</a>.
-Toutes les fonctionnalités ne sont pas encore disponibles. On peut néanmoins faire beaucoup de choses.</p>
-<p>Après un rappel sur les nouvelles fonctionnalités depuis le JDK11 (<a href="https://docs.oracle.com/en/java/javase/15/language/sealed-classes-and-interfaces.html" target="_blank" rel="noopener noreferrer">Sealed classes</a>, <a href="https://docs.oracle.com/en/java/javase/15/language/records.html" target="_blank" rel="noopener noreferrer">Records</a>), Simon Ritter a illustré leur utilisation dans ce contexte.</p>
-<p>Si vous voulez tout connaître sur cette fonctionnalité, je vous conseille fortement de regarder ce talk.</p>
-<p><a href="https://www.youtube.com/watch?v=OlW724WaJJQ" target="_blank" rel="noopener noreferrer">Voici la vidéo</a></p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Voila les quelques talks qui m&rsquo;ont interpellé. Il y en a beaucoup d&rsquo;autres tels que ceux de <a href="https://devoxx.be/talk/?id=2352" target="_blank" rel="noopener noreferrer">Julien TOPCU</a> ou <a href="https://devoxx.be/talk/?id=19402" target="_blank" rel="noopener noreferrer">Marcy ERICKA CHARELLOIS</a>.
-Cette première participation était très enrichissante. J&rsquo;ai eu à plusieurs reprises l&rsquo;impression d&rsquo;avoir l&rsquo;information à la source (ex. pour Spring).</p>
-<p>Si j&rsquo;ai autant de chance, je pense rééditer l&rsquo;expérience l&rsquo;année prochaine.</p>
-<p>En tant que speaker pour une conférence ou un workshop? Seul l&rsquo;avenir nous le dira!</p>
-<div class="footnotes" role="doc-endnotes">
-<hr>
-<ol>
-<li id="fn:1">
-<p><a href="https://www.imdb.com/title/tt0250223/characters/nm0046347" target="_blank" rel="noopener noreferrer"><em>Vous savez, moi je ne crois pas qu&rsquo;il y aient de bonnes ou mauvaises conférences. Moi, si je devais résumer ma vie aujourd’hui avec vous, je dirais que c’est d’abord des rencontres, des gens qui m’ont tendu la main&hellip;</em></a>&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
-</li>
-</ol>
-</div>
 ]]></description></item></channel></rss>
