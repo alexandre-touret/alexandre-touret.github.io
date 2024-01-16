@@ -51,7 +51,7 @@ This is one of the ways in which quality of service issues can be addressed.
 
 ## A short presentation of the Grafana stack
 
-[The Grafana stack](https://grafana.com/oss/) aims to provide a tool which allows you to query, visualise, alert and explore all of your metrics.
+[The Grafana stack](https://grafana.com/oss/) aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
 You can aggregate them through a [wide range of data sources](https://grafana.com/docs/grafana/latest/datasources/).
 With regard to the topic of this article,it will provide us all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.   
 
@@ -84,11 +84,11 @@ They can be defined as follows:
 When a program fails, OPS usually tries to identify the underlying error analyzing log files.
 It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.
 
-In my opinion, most of the time developers don't really take care about this matter.
+In my opinion, most of the time developers don't really care about this matter.
 It is mainly due to they did not experience such a trouble.
 
-For two years I had to administrate a proprietary customer relationship management solution. 
-The only way to analyze errors was navigating through the logs, using the most appropriate error levels to get the root cause.
+For two years, I had to administrate a proprietary customer relationship management solution. 
+The only way to analyse errors was navigating through the logs, using the most appropriate error levels to get the root cause.
 We didn't have access to the source code (Long live to open source programs).
 Hopefully the log management system was really efficient. 
 It helped us get into this product and administrate it efficiently.
@@ -146,8 +146,12 @@ and create a [``logback-spring.xml``](https://github.com/alexandre-touret/observ
         </format>
     </appender>
 ```
-
 _Et voilà!_
+
+{{< admonition tip "About the format" true >}}
+It is just my 2 cents: more and more I tend to produce structurised logs using JSON for instance.
+It is usually easier to manipulate them all along the log ingestion tools chain (e.g, with [LogStash](https://www.elastic.co/fr/logstash/). 
+{{< /admonition >}}
 
 After restarting your application:
 
@@ -155,9 +159,11 @@ After restarting your application:
 gradle bootRun
 ```
 
-You can now get logs browsing Grafana reaching this URL: [http://localhost:3000/goto/M-VkkicSR?orgId=1](http://localhost:3000/goto/M-VkkicSR?orgId=1)
+You can now get logs browsing Grafana reaching this URL: [http://localhost:3000/goto/M-VkkicSR?orgId=1](http://localhost:3000/goto/M-VkkicSR?orgId=1) and running some API calls with the following command:
 
-Now you will put a log to indicate an exception has been thrown giving some contextual information:
+```bash
+http :8080/api/events
+```
 
 ## Traces
 
@@ -295,7 +301,7 @@ A viable solution to mitigate this challenge involves sampling the traces, such 
 
 2. **Tail Sampling**: Alternatively, SPANs are sampled retrospectively, often through tools like the [Open Telemetry Collector](https://opentelemetry.io/docs/collector/). While this method allows for filtering SPANs based on various criteria, such as the transaction status, it does not address the overhead issue. All SPANs are initially broadcast and then filtered, making it less suitable for heavily used scenarios.
 
-Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to [this article]([this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
+Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to [this article](https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling).
 
 ## Correlating Logs & Traces
 
@@ -395,6 +401,7 @@ scrape_configs:
 Finally, you can directly browse it through Grafana to integrate all of these metrics into your dashboards 🎉.
 
 ## Conclusion
+I endeavored to provide you with a comprehensive overview of what an OPS professional could anticipate while investigating an issue and the corresponding topics that require attention. 
 As you probably figured out, we only applied just a bunch of configuration sets.  
 One of the key merits of these tools lies in their non-intrusiveness within the code itself.
 To cut long story short: it is not a big deal!
