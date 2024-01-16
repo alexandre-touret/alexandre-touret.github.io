@@ -1,7 +1,7 @@
 ---
 title: "Mastering Observability: Empowering Developers from Zero to Hero with Spring & the Grafana stack"
-date: 2024-01-08T15:05:43+01:00
-draft: true
+date: 2024-01-16T19:00:43+01:00
+draft: false
   
 featuredImagePreview: "/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp"
 featuredImage: "/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp"
