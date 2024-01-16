@@ -36,7 +36,9 @@ In this article, I aim to highlight the importance of putting in place observabi
 I will then outline how to merge logs and traces from a good old [Spring Boot application](https://spring.io/projects/spring-boot/) on the [Grafana Stack](https://grafana.com/) to gain clearer insights into your platform's workings. 
 By doing so, you can transform your relationship with Ops teams, making them your best friends.
 
+{{< admonition question "What about the code?" true >}}
 The examples provided in this article come from [this project hosted on Github](https://github.com/alexandre-touret/observability-from-zero-to-hero).
+{{< /admonition >}}
 
 ## A definition of Observability
 
@@ -49,17 +51,18 @@ This is one of the ways in which quality of service issues can be addressed.
 
 ## A short presentation of the Grafana stack
 
-This stack aims at a cockpit dashboard of your platforms.
-Through different tools, the [Grafana stack](https://grafana.com/oss/) provides all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.   
+[The Grafana stack](https://grafana.com/oss/) aims to provide a tool which allows you to query, visualise, alert and explore all of your metrics.
+You can aggregate them through a [wide range of data sources](https://grafana.com/docs/grafana/latest/datasources/).
+With regard to the topic of this article,it will provide us all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.   
 
-In this article, I will particularly focus on:
+I will therefore particularly focus on:
 * [Grafana](https://grafana.com/oss/grafana/): The dashboard engine
 * [Loki](https://grafana.com/oss/loki/): The log storage engine
 * [Tempo](https://grafana.com/oss/tempo/): The trace storage engine
 
-I create a [Docker Compose stack to run it on your desktop](https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker).
+To get it started easily, I just created a [Docker Compose stack to run it on your desktop](https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker).
 
-You can run it as following:
+You can run it with these commands:
 
 ```bash
 cd docker
@@ -72,7 +75,7 @@ Let's go back to the basics: To make a system fully observable, the following ab
 * Traces
 * Metrics
 
-They can be defined as follow:
+They can be defined as follows:
 
 ![monitoring](/assets/images/2024/01/image-2023-8-1_9-44-11.webp)
 
@@ -110,6 +113,11 @@ If you want to dig into log levels and the importance to indicate contextual inf
 ## What about Grafana Loki
 
 For this test, I chose to use [loki-logback-appender](https://github.com/loki4j/loki-logback-appender) to send the logs to Loki.
+
+{{< admonition tip "About this appender" true >}}
+I chose to use this appender for testing purpose.
+If you deploy your application on top of Kubernetes, you would probably opt for a more suitable solution such as [FluentD](https://www.fluentd.org/).
+{{< /admonition >}}
 
 The configuration for a Spring Boot application is pretty straightforward:
 
@@ -153,16 +161,14 @@ Now you will put a log to indicate an exception has been thrown giving some cont
 
 ## Traces
 
-At first sight, you could say it is enough.
-However, I strongly suggest to get into Distributed Tracing.  
-I already introduced this technology (see above).
+Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of [Distributed Tracing](https://research.google/pubs/pub36356/), a technology I have previously introduced (refer to the aforementioned discussion).
 Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.
 
-When you have an issue on production, it is often tricky to identify the root cause, or why the SQL query failed or took a long time.
-Usually, when you face to such an issue, you try to reproduce it on another environment.
-Beyond all the setup (data, servers, benchmark), most of the time, you can not really do that and get a clear opinion on what is wrong. 
+The true value of distributed tracing becomes evident not only in the deployment of distributed architectures but across various platforms. In the complex landscape of production issues, identifying the root cause or understanding why a specific SQL query failed or took an extended duration can be challenging. Traditionally, attempts to replicate such issues in alternative environments often fall short due to the inherent complexities of data, server configurations, and benchmarking.
 
-Using this technology, you can get it !
+This technology empowers you to gain valuable insights that were previously elusive. When grappling with production issues, you no longer need to rely solely on replication efforts; distributed tracing provides a clear and comprehensive perspective on what might be amiss.
+
+To sum up: _Try it, you'll like it!_
 
 ### The setup
 
@@ -302,11 +308,97 @@ We therefore will modify the pattern of the logs in the [``logback-spring.xml``]
 
 
 ```xml
- <pattern>
-    {"level":"%level","traceId":"%X{trace_id}","spanId":"%X{span_id}","class":"%logger{36}","thread":"%thread","message": "%message","requestId": "%X{X-Request-ID}"}
+<pattern>
+    {"level":"%level","TraceID":"%mdc{trace_id:-none}","spanId":"%mdc{span_id:-none}","class":"%logger{36}","thread":"%thread","message": "%message","requestId": "%X{X-Request-ID}"}
 </pattern>
 ```
+As a developer point of view, the job is done :)
+Now, it is time for the OPS/SRE to configure Grafana to link Loki and Tempo through the TraceID field.
+
+For that, you can create a derived field directly in the datasource configuration:
+
+```yaml
+datasources:
+  - name: Loki
+    type: loki
+    access: proxy
+    uid: loki
+    url: http://loki:3100
+    jsonData:
+        maxLines: 1000
+        derivedFields:
+          - datasourceUid: tempo
+            matcherRegex: '\"TraceID\": \"(\w+).*\"'
+            name: TraceID
+            # url will be interpreted as query for the datasource
+            url: '$${__value.raw}'
+            # optional for URL Label to set a custom display label for the link.
+            urlDisplayLabel: 'View Trace'
+
+  - name: Tempo
+    type: tempo
+    access: proxy
+    uid: tempo
+    url: http://tempo:3200
+    jsonData:
+      nodeGraph:
+        enabled: true
+      serviceMap:
+        datasourceUid: 'mimir'
+      tracesToLogs:
+        datasourceUid: loki
+        filterByTraceID: true
+        filterBySpanID: false
+        mapTagNamesEnabled: false
+```
+
+Now you will be able to browse directly to the corresponding trace from your log event and the other way around.
 
 ## Metrics
 
+Now, let us deep dive into the metrics of our application!
+We can do that through [Prometheus](https://prometheus.io/).
+
+We can configure now Prometheus to grab the metrics exposed by our application.
+
+To do that, we need first to activate the Prometheus endpoint:
+
+We need to add this dependency first:
+
+```groovy
+implementation 'io.micrometer:micrometer-registry-prometheus'
+```
+
+And enable the corresponding endpoint:
+
+```ini
+management.endpoints.web.exposure.include=health,info,prometheus
+```
+
+After enabling it, as a developer point of view, it is done :-)
+
+The prometheus statistics can be scrapped by Prometheus itself using [this configuration](https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/docker/prometheus/prometheus.yml) 
+
+```yaml
+scrape_configs:
+- job_name: prometheus
+  honor_timestamps: true
+  scrape_interval: 15s
+  scrape_timeout: 10s
+  metrics_path: /actuator/prometheus
+  scheme: http
+  static_configs:
+    - targets:
+        - host.docker.internal:8080
+```
+
+Finally, you can directly browse it through Grafana to integrate all of these metrics into your dashboards 🎉.
+
 ## Conclusion
+As you probably figured out, we only applied just a bunch of configuration sets.  
+One of the key merits of these tools lies in their non-intrusiveness within the code itself.
+To cut long story short: it is not a big deal!
+
+Integrating these configurations can be a significant stride forward, providing invaluable assistance to the entire IT team, from development to operations, as they navigate and troubleshoot issues—whether in production or elsewhere.
+
+I will finish this article by my opinion on such topics: regardless of the targeted tools, this set of configuration **must be considered as the first feature to implement for every cloud native application**.
