@@ -1,5 +1,5 @@
 ---
-title: "Observability From Zero to Hero with the Grafana stack"
+title: "Observability for developers: From Zero to Hero with Spring & the Grafana stack"
 date: 2024-01-08T15:05:43+01:00
 draft: true
   
@@ -11,6 +11,7 @@ tags:
   - Observability
   - Spring
   - Java
+  - Grafana
 ---
 
 ## The sad reality
@@ -46,8 +47,8 @@ We can shortly define it as this:
 
 > Observability is the ability **to understand the internal state of a complex system**. 
 > When a system is observable, a user can **identify the root cause** of a performance problem by examining the data it produces, without additional testing or coding.
-
-This is one of the ways in which quality of service issues can be addressed.
+> 
+> This is one of the ways in which **quality of service** issues can be addressed.
 
 ## A short presentation of the Grafana stack
 
@@ -59,6 +60,8 @@ I will therefore particularly focus on:
 * [Grafana](https://grafana.com/oss/grafana/): The dashboard engine
 * [Loki](https://grafana.com/oss/loki/): The log storage engine
 * [Tempo](https://grafana.com/oss/tempo/): The trace storage engine
+
+By the way, I also configured in this project a [Prometheus TSDB to store metrics](https://prometheus.io/docs/introduction/overview/).
 
 To get it started easily, I just created a [Docker Compose stack to run it on your desktop](https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker).
 
@@ -93,7 +96,7 @@ We didn't have access to the source code (Long live to open source programs).
 Hopefully the log management system was really efficient. 
 It helped us get into this product and administrate it efficiently.
 
-I strongly think we should systematise such experiences for developers. 
+Furthermore, I strongly think we should systematise such experiences for developers. 
 It could help them (us) know what is behind the curtain and make more observable and better programs.
 
 ### Key principles
@@ -104,7 +107,7 @@ For the latter, you should apply some of these principles:
 
 * Identify and use the most appropriate level (``DEBUG``, ``INFO``, ``WARN``, ``ERROR``,...)
 * Provide a clear and useful message for OPS (yes you make this log for him/her)
-* Provide business context (e.g., the creation of the contract ``123456`` failed )
+* Provide business context (e.g., the creation of the contract ``123456`` failed)
 * Logs must be read by an external tool (e.g., using a log aggregator)
 * Logs must not expose sensitive data: You must think about GDPR, PCI DSS standards
 
@@ -149,7 +152,7 @@ and create a [``logback-spring.xml``](https://github.com/alexandre-touret/observ
 _Et voilà!_
 
 {{< admonition tip "About the format" true >}}
-It is just my 2 cents: more and more I tend to produce structurised logs using JSON for instance.
+It is just my 2 cents: more and more I tend to produce structured logs using JSON for instance.
 It is usually easier to manipulate them all along the log ingestion tools chain (e.g, with [LogStash](https://www.elastic.co/fr/logstash/). 
 {{< /admonition >}}
 
