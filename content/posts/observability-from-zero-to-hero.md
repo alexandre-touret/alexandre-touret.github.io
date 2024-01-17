@@ -167,6 +167,7 @@ You can now get logs browsing Grafana reaching this URL: [http://localhost:3000/
 ```bash
 http :8080/api/events
 ```
+![Loki](/assets/images/2024/01/Loki-Grafana.webp)
 
 ## Traces
 
@@ -292,7 +293,27 @@ public ResponseEntity<ObservabilityEventDto> getEvent() throws ErrorResponseExce
     }
 ```
 
+Using Problem Detail responses, you will get such a response when an error occurs:
+
+```bash
+ http :8080/api/events
+HTTP/1.1 500
+Connection: close
+Content-Type: application/problem+json
+Date: Wed, 17 Jan 2024 08:09:20 GMT
+Transfer-Encoding: chunked
+
+{
+    "instance": "/api/events",
+    "status": 500,
+    "title": "Internal Server Error",
+    "type": "about:blank"
+}
+```
+
 After testing this service a few times, you can now see the traces on your Grafana dashboard.
+
+![Tempo](/assets/images/2024/01/Tempo-Grafana.webp)
 
 ### Head or Tail sampling? 
 
