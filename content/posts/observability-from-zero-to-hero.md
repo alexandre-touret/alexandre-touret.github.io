@@ -161,12 +161,13 @@ After restarting your application:
 ```bash
 gradle bootRun
 ```
-
-You can now get logs browsing Grafana reaching this URL: [http://localhost:3000/goto/M-VkkicSR?orgId=1](http://localhost:3000/goto/M-VkkicSR?orgId=1) and running some API calls with the following command:
+After running some API calls with the following command:
 
 ```bash
 http :8080/api/events
 ```
+You can now get logs browsing Grafana
+
 ![Loki](/assets/images/2024/01/Loki-Grafana.webp)
 
 ## Traces
