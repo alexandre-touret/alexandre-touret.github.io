@@ -174,7 +174,7 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gradle bootRun
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>You can now get logs browsing Grafana reaching this URL: <a href="http://localhost:3000/goto/M-VkkicSR?orgId=1" target="_blank" rel="noopener noreferrer">http://localhost:3000/goto/M-VkkicSR?orgId=1</a> and running some API calls with the following command:</p>
+</div><p>After running some API calls with the following command:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -183,7 +183,16 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
 <pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http :8080/api/events
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="traces" class="headerLink">
+</div><p>You can now get logs browsing Grafana</p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2024/01/Loki-Grafana.webp"
+        srcset="/assets/images/2024/01/Loki-Grafana.webp, /assets/images/2024/01/Loki-Grafana.webp 1.5x, /assets/images/2024/01/Loki-Grafana.webp 2x"
+        sizes="auto"
+        alt="Loki"
+        title="Loki" ></figure></p>
+<h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
 Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
 <p>The true value of distributed tracing becomes evident not only in the deployment of distributed architectures but across various platforms. In the complex landscape of production issues, identifying the root cause or understanding why a specific SQL query failed or took an extended duration can be challenging. Traditionally, attempts to replicate such issues in alternative environments often fall short due to the inherent complexities of data, server configurations, and benchmarking.</p>
@@ -379,7 +388,48 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
+</div><p>Using Problem Detail responses, you will get such a response when an error occurs:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> http :8080/api/events
+</span></span><span class="line"><span class="cl">HTTP/1.1 <span class="m">500</span>
+</span></span><span class="line"><span class="cl">Connection: close
+</span></span><span class="line"><span class="cl">Content-Type: application/problem+json
+</span></span><span class="line"><span class="cl">Date: Wed, <span class="m">17</span> Jan <span class="m">2024</span> 08:09:20 GMT
+</span></span><span class="line"><span class="cl">Transfer-Encoding: chunked
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;instance&#34;</span>: <span class="s2">&#34;/api/events&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;status&#34;</span>: 500,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;title&#34;</span>: <span class="s2">&#34;Internal Server Error&#34;</span>,
+</span></span><span class="line"><span class="cl">    <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;about:blank&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
 </div><p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
+<p><figure><img
+        
+        loading="lazy"
+        src="/assets/images/2024/01/Tempo-Grafana.webp"
+        srcset="/assets/images/2024/01/Tempo-Grafana.webp, /assets/images/2024/01/Tempo-Grafana.webp 1.5x, /assets/images/2024/01/Tempo-Grafana.webp 2x"
+        sizes="auto"
+        alt="Tempo"
+        title="Tempo" ></figure></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
 <p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
