@@ -24,15 +24,25 @@ I asked me: _"Do you have a list of the best books you read and enjoyed? It coul
 
 I will therefore try to reply here to this query.
 
+You will find below few books I found really helpful at different steps of my career:
+
 ## The stapple
 
-Design Patterns (GoF)
 Clean code
 Refactoring
+Design Patterns (GoF)
+
+## For Java developers
+Effective Java
+Head First Java
 
 Microservices
 Fundamentals of Software Architecture
 Evolutionary Architectures
 GTD
+Resonate
+Software architecture for developers: Technical Leadership and the balance with agility
 
-
+There is also plenty of really interesting books I didn't read yet.
+I usually base my reading choice on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
+You will find many of the books I already mentioned in this article and many more!
