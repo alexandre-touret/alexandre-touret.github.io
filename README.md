@@ -33,3 +33,9 @@ docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "*.md"
 ```bash
 . ./run-vale.sh
 ```
+
+## Fix GPG signature
+
+```bash
+ git rebase --exec 'git commit --amend --no-edit -n -S' -i main
+ ```
