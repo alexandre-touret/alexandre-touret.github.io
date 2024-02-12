@@ -6,7 +6,6 @@ draft: true
 featuredImagePreview: "/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp"
 featuredImage: "/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp"
 images: ["/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp"]
-lightgallery: true
 tags:
   - Learning
 ---
