@@ -27,42 +27,52 @@ I will therefore try to reply here to this query.
 You will find below a bunch of books I found really helpful at different steps of my career.
 Please, remind this list is not exhaustive and there is plenty of interesting books beyond this list.
 
-## The stapple
+## The staple
+Here are few books I strongly recommend to read and read again to every developer in this particular order.
 
-### Clean code
+### Clean code by R. C. MARTIN
 {{< figure src="/assets/images/2024/02/cleancode.webp" title="Clean Code" >}}
-### Refactoring
+For few years, when I must mentor a young developer, I ask him/her to read Clean code first and code then.
+
+### Refactoring by M. FOWLER
 {{< figure src="/assets/images/2024/02/refactoring.webp" title="Refactoring" >}}
-### Design Patterns (GoF)
+I must admit, I am a big fan of [M. FOWLER](https://martinfowler.com/). 
+Every of his presentations, articles or books are really informative and inspiring.
+This book belong to the mandatory reading list for every people who want to improve in this field.
+
+### Design Patterns by the GoF
 {{< figure src="/assets/images/2024/02/gof.webp" title="Design Patterns by the GoF" >}}
 
+One of the first tech book I bought. 
+It is still useful.
+
 ## For Java developers
-### Head First Java
+### Head First Java by K. SIERA & B. BATES
 {{< figure src="/assets/images/2024/02/head_first_java.webp" title="Head First Java" >}}
 
-### Effective Java
+### Effective Java by J. BLOCH
 {{< figure src="/assets/images/2024/02/effective_java.webp" title="Effective Java" >}}
 
 ## For designers
-### Fundamentals of Software Architecture
+### Fundamentals of Software Architecture by M. RICHARDS & N. FORD
 
 {{< figure src="/assets/images/2024/02/fundamentals_sa.webp" title="Fundamentals of Software Architecture" >}}
 
-### Software architecture for developers: Technical Leadership and the balance with agility
+### Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN
 {{< figure src="/assets/images/2024/02/software_arch_for_developers.webp" title="Software architecture for developers: Technical Leadership and the balance with agility" >}}
 
-### Microservices
+### Building Microservices by S. NEWMAN
 {{< figure src="/assets/images/2024/02/microservices.webp" title="Building Microservices" >}}
 
-### Building Evolutionary Architectures
+### Building Evolutionary Architectures by N. FORD, R. PARSONS & P. KUA
 {{< figure src="/assets/images/2024/02/evolutionary.webp" title="Building Evolutionary Architectures" >}}
 
 ## For speakers
-### Resonate
+### Resonate by N. DUARTE
 {{< figure src="/assets/images/2024/02/resonate.webp" title="Resonate" >}}
 
 ## For people who want to get rid of stress and being organised
-### Getting Things Done
+### Getting Things Done by D. ALLEN
 {{< figure src="/assets/images/2024/02/gtd.webp" title="getting Things Done" >}}
 
 ## Conclusion
