@@ -1,5 +1,5 @@
 ---
-title: "My Tech Library"
+title: "My (not only) Tech Library"
 date: 2024-02-10T19:00:43+01:00
 draft: true
   
@@ -55,27 +55,47 @@ It is still useful.
 
 ## For designers
 ### Fundamentals of Software Architecture by M. RICHARDS & N. FORD
-
 {{< figure src="/assets/images/2024/02/fundamentals_sa.webp" title="Fundamentals of Software Architecture" >}}
+
+It is definitively the book I would have wished to read 10+ years ago!
+In my opinion, reading this book is a mandatory step for every people who want to dig into architecture. 
+It addresses both the hard skills with all the main architecture design patterns and the soft skills (i.e., how to work as an architect?). 
 
 ### Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN
 {{< figure src="/assets/images/2024/02/software_arch_for_developers.webp" title="Software architecture for developers: Technical Leadership and the balance with agility" >}}
 
+This is another great book talking about software architecture.  
+I also recommend to read it.
+
 ### Building Microservices by S. NEWMAN
 {{< figure src="/assets/images/2024/02/microservices.webp" title="Building Microservices" >}}
 
+If you want to dig into how to design a microservice platform, this book is a good start.
+It will provide a good overview of all the main points to tackle such as integration, deployment, or the famous [Conway Law](https://en.wikipedia.org/wiki/Conway%27s_law).
+
 ### Building Evolutionary Architectures by N. FORD, R. PARSONS & P. KUA
 {{< figure src="/assets/images/2024/02/evolutionary.webp" title="Building Evolutionary Architectures" >}}
+
+This book comforted me a platform must be on the one hand designed and sat up as simply as possible and on the other hand supports changes over the time.
+Among other things, the authors bring guidance to achieve that.
 
 ## For speakers
 ### Resonate by N. DUARTE
 {{< figure src="/assets/images/2024/02/resonate.webp" title="Resonate" >}}
 
+I read this book recently. 
+It is considered as a reference for people who talk in public. 
+It is also my opinion.
+
 ## For people who want to get rid of stress and being organised
 ### Getting Things Done by D. ALLEN
 {{< figure src="/assets/images/2024/02/gtd.webp" title="getting Things Done" >}}
 
+Last but not least, this book changed 15 years ago the way I organised both my personal and professional life. 
+This kind of personal life methodology does not work for everyone.
+For me, it was a game changer.
+
 ## Conclusion
-There is also plenty of really interesting books I didn't read yet.
-I usually base my reading choice on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
+I didn't read plenty of fascinating books yet.
+I usually choose a book which talks about architecture or design based on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
 You will find many of the books I already mentioned in this article and many more!
