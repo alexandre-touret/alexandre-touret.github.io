@@ -98,5 +98,5 @@ For me, it was a game changer.
 
 ## Conclusion
 Unfortunately, I didn't read plenty of fascinating books yet.
-I usually choose a book which talks about architecture or design based on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
+I usually choose a book addressing architecture or design topics taking a look on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
 You will find many of the books I already mentioned in this article and many more!
