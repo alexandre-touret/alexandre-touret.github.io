@@ -11,10 +11,12 @@ tags:
   - Learning
 ---
 
+{{< style "text-align:center; " >}}
 _Picture of [Prateek Katyal](https://unsplash.com/fr/@prateekkatyal?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
+{{< /style >}}
 
 Early in my career, when the documentation was not so spearded across the Internet, I had to buy and crack open books to learn new things.
-I stumbled upon the shelves of Le Monde en "Tique", a famous parisian book store getting books of Java EE, XML, or whatever else.
+I stumbled upon the shelves of [Le Monde en "Tique"](https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu), a famous Parisian bookstore getting books of Java EE, XML, or whatever else.
 
 I then realised, even with the number of documentation, articles, videos growing on Internet, I learnt far better new topics reading books.
 
@@ -38,7 +40,7 @@ For few years, when I must mentor a young developer, I ask him/her to read Clean
 {{< figure src="/assets/images/2024/02/refactoring.webp" title="Refactoring" >}}
 I must admit, I am a big fan of [M. FOWLER](https://martinfowler.com/). 
 Every of his presentations, articles or books are really informative and inspiring.
-This book belong to the mandatory reading list for every people who want to improve in this field.
+In my opinion, this book belongs to the mandatory reading list for every people who want to become better in this field.
 
 ### Design Patterns by the GoF
 {{< figure src="/assets/images/2024/02/gof.webp" title="Design Patterns by the GoF" >}}
@@ -65,13 +67,13 @@ It addresses both the hard skills with all the main architecture design patterns
 {{< figure src="/assets/images/2024/02/software_arch_for_developers.webp" title="Software architecture for developers: Technical Leadership and the balance with agility" >}}
 
 This is another great book talking about software architecture.  
-I also recommend to read it.
+I also recommend reading it.
 
 ### Building Microservices by S. NEWMAN
 {{< figure src="/assets/images/2024/02/microservices.webp" title="Building Microservices" >}}
 
 If you want to dig into how to design a microservice platform, this book is a good start.
-It will provide a good overview of all the main points to tackle such as integration, deployment, or the famous [Conway Law](https://en.wikipedia.org/wiki/Conway%27s_law).
+It will provide you a good overview of all the main points to tackle such as integration, deployment, or the famous [Conway's Law](https://en.wikipedia.org/wiki/Conway%27s_law).
 
 ### Building Evolutionary Architectures by N. FORD, R. PARSONS & P. KUA
 {{< figure src="/assets/images/2024/02/evolutionary.webp" title="Building Evolutionary Architectures" >}}
@@ -96,6 +98,6 @@ This kind of personal life methodology does not work for everyone.
 For me, it was a game changer.
 
 ## Conclusion
-I didn't read plenty of fascinating books yet.
+Unfortunately, I didn't read plenty of fascinating books yet.
 I usually choose a book which talks about architecture or design based on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
 You will find many of the books I already mentioned in this article and many more!
