@@ -15,7 +15,7 @@ _Picture of [Prateek Katyal](https://unsplash.com/fr/@prateekkatyal?utm_content=
 {{< /style >}}
 
 Early in my career, when the documentation was not so spearded across the Internet, I had to buy and crack open books to learn new things.
-I stumbled upon the shelves of [Le Monde en "Tique"](https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu), a famous Parisian bookstore getting books of Java EE, XML, or whatever else.
+I stumbled upon of [Le Monde en "Tique"](https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu), a famous Parisian bookstore getting books of Java EE, XML, or whatever else.
 
 I then realised, even with the number of documentation, articles, videos growing on Internet, I learnt far better new topics reading books.
 
