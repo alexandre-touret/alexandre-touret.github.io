@@ -25,7 +25,7 @@ I asked me: _"Do you have a list of the best books you read and enjoyed? It woul
 
 I will therefore try to reply here to this query.
 
-You will find below **ten books** I found really helpful at different steps of my career.
+You will find below **TEN books** I found really helpful at different steps of my career.
 
 {{< admonition warning "About this list" true >}}
 It was quite hard to draw up this list which looks like to _"if you had been on a desert island, which book you would have brought"_.
