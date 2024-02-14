@@ -95,7 +95,7 @@ Among other things, the authors bring guidance to achieve that.
 It is considered as a reference for people who talk in public.
 Even if I read a bunch on this field, it is still the best I read so far.
 
-## For people who want to get rid of stress and being organised
+## For people who want to get rid of stress and being (mostly) organised
 ### Getting Things Done by D. ALLEN
 {{< figure src="/assets/images/2024/02/gtd.webp" title="Getting Things Done" >}}
 
@@ -105,5 +105,5 @@ For me, it was a game changer.
 
 ## Conclusion
 Unfortunately, I haven't read plenty of fascinating books yet.
-I usually choose a book addressing architecture or design topics taking a look on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/).
+Regarding software architecture or design topics, I usually choose a book taking a look on [the Gregor Hohpe bookshelf](https://architectelevator.com/architecture/architect-bookshelf/) first.
 You will find many of the books I already mentioned in this article and many more!
