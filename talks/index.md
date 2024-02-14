@@ -16,6 +16,23 @@ Here is a bunch of talks I presented at various tech events (meetups, conference
 
 You can find them either in French or English.
 
+### Apprenons à identifier les exigences techniques pour mieux concevoir
+
+{{< admonition abstract "Résumé" false >}}
+
+Avez-vous déjà entendu "ça doit fonctionner 24/7", "Je veux 100% de dispo", pour finir avec "en réalité, une VM ça sera largement suffisant" ?
+Ou au contraire "Pas de SLA, ma plateforme n'est pas critique, il faut juste qu'elle tourne impérativement le premier du mois à 6h54 précises" ?
+
+Si ces situations sont votre quotidien, ne perdez pas espoir ! Que ces critères techniques (Non Functional Requirements) soient explicites ou non, ils sont la clé qui vous permettra de concevoir une architecture en adéquation avec le besoin client.
+
+En se basant sur deux exemples fictifs (toute ressemblance avec la réalité serait bien évidemment fortuite, ou pas), nous verrons comment déjouer les pièges de la surqualité, et comment mettre en place une démarche pragmatique d'identification de la bonne architecture pour le bon besoin métier.
+
+À l’issue de cette présentation, nous saurons comment identifier ces fameuses NFRs qui nous aiderons à concevoir de meilleures architectures en évitant la sur-complexité !
+{{< /admonition >}}
+
+* [Slides](https://speakerdeck.com/alexandretouret/tnt24-apprenons-a-identifier-les-exigences-techniques-pour-mieux-concevoir)
+
+
 ### The Hitchhiker's guide to software architecture design
 
 {{< admonition abstract "Abstract" false >}}
@@ -36,20 +53,19 @@ At the end of this talk, you will have tips and tricks for thinking about it and
 * [Slides](https://speakerdeck.com/alexandretouret/vdb23-the-hitchhikers-guide-to-software-architecture-design)
 * [Video](https://youtu.be/vxwqD3KwdEY?si=n7L4p0USvdADFuct)
 
-
-### Le versioning des APIs REST: dans la vraie vie on fait comment?
+### Le versioning des APIs REST: dans la vraie vie, on fait comment ?
 
 {{< admonition abstract "Résumé" false >}}
-Quand on souhaite publier des APIs avec par exemple, une solution d' API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
+Quand on souhaite publier des APIs avec par exemple, une solution d'API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
 
 Imaginez, vous travaillez sur un produit qui expose des APIs à plusieurs clients. Vous devez leur proposer des évolutions et nouvelles fonctionnalités tout en maîtrisant l'existant.
-Quelle stratégie adopter? Quelles solutions techniques peut-on mettre en place simplement ?
+Quelle stratégie adopter ? Quelles solutions techniques peut-on mettre en place simplement ?
 
 Dans cette présentation, vous (re)découvrirez des conseils que j'ai pu mettre en pratique et qui m'ont aidé lors de mes derniers projets.
 
-Nous aborderons, au travers d'un cas concret la stratégie à mettre en oeuvre, les différentes possibilités d'implémentation ainsi que leurs contraintes.
+Nous aborderons, au travers d'un cas concret la stratégie à mettre en œuvre, les différentes possibilités d'implémentation ainsi que leurs contraintes.
 
-A l’issue de cette présentation, nous aurons une vue complète et objective des manières d'appréhender le versioning d'APIs.
+À l’issue de cette présentation, nous aurons une vue complète et objective des manières d'appréhender le versioning d'APIs.
 
 {{< /admonition >}}
 
@@ -94,7 +110,7 @@ To conclude, after this first try I will present the benefits I had benefited.
 * [Slides](https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way)
 * [Video](https://youtu.be/xLhb3mvweDI)
 
-### Java dans le cloud: avec Spring ou Quarkus?
+### Java dans le cloud : avec Spring ou Quarkus ?
 
 {{< admonition abstract "Résumé" false >}}
 Né au début des années 2000, le framework Spring a mis en avant la facilité de développement. Plus récemment, il a su s'adapter aux contraintes techniques liées aux applications cloud-natives.
