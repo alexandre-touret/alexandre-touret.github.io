@@ -1,0 +1,115 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Learning - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/learning/</link><description>Learning - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 14 Feb 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/learning/" rel="self" type="application/rss+xml"/><item><title>My (not only) Tech Library</title><link>https://blog.touret.info/2024/02/14/my-tech-library/</link><pubDate>Wed, 14 Feb 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/02/14/my-tech-library/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@prateekkatyal?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Prateek Katyal</a></em></div>
+<p>Early in my career, when the documentation was not so spread across the Internet, I had to buy and crack open books to learn new things.
+I stumbled upon of <a href="https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu" target="_blank" rel="noopener noreferrer">Le Monde en &ldquo;Tique&rdquo;</a>, a famous Parisian bookstore getting books of Java EE, XML, or whatever else.</p>
+<p>I then realised, even with the number of documentations, articles, videos growing on Internet, I learnt far better new topics reading books.</p>
+<p>All through my career I therefore tried to keep this habit.
+During the last <a href="https://touraine.tech/" target="_blank" rel="noopener noreferrer">Touraine Tech</a> edition, I had a chat with one of my ex-colleagues about that.
+I asked me: <em>&ldquo;Do you have a list of the best books you read and enjoyed? It would be nice if not&rdquo;</em></p>
+<p>I will therefore try to reply here to this query.</p>
+<p>You will find below <strong>TEN books</strong> I found really helpful at different steps of my career.</p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>About this list<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>It was quite hard to draw up this list which looks like to <em>&ldquo;if you had been on a desert island, which book you would have brought&rdquo;</em>.</p>
+<p>Please, remember then this list is not exhaustive and there are plenty of interesting books beyond this list.</p>
+</div>
+        </div>
+    </div>
+<h2 id="the-staple" class="headerLink">
+    <a href="#the-staple" class="header-mark"></a>1 The staple</h2><p>Here are few books I strongly recommend to read and read again to every developer in this particular order.</p>
+<h3 id="clean-code-by-r-c-martin" class="headerLink">
+    <a href="#clean-code-by-r-c-martin" class="header-mark"></a>1.1 Clean code by R. C. MARTIN</h3><p><figure><img src="/assets/images/2024/02/cleancode.webp"/><figcaption>
+            <h4>Clean Code</h4>
+        </figcaption>
+</figure>
+
+For few years, when I must mentor a young developer, I ask him/her to read Clean code first and code then.</p>
+<h3 id="refactoring-by-m-fowler" class="headerLink">
+    <a href="#refactoring-by-m-fowler" class="header-mark"></a>1.2 Refactoring by M. FOWLER</h3><p><figure><img src="/assets/images/2024/02/refactoring.webp"/><figcaption>
+            <h4>Refactoring</h4>
+        </figcaption>
+</figure>
+
+I must admit, I am a big fan of <a href="https://martinfowler.com/" target="_blank" rel="noopener noreferrer">M. FOWLER</a>.
+Every of his presentations, articles or books are really informative and inspiring.
+In my opinion, this book belongs to the mandatory reading list for every person who wants to become better in this field.</p>
+<h3 id="design-patterns-by-the-gof" class="headerLink">
+    <a href="#design-patterns-by-the-gof" class="header-mark"></a>1.3 Design Patterns by the GoF</h3><figure><img src="/assets/images/2024/02/gof.webp"/><figcaption>
+            <h4>Design Patterns by the GoF</h4>
+        </figcaption>
+</figure>
+
+<p>One of the first tech book I bought. It was during the first years of my career.
+I had a blast reading it because it addressed common problems with simple <em>cooking recipes</em> we could easily put into practice.</p>
+<p>I think it is still worth reading it.</p>
+<h2 id="for-java-developers" class="headerLink">
+    <a href="#for-java-developers" class="header-mark"></a>2 For Java developers</h2><h3 id="effective-java-by-j-bloch" class="headerLink">
+    <a href="#effective-java-by-j-bloch" class="header-mark"></a>2.1 Effective Java by J. BLOCH</h3><figure><img src="/assets/images/2024/02/effective_java.webp"/><figcaption>
+            <h4>Effective Java</h4>
+        </figcaption>
+</figure>
+
+<p>From my perspective, it is the perfect Java developer &ldquo;Clean Code&rdquo; book companion.
+If you are a Java developer beginner (or not!), you can also refer to <a href="https://www.oreilly.com/library/view/head-first-java/9781492091646/" target="_blank" rel="noopener noreferrer">Head First Java by K. SIERA &amp; B. BATES</a>.</p>
+<h2 id="for-designers" class="headerLink">
+    <a href="#for-designers" class="header-mark"></a>3 For designers</h2><h3 id="fundamentals-of-software-architecture-by-m-richards--n-ford" class="headerLink">
+    <a href="#fundamentals-of-software-architecture-by-m-richards--n-ford" class="header-mark"></a>3.1 Fundamentals of Software Architecture by M. RICHARDS &amp; N. FORD</h3><figure><img src="/assets/images/2024/02/fundamentals_sa.webp"/><figcaption>
+            <h4>Fundamentals of Software Architecture</h4>
+        </figcaption>
+</figure>
+
+<p>It is definitively the book I would have wished to read 10+ years ago!
+In my opinion, reading this book is a mandatory step for anyone who wants to dig into architecture.
+It addresses both the hard skills with all the main architecture design patterns and the soft skills (i.e., how to work as an architect?).</p>
+<h3 id="software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="headerLink">
+    <a href="#software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="header-mark"></a>3.2 Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN</h3><figure><img src="/assets/images/2024/02/software_arch_for_developers.webp"/><figcaption>
+            <h4>Software architecture for developers: Technical Leadership and the balance with agility</h4>
+        </figcaption>
+</figure>
+
+<p>This is another terrific book talking about software architecture.<br>
+I also recommend reading it.</p>
+<h3 id="building-microservices-by-s-newman" class="headerLink">
+    <a href="#building-microservices-by-s-newman" class="header-mark"></a>3.3 Building Microservices by S. NEWMAN</h3><figure><img src="/assets/images/2024/02/microservices.webp"/><figcaption>
+            <h4>Building Microservices</h4>
+        </figcaption>
+</figure>
+
+<p>If you want to dig into how to design a microservice platform, this book is a good start.
+It will provide you a good overview of all the main points to tackle such as integration, deployment, or the famous <a href="https://en.wikipedia.org/wiki/Conway%27s_law" target="_blank" rel="noopener noreferrer">Conway&rsquo;s Law</a>.</p>
+<h3 id="building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="headerLink">
+    <a href="#building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="header-mark"></a>3.4 Building Evolutionary Architectures by N. FORD, R. PARSONS &amp; P. KUA</h3><figure><img src="/assets/images/2024/02/evolutionary.webp"/><figcaption>
+            <h4>Building Evolutionary Architectures</h4>
+        </figcaption>
+</figure>
+
+<p>This book comforted me a platform must be on the one hand designed and sat up as simply as possible and on the other hand supports changes over the time.
+Among other things, the authors bring guidance to achieve that.</p>
+<h2 id="for-speakers" class="headerLink">
+    <a href="#for-speakers" class="header-mark"></a>4 For speakers</h2><h3 id="resonate-by-n-duarte" class="headerLink">
+    <a href="#resonate-by-n-duarte" class="header-mark"></a>4.1 Resonate by N. DUARTE</h3><figure><img src="/assets/images/2024/02/resonate.webp"/><figcaption>
+            <h4>Resonate</h4>
+        </figcaption>
+</figure>
+
+<p>It is considered as a reference for people who talk in public.
+Even if I read a bunch on this field, it is still the best I read so far.</p>
+<h2 id="for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="headerLink">
+    <a href="#for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="header-mark"></a>5 For people who want to get rid of stress and being (mostly) organised</h2><h3 id="getting-things-done-by-d-allen" class="headerLink">
+    <a href="#getting-things-done-by-d-allen" class="header-mark"></a>5.1 Getting Things Done by D. ALLEN</h3><figure><img src="/assets/images/2024/02/gtd.webp"/><figcaption>
+            <h4>Getting Things Done</h4>
+        </figcaption>
+</figure>
+
+<p>Last but not least, this book changed 15 years ago the way I organised both my personal and professional life.
+This kind of personal life methodology does not work for everyone.
+For me, it was a game changer.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Unfortunately, I haven&rsquo;t read plenty of fascinating books yet.
+Regarding software architecture or design topics, I usually choose a book taking a look on <a href="https://architectelevator.com/architecture/architect-bookshelf/" target="_blank" rel="noopener noreferrer">the Gregor Hohpe bookshelf</a> first.
+You will find many of the books I already mentioned in this article and many more!</p>
+]]></description></item></channel></rss>

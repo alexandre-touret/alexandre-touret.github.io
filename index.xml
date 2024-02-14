@@ -1,4 +1,118 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jan 2024 19:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 14 Feb 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>My (not only) Tech Library</title><link>https://blog.touret.info/2024/02/14/my-tech-library/</link><pubDate>Wed, 14 Feb 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/02/14/my-tech-library/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@prateekkatyal?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Prateek Katyal</a></em></div>
+<p>Early in my career, when the documentation was not so spread across the Internet, I had to buy and crack open books to learn new things.
+I stumbled upon of <a href="https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu" target="_blank" rel="noopener noreferrer">Le Monde en &ldquo;Tique&rdquo;</a>, a famous Parisian bookstore getting books of Java EE, XML, or whatever else.</p>
+<p>I then realised, even with the number of documentations, articles, videos growing on Internet, I learnt far better new topics reading books.</p>
+<p>All through my career I therefore tried to keep this habit.
+During the last <a href="https://touraine.tech/" target="_blank" rel="noopener noreferrer">Touraine Tech</a> edition, I had a chat with one of my ex-colleagues about that.
+I asked me: <em>&ldquo;Do you have a list of the best books you read and enjoyed? It would be nice if not&rdquo;</em></p>
+<p>I will therefore try to reply here to this query.</p>
+<p>You will find below <strong>TEN books</strong> I found really helpful at different steps of my career.</p>
+<div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>About this list<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content"><p>It was quite hard to draw up this list which looks like to <em>&ldquo;if you had been on a desert island, which book you would have brought&rdquo;</em>.</p>
+<p>Please, remember then this list is not exhaustive and there are plenty of interesting books beyond this list.</p>
+</div>
+        </div>
+    </div>
+<h2 id="the-staple" class="headerLink">
+    <a href="#the-staple" class="header-mark"></a>1 The staple</h2><p>Here are few books I strongly recommend to read and read again to every developer in this particular order.</p>
+<h3 id="clean-code-by-r-c-martin" class="headerLink">
+    <a href="#clean-code-by-r-c-martin" class="header-mark"></a>1.1 Clean code by R. C. MARTIN</h3><p><figure><img src="/assets/images/2024/02/cleancode.webp"/><figcaption>
+            <h4>Clean Code</h4>
+        </figcaption>
+</figure>
+
+For few years, when I must mentor a young developer, I ask him/her to read Clean code first and code then.</p>
+<h3 id="refactoring-by-m-fowler" class="headerLink">
+    <a href="#refactoring-by-m-fowler" class="header-mark"></a>1.2 Refactoring by M. FOWLER</h3><p><figure><img src="/assets/images/2024/02/refactoring.webp"/><figcaption>
+            <h4>Refactoring</h4>
+        </figcaption>
+</figure>
+
+I must admit, I am a big fan of <a href="https://martinfowler.com/" target="_blank" rel="noopener noreferrer">M. FOWLER</a>.
+Every of his presentations, articles or books are really informative and inspiring.
+In my opinion, this book belongs to the mandatory reading list for every person who wants to become better in this field.</p>
+<h3 id="design-patterns-by-the-gof" class="headerLink">
+    <a href="#design-patterns-by-the-gof" class="header-mark"></a>1.3 Design Patterns by the GoF</h3><figure><img src="/assets/images/2024/02/gof.webp"/><figcaption>
+            <h4>Design Patterns by the GoF</h4>
+        </figcaption>
+</figure>
+
+<p>One of the first tech book I bought. It was during the first years of my career.
+I had a blast reading it because it addressed common problems with simple <em>cooking recipes</em> we could easily put into practice.</p>
+<p>I think it is still worth reading it.</p>
+<h2 id="for-java-developers" class="headerLink">
+    <a href="#for-java-developers" class="header-mark"></a>2 For Java developers</h2><h3 id="effective-java-by-j-bloch" class="headerLink">
+    <a href="#effective-java-by-j-bloch" class="header-mark"></a>2.1 Effective Java by J. BLOCH</h3><figure><img src="/assets/images/2024/02/effective_java.webp"/><figcaption>
+            <h4>Effective Java</h4>
+        </figcaption>
+</figure>
+
+<p>From my perspective, it is the perfect Java developer &ldquo;Clean Code&rdquo; book companion.
+If you are a Java developer beginner (or not!), you can also refer to <a href="https://www.oreilly.com/library/view/head-first-java/9781492091646/" target="_blank" rel="noopener noreferrer">Head First Java by K. SIERA &amp; B. BATES</a>.</p>
+<h2 id="for-designers" class="headerLink">
+    <a href="#for-designers" class="header-mark"></a>3 For designers</h2><h3 id="fundamentals-of-software-architecture-by-m-richards--n-ford" class="headerLink">
+    <a href="#fundamentals-of-software-architecture-by-m-richards--n-ford" class="header-mark"></a>3.1 Fundamentals of Software Architecture by M. RICHARDS &amp; N. FORD</h3><figure><img src="/assets/images/2024/02/fundamentals_sa.webp"/><figcaption>
+            <h4>Fundamentals of Software Architecture</h4>
+        </figcaption>
+</figure>
+
+<p>It is definitively the book I would have wished to read 10+ years ago!
+In my opinion, reading this book is a mandatory step for anyone who wants to dig into architecture.
+It addresses both the hard skills with all the main architecture design patterns and the soft skills (i.e., how to work as an architect?).</p>
+<h3 id="software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="headerLink">
+    <a href="#software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="header-mark"></a>3.2 Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN</h3><figure><img src="/assets/images/2024/02/software_arch_for_developers.webp"/><figcaption>
+            <h4>Software architecture for developers: Technical Leadership and the balance with agility</h4>
+        </figcaption>
+</figure>
+
+<p>This is another terrific book talking about software architecture.<br>
+I also recommend reading it.</p>
+<h3 id="building-microservices-by-s-newman" class="headerLink">
+    <a href="#building-microservices-by-s-newman" class="header-mark"></a>3.3 Building Microservices by S. NEWMAN</h3><figure><img src="/assets/images/2024/02/microservices.webp"/><figcaption>
+            <h4>Building Microservices</h4>
+        </figcaption>
+</figure>
+
+<p>If you want to dig into how to design a microservice platform, this book is a good start.
+It will provide you a good overview of all the main points to tackle such as integration, deployment, or the famous <a href="https://en.wikipedia.org/wiki/Conway%27s_law" target="_blank" rel="noopener noreferrer">Conway&rsquo;s Law</a>.</p>
+<h3 id="building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="headerLink">
+    <a href="#building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="header-mark"></a>3.4 Building Evolutionary Architectures by N. FORD, R. PARSONS &amp; P. KUA</h3><figure><img src="/assets/images/2024/02/evolutionary.webp"/><figcaption>
+            <h4>Building Evolutionary Architectures</h4>
+        </figcaption>
+</figure>
+
+<p>This book comforted me a platform must be on the one hand designed and sat up as simply as possible and on the other hand supports changes over the time.
+Among other things, the authors bring guidance to achieve that.</p>
+<h2 id="for-speakers" class="headerLink">
+    <a href="#for-speakers" class="header-mark"></a>4 For speakers</h2><h3 id="resonate-by-n-duarte" class="headerLink">
+    <a href="#resonate-by-n-duarte" class="header-mark"></a>4.1 Resonate by N. DUARTE</h3><figure><img src="/assets/images/2024/02/resonate.webp"/><figcaption>
+            <h4>Resonate</h4>
+        </figcaption>
+</figure>
+
+<p>It is considered as a reference for people who talk in public.
+Even if I read a bunch on this field, it is still the best I read so far.</p>
+<h2 id="for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="headerLink">
+    <a href="#for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="header-mark"></a>5 For people who want to get rid of stress and being (mostly) organised</h2><h3 id="getting-things-done-by-d-allen" class="headerLink">
+    <a href="#getting-things-done-by-d-allen" class="header-mark"></a>5.1 Getting Things Done by D. ALLEN</h3><figure><img src="/assets/images/2024/02/gtd.webp"/><figcaption>
+            <h4>Getting Things Done</h4>
+        </figcaption>
+</figure>
+
+<p>Last but not least, this book changed 15 years ago the way I organised both my personal and professional life.
+This kind of personal life methodology does not work for everyone.
+For me, it was a game changer.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Unfortunately, I haven&rsquo;t read plenty of fascinating books yet.
+Regarding software architecture or design topics, I usually choose a book taking a look on <a href="https://architectelevator.com/architecture/architect-bookshelf/" target="_blank" rel="noopener noreferrer">the Gregor Hohpe bookshelf</a> first.
+You will find many of the books I already mentioned in this article and many more!</p>
+]]></description></item><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp" referrerpolicy="no-referrer">
             </div><h2 id="the-sad-reality" class="headerLink">
     <a href="#the-sad-reality" class="header-mark"></a>1 The sad reality</h2><p>Picture this: it&rsquo;s Friday afternoon, and you&rsquo;re eagerly looking forward to unwinding for the weekend.
@@ -2425,219 +2539,4 @@ I already have ideas for the next year. I hope communicating about it shortly.</
 </li>
 </ol>
 </div>
-]]></description></item><item><title>Migrer son application Spring Boot vers la version 3</title><link>https://blog.touret.info/2022/12/22/migration_springboot3/</link><pubDate>Thu, 22 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/12/22/migration_springboot3/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2022/12/spring.webp" referrerpolicy="no-referrer">
-            </div><p>Pour ce dernier article de l&rsquo;année 2022, voici un rapide retour d&rsquo;expérience.</p>
-<p>Je suis actuellement en cours de préparation d&rsquo;un workshop pour <a href="https://snowcamp.io/fr/" target="_blank" rel="noopener noreferrer">l&rsquo;édition 2023 de SnowcampIO</a>.
-J&rsquo;aborderai dans <a href="https://sessionize.com/s/alexandre-touret/rest-apis-versioning-hands-on/60048" target="_blank" rel="noopener noreferrer">ce dernier le versioning des APIs REST</a>.
-Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la <a href="https://spring.io/" target="_blank" rel="noopener noreferrer">stack Spring</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Container</th>
-<th>Tools</th>
-<th>Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>API Gateway</td>
-<td>Spring Cloud Gateway 2022.0.0-RC2</td>
-<td></td>
-</tr>
-<tr>
-<td>Bookstore API</td>
-<td>JAVA 17,Spring Boot 3.0.X</td>
-<td></td>
-</tr>
-<tr>
-<td>ISBN API</td>
-<td>JAVA 17,Spring Boot 3.0.X</td>
-<td></td>
-</tr>
-<tr>
-<td>Configuration Server</td>
-<td>Spring Cloud Config 2022.0.0-RC2</td>
-<td></td>
-</tr>
-<tr>
-<td>Database</td>
-<td>PostgreSQL</td>
-<td></td>
-</tr>
-<tr>
-<td>Authorization Server</td>
-<td>JAVA 17,Spring Boot 3.0.X, Spring Authorization Server 1.0.0</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>En résumé, j&rsquo;utilise <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a>, <a href="https://spring.io/cloud" target="_blank" rel="noopener noreferrer">Cloud</a>, <a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener noreferrer">Security</a>, <a href="https://spring.io/projects/spring-authorization-server" target="_blank" rel="noopener noreferrer">Authorization Server</a>, <a href="https://spring.io/projects/spring-cloud-circuitbreaker" target="_blank" rel="noopener noreferrer">Circuit Breaker</a>, <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a>,&hellip;</p>
-<p>J&rsquo;ai démarré le développement avant <a href="https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga" target="_blank" rel="noopener noreferrer">l&rsquo;annonce officielle de la version 3.0 de Spring Boot</a>.
-Ce n&rsquo;était pas réellement obligatoire pour cet atelier, mais j&rsquo;ai souhaité quand même migrer cette application dans la dernière version de Spring Boot/Framework.</p>
-<p>Je vais décrire dans cet article comment j&rsquo;ai réussi à migrer toute cette stack et les choix que j&rsquo;ai fait pour que ça fonctionne.</p>
-<p>Bien évidemment, cette application n&rsquo;est pas une <em>&ldquo;vraie&rdquo;</em> application en production.
-Par exemple, je n&rsquo;ai qu&rsquo;une seule entité JPA&hellip;
-Cependant, je la trouve représentative et espère (très modestement) que mon retour d&rsquo;expérience pourra servir.</p>
-<p><a href="https://github.com/alexandre-touret/rest-apis-versioning-workshop/pull/11/files" target="_blank" rel="noopener noreferrer">La Pull Request correspondante est disponible sur GitHub</a>.</p>
-<h2 id="pré-requis" class="headerLink">
-    <a href="#pr%c3%a9-requis" class="header-mark"></a>1 Pré-requis</h2><p>Une documentation existe.
-Vous pouvez la consulter <a href="https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide" target="_blank" rel="noopener noreferrer">ici</a>.
-Il existe aussi plusieurs articles sur le blog du projet Spring. Voici <a href="https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0" target="_blank" rel="noopener noreferrer">un exemple</a>.</p>
-<h2 id="dépendances-et-configuration-des-plugins" class="headerLink">
-    <a href="#d%c3%a9pendances-et-configuration-des-plugins" class="header-mark"></a>2 Dépendances et configuration des plugins</h2><h3 id="jdk" class="headerLink">
-    <a href="#jdk" class="header-mark"></a>2.1 JDK</h3><p>Pour Spring Boot 3, il faut impérativement utiliser un <a href="https://openjdk.org/projects/jdk/17/" target="_blank" rel="noopener noreferrer">JDK &gt;=17</a>.</p>
-<h3 id="mises-à-jour" class="headerLink">
-    <a href="#mises-%c3%a0-jour" class="header-mark"></a>2.2 Mises à jour</h3><p>L&rsquo;une des premières actions à réaliser est de migrer votre application vers <a href="https://spring.io/blog/2022/06/23/spring-boot-2-7-1-available-now" target="_blank" rel="noopener noreferrer">la version 2.7</a>.</p>
-<p>À l&rsquo;heure où j&rsquo;écris cet article, la version de Spring Cloud est encore en version RC.
-J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Spring:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">repositories</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">maven</span> <span class="o">{</span> <span class="n">url</span> <span class="s1">&#39;https://repo.spring.io/milestone&#39;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl">        <span class="n">mavenCentral</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Ensuite, j&rsquo;ai utilisé les versions suivantes pour les différents composants spring:</p>
-<ul>
-<li>Spring Boot : 3.0.0</li>
-<li>Spring Cloud : 2022.0.0-RC2</li>
-<li>Spring Dependency Management : 1.1.0</li>
-</ul>
-<p>Dans mon application, j&rsquo;utilisais certains plugins Gradle pour la génération du code notamment <a href="https://openapi-generator.tech/docs/generators/spring/" target="_blank" rel="noopener noreferrer">OpenAPIGenerator</a>. Pour ce dernier, j&rsquo;ai ajouté un paramètre pour le rendre compatible avec spring boot 3:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"> <span class="n">useSpringBoot3</span>       <span class="o">:</span> <span class="s2">&#34;true&#34;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Bref, il faut impérativement tous les mettre à jour et vérifier la compatibilité !</p>
-<h2 id="ajout-de-nouvelles-dépendances" class="headerLink">
-    <a href="#ajout-de-nouvelles-d%c3%a9pendances" class="header-mark"></a>3 Ajout de nouvelles dépendances</h2><p>Pour vérifier la pertinence de certaines propriétés dans la nouvelle version, Spring a mis à disposition ce plugin:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl">   <span class="n">runtimeOnly</span> <span class="s1">&#39;org.springframework.boot:spring-boot-properties-migrator&#39;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>Il permet de notifier à l&rsquo;exécution si un paramètre est déprécié ou totalement inutile.</p>
-<h2 id="migration-namespace-javax-vers-jakartaee" class="headerLink">
-    <a href="#migration-namespace-javax-vers-jakartaee" class="header-mark"></a>4 Migration namespace javax vers jakartaee</h2><p>Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d&rsquo;innombrables maux de tête.</p>
-<p>Si vous utilisez Spring Boot au-dessus d&rsquo;un Tomcat (c.-à-d. en mode <em>old school</em>), il  vous faudra mettre à jour le conteneur de servlet à une version compatible.</p>
-<p>Dans mon application, je n&rsquo;ai eu qu&rsquo;à modifier les imports dans les entités,  filtres et méthodes annotées par l&rsquo;annotation <code>@PostConstruct()</code>.</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Column</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.Entity</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GeneratedValue</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kn">import</span><span class="w"> </span><span class="nn">jakarta.persistence.GenerationType</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">...</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Sur ce sujet, Jetbrains a <a href="https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/" target="_blank" rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p>
-<h2 id="distributed-tracing-et-observabilité" class="headerLink">
-    <a href="#distributed-tracing-et-observabilit%c3%a9" class="header-mark"></a>5 Distributed Tracing et observabilité</h2><p>Spring embarque désormais plusieurs fonctionnalités liées à l&rsquo;observabilité sous forme de starters.
-Dans mon cas, <a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">j&rsquo;avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger</a>.</p>
-<p>J&rsquo;ai suivi <a href="https://spring.io/blog/2022/10/12/observability-with-spring-boot-3" target="_blank" rel="noopener noreferrer">cet article</a> paru sur le blog de Spring.
-J&rsquo;ai par conséquent basculé sur <a href="https://zipkin.io/" target="_blank" rel="noopener noreferrer">Zipkin</a> (pour mon Workshop, l&rsquo;utilisation du distributed tracing est un peu la cerise sur le gâteau).</p>
-<p>Voici les starters que j&rsquo;ai intégrés :</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-tracing-bridge-brave&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.zipkin.reporter2:zipkin-reporter-brave&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.opentelemetry:opentelemetry-exporter-zipkin&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-aop&#39;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>J&rsquo;ai par la suite intégré les propriétés suivantes dans la configuration:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">spring</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"> </span><span class="nt">zipkin</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">base-url</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:9411</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sender</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">web</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">management</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">tracing</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">sampling</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">probability</span><span class="p">:</span><span class="w"> </span><span class="m">1.0</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">distribution</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">percentiles-histogram</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">http</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">server</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">requests</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Je pense que j&rsquo;aurai pu faire fonctionner <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.
-Je n&rsquo;ai pas voulu perdre de temps (SnowcampIO arrive bientôt&hellip;).</p>
-<h2 id="securité" class="headerLink">
-    <a href="#securit%c3%a9" class="header-mark"></a>6 Securité</h2><p>J&rsquo;ai eu quelques soucis après avoir mis à jour Spring Authorization Server et Spring Security.
-Je pense que la version précédente de Spring était plus permissive sur l&rsquo;injection et le nom des beans chargés dans les classes Configuration.</p>
-<p>J&rsquo;ai donc revu <a href="https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006" target="_blank" rel="noopener noreferrer">la validation côté gateway et plus particulièrement la validation du jeton JWT</a>.</p>
-<p>J&rsquo;ai dû notamment ajouter le paramètre <code>jwk-set-uri</code> qui est obligatoire maintenant :</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceserver</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">jwt</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">jwk-set-uri</span><span class="p">:</span><span class="w"> </span><span class="l">http://localhost:8009</span><span class="w">
-</span></span></span></code></pre></td></tr></table>
-</div>
-</div><p>Je n&rsquo;ai pas eu de <a href="https://github.com/spring-projects/spring-authorization-server/" target="_blank" rel="noopener noreferrer">réels problèmes coté Authorization Server car j&rsquo;avais déjà migré vers la version 0.4.0</a>.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>7 Conclusion</h2><p>Vous l&rsquo;aurez compris, si vous faites l&rsquo;effort de suivre régulièrement les versions de Spring, vous devriez venir à bout facilement de la migration vers la dernière version de Spring.</p>
-<p>Néanmoins, sur des projets conséquents (et je ne parle pas de ceux où il n&rsquo;y a de tests automatisés&hellip;) ça peut s&rsquo;avérer coûteux.
-Certaines actions et contournements peuvent prendre du temps (ex. javax &ndash;&gt; jakarta).</p>
-<p>Enfin, je vous conseille d&rsquo;attendre la première version mineure et la version définitive de Spring Cloud avant de vous lancer pour <em>&ldquo;de vrai&rdquo;</em>.
-Bien que Spring ait fait un effort de documentation pour la migration, il est plus sage d&rsquo;attendre que les premiers correctifs soient publiés avant de vous lancer.</p>
 ]]></description></item></channel></rss>
