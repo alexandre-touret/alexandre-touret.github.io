@@ -1,6 +1,6 @@
 ---
 title: "My (not only) Tech Library"
-date: 2024-02-14T08:00:43+01:00
+date: 2024-02-14T06:00:43+01:00
 draft: true
   
 featuredImagePreview: "/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp"
