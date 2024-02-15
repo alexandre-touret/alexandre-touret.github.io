@@ -12,7 +12,7 @@ I then realised, even with the number of documentations, articles, videos growin
 
 All through my career I therefore tried to keep this habit.
 During the last [Touraine Tech](https://touraine.tech/) edition, I had a chat with one of my ex-colleagues about that. 
-I asked me: _"Do you have a list of the best books you read and enjoyed? It would be nice if not"_ 
+He asked me: _"Do you have a list of the best books you read and enjoyed? It would be nice if not"_ 
 
 I will therefore try to reply here to this query.
 
