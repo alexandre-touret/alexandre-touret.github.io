@@ -31,7 +31,7 @@ En se basant sur deux exemples fictifs (toute ressemblance avec la réalité ser
 {{< /admonition >}}
 
 * [Slides](https://speakerdeck.com/alexandretouret/tnt24-apprenons-a-identifier-les-exigences-techniques-pour-mieux-concevoir)
-
+* [Video](https://www.youtube.com/live/9OAFdj5UVps?si=JtppK3YWURgAvtip&t=11072)
 
 ### The Hitchhiker's guide to software architecture design
 
