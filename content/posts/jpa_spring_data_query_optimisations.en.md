@@ -16,12 +16,21 @@ tags:
 {{< style "text-align:center;" >}}
 _Picture of [Tobias Fischer](https://unsplash.com/fr/@tofi?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
 
-Photo de <a href="https://unsplash.com/fr/@tofi?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Tobias Fischer</a> sur <a href="https://unsplash.com/fr/photos/photo-dun-batiment-de-5-etages-pour-la-bibliotheque-PkbZahEG2Ng?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
-
 {{< /style >}}
 
-Start logging all the SQL queries & monitoring your SQL queries on your database 
-Try to know if the issue is due to a database performance issue or a java/memory issue (it could be)
+Most of the Java developers I know don't really know what is under the hood of Spring Data and JPA.
+In my opinion, it's mainly due to all the features provided by these specifications and frameworks. 
+They bring a lot of simplicity which help you forget SQL queries syntax.
+
+Unfortunately, when your stored data is coming to grow, querying against your database could be difficult. 
+The different queries you can make in your Java application tend to take a lot of time and eventually break your SLOs.
+
+In this article, I tried to write down a bunch of tips & tricks to tackle this issue.
+Even if some are related to Spring Data, I think you can use most of them if you use a JPA in a standard way.
+You will see that even if we can consider using JPA easy at first glance, it can bring a lot of complexity.
+
+Database index,...
+
 
 Eager/lazy relations
 @BatchSize
@@ -42,6 +51,7 @@ use @Transactional(readonly=true)
 Pagination w/ Spring Data
 Slice vs Page
 https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which
+https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages
 
 @Cacheable
 
