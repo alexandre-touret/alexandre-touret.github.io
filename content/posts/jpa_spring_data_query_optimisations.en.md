@@ -49,6 +49,7 @@ spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
 ```
 After getting all the queries and operations done by your persistence layer, you will be able to pinpoint which component is responsible for slowing down your queries: the database or your ORM. 
+
 In the case of huge SQL queries, I usually execute them directly in SQL using the database tools to check if I have the same behaviour.
 
 ### Observe your database
@@ -56,6 +57,7 @@ We often forget that the database provides valuable tools to analyse your querie
 Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, does a full scan of your table.
 
 To do that, you can check the SQL queries execution plan.
+
 For [PostgreSQL (what else)](https://www.postgresql.org/) users, you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
 ## Checks your relations
@@ -69,6 +71,7 @@ You probably understood there is no free lunch: you must measure first the JPA q
 
 By default, EAGER relations are set up for ``@ManyToOne`` and ``@OneToOne``. LAZY are for ``@OneToMany``. 
 Most of the time, I keep using the default configuration. 
+
 However, you must take care of the whole entity graph loaded in your query.
 Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way?
 
