@@ -75,6 +75,14 @@ Most of the time, I keep using the default configuration.
 
 However, you must take care of the whole [entity graph](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm) loaded by your query.
 Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way? 
+
+For instance: 
+
+```java
+@ManyToMany(fetch = FetchType.EAGE)
+private List<Author> authors;
+```
+
 It's the kind of question you will have to answer.
 
 ### The famous N+1 issue
