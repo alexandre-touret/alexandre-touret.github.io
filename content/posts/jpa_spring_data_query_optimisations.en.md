@@ -58,11 +58,11 @@ Once you have pointed out the time/resource consuming queries, you must check if
 
 To do that, you can check the SQL queries execution plan.
 
-For [PostgreSQL (what else)](https://www.postgresql.org/) users, you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
+If you use [PostgreSQL (what else)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
 ## Checks your relations
 Let's go back to our Java application.
-One of the key points of any JPA (and SQL) queries is the jointures. 
+One of the main points of interest of any JPA (and SQL) queries is how your entity is joined with others. 
 Every jointure brings costs and complexity.
 
 For JPA queries, you must check first if your relation between two objects should be either [``EAGER`` or ``LAZY``](https://docs.oracle.com/javaee/7/api/javax/persistence/FetchType.html).
