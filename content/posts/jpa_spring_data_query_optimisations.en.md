@@ -67,19 +67,21 @@ Every jointure brings costs and complexity.
 
 For JPA queries, you must check first if your relation between two objects should be either [``EAGER`` or ``LAZY``](https://docs.oracle.com/javaee/7/api/javax/persistence/FetchType.html).
 
-You probably understood there is no free lunch: you must measure first the JPA queries and mapping time-consumption and check which solution is the best.
+You probably understood: there is no free lunch. 
+You must measure first the JPA queries and mapping time-consumption and check which solution is the best.
 
 By default, EAGER relations are set up for ``@ManyToOne`` and ``@OneToOne``. LAZY are for ``@OneToMany``. 
 Most of the time, I keep using the default configuration. 
 
-However, you must take care of the whole entity graph loaded in your query.
-Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way?
+However, you must take care of the whole [entity graph](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm) loaded by your query.
+Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way? 
+It's the kind of question you will have to answer.
 
 ### The famous N+1 issue
 
 
 ### Use a dedicated entity graph
-
+https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm
 ### @BatchSize
 
 ### Using JOIN FETCH in your queries
