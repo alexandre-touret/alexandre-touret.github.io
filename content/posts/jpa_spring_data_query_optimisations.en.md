@@ -79,13 +79,62 @@ Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` 
 For instance: 
 
 ```java
-@ManyToMany(fetch = FetchType.EAGE)
+@ManyToMany(fetch = FetchType.EAGER)
 private List<Author> authors;
 ```
-
 It's the kind of question you will have to answer.
 
 ### The famous N+1 issue
+
+In this example, we will look into a ``1-N`` relation:
+
+```java
+@Entity
+public class Store{
+[...]
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "store")
+    private List<Book> books;
+[...]
+```
+
+```java
+@Entity
+public class Book {
+[...]
+    @ManyToOne(targetEntity = Store.class)
+    private Store store;
+[...]    
+```
+
+If you remember well, this relation is fetched in a EAGER way.
+So, when I try to get all the stores using a ``findAll()`` method
+
+```java
+public List<Store> findAllStores() {
+    return StreamSupport.stream(storeRepository.findAll().spliterator(), false).toList();
+}
+```
+
+Hibernate will query the database in this way:
+* 1 query to select the main entity
+* N queries for the entities linked by  the jointure
+
+In our case we can see the following queries in the logs:
+
+```shell
+Hibernate: select s1_0.id,s1_0.name from store s1_0
+Hibernate: select b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication from book b1_0 where b1_0.store_id=?
+Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+[...]
+```
+
+It's unfortunately not finished, 
+
+Hibernate: select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+
 
 
 ### Use a dedicated entity graph
