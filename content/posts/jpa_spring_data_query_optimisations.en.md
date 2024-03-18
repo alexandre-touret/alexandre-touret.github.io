@@ -53,7 +53,7 @@ After getting all the queries and operations done by your persistence layer, you
 In the case of huge SQL queries, I usually execute them directly in SQL using the database tools to check if I have the same behaviour.
 
 ### Observe your database
-We often forget that the database provides valuable tools to analyse your queries. 
+We often forget that database platforms provides valuable tools to analyse your queries. 
 Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, does a full scan of your table.
 
 To do that, you can check the SQL queries execution plan.
@@ -76,12 +76,6 @@ Most of the time, I keep using the default configuration.
 However, you must take care of the whole [entity graph](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm) loaded by your query.
 Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way? 
 
-For instance: 
-
-```java
-@ManyToMany(fetch = FetchType.EAGER)
-private List<Author> authors;
-```
 It's the kind of question you will have to answer.
 
 ### The famous N+1 issue
@@ -133,23 +127,73 @@ Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public
 
 It's unfortunately not finished, 
 
+Imagine now, your book entity is related to another one in a EAGER way.
+
+```java
+@ManyToMany(fetch = FetchType.EAGER)
+private List<Author> authors;
+```
+
+You will execute then another SQL queries.
+
+For instance, in this case:
+
+```jshelllanguage
 Hibernate: select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+```
 
+{{< admonition tip "To sum up" true >}}
+At the same way SQL jointures are really time-consuming, the way you can link entities may strongly impact the performance of your queries in either memory or while running SQL queries.   
+{{< /admonition >}}
 
+## Control the number of EAGER/SELECT relations underlying queries using ``@BatchSize``
+We can easily reduce the number of SELECT queries while fetching another entities with the ``@BatchSize`` annotation
+
+```java
+@Entity
+public class Store{
+[...]
+    @OneToMany(fetch = FetchType.EAGER,mappedBy = "store")
+    @BatchSize(size = 5)
+    private List<Book> books;
+[...]
+```
+
+TODO LOGS
 
 ### Use a dedicated entity graph
-https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm
-### @BatchSize
+If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.
+It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow.
 
-### Using JOIN FETCH in your queries
+[JPA 2.1 has introduced this feature](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm).
 
-Eager/lazy relations
-@BatchSize
+Let's go back to our application.
+Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
+Using this API we can avoid fetching it in this way
 
+TODO CODE
 
-Use a sql view
+### Create a dedicated entity to reduce the number of attributes
 
-Create a dedicated entity to reduce the number of attributes
+We often forget that we don't need to map all the columns in an entity!
+For instance, if your table has 30 columns and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?
+
+That's why I usually recommend to have, when it's relevant, a dedicated entity for specific use cases. 
+It could be lighter than the _regular_ one and enhance the performances of your application.
+
+For instance
+
+TODO CODE
+{{< admonition warning "Think about data consistency" true >}}
+Think about the whole data consistency or your data stored in the database!
+Be aware about it when you omit specific jointures or columns.
+{{< /admonition >}}
+
+### Use JOIN FETCH in your queries
+
+Now one another strategy is to _manually_ control the jointures and the _fetching_ mode in your queries.
+
+To do that, you can use the ``JOIN FETCH`` instruction.
 
 Use a DTO or a tuple
 
@@ -162,9 +206,8 @@ https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pag
 
 @Cacheable
 
+Use a sql view
 Last but not least use a good old SQL query
 
 ## Conclusion
 https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application
-
-
