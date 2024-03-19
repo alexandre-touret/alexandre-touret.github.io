@@ -213,12 +213,57 @@ TODO CODE
 
 ### Avoid transactions while reading our database with the annotation @Transactional(readonly=true) 
 
-Pagination w/ Spring Data
-Slice vs Page
-https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which
-https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages
+One thing we often (again) remember: read-only database operations don't need transactions!
+In the good old days, it was also a good practice to set up two different datasources for the persistence context: one read-only avoiding database transactions and one which allowed it.
+Anyway, you can now declare your service only read data and doesn't need to open a database transaction using the ``@Transactional(readonly=true) `` annotation.
 
-@Cacheable
+For instance:
+
+TODO CODE
+
+By the way, this feature goes well with using dedicated entities as mentioned above.
+For a specific search/query use case, you can use both of them to make your code even more straightforward.
+
+### Pagination w/ Spring Data
+When you browse a large amount of data, it's usually a good practice to paginate results.
+The good news when you use Spring Data, is you have all the features included by default.
+The bad news is you may have time/cpu-consuming queries run for calculating the number of elements, pages and the position of the current result's page.
+
+If getting the number of pages is useless for you, you can switch to [Slices](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html) instead of [Pages](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Page.html).
+
+When using this feature, you will only know if there is another slice available onwards or backwards through the methods [``hasNext()``](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html#hasNext()) and [``hasPrevious()``](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html#hasNext()).
+
+You will find below good links talking about it on StackOverflow:
+
+* https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which
+* https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages
+
+
+Now, let's go back to our example and see how it could be implemented:
+
+TODO CODE
+
+### Caching specific data
+You may use and query specific which is not daily (or monthly) updated. For instance, the department, country tables.
+In this case, you may want to cache them in the memory of your application (i.e., [Second-Level cache](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html).
+
+With [JPA you can easily cache specific entities](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html) using the [``@Cacheable`` annotation](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/Cacheable.html).
+
+For instance:
+
+TODO CODE
+
+### In case of emergency: break the glass!
+
+OK, none of all the tips exposed in this article worked?
+Now, remember that, under the hood you use a database.
+It contains many tools which may run your queries at lightning speed.
+
+You can use SQL views or SQL materialized views to specify the data you want to fetch.
+In addition, feel free to use Native queries for the 10-20% of your most time-consuming queries.
+At the end of the day, you won't be faster using an ORM!
+
+
 
 Use a sql view
 Last but not least use a good old SQL query
