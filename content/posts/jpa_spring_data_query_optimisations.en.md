@@ -165,7 +165,7 @@ TODO LOGS
 If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.
 It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow.
 
-[JPA 2.1 has introduced this feature](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm).
+[JPA 2.1 has introduced this feature](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html).
 
 Let's go back to our application.
 Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
@@ -184,6 +184,7 @@ It could be lighter than the _regular_ one and enhance the performances of your 
 For instance
 
 TODO CODE
+
 {{< admonition warning "Think about data consistency" true >}}
 Think about the whole data consistency or your data stored in the database!
 Be aware about it when you omit specific jointures or columns.
@@ -191,13 +192,26 @@ Be aware about it when you omit specific jointures or columns.
 
 ### Use JOIN FETCH in your queries
 
-Now one another strategy is to _manually_ control the jointures and the _fetching_ mode in your queries.
+Now one another strategy is to _manually_ control the jointures and how different entities will be fetched by your queries.
+To do that, you can use the ``JOIN FETCH`` instruction:
 
-To do that, you can use the ``JOIN FETCH`` instruction.
+For instance:
 
-Use a DTO or a tuple
+In this way you can shrink the number of queries done from N+1 to only one.
+However, you **MUST** check and measure if it's worth it. 
+Sometimes, this kind of query can be more time-consuming in either database or in the JVM than several small ones. 
 
-use @Transactional(readonly=true) 
+### Use a DTO or a tuple
+
+Imagine we have a screen with of list of data coming from several entities. 
+Instead of fetching all of these, and struggling with fetching strategies, we can also run [DTO (or tuple) projections](https://thorben-janssen.com/dto-projections/).
+
+In this way, you can select all (and only) the data you need with only ONE query.
+To get your code even clearer, you can also use [records](https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.10) to make your data immutable. 
+
+TODO CODE
+
+### Avoid transactions while reading our database with the annotation @Transactional(readonly=true) 
 
 Pagination w/ Spring Data
 Slice vs Page
