@@ -48,10 +48,15 @@ If you use Spring (and JPA, Hibernate), you can also get them adding these confi
 ```ini
 spring.jpa.show-sql=true
 spring.jpa.properties.hibernate.format_sql=true
+spring.jpa.hibernate.generate_statistics=true
 ```
 After getting all the queries and operations done by your persistence layer, you will be able to pinpoint which component is responsible for slowing down your queries: the database or your ORM. 
 
 In the case of huge SQL queries, I usually execute them directly in SQL using the database tools to check if I have the same behaviour.
+
+TODO PROMETHEUS & example
+
+
 
 ### Observe your database
 We often forget that database platforms provides valuable tools to analyse your queries. 
