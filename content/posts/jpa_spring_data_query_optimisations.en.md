@@ -2,7 +2,6 @@
 title: "Tips & tricks for optimizing JPA queries"
 date: 2024-03-24T06:00:43+01:00
 draft: true
-  
 featuredImagePreview: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 featuredImage: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 images: ["/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"]
@@ -10,7 +9,6 @@ tags:
   - Java
   - JPA
   - Spring_Data
-
 ---
 
 {{< style "text-align:center;" >}}
@@ -30,11 +28,14 @@ Even if some are related to [Spring Data](https://spring.io/projects/spring-data
 
 You will see that even if we can consider using JPA easy at first glance, it can bring a lot of complexity.
 
+{{< admonition note "Acknowledgement" true >}}
+I would like to thank my colleagues [Max Beckers](https://www.linkedin.com/in/maximilianbeckers/), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/) & [Peter Steiner](https://www.linkedin.com/in/petersteiner/) for reviewing my article and giving their advices, useful links & tips.
+{{< /admonition >}}
+
 ## Observe your application
 ### Observe your persistence layer
 
-First and foremost, you **MUST** trace and monitor your persistence layer.
-
+First and foremost, you **MUST** trace and monitor your persistence layer. 
 If you use Hibernate (without Spring, Quarkus,...), you can get insights configuring the logger:
 
 ```xml
@@ -201,7 +202,7 @@ In this way you can shrink the number of queries done from N+1 to only one.
 However, you **MUST** check and measure if it's worth it. 
 Sometimes, this kind of query can be more time-consuming in either database or in the JVM than several small ones. 
 
-### Use a DTO or a tuple
+### Use a DTO or a tuple {#dto}
 
 Imagine we have a screen with of list of data coming from several entities. 
 Instead of fetching all of these, and struggling with fetching strategies, we can also run [DTO (or tuple) projections](https://thorben-janssen.com/dto-projections/).
@@ -253,20 +254,34 @@ For instance:
 
 TODO CODE
 
-### In case of emergency: break the glass!
-
+### In case of emergency: break the glass! {#native}
 OK, none of all the tips exposed in this article worked?
 Now, remember that, under the hood you use a database.
 It contains many tools which may run your queries at lightning speed.
 
-You can use SQL views or SQL materialized views to specify the data you want to fetch.
-In addition, feel free to use Native queries for the 10-20% of your most time-consuming queries.
-At the end of the day, you won't be faster using an ORM!
+You can use [SQL views](https://www.postgresql.org/docs/current/rules-views.html) or [SQL materialized views](https://www.postgresql.org/docs/current/rules-materializedviews.html) to specify the data you want to fetch.
+In addition, feel free to use [Native queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/EntityManager.html#createNativeQuery(java.lang.String)) , [Named Native Queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/NamedNativeQuery.html) or [Stored Procedure Queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/StoredProcedureQuery.html)  (**ONLY FOR**) for the 10-20%  of your most time-consuming queries.
 
+At the end of the day, you won't be faster using an [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping)!
 
+For instance, when you use a SQL view, you can easily run either a native query or fetch a DTO or a tuple (see [above](#dto)):
 
-Use a sql view
-Last but not least use a good old SQL query
+Here is an example to illustrate it:
+
+TODO CODE
+
+## Links
+To write this article, I dug in many documentations and blog posts, here is a bunch of useful resources I stumbled upon:
+
+* https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application
+* https://thorben-janssen.com
+* https://vladmihalcea.com
 
 ## Conclusion
-https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application
+
+If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
+This first thing to put in place, is the whole observability stack: through logging, traces or prometheus metrics you will get deep insights of your application. 
+Check also your database to see if you have a "full table scan" when you run specific SQL queries. It will help you find where is the bottleneck.
+
+Last but not least, don't try to apply premature optimisations (e.g., [native queries](#native)) first! 
+[Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
