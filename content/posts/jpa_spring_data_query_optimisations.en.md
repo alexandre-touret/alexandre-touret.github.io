@@ -21,7 +21,7 @@ In my opinion, it's mainly due to all the features provided by these specificati
 They bring a lot of simplicity which make you forget SQL queries syntax.
 
 Unfortunately, when your stored data is coming to grow, querying against your database could be difficult. 
-The different queries you can indeed make your Java applications being slow and potentially break your SLOs.
+The different queries run by your Java application may potentially break your SLOs.
 
 In this article, I tried to write down a bunch of tips & tricks to tackle this issue.
 Even if some are related to [Spring Data](https://spring.io/projects/spring-data), I think you can use most of them if you use a JPA in a standard way.
@@ -46,16 +46,122 @@ If you use Hibernate (without Spring, Quarkus,...), you can get insights configu
 If you use Spring (and JPA, Hibernate), you can also get them adding these configuration properties:
 
 ```ini
-spring.jpa.show-sql=true
-spring.jpa.properties.hibernate.format_sql=true
-spring.jpa.hibernate.generate_statistics=true
+logging.level.org.hibernate.stat=TRACE
+logging.level.org.hibernate.SQL=DEBUG
+logging.level.org.hibernate.type.descriptor.sql=TRACE
+logging.level.org.hibernate.SQL_SLOW=TRACE
+spring.jpa.properties.hibernate.generate_statistics=true
+spring.jpa.properties.hibernate.format_sql=false
 ```
+
+{{< admonition tip "What about JPA configuration?" true >}}
+If you want to get the same Hibernate configuration, you can read [this article](https://thorben-janssen.com/hibernate-logging-guide/#dont-use-showsql-to-log-sql-queries).
+{{< /admonition >}}
+
 After getting all the queries and operations done by your persistence layer, you will be able to pinpoint which component is responsible for slowing down your queries: the database or your ORM. 
 
 In the case of huge SQL queries, I usually execute them directly in SQL using the database tools to check if I have the same behaviour.
 
-TODO PROMETHEUS & example
+Example of such an output:
 
+```jshelllanguage
+2024-03-21T22:14:46.853+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.store_id,b1_0.title,b1_0.year_of_publication from book b1_0
+2024-03-21T22:14:46.875+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select s1_0.id,s1_0.name,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.id=?
+2024-03-21T22:14:46.897+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.900+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.902+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.904+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.906+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.908+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.909+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.911+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.913+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.914+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.916+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.917+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.918+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-21T22:14:46.919+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] o.h.stat.internal.StatisticsImpl         : HHH000117: HQL: [CRITERIA] select b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.store_id,b1_0.title,b1_0.year_of_publication from book b1_0, time: 79ms, rows: 13
+2024-03-21T22:14:47.007+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+2024-03-21T22:14:47.038+01:00  WARN 39814 --- [optimization-jpa] [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+2024-03-21T22:14:47.039+01:00  WARN 39814 --- [optimization-jpa] [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+2024-03-21T22:14:47.040+01:00  INFO 39814 --- [optimization-jpa] [nio-8080-exec-1] i.StatisticalLoggingSessionEventListener : Session Metrics {
+    869000 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    2700503 nanoseconds spent preparing 16 JDBC statements;
+    16624802 nanoseconds spent executing 16 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    190300 nanoseconds spent executing 1 partial-flushes (flushing a total of 0 entities and 0 collec
+```
+
+#### Dig into you datasource connection pool
+If you want to dive into your datasource and get clear insights of your database connection pool, you can also enable Prometheus metrics to observe it.
+
+Using Spring Boot, you can easily enable it by adding two dependencies:
+
+```groovy
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
+
+```
+and these properties:
+
+```ini
+management.endpoint.prometheus.enabled=true
+management.endpoints.web.exposure.include=health,info,prometheus
+```
+
+Now you can get the status of your connection pool:
+
+```jshelllanguage
+❯ http :8080/actuator/prometheus | grep hikari
+# HELP hikaricp_connections Total connections
+# TYPE hikaricp_connections gauge
+hikaricp_connections{pool="HikariPool-1",} 10.0
+# HELP hikaricp_connections_min Min connections
+# TYPE hikaricp_connections_min gauge
+hikaricp_connections_min{pool="HikariPool-1",} 10.0
+# HELP hikaricp_connections_creation_seconds_max Connection creation time
+# TYPE hikaricp_connections_creation_seconds_max gauge
+hikaricp_connections_creation_seconds_max{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_creation_seconds Connection creation time
+# TYPE hikaricp_connections_creation_seconds summary
+hikaricp_connections_creation_seconds_count{pool="HikariPool-1",} 0.0
+hikaricp_connections_creation_seconds_sum{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_timeout_total Connection timeout total count
+# TYPE hikaricp_connections_timeout_total counter
+hikaricp_connections_timeout_total{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_active Active connections
+# TYPE hikaricp_connections_active gauge
+hikaricp_connections_active{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_max Max connections
+# TYPE hikaricp_connections_max gauge
+hikaricp_connections_max{pool="HikariPool-1",} 10.0
+# HELP hikaricp_connections_usage_seconds Connection usage time
+# TYPE hikaricp_connections_usage_seconds summary
+hikaricp_connections_usage_seconds_count{pool="HikariPool-1",} 0.0
+hikaricp_connections_usage_seconds_sum{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_usage_seconds_max Connection usage time
+# TYPE hikaricp_connections_usage_seconds_max gauge
+hikaricp_connections_usage_seconds_max{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_pending Pending threads
+# TYPE hikaricp_connections_pending gauge
+hikaricp_connections_pending{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_idle Idle connections
+# TYPE hikaricp_connections_idle gauge
+hikaricp_connections_idle{pool="HikariPool-1",} 10.0
+# HELP hikaricp_connections_acquire_seconds Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds summary
+hikaricp_connections_acquire_seconds_count{pool="HikariPool-1",} 0.0
+hikaricp_connections_acquire_seconds_sum{pool="HikariPool-1",} 0.0
+# HELP hikaricp_connections_acquire_seconds_max Connection acquire time
+# TYPE hikaricp_connections_acquire_seconds_max gauge
+hikaricp_connections_acquire_seconds_max{pool="HikariPool-1",} 0.0
+
+```
 
 
 ### Observe your database
@@ -153,7 +259,7 @@ At the same way SQL jointures are really time-consuming, the way you can link en
 {{< /admonition >}}
 
 ## Control the number of EAGER/SELECT relations underlying queries using ``@BatchSize``
-We can easily reduce the number of SELECT queries while fetching another entities with the ``@BatchSize`` annotation
+We can easily reduce the number of SELECT queries while fetching another entities with the ``@BatchSize`` annotation.
 
 ```java
 @Entity
@@ -187,7 +293,7 @@ For instance, if your table has 30 columns and you only need 10 in your use case
 That's why I usually recommend to have, when it's relevant, a dedicated entity for specific use cases. 
 It could be lighter than the _regular_ one and enhance the performances of your application.
 
-For instance
+For instance:
 
 TODO CODE
 
@@ -198,10 +304,12 @@ Be aware about it when you omit specific jointures or columns.
 
 ### Use JOIN FETCH in your queries
 
-Now one another strategy is to _manually_ control the jointures and how different entities will be fetched by your queries.
+Now, one another strategy is to _manually_ control the jointures and how different entities will be fetched by your queries.
 To do that, you can use the ``JOIN FETCH`` instruction:
 
 For instance:
+TODO  CODE  
+
 
 In this way you can shrink the number of queries done from N+1 to only one.
 However, you **MUST** check and measure if it's worth it. 
@@ -243,7 +351,6 @@ You will find below good links talking about it on StackOverflow:
 
 * https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which
 * https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages
-
 
 Now, let's go back to our example and see how it could be implemented:
 
