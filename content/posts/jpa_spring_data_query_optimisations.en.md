@@ -421,8 +421,17 @@ Instead of fetching all of these, and struggling with fetching strategies, we ca
 In this way, you can select all (and only) the data you need with only ONE query.
 To get your code even clearer, you can also use [records](https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.10) to make your data immutable. 
 
-TODO CODE
+```java
+public record BookDto (Long id, String description) {
+}
 
+```
+You can get a set of this record writing the query:
+
+```java
+    @Query(value = "select new BookDto(b.id, b.description) from Book b")
+    Set<BookDto> findAllDto();
+```
 ### Avoid transactions while reading our database with the annotation @Transactional(readonly=true) 
 
 One thing we often (again) remember: read-only database operations don't need transactions!
