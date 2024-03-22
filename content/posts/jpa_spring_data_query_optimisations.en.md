@@ -237,7 +237,7 @@ Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public
 [...]
 ```
 
-It's unfortunately not finished, 
+It's unfortunately not finished.
 
 Imagine now, your book entity is related to another one in a EAGER way.
 
@@ -258,21 +258,6 @@ Hibernate: select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isb
 At the same way SQL jointures are really time-consuming, the way you can link entities may strongly impact the performance of your queries in either memory or while running SQL queries.   
 {{< /admonition >}}
 
-## Control the number of EAGER/SELECT relations underlying queries using ``@BatchSize``
-We can easily reduce the number of SELECT queries while fetching another entities with the ``@BatchSize`` annotation.
-
-```java
-@Entity
-public class Store{
-[...]
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "store")
-    @BatchSize(size = 5)
-    private List<Book> books;
-[...]
-```
-
-TODO LOGS
-
 ### Use a dedicated entity graph
 If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.
 It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow.
@@ -283,7 +268,49 @@ Let's go back to our application.
 Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
 Using this API we can avoid fetching it in this way
 
-TODO CODE
+
+```java
+@Entity
+@NamedEntityGraph(name = "store[books]",
+        attributeNodes = @NamedAttributeNode("books")
+)
+public class Store implements Serializable {
+[...]
+```
+
+```java
+@Repository
+public interface StoreRepository extends JpaRepository<Store,Long> {
+
+    @EntityGraph(value = "store[books]")
+    Optional<Store> findByName(String name);
+}
+
+```
+
+You will get the following output:
+
+```jshelllanguage
+2024-03-22T14:35:17.515+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select s1_0.id,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication,s1_0.name from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.name=?
+2024-03-22T14:35:17.537+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] o.h.stat.internal.StatisticsImpl         : HHH000117: HQL: [CRITERIA] select s1_0.id,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication,s1_0.name from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.name=?, time: 21ms, rows: 1
+2024-03-22T14:35:17.559+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+2024-03-22T14:35:17.565+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+2024-03-22T14:35:17.582+01:00  WARN 74072 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+2024-03-22T14:35:17.583+01:00  WARN 74072 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+2024-03-22T14:35:17.583+01:00  INFO 74072 --- [optimization-jpa] [nio-8080-exec-3] i.StatisticalLoggingSessionEventListener : Session Metrics {
+    571600 nanoseconds spent acquiring 1 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    954800 nanoseconds spent preparing 3 JDBC statements;
+    2433201 nanoseconds spent executing 3 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+
+```
 
 ### Create a dedicated entity to reduce the number of attributes
 
@@ -294,8 +321,6 @@ That's why I usually recommend to have, when it's relevant, a dedicated entity f
 It could be lighter than the _regular_ one and enhance the performances of your application.
 
 For instance:
-
-TODO CODE
 
 {{< admonition warning "Think about data consistency" true >}}
 Think about the whole data consistency or your data stored in the database!
@@ -308,8 +333,10 @@ Now, one another strategy is to _manually_ control the jointures and how differe
 To do that, you can use the ``JOIN FETCH`` instruction:
 
 For instance:
-TODO  CODE  
-
+```java
+    @Query(value = "from Store store JOIN FETCH store.books books")
+    Set<Store> findStores();
+```
 
 In this way you can shrink the number of queries done from N+1 to only one.
 However, you **MUST** check and measure if it's worth it. 
