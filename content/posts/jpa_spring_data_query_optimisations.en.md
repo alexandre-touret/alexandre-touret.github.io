@@ -320,7 +320,78 @@ For instance, if your table has 30 columns and you only need 10 in your use case
 That's why I usually recommend to have, when it's relevant, a dedicated entity for specific use cases. 
 It could be lighter than the _regular_ one and enhance the performances of your application.
 
-For instance:
+For instance, if we have a _regular_ ``Book`` entity:
+
+```java
+
+@Entity
+public class Book implements Serializable {
+    @NotNull
+    private String title;
+    @Column(name = "isbn_13")
+    private String isbn13;
+    @Column(name = "isbn_10")
+    private String isbn10;
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.DETACH})
+    private List<Author> authors;
+    @Column(name = "year_of_publication")
+    private Integer yearOfPublication;
+    @Column(name = "nb_of_pages")
+    private Integer nbOfPages;
+
+    @Min(1)
+    @Max(10)
+    private Integer rank;
+    private BigDecimal price;
+    @Column(name = "small_image_url")
+    private URL smallImageUrl;
+    @Column(name = "medium_image_url")
+    private URL mediumImageUrl;
+    @Column(length = 10000)
+
+    private String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @ManyToOne(targetEntity = Store.class)
+    private Store store;
+    @Transient
+    private transient String excerpt;
+[...]
+```
+
+We can shrink it with only the required attributes:
+
+```java
+
+@Entity
+public class Book implements Serializable {
+    @NotNull
+    private String title;
+    @Column(name = "isbn_13")
+    private String isbn13;
+    @Column(name = "isbn_10")
+    private String isbn10;
+    @Column(name = "year_of_publication")
+    private Integer yearOfPublication;
+    @Column(name = "nb_of_pages")
+    private Integer nbOfPages;
+
+    @Min(1)
+    @Max(10)
+    private Integer rank;
+    private BigDecimal price;
+
+    private String description;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Transient
+    private transient String excerpt;
+
+```
 
 {{< admonition warning "Think about data consistency" true >}}
 Think about the whole data consistency or your data stored in the database!
@@ -357,10 +428,6 @@ TODO CODE
 One thing we often (again) remember: read-only database operations don't need transactions!
 In the good old days, it was also a good practice to set up two different datasources for the persistence context: one read-only avoiding database transactions and one which allowed it.
 Anyway, you can now declare your service only read data and doesn't need to open a database transaction using the ``@Transactional(readonly=true) `` annotation.
-
-For instance:
-
-TODO CODE
 
 By the way, this feature goes well with using dedicated entities as mentioned above.
 For a specific search/query use case, you can use both of them to make your code even more straightforward.
@@ -423,4 +490,4 @@ This first thing to put in place, is the whole observability stack: through logg
 Check also your database to see if you have a "full table scan" when you run specific SQL queries. It will help you find where is the bottleneck.
 
 Last but not least, don't try to apply premature optimisations (e.g., [native queries](#native)) first! 
-[Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
+Don't forget [Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
