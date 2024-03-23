@@ -21,16 +21,24 @@ In my opinion, it's mainly due to all the features provided by these specificati
 They bring a lot of simplicity which make you forget SQL queries syntax.
 
 Unfortunately, when your stored data is coming to grow, querying against your database could be difficult. 
-The different queries run by your Java application may potentially break your SLOs.
+Among other things, the different queries run by your Java application may potentially break your SLOs.
 
-In this article, I tried to write down a bunch of tips & tricks to tackle this issue.
-Even if some are related to [Spring Data](https://spring.io/projects/spring-data), I think you can use most of them if you use a JPA in a standard way.
+In this article, I have tried to write down a bunch of tips & tricks to tackle this issue.
+Even if some are related to [Spring Data](https://spring.io/projects/spring-data), I think you can use most of them if you use JPA in a standard way.
 
 You will see that even if we can consider using JPA easy at first glance, it can bring a lot of complexity.
 
 {{< admonition note "Acknowledgement" true >}}
 I would like to thank my colleagues [Max Beckers](https://www.linkedin.com/in/maximilianbeckers/), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/) & [Peter Steiner](https://www.linkedin.com/in/petersteiner/) for reviewing my article and giving their advices, useful links & tips.
 {{< /admonition >}}
+
+{{< admonition note "info" true >}}
+All the code snippets shown in this article come from [this GitHub repository](https://github.com/alexandre-touret/jpa-optimisation).
+Feel free to use it!
+
+{{< /admonition >}}
+
+
 
 ## Observe your application
 ### Observe your persistence layer
@@ -98,14 +106,13 @@ Example of such an output:
 ```
 
 #### Dig into you datasource connection pool
-If you want to dive into your datasource and get clear insights of your database connection pool, you can also enable Prometheus metrics to observe it.
+If you want to dive into your datasource and get clear insights of your database connection pool, you can also enable [Prometheus metrics](https://prometheus.io/docs/introduction/overview/) to observe it.
 
 Using Spring Boot, you can easily enable it by adding two dependencies:
 
 ```groovy
-	implementation 'org.springframework.boot:spring-boot-starter-actuator'
-	runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
-
+implementation 'org.springframework.boot:spring-boot-starter-actuator'
+runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
 ```
 and these properties:
 
@@ -165,16 +172,16 @@ hikaricp_connections_acquire_seconds_max{pool="HikariPool-1",} 0.0
 
 
 ### Observe your database
-We often forget that database platforms provides valuable tools to analyse your queries. 
+We often forget that database platforms provide valuable tools to analyse your queries. 
 Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, does a full scan of your table.
 
-To do that, you can check the SQL queries execution plan.
+For doing that, you can check the SQL queries execution plan.
 
-If you use [PostgreSQL (what else)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
+If you use [PostgreSQL (_what else_)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
-## Checks your relations
+## Check your relations
 Let's go back to our Java application.
-One of the main points of interest of any JPA (and SQL) queries is how your entity is joined with others. 
+One of the main points of attention of any JPA (and SQL) queries is how your entity is joined with others. 
 Every jointure brings costs and complexity.
 
 For JPA queries, you must check first if your relation between two objects should be either [``EAGER`` or ``LAZY``](https://docs.oracle.com/javaee/7/api/javax/persistence/FetchType.html).
@@ -198,8 +205,8 @@ In this example, we will look into a ``1-N`` relation:
 @Entity
 public class Store{
 [...]
-    @OneToMany(fetch = FetchType.EAGER,mappedBy = "store")
-    private List<Book> books;
+@OneToMany(fetch = FetchType.EAGER,mappedBy = "store")
+private List<Book> books;
 [...]
 ```
 
@@ -207,23 +214,23 @@ public class Store{
 @Entity
 public class Book {
 [...]
-    @ManyToOne(targetEntity = Store.class)
-    private Store store;
+@ManyToOne(targetEntity = Store.class)
+private Store store;
 [...]    
 ```
 
 If you remember well, this relation is fetched in a EAGER way.
-So, when I try to get all the stores using a ``findAll()`` method
+When I try to get all the stores using a ``findAll()`` method
 
 ```java
 public List<Store> findAllStores() {
-    return StreamSupport.stream(storeRepository.findAll().spliterator(), false).toList();
+    return storeRepository.findStores().stream().toList();
 }
 ```
 
 Hibernate will query the database in this way:
 * 1 query to select the main entity
-* N queries for the entities linked by  the jointure
+* N queries for the entities linked by the jointure
 
 In our case we can see the following queries in the logs:
 
@@ -255,19 +262,18 @@ Hibernate: select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isb
 ```
 
 {{< admonition tip "To sum up" true >}}
-At the same way SQL jointures are really time-consuming, the way you can link entities may strongly impact the performance of your queries in either memory or while running SQL queries.   
+At the same way SQL jointures are really time-consuming, the way you can link entities may strongly impact the performance in either memory or while running SQL queries against our database.   
 {{< /admonition >}}
 
 ### Use a dedicated entity graph
 If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.
-It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow.
+It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow or when you want to optimise the loading of the linked entities.
 
 [JPA 2.1 has introduced this feature](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html).
 
 Let's go back to our application.
 Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
 Using this API we can avoid fetching it in this way
-
 
 ```java
 @Entity
@@ -281,7 +287,6 @@ public class Store implements Serializable {
 ```java
 @Repository
 public interface StoreRepository extends JpaRepository<Store,Long> {
-
     @EntityGraph(value = "store[books]")
     Optional<Store> findByName(String name);
 }
@@ -315,7 +320,7 @@ You will get the following output:
 ### Create a dedicated entity to reduce the number of attributes
 
 We often forget that we don't need to map all the columns in an entity!
-For instance, if your table has 30 columns and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?
+For instance, if your table has 30 columns, and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?
 
 That's why I usually recommend to have, when it's relevant, a dedicated entity for specific use cases. 
 It could be lighter than the _regular_ one and enhance the performances of your application.
@@ -429,8 +434,8 @@ public record BookDto (Long id, String description) {
 You can get a set of this record writing the query:
 
 ```java
-    @Query(value = "select new BookDto(b.id, b.description) from Book b")
-    Set<BookDto> findAllDto();
+@Query(value = "select new info.touret.query.optimizationjpa.BookDto(b.id, b.description) from Book b")
+Set<BookDto> findAllDto();
 ```
 ### Avoid transactions while reading our database with the annotation @Transactional(readonly=true) 
 
@@ -442,7 +447,7 @@ By the way, this feature goes well with using dedicated entities as mentioned ab
 For a specific search/query use case, you can use both of them to make your code even more straightforward.
 
 ### Pagination w/ Spring Data
-When you browse a large amount of data, it's usually a good practice to paginate results.
+When you browse a large dataset, it's usually a good practice to paginate results.
 The good news when you use Spring Data, is you have all the features included by default.
 The bad news is you may have time/cpu-consuming queries run for calculating the number of elements, pages and the position of the current result's page.
 
@@ -455,19 +460,66 @@ You will find below good links talking about it on StackOverflow:
 * https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which
 * https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages
 
-Now, let's go back to our example and see how it could be implemented:
-
-TODO CODE
-
 ### Caching specific data
 You may use and query specific which is not daily (or monthly) updated. For instance, the department, country tables.
 In this case, you may want to cache them in the memory of your application (i.e., [Second-Level cache](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html).
 
 With [JPA you can easily cache specific entities](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html) using the [``@Cacheable`` annotation](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/Cacheable.html).
 
-For instance:
+For instance, in a Spring Boot application:
+You must configure your cache first:
 
-TODO CODE
+```java
+@SpringBootApplication
+@EnableCaching
+public class OptimizationJpaApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(OptimizationJpaApplication.class, args);
+    }
+    @Bean
+    public Caffeine caffeineConfig() {
+        return Caffeine.newBuilder().expireAfterWrite(1, TimeUnit.DAYS);
+    }
+    @Bean
+    public CacheManager cacheManager(Caffeine caffeine) {
+        CaffeineCacheManager caffeineCacheManager = new CaffeineCacheManager();
+        caffeineCacheManager.setCaffeine(caffeine);
+        return caffeineCacheManager;
+    }
+}
+```
+
+And declare your methods which use your cache:
+
+```java
+@Query(value = "from Store store JOIN FETCH store.books books")
+@Cacheable("stores")
+Set<Store> findStores();
+```
+
+You will use your cache then and get the following logs after the second try:
+
+```jshelllanguage
+
+2024-03-23T22:01:41.299+01:00  WARN 65315 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+2024-03-23T22:01:41.300+01:00  WARN 65315 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+2024-03-23T22:01:41.300+01:00  INFO 65315 --- [optimization-jpa] [nio-8080-exec-3] i.StatisticalLoggingSessionEventListener : Session Metrics {
+    0 nanoseconds spent acquiring 0 JDBC connections;
+    0 nanoseconds spent releasing 0 JDBC connections;
+    0 nanoseconds spent preparing 0 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC statements;
+    0 nanoseconds spent executing 0 JDBC batches;
+    0 nanoseconds spent performing 0 L2C puts;
+    0 nanoseconds spent performing 0 L2C hits;
+    0 nanoseconds spent performing 0 L2C misses;
+    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+}
+```
+
+
+If you want to dig into the differences between Spring cache support & the [JSR 107](https://github.com/jsr107/jsr107spec), you can [check out this documentation](https://docs.spring.io/spring-framework/reference/integration/cache.html).
 
 ### In case of emergency: break the glass! {#native}
 OK, none of all the tips exposed in this article worked?
@@ -481,9 +533,12 @@ At the end of the day, you won't be faster using an [ORM](https://en.wikipedia.o
 
 For instance, when you use a SQL view, you can easily run either a native query or fetch a DTO or a tuple (see [above](#dto)):
 
-Here is an example to illustrate it:
+Here is a trivial example to illustrate it:
 
-TODO CODE
+```java
+@Query(value="select * from Store s where s.name= :name", nativeQuery=true)
+Optional<Store> findByName(String name);
+```
 
 ## Links
 To write this article, I dug in many documentations and blog posts, here is a bunch of useful resources I stumbled upon:
@@ -495,8 +550,9 @@ To write this article, I dug in many documentations and blog posts, here is a bu
 ## Conclusion
 
 If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
-This first thing to put in place, is the whole observability stack: through logging, traces or prometheus metrics you will get deep insights of your application. 
-Check also your database to see if you have a "full table scan" when you run specific SQL queries. It will help you find where is the bottleneck.
+This first thing to put in place, is the whole observability stack: through logging, traces or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
+Check also your database to see if you have a _"full table scan"_ when you run specific SQL queries. 
+It will help you find where is the bottleneck.
 
 Last but not least, don't try to apply premature optimisations (e.g., [native queries](#native)) first! 
-Don't forget [Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
+Don't forget that any [Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
