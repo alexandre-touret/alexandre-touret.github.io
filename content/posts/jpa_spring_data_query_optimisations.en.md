@@ -1,7 +1,6 @@
 ---
 title: "Tips & tricks for optimizing JPA queries"
-date: 2024-03-24T06:00:43+01:00
-draft: true
+date: 2024-03-26T06:00:43+01:00
 featuredImagePreview: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 featuredImage: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 images: ["/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"]
@@ -13,14 +12,14 @@ tags:
 
 {{< style "text-align:center;" >}}
 _Picture of [Tobias Fischer](https://unsplash.com/fr/@tofi?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
-
 {{< /style >}}
 
-Most of the Java developers I know don't really know what is under the hood of [Spring Data](https://spring.io/projects/spring-data) and [Java Persistence API (JPA)](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm).
+When you code enterprise applications on top of the Java Platform, most of the time, you use ORMs to interface them with relational databases.
+Sadly, most of the time, Java developers don't really care/know what is under the hood of [Spring Data](https://spring.io/projects/spring-data) and [Java Persistence API (JPA)](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm) or such an ORM facility.
 In my opinion, it's mainly due to all the features provided by these specifications and frameworks. 
 They bring a lot of simplicity which make you forget SQL queries syntax.
 
-Unfortunately, when your stored data is coming to grow, querying against your database could be difficult. 
+Unfortunately, when your dataset is coming to grow, querying against your database could be difficult. 
 Among other things, the different queries run by your Java application may potentially break your SLOs.
 
 In this article, I have tried to write down a bunch of tips & tricks to tackle this issue.
@@ -38,20 +37,18 @@ Feel free to use it!
 
 {{< /admonition >}}
 
-
-
 ## Observe your application
 ### Observe your persistence layer
 
-First and foremost, you **MUST** trace and monitor your persistence layer. 
-If you use Hibernate (without Spring, Quarkus,...), you can get insights configuring the logger:
+First and foremost, you **MUST** trace and monitor your persistence layer usage. 
+If you use [Hibernate](https://hibernate.org/) (without Spring, Quarkus,...), you can get insights configuring the logger:
 
 ```xml
 <logger name="org.hibernate.SQL">
      <level value="debug"/>
 </logger>
 ```
-If you use Spring (and JPA, Hibernate), you can also get them adding these configuration properties:
+If you use [Spring (and JPA, Hibernate), you can also get them adding these configuration properties](https://thorben-janssen.com/spring-data-jpa-logging/):
 
 ```ini
 logging.level.org.hibernate.stat=TRACE
@@ -106,9 +103,9 @@ Example of such an output:
 ```
 
 #### Dig into you datasource connection pool
-If you want to dive into your datasource and get clear insights of your database connection pool, you can also enable [Prometheus metrics](https://prometheus.io/docs/introduction/overview/) to observe it.
+If you want to dive into your datasource and get clear insights of your database connection pool, you can also add [Prometheus metrics](https://prometheus.io/docs/introduction/overview/) to your application to observe it.
 
-Using Spring Boot, you can easily enable it by adding two dependencies:
+Using [Spring Boot](https://spring.io/projects/spring-boot/), you can easily enable it adding two dependencies:
 
 ```groovy
 implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -121,7 +118,7 @@ management.endpoint.prometheus.enabled=true
 management.endpoints.web.exposure.include=health,info,prometheus
 ```
 
-Now you can get the status of your connection pool:
+After rebooting your application, you will be able to get the status of your connection pool:
 
 ```jshelllanguage
 ❯ http :8080/actuator/prometheus | grep hikari
@@ -170,36 +167,35 @@ hikaricp_connections_acquire_seconds_max{pool="HikariPool-1",} 0.0
 
 ```
 
-
 ### Observe your database
-We often forget that database platforms provide valuable tools to analyse your queries. 
+As Java developers, we usually forget that database platforms provide valuable tools to analyse your queries. 
 Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, does a full scan of your table.
 
 For doing that, you can check the SQL queries execution plan.
 
 If you use [PostgreSQL (_what else_)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
-## Check your relations
+## Check your associations
 Let's go back to our Java application.
 One of the main points of attention of any JPA (and SQL) queries is how your entity is joined with others. 
 Every jointure brings costs and complexity.
 
-For JPA queries, you must check first if your relation between two objects should be either [``EAGER`` or ``LAZY``](https://docs.oracle.com/javaee/7/api/javax/persistence/FetchType.html).
+For JPA queries, you must check first if your relationship between two objects should be either [``EAGER`` or ``LAZY``](https://docs.oracle.com/javaee/7/api/javax/persistence/FetchType.html).
 
 You probably understood: there is no free lunch. 
 You must measure first the JPA queries and mapping time-consumption and check which solution is the best.
 
-By default, EAGER relations are set up for ``@ManyToOne`` and ``@OneToOne``. LAZY are for ``@OneToMany``. 
+By default, EAGER relationship are set up for ``@ManyToOne`` and ``@OneToOne``. LAZY are for ``@OneToMany``. 
 Most of the time, I keep using the default configuration. 
-
 However, you must take care of the whole [entity graph](https://docs.oracle.com/javaee/7/tutorial/persistence-entitygraphs001.htm) loaded by your query.
-Does your entity loaded by a ``@OneToOne`` relation loads also a ``@OneToMany`` relation in a ``EAGER`` way? 
+
+Does your entity loaded by a ``@OneToOne`` relationship loads also a ``@OneToMany`` relationship in a ``EAGER`` way? 
 
 It's the kind of question you will have to answer.
 
 ### The famous N+1 issue
 
-In this example, we will look into a ``1-N`` relation:
+In this example, we will look into a ``1-N`` relationship:
 
 ```java
 @Entity
@@ -219,7 +215,7 @@ private Store store;
 [...]    
 ```
 
-If you remember well, this relation is fetched in a EAGER way.
+If you remember well, this relationship is fetched in a EAGER way.
 When I try to get all the stores using a ``findAll()`` method
 
 ```java
@@ -267,11 +263,11 @@ At the same way SQL jointures are really time-consuming, the way you can link en
 
 ### Use a dedicated entity graph
 If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.
-It could be really useful if you want to avoid to retrieve specific useless attributes which make your queries really slow or when you want to optimise the loading of the linked entities.
 
-[JPA 2.1 has introduced this feature](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html).
+[This feature introduced in JPA 2.1](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html) can help you avoid retrieving specific useless attributes or optimise the loading of the linked entities.
 
 Let's go back to our application.
+
 Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
 Using this API we can avoid fetching it in this way
 
@@ -318,8 +314,9 @@ You will get the following output:
 ```
 
 ### Create a dedicated entity to reduce the number of attributes
+One another misconception about JPA is to always fully map a table to an entity!
 
-We often forget that we don't need to map all the columns in an entity!
+A gentle reminder: we don't need to map all the columns in an entity!
 For instance, if your table has 30 columns, and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?
 
 That's why I usually recommend to have, when it's relevant, a dedicated entity for specific use cases. 
@@ -405,13 +402,13 @@ Be aware about it when you omit specific jointures or columns.
 
 ### Use JOIN FETCH in your queries
 
-Now, one another strategy is to _manually_ control the jointures and how different entities will be fetched by your queries.
+Now, one another strategy is to _manually_ control/declare the jointures and how different entities would be fetched by your queries.
 To do that, you can use the ``JOIN FETCH`` instruction:
 
-For instance:
+For example:
 ```java
-    @Query(value = "from Store store JOIN FETCH store.books books")
-    Set<Store> findStores();
+@Query(value = "from Store store JOIN FETCH store.books books")
+Set<Store> findStores();
 ```
 
 In this way you can shrink the number of queries done from N+1 to only one.
@@ -419,11 +416,10 @@ However, you **MUST** check and measure if it's worth it.
 Sometimes, this kind of query can be more time-consuming in either database or in the JVM than several small ones. 
 
 ### Use a DTO or a tuple {#dto}
-
 Imagine we have a screen with of list of data coming from several entities. 
 Instead of fetching all of these, and struggling with fetching strategies, we can also run [DTO (or tuple) projections](https://thorben-janssen.com/dto-projections/).
 
-In this way, you can select all (and only) the data you need with only ONE query.
+You can therefore select all (and only) the data you need with only ONE query.
 To get your code even clearer, you can also use [records](https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.10) to make your data immutable. 
 
 ```java
@@ -437,10 +433,10 @@ You can get a set of this record writing the query:
 @Query(value = "select new info.touret.query.optimizationjpa.BookDto(b.id, b.description) from Book b")
 Set<BookDto> findAllDto();
 ```
-### Avoid transactions while reading our database with the annotation @Transactional(readonly=true) 
+### Avoid transactions while reading our database with the annotation ``@Transactional(readonly=true)`` 
 
 One thing we often (again) remember: read-only database operations don't need transactions!
-In the good old days, it was also a good practice to set up two different datasources for the persistence context: one read-only avoiding database transactions and one which allowed it.
+In the good old days, it was already a good practice to set up two different datasources for the persistence context: one read-only avoiding database transactions and one which allowed it.
 Anyway, you can now declare your service only read data and doesn't need to open a database transaction using the ``@Transactional(readonly=true) `` annotation.
 
 By the way, this feature goes well with using dedicated entities as mentioned above.
@@ -522,13 +518,13 @@ You will use your cache then and get the following logs after the second try:
 If you want to dig into the differences between Spring cache support & the [JSR 107](https://github.com/jsr107/jsr107spec), you can [check out this documentation](https://docs.spring.io/spring-framework/reference/integration/cache.html).
 
 ### In case of emergency: break the glass! {#native}
-OK, none of all the tips exposed in this article worked?
+OK, none of all the tips exposed in this article has worked?
+
 Now, remember that, under the hood you use a database.
 It contains many tools which may run your queries at lightning speed.
 
 You can use [SQL views](https://www.postgresql.org/docs/current/rules-views.html) or [SQL materialized views](https://www.postgresql.org/docs/current/rules-materializedviews.html) to specify the data you want to fetch.
 In addition, feel free to use [Native queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/EntityManager.html#createNativeQuery(java.lang.String)) , [Named Native Queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/NamedNativeQuery.html) or [Stored Procedure Queries](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/StoredProcedureQuery.html)  (**ONLY FOR**) for the 10-20%  of your most time-consuming queries.
-
 At the end of the day, you won't be faster using an [ORM](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping)!
 
 For instance, when you use a SQL view, you can easily run either a native query or fetch a DTO or a tuple (see [above](#dto)):
@@ -540,15 +536,7 @@ Here is a trivial example to illustrate it:
 Optional<Store> findByName(String name);
 ```
 
-## Links
-To write this article, I dug in many documentations and blog posts, here is a bunch of useful resources I stumbled upon:
-
-* https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application
-* https://thorben-janssen.com
-* https://vladmihalcea.com
-
 ## Conclusion
-
 If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
 This first thing to put in place, is the whole observability stack: through logging, traces or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
 Check also your database to see if you have a _"full table scan"_ when you run specific SQL queries. 
@@ -556,3 +544,8 @@ It will help you find where is the bottleneck.
 
 Last but not least, don't try to apply premature optimisations (e.g., [native queries](#native)) first! 
 Don't forget that any [Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
+
+### Further reading
+* https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application
+* https://thorben-janssen.com
+* https://vladmihalcea.com
