@@ -537,7 +537,10 @@ Optional<Store> findByName(String name);
 
 ## Conclusion
 If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
-This first thing to put in place, is the whole observability stack: through logging, traces or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
+I aimed at a summary of the most efficient solutions for type of problem.
+As a matter of fact, I'm pretty sure there are other ones.
+
+Anyway, the first thing to put in place, is the whole observability stack: through logging, traces or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
 Check also your database to see if you have a _"full table scan"_ when you run specific SQL queries. 
 It will help you find where is the bottleneck.
 
