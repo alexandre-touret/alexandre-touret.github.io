@@ -548,7 +548,7 @@ Don't forget that any [Premature optimisation is the root of all evil!](https://
 
 
 {{< admonition bug "Just in case..." true >}}
-After reading this article, if you see any errors/issues or tip I missed, feel free [to submit an issue](https://github.com/alexandre-touret/alexandre-touret.github.io/issues).
+After reading this article, if you've seen any errors/issues or tip I missed, feel free [to submit an issue](https://github.com/alexandre-touret/alexandre-touret.github.io/issues).
 {{< /admonition >}}
 
 ### Further reading
