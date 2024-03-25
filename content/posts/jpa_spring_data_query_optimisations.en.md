@@ -183,7 +183,7 @@ In this purpose, you can check the SQL queries execution plan.
 
 If you use [PostgreSQL (_what else_)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
-## Check your associations
+## Check your entities associations
 Let's go back to our Java application.
 One of the main points of attention of any JPA (and SQL) queries is how your entity is joined with others. 
 Every jointure brings costs and complexity.
