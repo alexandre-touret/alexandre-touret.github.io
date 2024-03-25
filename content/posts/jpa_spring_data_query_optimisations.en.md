@@ -224,14 +224,15 @@ private Store store;
 ```
 
 If you remember well, this relationship is fetched in a EAGER way.
-When I try to get all the stores using a ``findAll()`` method
+When I try to get all the stores using a ``findAll()`` method:
+
+For example:
 
 ```java
 public List<Store> findAllStores() {
     return storeRepository.findStores().stream().toList();
 }
 ```
-
 Hibernate will query the database in this way:
 * 1 query to select the main entity
 * N queries for the entities linked by the jointure
@@ -248,7 +249,7 @@ Hibernate: select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public
 [...]
 ```
 
-It's unfortunately not finished.
+It's unfortunately not finished yet.
 
 Imagine now, your book entity is related to another one in a EAGER way.
 
@@ -274,8 +275,7 @@ If you are still struggling with the way Hibernate loads your Entity graph, you 
 
 [This feature introduced in JPA 2.1](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html) can help you avoid retrieving specific useless attributes or optimise the loading of the linked entities.
 
-Let's go back to our application.
-
+Let's go back to our application. 
 Imagine that in one use case, when we fetch a list of books, we don't need the list of authors.
 Using this API we can avoid fetching it in this way
 
