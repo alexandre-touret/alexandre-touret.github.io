@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>musique - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/musique/</link><description>musique - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 12 Apr 2020 14:47:48 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/musique/" rel="self" type="application/rss+xml"/><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Musique - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/musique/</link><description>Musique - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 12 Apr 2020 14:47:48 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/musique/" rel="self" type="application/rss+xml"/><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/thomas-litangen-sp9hcrasmpe-unsplash.jpg" referrerpolicy="no-referrer">
             </div><p>Avec les contraintes liées au confinement, les <a href="http://george-abitbol.fr/v/c0bce857" target="_blank" rel="noopener noreferrer">répétitions</a> se font de plus en plus rares. Pour ne pas perdre la main, il y a quelques logiciels qui permettent de jouer d&rsquo;un instrument et d&rsquo; improviser tout en ayant une bande son en fond musical.</p>
 <p>Il y a plusieurs logiciels payants/propriétaires sur différentes plateformes:</p>
@@ -70,24 +70,18 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
-        sizes="auto"
-        alt="fluidsynth1"
         title="fluidsynth1" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
-        sizes="auto"
-        alt="fluidsynth2"
         title="fluidsynth2" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
-        sizes="auto"
-        alt="fluidsynth3"
         title="fluidsynth3" ></figure></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
@@ -98,8 +92,6 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
         srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
-        sizes="auto"
-        alt="aconnect"
         title="aconnect" ></figure></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
@@ -199,8 +191,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
@@ -209,8 +199,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Puis configurez comme suit:</p>
 <div id="id-5"><figure><img
@@ -218,8 +206,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item></channel></rss>

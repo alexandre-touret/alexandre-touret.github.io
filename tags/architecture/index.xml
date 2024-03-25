@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>architecture - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/architecture/</link><description>architecture - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 09 Feb 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/architecture/" rel="self" type="application/rss+xml"/><item><title>Mieux analyser les risques pour simplifier les architectures (ou pas)</title><link>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</link><pubDate>Wed, 09 Feb 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Architecture - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/architecture/</link><description>Architecture - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 09 Feb 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/architecture/" rel="self" type="application/rss+xml"/><item><title>Mieux analyser les risques pour simplifier les architectures (ou pas)</title><link>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</link><pubDate>Wed, 09 Feb 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/02/architecture.webp" referrerpolicy="no-referrer">
             </div><h2 id="lanalyse-des-risques-kezako-" class="headerLink">
     <a href="#lanalyse-des-risques-kezako-" class="header-mark"></a>1 L&rsquo;analyse des risques: kezako ?</h2><p>Souvent utilisée dans la prise de décision, l&rsquo;analyse des risques a plusieurs objectifs :</p>
@@ -45,8 +45,6 @@ Pour chacun, vous devrez définir ces trois caractéristiques : cause, probabili
         loading="lazy"
         src="/assets/images/2022/02/Risk-Based-Audit_technical.webp"
         srcset="/assets/images/2022/02/Risk-Based-Audit_technical.webp, /assets/images/2022/02/Risk-Based-Audit_technical.webp 1.5x, /assets/images/2022/02/Risk-Based-Audit_technical.webp 2x"
-        sizes="auto"
-        alt="analyse de risques"
         title="analyse de risques" ></figure></div>
 <p>En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d&rsquo;action.</p>
 <p>Prenons la définition d&rsquo;une plateforme:
@@ -71,8 +69,6 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
         loading="lazy"
         src="/assets/images/2021/07/rest-book-architecture.png"
         srcset="/assets/images/2021/07/rest-book-architecture.png, /assets/images/2021/07/rest-book-architecture.png 1.5x, /assets/images/2021/07/rest-book-architecture.png 2x"
-        sizes="auto"
-        alt="bookstore architecture"
         title="bookstore architecture" ></figure></p>
 <h3 id="exigences-techniques" class="headerLink">
     <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
@@ -197,8 +193,6 @@ Ce sujet y est abordé.</p>
         loading="lazy"
         src="/assets/images/2019/02/img_20190201_174057.jpg"
         srcset="/assets/images/2019/02/img_20190201_174057.jpg, /assets/images/2019/02/img_20190201_174057.jpg 1.5x, /assets/images/2019/02/img_20190201_174057.jpg 2x"
-        sizes="auto"
-        alt="Feedback"
         title="Feedback" ></figure></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item><item><title>Touraine Tech 2019</title><link>https://blog.touret.info/2018/12/25/touraine-tech-2019/</link><pubDate>Tue, 25 Dec 2018 17:24:29 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/12/25/touraine-tech-2019/</guid><description><![CDATA[<div class="featured-image">

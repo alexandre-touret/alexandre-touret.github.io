@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>observability - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/observability/</link><description>observability - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jan 2024 19:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/observability/" rel="self" type="application/rss+xml"/><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Observability - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/observability/</link><description>Observability - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Jan 2024 19:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/observability/" rel="self" type="application/rss+xml"/><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp" referrerpolicy="no-referrer">
             </div><h2 id="the-sad-reality" class="headerLink">
     <a href="#the-sad-reality" class="header-mark"></a>1 The sad reality</h2><p>Picture this: it&rsquo;s Friday afternoon, and you&rsquo;re eagerly looking forward to unwinding for the weekend.
@@ -68,8 +68,6 @@ With regard to the topic of this article,it will provide us all you need to coll
         loading="lazy"
         src="/assets/images/2024/01/image-2023-8-1_9-44-11.webp"
         srcset="/assets/images/2024/01/image-2023-8-1_9-44-11.webp, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 1.5x, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 2x"
-        sizes="auto"
-        alt="monitoring"
         title="monitoring" ></figure></p>
 <h2 id="logs" class="headerLink">
     <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
@@ -189,8 +187,6 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
         loading="lazy"
         src="/assets/images/2024/01/Loki-Grafana.webp"
         srcset="/assets/images/2024/01/Loki-Grafana.webp, /assets/images/2024/01/Loki-Grafana.webp 1.5x, /assets/images/2024/01/Loki-Grafana.webp 2x"
-        sizes="auto"
-        alt="Loki"
         title="Loki" ></figure></p>
 <h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
@@ -427,8 +423,6 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
         loading="lazy"
         src="/assets/images/2024/01/Tempo-Grafana.webp"
         srcset="/assets/images/2024/01/Tempo-Grafana.webp, /assets/images/2024/01/Tempo-Grafana.webp 1.5x, /assets/images/2024/01/Tempo-Grafana.webp 2x"
-        sizes="auto"
-        alt="Tempo"
         title="Tempo" ></figure></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
@@ -816,16 +810,12 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
         loading="lazy"
         src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
         srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
-        sizes="auto"
-        alt="jaeger1"
         title="jaeger1" ></figure>
 <figure><img
         
         loading="lazy"
         src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
         srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
-        sizes="auto"
-        alt="jaeger2"
         title="jaeger2" ></figure></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>

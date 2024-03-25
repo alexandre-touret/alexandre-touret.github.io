@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>cloud - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/cloud/</link><description>cloud - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/cloud/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Cloud - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/cloud/</link><description>Cloud - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/cloud/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
 <div id="id-1"><figure><img
@@ -6,8 +6,6 @@
         loading="lazy"
         src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp"
         srcset="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 1.5x, /assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp 2x"
-        sizes="auto"
-        alt="dataflow"
         title="dataflow" ></figure></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
@@ -18,8 +16,6 @@ J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas t
         loading="lazy"
         src="/assets/images/2022/08/luke_cage.webp"
         srcset="/assets/images/2022/08/luke_cage.webp, /assets/images/2022/08/luke_cage.webp 1.5x, /assets/images/2022/08/luke_cage.webp 2x"
-        sizes="auto"
-        alt="dataflow"
         title="dataflow" ></figure></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
@@ -30,8 +26,6 @@ Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;obs
         loading="lazy"
         src="/assets/images/2022/08/spring_dataflow_logo.webp"
         srcset="/assets/images/2022/08/spring_dataflow_logo.webp, /assets/images/2022/08/spring_dataflow_logo.webp 1.5x, /assets/images/2022/08/spring_dataflow_logo.webp 2x"
-        sizes="auto"
-        alt="dataflow"
         title="dataflow" ></figure></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
@@ -249,7 +243,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </div>
 </div><h3 id="création-de-lapplication" class="headerLink">
     <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
-<figure><img src="/assets/images/2022/08/dataflow_config5.webp"/>
+<figure><img src="/assets/images/2022/08/dataflow_config5.webp">
 </figure>
 
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
@@ -260,15 +254,11 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config3.webp"
         srcset="/assets/images/2022/08/dataflow_config3.webp, /assets/images/2022/08/dataflow_config3.webp 1.5x, /assets/images/2022/08/dataflow_config3.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config4.webp"
         srcset="/assets/images/2022/08/dataflow_config4.webp, /assets/images/2022/08/dataflow_config4.webp 1.5x, /assets/images/2022/08/dataflow_config4.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
@@ -280,36 +270,26 @@ Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes action
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config2.webp"
         srcset="/assets/images/2022/08/dataflow_config2.webp, /assets/images/2022/08/dataflow_config2.webp 1.5x, /assets/images/2022/08/dataflow_config2.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config10.webp"
         srcset="/assets/images/2022/08/dataflow_config10.webp, /assets/images/2022/08/dataflow_config10.webp 1.5x, /assets/images/2022/08/dataflow_config10.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config8.webp"
         srcset="/assets/images/2022/08/dataflow_config8.webp, /assets/images/2022/08/dataflow_config8.webp 1.5x, /assets/images/2022/08/dataflow_config8.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config7.webp"
         srcset="/assets/images/2022/08/dataflow_config7.webp, /assets/images/2022/08/dataflow_config7.webp 1.5x, /assets/images/2022/08/dataflow_config7.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/08/dataflow_config9.webp"
         srcset="/assets/images/2022/08/dataflow_config9.webp, /assets/images/2022/08/dataflow_config9.webp 1.5x, /assets/images/2022/08/dataflow_config9.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div></div>
 
 <p>J&rsquo;ai pu également accéder aux logs.</p>
@@ -506,9 +486,9 @@ Vos ressources systèmes sont des PODs avec un 1 Go de RAM.</p>
 J&rsquo;ai fait le choix ici de mettre en oeuvre un couplage lâche (on ne se refait pas) entre l&rsquo;espace de réception de fichiers et le traitement.</p>
 <p>Je traite ici le risque de crash d&rsquo;un POD en gardant systématiquement les fichiers dans un stockage objet. De cette manière, si le traitement a échoué, un autre POD pourra le télécharger et rejouer le processus batch.</p>
 <p>Ce découplage permet de gérer facilement la scalabilité et les arrêts/relances de PODs.</p>
-<figure><img src="/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg"/><figcaption>
-            <h4>Batch démarré sur présence de fichier</h4>
-        </figcaption>
+<figure><img src="/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg"><figcaption>
+      <h4>Batch démarré sur présence de fichier</h4>
+    </figcaption>
 </figure>
 
 <p>Dans ce cas, le batch pourra être déployé sous la forme d&rsquo;un <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">déploiement Kubernetes</a>.</p>
@@ -524,9 +504,9 @@ Généralement, dans le monde de l&rsquo;entreprise, la planification des traite
     <a href="#avec-une-api" class="header-mark"></a>6.1 Avec une API</h3><p>Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu&rsquo;à l&rsquo;instar de la solution précédente, le programme tourne toujours et n&rsquo;est vraiment utile que lorsqu&rsquo;il est appelé via un endpoint REST.</p>
 <p>Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l&rsquo;intégration d&rsquo;un Job Kubernetes est problématique pour vous (voir ci-dessous).</p>
 <p>L&rsquo;un des avantages que l&rsquo;on pourra trouver est que le <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">mode de déploiement est assez simple et similaire aux APIs</a>.</p>
-<figure><img src="/assets/images/2022/05/traitement_api.svg"/><figcaption>
-            <h4>Batch démarré par une API</h4>
-        </figcaption>
+<figure><img src="/assets/images/2022/05/traitement_api.svg"><figcaption>
+      <h4>Batch démarré par une API</h4>
+    </figcaption>
 </figure>
 
 <h3 id="avec-des-jobs" class="headerLink">

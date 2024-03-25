@@ -1,236 +1,78 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 14 Feb 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>My (not only) Tech Library</title><link>https://blog.touret.info/2024/02/14/my-tech-library/</link><pubDate>Wed, 14 Feb 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/02/14/my-tech-library/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp" referrerpolicy="no-referrer">
-            </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@prateekkatyal?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Prateek Katyal</a></em></div>
-<p>Early in my career, when the documentation was not so spread across the Internet, I had to buy and crack open books to learn new things.
-I stumbled upon of <a href="https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu" target="_blank" rel="noopener noreferrer">Le Monde en &ldquo;Tique&rdquo;</a>, a famous Parisian bookstore getting books of Java EE, XML, or whatever else.</p>
-<p>I then realised, even with the number of documentations, articles, videos growing on Internet, I learnt far better new topics reading books.</p>
-<p>All through my career I therefore tried to keep this habit.
-During the last <a href="https://touraine.tech/" target="_blank" rel="noopener noreferrer">Touraine Tech</a> edition, I had a chat with one of my ex-colleagues about that.
-He asked me: <em>&ldquo;Do you have a list of the best books you read and enjoyed? It would be nice if not&rdquo;</em></p>
-<p>I will therefore try to reply here to this query.</p>
-<p>You will find below <strong>TEN books</strong> I found really helpful at different steps of my career.</p>
-<div class="details admonition warning open">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 25 Mar 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Tips &amp; tricks for optimizing Spring Data &amp; Full JPA queries</title><link>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</link><pubDate>Mon, 25 Mar 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@tofi?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Tobias Fischer</a></em></div>
+<p>When you code enterprise applications on top of the Java Platform, most of the time, you use <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping" target="_blank" rel="noopener noreferrer">ORMs</a> to interface them with relational databases.
+They bring a lot of simplicity which make you forget SQL queries syntax.
+Furthermore, most of the time, Java developers don&rsquo;t really care/know what is under the hood of <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a> and <a href="https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm" target="_blank" rel="noopener noreferrer">Java Persistence API (JPA)</a> or such a facility.
+In my opinion, it&rsquo;s mainly due to all the features provided by these specifications and frameworks.</p>
+<p>Unfortunately, when your dataset is coming to grow, querying against your database could be difficult.
+Among other things, the different queries run by your Java application may potentially break your SLOs.</p>
+<p>In this article, I have tried to write down a bunch of tips &amp; tricks to tackle this issue.
+Even if some are related to <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a>, I think you can use most of them if you use JPA in a standard way.</p>
+<p>You will see that even if we can consider using JPA easy at first glance, it can bring a lot of complexity.</p>
+<div class="details admonition note open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-exclamation-triangle fa-fw"></i>About this list<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-pencil-alt fa-fw"></i>Acknowledgement<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content"><p>It was quite hard to draw up this list which looks like to <em>&ldquo;if you had been on a desert island, which book you would have brought&rdquo;</em>.</p>
-<p>Please, remember then this list is not exhaustive and there are plenty of interesting books beyond this list.</p>
-</div>
+            <div class="admonition-content">I would like to thank my colleagues <a href="https://www.linkedin.com/in/maximilianbeckers/" target="_blank" rel="noopener noreferrer">Max Beckers</a>, <a href="https://www.linkedin.com/in/davidpequegnot/" target="_blank" rel="noopener noreferrer">David Pequegnot</a> &amp; <a href="https://www.linkedin.com/in/petersteiner/" target="_blank" rel="noopener noreferrer">Peter Steiner</a> for reviewing my article and giving their advices, useful links &amp; tips.</div>
         </div>
     </div>
-<h2 id="the-staple" class="headerLink">
-    <a href="#the-staple" class="header-mark"></a>1 The staple</h2><p>Here are few books I strongly recommend to read and read again to every developer in this particular order.</p>
-<h3 id="clean-code-by-r-c-martin" class="headerLink">
-    <a href="#clean-code-by-r-c-martin" class="header-mark"></a>1.1 Clean code by R. C. MARTIN</h3><p><figure><img src="/assets/images/2024/02/cleancode.webp"/><figcaption>
-            <h4>Clean Code</h4>
-        </figcaption>
-</figure>
-
-For few years, when I must mentor a young developer, I ask him/her to read Clean code first and code then.</p>
-<h3 id="refactoring-by-m-fowler" class="headerLink">
-    <a href="#refactoring-by-m-fowler" class="header-mark"></a>1.2 Refactoring by M. FOWLER</h3><p><figure><img src="/assets/images/2024/02/refactoring.webp"/><figcaption>
-            <h4>Refactoring</h4>
-        </figcaption>
-</figure>
-
-I must admit, I am a big fan of <a href="https://martinfowler.com/" target="_blank" rel="noopener noreferrer">M. FOWLER</a>.
-Every of his presentations, articles or books are really informative and inspiring.
-In my opinion, this book belongs to the mandatory reading list for every person who wants to become better in this field.</p>
-<h3 id="design-patterns-by-the-gof" class="headerLink">
-    <a href="#design-patterns-by-the-gof" class="header-mark"></a>1.3 Design Patterns by the GoF</h3><figure><img src="/assets/images/2024/02/gof.webp"/><figcaption>
-            <h4>Design Patterns by the GoF</h4>
-        </figcaption>
-</figure>
-
-<p>One of the first tech book I bought. It was during the first years of my career.
-I had a blast reading it because it addressed common problems with simple <em>cooking recipes</em> we could easily put into practice.</p>
-<p>I think it is still worth reading it.</p>
-<h2 id="for-java-developers" class="headerLink">
-    <a href="#for-java-developers" class="header-mark"></a>2 For Java developers</h2><h3 id="effective-java-by-j-bloch" class="headerLink">
-    <a href="#effective-java-by-j-bloch" class="header-mark"></a>2.1 Effective Java by J. BLOCH</h3><figure><img src="/assets/images/2024/02/effective_java.webp"/><figcaption>
-            <h4>Effective Java</h4>
-        </figcaption>
-</figure>
-
-<p>From my perspective, it is the perfect Java developer &ldquo;Clean Code&rdquo; book companion.
-If you are a Java developer beginner (or not!), you can also refer to <a href="https://www.oreilly.com/library/view/head-first-java/9781492091646/" target="_blank" rel="noopener noreferrer">Head First Java by K. SIERA &amp; B. BATES</a>.</p>
-<h2 id="for-designers" class="headerLink">
-    <a href="#for-designers" class="header-mark"></a>3 For designers</h2><h3 id="fundamentals-of-software-architecture-by-m-richards--n-ford" class="headerLink">
-    <a href="#fundamentals-of-software-architecture-by-m-richards--n-ford" class="header-mark"></a>3.1 Fundamentals of Software Architecture by M. RICHARDS &amp; N. FORD</h3><figure><img src="/assets/images/2024/02/fundamentals_sa.webp"/><figcaption>
-            <h4>Fundamentals of Software Architecture</h4>
-        </figcaption>
-</figure>
-
-<p>It is definitively the book I would have wished to read 10+ years ago!
-In my opinion, reading this book is a mandatory step for anyone who wants to dig into architecture.
-It addresses both the hard skills with all the main architecture design patterns and the soft skills (i.e., how to work as an architect?).</p>
-<h3 id="software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="headerLink">
-    <a href="#software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="header-mark"></a>3.2 Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN</h3><figure><img src="/assets/images/2024/02/software_arch_for_developers.webp"/><figcaption>
-            <h4>Software architecture for developers: Technical Leadership and the balance with agility</h4>
-        </figcaption>
-</figure>
-
-<p>This is another terrific book talking about software architecture.<br>
-I also recommend reading it.</p>
-<h3 id="building-microservices-by-s-newman" class="headerLink">
-    <a href="#building-microservices-by-s-newman" class="header-mark"></a>3.3 Building Microservices by S. NEWMAN</h3><figure><img src="/assets/images/2024/02/microservices.webp"/><figcaption>
-            <h4>Building Microservices</h4>
-        </figcaption>
-</figure>
-
-<p>If you want to dig into how to design a microservice platform, this book is a good start.
-It will provide you a good overview of all the main points to tackle such as integration, deployment, or the famous <a href="https://en.wikipedia.org/wiki/Conway%27s_law" target="_blank" rel="noopener noreferrer">Conway&rsquo;s Law</a>.</p>
-<h3 id="building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="headerLink">
-    <a href="#building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="header-mark"></a>3.4 Building Evolutionary Architectures by N. FORD, R. PARSONS &amp; P. KUA</h3><figure><img src="/assets/images/2024/02/evolutionary.webp"/><figcaption>
-            <h4>Building Evolutionary Architectures</h4>
-        </figcaption>
-</figure>
-
-<p>This book comforted me a platform must be on the one hand designed and sat up as simply as possible and on the other hand supports changes over the time.
-Among other things, the authors bring guidance to achieve that.</p>
-<h2 id="for-speakers" class="headerLink">
-    <a href="#for-speakers" class="header-mark"></a>4 For speakers</h2><h3 id="resonate-by-n-duarte" class="headerLink">
-    <a href="#resonate-by-n-duarte" class="header-mark"></a>4.1 Resonate by N. DUARTE</h3><figure><img src="/assets/images/2024/02/resonate.webp"/><figcaption>
-            <h4>Resonate</h4>
-        </figcaption>
-</figure>
-
-<p>It is considered as a reference for people who talk in public.
-Even if I read a bunch on this field, it is still the best I read so far.</p>
-<h2 id="for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="headerLink">
-    <a href="#for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="header-mark"></a>5 For people who want to get rid of stress and being (mostly) organised</h2><h3 id="getting-things-done-by-d-allen" class="headerLink">
-    <a href="#getting-things-done-by-d-allen" class="header-mark"></a>5.1 Getting Things Done by D. ALLEN</h3><figure><img src="/assets/images/2024/02/gtd.webp"/><figcaption>
-            <h4>Getting Things Done</h4>
-        </figcaption>
-</figure>
-
-<p>Last but not least, this book changed 15 years ago the way I organised both my personal and professional life.
-This kind of personal life methodology does not work for everyone.
-For me, it was a game changer.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Unfortunately, I haven&rsquo;t read plenty of fascinating books yet.
-Regarding software architecture or design topics, I usually choose a book taking a look on <a href="https://architectelevator.com/architecture/architect-bookshelf/" target="_blank" rel="noopener noreferrer">the Gregor Hohpe bookshelf</a> first.
-You will find many of the books I already mentioned in this article and many more!</p>
-]]></description></item><item><title>Mastering Observability: Empowering Developers from Zero to Hero with Spring &amp; the Grafana stack</title><link>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</link><pubDate>Tue, 16 Jan 2024 19:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2024/01/felipe-correia-ScQngs6oO1E-unsplash.webp" referrerpolicy="no-referrer">
-            </div><h2 id="the-sad-reality" class="headerLink">
-    <a href="#the-sad-reality" class="header-mark"></a>1 The sad reality</h2><p>Picture this: it&rsquo;s Friday afternoon, and you&rsquo;re eagerly looking forward to unwinding for the weekend.
-Suddenly, an Ops engineer alerts you about a critical issue—a stubborn HTTP 500 error that&rsquo;s causing a major roadblock.</p>
-<p>Despite the dedicated efforts of the Ops engineers, the root cause remains elusive due to a lack of contextual information.</p>
-<p>Hours pass by, but you take it upon yourself to delve into the problem.
-Eventually, after reproducing and debugging the issue on your computer, you uncover the issue.</p>
-<p>Does this sound like science fiction? If you&rsquo;ve experienced a similar scenario, you&rsquo;re likely familiar with the challenges posed by unidentified end users and their unique usage patterns—enter Ops and observability!</p>
-<p>I&rsquo;ve previously delved into the topic of observability.
-Here are a bunch of articles I wrote on this blog or on the <a href="https://blog.worldline.tech" target="_blank" rel="noopener noreferrer">Worldline Tech Blog</a>:</p>
-<ul>
-<li><a href="https://blog.touret.info/2023/09/05/distributed-tracing-opentelemetry-camel-artemis/" target="_blank" rel="noopener noreferrer">Enhancing Asynchronous Transaction Monitoring: Implementing Distributed Tracing in Apache Camel Applications with OpenTelemetry</a></li>
-<li><a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">Observabilité et Circuit Breaker avec Spring</a></li>
-<li><a href="https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html" target="_blank" rel="noopener noreferrer">Enabling distributed tracing on your microservices Spring app using Jaeger and OpenTracing</a></li>
-</ul>
-<p>In this article, I aim to highlight the importance of putting in place observability during the earliest stages of a project.
-I will then outline how to merge logs and traces from a good old <a href="https://spring.io/projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring Boot application</a> on the <a href="https://grafana.com/" target="_blank" rel="noopener noreferrer">Grafana Stack</a> to gain clearer insights into your platform&rsquo;s workings.
-By doing so, you can transform your relationship with Ops teams, making them your best friends.</p>
-<div class="details admonition question open">
+<div class="details admonition note open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-question-circle fa-fw"></i>What about the code?<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-pencil-alt fa-fw"></i>info<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">The examples provided in this article come from <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero" target="_blank" rel="noopener noreferrer">this project hosted on Github</a>.</div>
+            <div class="admonition-content">All the code snippets shown in this article come from <a href="https://github.com/alexandre-touret/jpa-optimisation" target="_blank" rel="noopener noreferrer">this GitHub repository</a>.
+Feel free to use it!</div>
         </div>
     </div>
-<h2 id="a-definition-of-observability" class="headerLink">
-    <a href="#a-definition-of-observability" class="header-mark"></a>2 A definition of Observability</h2><p>We can shortly define it as this:</p>
-<blockquote>
-<p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
-When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
-<p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
-</blockquote>
-<h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
-    <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
-You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
-With regard to the topic of this article,it will provide us all you need to collect logs, metrics and traces (and beyond) to monitor and understand the behaviour of your platforms.</p>
-<p>I will therefore particularly focus on:</p>
-<ul>
-<li><a href="https://grafana.com/oss/grafana/" target="_blank" rel="noopener noreferrer">Grafana</a>: The dashboard engine</li>
-<li><a href="https://grafana.com/oss/loki/" target="_blank" rel="noopener noreferrer">Loki</a>: The log storage engine</li>
-<li><a href="https://grafana.com/oss/tempo/" target="_blank" rel="noopener noreferrer">Tempo</a>: The trace storage engine</li>
-</ul>
-<p>By the way, I also configured in this project a <a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener noreferrer">Prometheus TSDB to store metrics</a>.</p>
-<p>To get it started easily, I just created a <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/tree/main/docker" target="_blank" rel="noopener noreferrer">Docker Compose stack to run it on your desktop</a>.</p>
-<p>You can run it with these commands:</p>
+<h2 id="observe-your-application" class="headerLink">
+    <a href="#observe-your-application" class="header-mark"></a>1 Observe your application</h2><h3 id="observe-your-persistence-layer" class="headerLink">
+    <a href="#observe-your-persistence-layer" class="header-mark"></a>1.1 Observe your persistence layer</h3><p>First and foremost, you <strong>MUST</strong> trace and monitor your persistence layer usage.
+If you use <a href="https://hibernate.org/" target="_blank" rel="noopener noreferrer">Hibernate</a> (without Spring, Quarkus,&hellip;), you can get useful information configuring the logger:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
+</span><span class="lnt">3
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="nb">cd</span> docker
-</span></span><span class="line"><span class="cl">docker compose up
+<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;logger</span> <span class="na">name=</span><span class="s">&#34;org.hibernate.SQL&#34;</span><span class="nt">&gt;</span>
+</span></span><span class="line"><span class="cl">     <span class="nt">&lt;level</span> <span class="na">value=</span><span class="s">&#34;debug&#34;</span><span class="nt">/&gt;</span>
+</span></span><span class="line"><span class="cl"><span class="nt">&lt;/logger&gt;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><h2 id="logs-traces--monitoring" class="headerLink">
-    <a href="#logs-traces--monitoring" class="header-mark"></a>4 Logs, Traces &amp; Monitoring</h2><p>Let&rsquo;s go back to the basics: To make a system fully observable, the following abilities must be implemented:</p>
-<ul>
-<li>Logs</li>
-<li>Traces</li>
-<li>Metrics</li>
-</ul>
-<p>They can be defined as follows:</p>
-<p><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2024/01/image-2023-8-1_9-44-11.webp"
-        srcset="/assets/images/2024/01/image-2023-8-1_9-44-11.webp, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 1.5x, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 2x"
-        sizes="auto"
-        alt="monitoring"
-        title="monitoring" ></figure></p>
-<h2 id="logs" class="headerLink">
-    <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
-It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.</p>
-<p>In my opinion, most of the time developers don&rsquo;t really care about this matter.
-It is mainly due to they did not experience such a trouble.</p>
-<p>For two years, I had to administrate a proprietary customer relationship management solution.
-The only way to analyse errors was navigating through the logs, using the most appropriate error levels to get the root cause.
-We didn&rsquo;t have access to the source code (Long live to open source programs).
-Hopefully the log management system was really efficient.
-It helped us get into this product and administrate it efficiently.</p>
-<p>Furthermore, I strongly think we should systematise such experiences for developers.
-It could help them (us) know what is behind the curtain and make more observable and better programs.</p>
-<h3 id="key-principles" class="headerLink">
-    <a href="#key-principles" class="header-mark"></a>5.1 Key principles</h3><p>You must first dissociate the logs you make while you code (e.g., for debugging) from the production logs.
-The first should normally remove the first.
-For the latter, you should apply some of these principles:</p>
-<ul>
-<li>Identify and use the most appropriate level (<code>DEBUG</code>, <code>INFO</code>, <code>WARN</code>, <code>ERROR</code>,&hellip;)</li>
-<li>Provide a clear and useful message for OPS (yes you make this log for him/her)</li>
-<li>Provide business context (e.g., the creation of the contract <code>123456</code> failed)</li>
-<li>Logs must be read by an external tool (e.g., using a log aggregator)</li>
-<li>Logs must not expose sensitive data: You must think about GDPR, PCI DSS standards</li>
-</ul>
-<p>If you want to dig into log levels and the importance to indicate contextual information into your logs, I suggest you reading <a href="https://blog.worldline.tech/2020/01/22/back-to-basics-logging.html" target="_blank" rel="noopener noreferrer">this article from my colleague Nicolas Carlier</a>.</p>
-<h2 id="what-about-grafana-loki" class="headerLink">
-    <a href="#what-about-grafana-loki" class="header-mark"></a>6 What about Grafana Loki</h2><p>For this test, I chose to use <a href="https://github.com/loki4j/loki-logback-appender" target="_blank" rel="noopener noreferrer">loki-logback-appender</a> to send the logs to Loki.</p>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw"></i>About this appender<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">I chose to use this appender for testing purpose.
-If you deploy your application on top of Kubernetes, you would probably opt for a more suitable solution such as <a href="https://www.fluentd.org/" target="_blank" rel="noopener noreferrer">FluentD</a>.</div>
-        </div>
-    </div>
-<p>The configuration for a Spring Boot application is pretty straightforward:</p>
-<p>You must add first the appender to your classpath:</p>
+</div><p>If you use <a href="https://thorben-janssen.com/spring-data-jpa-logging/" target="_blank" rel="noopener noreferrer">Spring (and JPA, Hibernate), you can also get them adding these configuration properties</a>:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;com.github.loki4j:loki-logback-appender:1.4.2&#39;</span>
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.stat</span><span class="o">=</span><span class="s">TRACE</span>
+</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.SQL</span><span class="o">=</span><span class="s">DEBUG</span>
+</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.type.descriptor.sql</span><span class="o">=</span><span class="s">TRACE</span>
+</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.SQL_SLOW</span><span class="o">=</span><span class="s">TRACE</span>
+</span></span><span class="line"><span class="cl"><span class="na">spring.jpa.properties.hibernate.generate_statistics</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">spring.jpa.properties.hibernate.format_sql</span><span class="o">=</span><span class="s">false</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>and create a <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml" target="_blank" rel="noopener noreferrer"><code>logback-spring.xml</code></a> to configure it:</p>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>What about JPA configuration?<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">If you want to get the same Hibernate configuration, you can read <a href="https://thorben-janssen.com/hibernate-logging-guide/#dont-use-showsql-to-log-sql-queries" target="_blank" rel="noopener noreferrer">this article</a>.</div>
+        </div>
+    </div>
+<p>After getting all the queries and operations done by your persistence layer, you will be able to pinpoint which component is responsible for slowing down your queries. To cut long story short, which one is guilty? The database or the ORM.</p>
+<p>In the case of huge SQL queries, I usually execute them directly in SQL using the database tools to check if I have the same behaviour.</p>
+<p>Example of such an output:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -249,80 +91,79 @@ If you deploy your application on top of Kubernetes, you would probably opt for 
 </span><span class="lnt">14
 </span><span class="lnt">15
 </span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span><span class="lnt">28
+</span><span class="lnt">29
+</span><span class="lnt">30
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"> <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">&#34;LOKI&#34;</span> <span class="na">class=</span><span class="s">&#34;com.github.loki4j.logback.Loki4jAppender&#34;</span><span class="nt">&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;http&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&lt;url&gt;</span>http://localhost:3100/loki/api/v1/push<span class="nt">&lt;/url&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/http&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;format&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&lt;label&gt;</span>
-</span></span><span class="line"><span class="cl">                <span class="nt">&lt;pattern&gt;</span>app=${name},host=${HOSTNAME},level=%level<span class="nt">&lt;/pattern&gt;</span>
-</span></span><span class="line"><span class="cl">                <span class="nt">&lt;readMarkers&gt;</span>true<span class="nt">&lt;/readMarkers&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/label&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&lt;message&gt;</span>
-</span></span><span class="line"><span class="cl">                <span class="nt">&lt;pattern&gt;</span>
-</span></span><span class="line"><span class="cl">                    {&#34;level&#34;:&#34;%level&#34;,&#34;class&#34;:&#34;%logger{36}&#34;,&#34;thread&#34;:&#34;%thread&#34;,&#34;message&#34;: &#34;%message&#34;,&#34;requestId&#34;: &#34;%X{X-Request-ID}&#34;}
-</span></span><span class="line"><span class="cl">                <span class="nt">&lt;/pattern&gt;</span>
-</span></span><span class="line"><span class="cl">            <span class="nt">&lt;/message&gt;</span>
-</span></span><span class="line"><span class="cl">        <span class="nt">&lt;/format&gt;</span>
-</span></span><span class="line"><span class="cl">    <span class="nt">&lt;/appender&gt;</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">2024-03-21T22:14:46.853+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.store_id,b1_0.title,b1_0.year_of_publication from book b1_0
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.875+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select s1_0.id,s1_0.name,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.897+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.900+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.902+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.904+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.906+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.908+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.909+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.911+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.913+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.914+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.916+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.917+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.918+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:46.919+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] o.h.stat.internal.StatisticsImpl         : HHH000117: HQL: [CRITERIA] select b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.store_id,b1_0.title,b1_0.year_of_publication from book b1_0, time: 79ms, rows: 13
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:47.007+01:00 DEBUG 39814 --- [optimization-jpa] [nio-8080-exec-1] org.hibernate.SQL                        : select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:47.038+01:00  WARN 39814 --- [optimization-jpa] [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:47.039+01:00  WARN 39814 --- [optimization-jpa] [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+</span></span><span class="line"><span class="cl">2024-03-21T22:14:47.040+01:00  INFO 39814 --- [optimization-jpa] [nio-8080-exec-1] i.StatisticalLoggingSessionEventListener : Session Metrics {
+</span></span><span class="line"><span class="cl">    869000 nanoseconds spent acquiring 1 JDBC connections;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent releasing 0 JDBC connections;
+</span></span><span class="line"><span class="cl">    2700503 nanoseconds spent preparing 16 JDBC statements;
+</span></span><span class="line"><span class="cl">    16624802 nanoseconds spent executing 16 JDBC statements;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 JDBC batches;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C puts;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C hits;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C misses;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+</span></span><span class="line"><span class="cl">    190300 nanoseconds spent executing 1 partial-flushes (flushing a total of 0 entities and 0 collec
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p><em>Et voilà!</em></p>
-<div class="details admonition tip open">
-        <div class="details-summary admonition-title">
-            <i class="icon fas fa-lightbulb fa-fw"></i>About the format<i class="details-icon fas fa-angle-right fa-fw"></i>
-        </div>
-        <div class="details-content">
-            <div class="admonition-content">It is just my 2 cents: more and more I tend to produce structured logs using JSON for instance.
-It is usually easier to manipulate them all along the log ingestion tools chain (e.g, with <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">LogStash</a>.</div>
-        </div>
-    </div>
-<p>After restarting your application:</p>
+</div><h4 id="dig-into-you-datasource-connection-pool-configuration" class="headerLink">
+    <a href="#dig-into-you-datasource-connection-pool-configuration" class="header-mark"></a>1.1.1 Dig into you datasource connection pool configuration</h4><p>If you want to dive into your datasource and get clear insights of your database connection pool, you can also add <a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener noreferrer">Prometheus metrics</a> to your application to observe it.</p>
+<p>For a <a href="https://spring.io/projects/spring-boot/" target="_blank" rel="noopener noreferrer">Spring Boot</a> application, you can easily enable it adding two dependencies:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">gradle bootRun
+<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
+</span></span><span class="line"><span class="cl"><span class="n">runtimeOnly</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>After running some API calls with the following command:</p>
+</div><p>and these properties:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http :8080/api/events
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">management.endpoint.prometheus.enabled</span><span class="o">=</span><span class="s">true</span>
+</span></span><span class="line"><span class="cl"><span class="na">management.endpoints.web.exposure.include</span><span class="o">=</span><span class="s">health,info,prometheus</span>
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>You can now get logs browsing Grafana</p>
-<p><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2024/01/Loki-Grafana.webp"
-        srcset="/assets/images/2024/01/Loki-Grafana.webp, /assets/images/2024/01/Loki-Grafana.webp 1.5x, /assets/images/2024/01/Loki-Grafana.webp 2x"
-        sizes="auto"
-        alt="Loki"
-        title="Loki" ></figure></p>
-<h2 id="traces" class="headerLink">
-    <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
-Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
-<p>The true value of distributed tracing becomes evident not only in the deployment of distributed architectures but across various platforms. In the complex landscape of production issues, identifying the root cause or understanding why a specific SQL query failed or took an extended duration can be challenging. Traditionally, attempts to replicate such issues in alternative environments often fall short due to the inherent complexities of data, server configurations, and benchmarking.</p>
-<p>This technology empowers you to gain valuable insights that were previously elusive. When grappling with production issues, you no longer need to rely solely on replication efforts; distributed tracing provides a clear and comprehensive perspective on what might be amiss.</p>
-<p>To sum up: <em>Try it, you&rsquo;ll like it!</em></p>
-<h3 id="the-setup" class="headerLink">
-    <a href="#the-setup" class="header-mark"></a>7.1 The setup</h3><p>There is several ways to set it up.
-Nowadays, OpenTelemetry is the <em>de facto</em> standard.
-Most of the solutions are compatible with it.</p>
-<p>Nevertheless, after challenging some APMs, I found some missing features which are really useful in real life projects.
-For instance, you can not easily ignore URLs, for instance the actuator endpoints, from the traces you will manage.
-You can do that in just <a href="https://www.elastic.co/guide/en/apm/agent/java/1.x/config-http.html#config-transaction-ignore-urls" target="_blank" rel="noopener noreferrer">one property with the Elastic APM agent</a>.
-There is <a href="https://github.com/open-telemetry/opentelemetry-java-instrumentation/issues/1060#issuecomment-1816716602" target="_blank" rel="noopener noreferrer">an issue about this feature</a>.</p>
-<p>I suggest using the agents.
-It is less intrusive than other solutions.</p>
-<p>For instance if you use the spring boot gradle plugin you can configure it as following:</p>
+</div><p>After rebooting your application, you will be able to get the status of your connection pool:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -368,91 +209,77 @@ It is less intrusive than other solutions.</p>
 </span><span class="lnt">41
 </span><span class="lnt">42
 </span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">plugins</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;java&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;org.springframework.boot&#39;</span> <span class="n">version</span> <span class="s1">&#39;3.2.1&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">id</span> <span class="s1">&#39;io.spring.dependency-management&#39;</span> <span class="n">version</span> <span class="s1">&#39;1.1.4&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">ext</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">opentelemetryAgentVersion</span> <span class="o">=</span> <span class="s1">&#39;1.32.0&#39;</span> <span class="c1">// Mettez la version appropriée
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;info.touret.observability&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1-SNAPSHOT&#39;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">java</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">sourceCompatibility</span> <span class="o">=</span> <span class="s1">&#39;21&#39;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">repositories</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">mavenCentral</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">dependencies</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-actuator&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-web&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">testImplementation</span> <span class="s1">&#39;org.springframework.boot:spring-boot-starter-test&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s1">&#39;com.github.loki4j:loki-logback-appender:1.4.2&#39;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">implementation</span> <span class="s2">&#34;io.opentelemetry.javaagent:opentelemetry-javaagent:${opentelemetryAgentVersion}&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">task</span> <span class="nf">copyJavaAgent</span><span class="o">(</span><span class="nl">type:</span> <span class="n">Copy</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">from</span> <span class="n">configurations</span><span class="o">.</span><span class="na">detachedConfiguration</span><span class="o">(</span>
-</span></span><span class="line"><span class="cl">            <span class="n">dependencies</span><span class="o">.</span><span class="na">create</span><span class="o">(</span><span class="s2">&#34;io.opentelemetry.javaagent:opentelemetry-javaagent:${opentelemetryAgentVersion}&#34;</span><span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="o">)</span>
-</span></span><span class="line"><span class="cl">    <span class="n">into</span> <span class="s2">&#34;${project.getLayout().getBuildDirectory()}/javaagents&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="n">rename</span> <span class="o">{</span> <span class="s1">&#39;javaagent.jar&#39;</span> <span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">processResources</span><span class="o">.</span><span class="na">dependsOn</span> <span class="n">copyJavaAgent</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="n">bootRun</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">doFirst</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">        <span class="n">jvmArgs</span> <span class="o">=</span> <span class="o">[</span><span class="s2">&#34;-javaagent:${project.getLayout().getBuildDirectory()}/javaagents/javaagent.jar&#34;</span><span class="o">]</span>
-</span></span><span class="line"><span class="cl">    <span class="o">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// systemProperties = [
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler&#39;: &#39;parentbased_traceidratio&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler.arg&#39;: &#39;0.2&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
-</span></span><span class="line"><span class="cl"><span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s1">&#39;test&#39;</span><span class="o">)</span> <span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="n">useJUnitPlatform</span><span class="o">()</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">❯ http :8080/actuator/prometheus | grep hikari
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections Total connections
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections{pool=&#34;HikariPool-1&#34;,} 10.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_min Min connections
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_min gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_min{pool=&#34;HikariPool-1&#34;,} 10.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_creation_seconds_max Connection creation time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_creation_seconds_max gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_creation_seconds_max{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_creation_seconds Connection creation time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_creation_seconds summary
+</span></span><span class="line"><span class="cl">hikaricp_connections_creation_seconds_count{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl">hikaricp_connections_creation_seconds_sum{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_timeout_total Connection timeout total count
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_timeout_total counter
+</span></span><span class="line"><span class="cl">hikaricp_connections_timeout_total{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_active Active connections
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_active gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_active{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_max Max connections
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_max gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_max{pool=&#34;HikariPool-1&#34;,} 10.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_usage_seconds Connection usage time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_usage_seconds summary
+</span></span><span class="line"><span class="cl">hikaricp_connections_usage_seconds_count{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl">hikaricp_connections_usage_seconds_sum{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_usage_seconds_max Connection usage time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_usage_seconds_max gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_usage_seconds_max{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_pending Pending threads
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_pending gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_pending{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_idle Idle connections
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_idle gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_idle{pool=&#34;HikariPool-1&#34;,} 10.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_acquire_seconds Connection acquire time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_acquire_seconds summary
+</span></span><span class="line"><span class="cl">hikaricp_connections_acquire_seconds_count{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl">hikaricp_connections_acquire_seconds_sum{pool=&#34;HikariPool-1&#34;,} 0.0
+</span></span><span class="line"><span class="cl"># HELP hikaricp_connections_acquire_seconds_max Connection acquire time
+</span></span><span class="line"><span class="cl"># TYPE hikaricp_connections_acquire_seconds_max gauge
+</span></span><span class="line"><span class="cl">hikaricp_connections_acquire_seconds_max{pool=&#34;HikariPool-1&#34;,} 0.0
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>After restarting your application, you can reach the API with this command:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">http :8080/api/events
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>This API is really simple.
-To illustrate how to handle errors using both the Spring stack and the Grafana stack, an error is always thrown using <a href="https://docs.spring.io/spring-framework/reference/web/webmvc/mvc-ann-rest-exceptions.html" target="_blank" rel="noopener noreferrer">the Problem Detail RFC 7807</a> while reaching it.</p>
-<p>Here the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityService.java" target="_blank" rel="noopener noreferrer">service</a>:</p>
+</div><p>Obviously, it&rsquo;s not recommended to use these metrics as is.
+<a href="https://prometheus.io/docs/prometheus/latest/getting_started/" target="_blank" rel="noopener noreferrer">Scrap them with Prometheus</a> and <a href="https://grafana.com/" target="_blank" rel="noopener noreferrer">Grafana</a> to gather these metrics and create dashboards.</p>
+<p>At this stage, you did the easiest part.
+You must now dig into the database documentation and measure, regarding your use case and the volumetry what are the good figures for every parameter.</p>
+<p>If you use <a href="https://github.com/brettwooldridge/HikariCP/" target="_blank" rel="noopener noreferrer">HikariCP</a>, you can refer yourself to <a href="https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing" target="_blank" rel="noopener noreferrer">this guide delving into Pool sizing configuration</a>.</p>
+<h3 id="observe-your-database" class="headerLink">
+    <a href="#observe-your-database" class="header-mark"></a>1.2 Observe your database</h3><p>As Java developers, we usually forget that database platforms provide valuable tools to analyse your queries.
+Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming by, for instance, running a full scan of your table.</p>
+<p>In this purpose, you can check the SQL queries execution plan.</p>
+<p>If you use <a href="https://www.postgresql.org/" target="_blank" rel="noopener noreferrer">PostgreSQL (<em>what else</em>)</a>, you can get these insights using the <a href="https://www.postgresql.org/docs/current/sql-explain.html" target="_blank" rel="noopener noreferrer"><code>EXPLAIN</code></a> command.</p>
+<h2 id="check-your-entities-associations" class="headerLink">
+    <a href="#check-your-entities-associations" class="header-mark"></a>2 Check your entities associations</h2><p>Let&rsquo;s go back to our Java application.
+One of the main points of attention of any JPA (and SQL) queries is how your entity is joined with others.
+Every jointure brings costs and complexity.</p>
+<p>For JPA queries, you must check first if your relationship between two objects should be either <a href="https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/FetchType.html" target="_blank" rel="noopener noreferrer"><code>EAGER</code> or <code>LAZY</code></a>.</p>
+<p>You probably understood: there is no free lunch.
+You must measure first the JPA queries and mapping time-consumption and check which solution is the best.</p>
+<p>By default, EAGER relationship are set up for <code>@ManyToOne</code> and <code>@OneToOne</code>. LAZY are for <code>@OneToMany</code>.
+Most of the time, I keep using the default configuration.
+However, you must take care of the whole <a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html" target="_blank" rel="noopener noreferrer">entity graph</a> loaded by your query.</p>
+<p>Does your entity loaded by a <code>@OneToOne</code> relationship loads also a <code>@OneToMany</code> relationship in a <code>EAGER</code> way?</p>
+<p>It&rsquo;s the kind of question you will need to answer.</p>
+<h3 id="the-famous-n1-issue" class="headerLink">
+    <a href="#the-famous-n1-issue" class="header-mark"></a>2.1 The famous N+1 issue</h3><p>In this example, we will look into a <code>1-N</code> relationship:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
@@ -463,46 +290,144 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span><span class="lnt">6
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ObservabilityService</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">breakMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&#34;Breaking method issue&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@OneToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">,</span><span class="n">mappedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span><span class="w"> </span><span class="n">books</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ManyToOne</span><span class="p">(</span><span class="n">targetEntity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Store</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">store</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">    
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you remember well, this relationship is fetched in a EAGER way.
+When I try to get all the stores using a <code>findAll()</code> method:</p>
+<p>For example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllStores</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">storeRepository</span><span class="p">.</span><span class="na">findStores</span><span class="p">().</span><span class="na">stream</span><span class="p">().</span><span class="na">toList</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>And the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityAPIController.java" target="_blank" rel="noopener noreferrer">controller</a> which returns the error:</p>
+</div><p>Hibernate will query the database in this way:</p>
+<ul>
+<li>1 query to select the main entity</li>
+<li>N queries for the entities linked by the jointure</li>
+</ul>
+<p>In our case, we can see the following queries in the logs:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/api/event&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ObservabilityEventDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getEvent</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">observabilityService</span><span class="p">.</span><span class="na">breakMethod</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">observabilityEventDto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservabilityEventDto</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;OK&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="p">.</span><span class="na">ok</span><span class="p">(</span><span class="n">observabilityEventDto</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">observabilityEventDto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservabilityEventDto</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;Error&#34;</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">error</span><span class="p">(</span><span class="n">e</span><span class="p">.</span><span class="na">getMessage</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">,</span><span class="w"> </span><span class="n">ProblemDetail</span><span class="p">.</span><span class="na">forStatus</span><span class="p">(</span><span class="n">HttpStatus</span><span class="p">.</span><span class="na">INTERNAL_SERVER_ERROR</span><span class="p">),</span><span class="w"> </span><span class="n">e</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">Hibernate: <span class="k">select</span> s1_0.id,s1_0.name from store s1_0
+</span></span><span class="line"><span class="cl">Hibernate: <span class="k">select</span> b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication from book b1_0 where b1_0.store_id<span class="o">=</span>?
+</span></span><span class="line"><span class="cl">Hibernate: <span class="k">select</span> a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id<span class="o">=</span>a1_0.authors_id where a1_0.books_id<span class="o">=</span>?
+</span></span><span class="line"><span class="cl">Hibernate: <span class="k">select</span> a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id<span class="o">=</span>a1_0.authors_id where a1_0.books_id<span class="o">=</span>?
+</span></span><span class="line"><span class="cl">Hibernate: <span class="k">select</span> a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id<span class="o">=</span>a1_0.authors_id where a1_0.books_id<span class="o">=</span>?
+</span></span><span class="line"><span class="cl">Hibernate: <span class="k">select</span> a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id<span class="o">=</span>a1_0.authors_id where a1_0.books_id<span class="o">=</span>?
+</span></span><span class="line"><span class="cl"><span class="o">[</span>...<span class="o">]</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>It&rsquo;s unfortunately not finished yet.</p>
+<p>Imagine now, your book entity is related to another one in a EAGER way.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@ManyToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Author</span><span class="o">&gt;</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>Using Problem Detail responses, you will get such a response when an error occurs:</p>
+</div><p>You will execute then another SQL queries.</p>
+<p>For instance, in this case:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Hibernate: select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+</span></span></code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-lightbulb fa-fw"></i>To sum up<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">At the same way SQL jointures are really time-consuming, the way you can link entities may strongly impact the performance in either memory or while running SQL queries against our database.</div>
+        </div>
+    </div>
+<h3 id="use-a-dedicated-entity-graph" class="headerLink">
+    <a href="#use-a-dedicated-entity-graph" class="header-mark"></a>2.2 Use a dedicated entity graph</h3><p>If you are still struggling with the way Hibernate loads your Entity graph, you can also try to specify the graph of entities to load by yourself.</p>
+<p><a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-entitygraphs/persistence-entitygraphs.html" target="_blank" rel="noopener noreferrer">This feature introduced in JPA 2.1</a> can help you avoid retrieving specific useless attributes or optimise the loading of the linked entities.</p>
+<p>Let&rsquo;s go back to our application.
+Imagine that in one use case, when we fetch a list of books, we don&rsquo;t need the list of authors.
+Using this API we can avoid fetching it in this way</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NamedEntityGraph</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store[books]&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">attributeNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@NamedAttributeNode</span><span class="p">(</span><span class="s">&#34;books&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Repository</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">StoreRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Store</span><span class="p">,</span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@EntityGraph</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store[books]&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>You will get the following output:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -518,65 +443,40 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span><span class="lnt">11
 </span><span class="lnt">12
 </span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"> http :8080/api/events
-</span></span><span class="line"><span class="cl">HTTP/1.1 <span class="m">500</span>
-</span></span><span class="line"><span class="cl">Connection: close
-</span></span><span class="line"><span class="cl">Content-Type: application/problem+json
-</span></span><span class="line"><span class="cl">Date: Wed, <span class="m">17</span> Jan <span class="m">2024</span> 08:09:20 GMT
-</span></span><span class="line"><span class="cl">Transfer-Encoding: chunked
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="o">{</span>
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;instance&#34;</span>: <span class="s2">&#34;/api/events&#34;</span>,
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;status&#34;</span>: 500,
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;title&#34;</span>: <span class="s2">&#34;Internal Server Error&#34;</span>,
-</span></span><span class="line"><span class="cl">    <span class="s2">&#34;type&#34;</span>: <span class="s2">&#34;about:blank&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="o">}</span>
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">2024-03-22T14:35:17.515+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select s1_0.id,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication,s1_0.name from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.name=?
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.537+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] o.h.stat.internal.StatisticsImpl         : HHH000117: HQL: [CRITERIA] select s1_0.id,b1_0.store_id,b1_0.id,b1_0.description,b1_0.isbn_10,b1_0.isbn_13,b1_0.medium_image_url,b1_0.nb_of_pages,b1_0.price,b1_0.rank,b1_0.small_image_url,b1_0.title,b1_0.year_of_publication,s1_0.name from store s1_0 left join book b1_0 on s1_0.id=b1_0.store_id where s1_0.name=?, time: 21ms, rows: 1
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.559+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select a1_0.books_id,a1_1.id,a1_1.firstname,a1_1.lastname,a1_1.public_id from book_authors a1_0 join author a1_1 on a1_1.id=a1_0.authors_id where a1_0.books_id=?
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.565+01:00 DEBUG 74072 --- [optimization-jpa] [nio-8080-exec-3] org.hibernate.SQL                        : select b1_0.authors_id,b1_1.id,b1_1.description,b1_1.isbn_10,b1_1.isbn_13,b1_1.medium_image_url,b1_1.nb_of_pages,b1_1.price,b1_1.rank,b1_1.small_image_url,s1_0.id,s1_0.name,b1_1.title,b1_1.year_of_publication from book_authors b1_0 join book b1_1 on b1_1.id=b1_0.books_id left join store s1_0 on s1_0.id=b1_1.store_id where b1_0.authors_id=?
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.582+01:00  WARN 74072 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.583+01:00  WARN 74072 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+</span></span><span class="line"><span class="cl">2024-03-22T14:35:17.583+01:00  INFO 74072 --- [optimization-jpa] [nio-8080-exec-3] i.StatisticalLoggingSessionEventListener : Session Metrics {
+</span></span><span class="line"><span class="cl">    571600 nanoseconds spent acquiring 1 JDBC connections;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent releasing 0 JDBC connections;
+</span></span><span class="line"><span class="cl">    954800 nanoseconds spent preparing 3 JDBC statements;
+</span></span><span class="line"><span class="cl">    2433201 nanoseconds spent executing 3 JDBC statements;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 JDBC batches;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C puts;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C hits;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C misses;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+</span></span><span class="line"><span class="cl">}
 </span></span></code></pre></td></tr></table>
 </div>
-</div><p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
-<p><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2024/01/Tempo-Grafana.webp"
-        srcset="/assets/images/2024/01/Tempo-Grafana.webp, /assets/images/2024/01/Tempo-Grafana.webp 1.5x, /assets/images/2024/01/Tempo-Grafana.webp 2x"
-        sizes="auto"
-        alt="Tempo"
-        title="Tempo" ></figure></p>
-<h3 id="head-or-tail-sampling" class="headerLink">
-    <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
-<p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
-<ol>
-<li>
-<p><strong>Head Sampling</strong>: In this method, SPANs are sampled and filtered directly from the producer (e.g., a backend). This is essential for heavily utilized platforms and proves to be the most efficient, as it produces only the necessary spans, thereby avoiding the dissemination of unnecessary SPANs. However, it comes with the trade-off of potentially losing critical traces involving failures. The sampling rate is purely statistical (e.g., 10 or 20% of SPANs sampled and broadcast).</p>
-</li>
-<li>
-<p><strong>Tail Sampling</strong>: Alternatively, SPANs are sampled retrospectively, often through tools like the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Open Telemetry Collector</a>. While this method allows for filtering SPANs based on various criteria, such as the transaction status, it does not address the overhead issue. All SPANs are initially broadcast and then filtered, making it less suitable for heavily used scenarios.</p>
-</li>
-</ol>
-<p>Both approaches have their pros and cons, and the choice depends on the specific requirements of the platform. For an in-depth exploration of this issue, you can refer to <a href="https://uptrace.dev/opentelemetry/sampling.html#what-is-sampling" target="_blank" rel="noopener noreferrer">this article</a>.</p>
-<h2 id="correlating-logs--traces" class="headerLink">
-    <a href="#correlating-logs--traces" class="header-mark"></a>8 Correlating Logs &amp; Traces</h2><p>Now, you have on one side the logs of your applications, and on the other the traces.
-To dig into errors and see what is behind the curtain of any error logged, it is really import to correlate both.</p>
-<p>For that, you must specify in your logs the traceID and spanID of the corresponding trace.
-Hopefully, logback and the Loki appender can help you on this!
-We therefore will modify the pattern of the logs in the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero-/blob/main/src/main/resources/logback-spring.xml" target="_blank" rel="noopener noreferrer"><code>logback-spring.xml</code></a> file:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-xml" data-lang="xml"><span class="line"><span class="cl"><span class="nt">&lt;pattern&gt;</span>
-</span></span><span class="line"><span class="cl">    {&#34;level&#34;:&#34;%level&#34;,&#34;TraceID&#34;:&#34;%mdc{trace_id:-none}&#34;,&#34;spanId&#34;:&#34;%mdc{span_id:-none}&#34;,&#34;class&#34;:&#34;%logger{36}&#34;,&#34;thread&#34;:&#34;%thread&#34;,&#34;message&#34;: &#34;%message&#34;,&#34;requestId&#34;: &#34;%X{X-Request-ID}&#34;}
-</span></span><span class="line"><span class="cl"><span class="nt">&lt;/pattern&gt;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>As a developer point of view, the job is done :)
-Now, it is time for the OPS/SRE to configure Grafana to link Loki and Tempo through the TraceID field.</p>
-<p>For that, you can create a derived field directly in the datasource configuration:</p>
+</div><h3 id="create-a-dedicated-entity-to-reduce-the-number-of-attributes" class="headerLink">
+    <a href="#create-a-dedicated-entity-to-reduce-the-number-of-attributes" class="header-mark"></a>2.3 Create a dedicated entity to reduce the number of attributes</h3><p>One another misconception about JPA is to always fully map all the properties of table to its corresponding entity!</p>
+<p>A gentle reminder: we don&rsquo;t need to map all the columns in an entity!
+For instance, if your table has 30 columns, and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?</p>
+<p>That&rsquo;s why I usually recommend to have, when it&rsquo;s relevant, a dedicated entity for specific use cases.
+It could be lighter than the <em>regular</em> one and enhance the performances of your application.</p>
+<p>For instance, if we have a <em>regular</em> <code>Book</code> entity:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -611,68 +511,49 @@ Now, it is time for the OPS/SRE to configure Grafana to link Loki and Tempo thro
 </span><span class="lnt">30
 </span><span class="lnt">31
 </span><span class="lnt">32
+</span><span class="lnt">33
+</span><span class="lnt">34
+</span><span class="lnt">35
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">datasources</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Loki</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://loki:3100</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">maxLines</span><span class="p">:</span><span class="w"> </span><span class="m">1000</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">derivedFields</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">          </span>- <span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">matcherRegex</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;\&#34;TraceID\&#34;: \&#34;(\w+).*\&#34;&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">TraceID</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># url will be interpreted as query for the datasource</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;$${__value.raw}&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="c"># optional for URL Label to set a custom display label for the link.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="nt">urlDisplayLabel</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;View Trace&#39;</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_13&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">isbn13</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_10&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">isbn10</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ManyToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">,</span><span class="w"> </span><span class="n">cascade</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">CascadeType</span><span class="p">.</span><span class="na">PERSIST</span><span class="p">,</span><span class="w"> </span><span class="n">CascadeType</span><span class="p">.</span><span class="na">MERGE</span><span class="p">,</span><span class="w"> </span><span class="n">CascadeType</span><span class="p">.</span><span class="na">REFRESH</span><span class="p">,</span><span class="w"> </span><span class="n">CascadeType</span><span class="p">.</span><span class="na">DETACH</span><span class="p">})</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Author</span><span class="o">&gt;</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;year_of_publication&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">yearOfPublication</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;nb_of_pages&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">nbOfPages</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Tempo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">access</span><span class="p">:</span><span class="w"> </span><span class="l">proxy</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">uid</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://tempo:3200</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jsonData</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">nodeGraph</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">serviceMap</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="s1">&#39;mimir&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">tracesToLogs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">datasourceUid</span><span class="p">:</span><span class="w"> </span><span class="l">loki</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">filterByTraceID</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">filterBySpanID</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">mapTagNamesEnabled</span><span class="p">:</span><span class="w"> </span><span class="kc">false</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="n">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Max</span><span class="p">(</span><span class="n">10</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">rank</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;small_image_url&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="n">smallImageUrl</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;medium_image_url&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">URL</span><span class="w"> </span><span class="n">mediumImageUrl</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">length</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">10000</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@ManyToOne</span><span class="p">(</span><span class="n">targetEntity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Store</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">store</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transient</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">transient</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">excerpt</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>Now you will be able to browse directly to the corresponding trace from your log event and the other way around.</p>
-<h2 id="metrics" class="headerLink">
-    <a href="#metrics" class="header-mark"></a>9 Metrics</h2><p>Now, let us deep dive into the metrics of our application!
-We can do that through <a href="https://prometheus.io/" target="_blank" rel="noopener noreferrer">Prometheus</a>.</p>
-<p>We can configure now Prometheus to grab the metrics exposed by our application.</p>
-<p>To do that, we need first to activate the Prometheus endpoint:</p>
-<p>We need to add this dependency first:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-groovy" data-lang="groovy"><span class="line"><span class="cl"><span class="n">implementation</span> <span class="s1">&#39;io.micrometer:micrometer-registry-prometheus&#39;</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>And enable the corresponding endpoint:</p>
-<div class="highlight"><div class="chroma">
-<table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">management.endpoints.web.exposure.include</span><span class="o">=</span><span class="s">health,info,prometheus</span>
-</span></span></code></pre></td></tr></table>
-</div>
-</div><p>After enabling it, as a developer point of view, it is done :-)</p>
-<p>The prometheus statistics can be scrapped by Prometheus itself using <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/docker/prometheus/prometheus.yml" target="_blank" rel="noopener noreferrer">this configuration</a></p>
+</div><p>We can shrink it with only the required attributes:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -685,26 +566,263 @@ We can do that through <a href="https://prometheus.io/" target="_blank" rel="noo
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">honor_timestamps</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics_path</span><span class="p">:</span><span class="w"> </span><span class="l">/actuator/prometheus</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scheme</span><span class="p">:</span><span class="w"> </span><span class="l">http</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">targets</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span>- <span class="l">host.docker.internal:8080</span><span class="w">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_13&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">isbn13</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_10&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">isbn10</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;year_of_publication&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">yearOfPublication</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;nb_of_pages&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">nbOfPages</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Min</span><span class="p">(</span><span class="n">1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Max</span><span class="p">(</span><span class="n">10</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Integer</span><span class="w"> </span><span class="n">rank</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">BigDecimal</span><span class="w"> </span><span class="n">price</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Id</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GeneratedValue</span><span class="p">(</span><span class="n">strategy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">GenerationType</span><span class="p">.</span><span class="na">IDENTITY</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transient</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">transient</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">excerpt</span><span class="p">;</span><span class="w">
 </span></span></span></code></pre></td></tr></table>
 </div>
-</div><p>Finally, you can directly browse it through Grafana to integrate all of these metrics into your dashboards 🎉.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>10 Conclusion</h2><p>I endeavored to provide you with a comprehensive overview of what an OPS professional could anticipate while investigating an issue and the corresponding topics that require attention.
-As you probably figured out, we only applied just a bunch of configuration sets.<br>
-One of the key merits of these tools lies in their non-intrusiveness within the code itself.
-To cut long story short: it is not a big deal!</p>
-<p>Integrating these configurations can be a significant stride forward, providing invaluable assistance to the entire IT team, from development to operations, as they navigate and troubleshoot issues—whether in production or elsewhere.</p>
-<p>I will finish this article by my opinion on such topics: regardless of the targeted tools, this set of configuration <strong>must be considered as the first feature to implement for every cloud native application</strong>.</p>
+</div><div class="details admonition warning open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-exclamation-triangle fa-fw"></i>Think about data consistency<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">Think about the whole data consistency or your data stored in the database!
+Be aware about it when you omit specific jointures or columns.</div>
+        </div>
+    </div>
+<h3 id="use-join-fetch-in-your-queries" class="headerLink">
+    <a href="#use-join-fetch-in-your-queries" class="header-mark"></a>2.4 Use JOIN FETCH in your queries</h3><p>Now, one another strategy is to <em>manually</em> control/declare the jointures and how different entities would be fetched by your queries.
+To do that, you can use the <code>JOIN FETCH</code> instruction:</p>
+<p>For example:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;from Store store JOIN FETCH store.books books&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>In this manner, you can shrink the number of queries done from N+1 to only one.
+However, you <strong>MUST</strong> check and measure if it&rsquo;s worth it.
+Sometimes, this kind of query can be more time-consuming in either database or in the JVM than several small ones.</p>
+<h3 id="dto" class="headerLink">
+    <a href="#dto" class="header-mark"></a>2.5 Use a DTO or a tuple</h3><p>Imagine we have a screen with of list of data coming from several entities.
+Instead of fetching all of these, and struggling with fetching strategies, we can also run <a href="https://thorben-janssen.com/dto-projections/" target="_blank" rel="noopener noreferrer">DTO (or tuple) projections</a>.</p>
+<p>You can therefore select all (and only) the data you need with only ONE query.
+To get your code even clearer, you can also use <a href="https://docs.oracle.com/javase/specs/jls/se21/html/jls-8.html#jls-8.10" target="_blank" rel="noopener noreferrer">records</a> to make your data immutable.</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">BookDto</span><span class="w"> </span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>You can get a set of this record writing the query:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;select new info.touret.query.optimizationjpa.BookDto(b.id, b.description) from Book b&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">BookDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllDto</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="other-optimisation-tracks" class="headerLink">
+    <a href="#other-optimisation-tracks" class="header-mark"></a>3 Other optimisation tracks</h2><h3 id="avoid-transactions-while-reading-our-database-with-the-annotation-transactionalreadonlytrue" class="headerLink">
+    <a href="#avoid-transactions-while-reading-our-database-with-the-annotation-transactionalreadonlytrue" class="header-mark"></a>3.1 Avoid transactions while reading our database with the annotation <code>@Transactional(readonly=true)</code></h3><p>One thing we often (again) remember: read-only database operations don&rsquo;t need transactions!
+In the good old days, it was already a good practice to set up two different datasources for the persistence context: one read-only avoiding database transactions and one which allowed it.
+Anyway, you can now declare your service only reads data and doesn&rsquo;t need to open a database transaction using the <code>@Transactional(readonly=true) </code> annotation.</p>
+<p>By the way, this feature goes well with using dedicated entities as mentioned above.
+For a specific search/query use case, you can use both of them to make your code even more straightforward.</p>
+<h3 id="pagination-w-spring-data" class="headerLink">
+    <a href="#pagination-w-spring-data" class="header-mark"></a>3.2 Pagination w/ Spring Data</h3><p>When you browse a large dataset, it&rsquo;s usually a good practice to paginate results.
+The good news when you use Spring Data, is you have all the features included by default.
+The bad news is you may have time/cpu-consuming queries run for calculating the number of elements, pages and the position of the current result&rsquo;s page.</p>
+<p>If getting the number of pages is useless for you, you can switch to <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html" target="_blank" rel="noopener noreferrer">Slices</a> instead of <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Page.html" target="_blank" rel="noopener noreferrer">Pages</a>.</p>
+<p>When using this feature, you will only know if there is another slice available onwards or backwards through the methods <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html#hasNext%28%29" target="_blank" rel="noopener noreferrer"><code>hasNext()</code></a> and <a href="https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/domain/Slice.html#hasNext%28%29" target="_blank" rel="noopener noreferrer"><code>hasPrevious()</code></a>.</p>
+<p>You will find below good links talking about it on StackOverflow:</p>
+<ul>
+<li><a href="https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/49918979/page-vs-slice-when-to-use-which</a></li>
+<li><a href="https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages" target="_blank" rel="noopener noreferrer">https://stackoverflow.com/questions/12644749/way-to-disable-count-query-from-pagerequest-for-getting-total-pages</a></li>
+</ul>
+<h3 id="caching-specific-data" class="headerLink">
+    <a href="#caching-specific-data" class="header-mark"></a>3.3 Caching specific data</h3><p>You may use and query specific which is not daily (or monthly) updated. For instance, the department, country tables.
+In this case, you may want to cache them in memory (i.e., <a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html" target="_blank" rel="noopener noreferrer">Second-Level cache</a>.</p>
+<p>With <a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html" target="_blank" rel="noopener noreferrer">JPA you can quickly cache specific entities</a> using the <a href="https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/Cacheable.html" target="_blank" rel="noopener noreferrer"><code>@Cacheable</code> annotation</a>.</p>
+<p>For instance, in a Spring Boot application, you must configure your cache first:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableCaching</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OptimizationJpaApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">OptimizationJpaApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">Caffeine</span><span class="w"> </span><span class="nf">caffeineConfig</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Caffeine</span><span class="p">.</span><span class="na">newBuilder</span><span class="p">().</span><span class="na">expireAfterWrite</span><span class="p">(</span><span class="n">1</span><span class="p">,</span><span class="w"> </span><span class="n">TimeUnit</span><span class="p">.</span><span class="na">DAYS</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Bean</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">CacheManager</span><span class="w"> </span><span class="nf">cacheManager</span><span class="p">(</span><span class="n">Caffeine</span><span class="w"> </span><span class="n">caffeine</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">CaffeineCacheManager</span><span class="w"> </span><span class="n">caffeineCacheManager</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">CaffeineCacheManager</span><span class="p">();</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">caffeineCacheManager</span><span class="p">.</span><span class="na">setCaffeine</span><span class="p">(</span><span class="n">caffeine</span><span class="p">);</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">caffeineCacheManager</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>And declare your methods which use your cache:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;from Store store JOIN FETCH store.books books&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Cacheable</span><span class="p">(</span><span class="s">&#34;stores&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><p>You will use your cache then and get the following logs after the second try:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">2024-03-23T22:01:41.299+01:00  WARN 65315 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Ignoring exception, response committed already: org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)
+</span></span><span class="line"><span class="cl">2024-03-23T22:01:41.300+01:00  WARN 65315 --- [optimization-jpa] [nio-8080-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotWritableException: Could not write JSON: Infinite recursion (StackOverflowError)]
+</span></span><span class="line"><span class="cl">2024-03-23T22:01:41.300+01:00  INFO 65315 --- [optimization-jpa] [nio-8080-exec-3] i.StatisticalLoggingSessionEventListener : Session Metrics {
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent acquiring 0 JDBC connections;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent releasing 0 JDBC connections;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent preparing 0 JDBC statements;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 JDBC statements;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 JDBC batches;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C puts;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C hits;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent performing 0 L2C misses;
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 flushes (flushing a total of 0 entities and 0 collections);
+</span></span><span class="line"><span class="cl">    0 nanoseconds spent executing 0 partial-flushes (flushing a total of 0 entities and 0 collections)
+</span></span><span class="line"><span class="cl">}
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you want to dig into the differences between Spring cache support &amp; the <a href="https://github.com/jsr107/jsr107spec" target="_blank" rel="noopener noreferrer">JSR 107</a>, you can <a href="https://docs.spring.io/spring-framework/reference/integration/cache.html" target="_blank" rel="noopener noreferrer">check out this documentation</a>.</p>
+<h3 id="native" class="headerLink">
+    <a href="#native" class="header-mark"></a>3.4 In case of emergency: break the glass!</h3><p>OK, none of all the tips exposed in this article has worked?</p>
+<p>Now, remember that, at the end of the day, you use a database.
+It comes with many tools which may run your queries at lightning speed.</p>
+<p>You can use <a href="https://www.postgresql.org/docs/current/rules-views.html" target="_blank" rel="noopener noreferrer">SQL views</a> or <a href="https://www.postgresql.org/docs/current/rules-materializedviews.html" target="_blank" rel="noopener noreferrer">SQL materialized views</a> to specify the data you want to fetch.
+In addition, feel free to use <a href="https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/EntityManager.html#createNativeQuery%28java.lang.String%29" target="_blank" rel="noopener noreferrer">Native queries</a> , <a href="https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/NamedNativeQuery.html" target="_blank" rel="noopener noreferrer">Named Native Queries</a> or <a href="https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/StoredProcedureQuery.html" target="_blank" rel="noopener noreferrer">Stored Procedure Queries</a>  (<strong>ONLY FOR</strong>) for the 10-20%  of your most time-consuming queries.
+At the end of the day, you won&rsquo;t be faster using an <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping" target="_blank" rel="noopener noreferrer">ORM</a>!</p>
+<p>For instance, when you use a SQL view, you can, with no effort, run either a native query or fetch a DTO or a tuple (see <a href="#dto" rel="">above</a>):</p>
+<p>Here is a trivial example to illustrate it:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;select * from Store s where s.name= :name&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">nativeQuery</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
+</span></span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
+I aimed at a summary of the most efficient solutions for type of problem.
+As a matter of fact, I&rsquo;m pretty sure there are other ones.</p>
+<p>Anyway, the first thing to put in place, is the whole observability stack: through <a href="https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/" target="_blank" rel="noopener noreferrer">logging, traces</a> or <a href="https://prometheus.io/docs/introduction/overview/" target="_blank" rel="noopener noreferrer">prometheus metrics</a> you will get deep insights of your application.
+Check also your database to see if you have a <em>&ldquo;full table scan&rdquo;</em> when you run specific SQL queries.
+It will help you find where is the bottleneck.</p>
+<p>Last but not least, don&rsquo;t rush into such optimisations (e.g., <a href="#native" rel="">native queries</a>)!
+Observe your application first to figure out if it&rsquo;s worth it.</p>
+<p>Don&rsquo;t forget that any <a href="https://www.laws-of-software.com/laws/knuth/" target="_blank" rel="noopener noreferrer">Premature optimisation is the root of all evil!</a></p>
+<div class="details admonition bug open">
+        <div class="details-summary admonition-title">
+            <i class="icon fas fa-bug fa-fw"></i>Just in case...<i class="details-icon fas fa-angle-right fa-fw"></i>
+        </div>
+        <div class="details-content">
+            <div class="admonition-content">After reading this article, if you&rsquo;ve seen any errors/issues or tip I missed, feel free <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/issues" target="_blank" rel="noopener noreferrer">to submit an issue</a>.</div>
+        </div>
+    </div>
+<h3 id="further-reading" class="headerLink">
+    <a href="#further-reading" class="header-mark"></a>4.1 Further reading</h3><ul>
+<li><a href="https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-intro/persistence-intro.html" target="_blank" rel="noopener noreferrer">https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-intro/persistence-intro.html</a></li>
+<li><a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">https://spring.io/projects/spring-data</a></li>
+<li><a href="https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application" target="_blank" rel="noopener noreferrer">https://blog.ippon.tech/boost-the-performance-of-your-spring-data-jpa-application</a></li>
+<li><a href="https://thorben-janssen.com" target="_blank" rel="noopener noreferrer">https://thorben-janssen.com</a></li>
+<li><a href="https://vladmihalcea.com" target="_blank" rel="noopener noreferrer">https://vladmihalcea.com</a></li>
+</ul>
 ]]></description></item></channel></rss>

@@ -20,8 +20,6 @@ They therefore built and shipped a microservices platform and released their fir
         loading="lazy"
         src="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg"
         srcset="/assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-System_Context_diagram_for_Bookstore_System.svg 2x"
-        sizes="auto"
-        alt="c4 context diagram"
         title="c4 context diagram" ></figure></div>
 <p><strong>More in depth</strong></p>
 <div id="id-2"><figure><img
@@ -29,8 +27,6 @@ They therefore built and shipped a microservices platform and released their fir
         loading="lazy"
         src="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg"
         srcset="/assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 1.5x, /assets/images/2023/03/Bookstore-Container_Context_diagram_for_Bookstore_System.svg 2x"
-        sizes="auto"
-        alt="c4 container diagram"
         title="c4 container diagram" ></figure></div>
 <div class="details admonition info open">
         <div class="details-summary admonition-title">
@@ -55,8 +51,6 @@ For instance, a new customer asked the <a href="https://en.wikipedia.org/wiki/Ac
         loading="lazy"
         src="/assets/images/2023/03/breaking_change.webp"
         srcset="/assets/images/2023/03/breaking_change.webp, /assets/images/2023/03/breaking_change.webp 1.5x, /assets/images/2023/03/breaking_change.webp 2x"
-        sizes="auto"
-        alt="Breaking change"
         title="Breaking change" ></figure></p>
 <p><strong>This is a breaking change!</strong></p>
 </div>
@@ -82,8 +76,6 @@ For instance, a new customer asked the <a href="https://en.wikipedia.org/wiki/Ac
         loading="lazy"
         src="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg"
         srcset="/assets/images/2023/03/monolith-Donuts___Home_Monolith.svg, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 1.5x, /assets/images/2023/03/monolith-Donuts___Home_Monolith.svg 2x"
-        sizes="auto"
-        alt="c4 monolith"
         title="c4 monolith" ></figure></div>
 <p>Versioning is applied in the service contract of your API.
 If you change your database without impacting the APIs, why should you waste your time creating and managing a version of your API?
@@ -171,9 +163,9 @@ If you are not eager to execute two versions of your <a href="https://microservi
 <h3 id="source-code-configuration" class="headerLink">
     <a href="#source-code-configuration" class="header-mark"></a>6.1 Source code configuration</h3><p>When you want to have two different versions in production, you must decouple your work in several GIT (what else) branches.</p>
 <p>For that, I usually put in place <a href="https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow" target="_blank" rel="noopener noreferrer">GitFlow</a>.</p>
-<figure><img src="/assets/images/2023/03/gitflow.svg"/><figcaption>
-            <h4>source: Atlassian</h4>
-        </figcaption>
+<figure><img src="/assets/images/2023/03/gitflow.svg"><figcaption>
+      <h4>source: Atlassian</h4>
+    </figcaption>
 </figure>
 
 <p>Usually, using this workflow, we consider the <code>develop</code> branch serves as an integration branch.

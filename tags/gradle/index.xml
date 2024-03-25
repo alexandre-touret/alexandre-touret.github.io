@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>gradle - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/gradle/</link><description>gradle - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 10 May 2020 08:22:00 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/gradle/" rel="self" type="application/rss+xml"/><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>https://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Gradle - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/gradle/</link><description>Gradle - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 10 May 2020 08:22:00 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/gradle/" rel="self" type="application/rss+xml"/><item><title>Utiliser des GITHUB Actions pour déployer dans Google Kubernetes Engine</title><link>https://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</link><pubDate>Sun, 10 May 2020 08:22:00 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/05/10/utiliser-des-github-actions-pour-deployer-dans-google-kubernetes-engine/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/05/article_github_actions_k8s-1.png" referrerpolicy="no-referrer">
             </div><p>A mes heures perdues, je travaille sur un « POC/side project qui n&rsquo;aboutira pas et je m&rsquo;en fiche » basé sur Quarkus. J&rsquo; ai choisi d&rsquo;utiliser les langages et composants suivants :</p>
 <ul>
@@ -56,7 +56,6 @@ Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://gith
             loading="lazy"
             src="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png"
             srcset="/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png 2x"
-            sizes="auto"
             alt="Music Quote">
     </a></figure></div>
 <p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
@@ -67,7 +66,6 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
             loading="lazy"
             src="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png"
             srcset="/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 1.5x, /assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png 2x"
-            sizes="auto"
             alt="Music Quote">
     </a></figure></div>
 <h2 id="worflows-implémentés" class="headerLink">
@@ -83,7 +81,6 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
             loading="lazy"
             src="/assets/images/2020/05/workflow.png"
             srcset="/assets/images/2020/05/workflow.png, /assets/images/2020/05/workflow.png 1.5x, /assets/images/2020/05/workflow.png 2x"
-            sizes="auto"
             alt="workflow">
     </a></figure></div>
 <p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
@@ -190,7 +187,6 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
             loading="lazy"
             src="/assets/images/2020/05/application-1.png"
             srcset="/assets/images/2020/05/application-1.png, /assets/images/2020/05/application-1.png 1.5x, /assets/images/2020/05/application-1.png 2x"
-            sizes="auto"
             alt="workflow">
     </a></figure></div>
 <p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
@@ -200,7 +196,6 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
             loading="lazy"
             src="/assets/images/2020/05/application_gke.png"
             srcset="/assets/images/2020/05/application_gke.png, /assets/images/2020/05/application_gke.png 1.5x, /assets/images/2020/05/application_gke.png 2x"
-            sizes="auto"
             alt="workflow">
     </a></figure></div>
 <p>J&rsquo;utilise les objets suivants:</p>

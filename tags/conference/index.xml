@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>conference - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/conference/</link><description>conference - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>https://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Conference - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/conference/</link><description>Conference - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sat, 31 Dec 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>2022 en quelques chiffres</title><link>https://blog.touret.info/2022/12/31/2022-wrap-up/</link><pubDate>Sat, 31 Dec 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/12/31/2022-wrap-up/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/12/review.webp" referrerpolicy="no-referrer">
             </div><p><em>You can read the English version below</em></p>
 <h2 id="2022-en-quelques-mots" class="headerLink">
@@ -61,15 +61,11 @@ Je n&rsquo;avais jamais participé (en vrai) à une conférence internationale.<
         loading="lazy"
         src="/assets/images/2022/10/devoxx-be-22-1.webp"
         srcset="/assets/images/2022/10/devoxx-be-22-1.webp, /assets/images/2022/10/devoxx-be-22-1.webp 1.5x, /assets/images/2022/10/devoxx-be-22-1.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div><div class="img-wrapper"><figure><img
         
         loading="lazy"
         src="/assets/images/2022/10/devoxx-be-22-2.webp"
         srcset="/assets/images/2022/10/devoxx-be-22-2.webp, /assets/images/2022/10/devoxx-be-22-2.webp 1.5x, /assets/images/2022/10/devoxx-be-22-2.webp 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div></div>
 
 <p>Voici mon retour d&rsquo;expérience des trois jours de conférence.</p>
@@ -180,9 +176,9 @@ Je tiens à remercier <a href="https://julientopcu.com/" target="_blank" rel="no
 <p>Pour finir, je conseille cette expérience à toutes les personnes qui veulent apprendre, échanger dans un environnement convivial et zen.</p>
 <p>Si vous n&rsquo;êtes toujours pas convaincu, sachez qu&rsquo;il y a également des mashmallows.</p>
 <p><em>Avec cet argument massue, on devrait convaincre les plus sceptiques! ;)</em></p>
-<figure><img src="/assets/images/2022/06/camping_speakers_1.webp"/><figcaption>
-            <h4>Camping des speakers spirit</h4>
-        </figcaption>
+<figure><img src="/assets/images/2022/06/camping_speakers_1.webp"><figcaption>
+      <h4>Camping des speakers spirit</h4>
+    </figcaption>
 </figure>
 
 <p>Merci encore aux organisatrices et organisateurs pour ces deux jours.</p>

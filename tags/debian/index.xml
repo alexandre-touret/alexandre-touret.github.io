@@ -1,9 +1,9 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>debian - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/debian/</link><description>debian - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 24 Apr 2020 20:06:13 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/debian/" rel="self" type="application/rss+xml"/><item><title>Améliorer le temps de démarrage de Debian 10</title><link>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</link><pubDate>Fri, 24 Apr 2020 20:06:13 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Debian - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/debian/</link><description>Debian - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Fri, 24 Apr 2020 20:06:13 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/debian/" rel="self" type="application/rss+xml"/><item><title>Améliorer le temps de démarrage de Debian 10</title><link>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</link><pubDate>Fri, 24 Apr 2020 20:06:13 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/boot_avant.png" referrerpolicy="no-referrer">
             </div><p>Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal… J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.</p>
-<figure><img src="/assets/images/2020/04/boot_time.png"/><figcaption>
-            <h4>Boot time</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_time.png"><figcaption>
+      <h4>Boot time</h4>
+    </figcaption>
 </figure>
 
 <p>Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:</p>
@@ -16,9 +16,9 @@
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>J&rsquo;ai obtenu le graphique suivant:</p>
-<figure><img src="/assets/images/2020/04/boot_avant.png"/><figcaption>
-            <h4>Boot initial</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_avant.png"><figcaption>
+      <h4>Boot initial</h4>
+    </figcaption>
 </figure>
 
 <h2 id="configuration-grub" class="headerLink">
@@ -99,15 +99,15 @@
 </div>
 </div><h2 id="résultats" class="headerLink">
     <a href="#r%c3%a9sultats" class="header-mark"></a>4 Résultats</h2><p>Après ces quelques manipulations qui peuvent prendre 5 minutes grand maximum, j&rsquo;ai réussi à optimiser le boot en réduisant le démarrage à <strong>5 secondes!</strong></p>
-<figure><img src="/assets/images/2020/04/boot_apres_header.png"/><figcaption>
-            <h4>Boot (après)</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_apres_header.png"><figcaption>
+      <h4>Boot (après)</h4>
+    </figcaption>
 </figure>
 
 <p>Vous pourrez trouver le détail ci-dessous:<figure class="wp-block-gallery aligncenter columns-1 is-cropped"></p>
-<figure><img src="/assets/images/2020/04/boot_apres-2.png"/><figcaption>
-            <h4>Détail du Boot (après)</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_apres-2.png"><figcaption>
+      <h4>Détail du Boot (après)</h4>
+    </figcaption>
 </figure>
 
 ]]></description></item><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
@@ -182,24 +182,18 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
-        sizes="auto"
-        alt="fluidsynth1"
         title="fluidsynth1" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
-        sizes="auto"
-        alt="fluidsynth2"
         title="fluidsynth2" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
-        sizes="auto"
-        alt="fluidsynth3"
         title="fluidsynth3" ></figure></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
@@ -210,8 +204,6 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
         srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
-        sizes="auto"
-        alt="aconnect"
         title="aconnect" ></figure></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
@@ -311,8 +303,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
@@ -321,8 +311,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Puis configurez comme suit:</p>
 <div id="id-5"><figure><img
@@ -330,8 +318,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item><item><title>Erreur 139 à l'exécution d'un container docker</title><link>https://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</link><pubDate>Wed, 01 Apr 2020 11:09:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</guid><description><![CDATA[<div class="featured-image">
@@ -385,8 +371,6 @@ Dans le fichier <code>/etc/default/grub</code>, ajouter la ligne suivante:</p>
         loading="lazy"
         src="/assets/images/2019/06/ansible_logo.svg_.png"
         srcset="/assets/images/2019/06/ansible_logo.svg_.png, /assets/images/2019/06/ansible_logo.svg_.png 1.5x, /assets/images/2019/06/ansible_logo.svg_.png 2x"
-        sizes="auto"
-        alt="ansible"
         title="ansible" ></figure></div>
 <p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href="https://puppet.com" target="_blank" rel="noopener noreferrer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation d&rsquo;agent.</p>
 <p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a>.</p>
@@ -797,8 +781,6 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
         loading="lazy"
         src="/assets/images/2018/03/sc3a9lection_001.png"
         srcset="/assets/images/2018/03/sc3a9lection_001.png, /assets/images/2018/03/sc3a9lection_001.png 1.5x, /assets/images/2018/03/sc3a9lection_001.png 2x"
-        sizes="auto"
-        alt="equalizer"
         title="equalizer" ></figure></div>
 <h2 id="lancement" class="headerLink">
     <a href="#lancement" class="header-mark"></a>3 Lancement</h2><p>En ligne de commande ( je vous disais que ce n&rsquo;était pas trop user-friendly), lancer la commande</p>
@@ -816,8 +798,6 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
         loading="lazy"
         src="/assets/images/2018/03/qpaeq_002.png"
         srcset="/assets/images/2018/03/qpaeq_002.png, /assets/images/2018/03/qpaeq_002.png 1.5x, /assets/images/2018/03/qpaeq_002.png 2x"
-        sizes="auto"
-        alt="equalizer"
         title="equalizer" ></figure></div>
 <p>Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)</p>
 <p>J&rsquo;ai essayé de poster mon soucis sur IRC, mais je n&rsquo;ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.</p>
@@ -829,8 +809,6 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
         loading="lazy"
         src="/assets/images/2018/02/220px-debian-openlogo-svg.png"
         srcset="/assets/images/2018/02/220px-debian-openlogo-svg.png, /assets/images/2018/02/220px-debian-openlogo-svg.png 1.5x, /assets/images/2018/02/220px-debian-openlogo-svg.png 2x"
-        sizes="auto"
-        alt="debian"
         title="debian" ></figure></div>
 <p>Voici ce que j&rsquo;ai réalisé post-installation:</p>
 <h2 id="ajout-dépôts-supplémentaires" class="headerLink">

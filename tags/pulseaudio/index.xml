@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>pulseaudio - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/pulseaudio/</link><description>pulseaudio - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 25 Mar 2018 13:38:27 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/pulseaudio/" rel="self" type="application/rss+xml"/><item><title>Activer l' equalizer sur Debian 9</title><link>https://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</link><pubDate>Sun, 25 Mar 2018 13:38:27 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Pulseaudio - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/pulseaudio/</link><description>Pulseaudio - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 25 Mar 2018 13:38:27 +0200</lastBuildDate><atom:link href="https://blog.touret.info/tags/pulseaudio/" rel="self" type="application/rss+xml"/><item><title>Activer l' equalizer sur Debian 9</title><link>https://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</link><pubDate>Sun, 25 Mar 2018 13:38:27 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/03/25/activer-l-equalizer-sur-debian-9/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/03/sc3a9lection_001.png" referrerpolicy="no-referrer">
             </div><p>Et oui, il y a un equalizer dans debian….<a href="https://www.freedesktop.org/wiki/Software/PulseAudio/" target="_blank" rel="noopener noreferrer">Pulse Audio dispose d&rsquo;un equalizer</a>. Bon ce n&rsquo;est encore très user friendly, mais ça fonctionne!</p>
 <h2 id="installation-de-lequalizer" class="headerLink">
@@ -37,8 +37,6 @@
         loading="lazy"
         src="/assets/images/2018/03/sc3a9lection_001.png"
         srcset="/assets/images/2018/03/sc3a9lection_001.png, /assets/images/2018/03/sc3a9lection_001.png 1.5x, /assets/images/2018/03/sc3a9lection_001.png 2x"
-        sizes="auto"
-        alt="equalizer"
         title="equalizer" ></figure></div>
 <h2 id="lancement" class="headerLink">
     <a href="#lancement" class="header-mark"></a>3 Lancement</h2><p>En ligne de commande ( je vous disais que ce n&rsquo;était pas trop user-friendly), lancer la commande</p>
@@ -56,8 +54,6 @@
         loading="lazy"
         src="/assets/images/2018/03/qpaeq_002.png"
         srcset="/assets/images/2018/03/qpaeq_002.png, /assets/images/2018/03/qpaeq_002.png 1.5x, /assets/images/2018/03/qpaeq_002.png 2x"
-        sizes="auto"
-        alt="equalizer"
         title="equalizer" ></figure></div>
 <p>Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)</p>
 <p>J&rsquo;ai essayé de poster mon soucis sur IRC, mais je n&rsquo;ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.</p>

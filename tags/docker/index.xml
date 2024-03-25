@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>docker - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/docker/</link><description>docker - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Docker - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/docker/</link><description>Docker - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 09 Nov 2023 08:00:16 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/docker/" rel="self" type="application/rss+xml"/><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp" referrerpolicy="no-referrer">
             </div><p>Just out of curiosity, I <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">downloaded and sat up Rancher Desktop on my laptop</a>.</p>
 <p>I daily use <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a> on top of <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> using <em>home made mechanism/tooling</em>
@@ -11,8 +11,6 @@ I would then see if Rancher Desktop fits well in this case and could help me.</p
         loading="lazy"
         src="/assets/images/2023/11/rancher-desktop-logo.svg"
         srcset="/assets/images/2023/11/rancher-desktop-logo.svg, /assets/images/2023/11/rancher-desktop-logo.svg 1.5x, /assets/images/2023/11/rancher-desktop-logo.svg 2x"
-        sizes="auto"
-        alt="rancher desktop logo"
         title="rancher desktop logo" ></figure></div>
 <p>The setup is quite straightforward.
 Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
@@ -82,8 +80,6 @@ Several strategies can be considered, but the main point is how to minimize the 
         loading="lazy"
         src="/assets/images/2023/10/architecture_system.svg"
         srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
-        sizes="auto"
-        alt="c4 context diagram"
         title="c4 context diagram" ></figure></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
 <div id="id-2"><figure><img
@@ -91,8 +87,6 @@ Several strategies can be considered, but the main point is how to minimize the 
         loading="lazy"
         src="/assets/images/2023/10/architecture_container.svg"
         srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
-        sizes="auto"
-        alt="c4 context diagram"
         title="c4 context diagram" ></figure></div>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">

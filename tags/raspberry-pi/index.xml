@@ -1,4 +1,4 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>raspberry-pi - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/raspberry-pi/</link><description>raspberry-pi - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 07 Mar 2019 08:30:44 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/raspberry-pi/" rel="self" type="application/rss+xml"/><item><title>Une radio connectée DIY</title><link>https://blog.touret.info/2019/03/07/une-radio-connectee-diy/</link><pubDate>Thu, 07 Mar 2019 08:30:44 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2019/03/07/une-radio-connectee-diy/</guid><description><![CDATA[<p>Dans la série j&rsquo;équipe ma maison en <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener noreferrer">Raspberry PI</a>, j&rsquo;ai décidé de me doter d&rsquo;une station radio connectée qui me permettrait de « moderniser » un peu ma chaîne HI-FI.</p>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Raspberry-Pi - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/raspberry-pi/</link><description>Raspberry-Pi - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 07 Mar 2019 08:30:44 +0100</lastBuildDate><atom:link href="https://blog.touret.info/tags/raspberry-pi/" rel="self" type="application/rss+xml"/><item><title>Une radio connectée DIY</title><link>https://blog.touret.info/2019/03/07/une-radio-connectee-diy/</link><pubDate>Thu, 07 Mar 2019 08:30:44 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2019/03/07/une-radio-connectee-diy/</guid><description><![CDATA[<p>Dans la série j&rsquo;équipe ma maison en <a href="https://www.raspberrypi.org/" target="_blank" rel="noopener noreferrer">Raspberry PI</a>, j&rsquo;ai décidé de me doter d&rsquo;une station radio connectée qui me permettrait de « moderniser » un peu ma chaîne HI-FI.</p>
 <p>Mes besoins sont:</p>
 <ul>
 <li>Connexion en analogique à une chaîne HI-FI</li>
@@ -14,8 +14,6 @@
         loading="lazy"
         src="/assets/images/2019/03/f1228179-02.jpg"
         srcset="/assets/images/2019/03/f1228179-02.jpg, /assets/images/2019/03/f1228179-02.jpg 1.5x, /assets/images/2019/03/f1228179-02.jpg 2x"
-        sizes="auto"
-        alt="dac"
         title="dac" ></figure></div>
 <p>L&rsquo;installation et la configuration du DAC se sont très bien passées. L&rsquo;installation se fait comme avec des LEGOs.</p>
 <div id="id-2"><figure><img
@@ -23,8 +21,6 @@
         loading="lazy"
         src="/assets/images/2019/03/img_20190306_234555.jpg"
         srcset="/assets/images/2019/03/img_20190306_234555.jpg, /assets/images/2019/03/img_20190306_234555.jpg 1.5x, /assets/images/2019/03/img_20190306_234555.jpg 2x"
-        sizes="auto"
-        alt="it&amp;rsquo;s alive"
         title="it&amp;rsquo;s alive" ></figure></div>
 <p>Pour la configuration, j&rsquo;ai testé dans un premier temps <a href="https://volumio.org/" target="_blank" rel="noopener noreferrer">Volumio</a> puis <a href="http://moodeaudio.org/" target="_blank" rel="noopener noreferrer">MoodeAudio</a>. Pour  l&rsquo;instant, je reste sur cette dernière. Toutes les fonctionnalités que je souhaite sont en standard. Pas besoin de plugins tiers.</p>
 <p>Toutes les étapes d&rsquo; installation et de configuration pour que le DAC soit reconnu sont décrites <a href="https://www.justboom.co/software/configure-justboom-with-moode/" target="_blank" rel="noopener noreferrer">ici</a>. Les gens de chez JustBoom ont bien documenté la configuration pour les principales distributions.</p>

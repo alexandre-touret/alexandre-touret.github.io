@@ -68,8 +68,6 @@ With regard to the topic of this article,it will provide us all you need to coll
         loading="lazy"
         src="/assets/images/2024/01/image-2023-8-1_9-44-11.webp"
         srcset="/assets/images/2024/01/image-2023-8-1_9-44-11.webp, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 1.5x, /assets/images/2024/01/image-2023-8-1_9-44-11.webp 2x"
-        sizes="auto"
-        alt="monitoring"
         title="monitoring" ></figure></p>
 <h2 id="logs" class="headerLink">
     <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
@@ -189,8 +187,6 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
         loading="lazy"
         src="/assets/images/2024/01/Loki-Grafana.webp"
         srcset="/assets/images/2024/01/Loki-Grafana.webp, /assets/images/2024/01/Loki-Grafana.webp 1.5x, /assets/images/2024/01/Loki-Grafana.webp 2x"
-        sizes="auto"
-        alt="Loki"
         title="Loki" ></figure></p>
 <h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
@@ -427,8 +423,6 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
         loading="lazy"
         src="/assets/images/2024/01/Tempo-Grafana.webp"
         srcset="/assets/images/2024/01/Tempo-Grafana.webp, /assets/images/2024/01/Tempo-Grafana.webp 1.5x, /assets/images/2024/01/Tempo-Grafana.webp 2x"
-        sizes="auto"
-        alt="Tempo"
         title="Tempo" ></figure></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
@@ -613,8 +607,6 @@ It&rsquo;s a consequence of functional transactions fragmenting into two loosely
         loading="lazy"
         src="/assets/images/2023/09/loose-coupling-sequence.svg"
         srcset="/assets/images/2023/09/loose-coupling-sequence.svg, /assets/images/2023/09/loose-coupling-sequence.svg 1.5x, /assets/images/2023/09/loose-coupling-sequence.svg 2x"
-        sizes="auto"
-        alt="OpenTelemetry Collector Architecture"
         title="OpenTelemetry Collector Architecture" ></figure></div>
 <p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
 <div class="details admonition info open">
@@ -640,8 +632,6 @@ It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank"
         loading="lazy"
         src="/assets/images/2023/09/architecture.svg"
         srcset="/assets/images/2023/09/architecture.svg, /assets/images/2023/09/architecture.svg 1.5x, /assets/images/2023/09/architecture.svg 2x"
-        sizes="auto"
-        alt="OpenTelemetry Collector Architecture"
         title="OpenTelemetry Collector Architecture" ></figure></div>
 <h3 id="opentelemetry-collector" class="headerLink">
     <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
@@ -652,8 +642,6 @@ It will help us get, transform and export telemetry data.</p>
         loading="lazy"
         src="/assets/images/2023/09/otel-diagram.svg"
         srcset="/assets/images/2023/09/otel-diagram.svg, /assets/images/2023/09/otel-diagram.svg 1.5x, /assets/images/2023/09/otel-diagram.svg 2x"
-        sizes="auto"
-        alt="OpenTelemetry Collector Functionalities"
         title="OpenTelemetry Collector Functionalities" ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
     </figure></div>
 <p>For our use case, the configuration is quite simple.</p>
@@ -1143,8 +1131,6 @@ For instance, in the consumer application, when we consume the messages as:</p>
         loading="lazy"
         src="/assets/images/2023/09/jaeger-1.webp"
         srcset="/assets/images/2023/09/jaeger-1.webp, /assets/images/2023/09/jaeger-1.webp 1.5x, /assets/images/2023/09/jaeger-1.webp 2x"
-        sizes="auto"
-        alt="Jaeger front page"
         title="Jaeger front page" ><figcaption class="image-caption">Number of different apps</figcaption>
     </figure></div>
 <p>If you dig into one transaction, you will see the whole transaction:</p>
@@ -1153,8 +1139,6 @@ For instance, in the consumer application, when we consume the messages as:</p>
         loading="lazy"
         src="/assets/images/2023/09/jaeger-2.webp"
         srcset="/assets/images/2023/09/jaeger-2.webp, /assets/images/2023/09/jaeger-2.webp 1.5x, /assets/images/2023/09/jaeger-2.webp 2x"
-        sizes="auto"
-        alt="Jaeger transaction page"
         title="Jaeger transaction page" ><figcaption class="image-caption">One transaction</figcaption>
     </figure></div>
 <p>And now, you can correlate two sub transactions:</p>
@@ -1163,8 +1147,6 @@ For instance, in the consumer application, when we consume the messages as:</p>
         loading="lazy"
         src="/assets/images/2023/09/jaeger-3.webp"
         srcset="/assets/images/2023/09/jaeger-3.webp, /assets/images/2023/09/jaeger-3.webp 1.5x, /assets/images/2023/09/jaeger-3.webp 2x"
-        sizes="auto"
-        alt="Jaeger two sub transactions"
         title="Jaeger two sub transactions" ><figcaption class="image-caption">Two sub transactions</figcaption>
     </figure></div>
 <h2 id="tempo--grafana" class="headerLink">
@@ -1180,8 +1162,6 @@ We will then configure Grafana to query to it to get traces.</p>
         loading="lazy"
         src="/assets/images/2023/09/architecture_grafana.svg"
         srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
-        sizes="auto"
-        alt="Architecture w/ Grafana &amp;amp; Tempo"
         title="Architecture w/ Grafana &amp;amp; Tempo" ></figure></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
@@ -1414,8 +1394,6 @@ The configuration is made here using a configuration file provided during the st
         loading="lazy"
         src="/assets/images/2023/09/grafana-1.webp"
         srcset="/assets/images/2023/09/grafana-1.webp, /assets/images/2023/09/grafana-1.webp 1.5x, /assets/images/2023/09/grafana-1.webp 2x"
-        sizes="auto"
-        alt="Grafana transactions"
         title="Grafana transactions" ><figcaption class="image-caption">Transactions</figcaption>
     </figure></div>
 <div id="id-10"><figure><img
@@ -1423,8 +1401,6 @@ The configuration is made here using a configuration file provided during the st
         loading="lazy"
         src="/assets/images/2023/09/grafana-2.webp"
         srcset="/assets/images/2023/09/grafana-2.webp, /assets/images/2023/09/grafana-2.webp 1.5x, /assets/images/2023/09/grafana-2.webp 2x"
-        sizes="auto"
-        alt="Grafana transactions"
         title="Grafana transactions" ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
     </figure></div></p>
 <h2 id="conclusion" class="headerLink">

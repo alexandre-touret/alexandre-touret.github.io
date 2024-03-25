@@ -1,12 +1,10 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>planetlibre - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/planetlibre/</link><description>planetlibre - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/planetlibre/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Planetlibre - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/planetlibre/</link><description>Planetlibre - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/planetlibre/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
             </div><p><figure><img
         
         loading="lazy"
         src="/assets/images/2021/12/github-1.jpg"
         srcset="/assets/images/2021/12/github-1.jpg, /assets/images/2021/12/github-1.jpg 1.5x, /assets/images/2021/12/github-1.jpg 2x"
-        sizes="auto"
-        alt="github"
         title="github" ></figure></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
@@ -356,8 +354,6 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
         loading="lazy"
         src="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png"
         srcset="/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 1.5x, /assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png 2x"
-        sizes="auto"
-        alt="wordpress_export"
         title="wordpress_export" ></figure></div>
 <p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
 <p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
@@ -732,16 +728,12 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
         loading="lazy"
         src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png"
         srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png 2x"
-        sizes="auto"
-        alt="jaeger1"
         title="jaeger1" ></figure>
 <figure><img
         
         loading="lazy"
         src="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png"
         srcset="/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 1.5x, /assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png 2x"
-        sizes="auto"
-        alt="jaeger2"
         title="jaeger2" ></figure></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
@@ -985,8 +977,6 @@ Bien évidemment, selon le contexte, il conviendra d&rsquo;ajouter un peu de sé
         loading="lazy"
         src="/assets/images/2021/05/pexels-photo-261621.jpeg"
         srcset="/assets/images/2021/05/pexels-photo-261621.jpeg, /assets/images/2021/05/pexels-photo-261621.jpeg 1.5x, /assets/images/2021/05/pexels-photo-261621.jpeg 2x"
-        sizes="auto"
-        alt="pexel photo"
         title="pexel photo" ></figure></p>
 <p>Pourquoi utiliser <a href="https://fr.wikipedia.org/wiki/GNU_Privacy_Guard" target="_blank" rel="noopener noreferrer">GPG</a> ? Par exemple <a href="https://blog.touret.info/2019/08/09/verifier-les-commit-git-avec-gpg/" target="_blank" rel="noopener noreferrer">pour signer les commits GIT</a>. Maintenant comment faire quand on est sous Windows 10 et qu&rsquo;on souhaite utiliser <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">le sous système Linux (WSL2)</a>?</p>
 <p>Sous GNU/Linux, l&rsquo;installation et l&rsquo;utilisation avec git est très simple. Avec <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10" target="_blank" rel="noopener noreferrer">WSL2</a>,… il faut un peu d&rsquo;huile de coude 🙂</p>
@@ -1383,9 +1373,9 @@ Vous trouverez les différents liens ci-dessous. Peut être que je publierai cet
 ]]></description></item><item><title>Améliorer le temps de démarrage de Debian 10</title><link>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</link><pubDate>Fri, 24 Apr 2020 20:06:13 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/24/ameliorer-le-temps-de-demarrage-de-debian-10/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2020/04/boot_avant.png" referrerpolicy="no-referrer">
             </div><p>Mon PC Lenovo a un SSD. Le temps de démarrage est actuellement de 11 sec. Ça commence à faire pas mal… J&rsquo;ai eu donc envie de me pencher sur l&rsquo;optimisation du démarrage ( encore une fois) . Voici comment gagner (facilement) quelques secondes au démarrage.</p>
-<figure><img src="/assets/images/2020/04/boot_time.png"/><figcaption>
-            <h4>Boot time</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_time.png"><figcaption>
+      <h4>Boot time</h4>
+    </figcaption>
 </figure>
 
 <p>Tout d&rsquo;abord, vous devez analyser les services qui prennent du temps au démarrage. Vous pouvez le faire avec cette commande:</p>
@@ -1398,9 +1388,9 @@ Vous trouverez les différents liens ci-dessous. Peut être que je publierai cet
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>J&rsquo;ai obtenu le graphique suivant:</p>
-<figure><img src="/assets/images/2020/04/boot_avant.png"/><figcaption>
-            <h4>Boot initial</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_avant.png"><figcaption>
+      <h4>Boot initial</h4>
+    </figcaption>
 </figure>
 
 <h2 id="configuration-grub" class="headerLink">
@@ -1481,15 +1471,15 @@ Vous trouverez les différents liens ci-dessous. Peut être que je publierai cet
 </div>
 </div><h2 id="résultats" class="headerLink">
     <a href="#r%c3%a9sultats" class="header-mark"></a>4 Résultats</h2><p>Après ces quelques manipulations qui peuvent prendre 5 minutes grand maximum, j&rsquo;ai réussi à optimiser le boot en réduisant le démarrage à <strong>5 secondes!</strong></p>
-<figure><img src="/assets/images/2020/04/boot_apres_header.png"/><figcaption>
-            <h4>Boot (après)</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_apres_header.png"><figcaption>
+      <h4>Boot (après)</h4>
+    </figcaption>
 </figure>
 
 <p>Vous pourrez trouver le détail ci-dessous:<figure class="wp-block-gallery aligncenter columns-1 is-cropped"></p>
-<figure><img src="/assets/images/2020/04/boot_apres-2.png"/><figcaption>
-            <h4>Détail du Boot (après)</h4>
-        </figcaption>
+<figure><img src="/assets/images/2020/04/boot_apres-2.png"><figcaption>
+      <h4>Détail du Boot (après)</h4>
+    </figcaption>
 </figure>
 
 ]]></description></item><item><title>Répéter avec JjazzLab tout seul dans son garage</title><link>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</link><pubDate>Sun, 12 Apr 2020 14:47:48 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/12/repeter-avec-jjazzlab-tout-seul-dans-son-garage/</guid><description><![CDATA[<div class="featured-image">
@@ -1564,24 +1554,18 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png 2x"
-        sizes="auto"
-        alt="fluidsynth1"
         title="fluidsynth1" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png 2x"
-        sizes="auto"
-        alt="fluidsynth2"
         title="fluidsynth2" ></figure></p>
 <p><figure><img
         
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png 2x"
-        sizes="auto"
-        alt="fluidsynth3"
         title="fluidsynth3" ></figure></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
@@ -1592,8 +1576,6 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
         loading="lazy"
         src="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp"
         srcset="/assets/images/2020/04/pegi_18_annotated_2009-2010.webp, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 1.5x, /assets/images/2020/04/pegi_18_annotated_2009-2010.webp 2x"
-        sizes="auto"
-        alt="aconnect"
         title="aconnect" ></figure></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
@@ -1693,8 +1675,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
@@ -1703,8 +1683,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Puis configurez comme suit:</p>
 <div id="id-5"><figure><img
@@ -1712,8 +1690,6 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
         loading="lazy"
         src="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png"
         srcset="/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 1.5x, /assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png 2x"
-        sizes="auto"
-        alt="configuration"
         title="configuration" ></figure></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item><item><title>Erreur 139 à l'exécution d'un container docker</title><link>https://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</link><pubDate>Wed, 01 Apr 2020 11:09:44 +0200</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2020/04/01/erreur-139-a-lexecution-dun-container-docker/</guid><description><![CDATA[<div class="featured-image">

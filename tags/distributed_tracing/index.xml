@@ -14,8 +14,6 @@ Several strategies can be considered, but the main point is how to minimize the 
         loading="lazy"
         src="/assets/images/2023/10/architecture_system.svg"
         srcset="/assets/images/2023/10/architecture_system.svg, /assets/images/2023/10/architecture_system.svg 1.5x, /assets/images/2023/10/architecture_system.svg 2x"
-        sizes="auto"
-        alt="c4 context diagram"
         title="c4 context diagram" ></figure></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
 <div id="id-2"><figure><img
@@ -23,8 +21,6 @@ Several strategies can be considered, but the main point is how to minimize the 
         loading="lazy"
         src="/assets/images/2023/10/architecture_container.svg"
         srcset="/assets/images/2023/10/architecture_container.svg, /assets/images/2023/10/architecture_container.svg 1.5x, /assets/images/2023/10/architecture_container.svg 2x"
-        sizes="auto"
-        alt="c4 context diagram"
         title="c4 context diagram" ></figure></div>
 <div class="details admonition tip open">
         <div class="details-summary admonition-title">
