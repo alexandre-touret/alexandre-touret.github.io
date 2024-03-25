@@ -14,6 +14,7 @@ tags:
 _Picture of [Tobias Fischer](https://unsplash.com/fr/@tofi?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
 {{< /style >}}
 
+
 When you code enterprise applications on top of the Java Platform, most of the time, you use [ORMs](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) to interface them with relational databases.
 They bring a lot of simplicity which make you forget SQL queries syntax.
 Furthermore, most of the time, Java developers don't really care/know what is under the hood of [Spring Data](https://spring.io/projects/spring-data) and [Java Persistence API (JPA)](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm) or such a facility.
@@ -41,7 +42,7 @@ Feel free to use it!
 ### Observe your persistence layer
 
 First and foremost, you **MUST** trace and monitor your persistence layer usage. 
-If you use [Hibernate](https://hibernate.org/) (without Spring, Quarkus,...), you can get insights configuring the logger:
+If you use [Hibernate](https://hibernate.org/) (without Spring, Quarkus,...), you can get useful information configuring the logger:
 
 ```xml
 <logger name="org.hibernate.SQL">
@@ -105,7 +106,7 @@ Example of such an output:
 #### Dig into you datasource connection pool configuration
 If you want to dive into your datasource and get clear insights of your database connection pool, you can also add [Prometheus metrics](https://prometheus.io/docs/introduction/overview/) to your application to observe it.
 
-Using [Spring Boot](https://spring.io/projects/spring-boot/), you can easily enable it adding two dependencies:
+For a [Spring Boot](https://spring.io/projects/spring-boot/) application, you can easily enable it adding two dependencies:
 
 ```groovy
 implementation 'org.springframework.boot:spring-boot-starter-actuator'
@@ -167,7 +168,7 @@ hikaricp_connections_acquire_seconds_max{pool="HikariPool-1",} 0.0
 
 ```
 
-Obviously, don't use these metrics as is. 
+Obviously, it's not recommended to use these metrics as is. 
 [Scrap them with Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) and [Grafana](https://grafana.com/) to gather these metrics and create dashboards.
 
 At this stage, you did the easiest part.
@@ -199,7 +200,7 @@ However, you must take care of the whole [entity graph](https://jakarta.ee/learn
 
 Does your entity loaded by a ``@OneToOne`` relationship loads also a ``@OneToMany`` relationship in a ``EAGER`` way? 
 
-It's the kind of question you will have to answer.
+It's the kind of question you will need to answer.
 
 ### The famous N+1 issue
 
@@ -237,7 +238,7 @@ Hibernate will query the database in this way:
 * 1 query to select the main entity
 * N queries for the entities linked by the jointure
 
-In our case we can see the following queries in the logs:
+In our case, we can see the following queries in the logs:
 
 ```shell
 Hibernate: select s1_0.id,s1_0.name from store s1_0
