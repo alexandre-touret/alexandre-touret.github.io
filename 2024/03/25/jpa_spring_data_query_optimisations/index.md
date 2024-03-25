@@ -1,4 +1,4 @@
-# Tips & tricks for optimizing Spring Data & JPA queries
+# Tips & tricks for optimising Spring Data & JPA queries
 
 
 {{< style "text-align:center;" >}}
