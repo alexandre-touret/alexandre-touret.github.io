@@ -1,5 +1,5 @@
 ---
-title: "Tips & tricks for optimizing Spring Data & JPA queries"
+title: "Tips & tricks for optimising Spring Data & JPA queries"
 date: 2024-03-25T06:00:43+01:00
 featuredImagePreview: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 featuredImage: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
