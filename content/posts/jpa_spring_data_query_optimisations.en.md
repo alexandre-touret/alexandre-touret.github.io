@@ -167,6 +167,14 @@ hikaricp_connections_acquire_seconds_max{pool="HikariPool-1",} 0.0
 
 ```
 
+Obviously, don't use these metrics as is. 
+[Scrap them with Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) and [Grafana](https://grafana.com/) to gather these metrics and create dashboards.
+
+At this stage, you did the easiest part.
+Now you must dig into the database documentation and measure, regarding your use case and the volumetry what are the good figures for every parameter.
+
+If you use [HikariCP](https://github.com/brettwooldridge/HikariCP/), you can refer yourself to [this guide delving into Pool sizing configuration](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing).
+
 ### Observe your database
 As Java developers, we usually forget that database platforms provide valuable tools to analyse your queries. 
 Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, it runs a full scan of your table.
