@@ -1,6 +1,6 @@
 ---
 title: "Tips & tricks for optimizing Spring Data & Full JPA queries"
-date: 2024-03-26T06:00:43+01:00
+date: 2024-03-25T06:00:43+01:00
 featuredImagePreview: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 featuredImage: "/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"
 images: ["/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp"]
@@ -16,7 +16,7 @@ _Picture of [Tobias Fischer](https://unsplash.com/fr/@tofi?utm_content=creditCop
 
 When you code enterprise applications on top of the Java Platform, most of the time, you use [ORMs](https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping) to interface them with relational databases.
 They bring a lot of simplicity which make you forget SQL queries syntax.
-Furthermore, most of the time, Java developers don't really care/know what is under the hood of [Spring Data](https://spring.io/projects/spring-data) and [Java Persistence API (JPA)](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm) or such an ORM facility.
+Furthermore, most of the time, Java developers don't really care/know what is under the hood of [Spring Data](https://spring.io/projects/spring-data) and [Java Persistence API (JPA)](https://docs.oracle.com/javaee/7/tutorial/persistence-intro.htm) or such a facility.
 In my opinion, it's mainly due to all the features provided by these specifications and frameworks. 
 
 Unfortunately, when your dataset is coming to grow, querying against your database could be difficult. 
@@ -102,7 +102,7 @@ Example of such an output:
     190300 nanoseconds spent executing 1 partial-flushes (flushing a total of 0 entities and 0 collec
 ```
 
-#### Dig into you datasource connection pool
+#### Dig into you datasource connection pool configuration
 If you want to dive into your datasource and get clear insights of your database connection pool, you can also add [Prometheus metrics](https://prometheus.io/docs/introduction/overview/) to your application to observe it.
 
 Using [Spring Boot](https://spring.io/projects/spring-boot/), you can easily enable it adding two dependencies:
@@ -171,15 +171,15 @@ Obviously, don't use these metrics as is.
 [Scrap them with Prometheus](https://prometheus.io/docs/prometheus/latest/getting_started/) and [Grafana](https://grafana.com/) to gather these metrics and create dashboards.
 
 At this stage, you did the easiest part.
-Now you must dig into the database documentation and measure, regarding your use case and the volumetry what are the good figures for every parameter.
+You must now dig into the database documentation and measure, regarding your use case and the volumetry what are the good figures for every parameter.
 
 If you use [HikariCP](https://github.com/brettwooldridge/HikariCP/), you can refer yourself to [this guide delving into Pool sizing configuration](https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing).
 
 ### Observe your database
 As Java developers, we usually forget that database platforms provide valuable tools to analyse your queries. 
-Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming because, for instance, it runs a full scan of your table.
+Once you have pointed out the time/resource consuming queries, you must check if your database query is time-consuming by, for instance, running a full scan of your table.
 
-For doing that, you can check the SQL queries execution plan.
+In this purpose, you can check the SQL queries execution plan.
 
 If you use [PostgreSQL (_what else_)](https://www.postgresql.org/), you can get these insights using the [``EXPLAIN``](https://www.postgresql.org/docs/current/sql-explain.html) command. 
 
@@ -322,7 +322,7 @@ You will get the following output:
 ```
 
 ### Create a dedicated entity to reduce the number of attributes
-One another misconception about JPA is to always fully map a table to an entity!
+One another misconception about JPA is to always fully map all the properties of table to its corresponding entity!
 
 A gentle reminder: we don't need to map all the columns in an entity!
 For instance, if your table has 30 columns, and you only need 10 in your use case, why querying, fetching and storing in memory all of these data?
@@ -440,6 +440,7 @@ You can get a set of this record writing the query:
 @Query(value = "select new info.touret.query.optimizationjpa.BookDto(b.id, b.description) from Book b")
 Set<BookDto> findAllDto();
 ```
+## Other optimisation tracks
 ### Avoid transactions while reading our database with the annotation ``@Transactional(readonly=true)`` 
 
 One thing we often (again) remember: read-only database operations don't need transactions!
@@ -465,12 +466,11 @@ You will find below good links talking about it on StackOverflow:
 
 ### Caching specific data
 You may use and query specific which is not daily (or monthly) updated. For instance, the department, country tables.
-In this case, you may want to cache them in the memory of your application (i.e., [Second-Level cache](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html).
+In this case, you may want to cache them in memory (i.e., [Second-Level cache](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html).
 
 With [JPA you can quickly cache specific entities](https://jakarta.ee/learn/docs/jakartaee-tutorial/current/persist/persistence-cache/persistence-cache.html) using the [``@Cacheable`` annotation](https://jakartaee.github.io/persistence/latest/api/jakarta.persistence/jakarta/persistence/Cacheable.html).
 
-For instance, in a Spring Boot application:
-You must configure your cache first:
+For instance, in a Spring Boot application, you must configure your cache first:
 
 ```java
 @SpringBootApplication
@@ -548,11 +548,11 @@ If you reached this last chapter, you would see there are plenty of solutions to
 I aimed at a summary of the most efficient solutions for type of problem.
 As a matter of fact, I'm pretty sure there are other ones.
 
-Anyway, the first thing to put in place, is the whole observability stack: through logging, traces or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
+Anyway, the first thing to put in place, is the whole observability stack: through [logging, traces](https://blog.touret.info/2024/01/16/observability-from-zero-to-hero/) or [prometheus metrics](https://prometheus.io/docs/introduction/overview/) you will get deep insights of your application. 
 Check also your database to see if you have a _"full table scan"_ when you run specific SQL queries. 
 It will help you find where is the bottleneck.
 
-Last but not least, don't precipate yourself with such optimisations (e.g., [native queries](#native))!
+Last but not least, don't rush into such optimisations (e.g., [native queries](#native))!
 Observe your application first to figure out if it's worth it.
 
 Don't forget that any [Premature optimisation is the root of all evil!](https://www.laws-of-software.com/laws/knuth/)
