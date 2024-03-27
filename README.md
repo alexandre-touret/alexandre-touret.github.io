@@ -39,3 +39,5 @@ docker run -v $PWD:/workdir ghcr.io/igorshubovych/markdownlint-cli:latest "*.md"
 ```bash
  git rebase --exec 'git commit --amend --no-edit -n -S' -i main
  ```
+
+Enjoy
