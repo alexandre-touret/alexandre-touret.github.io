@@ -12,6 +12,10 @@ tags:
 
 
 Git 2.36 min
+https://stackoverflow.com/questions/72078027/git-user-depending-on-remote-url
+
+https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode
+
 
 Host github.com
     Hostname ssh.github.com
