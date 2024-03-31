@@ -1,7 +1,7 @@
 ---
 title: "Managing smartly different Git profiles "
-date: 2024-04-04T06:00:43+01:00
-draft: true
+date: 2024-04-02T06:00:43+01:00
+draft: false
 featuredImagePreview: "/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"
 featuredImage: "/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"
 images: ["/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"]
