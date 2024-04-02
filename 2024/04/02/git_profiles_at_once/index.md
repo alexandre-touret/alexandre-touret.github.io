@@ -1,4 +1,4 @@
-# Managing smartly different Git profiles 
+# Smartly Managing Different Git Profiles
 
 {{< style "text-align:center;" >}}
 _Photo by [Firdouss Ross](https://unsplash.com/@firdoussross?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
