@@ -1,4 +1,163 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 25 Mar 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Tips &amp; tricks for optimising Spring Data &amp; JPA queries</title><link>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</link><pubDate>Mon, 25 Mar 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 02 Apr 2024 06:00:43 +0100</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Managing smartly different Git profiles</title><link>https://blog.touret.info/2024/04/02/git_profiles_at_once/</link><pubDate>Tue, 02 Apr 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/04/02/git_profiles_at_once/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-1"><em>Photo by <a href="https://unsplash.com/@firdoussross?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Firdouss Ross</a></em></div>
+<h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>While fixing the author and email properties for a bunch of existing commits on different repositories, I realised I often forget configuring the good information for both my profesional &amp; personal GIT repositories.
+I particularly skip to specify the good email address of the good GPG signature after checking them out.</p>
+<p>I therefore looked around for an industrialised (<em>~lazy</em>) solution for fixing this issue once for all.
+I found a solution which fits my needs: <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode" target="_blank" rel="noopener noreferrer">the <code>includeIf</code> instruction</a>.
+Among other things, this functionality helps me centralise my Git configuration and apply the good parameters/instructions (e.g., <code>user.email</code>) dynamically in every repository.</p>
+<p>You could find below how I did that:</p>
+<h2 id="prerequisites" class="headerLink">
+    <a href="#prerequisites" class="header-mark"></a>2 Prerequisites</h2><p>Having Git &gt;=2.36 installed.</p>
+<p>In case you use the current Ubuntu LTS or Linux Mint release, you can install the latest version of GIT by adding <a href="https://launchpad.net/~git-core/&#43;archive/ubuntu/ppa?ref=itsfoss.com" target="_blank" rel="noopener noreferrer">this repository into your APT sources</a>:</p>
+<p>You can find below the commands to run</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">sudo add-apt-repository ppa:git-core/ppa -y
+</span></span><span class="line"><span class="cl">sudo apt update <span class="o">&amp;&amp;</span> sudo apt full-upgrade -y
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>After that, you can check the version of GIT running this command:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">git --version
+</span></span><span class="line"><span class="cl">git version 2.43.2
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="the-configuration" class="headerLink">
+    <a href="#the-configuration" class="header-mark"></a>3 The configuration</h2><p>In this article, we will assume to have two different SCMs with two different SSH URLs:</p>
+<ul>
+<li>The corporate GIT SCM: git@gitlab.INTERNAL_URL</li>
+<li>Github.com: <a href="mailto:git@github.com" rel="">git@github.com</a></li>
+</ul>
+<p>By the way, you can also use HTTPS URls.</p>
+<p>Now let&rsquo;s configure our main git configuration (e.g. <code>$HOME/.gitconfig</code>)</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[init]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">defaultBranch</span> <span class="o">=</span> <span class="s">main</span>
+</span></span><span class="line"><span class="cl"><span class="k">[pull]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">rebase</span> <span class="o">=</span> <span class="s">merges</span>
+</span></span><span class="line"><span class="cl"><span class="k">[core]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">autocrlf</span> <span class="o">=</span> <span class="s">true</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="k">[includeIf &#34;hasconfig:remote.*.url:git@gitlab.INTERNAL_URL:*/**&#34;]</span>
+</span></span><span class="line"><span class="cl">    <span class="na">path</span> <span class="o">=</span> <span class="s">~/.gitconfig-corporate</span>
+</span></span><span class="line"><span class="cl"><span class="k">[includeIf &#34;hasconfig:remote.*.url:git@github.com:*/**&#34;]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">path</span> <span class="o">=</span> <span class="s">~/.gitconfig-github</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>As mentioned earlier, I use in this configuration <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode" target="_blank" rel="noopener noreferrer">the <code>includeIf</code> functionality for checking the remote URL</a>.
+Regarding the remote URL (it also works with HTTPS URLs), either the corporate or github configuration will be applied on the fly while applying git commands in my repos.</p>
+<p>I then configured my corporate git configuration as following:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[user]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">name</span> <span class="o">=</span> <span class="s">Alexandre Touret
+</span></span></span><span class="line"><span class="cl"><span class="s">	email = alexandre.touret@XXX.com</span>
+</span></span><span class="line"><span class="cl"><span class="k">[credential]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">username</span> <span class="o">=</span> <span class="s">XXXX
+</span></span></span><span class="line"><span class="cl"><span class="s">	helper = cache</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>and the GitHub configuration</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="k">[user]</span>
+</span></span><span class="line"><span class="cl">  	<span class="na">email</span> <span class="o">=</span> <span class="s">alexandre-touret@users.noreply.github.com
+</span></span></span><span class="line"><span class="cl"><span class="s">	signingkey = XXXXXXXXX
+</span></span></span><span class="line"><span class="cl"><span class="s">	name = Alexandre Touret</span>
+</span></span><span class="line"><span class="cl"><span class="k">[credential]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">username</span> <span class="o">=</span> <span class="s">XXXX
+</span></span></span><span class="line"><span class="cl"><span class="s">	helper = cache</span>
+</span></span><span class="line"><span class="cl"><span class="k">[gpg]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">program</span> <span class="o">=</span> <span class="s">gpg</span>
+</span></span><span class="line"><span class="cl"><span class="k">[commit]</span>
+</span></span><span class="line"><span class="cl">	<span class="na">gpgsign</span> <span class="o">=</span> <span class="s">true</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="gentle-reminder-how-to-use-github-ssh-connection-without-using-standard-22-port" class="headerLink">
+    <a href="#gentle-reminder-how-to-use-github-ssh-connection-without-using-standard-22-port" class="header-mark"></a>4 Gentle reminder: how to use GitHub SSH connection without using Standard 22 port</h2><p>Hopefully, GitHub has enabled SSH connections through the standard HTTPS port.
+You can then set up your SSH client adding this configuration in the <code>$HOME/.ssh/config</code>:</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">Host github.com</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Hostname ssh.github.com</span>
+</span></span><span class="line"><span class="cl">    <span class="na">Port 443</span>
+</span></span><span class="line"><span class="cl">    <span class="na">User git</span>
+</span></span><span class="line"><span class="cl">    <span class="na">IdentityFile ~/.ssh/id_rsa_github</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>If you want to knwo more about GitHub SSH configuration, check out <a href="https://docs.github.com/fr/authentication/connecting-to-github-with-ssh" target="_blank" rel="noopener noreferrer">the documentation</a></p>
+<h2 id="how-to-check-it" class="headerLink">
+    <a href="#how-to-check-it" class="header-mark"></a>5 How to check it?</h2><p>In one Git repository, you can check this configuration typing the command:</p>
+<p>Here an example for a GitHub repository</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">&gt; git config --get user.email
+</span></span><span class="line"><span class="cl">alexandre-touret@users.noreply.github.com
+</span></span></code></pre></td></tr></table>
+</div>
+</div><h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>In this short article I aimed to explain how to smoothly handle two (or more) Git profiles in the same development environment.
+I chose to use the remote URL to segregate each one.
+This configuration can finally help you apply automatically the good Git information while committing your work without setting up each project individually.</p>
+<p>Hope this helps!</p>
+]]></description></item><item><title>Tips &amp; tricks for optimising Spring Data &amp; JPA queries</title><link>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</link><pubDate>Mon, 25 Mar 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/03/25/jpa_spring_data_query_optimisations/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2024/03/tobias-fischer-PkbZahEG2Ng-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@tofi?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Tobias Fischer</a></em></div>
 <p>When you code enterprise applications on top of the Java Platform, most of the time, you use <a href="https://en.wikipedia.org/wiki/Object%E2%80%93relational_mapping" target="_blank" rel="noopener noreferrer">ORMs</a> to interface them with relational databases.
