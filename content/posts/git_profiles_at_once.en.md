@@ -2,14 +2,14 @@
 title: "Managing smartly different Git profiles "
 date: 2024-04-02T06:00:43+01:00
 draft: false
-featuredImagePreview: "/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"
-featuredImage: "/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"
-images: ["/assets/images/2024/04/luke-chesser-LG8ToawE8WQ-unsplash.webp"]
+featuredImagePreview: "/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp"
+featuredImage: "/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp"
+images: ["/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp"]
 tags:
   - Git
 ---
 {{< style "text-align:center;" >}}
-_Photo de [Luke Chesser](https://unsplash.com/fr/@lukechesser?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
+_Photo by [Firdouss Ross](https://unsplash.com/@firdoussross?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
 {{< /style >}}
 
 
@@ -19,7 +19,7 @@ I particularly skip to specify the good email address of the good GPG signature 
 
 I therefore looked around for an industrialised (_~lazy_) solution for fixing this issue once for all.
 I found a solution which fits my needs: [the ``includeIf`` instruction](https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode).
-Among other things, this functionality helps me centralise my Git configuration and apply the good parameters/instructions (e.g., ``user.email``) dynamically in every repositories.
+Among other things, this functionality helps me centralise my Git configuration and apply the good parameters/instructions (e.g., ``user.email``) dynamically in every repository.
 
 You could find below how I did that:
 
