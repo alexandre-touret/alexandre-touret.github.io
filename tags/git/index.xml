@@ -2,7 +2,7 @@
                 <img src="/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-1"><em>Photo by <a href="https://unsplash.com/@firdoussross?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Firdouss Ross</a></em></div>
 <h2 id="introduction" class="headerLink">
-    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>While fixing the author and email properties for a bunch of existing commits on different repositories, I realised I often forget configuring the good information for both my profesional &amp; personal GIT repositories.
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>While fixing the author and email properties for a bunch of existing commits on different repositories, I realised I often forget configuring the good information for both my professional &amp; personal GIT repositories.
 I particularly skip to specify the good email address of the good GPG signature after checking them out.</p>
 <p>I therefore looked around for an industrialised (<em>~lazy</em>) solution for fixing this issue once for all.
 I found a solution which fits my needs: <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode" target="_blank" rel="noopener noreferrer">the <code>includeIf</code> instruction</a>.
@@ -70,7 +70,7 @@ Among other things, this functionality helps me centralise my Git configuration 
 </span></span></code></pre></td></tr></table>
 </div>
 </div><p>As mentioned earlier, I use in this configuration <a href="https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode" target="_blank" rel="noopener noreferrer">the <code>includeIf</code> functionality for checking the remote URL</a>.
-Regarding the remote URL (it also works with HTTPS URLs), either the corporate or github configuration will be applied on the fly while applying git commands in my repos.</p>
+Regarding the remote URL (it also works with HTTPS URLs), either the corporate or GitHub configuration will be applied on the fly while applying git commands in my repos.</p>
 <p>I then configured my corporate git configuration as following:</p>
 <div class="highlight"><div class="chroma">
 <table class="lntable"><tr><td class="lntd">
