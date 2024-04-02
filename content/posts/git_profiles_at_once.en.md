@@ -1,5 +1,5 @@
 ---
-title: "Managing smartly different Git profiles "
+title: "Smartly Managing Different Git Profiles"
 date: 2024-04-02T06:00:43+01:00
 draft: false
 featuredImagePreview: "/assets/images/2024/04/firdouss-ross-Z4m21XW36OM-unsplash.webp"
