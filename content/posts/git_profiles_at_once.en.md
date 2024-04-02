@@ -14,7 +14,7 @@ _Photo by [Firdouss Ross](https://unsplash.com/@firdoussross?utm_content=creditC
 
 
 ## Introduction
-While fixing the author and email properties for a bunch of existing commits on different repositories, I realised I often forget configuring the good information for both my profesional & personal GIT repositories.
+While fixing the author and email properties for a bunch of existing commits on different repositories, I realised I often forget configuring the good information for both my professional & personal GIT repositories.
 I particularly skip to specify the good email address of the good GPG signature after checking them out.
 
 I therefore looked around for an industrialised (_~lazy_) solution for fixing this issue once for all.
@@ -66,7 +66,7 @@ Now let's configure our main git configuration (e.g. ``$HOME/.gitconfig``)
 ```
 
 As mentioned earlier, I use in this configuration [the ``includeIf`` functionality for checking the remote URL](https://git-scm.com/docs/git-config#Documentation/git-config.txt-codehasconfigremoteurlcode).
-Regarding the remote URL (it also works with HTTPS URLs), either the corporate or github configuration will be applied on the fly while applying git commands in my repos.
+Regarding the remote URL (it also works with HTTPS URLs), either the corporate or GitHub configuration will be applied on the fly while applying git commands in my repos.
 
 I then configured my corporate git configuration as following:
 
