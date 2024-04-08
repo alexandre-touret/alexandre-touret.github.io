@@ -174,12 +174,14 @@ Even if some are related to <a href="https://spring.io/projects/spring-data" tar
             <i class="icon fas fa-pencil-alt fa-fw"></i>Acknowledgement<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
-            <div class="admonition-content">I would like to thank my colleagues <a href="https://www.linkedin.com/in/maximilianbeckers/" target="_blank" rel="noopener noreferrer">Max Beckers</a>, <a href="https://www.linkedin.com/in/davidpequegnot/" target="_blank" rel="noopener noreferrer">David Pequegnot</a> &amp; <a href="https://www.linkedin.com/in/petersteiner/" target="_blank" rel="noopener noreferrer">Peter Steiner</a> for reviewing my article and giving their advices, useful links &amp; tips.</div>
+            <div class="admonition-content"><p>I would like to thank my colleagues <a href="https://www.linkedin.com/in/maximilianbeckers/" target="_blank" rel="noopener noreferrer">Max Beckers</a>, <a href="https://www.linkedin.com/in/davidpequegnot/" target="_blank" rel="noopener noreferrer">David Pequegnot</a> &amp; <a href="https://www.linkedin.com/in/petersteiner/" target="_blank" rel="noopener noreferrer">Peter Steiner</a> for reviewing my article and giving their advices, useful links &amp; tips.</p>
+<p>Thanks also to <a href="https://www.sewatech.fr/" target="_blank" rel="noopener noreferrer">Alexis Hassler</a> for <a href="https://github.com/alexandre-touret/alexandre-touret.github.io/issues/114" target="_blank" rel="noopener noreferrer">the tip about Hibernate 6 logging</a>.</p>
+</div>
         </div>
     </div>
-<div class="details admonition note open">
+<div class="details admonition info open">
         <div class="details-summary admonition-title">
-            <i class="icon fas fa-pencil-alt fa-fw"></i>info<i class="details-icon fas fa-angle-right fa-fw"></i>
+            <i class="icon fas fa-info-circle fa-fw"></i>About the code snippets<i class="details-icon fas fa-angle-right fa-fw"></i>
         </div>
         <div class="details-content">
             <div class="admonition-content">All the code snippets shown in this article come from <a href="https://github.com/alexandre-touret/jpa-optimisation" target="_blank" rel="noopener noreferrer">this GitHub repository</a>.
@@ -215,7 +217,7 @@ If you use <a href="https://hibernate.org/" target="_blank" rel="noopener norefe
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-ini" data-lang="ini"><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.stat</span><span class="o">=</span><span class="s">TRACE</span>
 </span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.SQL</span><span class="o">=</span><span class="s">DEBUG</span>
-</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.type.descriptor.sql</span><span class="o">=</span><span class="s">TRACE</span>
+</span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.orm.jdbc.bind</span><span class="o">=</span><span class="s">TRACE</span>
 </span></span><span class="line"><span class="cl"><span class="na">logging.level.org.hibernate.SQL_SLOW</span><span class="o">=</span><span class="s">TRACE</span>
 </span></span><span class="line"><span class="cl"><span class="na">spring.jpa.properties.hibernate.generate_statistics</span><span class="o">=</span><span class="s">true</span>
 </span></span><span class="line"><span class="cl"><span class="na">spring.jpa.properties.hibernate.format_sql</span><span class="o">=</span><span class="s">false</span>

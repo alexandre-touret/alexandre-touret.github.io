@@ -21,9 +21,11 @@ You will see that even if we can consider using JPA easy at first glance, it can
 
 {{< admonition note "Acknowledgement" true >}}
 I would like to thank my colleagues [Max Beckers](https://www.linkedin.com/in/maximilianbeckers/), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/) & [Peter Steiner](https://www.linkedin.com/in/petersteiner/) for reviewing my article and giving their advices, useful links & tips.
+
+Thanks also to [Alexis Hassler](https://www.sewatech.fr/) for [the tip about Hibernate 6 logging](https://github.com/alexandre-touret/alexandre-touret.github.io/issues/114).
 {{< /admonition >}}
 
-{{< admonition note "info" true >}}
+{{< admonition info "About the code snippets" true >}}
 All the code snippets shown in this article come from [this GitHub repository](https://github.com/alexandre-touret/jpa-optimisation).
 Feel free to use it!
 
@@ -45,7 +47,7 @@ If you use [Spring (and JPA, Hibernate), you can also get them adding these conf
 ```ini
 logging.level.org.hibernate.stat=TRACE
 logging.level.org.hibernate.SQL=DEBUG
-logging.level.org.hibernate.type.descriptor.sql=TRACE
+logging.level.org.hibernate.orm.jdbc.bind=TRACE
 logging.level.org.hibernate.SQL_SLOW=TRACE
 spring.jpa.properties.hibernate.generate_statistics=true
 spring.jpa.properties.hibernate.format_sql=false
