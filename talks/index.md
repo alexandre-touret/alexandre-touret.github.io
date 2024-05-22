@@ -31,7 +31,7 @@ En se basant sur deux exemples fictifs (toute ressemblance avec la réalité ser
 {{< /admonition >}}
 
 * [Slides](https://speakerdeck.com/alexandretouret/tnt24-apprenons-a-identifier-les-exigences-techniques-pour-mieux-concevoir)
-* [Video](https://www.youtube.com/live/9OAFdj5UVps?si=JtppK3YWURgAvtip&t=11072)
+* [Video](https://www.youtube.com/watch?v=3yZn9mGH6ow)
 
 ### The Hitchhiker's guide to software architecture design
 
@@ -79,7 +79,7 @@ Nous aborderons, au travers d'un cas concret la stratégie à mettre en œuvre, 
 Quand on souhaite publier des APIs avec par exemple, une solution d' API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
 
 Imaginez, vous travaillez sur un produit qui expose des APIs à plusieurs clients. Vous devez leur proposer des évolutions et nouvelles fonctionnalités tout en maîtrisant l'existant.
-Comment faire évoluer et proposer vos APIs à certains clients sans pénaliser les autres? Quelle stratégie adopter? Quelles solutions techniques peut-on mettre en place simplement?
+Comment faire évoluer et proposer vos APIs à certains clients sans pénaliser les autres ? Quelle stratégie adopter ? Quelles solutions techniques peut-on mettre en place simplement ?
 
 Lors de cet atelier, vous (re)découvrirez et mettrez en pratique des conseils que j'ai pu mettre en oeuvre et qui m'ont aidé lors de mes derniers projets.
 

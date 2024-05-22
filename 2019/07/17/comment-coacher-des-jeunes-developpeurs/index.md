@@ -78,3 +78,4 @@ Pour aller un peu plus loin, un [collègue](https://twitter.com/v_pradeilles?lan
 Cette idée est très intéressante et peut être appliquée dans beaucoup de contextes.
 
 Si vous avez des idées, questions, remarques, pratiques que vous développez chez vous, n'hésitez pas à les partager!
+
