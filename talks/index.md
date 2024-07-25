@@ -16,6 +16,22 @@ Here is a bunch of talks I presented at various tech events (meetups, conference
 
 You can find them either in French or English.
 
+### Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs.
+
+{{< admonition abstract "Résumé" false >}}
+
+Êtes-vous confronté au défi d'encadrer et de développer les compétences des jeunes développeurs ?
+En tant que lead développeur ou développeur expérimenté, vous êtes souvent amené à guider techniquement de nouveaux talents. Mais quelle approche adopter pour assurer leur progression de manière optimale ?
+
+Je participe depuis plusieurs années à différentes initiatives de mentorat et d'accompagnement de jeunes développeurs. Je vous propose donc de partager les bonnes pratiques que j'ai pu mettre en œuvre ainsi que les écueils que j'ai rencontré.
+
+Nous saurons donc à la fin de cette présentation comment intégrer et rendre autonomes les nouveaux arrivant.es le plus efficacement possible.
+
+{{< /admonition >}}
+
+* [Slides](https://speakerdeck.com/alexandretouret/rvd24-integrons-faisons-grandir-et-progresser-les-jeunes-devs-bonnes-pratiques-et-retours-dexperiences-a-lintention-des-vieux-devs)
+* [Video](https://youtu.be/V3jCZgEgUn8?si=GZVAE-D5S7o8vj2y)
+
 ### Apprenons à identifier les exigences techniques pour mieux concevoir
 
 {{< admonition abstract "Résumé" false >}}
