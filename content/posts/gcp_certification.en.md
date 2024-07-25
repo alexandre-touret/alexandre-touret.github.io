@@ -1,7 +1,7 @@
 ---
 title: "My Google Professional Cloud Architect certification journey: insights & advice"
 date: 2024-07-02T06:00:43+01:00
-draft: true
+draft: truegit 
 featuredImagePreview: "/assets/images/2024/07/DSC00551.webp"
 featuredImage: "/assets/images/2024/07/DSC00551.webp"
 images: ["/assets/images/2024/07/DSC00551.webp"]
