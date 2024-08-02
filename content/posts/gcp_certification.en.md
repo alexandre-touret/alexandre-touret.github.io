@@ -102,7 +102,7 @@ It will take a long time.
 Then, it's important to repeat quizzes and exams regularly. 
 It helped me a lot to pinpoint the notions and topics I missed.
 
-Finally, don't hesitate to prepare for this certification and share this journey with others. It will undoubtedly accelerate your learning path. I had the opportunity to share a lot with some of my colleagues who passed the same certification. It helped us share tips, tricks, and delve into specific topics.
+Finally, don't hesitate to prepare for this certification and share this journey with others. It will undoubtedly accelerate your learning path. I had the opportunity to share a lot with some of my colleagues who passed the same certification. It helped us share tips, tricks, and delve into specific topics I missed.
 
 ## The D DAY
 
