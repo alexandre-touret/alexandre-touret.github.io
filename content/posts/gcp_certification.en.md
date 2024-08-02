@@ -37,6 +37,8 @@ As you can see, to pass this certification, it's not necessary to be an expert i
 I took part of a learning program based on [Google Skills Boot Cloud Architect learning path](https://www.cloudskillsboost.google/paths/12).
 
 The pace is quite exhausting. I had to watch many videos and practice the hands-on labs. 
+Over the course of 9 weeks, I dedicated at least 2 days each week to learning and practicing (not including the time spent reading the books).
+
 They were really well structurised.
 Besides, there were challenge labs that offered the opportunity to check if we understood all the concepts. No indications were given.
 
@@ -110,6 +112,10 @@ After this odyssey, when you eventually take the final exam, it's really importa
 Try to sleep the night before and be in good shape. 
 The exam lasts 2 hours, and you will need the entire time. 
 Personally, I submitted my answers 1 minute before the end.
+
+Finally, some of the questions are based on case studies that Google has already published. 
+It is recommended to read these case studies before the exam. 
+If you can study and design these platforms in advance, it will be even better, as it will save you time during the exam.
 
 ## Conclusion
 
