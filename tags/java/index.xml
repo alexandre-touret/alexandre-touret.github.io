@@ -2200,7 +2200,7 @@ We will then configure Grafana to query to it to get traces.</p>
         loading="lazy"
         src="/assets/images/2023/09/architecture_grafana.svg"
         srcset="/assets/images/2023/09/architecture_grafana.svg, /assets/images/2023/09/architecture_grafana.svg 1.5x, /assets/images/2023/09/architecture_grafana.svg 2x"
-        title="Architecture w/ Grafana &amp;amp; Tempo" ></figure></div>
+        title="Architecture w/ Grafana &amp; Tempo" ></figure></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.</p>
@@ -2460,45 +2460,45 @@ I am particularly interested in mixing logs, traces to orchestrate efficient ale
 J&rsquo;aborderai dans <a href="https://sessionize.com/s/alexandre-touret/rest-apis-versioning-hands-on/60048" target="_blank" rel="noopener noreferrer">ce dernier le versioning des APIs REST</a>.
 Pour illustrer ce sujet ô combien épineux, j&rsquo;ai réalisé une plateforme &ldquo;microservices&rdquo; en utilisant différents composants de la <a href="https://spring.io/" target="_blank" rel="noopener noreferrer">stack Spring</a>.</p>
 <table>
-<thead>
-<tr>
-<th>Container</th>
-<th>Tools</th>
-<th>Comments</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>API Gateway</td>
-<td>Spring Cloud Gateway 2022.0.0-RC2</td>
-<td></td>
-</tr>
-<tr>
-<td>Bookstore API</td>
-<td>JAVA 17,Spring Boot 3.0.X</td>
-<td></td>
-</tr>
-<tr>
-<td>ISBN API</td>
-<td>JAVA 17,Spring Boot 3.0.X</td>
-<td></td>
-</tr>
-<tr>
-<td>Configuration Server</td>
-<td>Spring Cloud Config 2022.0.0-RC2</td>
-<td></td>
-</tr>
-<tr>
-<td>Database</td>
-<td>PostgreSQL</td>
-<td></td>
-</tr>
-<tr>
-<td>Authorization Server</td>
-<td>JAVA 17,Spring Boot 3.0.X, Spring Authorization Server 1.0.0</td>
-<td></td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Container</th>
+          <th style="text-align: left">Tools</th>
+          <th style="text-align: left">Comments</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">API Gateway</td>
+          <td style="text-align: left">Spring Cloud Gateway 2022.0.0-RC2</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Bookstore API</td>
+          <td style="text-align: left">JAVA 17,Spring Boot 3.0.X</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">ISBN API</td>
+          <td style="text-align: left">JAVA 17,Spring Boot 3.0.X</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Configuration Server</td>
+          <td style="text-align: left">Spring Cloud Config 2022.0.0-RC2</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Database</td>
+          <td style="text-align: left">PostgreSQL</td>
+          <td style="text-align: left"></td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Authorization Server</td>
+          <td style="text-align: left">JAVA 17,Spring Boot 3.0.X, Spring Authorization Server 1.0.0</td>
+          <td style="text-align: left"></td>
+      </tr>
+  </tbody>
 </table>
 <p>En résumé, j&rsquo;utilise <a href="https://spring.io/projects/spring-boot" target="_blank" rel="noopener noreferrer">Spring Boot</a>, <a href="https://spring.io/cloud" target="_blank" rel="noopener noreferrer">Cloud</a>, <a href="https://spring.io/projects/spring-security" target="_blank" rel="noopener noreferrer">Security</a>, <a href="https://spring.io/projects/spring-authorization-server" target="_blank" rel="noopener noreferrer">Authorization Server</a>, <a href="https://spring.io/projects/spring-cloud-circuitbreaker" target="_blank" rel="noopener noreferrer">Circuit Breaker</a>, <a href="https://spring.io/projects/spring-data" target="_blank" rel="noopener noreferrer">Spring Data</a>,&hellip;</p>
 <p>J&rsquo;ai démarré le développement avant <a href="https://spring.io/blog/2022/11/24/spring-boot-3-0-goes-ga" target="_blank" rel="noopener noreferrer">l&rsquo;annonce officielle de la version 3.0 de Spring Boot</a>.

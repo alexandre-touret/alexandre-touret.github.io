@@ -32,22 +32,20 @@ Nous saurons donc à la fin de cette présentation comment intégrer et rendre a
 * [Slides](https://speakerdeck.com/alexandretouret/rvd24-integrons-faisons-grandir-et-progresser-les-jeunes-devs-bonnes-pratiques-et-retours-dexperiences-a-lintention-des-vieux-devs)
 * [Video](https://youtu.be/V3jCZgEgUn8?si=GZVAE-D5S7o8vj2y)
 
-### Apprenons à identifier les exigences techniques pour mieux concevoir
+### Let's Learn to Identify Technical Requirements for Better Design
 
 {{< admonition abstract "Résumé" false >}}
 
-Avez-vous déjà entendu "ça doit fonctionner 24/7", "Je veux 100% de dispo", pour finir avec "en réalité, une VM ça sera largement suffisant" ?
-Ou au contraire "Pas de SLA, ma plateforme n'est pas critique, il faut juste qu'elle tourne impérativement le premier du mois à 6h54 précises" ?
+Have you ever heard phrases like "it must work 24/7," "I want 100% availability," only to end up with "in reality, a VM will be more than sufficient"? Or conversely, "No SLA, my platform is not critical, it just needs to run precisely at 6:54 AM on the first day of the month"? If these situations sound familiar, don't miss out! Whether these Non-Functional Requirements are explicit or not, they are the keystone of any architecture aligned with client needs.
 
-Si ces situations sont votre quotidien, ne perdez pas espoir ! Que ces critères techniques (Non Functional Requirements) soient explicites ou non, ils sont la clé qui vous permettra de concevoir une architecture en adéquation avec le besoin client.
+Drawing on two fictional examples (any resemblance to reality is purely coincidental, or maybe not), we will explore how to navigate the pitfalls of overengineering and establish a pragmatic approach to identifying the right architecture for the right business need.
 
-En se basant sur deux exemples fictifs (toute ressemblance avec la réalité serait bien évidemment fortuite, ou pas), nous verrons comment déjouer les pièges de la surqualité, et comment mettre en place une démarche pragmatique d'identification de la bonne architecture pour le bon besoin métier.
+By the end of this presentation, we'll know how to identify those elusive NFRs that will help us design better architectures while avoiding unnecessary complexity!
 
-À l’issue de cette présentation, nous saurons comment identifier ces fameuses NFRs qui nous aiderons à concevoir de meilleures architectures en évitant la sur-complexité !
 {{< /admonition >}}
 
-* [Slides](https://speakerdeck.com/alexandretouret/tnt24-apprenons-a-identifier-les-exigences-techniques-pour-mieux-concevoir)
-* [Video](https://www.youtube.com/watch?v=3yZn9mGH6ow)
+* [Slides](https://speakerdeck.com/alexandretouret/geecon24-lets-learn-to-identify-technical-requirements-for-better-design)
+* [Video](https://youtu.be/hnnsDIXJ3PQ)
 
 ### The Hitchhiker's guide to software architecture design
 
@@ -69,48 +67,59 @@ At the end of this talk, you will have tips and tricks for thinking about it and
 * [Slides](https://speakerdeck.com/alexandretouret/vdb23-the-hitchhikers-guide-to-software-architecture-design)
 * [Video](https://youtu.be/vxwqD3KwdEY?si=n7L4p0USvdADFuct)
 
-### Le versioning des APIs REST: dans la vraie vie, on fait comment ?
+### Real-life REST API Versioning for dummies: Strategies and Best Practices
 
 {{< admonition abstract "Résumé" false >}}
-Quand on souhaite publier des APIs avec par exemple, une solution d'API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
+When we want to publish APIs, for instance using an API Management solution, we regularly think about versioning.
 
-Imaginez, vous travaillez sur un produit qui expose des APIs à plusieurs clients. Vous devez leur proposer des évolutions et nouvelles fonctionnalités tout en maîtrisant l'existant.
-Quelle stratégie adopter ? Quelles solutions techniques peut-on mettre en place simplement ?
+This practice meets project management needs but brings a lot of complexity.
+Imagine, you work on a platform which exposes APIs to many customers.
 
-Dans cette présentation, vous (re)découvrirez des conseils que j'ai pu mettre en pratique et qui m'ont aidé lors de mes derniers projets.
+You must bring new features while controlling the existing ones.
 
-Nous aborderons, au travers d'un cas concret la stratégie à mettre en œuvre, les différentes possibilités d'implémentation ainsi que leurs contraintes.
+Which strategy to adopt? What are the potential technical tools and practices we could implement easily?
 
-À l’issue de cette présentation, nous aurons une vue complète et objective des manières d'appréhender le versioning d'APIs.
+During this presentation, you will unlock the secrets of API versioning I have put in place and helped me during my last projects.
+
+Through a real-life use case based on a microservices architecture, we will define the best strategy to put in place, the other potential ones and their constraints.
+
+At the end of this presentation, we will have the big picture on the diverse ways of APIs versioning.
 
 {{< /admonition >}}
 
-* [Slides](https://speakerdeck.com/alexandretouret/dfl23-le-versioning-des-apis-rest-dans-la-vraie-vie-on-fait-comment)
-* [Vidéo](https://www.youtube.com/watch?v=m8DbVbMDe2w)
+* [Slides](https://speakerdeck.com/alexandretouret/apidays23-real-life-rest-api-versioning-strategies-and-best-practices)
+* [Vidéo](https://www.youtube.com/watch?v=DNBvsDCdX68)
 
-### Le versioning des APIs REST par la pratique (Workshop)
+### REST APIs versioning Hands On!
 
 {{< admonition abstract "Résumé" false >}}
 
-Quand on souhaite publier des APIs avec par exemple, une solution d' API Management, on évoque régulièrement le versioning. Cette pratique répond à des contraintes projet mais apporte malheureusement son lot de complexité.
+When we want to publish APIs, for instance using an API (Application Programmable Interface) Management solution, we regularly think about versioning.  
 
-Imaginez, vous travaillez sur un produit qui expose des APIs à plusieurs clients. Vous devez leur proposer des évolutions et nouvelles fonctionnalités tout en maîtrisant l'existant.
-Comment faire évoluer et proposer vos APIs à certains clients sans pénaliser les autres ? Quelle stratégie adopter ? Quelles solutions techniques peut-on mettre en place simplement ?
+This practice meets project management needs but brings a lot of complexity. 
+Imagine, you work on a platform which exposes APIs to many customers. 
 
-Lors de cet atelier, vous (re)découvrirez et mettrez en pratique des conseils que j'ai pu mettre en oeuvre et qui m'ont aidé lors de mes derniers projets.
+You must bring new features while controlling the existing ones. 
 
-Au travers d'un cas concret basé sur une architecture microservices, nous définirons la stratégie à mettre en œuvre, les différentes possibilités d'implémentation ainsi que leurs contraintes.
-Nous les challengerons ensuite en apportant différentes évolutions (ajout d'un nouveau client ou de nouvelles fonctionnalités).
+How to deliver new functionalities to specific customers without affecting the others? 
 
-A l’issue de cet atelier, nous aurons une vue complète et mis en pratique différentes manières d'appréhender le versioning d'APIs.
+Throughout this workshop you will (re)discover and apply advice I have put in place and helped me during my last projects. 
+
+Through a real-life use case based on a microservices architecture, we will define the best strategy to put in place, the other potential ones and their constraints. 
+
+We will challenge them implementing new features for a new customer in this application. 
+
+At the end of this workshop, we will have the big picture and put into practice diverse ways of APIs versioning. 
+
 
 {{< /admonition >}}
 
-* [Slides](https://speakerdeck.com/alexandretouret/le-versioning-des-apis-rest-par-la-pratique)
+* [Slides](https://speakerdeck.com/alexandretouret/ndclondon24-real-life-rest-api-versioning-hands-on)
 * [Workshop](https://github.com/alexandre-touret/rest-apis-versionning-workshop)
 
 
-### Architecture Katas : Improve your system architecture design skills in a funny way
+### Architecture Katas: Improve your system architecture design skills in a funny way
+
 {{< admonition abstract "Abstract" false >}}
 
 How to learn architecture ? How to improve in this field ? How do we recognize a good or a bad architecture ?

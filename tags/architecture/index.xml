@@ -74,22 +74,22 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
     <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
     <a href="#slos--slis" class="header-mark"></a>4.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
 <table>
-<thead>
-<tr>
-<th>SLO</th>
-<th>SLI</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>L&rsquo;API Bookstore doit être disponible 99%</td>
-<td>Nombre de réponses HTTP = 2XX ou 4XX</td>
-</tr>
-<tr>
-<td>L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
-<td>Temps de réponse de l&rsquo;API</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">SLO</th>
+          <th style="text-align: left">SLI</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">L&rsquo;API Bookstore doit être disponible 99%</td>
+          <td style="text-align: left">Nombre de réponses HTTP = 2XX ou 4XX</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
+          <td style="text-align: left">Temps de réponse de l&rsquo;API</td>
+      </tr>
+  </tbody>
 </table>
 <h4 id="volumétrie" class="headerLink">
     <a href="#volum%c3%a9trie" class="header-mark"></a>4.1.2 Volumétrie</h4><ul>
@@ -108,30 +108,30 @@ Je ne vais pas les aborder dans cet article.</p>
 <h3 id="qualification-des-risques" class="headerLink">
     <a href="#qualification-des-risques" class="header-mark"></a>4.3 Qualification des risques</h3><p>Voici une rapide qualification:</p>
 <table>
-<thead>
-<tr>
-<th>Risques</th>
-<th>Probabilité</th>
-<th>Impact</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Indisponibilité du service bookstore</td>
-<td>Probable</td>
-<td>Majeur</td>
-</tr>
-<tr>
-<td>Indisponibilité du service booknumber</td>
-<td>Probable</td>
-<td>Majeur</td>
-</tr>
-<tr>
-<td>Indisponibilité de la base de données</td>
-<td>Possible</td>
-<td>Catastrophique</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Risques</th>
+          <th style="text-align: left">Probabilité</th>
+          <th style="text-align: left">Impact</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Indisponibilité du service bookstore</td>
+          <td style="text-align: left">Probable</td>
+          <td style="text-align: left">Majeur</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Indisponibilité du service booknumber</td>
+          <td style="text-align: left">Probable</td>
+          <td style="text-align: left">Majeur</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Indisponibilité de la base de données</td>
+          <td style="text-align: left">Possible</td>
+          <td style="text-align: left">Catastrophique</td>
+      </tr>
+  </tbody>
 </table>
 <p>Si on se réfère au premier diagramme, il est obligatoire de les prendre en compte.</p>
 <h3 id="solutions-darchitecture-pour-leur-prise-en-compte" class="headerLink">
@@ -139,34 +139,34 @@ Je ne vais pas les aborder dans cet article.</p>
 <p>Dans notre cas, on va prendre le postulat qu&rsquo;il faut réellement les prendre en considération et trouver une solution adaptée.</p>
 <p>Voici des exemples de solutions qui permettraient de faire descendre leur impact our leur probabilité.</p>
 <table>
-<thead>
-<tr>
-<th>Risques</th>
-<th>Probabilité</th>
-<th>Impact</th>
-<th>Action/Solutions possibles</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Indisponibilité du service bookstore</td>
-<td>Possible</td>
-<td>Majeur</td>
-<td>Load balancing avec deux instances, Utilisation Kubernetes,.</td>
-</tr>
-<tr>
-<td>Indisponibilité du service booknumber</td>
-<td>Possible</td>
-<td>Majeur</td>
-<td>Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
-</tr>
-<tr>
-<td>Indisponibilité de la base de données</td>
-<td>Possible</td>
-<td>Catastrophique</td>
-<td>- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Risques</th>
+          <th style="text-align: left">Probabilité</th>
+          <th style="text-align: left">Impact</th>
+          <th style="text-align: left">Action/Solutions possibles</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Indisponibilité du service bookstore</td>
+          <td style="text-align: left">Possible</td>
+          <td style="text-align: left">Majeur</td>
+          <td style="text-align: left">Load balancing avec deux instances, Utilisation Kubernetes,.</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Indisponibilité du service booknumber</td>
+          <td style="text-align: left">Possible</td>
+          <td style="text-align: left">Majeur</td>
+          <td style="text-align: left">Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Indisponibilité de la base de données</td>
+          <td style="text-align: left">Possible</td>
+          <td style="text-align: left">Catastrophique</td>
+          <td style="text-align: left">- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
+      </tr>
+  </tbody>
 </table>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>L&rsquo;analyse des risques n&rsquo;est pas récente et n&rsquo;a pas été inventée par le monde de l&rsquo;informatique.

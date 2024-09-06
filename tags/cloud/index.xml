@@ -326,80 +326,80 @@ Vous noterez que selon où on positionne le curseur, l&rsquo;une des deux soluti
 A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data.</p>
 <p>N&rsquo;hésitez pas à me donner votre avis (<a href="https://blog.touret.info/a-propos/" target="_blank" rel="noopener noreferrer">sans troller svp</a>) en commentaire ou si ça concerne l&rsquo;exemple, directement <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">dans Github</a>.</p>
 <table>
-<thead>
-<tr>
-<th>Architecture characteristic</th>
-<th>K8s job rating</th>
-<th>Spring Cloud Dataflow rating</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Partitioning type</td>
-<td>Domain &amp; technical</td>
-<td>Domain &amp; technical</td>
-</tr>
-<tr>
-<td>Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
-<td>1</td>
-<td>1 to many</td>
-</tr>
-<tr>
-<td>Deployability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Elasticity</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Evolutionary</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Fault Tolerance</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Modularity</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Overall cost</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Performance</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Reliability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Scalability</td>
-<td>⭐⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Simplicity</td>
-<td>⭐⭐⭐⭐⭐</td>
-<td>⭐⭐⭐</td>
-</tr>
-<tr>
-<td>Testability</td>
-<td>⭐⭐⭐</td>
-<td>⭐⭐⭐⭐</td>
-</tr>
-</tbody>
+  <thead>
+      <tr>
+          <th style="text-align: left">Architecture characteristic</th>
+          <th style="text-align: left">K8s job rating</th>
+          <th style="text-align: left">Spring Cloud Dataflow rating</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">Partitioning type</td>
+          <td style="text-align: left">Domain &amp; technical</td>
+          <td style="text-align: left">Domain &amp; technical</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">1 to many</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Deployability</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Elasticity</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Evolutionary</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Fault Tolerance</td>
+          <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Modularity</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Overall cost</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Performance</td>
+          <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Reliability</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Scalability</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Simplicity</td>
+          <td style="text-align: left">⭐⭐⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">Testability</td>
+          <td style="text-align: left">⭐⭐⭐</td>
+          <td style="text-align: left">⭐⭐⭐⭐</td>
+      </tr>
+  </tbody>
 </table>
 <div class="footnotes" role="doc-endnotes">
 <hr>
