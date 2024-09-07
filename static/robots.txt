@@ -1,3 +1,4 @@
 user-agent: *
 allow: /
-sitemap: https://blog.touret.info/sitemap.xml
+Disallow: /*.md$
+Sitemap: https://blog.touret.info/sitemap.xml
