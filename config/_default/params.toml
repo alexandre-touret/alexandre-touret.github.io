@@ -18,10 +18,11 @@ fingerprint = ""
 dateFormat = "2006-01-02"
 # website images for Open Graph and Twitter Cards
 # 网站图片, 用于 Open Graph 和 Twitter Cards
-images = ["/images/alexandre.touret.webp"]
+images = ["/assets/images/alexandre.touret.webp"]
 # enable PWA
 # 开启 PWA 支持
 enablePWA = false
+
 # license information
 # 许可协议信息 (支持 HTML 格式)
 license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
@@ -32,7 +33,7 @@ bundle = false
   name = "Alexandre Touret"
   email = ""
   link = "https://blog.touret.info"
-  avatar = "/images/alexandre.touret.webp"
+  avatar = "/assets/images/alexandre.touret.webp"
   gravatarEmail = ""
   links = [
       { link = { href = "https://github.com/jpanther/lynx/blob/stable/README.md", text = "View the readme", icon = "github" } },
@@ -511,12 +512,12 @@ bundle = false
   [page.seo]
     # image URL
     # 图片 URL
-    images = ['/images/alexandre.touret.webp']
+    images = ['/assets/images/alexandre.touret.webp']
     # Publisher info
     # 出版者信息
     [page.seo.publisher]
       name = "Alexandre Touret"
-      logoUrl = "/images/alexandre.touret.webp"
+      logoUrl = "/assets/images/alexandre.touret.webp"
   # Related content config
   # 相关文章推荐配置
   [page.related]
@@ -563,10 +564,10 @@ bundle = false
 [seo]
   # image URL
   # 图片 URL
-  image = "/images/alexandre.touret.webp"
+  image = "/assets/images/alexandre.touret.webp"
   # thumbnail URL
   # 缩略图 URL
-  thumbnailUrl = "images/alexandre.touret.webp"
+  thumbnailUrl = "/assets/images/alexandre.touret.webp"
 
 # Analytics config
 # 网站分析配置

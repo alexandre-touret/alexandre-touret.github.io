@@ -40,7 +40,7 @@ keywords = ["Theme", "Hugo"]
   maxResultLength = 10
   # snippet length of the result
   # 结果内容片段长度
-  snippetLength = 300
+  snippetLength = 40
   # HTML tag name of the highlight part in results
   # 搜索结果中高亮部分的 HTML 标签
   highlightTag = "em"
@@ -103,6 +103,7 @@ keywords = ["Theme", "Hugo"]
     # special amount of posts in each home posts page
     # 主页每页显示文章数量
     paginate = 7
+
 # Social config in home page
 # 主页的社交信息设置
 [social]
