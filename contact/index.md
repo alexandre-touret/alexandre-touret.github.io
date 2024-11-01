@@ -5,10 +5,10 @@
 
 You can reach / follow me through:
 
-* :(fab fa-twitter fa-fw): [Twitter/X](https://twitter.com/touret_alex)
-* :(fab fa-linkedin fa-fw): [LinkedIn](https://www.linkedin.com/in/atouret/)
-* :(fab fa-github fa-fw): [GitHub](https://github.com/alexandre-touret/)
-* :(fas fa-user-circle fa-fw): [BlueSky](https://bsky.app/profile/touret.info)
-* :(fab fa-mastodon fa-fw): [Mastodon](https://piaille.fr/@alexandre)
-* :(fab fa-youtube fa-fw): [Youtube](https://www.youtube.com/channel/UC6U2HsO2QNg9QfsqEbTIfpQ)
+* {{< fa-icon brands twitter >}} [Twitter/X](https://twitter.com/touret_alex)
+* {{< fa-icon brands linkedin >}} [LinkedIn](https://www.linkedin.com/in/atouret/)
+* {{< fa-icon brands github >}} [GitHub](https://github.com/alexandre-touret/)
+* {{< fa-icon brands twitter >}} [BlueSky](https://bsky.app/profile/touret.info)
+* {{< fa-icon brands mastodon >}} [Mastodon](https://piaille.fr/@alexandre)
+* {{< fa-icon brands youtube >}} [Youtube](https://www.youtube.com/channel/UC6U2HsO2QNg9QfsqEbTIfpQ)
 
