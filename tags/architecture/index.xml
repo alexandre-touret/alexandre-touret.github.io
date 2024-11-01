@@ -9,9 +9,9 @@
 <p>Mais d&rsquo;abord, revenons aux bases. Comment identifier un risque ?</p>
 <p>Selon <a href="https://fr.wikipedia.org/wiki/Risque" target="_blank" rel="noopener noreferrer">Wikipedia</a>, voici la définition:</p>
 <blockquote>
-<p>Le risque est la possibilité de survenue d&rsquo;un événement indésirable, la probabilité d’occurrence d&rsquo;un péril probable ou d&rsquo;un aléa.</p>
-</blockquote>
-<p>Bien évidemment, on a les risques inconnus et ceux qui sont connus.
+  <p>Le risque est la possibilité de survenue d&rsquo;un événement indésirable, la probabilité d’occurrence d&rsquo;un péril probable ou d&rsquo;un aléa.</p>
+
+</blockquote><p>Bien évidemment, on a les risques inconnus et ceux qui sont connus.
 Le préalable à toute gestion de risque (tout du moins pour la définition d&rsquo;architecture) est de capitaliser les connaissances et retours d&rsquo;expérience qui viennent du terrain.</p>
 <p>On va donc oublier les risques inconnus dans cet article.</p>
 <h3 id="comment-les-définir-" class="headerLink">
@@ -40,12 +40,7 @@ Pour chacun, vous devrez définir ces trois caractéristiques : cause, probabili
 <p>A coté de ça, vous aurez à identifier si possible le temps d&rsquo;indisponibilité du service.</p>
 <h3 id="synthèse" class="headerLink">
     <a href="#synth%c3%a8se" class="header-mark"></a>1.2 Synthèse</h3><p>Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:</p>
-<div id="id-1"><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2022/02/Risk-Based-Audit_technical.webp"
-        srcset="/assets/images/2022/02/Risk-Based-Audit_technical.webp, /assets/images/2022/02/Risk-Based-Audit_technical.webp 1.5x, /assets/images/2022/02/Risk-Based-Audit_technical.webp 2x"
-        title="analyse de risques" ></figure></div>
+<div id="id-1"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/02/Risk-Based-Audit_technical.webp   alt="analyse de risques"  ></div>
 <p>En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d&rsquo;action.</p>
 <p>Prenons la définition d&rsquo;une plateforme:
 Si votre API doit traiter de manière régulière des PAYLOADs volumineux (bon déjà, la ce n&rsquo;est pas top).
@@ -64,33 +59,31 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
 <p><strong>Oui, ce travail préalable permet de faire simple!</strong></p>
 <h2 id="un-exemple-concret" class="headerLink">
     <a href="#un-exemple-concret" class="header-mark"></a>4 Un exemple concret</h2><p>Si je reprends l&rsquo;application <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">bookstore</a> que j&rsquo;ai décrite dans <a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">un précédent article</a>:</p>
-<p><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2021/07/rest-book-architecture.png"
-        srcset="/assets/images/2021/07/rest-book-architecture.png, /assets/images/2021/07/rest-book-architecture.png 1.5x, /assets/images/2021/07/rest-book-architecture.png 2x"
-        title="bookstore architecture" ></figure></p>
+<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/rest-book-architecture.png   alt="bookstore architecture"  ></p>
 <h3 id="exigences-techniques" class="headerLink">
     <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
     <a href="#slos--slis" class="header-mark"></a>4.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">SLO</th>
-          <th style="text-align: left">SLI</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">L&rsquo;API Bookstore doit être disponible 99%</td>
-          <td style="text-align: left">Nombre de réponses HTTP = 2XX ou 4XX</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
-          <td style="text-align: left">Temps de réponse de l&rsquo;API</td>
-      </tr>
-  </tbody>
-</table>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: ">SLO</th>
+            <th style="text-align: ">SLI</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: ">L&rsquo;API Bookstore doit être disponible 99%</td>
+            <td style="text-align: ">Nombre de réponses HTTP = 2XX ou 4XX</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
+            <td style="text-align: ">Temps de réponse de l&rsquo;API</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 <h4 id="volumétrie" class="headerLink">
     <a href="#volum%c3%a9trie" class="header-mark"></a>4.1.2 Volumétrie</h4><ul>
 <li>100 transactions par seconde (TPS)</li>
@@ -107,67 +100,73 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
 Je ne vais pas les aborder dans cet article.</p>
 <h3 id="qualification-des-risques" class="headerLink">
     <a href="#qualification-des-risques" class="header-mark"></a>4.3 Qualification des risques</h3><p>Voici une rapide qualification:</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Risques</th>
-          <th style="text-align: left">Probabilité</th>
-          <th style="text-align: left">Impact</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">Indisponibilité du service bookstore</td>
-          <td style="text-align: left">Probable</td>
-          <td style="text-align: left">Majeur</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Indisponibilité du service booknumber</td>
-          <td style="text-align: left">Probable</td>
-          <td style="text-align: left">Majeur</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Indisponibilité de la base de données</td>
-          <td style="text-align: left">Possible</td>
-          <td style="text-align: left">Catastrophique</td>
-      </tr>
-  </tbody>
-</table>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: ">Risques</th>
+            <th style="text-align: ">Probabilité</th>
+            <th style="text-align: ">Impact</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: ">Indisponibilité du service bookstore</td>
+            <td style="text-align: ">Probable</td>
+            <td style="text-align: ">Majeur</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Indisponibilité du service booknumber</td>
+            <td style="text-align: ">Probable</td>
+            <td style="text-align: ">Majeur</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Indisponibilité de la base de données</td>
+            <td style="text-align: ">Possible</td>
+            <td style="text-align: ">Catastrophique</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 <p>Si on se réfère au premier diagramme, il est obligatoire de les prendre en compte.</p>
 <h3 id="solutions-darchitecture-pour-leur-prise-en-compte" class="headerLink">
     <a href="#solutions-darchitecture-pour-leur-prise-en-compte" class="header-mark"></a>4.4 Solutions d&rsquo;architecture pour leur prise en compte</h3><p>Une fois les risques identifiés, on peut tout d&rsquo;abord les confronter à notre budget d&rsquo;erreur pour valider leur prise en compte dans notre conception.</p>
 <p>Dans notre cas, on va prendre le postulat qu&rsquo;il faut réellement les prendre en considération et trouver une solution adaptée.</p>
 <p>Voici des exemples de solutions qui permettraient de faire descendre leur impact our leur probabilité.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Risques</th>
-          <th style="text-align: left">Probabilité</th>
-          <th style="text-align: left">Impact</th>
-          <th style="text-align: left">Action/Solutions possibles</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">Indisponibilité du service bookstore</td>
-          <td style="text-align: left">Possible</td>
-          <td style="text-align: left">Majeur</td>
-          <td style="text-align: left">Load balancing avec deux instances, Utilisation Kubernetes,.</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Indisponibilité du service booknumber</td>
-          <td style="text-align: left">Possible</td>
-          <td style="text-align: left">Majeur</td>
-          <td style="text-align: left">Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">Indisponibilité de la base de données</td>
-          <td style="text-align: left">Possible</td>
-          <td style="text-align: left">Catastrophique</td>
-          <td style="text-align: left">- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
-      </tr>
-  </tbody>
-</table>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: ">Risques</th>
+            <th style="text-align: ">Probabilité</th>
+            <th style="text-align: ">Impact</th>
+            <th style="text-align: ">Action/Solutions possibles</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: ">Indisponibilité du service bookstore</td>
+            <td style="text-align: ">Possible</td>
+            <td style="text-align: ">Majeur</td>
+            <td style="text-align: ">Load balancing avec deux instances, Utilisation Kubernetes,.</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Indisponibilité du service booknumber</td>
+            <td style="text-align: ">Possible</td>
+            <td style="text-align: ">Majeur</td>
+            <td style="text-align: ">Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Indisponibilité de la base de données</td>
+            <td style="text-align: ">Possible</td>
+            <td style="text-align: ">Catastrophique</td>
+            <td style="text-align: ">- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>L&rsquo;analyse des risques n&rsquo;est pas récente et n&rsquo;a pas été inventée par le monde de l&rsquo;informatique.
 Elle est d&rsquo;abord apparue dans la gestion de projets et fait désormais partie prenante de la définition d&rsquo;architectures (enfin ça commence&hellip;).
@@ -188,12 +187,7 @@ Ce sujet y est abordé.</p>
 <p>{% include gallery caption=&ldquo;Un kata d&rsquo;architecture à TNT&rdquo;  layout=&ldquo;half&rdquo; %}</p>
 <p>La cave à vin connecté a remporté un franc succès, du moins pendant la présentation des sujets 🙂</p>
 <p>Voici le feedback que j&rsquo;ai eu sur ma présentation:</p>
-<p><figure><img
-        
-        loading="lazy"
-        src="/assets/images/2019/02/img_20190201_174057.jpg"
-        srcset="/assets/images/2019/02/img_20190201_174057.jpg, /assets/images/2019/02/img_20190201_174057.jpg 1.5x, /assets/images/2019/02/img_20190201_174057.jpg 2x"
-        title="Feedback" ></figure></p>
+<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2019/02/img_20190201_174057.jpg   alt="Feedback"  ></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item><item><title>Touraine Tech 2019</title><link>https://blog.touret.info/2018/12/25/touraine-tech-2019/</link><pubDate>Tue, 25 Dec 2018 17:24:29 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/12/25/touraine-tech-2019/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/touraine_tech.png" referrerpolicy="no-referrer">
