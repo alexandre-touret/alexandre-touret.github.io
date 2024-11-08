@@ -40,6 +40,14 @@
   url = "/talks/"
   title = ""
 [[main]]
+  weight = 4
+  identifier = "teaching"
+  pre = ""
+  post = ""
+  name = "Teaching"
+  url = "/teaching/"
+  title = ""
+[[main]]
   identifier = "about"
   pre = ""
   post = ""
