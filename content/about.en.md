@@ -6,7 +6,9 @@ permalink: /en/about/
 comment:
   enable: true
 featuredImagePreview: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
-
+featuredImage: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
+og_image: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
+images: ["/assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp"]
 ---
 
 I expose on this blog my tests, technical musings and explorations.

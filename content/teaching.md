@@ -6,7 +6,8 @@ comment:
   enable: false
 featuredImagePreview: /assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp 
 featuredImage: /assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp 
-
+og_image: /assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp 
+images: ["/assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp"]
 ---
 
 {{< figure src="/assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp" title="Teaching" >}}

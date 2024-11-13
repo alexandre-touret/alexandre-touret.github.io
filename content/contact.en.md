@@ -6,6 +6,9 @@ permalink: /en/contact/
 comment:
   enable: true
 featuredImagePreview: /assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp 
+featuredImage: /assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp
+og_image: /assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp 
+images: ["/assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp"]
 ---
 
 {{< figure src="/assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp" title="Photo by Jac Alexandru" >}}

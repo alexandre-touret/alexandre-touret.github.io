@@ -5,9 +5,10 @@ date: 2022-07-02T09:41:07+01:00
 permalink: /en/talks/
 comment:
   enable: true
-featuredImagePreview: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
-featuredImage: /assets/images/2019/08/kelly-sikkema-c3rk5toz0qa-unsplash.jpg
-
+featuredImagePreview: /assets/images/2021/11/pexels-skitterphoto-691485.webp
+featuredImage: /assets/images/2021/11/pexels-skitterphoto-691485.webp
+og_image: /assets/images/2021/11/pexels-skitterphoto-691485.webp 
+images: ["/assets/images/2021/11/pexels-skitterphoto-691485.webp"]
 ---
 
 {{< figure src="/assets/images/2021/11/pexels-skitterphoto-691485.webp" title="Talks" >}}
