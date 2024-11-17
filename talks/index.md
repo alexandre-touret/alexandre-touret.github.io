@@ -3,7 +3,7 @@
 
 {{< figure src="/assets/images/2021/11/pexels-skitterphoto-691485.webp" title="Talks" >}}
 
-You can find below the slides and videos of my latest talks in French and English.
+You can find below the slides and videos of my latest talks in French and in English.
 I held most of them in both two languages.
 
 You can also get [my slides on SpeakerDeck](https://speakerdeck.com/alexandretouret) and videos on this [Youtube playlist](https://www.youtube.com/watch?v=DKfR5AVD_AM&list=PL_s9loQqLrqrKakCB6LbOoxn2PrwCntQt):

@@ -505,14 +505,14 @@ La banque de son recommandée est disponible via <a href="https://musical-artifa
 <h3 id="configurer-fluidsynth" class="headerLink">
     <a href="#configurer-fluidsynth" class="header-mark"></a>1.4 Configurer fluidsynth</h3><p>Lancez qsynth et cliquez sur le bouton « configuration »</p>
 <p>Vous trouverez ci-dessous la configuration que j&rsquo;ai appliqué. Elle diffère légèrement de <a href="https://www.jjazzlab.com/en/doc/fluidsynth/" target="_blank" rel="noopener noreferrer">celle présentée dans la documentation</a>.</p>
-<div id="id-11"><p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png   alt="fluidsynth1"  ></p>
+<div id="id-3"><p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-04-39.png   alt="fluidsynth1"  ></p>
 <p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-02.png   alt="fluidsynth2"  ></p>
 <p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-05-13.png   alt="fluidsynth3"  ></p>
 </div>
 <p>Pensez à redémarrer fluidsynth après application de ces nouveaux paramètres.</p>
 <h3 id="configurer-aconnect" class="headerLink">
     <a href="#configurer-aconnect" class="header-mark"></a>1.5 Configurer aconnect</h3><p>Disclaimer: La c&rsquo;est la partie la plus obscure…</p>
-<div id="id-12"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/pegi_18_annotated_2009-2010.webp   alt="aconnect"  ></div>
+<div id="id-4"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/pegi_18_annotated_2009-2010.webp   alt="aconnect"  ></div>
 <p>Il faut maintenant « brancher » la sortie du synthétiseur virtuel MIDI à fluidsynth pour que le son MIDI soit interprété par ce dernier à travers sa banque de son. Ce n&rsquo;est pas intuitif, je vous avais prévenu …<br>
 Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de console est plus parlante ( c&rsquo;est pour dire ) .</p>
 <p>Exécutez la commande suivante:</p>
@@ -903,7 +903,7 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-9" 
+    id="codeblock-id-1" 
     class="
       chroma 
       !tw-block 
@@ -1000,7 +1000,7 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-10" 
+    id="codeblock-id-2" 
     class="
       chroma 
       !tw-block 
@@ -1026,11 +1026,11 @@ Je ne vous parle pas de la pseudo interface graphique à aconnect. La ligne de c
 <p>Maintenant vous pouvez directement démarrer JJazzlab via le menu.</p>
 <h2 id="configuration" class="headerLink">
     <a href="#configuration" class="header-mark"></a>3 Configuration</h2><p>Une fois jjazzlab démarré, vous devez aller dans le menu « Tools&gt;Options » et sélectionnez les valeurs suivantes:</p>
-<div id="id-13"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png   alt="configuration"  ></div>
+<div id="id-5"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-29-27.png   alt="configuration"  ></div>
 <p>Ouvrez un fichier example (ex. sunny )</p>
 <p>Cliquez sur le menu décrit par un clavier</p>
-<div id="id-14"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png   alt="configuration"  ></div>
+<div id="id-6"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-34-11.png   alt="configuration"  ></div>
 <p>Puis configurez comme suit:</p>
-<div id="id-15"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png   alt="configuration"  ></div>
+<div id="id-7"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/04/capture-de28099c3a9cran-du-2020-04-12-15-35-04.png   alt="configuration"  ></div>
 <p>Maintenant vous pouvez <a href="https://www.jjazzlab.com/docs/JJazzLab-Realbook.zip" target="_blank" rel="noopener noreferrer">télécharger les standards fournis sur le site</a> et improviser dessus 🙂</p>
 ]]></description></item></channel></rss>
