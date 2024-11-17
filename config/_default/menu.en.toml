@@ -40,7 +40,15 @@
   url = "/talks/"
   title = ""
 [[main]]
-  weight = 4
+  weight = 5
+  identifier = "speaker-resume"
+  pre = ""
+  post = ""
+  name = "Speaker Resume"
+  url = "/speaker-resume/"
+  title = ""
+[[main]]
+  weight = 6
   identifier = "teaching"
   pre = ""
   post = ""
