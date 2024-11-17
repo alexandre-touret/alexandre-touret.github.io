@@ -36,9 +36,9 @@ Generally speaking, I would rather not write an article than fully generate it e
 
 I only use LLM :
 - to fix my english articles and make them sounding like more "native
-- to get sometimes inspiration or use them as a search engine on steroid
+- to get sometimes inspiration or use them as a search engine on steroids
 
-By the way, this precision is inspired from the article of [D. GERMAIN](https://blog.zwindler.fr/ai-manifesto/) and [C. WILLIAMS](https://cassidoo.co/ai/)
+By the way, this precision is inspired from the article of [D. GERMAIN](https://blog.zwindler.fr/ai-manifesto/) and [C. WILLIAMS](https://cassidoo.co/ai/).
 
 ___
 
