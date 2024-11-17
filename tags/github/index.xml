@@ -446,7 +446,7 @@ Le code généré sera copié dans la branche <code>gh-pages</code>.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
+    id="codeblock-id-1" 
     class="
       chroma 
       !tw-block 
@@ -552,7 +552,7 @@ Il permet, via un script python de:</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
+    id="codeblock-id-2" 
     class="
       chroma 
       !tw-block 
@@ -694,7 +694,7 @@ Pour mon besoin, j&rsquo;ai préféré opter pour un appel régulier du site et 
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-6" 
+    id="codeblock-id-3" 
     class="
       chroma 
       !tw-block 
