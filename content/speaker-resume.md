@@ -54,8 +54,11 @@ ___
 - Devoxx BE  :gb: : [Architecture Katas : Improve your system architecture design skills in a funny way !]
 - Cloud Nord :fr: :  [Java dans le Cloud: avec Spring ou Quarkus](https://cloudnord.fr/page20993016.html#rec468946901)
 - Jug Summer Camp :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://www.jugsummercamp.org/edition/13/presentations/M4PStUHdf6GaOqfOlwOt)
+- Voxxed Days Luxembourg :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://cfp-voxxed-lux.yajug.org/2022/talk/CRJ-3791/Ameliorer_les_competences_et_les_infrastructures_avec_les_katas_d'architecture.html)
 - Breizhcamp :fr: :  [Java dans le Cloud: avec Spring ou Quarkus](https://2022.breizhcamp.org/conference/programme/)
 - Camping des Speakers :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://2022.camping-speakers.fr/sessions/ameliorer_les_competences_et_les_infrastructures_avec_les_katas_darchitecture/)
+- Nantes JUG :fr: [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://nantesjug.org/#/events/2022_03_29)
+- Nantes JUG :fr: [Checklist pour concevoir une application dans le cloud : 10 conseils à l'attention des concepteurs et architectes](https://nantesjug.org/#/events/2022_03_29)
 - SnowcampIO  :fr: :  [Checklist pour concevoir une application dans le cloud](https://snowcamp2022.sched.com/event/qHP8/checklist-pour-concevoir-une-application-dans-le-cloud-10-conseils-a-lattention-des-concepteurs-et-architectes)
 - Touraine Tech :fr: : [Java dans le Cloud: avec Spring ou Quarkus](https://2022.touraine.tech/talk/viqWI7wZa2jpPUo1Vy8y)
 
