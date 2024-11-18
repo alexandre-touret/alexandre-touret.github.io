@@ -34,7 +34,7 @@ Nous saurons donc à la fin de cette présentation comment intégrer et rendre a
 
 ### Let's Learn to Identify Technical Requirements for Better Design
 
-{{< admonition abstract "Résumé" false >}}
+{{< admonition abstract "Abstract" false >}}
 
 Have you ever heard phrases like "it must work 24/7," "I want 100% availability," only to end up with "in reality, a VM will be more than sufficient"? Or conversely, "No SLA, my platform is not critical, it just needs to run precisely at 6:54 AM on the first day of the month"? If these situations sound familiar, don't miss out! Whether these Non-Functional Requirements are explicit or not, they are the keystone of any architecture aligned with client needs.
 
@@ -69,7 +69,7 @@ At the end of this talk, you will have tips and tricks for thinking about it and
 
 ### Real-life REST API Versioning for dummies: Strategies and Best Practices
 
-{{< admonition abstract "Résumé" false >}}
+{{< admonition abstract "Abstract" false >}}
 When we want to publish APIs, for instance using an API Management solution, we regularly think about versioning.
 
 This practice meets project management needs but brings a lot of complexity.
@@ -92,7 +92,7 @@ At the end of this presentation, we will have the big picture on the diverse way
 
 ### REST APIs versioning Hands On!
 
-{{< admonition abstract "Résumé" false >}}
+{{< admonition abstract "Abstract" false >}}
 
 When we want to publish APIs, for instance using an API (Application Programmable Interface) Management solution, we regularly think about versioning.  
 
