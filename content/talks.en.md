@@ -26,6 +26,14 @@ Here is a bunch of talks I presented at various tech events (meetups, conference
 
 You can find them either in French or English.
 
+### Implementing API-First Approach: Practical Insights for Streamlining Your APIs
+
+{{< admonition abstract "Abstract" false >}}
+
+* [Slides](https://speakerdeck.com/alexandretouret/apidays24-implementing-api-first-practical-insights-for-streamlining-your-api)
+
+{{< /admonition >}}
+
 ### Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs.
 
 {{< admonition abstract "Résumé" false >}}
