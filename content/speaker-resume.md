@@ -18,6 +18,7 @@ If you want to know more about them, you can see the descriptions on [the talks 
 
 ## 2024
 
+- APIDAYS Paris 2024 :gb: : [Implementing API-First Approach: Practical Insights for Streamlining Your APIs](https://www.apidays.global/paris/)
 - VolcampIO :fr: : [Une plateforme à concevoir, deux architectes: trois possibilités?](https://www.volcamp.io/talks/24d2t3s1)
 - Devoxx Morocco :fr: : [Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs](https://devoxx.ma/speaker/alexandre-touret/)
 - RivieraDev :fr: : [Apprenons à identifier les exigences techniques pour mieux concevoir](https://2024.rivieradev.fr/session/219)
