@@ -30,6 +30,15 @@ You can find them either in French or English.
 
 {{< admonition abstract "Abstract" false >}}
 
+We often oppose Code-first to API-first approaches. Most of the coders prefer the first one because it is more code centric, and the documentation is automatically generated. 
+In fact, the latter is often perceived by them as a "boring-documentation-first" development.
+
+However, the API-first design and implementation offer many benefits: streamlining your APIs, tackling the complexity and most of all, boosting the developer experience of your customers. 
+
+Through practical feedback we will cover how to implement API-first Approaches with the associated practices and tooling. We will then pinpoint the main difficulties to struggle with. 
+
+We will therefore see how to tackle this huge challenge: improve the quality of your API, increasing the adoption of your APIs by your customers, and most importantly, make your developers love the Documentation Code First approach!
+
 * [Slides](https://speakerdeck.com/alexandretouret/apidays24-implementing-api-first-practical-insights-for-streamlining-your-api)
 
 {{< /admonition >}}
