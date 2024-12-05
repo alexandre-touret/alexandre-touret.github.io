@@ -59,6 +59,24 @@ Nous saurons donc à la fin de cette présentation comment intégrer et rendre a
 * [Slides](https://speakerdeck.com/alexandretouret/rvd24-integrons-faisons-grandir-et-progresser-les-jeunes-devs-bonnes-pratiques-et-retours-dexperiences-a-lintention-des-vieux-devs)
 * [Video](https://youtu.be/V3jCZgEgUn8?si=GZVAE-D5S7o8vj2y)
 
+### L'observabilité dès le développement: Maîtrisez vos applications Java en production avec Grafana
+
+{{< admonition abstract "Résumé" false >}}
+
+Imaginez, c'est vendredi après-midi. Vous êtes impatient de profiter de votre week-end quand un ingénieur Ops vous transfère un problème bloquant avec une erreur HTTP 500.
+
+Il n'a en effet, pas réussi à identifier l'origine en raison d'un manque d'informations contextuelles. Après quelques heures, vous parvenez enfin à l'identifier en le reproduisant et en le déboguant sur votre ordinateur.
+
+Si vous avez l'habitude de faire face à de tels problèmes, cela signifie sûrement que vous avez négligé le développement d'une des fonctionnalités les plus importantes de votre application : l'observabilité !
+
+Au cours de cet atelier, nous implémenterons des bonnes pratiques de logging et mettrons en oeuvre toute une stack d'observabilité: des librairies à la plateforme en se basant sur les produits Grafana (Tempo, Loki, Prometheus).
+
+Nous saurons donc comment adapter nos applications pour la production et faire des Ops nos meilleurs amis!
+
+* [Workshop](https://github.com/worldline/observability-workshop/)
+
+{{< /admonition >}}
+
 ### Let's Learn to Identify Technical Requirements for Better Design
 
 {{< admonition abstract "Abstract" false >}}
