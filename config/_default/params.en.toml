@@ -177,6 +177,7 @@ keywords = ["Theme", "Hugo"]
   Youtubecustom = ""
   Youtubelegacy = ""
   Zhihu = ""
+  BlueSky = "touret.info"
   [social.Mastodon]
     id = "@alexandre"
     prefix = "https://piaille.fr/"
