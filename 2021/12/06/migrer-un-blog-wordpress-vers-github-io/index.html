@@ -28,7 +28,7 @@ Cancel</button></div><a class=menu-item href=/posts/ title>Posts</a><a class=men
 La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas.
 s</p><h2 id=l-hébergement-de-sites-web-sur-github class=headerLink><a href=#l-h%c3%a9bergement-de-sites-web-sur-github class=header-mark></a>1 L&rsquo; hébergement de sites web sur Github</h2><p><a href=https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll target=_blank rel="noopener noreferrer">Github permet via son service Github Pages d&rsquo;héberger des sites statiques</a> (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.
 Le certificat est automatiquement généré.</p><p>Pour avoir un look un peu sympa, j&rsquo;ai donc mis en oeuvre les outils suivants:</p><ul><li><a href=https://jekyllrb.com target=_blank rel="noopener noreferrer">Jekyll</a></li><li><a href=https://mmistakes.github.io/minimal-mistakes/ target=_blank rel="noopener noreferrer">Minimal Mistakes</a></li><li><a href=https://jekyllrb.com/docs/continuous-integration/github-actions/ target=_blank rel="noopener noreferrer">Github Actions pour construire le site</a></li><li><a href=https://www.markdownguide.org/ target=_blank rel="noopener noreferrer">Markdown</a> pour écrire les différents articles</li></ul><h2 id=démarrer-avec-minimal-mistakes class=headerLink><a href=#d%c3%a9marrer-avec-minimal-mistakes class=header-mark></a>2 Démarrer avec Minimal Mistakes</h2><p>Je vous conseille d&rsquo;aller sur <a href=https://mmistakes.github.io/minimal-mistakes/ target=_blank rel="noopener noreferrer">ce site</a>.
-Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p><h2 id=migration-des-données class=headerLink><a href=#migration-des-donn%c3%a9es class=header-mark></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p><ul><li>Exporter les données si vous êtes hébergé sur wordpress.com</li><li>Les ré-importer dans une instance locale</li><li>Les exporter au format Jekyll</li><li>Copier le contenu généré dans un nouveau site</li></ul><h3 id=exporter-les-données class=headerLink><a href=#exporter-les-donn%c3%a9es class=header-mark></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p><div id=id-8><img class=tw-inline loading=lazy src=/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png alt=wordpress_export></div><p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p><p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p><h3 id=importer-les-données class=headerLink><a href=#importer-les-donn%c3%a9es class=header-mark></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href=https://docs.docker.com/samples/wordpress/ target=_blank rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p><p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p><h2 id=migration-des-données class=headerLink><a href=#migration-des-donn%c3%a9es class=header-mark></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p><ul><li>Exporter les données si vous êtes hébergé sur wordpress.com</li><li>Les ré-importer dans une instance locale</li><li>Les exporter au format Jekyll</li><li>Copier le contenu généré dans un nouveau site</li></ul><h3 id=exporter-les-données class=headerLink><a href=#exporter-les-donn%c3%a9es class=header-mark></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p><div id=id-7><img class=tw-inline loading=lazy src=/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png alt=wordpress_export></div><p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p><p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p><h3 id=importer-les-données class=headerLink><a href=#importer-les-donn%c3%a9es class=header-mark></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href=https://docs.docker.com/samples/wordpress/ target=_blank rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p><p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
 tw-justify-between
@@ -147,7 +147,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-2 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-1 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -199,7 +199,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-3 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-2 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -250,7 +250,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-4 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-3 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -301,7 +301,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-5 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-4 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -352,7 +352,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-6 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-5 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -403,7 +403,7 @@ print:!tw-hidden" title="Copy code">
 tw-mx-2
 tw-block
 group-[.is-open]:tw-hidden
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-7 class="chroma
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 512 512"><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8.0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button></div></div><pre style=counter-reset:codeblock class="tw-block tw-m-0 tw-p-0"><code id=codeblock-id-6 class="chroma
 !tw-block
 tw-p-0
 tw-m-0
@@ -428,7 +428,7 @@ Néanmoins, le principal est évoqué dans cet article.</p><p>Il ne vous reste p
               await import("\/lib\/instant.page\/instantpage.min.js");
             }
         })();
-    </script><script>window.config={"autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js",comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"alexandre-touret/alexandre-touret.github.io"}},data:{"desktop-header-typeit":"blog.touret.info","mobile-header-typeit":"blog.touret.info"},"pagefind.js":"/pagefind/pagefind.js",search:{highlightTag:"em",maxResultLength:10,noResultsFound:"No results found",pageLength:null,snippetLength:40,termFrequency:null,termSaturation:null,termSimilarity:null,type:"pagefind"},table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script src=/lib/tablesort/tablesort.min.js></script><script src=/lib/typeit/typeit.min.js></script><script src=/js/theme.min.js defer></script><script src=/js/utterances.min.js defer></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-F1EK89MHJD",{anonymize_ip:!0})</script><script src="https://www.googletagmanager.com/gtag/js?id=G-F1EK89MHJD" async></script><script type=speculationrules>
+    </script><link rel=stylesheet href=/css/061d3f.min.css><script>window.config={"autocomplete.min.js":"/lib/autocomplete/autocomplete.min.js",comment:{utterances:{darkTheme:"github-dark",issueTerm:"pathname",label:"",lightTheme:"github-light",repo:"alexandre-touret/alexandre-touret.github.io"}},data:{"desktop-header-typeit":"blog.touret.info","mobile-header-typeit":"blog.touret.info"},"pagefind.js":"/pagefind/pagefind.js",search:{highlightTag:"em",maxResultLength:10,noResultsFound:"No results found",pageLength:null,snippetLength:40,termFrequency:null,termSaturation:null,termSimilarity:null,type:"pagefind"},table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script src=/lib/tablesort/tablesort.min.js></script><script src=/lib/typeit/typeit.min.js></script><script src=/js/theme.min.js defer></script><script src=/js/utterances.min.js defer></script><script type=text/javascript>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments)}gtag("js",new Date),gtag("config","G-F1EK89MHJD",{anonymize_ip:!0})</script><script src="https://www.googletagmanager.com/gtag/js?id=G-F1EK89MHJD" async></script><script type=speculationrules>
         {
           "prerender": [
             {
