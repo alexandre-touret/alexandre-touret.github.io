@@ -12,11 +12,11 @@ tags:
 ## 2024 in a Nutshell
 As 2024 draws to a close, it’s time to cast a professional eye back on this year.
 
-Like last year, I have balanced working on a customer project alongside my contributions to the Worldline TechRel[^1] initiative. I had the opportunity to shift to another team. Although I keep working on the Transport & Monbility field, I have discovered a new product & met new colleagues.
+Like last year, I have balanced working on a customer project alongside my contributions to the Worldline TechRel[^1] initiative. I had the opportunity to shift to another team. Although I keep working on the Transport & Mobility field, I dug into a new product & met new colleagues. 
 
-In addition, I also started teaching at the [University of Tours](https://www.univ-tours.fr/). I strive to provide [my return of experience on the following topics: Microservices Architecture, SQL Basics & Business Processes](https://blog.touret.info/teaching/).
+After few months, as part of the agreement with Google, I then dived into the Google Cloud techniology portfolio and [passed the Public Cloud Architect certification](https://blog.touret.info/2024/08/02/gcp_certification/).
 
-I have then published the courses under the [Creative Commons International Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/deed.en). Feel free to [(re-)use them and submit issues](https://blog.touret.info/teaching/). I am quite sure I made somes mistakes.
+In addition, I also started teaching at the [University of Tours](https://www.univ-tours.fr/). I strive to provide [my return of experience on the following topics: Microservices Architecture, SQL Basics & Business Processes](https://blog.touret.info/teaching/). The courses were published under the [Creative Commons International Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/deed.en). Feel free to [(re-)use them and submit issues](https://blog.touret.info/teaching/). I am quite sure I made somes mistakes.
 
 ## Speaking
 
@@ -29,7 +29,7 @@ Here are some highlights of my [appearances](https://blog.touret.info/speaker-re
 - 2 local meetups: Bordeaux JUG, Poitou JUG
 - A Worldline tech event in Seclin (France)
 
-Like last year, I found myself presenting up to three talks, or workshops at the same event. As I said last year, I extended the parterships with other speakers  I then we co-presented most of my 2024 talks with my Wordline colleagues [Raphaël Semeteys](https://fr.linkedin.com/in/raphaelsemeteys), [Philippe Duval](https://www.linkedin.com/in/phduval/) & [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/).
+Like last year, I found myself presenting up to three talks, or workshops at the same event. As I said last year, I extended the parterships with other speakers  I then co-presented most of my 2024 talks with my Wordline colleagues [Raphaël Semeteys](https://fr.linkedin.com/in/raphaelsemeteys), [Philippe Duval](https://www.linkedin.com/in/phduval/) & [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/).
 
 I definitevely enjoy sharing the stage with co-speakers. Although the preparation can be tricky due to the organisation (busy agenda versus online preparation meetings), I think the content provided is usually better and I learn a lot new things during the preparation.
 
