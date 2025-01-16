@@ -81,13 +81,57 @@ Usually I had to setup and provide to developers such a tooling to enable local 
 
 [Spring also provides Dev Services](https://docs.spring.io/spring-boot/reference/features/dev-services.html). However, I think (_it is only my opinion_), Quarkus provides it as a end to end solution to developers.
 
+
+### What about the documentation ?
+
+I usually said documentation belongs to the deliverables. I was well surprised by the Quarkus's guides. They are straightforward and help you adopt Quarkus easily.
+I think the authors made a special effort on this field. For me the result was obvious: I really liked coding with Quarkus, it was easy to move from Spring and find the corresponding features.
+
 ## Tools & Framework integration
 
+As I mentioned earlier, one of the Quarkus's strengths I pinpointed is to strongly streamline the integration of differents tools and provide a cohesive setup through the extensions.
+
+For instance, in my workshop, I sat up the application in this way:
+
+```xml
+<dependency>
+   <groupId>io.github.microcks.quarkus</groupId>
+   <artifactId>quarkus-microcks</artifactId>
+   <version>0.2.7</version>
+</dependency>
+<dependency>
+   <groupId>io.quarkus</groupId>
+   <artifactId>quarkus-hibernate-orm-panache</artifactId>
+</dependency>
+<dependency>
+   <groupId>io.quarkus</groupId>
+   <artifactId>quarkus-jdbc-postgresql</artifactId>
+</dependency>
+<dependency>
+   <groupId>io.quarkus</groupId>
+   <artifactId>quarkus-hibernate-orm</artifactId>
+</dependency>
+<dependency>
+   <groupId>io.quarkus</groupId>
+   <artifactId>quarkus-messaging-kafka</artifactId>
+</dependency>
+```
+
+With this bunch of dependencies, Quarus automatically brings the corresponding dev services and the API to reach these external services (databases, kafka broker,...).
+
 ## API-First
+
+The purpose of my workshop was to delve into API-First. 
+I therefore created an application built using a Code-First approach and put in practice some tools and patterns to make API-First compatible.
+
+I then used these tools:
+
 
 Generation
 
 Swagger/ Small Rye
+
+API Client
 
 ## Persistence
 
