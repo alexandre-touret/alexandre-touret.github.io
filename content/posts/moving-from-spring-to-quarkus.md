@@ -266,4 +266,6 @@ To sum up, Spring Data mostly abstracts the persistence layer, while coding the 
 
 I will stop this comparison here. I haven't explored much so far, but after spending some hours coding, I'm really pleased with the effort the Quarkus community has made to enhance the developer experience. With full support of [the Microprofile specifications](https://microprofile.io/) and its various API or facilities, Quarkus allows you to streamline your development, and write code that is straightforward and more stable over time.
 
+I may have missed some points in my review. If so, feel free to reach out to me.
+
 2-3 years ago, when people asked about moving to Quarkus, I didn't see much interest. However, if I had to start a greenfield project today, it would be now my first choice.
