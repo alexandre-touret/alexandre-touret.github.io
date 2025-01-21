@@ -45,6 +45,8 @@ Basically, it is a simple monolithic application with a database which reaches e
 * [EBay](https://developer.ebay.com/).
 * A back office called through Kafka.
 
+The [code repository is available on my GitHub account](https://github.com/alexandre-touret/api-first-workshop).
+
 {{< admonition type=warning title="This app is not production ready (yet)" >}}
 I drafted and created this application as part of [a workshop on API-First](https://blog.touret.info/api-first-workshop/).
 It is not a production-ready. It misses many aspects such as Observability or security.
