@@ -206,9 +206,12 @@ quarkus.openapi-generator.codegen.spec.ebay_buy_openapi_yaml.use-bean-validation
 There is plenty of configuration parameters you can use. If you want to know more, you [can browse the documentation](https://docs.quarkiverse.io/quarkus-openapi-generator/dev/client.html).
 
 ### Small Rye
- Like other services accessible through the DevUI, the [Small Rye Swagger UI](https://quarkus.io/guides/openapi-swaggerui) is really interesting. Once you add the Rest-Jackson extension enabled, the Swagger UI is automatically plugged to your API when you run the dev mode.
+Like other services accessible through the DevUI, the [Small Rye Swagger UI](https://quarkus.io/guides/openapi-swaggerui) is really interesting. Once you add the Rest-Jackson extension enabled, the Swagger UI is automatically plugged to your API when you run the dev mode.
 
 Although I would prefer using [Redocly](https://redocly.com/) instead, the way the SwaggerUI is automatically brought in this setup is enough for me to use it.
+
+### Microcks
+[Microcks](https://microcks.io/) offers a facility for mocking external services. With the [Quarkus Microcks extension](https://github.com/microcks/microcks-quarkus), you can use it similarly to other dev services. I won't delve deeply into this topic because, aside from integrating it as part of the dev services, the functionalities are similar to those in Spring Boot. 
 
 ## Persistence
 
