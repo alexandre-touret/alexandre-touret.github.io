@@ -57,6 +57,12 @@ My first surprise, was when I started first Quarkus. [After generating the proje
 * The [Dev UI](https://quarkus.io/guides/dev-ui)
 * The [Dev Services](https://quarkus.io/guides/dev-services)
 
+
+{{< style "text-align:center;" >}}
+![Dev UI Extensions](/assets/images/2025/01/dev_ui_extensions.png)
+_The DevUI extensions page_
+{{< /style >}}
+
 Usually many developers look down on Java because it hard to setup, the integration with external services could be painful. 
 Through these two tools, I think Quarkus found a smart answer to these worries.
 
@@ -239,7 +245,7 @@ I prefered not to use it to work in a Quarkus _"standard"_ way for persistence a
 
 The main difficulty I faced was writing and running my integration tests.
 
-Quarkus offers the `@QuarkusTest` facility for creating and running integration tests, and it works well. It is automatically connected to the dev services (e.g., the database), and data is automatically imported at the test startup using the JPA standard method (i.e., using the `import.sql` file located in the `src/test/resources` folder).
+Quarkus offers [the `@QuarkusTest` facility](https://quarkus.io/guides/getting-started-testing) for creating and running integration tests, and it works well. It is automatically connected to the dev services (e.g., the database), and data is automatically imported at the test startup using the JPA standard method (i.e., using the `import.sql` file located in the `src/test/resources` folder).
 
 My main concern was that this dataset and the JPA context were shared across all the integration tests. Once I deleted an item during one of my integration tests, I was unable to access it in subsequent tests.
 
@@ -249,6 +255,6 @@ I really missed [the Spring Test `@Sql` annotation](https://docs.spring.io/sprin
 
 ## Conclusion
 
-I will stop this comparison here. I haven't explored much so far, but after spending some hours coding, I'm really pleased with the effort the Quarkus community has made to enhance the developer experience. With its full support of [the Microprofile specifications](https://microprofile.io/), Quarkus allows you to write code that is more stable over time.
+I will stop this comparison here. I haven't explored much so far, but after spending some hours coding, I'm really pleased with the effort the Quarkus community has made to enhance the developer experience. With full support of [the Microprofile specifications](https://microprofile.io/) and its various API or facilities, Quarkus allows you to streamline your development, and write code that is straightforward and more stable over time.
 
-2-3 years ago, when people asked about moving to Quarkus, I didn't see much interest. However, if I had to start a greenfield project today, it would be my first choice.
+2-3 years ago, when people asked about moving to Quarkus, I didn't see much interest. However, if I had to start a greenfield project today, it would be now my first choice.
