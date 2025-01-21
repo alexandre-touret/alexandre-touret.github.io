@@ -125,7 +125,7 @@ For instance, in my workshop, I sat up the application in this way:
 
 With this bunch of dependencies, Quarkus automatically brings the corresponding dev services and the API to reach these external services (databases, kafka broker,...).
 
-## API-First
+## API-First Quarkus development
 
 The purpose of my workshop was to delve into [API-First](https://www.postman.com/api-first/). 
 I therefore created an application built using a Code-First approach and put in practice some tools and patterns to make API-First compatible.
@@ -221,12 +221,12 @@ Although I would prefer using [Redocly](https://redocly.com/) instead, the way t
 
 ## Persistence
 
-I must admit. I do like Spring Data and the way it [abstracts and generates the JPQL queries through the interface methods naming](https://docs.spring.io/spring-data/data-commons/docs/1.6.1.RELEASE/reference/html/repositories.html).
+I must admit. I do like [Spring Data](https://docs.spring.io/spring-data/commons/reference/index.html) and the way it [abstracts and generates the JPQL queries through the interface methods naming](https://docs.spring.io/spring-data/commons/reference/repositories/definition.html).
 At the beginning of my migration journey, I thought moving to [Panache](https://quarkus.io/guides/hibernate-orm-panache) would be challenging.
 
 I was wrong.
 
-Although I missed some functionalities of the Spring Data CRUD Repository, I found my footing easily.
+Although I missed some functionalities of the [Spring Data CRUD Repository](https://docs.spring.io/spring-data/commons/docs/current/api/org/springframework/data/repository/CrudRepository.html), I found my footing easily.
 Panache offers two modes of usage: the Active Record pattern and the repository pattern.
 I chose the latter for two reasons:
 
@@ -243,6 +243,8 @@ I prefered not to use it to work in a Quarkus _"standard"_ way for persistence a
 
 ## Difficulties and some functionalities still missing (from my point of view)
 
+### Testing
+
 The main difficulty I faced was writing and running my integration tests.
 
 Quarkus offers [the `@QuarkusTest` facility](https://quarkus.io/guides/getting-started-testing) for creating and running integration tests, and it works well. It is automatically connected to the dev services (e.g., the database), and data is automatically imported at the test startup using the JPA standard method (i.e., using the `import.sql` file located in the `src/test/resources` folder).
@@ -252,6 +254,13 @@ My main concern was that this dataset and the JPA context were shared across all
 While working on my project, this issue slightly annoyed me. I had to troubleshoot why my integration tests failed, even though they had passed before (a common development challenge).
 
 I really missed [the Spring Test `@Sql` annotation](https://docs.spring.io/spring-framework/reference/testing/testcontext-framework/executing-sql.html). Among other benefits, it helps me run SQL scripts whenever needed and reload my data at the beginning of my integration tests. Although it might be considered heavier, it provides more flexibility and ensures data integrity.
+
+### Moving from Spring Data
+
+As I exposed earlier, Spring Data offers many functionalities which make the development easier. It was a bit weird recoding JPQL queries for fetching data I used to do without coding with Spring Data. 
+
+Anyway, I strongly believe it is just _a detail_. The scope of functionalities is, in my opinion, equivalent. 
+To sum up, Spring Data mostly abstracts the persistence layer, while coding the persistence layer with Quarkus involves more direct use of JPA and Hibernate (even though Panache strongly simplifies the process).
 
 ## Conclusion
 
