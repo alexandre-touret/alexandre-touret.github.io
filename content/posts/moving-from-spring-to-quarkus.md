@@ -1,6 +1,6 @@
 ---
 title: Moving from Spring Boot to Quarkus
-date: 2025-01-27 08:00:00
+date: 2025-01-22 08:00:00
 images: ["/assets/images/2025/01/jdino-reichmuth-A5rCN8626Ck-unsplash.webp "]
 featuredImagePreview: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
 featuredImage: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
@@ -9,7 +9,6 @@ tags:
   - quarkus
   - spring
   - java
-draft: true
 ---
 {{< style "text-align:center;" >}}
 _Photo by [Dino Reichmuth](https://unsplash.com/@dinoreichmuth?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/yellow-volkswagen-van-on-road-A5rCN8626Ck?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)_
@@ -262,7 +261,7 @@ I really missed [the Spring Test `@Sql` annotation](https://docs.spring.io/sprin
 As I exposed earlier, Spring Data offers many functionalities which make the development easier. It was a bit weird recoding JPQL queries for fetching data I used to do without coding with Spring Data. 
 
 Anyway, I strongly believe it is just _a detail_. The scope of functionalities is, in my opinion, equivalent.
- 
+
 To sum up, Spring Data mostly abstracts the persistence layer, while coding the persistence layer with Quarkus involves more direct use of JPA and Hibernate (even though Panache strongly simplifies the process).
 
 ## Conclusion
