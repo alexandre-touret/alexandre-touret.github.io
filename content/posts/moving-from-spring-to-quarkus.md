@@ -1,6 +1,6 @@
 ---
 title: Moving from Spring Boot to Quarkus
-date: 2025-01-20 08:00:00
+date: 2025-01-27 08:00:00
 images: ["/assets/images/2025/01/jdino-reichmuth-A5rCN8626Ck-unsplash.webp "]
 featuredImagePreview: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
 featuredImage: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
