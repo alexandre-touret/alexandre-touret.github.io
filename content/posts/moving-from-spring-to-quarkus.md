@@ -54,7 +54,7 @@ It is not a production-ready. It misses many aspects such as Observability or se
 
 ## Developer experience
 
-My first surprise, was when I started first Quarkus. [After generating the project and selecting the different requirements](https://code.quarkus.io/), I ran into two main components which, in my view, significantly improve the Developer Experience (DX) and go far beyond I used to with Spring:
+My first surprise, was when I started the Quarkus Dev. [After generating the project and selecting the different requirements](https://code.quarkus.io/), I ran into two main components which, in my view, significantly improve the Developer Experience (DX) and go far beyond I used to with Spring:
 
 * The [Dev UI](https://quarkus.io/guides/dev-ui)
 * The [Dev Services](https://quarkus.io/guides/dev-services)
@@ -261,7 +261,8 @@ I really missed [the Spring Test `@Sql` annotation](https://docs.spring.io/sprin
 
 As I exposed earlier, Spring Data offers many functionalities which make the development easier. It was a bit weird recoding JPQL queries for fetching data I used to do without coding with Spring Data. 
 
-Anyway, I strongly believe it is just _a detail_. The scope of functionalities is, in my opinion, equivalent. 
+Anyway, I strongly believe it is just _a detail_. The scope of functionalities is, in my opinion, equivalent.
+ 
 To sum up, Spring Data mostly abstracts the persistence layer, while coding the persistence layer with Quarkus involves more direct use of JPA and Hibernate (even though Panache strongly simplifies the process).
 
 ## Conclusion
