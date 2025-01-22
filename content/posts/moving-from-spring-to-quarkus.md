@@ -1,6 +1,6 @@
 ---
 title: Moving from Spring Boot to Quarkus
-date: 2025-01-22 08:00:00
+date: 2025-01-27 08:00:00
 images: ["/assets/images/2025/01/jdino-reichmuth-A5rCN8626Ck-unsplash.webp "]
 featuredImagePreview: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
 featuredImage: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
@@ -242,6 +242,110 @@ There is a [Quarkus Spring Data extension available](https://quarkus.io/guides/s
 I prefered not to use it to work in a Quarkus _"standard"_ way for persistence avoiding dependency on a external framework or compatibility layer. 
 {{< /admonition >}}
 
+## Rest client
+
+Whether you use the [Spring Rest Client](https://spring.io/blog/2023/07/13/new-in-spring-6-1-restclient/) or [Spring OpenFeign Client](https://spring.io/projects/spring-cloud-openfeign), you can switch to [Quarkus Rest Client easily](https://quarkus.io/guides/rest-client).
+
+I found the usage straightforward.
+
+You can inject it as a field in your code:
+
+```java
+    @RestClient
+    private EbayClient ebayClient;
+
+```
+
+define the client:
+
+```java
+@RegisterRestClient
+@Path("/item_summary/search")
+public interface EbayClient {
+
+    // (1)
+    @GET
+    SearchPagedCollection searchByName(@RestQuery("q") String query);
+
+    //(2)
+    @ClientExceptionMapper
+    static RuntimeException toException(Response response) {
+        if (response.getStatus() == 400) {
+            return new RuntimeException("The remote service responded with HTTP 400");
+        }
+        // Disabling some issues with the EBAY Mock
+        return null;
+    }
+}
+```
+
+1. The client is automatically generated and plugged to the remote endpoint through the URL specified in the ``application.properties``:
+
+
+```ini
+quarkus.rest-client."info.touret.guitarheaven.infrastructure.ebay.EbayClient".url=${quarkus.microcks.default.http}/rest/Browse+API/v1.19.9
+quarkus.rest-client.extensions-api.verify-host=false
+```
+2. We can also customise the error management with the [ClientExceptionHandler](https://javadoc.io/doc/io.quarkus/quarkus-rest-client-reactive/3.0.0.CR1/io/quarkus/rest/client/reactive/ClientExceptionMapper.html).
+
+
+_Et voilà_
+
+Most of the boiler plate code is therefore removed and you can focus on what it worths. 
+
+By the way, in [my workshop on API-First, I then generated the ``RestClient`` class from the OpenAPI file](https://blog.touret.info/api-first-workshop/#9).
+
+## Kafka Integration
+
+The [Kafka integration is also pretty straightforward](https://quarkus.io/guides/kafka-getting-started). 
+
+Whether you broadcast messages or fetch them, the connection layer is automatically handled by Quarkus:
+
+```java
+@Inject
+@Channel("guitar-requests-out")
+Emitter<Record<UUID, GuitarRequest>> guitarRequestEmitter;/**
+ * Sends message to Kafka
+ *
+ * @param guitarRequest : The Guitar to send to Kafka
+ */
+public void requestForNewGuitars(GuitarRequest guitarRequest) {
+    LOGGER.info("Sending Guitar Request to supplier : {}", guitarRequest.requestId().toString());
+    guitarRequestEmitter.send(Record.of(guitarRequest.requestId(), guitarRequest));
+}/**
+ * Fetches the kafka topic
+ * <b>This method is only for testing purpose during the workshop</b>
+ *
+ * @param guitarRequestRecord: The Kafka record of the Guitar to send
+ */
+@Incoming("guitar-requests-in")
+public void traceRequestsForNewGuitars(Record<UUID, GuitarRequest> guitarRequestRecord) {
+    LOGGER.info("Received new Guitar Request: ID: {} - NAME: {} - QTY: {}", guitarRequestRecord.key(), guitarRequestRecord.value().guitarName(), guitarRequestRecord.value().quantity());
+}
+```
+
+The configuration of the Kafka Client is then configured in the ``application.properties`` file:
+
+```ini
+# --------------------------
+## KAFKA Client configuration
+# --------------------------
+quarkus.kafka.devservices.topic-partitions.guitar-requests=1
+mp.messaging.outgoing.guitar-requests-out.connector=smallrye-kafka
+mp.messaging.outgoing.guitar-requests-out.topic=guitar-requests
+mp.messaging.outgoing.guitar-requests-out.key.serializer=org.apache.kafka.common.serialization.UUIDSerializer
+mp.messaging.outgoing.guitar-requests-out.value.serializer=info.touret.guitarheaven.infrastructure.kafka.GuitarRequestSerializer
+mp.messaging.outgoing.guitar-requests-out.auto.offset.reset=earliest
+mp.messaging.incoming.guitar-requests-in.connector=smallrye-kafka
+mp.messaging.incoming.guitar-requests-in.topic=guitar-requests
+mp.messaging.incoming.guitar-requests-in.key.deserializer=org.apache.kafka.common.serialization.UUIDDeserializer
+mp.messaging.incoming.guitar-requests-in.value.deserializer=info.touret.guitarheaven.infrastructure.kafka.GuitarRequestDeserializer
+mp.messaging.incoming.guitar-requests-in.auto.offset.reset=earliest
+```
+
+It was just a simple integration. For more information, you can check out [the guide](hhttps://quarkus.io/guides/kafka) and the examples.
+Nevertheless, thanks to the Dev Services, we can use [RedPanda in development to pop a Kafka Stack](https://quarkus.io/guides/kafka-dev-services) and avoid configuring a Docker compose stack to enable it during integration tests.
+
 ## Difficulties and some functionalities still missing (from my point of view)
 
 ### Testing
@@ -268,6 +372,8 @@ To sum up, Spring Data mostly abstracts the persistence layer, while coding the 
 
 I will stop this comparison here. I haven't explored much so far, but after spending some hours coding, I'm really pleased with the effort the Quarkus community has made to enhance the developer experience. With full support of [the Microprofile specifications](https://microprofile.io/) and its various API or facilities, Quarkus allows you to streamline your development, and write code that is straightforward and more stable over time.
 
-I may have missed some points in my review. If so, feel free to reach out to me.
+One interesting point still missing is about Security. Although there is a [Quarkus OpenId Connect integration](https://quarkus.io/guides/security-openid-connect-client-reference), I don't know yet what is the gap between Spring Security and it.
+
+Anyway, I may have missed some points in my review. If so, feel free to reach out to me.
 
 2-3 years ago, when people asked about moving to Quarkus, I didn't see much interest. However, if I had to start a greenfield project today, it would be now my first choice.
