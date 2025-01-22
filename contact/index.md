@@ -5,7 +5,6 @@
 
 You can reach / follow me through:
 
-* {{< fa-icon brands twitter >}} [Twitter/X](https://twitter.com/touret_alex)
 * {{< fa-icon brands linkedin >}} [LinkedIn](https://www.linkedin.com/in/atouret/)
 * {{< fa-icon brands github >}} [GitHub](https://github.com/alexandre-touret/)
 * {{< fa-icon brands twitter >}} [BlueSky](https://bsky.app/profile/touret.info)

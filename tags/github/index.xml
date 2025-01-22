@@ -446,7 +446,7 @@ Le code généré sera copié dans la branche <code>gh-pages</code>.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
+    id="codeblock-id-4" 
     class="
       chroma 
       !tw-block 
@@ -552,7 +552,7 @@ Il permet, via un script python de:</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
+    id="codeblock-id-5" 
     class="
       chroma 
       !tw-block 
@@ -694,7 +694,7 @@ Pour mon besoin, j&rsquo;ai préféré opter pour un appel régulier du site et 
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
+    id="codeblock-id-6" 
     class="
       chroma 
       !tw-block 
@@ -765,7 +765,7 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
 </ul>
 <h3 id="exporter-les-données" class="headerLink">
     <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
-<div id="id-7"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png   alt="wordpress_export"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png   alt="wordpress_export"  ></div>
 <p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
 <p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
 <h3 id="importer-les-données" class="headerLink">
@@ -978,7 +978,7 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
+    id="codeblock-id-2" 
     class="
       chroma 
       !tw-block 
@@ -1082,7 +1082,7 @@ Au premier lancement des commandes suivantes:</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
+    id="codeblock-id-3" 
     class="
       chroma 
       !tw-block 
@@ -1181,7 +1181,7 @@ Au premier lancement des commandes suivantes:</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
+    id="codeblock-id-4" 
     class="
       chroma 
       !tw-block 
@@ -1280,7 +1280,7 @@ Au premier lancement des commandes suivantes:</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
+    id="codeblock-id-5" 
     class="
       chroma 
       !tw-block 
@@ -1379,7 +1379,7 @@ Pour que ça soit le format par défaut de Jekyll, il faut modifier le paramètr
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
+    id="codeblock-id-6" 
     class="
       chroma 
       !tw-block 
@@ -1478,7 +1478,7 @@ Pour le mettre en place dans Jekyll, il faut configurer le plugin <code>jekyll-f
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-6" 
+    id="codeblock-id-7" 
     class="
       chroma 
       !tw-block 
