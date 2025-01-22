@@ -1,6 +1,6 @@
 ---
 title: Moving from Spring Boot to Quarkus
-date: 2025-01-27 08:00:00
+date: 2025-01-22 08:00:00
 images: ["/assets/images/2025/01/jdino-reichmuth-A5rCN8626Ck-unsplash.webp "]
 featuredImagePreview: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
 featuredImage: /assets/images/2025/01/dino-reichmuth-A5rCN8626Ck-unsplash.webp 
@@ -64,7 +64,7 @@ My first surprise, was when I started the Quarkus Dev. [After generating the pro
 _The DevUI extensions page_
 {{< /style >}}
 
-Usually many developers look down on Java because it hard to setup, the integration with external services could be painful. 
+Usually many developers look down on Java because it is hard to setup and the integration with external services could be painful. 
 Through these two tools, I think Quarkus found a smart answer to these worries.
 
 Once you defined your extensions such as PostgreSQL, you have automatically the corresponding dev services enabled and you can use them either in your integration tests or directly through [the dev mode](https://quarkus.io/guides/dev-mode-differences).
@@ -84,19 +84,19 @@ Last but not least, you can browse all of these through the dev-ui. As mentioned
 
 Concretely, what it means for me? 
 I do not have to bother me again on setting up a local Docker compose environment for testing the plateform locally!
+
 Usually I had to setup and provide to developers such a tooling to enable local testing. 
 
-[Spring also provides Dev Services](https://docs.spring.io/spring-boot/reference/features/dev-services.html). However, I think (_it is only my opinion_), Quarkus provides it as a end to end solution to developers.
-
+[Although Spring also provides Dev Services](https://docs.spring.io/spring-boot/reference/features/dev-services.html), I think (_it is only my opinion_), Quarkus brings it as a end to end solution to developers.
 
 ### What about the documentation ?
 
-I usually said documentation belongs to the deliverables. I was well surprised by [the Quarkus guides](https://quarkus.io/guides/). They are straightforward and help you adopt Quarkus easily.
-I think the authors made a special effort on this field. For me the consequence was obvious: I really liked coding with Quarkus, it was easy to move from Spring and find the corresponding features.
+I usually said the documentation belongs to the deliverables. I was well surprised by [the Quarkus guides](https://quarkus.io/guides/). They are straightforward and help you adopt Quarkus easily.
+I guess the authors made a special effort on this field. For me the consequence was obvious: I really liked coding with Quarkus, it was easy to move from Spring and find the corresponding features.
 
 ## Tools & Framework integration
 
-As I mentioned earlier, one of the Quarkus's strengths I pinpointed is to strongly streamline the integration of differents tools and provide a cohesive setup through the extensions.
+As I mentioned earlier, one of the Quarkus's strengths I pinpointed is to strongly streamline the integration of differents tools and provide a cohesive setup through its extensions.
 
 For instance, in my workshop, I sat up the application in this way:
 
@@ -124,7 +124,7 @@ For instance, in my workshop, I sat up the application in this way:
 </dependency>
 ```
 
-With this bunch of dependencies, Quarkus automatically brings the corresponding dev services and the API to reach these external services (databases, kafka broker,...).
+With this bunch of dependencies, Quarkus automatically sets up the corresponding dev services and the API to reach these external services (databases, kafka broker,...).
 
 ## API-First Quarkus development
 
@@ -136,7 +136,7 @@ I then used these tools:
 ### OpenAPIGenerator
 Instead of using the [Quarkus OpenAPI Server generator](https://docs.quarkiverse.io/quarkus-openapi-generator/dev/server.html), I prefered using the goold old [OpenAPIGenerator](https://openapi-generator.tech/) Maven plugin. Why? Because it offers more customisation possibilities than the Quarkus extension. 
 
-The configuration is pretty straightforward:
+Here is how I configured it:
 
 ```xml
 <plugin>
@@ -251,9 +251,8 @@ I found the usage straightforward.
 You can inject it as a field in your code:
 
 ```java
-    @RestClient
-    private EbayClient ebayClient;
-
+@RestClient
+private EbayClient ebayClient;
 ```
 
 define the client:
