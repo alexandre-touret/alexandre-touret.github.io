@@ -1,6 +1,6 @@
 ---
 title: Improve your Statefulsets reliability on GCP with the GKE Stateful HA Operator
-date: 2025-04-01 08:00:00
+date: 2025-04-02 08:00:00
 images: ["/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp"]
 featuredImagePreview: /assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp
 featuredImage: /assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp
@@ -18,7 +18,7 @@ Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm
 Most of the workloads we usually deploy [on Kubernetes are deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). 
 They dynamically manage Pods & Replicaset.
 
-However, it may be be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.
+However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.
 
 For that purpose, we may use [StatefulSets](https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/).
 
