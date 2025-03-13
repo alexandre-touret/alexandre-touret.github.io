@@ -35,7 +35,7 @@ Unfortunately this features comes with some restrictions:
 - This disk will only be available in up to 2 zones. You can not use it if you want to have a 3-zone setup for your service.
 - During the failover, the application would be unavailable. If your [NFR](https://en.wikipedia.org/wiki/Non-functional_requirement) brought a [RTO](https://en.wikipedia.org/wiki/RTO) 0, this setup would not be compatible with.
 
-I will introduce then how to put it in place.
+I will then introduce how to put it in place.
 
 ## Enabling the Addon
 
@@ -138,5 +138,4 @@ Events:                    <none>
 
 
 ## Conclusion
-The Google HA Operator is a good alternative to get your architecture simplified avoiding creating a full cluster (e.g. a database cluster) oin top of Google Kubernetes Engine.
-Unfortunately, as always this technologies comes with constraints: the availability of the storage and the unavailability of the service during the failover.
+The Google HA Operator is a good alternative to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.
