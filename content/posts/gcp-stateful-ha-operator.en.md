@@ -28,7 +28,7 @@ Now, imagine you sat up a single-replica application which use a persistent disk
 
 Google have brought in their Kubernetes stack a new Operator: [The Stateful HA Operator](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha). 
 
-From my perspective, it prevents setting up a cluster and let Kubernetes manage the failover in two ways: using the statefulset restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup.
+From my perspective, it prevents setting up a cluster, using a single-replica configuration and let Kubernetes manage the failover in two ways: using the statefulset restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup - _Yes, I can mix Kubernetes and simplification in the same sentence_.
 
 Unfortunately this features comes with some restrictions:
 - You must use [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
@@ -138,5 +138,5 @@ Events:                    <none>
 
 
 ## Conclusion
-The Google HA Operator is a good alternative to get your architecture simplified (_Yes, I can mix Kubernetes and simplification in the same sentence_) avoiding creating a full cluster (e.g. a database cluster) oin top of Google Kubernetes Engine.
+The Google HA Operator is a good alternative to get your architecture simplified avoiding creating a full cluster (e.g. a database cluster) oin top of Google Kubernetes Engine.
 Unfortunately, as always this technologies comes with constraints: the availability of the storage and the unavailability of the service during the failover.
