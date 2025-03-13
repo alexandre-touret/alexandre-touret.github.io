@@ -32,6 +32,7 @@ From my perspective, it prevents setting up a cluster and let Kubernetes manage 
 
 Unfortunately this features comes with some restrictions:
 - You must use [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
+- This disk will only be available in up to 2 zones. You can not use it if you want to have a 3-zone setup for your service.
 - During the failover, the application would be unavailable. If your [NFR](https://en.wikipedia.org/wiki/Non-functional_requirement) brought a [RTO](https://en.wikipedia.org/wiki/RTO) 0, this setup would not be compatible with.
 
 I will introduce then how to put it in place.
@@ -99,9 +100,9 @@ NAME           PROTECTED
 stateful-service-ha-stateful-operator        True
 ```
 
-The description 
+The description would be:
 
-```yaml
+```bash
  kubectl describe highavailabilityapplications/stateful-service-ha-stateful-operator
 Name:         stateful-service-ha-stateful-operator
 Namespace:    namespace
@@ -136,3 +137,6 @@ Events:                    <none>
 ```
 
 
+## Conclusion
+The Google HA Operator is a good alternative to get your architecture simplified (_Yes, I can mix Kubernetes and simplification in the same sentence_) avoiding creating a full cluster (e.g. a database cluster) oin top of Google Kubernetes Engine.
+Unfortunately, as always this technologies comes with constraints: the availability of the storage and the unavailability of the service during the failover.
