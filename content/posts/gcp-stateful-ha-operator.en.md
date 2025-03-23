@@ -26,15 +26,15 @@ For that purpose, we may use [StatefulSets](https://kubernetes.io/docs/concepts/
 
 When comparing the two, it is important to note that Deployments are designed to manage and host stateless applications, while StatefulSets are specifically tailored for stateful applications.
 
-Now, imagine you sat up a single-replica application which use a persistent disk as a storage. How to recover from failures and especially node crashes?
+Now, imagine you sat up a single-replica application which used a persistent disk as a storage. How to recover from failures and especially node crashes?
 
 Google have brought in their Kubernetes stack a new Operator: [The Stateful HA Operator](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha). 
 
 From my perspective, it prevents setting up a cluster, using a single-replica configuration and let Kubernetes manage the failover in two ways: using the statefulset restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup - _Yes, I can mix Kubernetes and simplification in the same sentence_.
 
 Unfortunately this features comes with some restrictions:
-- You must use [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
-- This disk will only be available in up to 2 zones. You can not use it if you want to have a 3-zone setup for your service.
+- You must use the [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
+- This disk will only be available in up to **2 zones**. You can not use it if you want to have a 3-zone setup for your service.
 - During the failover, the application will be unavailable. If your [NFR](https://en.wikipedia.org/wiki/Non-functional_requirement) brought a [RTO](https://en.wikipedia.org/wiki/RTO) 0, this setup would not be compatible with.
 
 I will then introduce how to put it in place.
@@ -168,3 +168,6 @@ I’ve summarized the key characteristics, along with their pros and cons, in th
 |Testability   |⭐⭐⭐⭐⭐| |
 |Cloud-Agnosticism   |⭐| A proprietary Google extension |
 
+You probably understand that, depending on your constraints, this tool could be a good fit—or not.
+
+To conclude, in my view, it's worth starting with this setup if your architecture is Kubernetes-centric and you have some tolerance for failover. This approach allows you to take advantage of Kubernetes' built-in failover mechanisms
