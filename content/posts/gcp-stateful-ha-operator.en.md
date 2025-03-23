@@ -141,22 +141,21 @@ Events:                    <none>
 ## Conclusion
 The Google HA Operator is a good alternative to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.
 
-I tried to sum up all of the characteristics and pros & cons into this table:
+I’ve summarized the key characteristics, along with their pros and cons, in the table below:
 
 |Architecture characteristic   | GKE HA Stateful Operator| Comment |
 |---|---|---| 
-|Partitioning type   | The same as for StatefulSet | You need to activate the add-on first|
-|Deployability   | ⭐⭐⭐⭐⭐ | It's really easy to deploy your application in this way because you don't have to bother setting up a cluster |
-|Elasticity   | ⭐⭐⭐ | It's as elastic as a StatefulSet |
+|Partitioning type   | The same as for StatefulSet | You need to enable the add-on first|
+|Deployability   | ⭐⭐⭐⭐⭐ | Very easy to deploy, as you don’t need to configure a cluster manually |
+|Elasticity   | ⭐⭐⭐ | Matches the elasticity of a StatefulSet |
 |Evolutionary   | ⭐⭐⭐ |  |
-|Fault Tolerance   | ⭐⭐⭐⭐ | You must handle a retry mechanism on your client code to handle the potential node failover  |
+|Fault Tolerance   | ⭐⭐⭐⭐ | Requires a retry mechanism in the client code to handle potential node failover  |
 |Modularity   | ⭐⭐⭐  |  |
-|Overall cost   | ⭐⭐⭐⭐⭐| It can be either installed on a Autopilot or self managed GKE cluster |
+|Overall cost   | ⭐⭐⭐⭐⭐| Can be deployed on either an Autopilot or self-managed GKE cluster |
 |Performance   | ⭐⭐⭐⭐⭐|  |
-|Reliability   | ⭐⭐⭐⭐| If you rely on a CSI persistence storage, you can only set it up on up to 2 zones|
-|Scalability   | ⭐| You rely on the scalability of the product you deploy through a StatefulSet |
+|Reliability   | ⭐⭐⭐⭐| If using CSI persistent storage, it can only be configured across a maximum of two zones |
+|Scalability   | ⭐| Limited by the scalability of the application deployed via StatefulSet |
 |Simplicity   | ⭐⭐⭐⭐⭐| |
 |Testability   |⭐⭐⭐⭐⭐| |
-|Cloud-Agnosticism   |⭐| It's a proprietary extension |
-
+|Cloud-Agnosticism   |⭐| A proprietary Google extension |
 
