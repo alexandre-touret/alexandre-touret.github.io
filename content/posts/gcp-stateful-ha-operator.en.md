@@ -1,5 +1,5 @@
 ---
-title: Improve your Statefulsets reliability on GCP with the GKE Stateful HA Operator
+title: Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator
 date: 2025-04-02 08:00:00
 images: ["/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp"]
 featuredImagePreview: /assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp
@@ -17,7 +17,7 @@ Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm
 {{< /style >}}      
 
 
-Most of the workloads we usually deploy [on Kubernetes are deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). 
+Most workloads we deploy [on Kubernetes are deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). 
 They dynamically manage Pods & Replicasets.
 
 However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.
@@ -26,11 +26,11 @@ For that purpose, we may use [StatefulSets](https://kubernetes.io/docs/concepts/
 
 When comparing the two, it is important to note that Deployments are designed to manage and host stateless applications, while StatefulSets are specifically tailored for stateful applications.
 
-Now, imagine you sat up a single-replica application which used a persistent disk as a storage. How to recover from failures and especially node crashes?
+Now, imagine you have set up a single-replica application that uses a persistent disk for storage. How to recover from failures and especially node crashes?
 
-Google have brought in their Kubernetes stack a new Operator: [The Stateful HA Operator](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha). 
+Google has introduced a new Operator in their Kubernetes stack : [The Stateful HA Operator](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha). 
 
-From my perspective, it prevents setting up a cluster, using a single-replica configuration and let Kubernetes manage the failover in two ways: using the statefulset restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup - _Yes, I can mix Kubernetes and simplification in the same sentence_.
+From my perspective, it prevents setting up a cluster, using a single-replica configuration and let Kubernetes manage the failover in two ways: using the StatefulSet restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup - _Yes, I can mix Kubernetes and simplification in the same sentence_.
 
 Unfortunately this features comes with some restrictions:
 - You must use the [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
@@ -42,11 +42,11 @@ I will then introduce how to put it in place.
 
 ## A sneak peak
 
-You could get here a representation of the main infrastructure components to put in place:
+Here’s a representation of the main infrastructure components required:
 
 ![Stateful Ha Operator](/assets/images/2025/04/google_cloud_statefulha_operator.svg)
 
-The Stateful set is exposed here through a Regional Load Balancer to ensure the connection after switching to another node during the failover process.
+The Stateful set is exposed through a Regional Load Balancer to ensure connectivity after switching to another node during the failover process.
 
 ## Enabling the Addon
 
@@ -56,7 +56,7 @@ First, enable the addon:
 gcloud container clusters update gke-cluster --region MY_REGION --project MY_GCP_PROJECT --update-addons=StatefulHA=ENABLED
 ``` 
 
-For more information, you can browse [the documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha).
+For more details, you can refer to [the documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha).
 
 ## Activation
 
@@ -148,7 +148,7 @@ Events:                    <none>
 ```
 
 ## Conclusion
-The Google HA Operator is a good alternative to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.
+The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.
 
 I’ve summarized the key characteristics, along with their pros and cons, in the table below:
 
