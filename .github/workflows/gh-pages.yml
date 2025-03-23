@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: ["ubuntu-22.04"]
-        hugo_version: ["0.139.4"]
+        os: ["ubuntu-24.04"]
+        hugo_version: ["0.145.0"]
     permissions:
       contents: write
     steps:

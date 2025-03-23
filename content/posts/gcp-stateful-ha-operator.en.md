@@ -157,14 +157,13 @@ I’ve summarized the key characteristics, along with their pros and cons, in th
 |Partitioning type   | The same as for StatefulSet | You need to enable the add-on first|
 |Deployability   | ⭐⭐⭐⭐⭐ | Very easy to deploy, as you don’t need to configure a cluster manually |
 |Elasticity   | ⭐⭐⭐ | Matches the elasticity of a StatefulSet |
-|Evolutionary   | ⭐⭐⭐ |  |
+|Evolutionary   | ⭐⭐⭐ | You must stick to the operator's requirements|
 |Fault Tolerance   | ⭐⭐⭐⭐ | Requires a retry mechanism in the client code to handle potential node failover  |
 |Modularity   | ⭐⭐⭐  |  |
-|Overall cost   | ⭐⭐⭐⭐⭐| Can be deployed on either an Autopilot or self-managed GKE cluster |
-|Performance   | ⭐⭐⭐⭐⭐|  |
+|Overall cost   | ⭐⭐⭐⭐⭐| No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster |
 |Reliability   | ⭐⭐⭐⭐| If using CSI persistent storage, it can only be configured across a maximum of two zones |
 |Scalability   | ⭐| Limited by the scalability of the application deployed via StatefulSet |
-|Simplicity   | ⭐⭐⭐⭐⭐| |
+|Simplicity   | ⭐⭐⭐⭐⭐|Really easy to setup. You can move to another solution easily. |
 |Testability   |⭐⭐⭐⭐⭐| |
 |Cloud-Agnosticism   |⭐| A proprietary Google extension |
 
