@@ -39,6 +39,15 @@ Unfortunately this features comes with some restrictions:
 
 I will then introduce how to put it in place.
 
+
+## A sneak peak
+
+You could get here a representation of the main infrastructure components to put in place:
+
+![Stateful Ha Operator](/assets/images/2025/04/google_cloud_statefulha_operator.svg)
+
+The Stateful set is exposed here through a Regional Load Balancer to ensure the connection after switching to another node during the failover process.
+
 ## Enabling the Addon
 
 First, enable the addon:
