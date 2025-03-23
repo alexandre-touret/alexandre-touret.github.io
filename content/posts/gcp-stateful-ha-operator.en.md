@@ -10,13 +10,15 @@ tags:
   - kubernetes
   - cloud
 ---
+
 {{< style "text-align:center;" >}}
 Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>
+
 {{< /style >}}      
 
 
 Most of the workloads we usually deploy [on Kubernetes are deployments](https://kubernetes.io/docs/concepts/workloads/controllers/deployment/). 
-They dynamically manage Pods & Replicaset.
+They dynamically manage Pods & Replicasets.
 
 However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.
 
@@ -33,7 +35,7 @@ From my perspective, it prevents setting up a cluster, using a single-replica co
 Unfortunately this features comes with some restrictions:
 - You must use [Compute Engine persistent disk CSI Drive](https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver) with a [regional storage class (e.g., ``standard-rwo-regional``)](https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes).
 - This disk will only be available in up to 2 zones. You can not use it if you want to have a 3-zone setup for your service.
-- During the failover, the application would be unavailable. If your [NFR](https://en.wikipedia.org/wiki/Non-functional_requirement) brought a [RTO](https://en.wikipedia.org/wiki/RTO) 0, this setup would not be compatible with.
+- During the failover, the application will be unavailable. If your [NFR](https://en.wikipedia.org/wiki/Non-functional_requirement) brought a [RTO](https://en.wikipedia.org/wiki/RTO) 0, this setup would not be compatible with.
 
 I will then introduce how to put it in place.
 
@@ -136,6 +138,25 @@ Status:
 Events:                    <none>
 ```
 
-
 ## Conclusion
 The Google HA Operator is a good alternative to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.
+
+I tried to sum up all of the characteristics and pros & cons into this table:
+
+|Architecture characteristic   | GKE HA Stateful Operator| Comment |
+|---|---|---| 
+|Partitioning type   | The same as for StatefulSet | You need to activate the add-on first|
+|Deployability   | ⭐⭐⭐⭐⭐ | It's really easy to deploy your application in this way because you don't have to bother setting up a cluster |
+|Elasticity   | ⭐⭐⭐ | It's as elastic as a StatefulSet |
+|Evolutionary   | ⭐⭐⭐ |  |
+|Fault Tolerance   | ⭐⭐⭐⭐ | You must handle a retry mechanism on your client code to handle the potential node failover  |
+|Modularity   | ⭐⭐⭐  |  |
+|Overall cost   | ⭐⭐⭐⭐⭐| It can be either installed on a Autopilot or self managed GKE cluster |
+|Performance   | ⭐⭐⭐⭐⭐|  |
+|Reliability   | ⭐⭐⭐⭐| If you rely on a CSI persistence storage, you can only set it up on up to 2 zones|
+|Scalability   | ⭐| You rely on the scalability of the product you deploy through a StatefulSet |
+|Simplicity   | ⭐⭐⭐⭐⭐| |
+|Testability   |⭐⭐⭐⭐⭐| |
+|Cloud-Agnosticism   |⭐| It's a proprietary extension |
+
+
