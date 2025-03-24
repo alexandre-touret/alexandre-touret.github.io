@@ -1,17 +1,670 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Kubernetes - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/kubernetes/</link><description>Kubernetes - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 16 Aug 2022 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/kubernetes/" rel="self" type="application/rss+xml"/><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Kubernetes - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/kubernetes/</link><description>Kubernetes - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 24 Mar 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/kubernetes/" rel="self" type="application/rss+xml"/><item><title>Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator</title><link>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-6">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+<p>Most workloads we deploy <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">on Kubernetes are deployments</a>.
+They dynamically manage Pods &amp; Replicasets.</p>
+<p>However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.</p>
+<p>For that purpose, we may use <a href="https://kubernetes.io/docs/concepts/workloads/controllers/statefulset/" target="_blank" rel="noopener noreferrer">StatefulSets</a>.</p>
+<p>When comparing the two, it is important to note that Deployments are designed to manage and host stateless applications, while StatefulSets are specifically tailored for stateful applications.</p>
+<p>Now, imagine you have set up a single-replica application that uses a persistent disk for storage. How to recover from failures and especially node crashes?</p>
+<p>Google has introduced a new Operator in their Kubernetes stack : <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha" target="_blank" rel="noopener noreferrer">The Stateful HA Operator</a>.</p>
+<p>From my perspective, it prevents setting up a cluster, using a single-replica configuration and let Kubernetes manage the failover in two ways: using the StatefulSet restart using liveness probes, and using this operator. To some extent, it helped me simplify the setup - <em>Yes, I can mix Kubernetes and simplification in the same sentence</em>.</p>
+<p>Unfortunately this features comes with some restrictions:</p>
+<ul>
+<li>You must use the <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/persistent-volumes/gce-pd-csi-driver" target="_blank" rel="noopener noreferrer">Compute Engine persistent disk CSI Drive</a> with a <a href="https://cloud.google.com/kubernetes-engine/docs/concepts/persistent-volumes" target="_blank" rel="noopener noreferrer">regional storage class (e.g., <code>standard-rwo-regional</code>)</a>.</li>
+<li>This disk will only be available in up to <strong>2 zones</strong>. You can not use it if you want to have a 3-zone setup for your service.</li>
+<li>During the failover, the application will be unavailable. If your <a href="https://en.wikipedia.org/wiki/Non-functional_requirement" target="_blank" rel="noopener noreferrer">NFR</a> brought a <a href="https://en.wikipedia.org/wiki/RTO" target="_blank" rel="noopener noreferrer">RTO</a> 0, this setup would not be compatible with.</li>
+</ul>
+<p>I will then introduce how to put it in place.</p>
+<h2 id="a-sneak-peak" class="headerLink">
+    <a href="#a-sneak-peak" class="header-mark"></a>1 A sneak peak</h2><p>Here’s a representation of the main infrastructure components required:</p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2025/04/google_cloud_statefulha_operator.svg'   alt="Stateful Ha Operator"  ></p>
+<p>The Stateful set is exposed through a Regional Load Balancer to ensure connectivity after switching to another node during the failover process.</p>
+<h2 id="enabling-the-addon" class="headerLink">
+    <a href="#enabling-the-addon" class="header-mark"></a>2 Enabling the Addon</h2><p>First, enable the addon:</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    code-block-title 
+    
+    tw-flex 
+    tw-flex-row 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        tw-select-none 
+        tw-mx-2 
+        tw-block
+        group-[.is-open]:tw-rotate-90
+        tw-transition-[transform] 
+        tw-duration-500 
+        tw-ease-in-out
+        print:!tw-hidden"
+      disabled
+      aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
+
+    <div class="code-block-title-bar tw-w-full">
+      <p class="tw-select-none !tw-my-1">bash</p>
+    </div>
+    <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-1" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl">gcloud container clusters update gke-cluster <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --region MY_REGION --project MY_GCP_PROJECT <span class="se">\
+</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --update-addons<span class="o">=</span><span class="nv">StatefulHA</span><span class="o">=</span>ENABLED</span></span></code></pre>
+</div>
+<p>For more details, you can refer to <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha" target="_blank" rel="noopener noreferrer">the documentation</a>.</p>
+<h2 id="activation" class="headerLink">
+    <a href="#activation" class="header-mark"></a>3 Activation</h2><p>You can now set up this Kubernetes object</p>
+<div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
+  <div class="
+    code-block-title 
+    
+    tw-flex 
+    tw-flex-row 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        tw-select-none 
+        tw-mx-2 
+        tw-block
+        group-[.is-open]:tw-rotate-90
+        tw-transition-[transform] 
+        tw-duration-500 
+        tw-ease-in-out
+        print:!tw-hidden"
+      disabled
+      aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
+
+    <div class="code-block-title-bar tw-w-full">
+      <p class="tw-select-none !tw-my-1">yaml</p>
+    </div>
+    <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-2" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HighAvailabilityApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ha.gke.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAME</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAMESPACE</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resourceSelection</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceKind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">policy</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">storageSettings</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">requireRegionalStorage</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">failoverSettings</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">forceDeleteStrategy</span><span class="p">:</span><span class="w"> </span><span class="l">AfterNodeUnreachable</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">afterNodeUnreachable</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">afterNodeUnreachableSeconds</span><span class="p">:</span><span class="w"> </span><span class="m">20</span></span></span></code></pre>
+</div>
+<p>And after applying it, we can get the following events:</p>
+<div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
+  <div class="
+    code-block-title 
+    
+    tw-flex 
+    tw-flex-row 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        tw-select-none 
+        tw-mx-2 
+        tw-block
+        group-[.is-open]:tw-rotate-90
+        tw-transition-[transform] 
+        tw-duration-500 
+        tw-ease-in-out
+        print:!tw-hidden"
+      disabled
+      aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
+
+    <div class="code-block-title-bar tw-w-full">
+      <p class="tw-select-none !tw-my-1">bash</p>
+    </div>
+    <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-3" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl">1s          Warning   NodeNotReady                     pod/stateful-service-ha-stateful-operator-0                                                       Node is not ready
+</span></span><span class="line"><span class="cl">0s          Normal    TaintManagerEviction             pod/stateful-service-ha-stateful-operator-0                                                       Marking <span class="k">for</span> deletion Pod namespace/stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0 successful
+</span></span><span class="line"><span class="cl">1s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    Scheduled                         pod/stateful-service-ha-stateful-operator-0                                                       Successfully assigned namespace/stateful-service-ha-stateful-operator-0 to gke-gke-cluster-dev-node-pool20250114-5e2dc459-pafo
+</span></span><span class="line"><span class="cl">0s          Normal    SuccessfulCreate                  statefulset/stateful-service-ha-stateful-operator                                                 create Pod stateful-service-ha-stateful-operator-0 in StatefulSet stateful-service-ha-stateful-operator successful
+</span></span><span class="line"><span class="cl">0s          Normal    PodFailoverAfterNodeUnreachable   highavailabilityapplication/stateful-service-ha-stateful-operator                                 Triggering failover <span class="k">for</span> pod stateful-service-ha-stateful-operator-0
+</span></span><span class="line"><span class="cl">0s          Normal    SuccessfulAttachVolume            pod/stateful-service-ha-stateful-operator-0                                                       AttachVolume.Attach succeeded <span class="k">for</span> volume <span class="s2">&#34;pvc-8839935b-6637-4f70-b5b8-17e2bbf31b04&#34;</span>
+</span></span><span class="line"><span class="cl">0s          Normal    Pulling                           pod/stateful-service-ha-stateful-operator-0                                                       Pulling image <span class="s2">&#34;DOCKER_IMAGE&#34;</span>
+</span></span><span class="line"><span class="cl">0s          Normal    Pulled                            pod/stateful-service-ha-stateful-operator-0                                                       Successfully pulled image <span class="s2">&#34;DOCKER_IMAGE&#34;</span> in 694ms <span class="o">(</span>694ms including waiting<span class="o">)</span>. Image size: XXXX bytes.
+</span></span><span class="line"><span class="cl">0s          Normal    Created                           pod/stateful-service-ha-stateful-operator-0                                                       Created container stateful-service-ha-stateful-operator
+</span></span><span class="line"><span class="cl">0s          Normal    Started                           pod/stateful-service-ha-stateful-operator-0                                                       Started container stateful-service-ha-stateful-operator
+</span></span><span class="line"><span class="cl">0s          Normal    SyncLoadBalancerSuccessful        service/stateful-service-ha-stateful-operator                                                     Successfully ensured IPv4 External LoadBalancer resources</span></span></code></pre>
+</div>
+<p>We now have the <code>HighAvailabilityApplication</code> object:</p>
+<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
+  <div class="
+    code-block-title 
+    
+    tw-flex 
+    tw-flex-row 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        tw-select-none 
+        tw-mx-2 
+        tw-block
+        group-[.is-open]:tw-rotate-90
+        tw-transition-[transform] 
+        tw-duration-500 
+        tw-ease-in-out
+        print:!tw-hidden"
+      disabled
+      aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
+
+    <div class="code-block-title-bar tw-w-full">
+      <p class="tw-select-none !tw-my-1">bash</p>
+    </div>
+    <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-4" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl">$ kubectl get highavailabilityapplications
+</span></span><span class="line"><span class="cl">NAME           PROTECTED
+</span></span><span class="line"><span class="cl">stateful-service-ha-stateful-operator        True</span></span></code></pre>
+</div>
+<p>The description would be:</p>
+<div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
+  <div class="
+    code-block-title 
+    
+    tw-flex 
+    tw-flex-row 
+    tw-justify-between 
+    tw-w-full tw-bg-bgColor-secondary
+    ">      
+    <button 
+      class="
+        tw-select-none 
+        tw-mx-2 
+        tw-block
+        group-[.is-open]:tw-rotate-90
+        tw-transition-[transform] 
+        tw-duration-500 
+        tw-ease-in-out
+        print:!tw-hidden"
+      disabled
+      aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
+
+    <div class="code-block-title-bar tw-w-full">
+      <p class="tw-select-none !tw-my-1">bash</p>
+    </div>
+    <div class="tw-flex">
+      <button 
+        class="
+          line-number-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.show-line-numbers]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle line numbers"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
+
+      <button 
+        class="
+          wrap-code-button
+          tw-select-none 
+          tw-mx-2 
+          tw-hidden 
+          group-[.is-open]:tw-block 
+          group-[.is-wrap]:tw-text-fgColor-link 
+          print:!tw-hidden" 
+        title="Toggle code wrap"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
+      
+      <button 
+        class="
+          copy-code-button
+          tw-select-none
+          tw-mx-2 
+          tw-hidden
+          group-[.is-open]:tw-block
+          hover:tw-text-fgColor-link 
+          print:!tw-hidden"
+        title="Copy code">
+          <span class="copy-icon tw-block"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
+          <span class="check-icon tw-hidden"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
+      </button>
+        
+      <button 
+        class="
+          tw-select-none 
+          tw-mx-2 
+          tw-block 
+          group-[.is-open]:tw-hidden 
+          print:!tw-hidden" 
+        disabled
+        aria-hidden="true"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
+    </div>
+  </div>
+  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
+    id="codeblock-id-5" 
+    class="
+      chroma 
+      !tw-block 
+      tw-p-0
+      tw-m-0
+      tw-transition-[max-height] 
+      tw-duration-500 
+      tw-ease-in-out 
+      group-[.is-closed]:!tw-max-h-0 
+      group-[.is-wrap]:tw-text-wrap
+      tw-overflow-y-hidden
+      tw-overflow-x-auto
+      tw-scrollbar-thin
+      "><span class="line"><span class="cl"> kubectl describe highavailabilityapplications/stateful-service-ha-stateful-operator
+</span></span><span class="line"><span class="cl">Name:         stateful-service-ha-stateful-operator
+</span></span><span class="line"><span class="cl">Namespace:    namespace
+</span></span><span class="line"><span class="cl">Annotations:  meta.helm.sh/release-name: release
+</span></span><span class="line"><span class="cl">              meta.helm.sh/release-namespace: namespace
+</span></span><span class="line"><span class="cl">API Version:  ha.gke.io/v1
+</span></span><span class="line"><span class="cl">Kind:         HighAvailabilityApplication
+</span></span><span class="line"><span class="cl">Metadata:
+</span></span><span class="line"><span class="cl">  Creation Timestamp:  XXXXX
+</span></span><span class="line"><span class="cl">  Generation:          <span class="m">1</span>
+</span></span><span class="line"><span class="cl">  Resource Version:    <span class="m">70249501</span>
+</span></span><span class="line"><span class="cl">  UID:                 UUID
+</span></span><span class="line"><span class="cl">Spec:
+</span></span><span class="line"><span class="cl">  Policy:
+</span></span><span class="line"><span class="cl">    Failover Settings:
+</span></span><span class="line"><span class="cl">      After Node Unreachable:
+</span></span><span class="line"><span class="cl">        After Node Unreachable Seconds:  <span class="m">20</span>
+</span></span><span class="line"><span class="cl">      Force Delete Strategy:             AfterNodeUnreachable
+</span></span><span class="line"><span class="cl">    Storage Settings:
+</span></span><span class="line"><span class="cl">      Require Regional Storage:  <span class="nb">true</span>
+</span></span><span class="line"><span class="cl">  Resource Selection:
+</span></span><span class="line"><span class="cl">    Resource Kind:  StatefulSet
+</span></span><span class="line"><span class="cl">Status:
+</span></span><span class="line"><span class="cl">  Conditions:
+</span></span><span class="line"><span class="cl">    Last Transition Time:  2025-03-12T21:57:57Z
+</span></span><span class="line"><span class="cl">    Message:               Application is protected
+</span></span><span class="line"><span class="cl">    Observed Generation:   <span class="m">1</span>
+</span></span><span class="line"><span class="cl">    Reason:                ApplicationProtected
+</span></span><span class="line"><span class="cl">    Status:                True
+</span></span><span class="line"><span class="cl">    Type:                  Protected
+</span></span><span class="line"><span class="cl">Events:                    &lt;none&gt;</span></span></code></pre>
+</div>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.</p>
+<p>I’ve summarized the key characteristics, along with their pros and cons, in the table below:</p>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: ">Architecture characteristic</th>
+            <th style="text-align: ">GKE HA Stateful Operator</th>
+            <th style="text-align: ">Comment</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: ">Partitioning type</td>
+            <td style="text-align: ">The same as for StatefulSet</td>
+            <td style="text-align: ">You need to enable the add-on first</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Deployability</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">Very easy to deploy, as you don’t need to configure a cluster manually</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Elasticity</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: ">Matches the elasticity of a StatefulSet</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Evolutionary</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: ">You must stick to the operator&rsquo;s requirements</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Fault Tolerance</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">Requires a retry mechanism in the client code to handle potential node failover</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Modularity</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: "></td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Overall cost</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Reliability</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">If using CSI persistent storage, it can only be configured across a maximum of two zones</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Scalability</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: ">Limited by the scalability of the application deployed via StatefulSet</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Simplicity</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">Really easy to setup. You can move to another solution easily.</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Testability</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: "></td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Cloud-Agnosticism</td>
+            <td style="text-align: ">⭐</td>
+            <td style="text-align: ">A proprietary Google extension</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<p>You probably understand that, depending on your constraints, this tool could be a good fit—or not.</p>
+<p>To conclude, in my view, it&rsquo;s worth starting with this setup if your architecture is Kubernetes-centric and you have some tolerance for failover. This approach allows you to take advantage of Kubernetes&rsquo; built-in failover mechanisms</p>
+]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-15"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp   alt="dataflow"  ></div>
+<div id="id-15"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp'   alt="dataflow"  ></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
 Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
 J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-16"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/luke_cage.webp   alt="dataflow"  ></div>
+<div id="id-16"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/luke_cage.webp'   alt="dataflow"  ></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
 <p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-17"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/spring_dataflow_logo.webp   alt="dataflow"  ></div>
+<div id="id-17"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/spring_dataflow_logo.webp'   alt="dataflow"  ></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
 Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
@@ -1341,13 +1994,13 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
 <h3 id="création-de-la-tâche" class="headerLink">
     <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
-<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config3.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config4.webp   alt="configuration"  ></div></div>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config3.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config4.webp'   alt="configuration"  ></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
 <h2 id="exécution" class="headerLink">
     <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
 Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config2.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config10.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config8.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config7.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config9.webp   alt="configuration"  ></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config2.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config10.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config8.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config7.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config9.webp'   alt="configuration"  ></div></div>
 
 <p>J&rsquo;ai pu également accéder aux logs.</p>
 <p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
@@ -2108,7 +2761,7 @@ J&rsquo;ai néanmoins essayé d&rsquo;apporter quelques cas concrets et retours 
                 <img src="/assets/images/2020/10/gartner_hype_cycle.svg_.png" referrerpolicy="no-referrer">
             </div><p>Depuis quelques années, <a href="https://kubernetes.io/" target="_blank" rel="noopener noreferrer">Kubernetes</a> (K8S) et <a href="https://www.cncf.io/" target="_blank" rel="noopener noreferrer">son écosystème</a> deviennent l&rsquo;environnement d&rsquo; exécution à la mode. Certaines personnes veulent déployer sur cet environnement en mettant en avant ses capacités de scalabilité. D&rsquo;autres font du bashing (souvent) justifié sur la complexité et le coût de mise en œuvre d&rsquo;une telle plateforme.<br>
 Vous l&rsquo;aurez compris, cette technologie n&rsquo;échappe pas <a href="https://fr.wikipedia.org/wiki/Cycle_du_hype" target="_blank" rel="noopener noreferrer">au cycle du hype</a> et à la fameuse courbe du Gartner.</p>
-<div id="id-2"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/10/gartner_hype_cycle.svg_.png   alt="cycle hype"  ></div>
+<div id="id-2"><img class="tw-inline" loading="lazy" src='/assets/images/2020/10/gartner_hype_cycle.svg_.png'   alt="cycle hype"  ></div>
 <p>Après quelques expériences sur cette plateforme ( et beaucoup sur d&rsquo;autres 😀 ) je vais essayer de peser le pour et le contre qui m&rsquo;apparaissent importants.<br>
 Bien évidemment, ce n&rsquo;est que mon avis, j&rsquo;ai sans doute omis certaines informations qui pourraient être indispensables pour d&rsquo; autres.</p>
 <h2 id="pourquoi-et-dans-quelles-conditions-il-ne-faut-pas-utiliser-k8s-" class="headerLink">
@@ -2131,8 +2784,8 @@ Bien évidemment, ce n&rsquo;est que mon avis, j&rsquo;ai sans doute omis certai
     <a href="#%c3%aates-vous-taill%c3%a9-pour-" class="header-mark"></a>1.2 Êtes vous taillé pour ?</h3><p>Kubernetes et son écosystème peuvent s&rsquo;avérer complexes à appréhender. Si votre entreprise opte pour une utilisation « <a href="https://en.wikipedia.org/wiki/On-premises_software" target="_blank" rel="noopener noreferrer">on premise</a>« , c&rsquo;est pire. Vous devrez avoir une équipe dédiée qui gérera cette plateforme et offrir une expertise aux équipes de développement.<br>
 Ne vous trompez pas. Si votre rôle est de développer des applications métier, il vous sera très difficile d&rsquo;avoir également une expertise sur l&rsquo;administration de cette plateforme. Vous pourrez l&rsquo;utiliser et être à l&rsquo;aise, mais l&rsquo;administration d&rsquo;une telle technologie est très compliquée.</p>
 <p>Le seul conseil que je pourrais vous donner, c&rsquo;est de ne partir sur Kubernetes que si vous avez une <strong>équipe support à disposition</strong>. C&rsquo;est vrai si vous utilisez des services du Cloud tels que Google Cloud ou AWS. Ça l&rsquo;est encore plus si vous utilisez des services « on premise » tels qu&rsquo; Openshift.</p>
-<h3 id="est-ce-que-vos-développements-sont-cloud-nativehttpswwwredhatcomfrtopicscloud-native-apps-" class="headerLink">
-    <a href="#est-ce-que-vos-d%c3%a9veloppements-sont-cloud-nativehttpswwwredhatcomfrtopicscloud-native-apps-" class="header-mark"></a>1.3 Est-ce que vos développements sont <a href="https://www.redhat.com/fr/topics/cloud-native-apps" target="_blank" rel="noopener noreferrer">« cloud native »</a> ?</h3><p>Au delà de la plateforme, vous devrez monter en compétence sur le développement et la conception de vos applications.</p>
+<h3 id="est-ce-que-vos-développements-sont-cloud-native-" class="headerLink">
+    <a href="#est-ce-que-vos-d%c3%a9veloppements-sont-cloud-native-" class="header-mark"></a>1.3 Est-ce que vos développements sont <a href="https://www.redhat.com/fr/topics/cloud-native-apps" target="_blank" rel="noopener noreferrer">« cloud native »</a> ?</h3><p>Au delà de la plateforme, vous devrez monter en compétence sur le développement et la conception de vos applications.</p>
 <p>Il vous faudra prendre en considération <a href="https://en.wikipedia.org/wiki/Twelve-Factor_App_methodology" target="_blank" rel="noopener noreferrer">les 12 facteurs clés</a> dans vos applications. Il n&rsquo;est pas forcément la peine de passer sur des microservices. Il est également possible de faire des monolithes modulaires qui peuvent être légers et stateless. Beaucoup de ces facteurs sont communément admis comme des bonnes pratiques de développement logiciel (ex. Il faut une intégration continue).</p>
 <p>Aussi, cela va sans dire, il faut également monter (réellement) en compétence sur les conteneurs et leurs contraintes. Si vous n&rsquo;avez pas l&rsquo;habitude de travailler avec des conteneurs ( construction, déploiement, disponibilité d&rsquo;une <a href="https://docs.docker.com/registry/" target="_blank" rel="noopener noreferrer">registry</a>). Il est préférable de définir une trajectoire avec des étapes intermédiaires.</p>
 <p>Bref, tous ces sujets doivent être adressés et compris pour toutes les parties prenantes de vos équipes que ça soit les développeurs, les chefs de projet et les équipes métiers à une moindre mesure. Cette technologie représente réellement un grand pas à franchir. Si vous ne vous sentez pas de le faire, ou si vous devez gagner en maturité sur ces sujets, attendez avant de vous lancer sur Kubernetes.</p>
@@ -2252,7 +2905,7 @@ La contrainte que l&rsquo;on peut voir à cette fonctionnalité et qu&rsquo;on n
 </span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">0</span></span></span></code></pre>
 </div>
 <h3 id="linfrastructure-as-code" class="headerLink">
-    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-3"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png   alt="infrastructure as code"  ></div>
+    <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-3"><img class="tw-inline" loading="lazy" src='/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png'   alt="infrastructure as code"  ></div>
 <p>Quand on pense à Kubernetes, et au cloud, on ne pense pas trop à l&rsquo;<a href="https://en.wikipedia.org/wiki/Infrastructure_as_code" target="_blank" rel="noopener noreferrer">Infrastructure As Code</a> au début. Cependant, cette pratique est pour moi l&rsquo;une des plus utiles.</p>
 <p>En effet, avoir votre système décrit dans des fichiers, versionnés vous permet de le tester dès le développement. Ça évite ( dans la majorité des cas ) les erreurs lors des installations d&rsquo;environnement. La mise à jour des logiciels est largement accélérée.</p>
 <p>Bien évidemment, il existe <a href="https://www.terraform.io/" target="_blank" rel="noopener noreferrer">Terraform</a> et <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible</a> pour le provisionning des environnements. Ici je trouve qu&rsquo;on pousse le concept encore plus loin. L&rsquo;automatisation est à mon avis poussé à paroxysme.<br>
@@ -2387,10 +3040,10 @@ Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://gith
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span></span></span></code></pre>
 </div>
 <p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
-<div id="id-6"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-6"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
 Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
-<div id="id-7"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-7"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <h2 id="worflows-implémentés" class="headerLink">
     <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
 <ul>
@@ -2398,7 +3051,7 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
 <li><strong>CD</strong>: Build sur master branch et déploiement</li>
 </ul>
 <p>On obtient donc dans mon cas:</p>
-<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/workflow.png   alt="workflow"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/workflow.png'   alt="workflow"  ></div>
 <p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
 Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
 <h2 id="analyse-sonar" class="headerLink">
@@ -2640,9 +3293,9 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 <p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
 <h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
     <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
-<div id="id-9"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application-1.png   alt="workflow"  ></div>
+<div id="id-9"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application-1.png'   alt="workflow"  ></div>
 <p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
-<div id="id-10"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application_gke.png   alt="workflow"  ></div>
+<div id="id-10"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application_gke.png'   alt="workflow"  ></div>
 <p>J&rsquo;utilise les objets suivants:</p>
 <ul>
 <li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
@@ -2853,11 +3506,11 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span></span></span></code></pre>
 </div>
 <p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
 <h2 id="conclusion" class="headerLink">

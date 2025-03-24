@@ -2,7 +2,7 @@
                 <img src="/assets/images/2019/06/ansible_logo.svg_.png" referrerpolicy="no-referrer">
             </div><p>Si vous <a href="http://blog.touret.info/2018/03/15/installation-de-vagrant/" target="_blank" rel="noopener noreferrer">provisionnez vos VM VirtualBox avec Vagrant</a>, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.</p>
 <p>Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez <a href="https://www.ansible.com/" target="_blank" rel="noopener noreferrer">Ansible.</a></p>
-<div id="id-10"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2019/06/ansible_logo.svg_.png   alt="ansible"  ></div>
+<div id="id-10"><img class="tw-inline" loading="lazy" src='/assets/images/2019/06/ansible_logo.svg_.png'   alt="ansible"  ></div>
 <p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href="https://puppet.com" target="_blank" rel="noopener noreferrer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation d&rsquo;agent.</p>
 <p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href="https://www.virtualbox.org/" target="_blank" rel="noopener noreferrer">VirtualBox</a>.</p>
 <h2 id="configuration-de-vagrant" class="headerLink">

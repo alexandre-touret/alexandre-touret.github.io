@@ -124,10 +124,10 @@ Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://gith
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span></span></span></code></pre>
 </div>
 <p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
-<div id="id-6"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-6"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
 Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
-<div id="id-7"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-7"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <h2 id="worflows-implémentés" class="headerLink">
     <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
 <ul>
@@ -135,7 +135,7 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
 <li><strong>CD</strong>: Build sur master branch et déploiement</li>
 </ul>
 <p>On obtient donc dans mon cas:</p>
-<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/workflow.png   alt="workflow"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/workflow.png'   alt="workflow"  ></div>
 <p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
 Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
 <h2 id="analyse-sonar" class="headerLink">
@@ -377,9 +377,9 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 <p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
 <h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
     <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
-<div id="id-9"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application-1.png   alt="workflow"  ></div>
+<div id="id-9"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application-1.png'   alt="workflow"  ></div>
 <p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
-<div id="id-10"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application_gke.png   alt="workflow"  ></div>
+<div id="id-10"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application_gke.png'   alt="workflow"  ></div>
 <p>J&rsquo;utilise les objets suivants:</p>
 <ul>
 <li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
@@ -590,11 +590,11 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span></span></span></code></pre>
 </div>
 <p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
 <h2 id="conclusion" class="headerLink">

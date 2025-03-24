@@ -6,7 +6,7 @@ I would then see if Rancher Desktop fits well in this case and could help me.</p
 <p>In this (very short) article, we&rsquo;ll go over the necessary steps to configure <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> Ubuntu virtual machines and Docker with Rancher Desktop.</p>
 <p>If you want to get into Rancher Desktop in another way and discover how to install <a href="https://skaffold.dev/" target="_blank" rel="noopener noreferrer">Skaffold</a>, you <a href="https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/" target="_blank" rel="noopener noreferrer">can read this article</a>.</p>
 <h2 id="install--configure-rancher-desktop" class="headerLink">
-    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-4"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/11/rancher-desktop-logo.svg   alt="rancher desktop logo"  ></div>
+    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-4"><img class="tw-inline" loading="lazy" src='/assets/images/2023/11/rancher-desktop-logo.svg'   alt="rancher desktop logo"  ></div>
 <p>The setup is quite straightforward.
 Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
 Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p>

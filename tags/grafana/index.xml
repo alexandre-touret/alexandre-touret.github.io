@@ -31,7 +31,6 @@ By doing so, you can transform your relationship with Ops teams, making them you
   <p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
 When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
 <p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
-
 </blockquote><h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
     <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
 You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
@@ -150,7 +149,7 @@ With regard to the topic of this article,it will provide us all you need to coll
 <li>Metrics</li>
 </ul>
 <p>They can be defined as follows:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/image-2023-8-1_9-44-11.webp   alt="monitoring"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/image-2023-8-1_9-44-11.webp'   alt="monitoring"  ></p>
 <h2 id="logs" class="headerLink">
     <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
 It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.</p>
@@ -601,7 +600,7 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
       "><span class="line"><span class="cl">http :8080/api/events</span></span></code></pre>
 </div>
 <p>You can now get logs browsing Grafana</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Loki-Grafana.webp   alt="Loki"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Loki-Grafana.webp'   alt="Loki"  ></p>
 <h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
 Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
@@ -1189,7 +1188,7 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre>
 </div>
 <p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Tempo-Grafana.webp   alt="Tempo"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Tempo-Grafana.webp'   alt="Tempo"  ></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
 <p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
@@ -1766,7 +1765,7 @@ The necessity for clarity becomes even more pronounced in such cases.
 Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.</p>
 <p>Why does this challenge arise?
 It&rsquo;s a consequence of functional transactions fragmenting into two loosely coupled subprocesses:</p>
-<div id="id-19"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/loose-coupling-sequence.svg   alt="OpenTelemetry Collector Architecture"  ></div>
+<div id="id-19"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/loose-coupling-sequence.svg'   alt="OpenTelemetry Collector Architecture"  ></div>
 <p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
 <div class="details admonition info open">
     <div class="details-summary admonition-title">
@@ -1786,12 +1785,12 @@ The first part will use Jaeger and the second one,  <a href="https://grafana.com
     <a href="#architecture" class="header-mark"></a>2.1 Architecture</h3><p>The <a href="https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing" target="_blank" rel="noopener noreferrer">SPANs</a> are broadcast and gathered through <a href="https://opentelemetry.io/docs/collector" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a>.
 It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
 <p>Here is the architecture of such a platform:</p>
-<div id="id-20"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/architecture.svg   alt="OpenTelemetry Collector Architecture"  ></div>
+<div id="id-20"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/architecture.svg'   alt="OpenTelemetry Collector Architecture"  ></div>
 <h3 id="opentelemetry-collector" class="headerLink">
     <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
 It can be compared to <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">Elastic LogStash</a> or an <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener noreferrer">ETL</a>.
 It will help us get, transform and export telemetry data.</p>
-<div id="id-21"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/otel-diagram.svg   alt="OpenTelemetry Collector Functionalities"  ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
+<div id="id-21"><figure><img  loading="lazy" src='/assets/images/2023/09/otel-diagram.svg'   alt="OpenTelemetry Collector Functionalities"  ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
 </figure></div>
 <p>For our use case, the configuration is quite simple.</p>
 <p>First, here is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Docker Compose configuration</a>:</p>
@@ -3254,13 +3253,13 @@ For instance, in the consumer application, when we consume the messages as:</p>
       "><span class="line"><span class="cl">while true ; http :9080/camel/test; end</span></span></code></pre>
 </div>
 <p>Now, you can browse Jaeger (<a href="http://localhost:16686" target="_blank" rel="noopener noreferrer">http://localhost:16686</a>) and query it to find trace insights:</p>
-<div id="id-22"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-1.webp   alt="Jaeger front page"  ><figcaption class="image-caption">Number of different apps</figcaption>
+<div id="id-22"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-1.webp'   alt="Jaeger front page"  ><figcaption class="image-caption">Number of different apps</figcaption>
 </figure></div>
 <p>If you dig into one transaction, you will see the whole transaction:</p>
-<div id="id-23"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-2.webp   alt="Jaeger transaction page"  ><figcaption class="image-caption">One transaction</figcaption>
+<div id="id-23"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-2.webp'   alt="Jaeger transaction page"  ><figcaption class="image-caption">One transaction</figcaption>
 </figure></div>
 <p>And now, you can correlate two sub transactions:</p>
-<div id="id-24"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-3.webp   alt="Jaeger two sub transactions"  ><figcaption class="image-caption">Two sub transactions</figcaption>
+<div id="id-24"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-3.webp'   alt="Jaeger two sub transactions"  ><figcaption class="image-caption">Two sub transactions</figcaption>
 </figure></div>
 <h2 id="tempo--grafana" class="headerLink">
     <a href="#tempo--grafana" class="header-mark"></a>3 Tempo &amp; Grafana</h2><p>This solution is pretty similar to the previous one.
@@ -3270,7 +3269,7 @@ We don&rsquo;t need to modify the configuration made in the existing Java applic
     <a href="#architecture-1" class="header-mark"></a>3.1 Architecture</h3><p>As mentioned above, the architecture is quite the same.
 Now, we have the collector which broadcast data to Tempo.
 We will then configure Grafana to query to it to get traces.</p>
-<div id="id-25"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/architecture_grafana.svg   alt="Architecture w/ Grafana &amp; Tempo"  ></div>
+<div id="id-25"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/architecture_grafana.svg'   alt="Architecture w/ Grafana &amp; Tempo"  ></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.</p>
@@ -3758,9 +3757,9 @@ The configuration is made here using a configuration file provided during the st
 </span></span><span class="line"><span class="cl">docker compose -f docker-compose-grafana.yml up</span></span></code></pre>
 </div>
 <p>Then, using the same rocket scientist maven commands, we can run the same commands and browse now Grafana (<code>http://localhost:3000</code>) to see our traces:</p>
-<p><div id="id-26"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/grafana-1.webp   alt="Grafana transactions"  ><figcaption class="image-caption">Transactions</figcaption>
+<p><div id="id-26"><figure><img  loading="lazy" src='/assets/images/2023/09/grafana-1.webp'   alt="Grafana transactions"  ><figcaption class="image-caption">Transactions</figcaption>
 </figure></div>
-<div id="id-27"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/grafana-2.webp   alt="Grafana transactions"  ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
+<div id="id-27"><figure><img  loading="lazy" src='/assets/images/2023/09/grafana-2.webp'   alt="Grafana transactions"  ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
 </figure></div></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo &amp; Grafana.

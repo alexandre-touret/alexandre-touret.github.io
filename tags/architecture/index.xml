@@ -10,7 +10,6 @@
 <p>Selon <a href="https://fr.wikipedia.org/wiki/Risque" target="_blank" rel="noopener noreferrer">Wikipedia</a>, voici la définition:</p>
 <blockquote>
   <p>Le risque est la possibilité de survenue d&rsquo;un événement indésirable, la probabilité d’occurrence d&rsquo;un péril probable ou d&rsquo;un aléa.</p>
-
 </blockquote><p>Bien évidemment, on a les risques inconnus et ceux qui sont connus.
 Le préalable à toute gestion de risque (tout du moins pour la définition d&rsquo;architecture) est de capitaliser les connaissances et retours d&rsquo;expérience qui viennent du terrain.</p>
 <p>On va donc oublier les risques inconnus dans cet article.</p>
@@ -40,7 +39,7 @@ Pour chacun, vous devrez définir ces trois caractéristiques : cause, probabili
 <p>A coté de ça, vous aurez à identifier si possible le temps d&rsquo;indisponibilité du service.</p>
 <h3 id="synthèse" class="headerLink">
     <a href="#synth%c3%a8se" class="header-mark"></a>1.2 Synthèse</h3><p>Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:</p>
-<div id="id-1"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/02/Risk-Based-Audit_technical.webp   alt="analyse de risques"  ></div>
+<div id="id-1"><img class="tw-inline" loading="lazy" src='/assets/images/2022/02/Risk-Based-Audit_technical.webp'   alt="analyse de risques"  ></div>
 <p>En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d&rsquo;action.</p>
 <p>Prenons la définition d&rsquo;une plateforme:
 Si votre API doit traiter de manière régulière des PAYLOADs volumineux (bon déjà, la ce n&rsquo;est pas top).
@@ -54,12 +53,12 @@ Bref, est-ce acceptable?</p>
 Si vous avez des risques de faible impact, vous pourrez soit les &ldquo;mettre sous contrôle&rdquo; pour traiter d&rsquo;autres problèmes, soit les traiter car ils sont &ldquo;faciles&rdquo; à traiter et vous permettront d&rsquo;agrandir votre &ldquo;budget d&rsquo;erreur&rdquo;.
 Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo; d&rsquo;autres erreurs plus compliquées à traiter car elles rentreront dans votre budget.</p>
 <p>Bref, c&rsquo;est un vrai travail de fourmi qui se base sur l&rsquo;expérience du terrain.</p>
-<h2 id="_quid_-de-larchitecture" class="headerLink">
-    <a href="#_quid_-de-larchitecture" class="header-mark"></a>3 <em>Quid</em> de l&rsquo;architecture?</h2><p>Si vous avez évalué les risques correctement, vous pourrez ne traiter que les risques qui en valent la peine et par conséquent n&rsquo; ajouter de la complexité que là ou ça en vaut la peine!</p>
+<h2 id="quid-de-larchitecture" class="headerLink">
+    <a href="#quid-de-larchitecture" class="header-mark"></a>3 <em>Quid</em> de l&rsquo;architecture?</h2><p>Si vous avez évalué les risques correctement, vous pourrez ne traiter que les risques qui en valent la peine et par conséquent n&rsquo; ajouter de la complexité que là ou ça en vaut la peine!</p>
 <p><strong>Oui, ce travail préalable permet de faire simple!</strong></p>
 <h2 id="un-exemple-concret" class="headerLink">
     <a href="#un-exemple-concret" class="header-mark"></a>4 Un exemple concret</h2><p>Si je reprends l&rsquo;application <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">bookstore</a> que j&rsquo;ai décrite dans <a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">un précédent article</a>:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/rest-book-architecture.png   alt="bookstore architecture"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2021/07/rest-book-architecture.png'   alt="bookstore architecture"  ></p>
 <h3 id="exigences-techniques" class="headerLink">
     <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
     <a href="#slos--slis" class="header-mark"></a>4.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
@@ -187,7 +186,7 @@ Ce sujet y est abordé.</p>
 <p>{% include gallery caption=&ldquo;Un kata d&rsquo;architecture à TNT&rdquo;  layout=&ldquo;half&rdquo; %}</p>
 <p>La cave à vin connecté a remporté un franc succès, du moins pendant la présentation des sujets 🙂</p>
 <p>Voici le feedback que j&rsquo;ai eu sur ma présentation:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2019/02/img_20190201_174057.jpg   alt="Feedback"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2019/02/img_20190201_174057.jpg'   alt="Feedback"  ></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item><item><title>Touraine Tech 2019</title><link>https://blog.touret.info/2018/12/25/touraine-tech-2019/</link><pubDate>Tue, 25 Dec 2018 17:24:29 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/12/25/touraine-tech-2019/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/touraine_tech.png" referrerpolicy="no-referrer">

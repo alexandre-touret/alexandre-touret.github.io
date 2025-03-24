@@ -10,9 +10,9 @@ I will then try to sum up in this article my journey so far from a developer&rsq
 <h2 id="the-context" class="headerLink">
     <a href="#the-context" class="header-mark"></a>1 The context</h2><p>Instead of reusing one of my existing workshops, I chose to start a new platform from the ground up.</p>
 <p>Here is the context diagram:</p>
-<div id="id-11"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/guitar_heaven_context.png   alt="context diagram"  ></div>
+<div id="id-11"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/guitar_heaven_context.png'   alt="context diagram"  ></div>
 <p>And the container diagram:</p>
-<div id="id-12"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/guitar_heaven_container.png   alt="context diagram"  ></div>
+<div id="id-12"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/guitar_heaven_container.png'   alt="context diagram"  ></div>
 <p>Basically, it is a simple monolithic application with a database which reaches external services:</p>
 <ul>
 <li><a href="https://developer.ebay.com/" target="_blank" rel="noopener noreferrer">EBay</a>.</li>
@@ -34,7 +34,7 @@ It is not a production-ready. It misses many aspects such as Observability or se
 <li>The <a href="https://quarkus.io/guides/dev-ui" target="_blank" rel="noopener noreferrer">Dev UI</a></li>
 <li>The <a href="https://quarkus.io/guides/dev-services" target="_blank" rel="noopener noreferrer">Dev Services</a></li>
 </ul>
-<div id="id-13"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/dev_ui_extensions.png   alt="Dev UI Extensions"  >
+<div id="id-13"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/dev_ui_extensions.png'   alt="Dev UI Extensions"  >
 <em>The DevUI extensions page</em></div>
 <p>Usually many developers look down on Java because it is hard to setup and the integration with external services could be painful.
 Through these two tools, I think Quarkus found a smart answer to these worries.</p>
@@ -1166,7 +1166,6 @@ By doing so, you can transform your relationship with Ops teams, making them you
   <p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
 When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
 <p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
-
 </blockquote><h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
     <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
 You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
@@ -1285,7 +1284,7 @@ With regard to the topic of this article,it will provide us all you need to coll
 <li>Metrics</li>
 </ul>
 <p>They can be defined as follows:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/image-2023-8-1_9-44-11.webp   alt="monitoring"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/image-2023-8-1_9-44-11.webp'   alt="monitoring"  ></p>
 <h2 id="logs" class="headerLink">
     <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
 It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.</p>
@@ -1736,7 +1735,7 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
       "><span class="line"><span class="cl">http :8080/api/events</span></span></code></pre>
 </div>
 <p>You can now get logs browsing Grafana</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Loki-Grafana.webp   alt="Loki"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Loki-Grafana.webp'   alt="Loki"  ></p>
 <h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
 Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
@@ -2324,7 +2323,7 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre>
 </div>
 <p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Tempo-Grafana.webp   alt="Tempo"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Tempo-Grafana.webp'   alt="Tempo"  ></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
 <p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
@@ -3695,17 +3694,17 @@ Bien que Spring ait fait un effort de documentation pour la migration, il est pl
 ]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-15"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp   alt="dataflow"  ></div>
+<div id="id-15"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp'   alt="dataflow"  ></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
 Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
 J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-16"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/luke_cage.webp   alt="dataflow"  ></div>
+<div id="id-16"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/luke_cage.webp'   alt="dataflow"  ></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
 <p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-17"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/spring_dataflow_logo.webp   alt="dataflow"  ></div>
+<div id="id-17"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/spring_dataflow_logo.webp'   alt="dataflow"  ></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
 Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
@@ -5035,13 +5034,13 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
 <h3 id="création-de-la-tâche" class="headerLink">
     <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
-<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config3.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config4.webp   alt="configuration"  ></div></div>
+<p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config3.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config4.webp'   alt="configuration"  ></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
 <h2 id="exécution" class="headerLink">
     <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
 Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
-<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config2.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config10.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config8.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config7.webp   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2022/08/dataflow_config9.webp   alt="configuration"  ></div></div>
+<div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config2.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config10.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config8.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config7.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config9.webp'   alt="configuration"  ></div></div>
 
 <p>J&rsquo;ai pu également accéder aux logs.</p>
 <p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code>  afin que Kubernetes ne redémarre pas automatiquement le traitement.</p>
@@ -5930,8 +5929,8 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre>
 </div>
 <p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png   alt="jaeger1"  >
-<img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png   alt="jaeger2"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png'   alt="jaeger1"  >
+<img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png'   alt="jaeger2"  ></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>

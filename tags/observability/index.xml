@@ -31,7 +31,6 @@ By doing so, you can transform your relationship with Ops teams, making them you
   <p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
 When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
 <p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
-
 </blockquote><h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
     <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
 You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
@@ -150,7 +149,7 @@ With regard to the topic of this article,it will provide us all you need to coll
 <li>Metrics</li>
 </ul>
 <p>They can be defined as follows:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/image-2023-8-1_9-44-11.webp   alt="monitoring"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/image-2023-8-1_9-44-11.webp'   alt="monitoring"  ></p>
 <h2 id="logs" class="headerLink">
     <a href="#logs" class="header-mark"></a>5 Logs</h2><p>When a program fails, OPS usually tries to identify the underlying error analyzing log files.
 It could be either reading the application log files or using a log aggregator such as Elastic Kibana or Splunk.</p>
@@ -601,7 +600,7 @@ It is usually easier to manipulate them all along the log ingestion tools chain 
       "><span class="line"><span class="cl">http :8080/api/events</span></span></code></pre>
 </div>
 <p>You can now get logs browsing Grafana</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Loki-Grafana.webp   alt="Loki"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Loki-Grafana.webp'   alt="Loki"  ></p>
 <h2 id="traces" class="headerLink">
     <a href="#traces" class="header-mark"></a>7 Traces</h2><p>Upon initial inspection, one might consider the existing setup sufficient. However, I highly recommend delving into the realm of <a href="https://research.google/pubs/pub36356/" target="_blank" rel="noopener noreferrer">Distributed Tracing</a>, a technology I have previously introduced (refer to the aforementioned discussion).
 Not only it will be first really useful when you deploy distributed architectures but also for the other kind of platforms.</p>
@@ -1189,7 +1188,7 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
 </span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre>
 </div>
 <p>After testing this service a few times, you can now see the traces on your Grafana dashboard.</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2024/01/Tempo-Grafana.webp   alt="Tempo"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2024/01/Tempo-Grafana.webp'   alt="Tempo"  ></p>
 <h3 id="head-or-tail-sampling" class="headerLink">
     <a href="#head-or-tail-sampling" class="header-mark"></a>7.2 Head or Tail sampling?</h3><p>One significant drawback of implementing this technology lies in the potential performance overhead it introduces to the instrumented application. In cases where high-pressure APIs generate or broadcast SPANs for every transaction, there&rsquo;s a substantial risk of significantly impacting the <a href="https://sre.google/sre-book/service-level-objectives/" target="_blank" rel="noopener noreferrer">Service Level Objectives (SLOs)</a> of your platform.</p>
 <p>A viable solution to mitigate this challenge involves sampling the traces, such as retaining only 20% of the transactions. There are two primary approaches:</p>
@@ -2429,8 +2428,8 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre>
 </div>
 <p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png   alt="jaeger1"  >
-<img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png   alt="jaeger2"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png'   alt="jaeger1"  >
+<img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png'   alt="jaeger2"  ></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>

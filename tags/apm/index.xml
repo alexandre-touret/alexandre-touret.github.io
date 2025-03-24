@@ -9,9 +9,9 @@ Several strategies can be considered, but the main point is how to minimize the 
 <li>We have an API <em>&ldquo;My wonderful API&rdquo;</em> which is instrumented through an <a href="https://www.elastic.co/guide/en/apm/agent/index.html" target="_blank" rel="noopener noreferrer">Elastic APM agent</a>.</li>
 <li>The data is then sent to the <a href="https://www.elastic.co/guide/en/apm" target="_blank" rel="noopener noreferrer">Elastic APM</a>.</li>
 </ul>
-<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/10/architecture_system.svg   alt="c4 context diagram"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src='/assets/images/2023/10/architecture_system.svg'   alt="c4 context diagram"  ></div>
 <p>Now, if we dive into the <em>&ldquo;Wonderful System&rdquo;</em>, we can see the <em>Wonderful Java application</em> and the agent:</p>
-<div id="id-9"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/10/architecture_container.svg   alt="c4 context diagram"  ></div>
+<div id="id-9"><img class="tw-inline" loading="lazy" src='/assets/images/2023/10/architecture_container.svg'   alt="c4 context diagram"  ></div>
 <div class="details admonition tip open">
     <div class="details-summary admonition-title">
         <span class="icon"><svg class="icon"
@@ -138,8 +138,8 @@ Because you just have to add the following lines of code in our Docker images de
 <p>This kind of container is run only once during the startup of every pod.
 A bunch of commands is ran then on top of it.
 For our current use case, it will copy the javaagent into a volume such as an <a href="https://kubernetes.io/docs/concepts/storage/volumes/#emptydir" target="_blank" rel="noopener noreferrer">empty directory volume</a>.</p>
-<h3 id="impacts-in-the-_wonderful-java-application_-docker-image" class="headerLink">
-    <a href="#impacts-in-the-_wonderful-java-application_-docker-image" class="header-mark"></a>2.1 Impacts in the &ldquo;<em>Wonderful Java Application</em> Docker image</h3><p>The main impact is to declare a volume in your Docker image:</p>
+<h3 id="impacts-in-the-wonderful-java-application-docker-image" class="headerLink">
+    <a href="#impacts-in-the-wonderful-java-application-docker-image" class="header-mark"></a>2.1 Impacts in the &ldquo;<em>Wonderful Java Application</em> Docker image</h3><p>The main impact is to declare a volume in your Docker image:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     code-block-title 

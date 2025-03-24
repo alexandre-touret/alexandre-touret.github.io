@@ -10,9 +10,9 @@ I will then try to sum up in this article my journey so far from a developer&rsq
 <h2 id="the-context" class="headerLink">
     <a href="#the-context" class="header-mark"></a>1 The context</h2><p>Instead of reusing one of my existing workshops, I chose to start a new platform from the ground up.</p>
 <p>Here is the context diagram:</p>
-<div id="id-11"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/guitar_heaven_context.png   alt="context diagram"  ></div>
+<div id="id-11"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/guitar_heaven_context.png'   alt="context diagram"  ></div>
 <p>And the container diagram:</p>
-<div id="id-12"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/guitar_heaven_container.png   alt="context diagram"  ></div>
+<div id="id-12"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/guitar_heaven_container.png'   alt="context diagram"  ></div>
 <p>Basically, it is a simple monolithic application with a database which reaches external services:</p>
 <ul>
 <li><a href="https://developer.ebay.com/" target="_blank" rel="noopener noreferrer">EBay</a>.</li>
@@ -34,7 +34,7 @@ It is not a production-ready. It misses many aspects such as Observability or se
 <li>The <a href="https://quarkus.io/guides/dev-ui" target="_blank" rel="noopener noreferrer">Dev UI</a></li>
 <li>The <a href="https://quarkus.io/guides/dev-services" target="_blank" rel="noopener noreferrer">Dev Services</a></li>
 </ul>
-<div id="id-13"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2025/01/dev_ui_extensions.png   alt="Dev UI Extensions"  >
+<div id="id-13"><img class="tw-inline" loading="lazy" src='/assets/images/2025/01/dev_ui_extensions.png'   alt="Dev UI Extensions"  >
 <em>The DevUI extensions page</em></div>
 <p>Usually many developers look down on Java because it is hard to setup and the integration with external services could be painful.
 Through these two tools, I think Quarkus found a smart answer to these worries.</p>

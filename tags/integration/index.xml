@@ -5,7 +5,7 @@
 <h2 id="les-patterns-dintégration" class="headerLink">
     <a href="#les-patterns-dint%c3%a9gration" class="header-mark"></a>1 Les patterns d&rsquo;intégration</h2><p>Qu&rsquo;est-ce qu&rsquo;un <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html" target="_blank" rel="noopener noreferrer">pattern d&rsquo;intégration</a> allez-vous me dire ? C&rsquo;est une solution d&rsquo;architecture ou plus simplement une recette de cuisine permettant d&rsquo;avoir une solution toute prête à une problématique d&rsquo;intégration donnée. L&rsquo;ensemble de ces patterns est décrit sur <a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener noreferrer">ce site</a> ( ne vous attardez pas sur le look des années 90 … ).</p>
 <p>Exemple :</p>
-<div id="id-1"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2018/04/publishsubscribesolution.gif   alt="publish_subscribe"  ></div>
+<div id="id-1"><img class="tw-inline" loading="lazy" src='/assets/images/2018/04/publishsubscribesolution.gif'   alt="publish_subscribe"  ></div>
 <p>Camel permet simplement de gérer l&rsquo;intégration via un DSL.</p>
 <h3 id="choix-dimplémentations" class="headerLink">
     <a href="#choix-dimpl%c3%a9mentations" class="header-mark"></a>1.1 Choix d&rsquo;implémentations</h3><p>On peut faire pas mal de choses avec ce FRAMEWORK et de plusieurs manières. J&rsquo;ai fait les choix d&rsquo;implémentation suivants :</p>

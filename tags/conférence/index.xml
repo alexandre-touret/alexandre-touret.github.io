@@ -27,7 +27,7 @@
 <p>{% include gallery caption=&ldquo;Un kata d&rsquo;architecture à TNT&rdquo;  layout=&ldquo;half&rdquo; %}</p>
 <p>La cave à vin connecté a remporté un franc succès, du moins pendant la présentation des sujets 🙂</p>
 <p>Voici le feedback que j&rsquo;ai eu sur ma présentation:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2019/02/img_20190201_174057.jpg   alt="Feedback"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2019/02/img_20190201_174057.jpg'   alt="Feedback"  ></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item><item><title>Touraine Tech 2019</title><link>https://blog.touret.info/2018/12/25/touraine-tech-2019/</link><pubDate>Tue, 25 Dec 2018 17:24:29 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2018/12/25/touraine-tech-2019/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2018/12/touraine_tech.png" referrerpolicy="no-referrer">

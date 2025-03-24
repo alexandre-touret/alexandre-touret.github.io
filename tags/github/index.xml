@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Github - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/github/</link><description>Github - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/github/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div><p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/12/github-1.jpg   alt="github"  ></p>
+            </div><p><img class="tw-inline" loading="lazy" src='/assets/images/2021/12/github-1.jpg'   alt="github"  ></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
 <p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>
@@ -585,7 +585,7 @@ Il permet, via un script python de:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">💎 install python packages (3)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">        python -m pip install --upgrade pip 
-</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 execute py script  (4)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python publish_drafts.py</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          
@@ -600,7 +600,7 @@ Il permet, via un script python de:</p>
 </span></span></span><span class="line"><span class="cl"><span class="sd">        else
 </span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;No file to publish&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">        fi
-</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span></span></span></code></pre>
 </div>
 <p><strong>Explication:</strong></p>
 <ol>
@@ -765,7 +765,7 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
 </ul>
 <h3 id="exporter-les-données" class="headerLink">
     <a href="#exporter-les-donn%c3%a9es" class="header-mark"></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p>
-<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png   alt="wordpress_export"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src='/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png'   alt="wordpress_export"  ></div>
 <p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p>
 <p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p>
 <h3 id="importer-les-données" class="headerLink">
@@ -2177,8 +2177,8 @@ Grâce à cet librairie, nous allons pouvoir tracer toutes les transactions de n
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre>
 </div>
 <p>Une fois l&rsquo;application reconstruite et redémarrée, vous pourrez visualiser les transactions dans JAEGER:</p>
-<p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png   alt="jaeger1"  >
-<img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png   alt="jaeger2"  ></p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-31-jaeger-ui.png'   alt="jaeger1"  >
+<img class="tw-inline" loading="lazy" src='/assets/images/2021/07/screenshot-2021-07-26-at-11-38-15-jaeger-ui.png'   alt="jaeger2"  ></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>Je ne vais pas exposer l&rsquo;implémentation des tests unitaires et d&rsquo;intégration. Si vous voulez voir comment j&rsquo;ai réussi à mocker simplement les appels REST à une API distante, vous pouvez regarder <a href="https://github.com/alexandre-touret/bookstore_spring/blob/main/rest-book/src/test/java/info/touret/bookstore/spring/book/controller/BookControllerIT.java" target="_blank" rel="noopener noreferrer">cette classe</a> pour voir une utilisation du <a href="https://www.baeldung.com/mockserver" target="_blank" rel="noopener noreferrer">MockServer</a>.<br>
 Aussi, n&rsquo;hésitez pas à cloner, tester ce projet et me donner votre retour. J&rsquo;essaierai de le mettre à jour au fur et à mesure de mes découvertes (par ex. OpenTelemetry).</p>
@@ -2811,10 +2811,10 @@ Depuis peu, GITHUB a intégré un mécanisme de pipeline : <a href="https://gith
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">./gradlew build -x test</span></span></span></code></pre>
 </div>
 <p>Coté GITHUB, vous verrez l&rsquo;exécution sur un écran dédié</p>
-<div id="id-6"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-6"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-08-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <p>Vous pouvez créer autant de workflows que vous souhaitez (si votre projet est en libre accès).<br>
 Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;exécution sont disponibles dans ce même écran:</p>
-<div id="id-7"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png   alt="Music Quote"  ></div>
+<div id="id-7"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/screenshot_2020-05-09-alexandre-touret-music-quote.png'   alt="Music Quote"  ></div>
 <h2 id="worflows-implémentés" class="headerLink">
     <a href="#worflows-impl%c3%a9ment%c3%a9s" class="header-mark"></a>1 Worflows implémentés</h2><p>J&rsquo;ai choisi d&rsquo;implémenter les workflows suivants:</p>
 <ul>
@@ -2822,7 +2822,7 @@ Pour chaque workflow, on peut définir et utiliser des jobs. Les logs d&rsquo;ex
 <li><strong>CD</strong>: Build sur master branch et déploiement</li>
 </ul>
 <p>On obtient donc dans mon cas:</p>
-<div id="id-8"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/workflow.png   alt="workflow"  ></div>
+<div id="id-8"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/workflow.png'   alt="workflow"  ></div>
 <p>Ce n&rsquo;est pas parfait. Loin de là. Dans la « vraie vie », pour une équipe de dev, je l&rsquo;améliorerai sans doute par un build docker dans les features branches, une validation formelle et bloquante de l&rsquo;analyse sonar, etc.<br>
 Pour un dev perso ça suffit largement. Le contenu de la branche master est compilé et une image docker est crée pour être déployée automatiquement dans GKE.</p>
 <h2 id="analyse-sonar" class="headerLink">
@@ -3064,9 +3064,9 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 <p>Pour plus de détails sur la variable GITHUB_TOKEN, vous pouvez lire <a href="https://help.github.com/en/actions/configuring-and-managing-workflows/authenticating-with-the-github_token" target="_blank" rel="noopener noreferrer">cet article de la documentation</a>.</p>
 <h2 id="déploiement-dans-google-kubernetes-engine" class="headerLink">
     <a href="#d%c3%a9ploiement-dans-google-kubernetes-engine" class="header-mark"></a>4 Déploiement dans Google Kubernetes Engine</h2><p>Mon application est pour l&rsquo;instant architecturée comme suit (<em>attention c&rsquo;est compliqué</em>):</p>
-<div id="id-9"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application-1.png   alt="workflow"  ></div>
+<div id="id-9"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application-1.png'   alt="workflow"  ></div>
 <p>Pour la déployer dans Google Kubernetes Engine, j&rsquo;ai besoin d&rsquo; implémenter cette « architecture » par les objets Kubernetes suivants:</p>
-<div id="id-10"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2020/05/application_gke.png   alt="workflow"  ></div>
+<div id="id-10"><img class="tw-inline" loading="lazy" src='/assets/images/2020/05/application_gke.png'   alt="workflow"  ></div>
 <p>J&rsquo;utilise les objets suivants:</p>
 <ul>
 <li>Des services pour exposer la base de données ainsi que l&rsquo;application</li>
@@ -3277,11 +3277,11 @@ Pour un dev perso ça suffit largement. Le contenu de la branche master est comp
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">project_id</span><span class="p">:</span><span class="w"> </span><span class="l">${{ secrets.GKE_PROJECT }}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Get the GKE credentials so we can deploy to the cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">          
+</span></span></span><span class="line"><span class="cl"><span class="sd">          gcloud container clusters get-credentials &#34;${{ secrets.GKE_CLUSTER }}&#34; --zone &#34;${{ secrets.GKE_ZONE }}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="c"># Deploy the Docker image to the GKE cluster</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Deploy</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|-</span><span class="sd">
-</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span><span class="w">          </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="sd">          kubectl apply -f ./k8s     </span></span></span></code></pre>
 </div>
 <p>J&rsquo;utilise <a href="https://github.com/GoogleCloudPlatform/github-actions" target="_blank" rel="noopener noreferrer">les « actions » fournies par Google</a>.</p>
 <h2 id="conclusion" class="headerLink">

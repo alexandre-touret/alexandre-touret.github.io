@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Github-Actions - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/github-actions/</link><description>Github-Actions - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Sun, 19 Dec 2021 12:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/github-actions/" rel="self" type="application/rss+xml"/><item><title>Mettre en oeuvre des Github Actions utiles pour un site hébergé sur Github pages</title><link>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</link><pubDate>Sun, 19 Dec 2021 12:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2021/12/19/mettre-en-oeuvre-github-actions-utiles-pour-un-site-heberge-sur-github-io/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2021/12/github-1.jpg" referrerpolicy="no-referrer">
-            </div><p><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2021/12/github-1.jpg   alt="github"  ></p>
+            </div><p><img class="tw-inline" loading="lazy" src='/assets/images/2021/12/github-1.jpg'   alt="github"  ></p>
 <h2 id="pourquoi-mettre-en-oeuvre-des-github-actions-" class="headerLink">
     <a href="#pourquoi-mettre-en-oeuvre-des-github-actions-" class="header-mark"></a>1 Pourquoi mettre en oeuvre des GITHUB ACTIONS ?</h2><p>Comme j&rsquo;ai pu l&rsquo;expliquer dans <a href="https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/" target="_blank" rel="noopener noreferrer">mon précédent article</a>, je suis passé de <a href="wordpress.com/" rel="">Wordpress</a> à <a href="https://pages.github.com/" target="_blank" rel="noopener noreferrer">GITHUB Pages</a>.</p>
 <p>Une fois le site déployé une première fois, on voit qu&rsquo;on a perdu pas mal d&rsquo;automatisations qui sont réalisées par défaut dans Wordpress. Par exemple, vous devez construire votre site, publier des nouveaux articles et vérifier que tout est OK.</p>
@@ -585,7 +585,7 @@ Il permet, via un script python de:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">💎 install python packages (3)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="p">|</span><span class="sd">
 </span></span></span><span class="line"><span class="cl"><span class="sd">        python -m pip install --upgrade pip 
-</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">🔨 execute py script  (4)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">run</span><span class="p">:</span><span class="w"> </span><span class="l">python publish_drafts.py</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          
@@ -600,7 +600,7 @@ Il permet, via un script python de:</p>
 </span></span></span><span class="line"><span class="cl"><span class="sd">        else
 </span></span></span><span class="line"><span class="cl"><span class="sd">          echo &#34;No file to publish&#34;
 </span></span></span><span class="line"><span class="cl"><span class="sd">        fi
-</span></span></span><span class="line"><span class="cl"><span class="sd">          </span><span class="w">        </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="sd">          </span></span></span></code></pre>
 </div>
 <p><strong>Explication:</strong></p>
 <ol>

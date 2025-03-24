@@ -295,7 +295,7 @@
       "><span class="line"><span class="cl"><span class="se">\#</span> pulseaudio -k <span class="o">&amp;&amp;</span> pulseaudio -D  </span></span></code></pre>
 </div>
 <p>A ce stade, vous devriez avoir dans le panneau de configuration la référence à l&rsquo;equalizer</p>
-<div id="id-5"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2018/03/sc3a9lection_001.png   alt="equalizer"  ></div>
+<div id="id-5"><img class="tw-inline" loading="lazy" src='/assets/images/2018/03/sc3a9lection_001.png'   alt="equalizer"  ></div>
 <h2 id="lancement" class="headerLink">
     <a href="#lancement" class="header-mark"></a>3 Lancement</h2><p>En ligne de commande ( je vous disais que ce n&rsquo;était pas trop user-friendly), lancer la commande</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
@@ -395,7 +395,7 @@
       "><span class="line"><span class="cl">$ qpaeq <span class="p">&amp;</span>  </span></span></code></pre>
 </div>
 <p>On obtient cette interface:</p>
-<div id="id-6"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2018/03/qpaeq_002.png   alt="equalizer"  ></div>
+<div id="id-6"><img class="tw-inline" loading="lazy" src='/assets/images/2018/03/qpaeq_002.png'   alt="equalizer"  ></div>
 <p>Arrivé à ce niveau, je suis quand même un peu déçu/ Il n&rsquo;y a pas une vrai intégration dans debian ( pas de lanceur pour l&rsquo;equalizer ) et il n&rsquo;y a pas de presets configurés ( #souvienstoiwinamp)</p>
 <p>J&rsquo;ai essayé de poster mon soucis sur IRC, mais je n&rsquo;ai pas encore eu de réponse. Je pense soumettre un bug dans les prochains jours.</p>
 ]]></description></item></channel></rss>

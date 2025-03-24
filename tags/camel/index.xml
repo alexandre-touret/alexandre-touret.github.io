@@ -13,7 +13,7 @@ The necessity for clarity becomes even more pronounced in such cases.
 Particularly in architectures built upon messaging or event streaming brokers, attaining a holistic view of the entire transaction becomes arduous.</p>
 <p>Why does this challenge arise?
 It&rsquo;s a consequence of functional transactions fragmenting into two loosely coupled subprocesses:</p>
-<div id="id-19"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/loose-coupling-sequence.svg   alt="OpenTelemetry Collector Architecture"  ></div>
+<div id="id-19"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/loose-coupling-sequence.svg'   alt="OpenTelemetry Collector Architecture"  ></div>
 <p>Hopefully you can rope OpenTelemetry in it to shed light.</p>
 <div class="details admonition info open">
     <div class="details-summary admonition-title">
@@ -33,12 +33,12 @@ The first part will use Jaeger and the second one,  <a href="https://grafana.com
     <a href="#architecture" class="header-mark"></a>2.1 Architecture</h3><p>The <a href="https://www.logicmonitor.com/blog/what-are-spans-in-distributed-tracing" target="_blank" rel="noopener noreferrer">SPANs</a> are broadcast and gathered through <a href="https://opentelemetry.io/docs/collector" target="_blank" rel="noopener noreferrer">OpenTelemetry Collector</a>.
 It finally sends them to <a href="https://www.jaegertracing.io/" target="_blank" rel="noopener noreferrer">Jaeger</a>.</p>
 <p>Here is the architecture of such a platform:</p>
-<div id="id-20"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/architecture.svg   alt="OpenTelemetry Collector Architecture"  ></div>
+<div id="id-20"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/architecture.svg'   alt="OpenTelemetry Collector Architecture"  ></div>
 <h3 id="opentelemetry-collector" class="headerLink">
     <a href="#opentelemetry-collector" class="header-mark"></a>2.2 OpenTelemetry Collector</h3><p>The cornerstone of this architecture is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">collector</a>.
 It can be compared to <a href="https://www.elastic.co/fr/logstash/" target="_blank" rel="noopener noreferrer">Elastic LogStash</a> or an <a href="https://en.wikipedia.org/wiki/Extract,_transform,_load" target="_blank" rel="noopener noreferrer">ETL</a>.
 It will help us get, transform and export telemetry data.</p>
-<div id="id-21"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/otel-diagram.svg   alt="OpenTelemetry Collector Functionalities"  ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
+<div id="id-21"><figure><img  loading="lazy" src='/assets/images/2023/09/otel-diagram.svg'   alt="OpenTelemetry Collector Functionalities"  ><figcaption class="image-caption">Source: https://opentelemetry.io/docs/collector/</figcaption>
 </figure></div>
 <p>For our use case, the configuration is quite simple.</p>
 <p>First, here is the <a href="https://opentelemetry.io/docs/collector/" target="_blank" rel="noopener noreferrer">Docker Compose configuration</a>:</p>
@@ -1501,13 +1501,13 @@ For instance, in the consumer application, when we consume the messages as:</p>
       "><span class="line"><span class="cl">while true ; http :9080/camel/test; end</span></span></code></pre>
 </div>
 <p>Now, you can browse Jaeger (<a href="http://localhost:16686" target="_blank" rel="noopener noreferrer">http://localhost:16686</a>) and query it to find trace insights:</p>
-<div id="id-22"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-1.webp   alt="Jaeger front page"  ><figcaption class="image-caption">Number of different apps</figcaption>
+<div id="id-22"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-1.webp'   alt="Jaeger front page"  ><figcaption class="image-caption">Number of different apps</figcaption>
 </figure></div>
 <p>If you dig into one transaction, you will see the whole transaction:</p>
-<div id="id-23"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-2.webp   alt="Jaeger transaction page"  ><figcaption class="image-caption">One transaction</figcaption>
+<div id="id-23"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-2.webp'   alt="Jaeger transaction page"  ><figcaption class="image-caption">One transaction</figcaption>
 </figure></div>
 <p>And now, you can correlate two sub transactions:</p>
-<div id="id-24"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/jaeger-3.webp   alt="Jaeger two sub transactions"  ><figcaption class="image-caption">Two sub transactions</figcaption>
+<div id="id-24"><figure><img  loading="lazy" src='/assets/images/2023/09/jaeger-3.webp'   alt="Jaeger two sub transactions"  ><figcaption class="image-caption">Two sub transactions</figcaption>
 </figure></div>
 <h2 id="tempo--grafana" class="headerLink">
     <a href="#tempo--grafana" class="header-mark"></a>3 Tempo &amp; Grafana</h2><p>This solution is pretty similar to the previous one.
@@ -1517,7 +1517,7 @@ We don&rsquo;t need to modify the configuration made in the existing Java applic
     <a href="#architecture-1" class="header-mark"></a>3.1 Architecture</h3><p>As mentioned above, the architecture is quite the same.
 Now, we have the collector which broadcast data to Tempo.
 We will then configure Grafana to query to it to get traces.</p>
-<div id="id-25"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2023/09/architecture_grafana.svg   alt="Architecture w/ Grafana &amp; Tempo"  ></div>
+<div id="id-25"><img class="tw-inline" loading="lazy" src='/assets/images/2023/09/architecture_grafana.svg'   alt="Architecture w/ Grafana &amp; Tempo"  ></div>
 <h3 id="collector-configuration" class="headerLink">
     <a href="#collector-configuration" class="header-mark"></a>3.2 Collector configuration</h3><p>The modification of the Collector is easy (for this example).
 We only have to specify the tempo URL.</p>
@@ -2005,9 +2005,9 @@ The configuration is made here using a configuration file provided during the st
 </span></span><span class="line"><span class="cl">docker compose -f docker-compose-grafana.yml up</span></span></code></pre>
 </div>
 <p>Then, using the same rocket scientist maven commands, we can run the same commands and browse now Grafana (<code>http://localhost:3000</code>) to see our traces:</p>
-<p><div id="id-26"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/grafana-1.webp   alt="Grafana transactions"  ><figcaption class="image-caption">Transactions</figcaption>
+<p><div id="id-26"><figure><img  loading="lazy" src='/assets/images/2023/09/grafana-1.webp'   alt="Grafana transactions"  ><figcaption class="image-caption">Transactions</figcaption>
 </figure></div>
-<div id="id-27"><figure><img  loading="lazy" src=https://blog.touret.info/assets/images/2023/09/grafana-2.webp   alt="Grafana transactions"  ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
+<div id="id-27"><figure><img  loading="lazy" src='/assets/images/2023/09/grafana-2.webp'   alt="Grafana transactions"  ><figcaption class="image-caption">Deep dive into one transaction</figcaption>
 </figure></div></p>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>We saw how to highlight asynchronous transactions and correlate them through OpenTelemetry and Jaeger or using Tempo &amp; Grafana.
@@ -2028,7 +2028,7 @@ I am particularly interested in mixing logs, traces to orchestrate efficient ale
 <h2 id="les-patterns-dintégration" class="headerLink">
     <a href="#les-patterns-dint%c3%a9gration" class="header-mark"></a>1 Les patterns d&rsquo;intégration</h2><p>Qu&rsquo;est-ce qu&rsquo;un <a href="http://www.enterpriseintegrationpatterns.com/patterns/messaging/Chapter1.html" target="_blank" rel="noopener noreferrer">pattern d&rsquo;intégration</a> allez-vous me dire ? C&rsquo;est une solution d&rsquo;architecture ou plus simplement une recette de cuisine permettant d&rsquo;avoir une solution toute prête à une problématique d&rsquo;intégration donnée. L&rsquo;ensemble de ces patterns est décrit sur <a href="http://www.enterpriseintegrationpatterns.com/" target="_blank" rel="noopener noreferrer">ce site</a> ( ne vous attardez pas sur le look des années 90 … ).</p>
 <p>Exemple :</p>
-<div id="id-1"><img class="tw-inline" loading="lazy" src=https://blog.touret.info/assets/images/2018/04/publishsubscribesolution.gif   alt="publish_subscribe"  ></div>
+<div id="id-1"><img class="tw-inline" loading="lazy" src='/assets/images/2018/04/publishsubscribesolution.gif'   alt="publish_subscribe"  ></div>
 <p>Camel permet simplement de gérer l&rsquo;intégration via un DSL.</p>
 <h3 id="choix-dimplémentations" class="headerLink">
     <a href="#choix-dimpl%c3%a9mentations" class="header-mark"></a>1.1 Choix d&rsquo;implémentations</h3><p>On peut faire pas mal de choses avec ce FRAMEWORK et de plusieurs manières. J&rsquo;ai fait les choix d&rsquo;implémentation suivants :</p>
