@@ -53,7 +53,9 @@ The Stateful set is exposed through a Regional Load Balancer to ensure connectiv
 First, enable the addon:
 
 ```bash
-gcloud container clusters update gke-cluster --region MY_REGION --project MY_GCP_PROJECT --update-addons=StatefulHA=ENABLED
+gcloud container clusters update gke-cluster \
+      --region MY_REGION --project MY_GCP_PROJECT \
+      --update-addons=StatefulHA=ENABLED
 ``` 
 
 For more details, you can refer to [the documentation](https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha).

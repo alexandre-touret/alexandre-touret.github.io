@@ -51,6 +51,7 @@ keywords = ["Theme", "Hugo"]
     index = "en_index"
     appID = "5YGRNRQK1G"
     searchKey = "0ff6874805de24b84aa1d5ebccad56cd"
+
   [search.fuse]
     # https://fusejs.io/api/options.html
     isCaseSensitive = false
@@ -62,6 +63,13 @@ keywords = ["Theme", "Hugo"]
     ignoreLocation = true
     useExtendedSearch = false
     ignoreFieldNorm = false
+  [search.pagefind]
+    # https://pagefind.app/docs/search-config/#available-options
+    # run `npx pagefind --site $YOUR_PUBLIC_DIR` after site build to create pagefind index
+    termFrequency = 1.0
+    pageLength = 0.75
+    termSimilarity = 1.0
+    termSaturation = 1.4
 # Home page config
 # 主页信息设置
 [home]
