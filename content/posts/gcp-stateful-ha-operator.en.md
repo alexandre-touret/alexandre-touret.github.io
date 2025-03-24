@@ -1,6 +1,6 @@
 ---
 title: Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator
-date: 2025-04-02 08:00:00
+date: 2025-03-24 08:00:00
 images: ["/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp"]
 featuredImagePreview: /assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp
 featuredImage: /assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp
