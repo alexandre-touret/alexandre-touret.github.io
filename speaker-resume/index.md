@@ -15,6 +15,8 @@ If you want to know more about them, you can see the descriptions on [the talks 
 - SnowcampIO :fr: : [L'observabilité dès le développement: Maîtrisez vos applications Java en production avec Open Telemetry](https://app.voxxr.in/events/snowcamp25/talks/cm193prwy00np1bi27wnrix4g/details)
 - SnowcampIO :fr: : [Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs](https://app.voxxr.in/events/snowcamp25/talks/cm10vtk2w03utodc9o9thx2j1/details)
 
+___
+
 ## 2024
 
 - APIDAYS Paris 2024 :gb: : [Implementing API-First Approach: Practical Insights for Streamlining Your APIs](https://www.apidays.global/paris/)
