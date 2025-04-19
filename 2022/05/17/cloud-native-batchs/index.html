@@ -45,19 +45,15 @@ L&rsquo;une des solutions potentielles de traitement est de découpler la lectur
 Dans ce cas, si votre traitement n&rsquo;est pas idempotent, vous devrez lutter avec des doublons en base.</p><h3 id=gestion-des-ressources class=headerLink><a href=#gestion-des-ressources class=header-mark></a>4.3 Gestion des ressources</h3><p>Imaginez, vous recevez un fichier de 1Go.
 Vos ressources systèmes sont des PODs avec un 1 Go de RAM.</p><p>Vous voyez le soucis?</p><p>Cet exemple, qui n&rsquo;est pas trop éloigné de la réalité, mets en évidence l&rsquo;une des contraintes techniques que vous devrez prendre dès le début de votre conception.</p><p>L&rsquo;une des solutions serait, par exemple, le traitement quasi systématique du streaming de fichiers et l&rsquo;obligation d&rsquo;avoir des fichiers avec des lignes de données indépendantes (c.-à-d. sans avoir à faire de liens inter lignes pendant le traitement).</p><h2 id=traitement-sur-réception-de-fichiers class=headerLink><a href=#traitement-sur-r%c3%a9ception-de-fichiers class=header-mark></a>5 Traitement sur réception de fichiers</h2><p>Dans ce cas, nous avons un processus qui est déclenché lors de la réception d&rsquo;un fichier. Nous pourrons par exemple avec ce genre d&rsquo;architecture un fichier qui est envoyé dans espace de stockage objet. Ce dernier est ensuite traité par un programme.
 J&rsquo;ai fait le choix ici de mettre en oeuvre un couplage lâche (on ne se refait pas) entre l&rsquo;espace de réception de fichiers et le traitement.</p><p>Je traite ici le risque de crash d&rsquo;un POD en gardant systématiquement les fichiers dans un stockage objet. De cette manière, si le traitement a échoué, un autre POD pourra le télécharger et rejouer le processus batch.</p><p>Ce découplage permet de gérer facilement la scalabilité et les arrêts/relances de PODs.</p><figure><img src=/assets/images/2022/05/batch_evenement-Batch_sur_presence_fichier.svg><figcaption><h4>Batch démarré sur présence de fichier</h4></figcaption></figure><p>Dans ce cas, le batch pourra être déployé sous la forme d&rsquo;un <a href=https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ target=_blank rel="noopener noreferrer">déploiement Kubernetes</a>.</p><h2 id=traitement-déclenché-à-distance-par-ex-par-un-orchestrateur-de-traitements class=headerLink><a href=#traitement-d%c3%a9clench%c3%a9-%c3%a0-distance-par-ex-par-un-orchestrateur-de-traitements class=header-mark></a>6 Traitement déclenché à distance (par ex. par un orchestrateur de traitements)</h2><p>Maintenant, on va aborder les traitements qui sont lancés par un ordonnanceur tiers ou tout simplement lancé à distance.
-Généralement, dans le monde de l&rsquo;entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des <a href=https://en.wikipedia.org/wiki/Cron target=_blank rel="noopener noreferrer">CRON Jobs</a>.</p><p>Dans ce cas, on a deux manières de procéder:</p><ul><li>Avoir un traitement qui fournit une API permettant de démarrer des traitements et d&rsquo;avoir leurs statuts.</li><li>Lancer des jobs.</li></ul><h3 id=avec-une-api class=headerLink><a href=#avec-une-api class=header-mark></a>6.1 Avec une API</h3><p>Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu&rsquo;à l&rsquo;instar de la solution précédente, le programme tourne toujours et n&rsquo;est vraiment utile que lorsqu&rsquo;il est appelé via un endpoint REST.</p><p>Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l&rsquo;intégration d&rsquo;un Job Kubernetes est problématique pour vous (voir ci-dessous).</p><p>L&rsquo;un des avantages que l&rsquo;on pourra trouver est que le <a href=https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ target=_blank rel="noopener noreferrer">mode de déploiement est assez simple et similaire aux APIs</a>.</p><figure><img src=/assets/images/2022/05/traitement_api.svg><figcaption><h4>Batch démarré par une API</h4></figcaption></figure><h3 id=avec-des-jobs class=headerLink><a href=#avec-des-jobs class=header-mark></a>6.2 Avec des jobs</h3><p>Si votre ordonnanceur peut exécuter le client kubectl, vous pourrez considérer les <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ target=_blank rel="noopener noreferrer">jobs kubernetes</a>.</p><p>En résumé, ils permettent de créer un POD et exécute une action en gérant les erreurs potentielles jusqu&rsquo;à complétion du traitement.</p><p>Par exemple, voici un job permettant de faire un &ldquo;Hello World!&rdquo;:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Généralement, dans le monde de l&rsquo;entreprise, la planification des traitements est centralisée au lieu de laisser de le faire sur chaque machine avec des <a href=https://en.wikipedia.org/wiki/Cron target=_blank rel="noopener noreferrer">CRON Jobs</a>.</p><p>Dans ce cas, on a deux manières de procéder:</p><ul><li>Avoir un traitement qui fournit une API permettant de démarrer des traitements et d&rsquo;avoir leurs statuts.</li><li>Lancer des jobs.</li></ul><h3 id=avec-une-api class=headerLink><a href=#avec-une-api class=header-mark></a>6.1 Avec une API</h3><p>Ici, on conçoit les batchs comme des WEBAPPS qui fournissent des traitements batchs sur demande via des APIs. La contrainte est qu&rsquo;à l&rsquo;instar de la solution précédente, le programme tourne toujours et n&rsquo;est vraiment utile que lorsqu&rsquo;il est appelé via un endpoint REST.</p><p>Ce modèle de conception peut être utilisé à mon avis si la fréquence est forte et si l&rsquo;intégration d&rsquo;un Job Kubernetes est problématique pour vous (voir ci-dessous).</p><p>L&rsquo;un des avantages que l&rsquo;on pourra trouver est que le <a href=https://kubernetes.io/docs/concepts/workloads/controllers/deployment/ target=_blank rel="noopener noreferrer">mode de déploiement est assez simple et similaire aux APIs</a>.</p><figure><img src=/assets/images/2022/05/traitement_api.svg><figcaption><h4>Batch démarré par une API</h4></figcaption></figure><h3 id=avec-des-jobs class=headerLink><a href=#avec-des-jobs class=header-mark></a>6.2 Avec des jobs</h3><p>Si votre ordonnanceur peut exécuter le client kubectl, vous pourrez considérer les <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ target=_blank rel="noopener noreferrer">jobs kubernetes</a>.</p><p>En résumé, ils permettent de créer un POD et exécute une action en gérant les erreurs potentielles jusqu&rsquo;à complétion du traitement.</p><p>Par exemple, voici un job permettant de faire un &ldquo;Hello World!&rdquo;:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -107,19 +103,15 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>apiVersion</sp
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>image</span><span class=p>:</span><span class=w> </span><span class=l>busybox</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>command</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;echo&#34;</span><span class=p>,</span><span class=w>  </span><span class=s2>&#34;Hello World!&#34;</span><span class=p>]</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>restartPolicy</span><span class=p>:</span><span class=w> </span><span class=l>Never</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class=m>4</span></span></span></code></pre></div><p>Une fois déployé avec Helm, vous pouvez les voir avec la commande <code>kubectl get jobs</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>backoffLimit</span><span class=p>:</span><span class=w> </span><span class=m>4</span></span></span></code></pre></div><p>Une fois déployé avec Helm, vous pouvez les voir avec la commande <code>kubectl get jobs</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -159,19 +151,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>minikube kubectl -- get <span class=nb>jobs</span>
 </span></span><span class=line><span class=cl>NAME          COMPLETIONS   DURATION   AGE
-</span></span><span class=line><span class=cl>hello-world   0/1           25s        25s</span></span></code></pre></div><p>Pour les logs et voir le résultat de la commande lancé, cela se passe d&rsquo;une manière assez habituelle:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>hello-world   0/1           25s        25s</span></span></code></pre></div><p>Pour les logs et voir le résultat de la commande lancé, cela se passe d&rsquo;une manière assez habituelle:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -211,19 +199,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>minikube kubectl -- logs hello-world-zx4wh
 </span></span><span class=line><span class=cl>Hello World!</span></span></code></pre></div><h2 id=traitement-déclenché-par-cron class=headerLink><a href=#traitement-d%c3%a9clench%c3%a9-par-cron class=header-mark></a>7 Traitement déclenché par CRON</h2><p>Maintenant, on va laisser le soin au Cluster Kubernetes de lancer les différents traitements via une CRON.
-Bien que je ne suis pas trop fan de ne pas centraliser l&rsquo;ordonnancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.</p><p>Si vous êtes dans ce cas-là, vous pouvez utiliser l&rsquo;objet <a href=https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/ target=_blank rel="noopener noreferrer">CronJob</a> qui n&rsquo;est ni plus ni moins qu&rsquo;un <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ target=_blank rel="noopener noreferrer">Job</a> exécuté de manière périodique.</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Bien que je ne suis pas trop fan de ne pas centraliser l&rsquo;ordonnancement, cela peut être très utile si votre plateforme est centrée sur Kubernetes.</p><p>Si vous êtes dans ce cas-là, vous pouvez utiliser l&rsquo;objet <a href=https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/ target=_blank rel="noopener noreferrer">CronJob</a> qui n&rsquo;est ni plus ni moins qu&rsquo;un <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ target=_blank rel="noopener noreferrer">Job</a> exécuté de manière périodique.</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block

@@ -8,6 +8,8 @@ If you want to know more about them, you can see the descriptions on [the talks 
 
 ## 2025
 
+- Devoxx France :fr: : [L'observabilité des applications Java, c'est aussi en dev avec OpenTelemetry !](https://www.devoxx.fr/agenda-2025/talk/l-observabilite-des-applications-java-c-est-aussi-en-dev-avec-opentelemetry/)
+- Devoxx France :fr: : [Ensemble faisons progresser et grandir les développeurs débutants !](https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants/)
 - Touraine Tech :fr: : [Créer des API REST en Java avec une approche API-First : Mise en pratique et retours d'expérience](https://touraine.tech/talk/cm24uc0y200f9h2uwddb3cnmx)
 - Touraine Tech :fr: : [Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs](https://touraine.tech/talk/clzyec355316b13hp6t3idc94)
 - SnowcampIO :fr: : [L'observabilité dès le développement: Maîtrisez vos applications Java en production avec Open Telemetry](https://app.voxxr.in/events/snowcamp25/talks/cm193prwy00np1bi27wnrix4g/details)

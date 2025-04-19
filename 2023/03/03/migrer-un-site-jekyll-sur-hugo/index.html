@@ -31,19 +31,15 @@ Cancel</button></div><a class=menu-item href=/posts/ title>Posts</a><a class=men
 <span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#démarrage>Démarrage</a></li><li><a href=#reprise-de-données>Reprise de données</a></li><li><a href=#travail-sur-les-posts-et-images>Travail sur les posts et images</a><ul><li><a href=#les-posts>Les posts</a></li><li><a href=#les-images>Les images</a></li></ul></li><li><a href=#configuration>Configuration</a><ul><li><a href=#moteur-de-recherche>Moteur de recherche</a></li><li><a href=#commentaires>Commentaires</a></li></ul></li><li><a href=#conclusion>Conclusion</a></li></ul></nav></div></div><div class=content id=content data-pagefind-body><div class="details admonition warning open"><div class="details-summary admonition-title"><span class=icon><svg class="icon" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></svg></span>Warning<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class=details-content><div class=admonition-content>This article was last updated on <span class=timeago datetime=2023-03-03T14:08:43 title="March 3, 2023">2023-03-03</span>, the content may be out of date.</div></div></div><p>Il y a deux ans déjà, j&rsquo;ai migré <a href=https://blog.touret.info/2021/12/06/migrer-un-blog-wordpress-vers-github-io/ target=_blank rel="noopener noreferrer">mon site Wordpress sur un site statique hébergé sur Github Pages</a>.
 Ce dernier était basé sur <a href=https://www.ruby-lang.org/en/documentation/ target=_blank rel="noopener noreferrer">Ruby</a>, <a href=https://www.ruby-lang.org/en/documentation/ target=_blank rel="noopener noreferrer">Jekyll</a> et <a href=https://mmistakes.github.io/minimal-mistakes/ target=_blank rel="noopener noreferrer">Minimal mistakes</a>.</p><p>Bien que le projet Minimal Mistakes ne donnait plus trop de signes de vie, le rendu convenait.</p><p>Cependant, j&rsquo;étais bloqué sur différents points:</p><ul><li>La gestion d&rsquo;articles en anglais et français</li><li>Le thème dark (inutile donc indispensable)</li><li>Quelques fonctionnalités manquantes: par ex. <a href=http://mermaid.js.org/ target=_blank rel="noopener noreferrer">MermaidJS</a></li></ul><p>J&rsquo;ai donc décidé de le migrer sur <a href=https://gohugo.io/ target=_blank rel="noopener noreferrer">Hugo</a>.
 Ce générateur de site est basé sur <a href=https://go.dev target=_blank rel="noopener noreferrer">Go</a> et est très rapide d&rsquo;exécution.</p><h2 id=démarrage class=headerLink><a href=#d%c3%a9marrage class=header-mark></a>1 Démarrage</h2><p>Je n&rsquo;ai pas migré le site comme <a href=https://gohugo.io/commands/hugo_import_jekyll/ target=_blank rel="noopener noreferrer">indiquait la documentation</a>.</p><p>J&rsquo;ai préféré créer un nouveau site et copier coller le contenu existant, à savoir les images et les articles.</p><p>Je vous conseille de lire <a href=https://gohugo.io/getting-started/quick-start/ target=_blank rel="noopener noreferrer">la documentation</a> qui est bien faite.</p><p>Ensuite, j&rsquo;ai choisi le <a href=https://themes.gohugo.io/themes/loveit/ target=_blank rel="noopener noreferrer">thème LoveIt</a>.
-Pour l&rsquo;installer, il suffit de cloner le repo dans le répertoire <code>themes</code>.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Pour l&rsquo;installer, il suffit de cloner le repo dans le répertoire <code>themes</code>.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bashs</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bashs</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -82,19 +78,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>git submodule add https://github.com/dillonzq/LoveIt.git themes/LoveIt</span></span></code></pre></div><h2 id=reprise-de-données class=headerLink><a href=#reprise-de-donn%c3%a9es class=header-mark></a>2 Reprise de données</h2><p>J&rsquo;ai copié les éléments suivants:</p><ul><li>Les fichiers statiques que j&rsquo;avais à disposition (<a href=https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site/managing-a-custom-domain-for-your-github-pages-site target=_blank rel="noopener noreferrer"><code>CNAME</code></a>, <code>robots.txt</code>) dans le répertoire <code>static</code></li><li>Les images dansle répertoire <code>static/assets/images</code></li><li>Les posts et pages statiques</li></ul><h2 id=travail-sur-les-posts-et-images class=headerLink><a href=#travail-sur-les-posts-et-images class=header-mark></a>3 Travail sur les posts et images</h2><h3 id=les-posts class=headerLink><a href=#les-posts class=header-mark></a>3.1 Les posts</h3><p>J&rsquo;ai ensuite modifié les noms des fichiers en enlevant les dates qui les préfixaient.</p><p>Ensuite, j&rsquo;ai modifié les en-têtes de chaque post.
-J&rsquo;ai pu le faire en automatisant avec VS CODE.</p><p>Voici le pattern que j&rsquo;ai modifié:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+J&rsquo;ai pu le faire en automatisant avec VS CODE.</p><p>Voici le pattern que j&rsquo;ai modifié:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -133,19 +125,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>header</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>teaser</span><span class=p>:</span><span class=w> </span><span class=l>/assets/images/2018/02/2000px-cygwin_logo-svg.png</span></span></span></code></pre></div><p>en</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>teaser</span><span class=p>:</span><span class=w> </span><span class=l>/assets/images/2018/02/2000px-cygwin_logo-svg.png</span></span></span></code></pre></div><p>en</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -184,19 +172,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>featuredImagePreview</span><span class=p>:</span><span class=w> </span><span class=l>/assets/images/2022/12/review.webp</span></span></span></code></pre></div><p>Ca c&rsquo;était le plus facile&mldr;</p><h3 id=les-images class=headerLink><a href=#les-images class=header-mark></a>3.2 Les images</h3><p>Dans chaque post, j&rsquo;ai revu les images et leur positionnement.</p><p>J&rsquo;ai donc passé chaque article manuellement. C&rsquo;était réellement fastidieux. Pour être totalement franc, je n&rsquo;ai paas cherché à automatiser ça. Je pense qu&rsquo;un script shell, python aurait pu faire l&rsquo;affaire.
-Heureusement, je n&rsquo;en avais pas une centaine&mldr;</p><p>J&rsquo;ai ajouté quand je pouvais l&rsquo;en-tête suivant (adaptez le chemin vers l&rsquo;image ;-) ):</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Heureusement, je n&rsquo;en avais pas une centaine&mldr;</p><p>J&rsquo;ai ajouté quand je pouvais l&rsquo;en-tête suivant (adaptez le chemin vers l&rsquo;image ;-) ):</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -236,19 +220,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>featuredImage</span><span class=p>:</span><span class=w> </span><span class=l>/assets/images/2022/12/review.webp</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>images</span><span class=p>:</span><span class=w> </span><span class=p>[</span><span class=s2>&#34;/assets/images/2022/12/review.webp&#34;</span><span class=p>]</span></span></span></code></pre></div><p>Le premier attribut permet d&rsquo;avoir une image d&rsquo;en-tête pour l&rsquo;article.
-Le second permet d&rsquo;avoir l&rsquo;image lors d&rsquo;un partage sur un réseau social (ex. Twitter)</p><p>j&rsquo;ai ajouté le code suivant pour centrer les images:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Le second permet d&rsquo;avoir l&rsquo;image lors d&rsquo;un partage sur un réseau social (ex. Twitter)</p><p>j&rsquo;ai ajouté le code suivant pour centrer les images:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">markdown</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">markdown</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -288,19 +268,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>{{<span class=p>&lt;</span> <span class=nt>style</span> <span class=err>&#34;</span><span class=na>text-align:center</span><span class=err>&#34;</span> <span class=p>&gt;</span><span class=err>}}</span>
 </span></span><span class=line><span class=cl>![<span class=nt>dataflow</span>](<span class=na>/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp</span>)
-</span></span><span class=line><span class=cl>{{<span class=p>&lt;</span> <span class=nt>style</span> <span class=p>&gt;</span><span class=err>}}</span></span></span></code></pre></div><h2 id=configuration class=headerLink><a href=#configuration class=header-mark></a>4 Configuration</h2><p>Pour garder les mêmes URLs, j&rsquo;ai choisi de modifier le pattern d&rsquo; URL pour inclure la date. C&rsquo;est un vieux reliquat de mon blog Wordpress.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>{{<span class=p>&lt;</span> <span class=nt>style</span> <span class=p>&gt;</span><span class=err>}}</span></span></span></code></pre></div><h2 id=configuration class=headerLink><a href=#configuration class=header-mark></a>4 Configuration</h2><p>Pour garder les mêmes URLs, j&rsquo;ai choisi de modifier le pattern d&rsquo; URL pour inclure la date. C&rsquo;est un vieux reliquat de mon blog Wordpress.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">toml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">toml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -339,19 +315,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl> <span class=p>[</span><span class=nx>languages</span><span class=p>.</span><span class=nx>fr</span><span class=p>.</span><span class=nx>permalinks</span><span class=p>]</span>
-</span></span><span class=line><span class=cl>        <span class=nx>posts</span> <span class=p>=</span> <span class=s1>&#39;/:year/:month/:day/:filename/&#39;</span></span></span></code></pre></div><p>Pour le reste, j&rsquo;ai copié collé <a href=https://github.com/dillonzq/LoveIt/blob/master/exampleSite/config.toml target=_blank rel="noopener noreferrer">l&rsquo;exemple fourni par le thème</a> et renseigné les champs en fonction de ce que je voulais.</p><p>J&rsquo;ai ensuite adapté <a href=https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/config.toml#L643 target=_blank rel="noopener noreferrer">le multi langue pour avoir la possibilité de faire des articles en anglais et en français</a>.</p><h3 id=moteur-de-recherche class=headerLink><a href=#moteur-de-recherche class=header-mark></a>4.1 Moteur de recherche</h3><p>J&rsquo;utilise <a href=https://lunrjs.com/ target=_blank rel="noopener noreferrer">Lunr</a>. Voici la configuration:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>        <span class=nx>posts</span> <span class=p>=</span> <span class=s1>&#39;/:year/:month/:day/:filename/&#39;</span></span></span></code></pre></div><p>Pour le reste, j&rsquo;ai copié collé <a href=https://github.com/dillonzq/LoveIt/blob/master/exampleSite/config.toml target=_blank rel="noopener noreferrer">l&rsquo;exemple fourni par le thème</a> et renseigné les champs en fonction de ce que je voulais.</p><p>J&rsquo;ai ensuite adapté <a href=https://github.com/alexandre-touret/alexandre-touret.github.io/blob/main/config.toml#L643 target=_blank rel="noopener noreferrer">le multi langue pour avoir la possibilité de faire des articles en anglais et en français</a>.</p><h3 id=moteur-de-recherche class=headerLink><a href=#moteur-de-recherche class=header-mark></a>4.1 Moteur de recherche</h3><p>J&rsquo;utilise <a href=https://lunrjs.com/ target=_blank rel="noopener noreferrer">Lunr</a>. Voici la configuration:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">toml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">toml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -397,19 +369,15 @@ tw-scrollbar-thin"><span class=line><span class=cl>    <span class=p>[</span><sp
 </span></span><span class=line><span class=cl>        <span class=nx>maxResultLength</span> <span class=p>=</span> <span class=mi>10</span>
 </span></span><span class=line><span class=cl>        <span class=nx>snippetLength</span> <span class=p>=</span> <span class=mi>50</span>
 </span></span><span class=line><span class=cl>        <span class=nx>highlightTag</span> <span class=p>=</span> <span class=s2>&#34;em&#34;</span>
-</span></span><span class=line><span class=cl>        <span class=nx>absoluteURL</span> <span class=p>=</span> <span class=kc>false</span></span></span></code></pre></div><p>Il faut également penser à activer la sortie au format JSON:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>        <span class=nx>absoluteURL</span> <span class=p>=</span> <span class=kc>false</span></span></span></code></pre></div><p>Il faut également penser à activer la sortie au format JSON:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">toml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">toml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -454,19 +422,15 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=c># Options to ma
 </span></span><span class=line><span class=cl>  <span class=nx>section</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;HTML&#34;</span><span class=p>,</span> <span class=s2>&#34;RSS&#34;</span><span class=p>]</span>
 </span></span><span class=line><span class=cl>  <span class=nx>taxonomy</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;HTML&#34;</span><span class=p>,</span> <span class=s2>&#34;RSS&#34;</span><span class=p>]</span>
 </span></span><span class=line><span class=cl>  <span class=nx>taxonomyTerm</span> <span class=p>=</span> <span class=p>[</span><span class=s2>&#34;HTML&#34;</span><span class=p>]</span></span></span></code></pre></div><h3 id=commentaires class=headerLink><a href=#commentaires class=header-mark></a>4.2 Commentaires</h3><p>A l&rsquo;instar de mon blog avec Jekyll, j&rsquo;utilise <a href=https://utteranc.es/ target=_blank rel="noopener noreferrer">Utteranc.es</a>.
-Voici la configuration:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Voici la configuration:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">toml</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">toml</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block

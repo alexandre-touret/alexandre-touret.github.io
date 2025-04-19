@@ -31,19 +31,15 @@ J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas t
 Loin de là.</p><p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href=https://kubernetes.io/docs/concepts/workloads/controllers/job/ target=_blank rel="noopener noreferrer">jobs</a> et <a href=https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/ target=_blank rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p><div id=id-17><img class=tw-inline loading=lazy src=/assets/images/2022/08/spring_dataflow_logo.webp alt=dataflow></div><p>Après plusieurs recherches, je suis tombé sur <a href=https://dataflow.spring.io/ target=_blank rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
-Il permet notamment de gérer le streaming via une interface graphique ou via son <a href=https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide target=_blank rel="noopener noreferrer">API</a>.</p><p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href=https://minikube.sigs.k8s.io/ target=_blank rel="noopener noreferrer">Minikube</a>.</p><h2 id=installation-et-configuration-de-minikube class=headerLink><a href=#installation-et-configuration-de-minikube class=header-mark></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href=https://minikube.sigs.k8s.io/docs/start/ target=_blank rel="noopener noreferrer">le site officiel</a>.</p><p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Il permet notamment de gérer le streaming via une interface graphique ou via son <a href=https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide target=_blank rel="noopener noreferrer">API</a>.</p><p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href=https://minikube.sigs.k8s.io/ target=_blank rel="noopener noreferrer">Minikube</a>.</p><h2 id=installation-et-configuration-de-minikube class=headerLink><a href=#installation-et-configuration-de-minikube class=header-mark></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href=https://minikube.sigs.k8s.io/docs/start/ target=_blank rel="noopener noreferrer">le site officiel</a>.</p><p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -82,19 +78,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
-</span></span><span class=line><span class=cl>sudo install minikube-linux-amd64 /usr/local/bin/minikube</span></span></code></pre></div><p>Au premier démarrage, vous finirez l&rsquo;installation</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>sudo install minikube-linux-amd64 /usr/local/bin/minikube</span></span></code></pre></div><p>Au premier démarrage, vous finirez l&rsquo;installation</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -132,19 +124,15 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>minikube start</span></span></code></pre></div><h3 id=installation-de-spring-cloud-data-flow class=headerLink><a href=#installation-de-spring-cloud-data-flow class=header-mark></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+tw-scrollbar-thin"><span class=line><span class=cl>minikube start</span></span></code></pre></div><h3 id=installation-de-spring-cloud-data-flow class=headerLink><a href=#installation-de-spring-cloud-data-flow class=header-mark></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -183,19 +171,15 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>helm repo add bitnami https://charts.bitnami.com/bitnami
-</span></span><span class=line><span class=cl>helm install my-release bitnami/spring-cloud-dataflow</span></span></code></pre></div><p>Après quelques minutes de téléchargement, vous devriez avoir le retour suivante à l&rsquo;exécution de la commande <code>kubectl get pods</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>helm install my-release bitnami/spring-cloud-dataflow</span></span></code></pre></div><p>Après quelques minutes de téléchargement, vous devriez avoir le retour suivante à l&rsquo;exécution de la commande <code>kubectl get pods</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -240,19 +224,15 @@ tw-scrollbar-thin"><span class=line><span class=cl>kubectl get pods
 </span></span><span class=line><span class=cl>dataflow-mariadb-0  1/1     Running            <span class=m>1</span> <span class=o>(</span>24h ago<span class=o>)</span>   24h
 </span></span><span class=line><span class=cl>dataflow-rabbitmq-0 1/1     Running            <span class=m>1</span> <span class=o>(</span>24h ago<span class=o>)</span>   24h
 </span></span><span class=line><span class=cl>dataflow-spring-cloud-dataflow-server-75db59d6cb-lrwp8   1/1 Running            <span class=m>1</span> <span class=o>(</span>24h ago<span class=o>)</span>   24h
-</span></span><span class=line><span class=cl>dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class=m>1</span> <span class=o>(</span>24h ago<span class=o>)</span>   24h</span></span></code></pre></div><h3 id=accès-au-dashboard class=headerLink><a href=#acc%c3%a8s-au-dashboard class=header-mark></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href=https://cloud.spring.io/spring-cloud-dataflow-ui/ target=_blank rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class=m>1</span> <span class=o>(</span>24h ago<span class=o>)</span>   24h</span></span></code></pre></div><h3 id=accès-au-dashboard class=headerLink><a href=#acc%c3%a8s-au-dashboard class=header-mark></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href=https://cloud.spring.io/spring-cloud-dataflow-ui/ target=_blank rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -292,19 +272,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nb>export</span> <span class=nv>SERVICE_PORT</span><span class=o>=</span><span class=k>$(</span>kubectl get --namespace default -o <span class=nv>jsonpath</span><span class=o>=</span><span class=s2>&#34;{.spec.ports[0].port}&#34;</span> services dataflow-spring-cloud-dataflow-server<span class=k>)</span>
 </span></span><span class=line><span class=cl>kubectl port-forward --namespace default svc/dataflow-spring-cloud-dataflow-server <span class=si>${</span><span class=nv>SERVICE_PORT</span><span class=si>}</span>:<span class=si>${</span><span class=nv>SERVICE_PORT</span><span class=si>}</span></span></span></code></pre></div><p>Ensuite, vous pourrez accéder à la console web via l&rsquo;URL <code>http://localhost:8080/dashboard</code>.</p><h2 id=développement-dune-task class=headerLink><a href=#d%c3%a9veloppement-dune-task class=header-mark></a>2 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
-Pour ceci, j&rsquo;utilise l&rsquo;API <a href=https://api.nationalize.io/ target=_blank rel="noopener noreferrer">https://api.nationalize.io/</a>.</p><p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p><p>Vous trouverez les sources de cet exemple sur <a href=https://github.com/alexandre-touret/cloud-task target=_blank rel="noopener noreferrer">mon Github</a>.</p><p>Aussi, la documentation est bien faite, il suffit de <a href=https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/ target=_blank rel="noopener noreferrer">la lire</a>.</p><h3 id=initialisation class=headerLink><a href=#initialisation class=header-mark></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Pour ceci, j&rsquo;utilise l&rsquo;API <a href=https://api.nationalize.io/ target=_blank rel="noopener noreferrer">https://api.nationalize.io/</a>.</p><p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p><p>Vous trouverez les sources de cet exemple sur <a href=https://github.com/alexandre-touret/cloud-task target=_blank rel="noopener noreferrer">mon Github</a>.</p><p>Aussi, la documentation est bien faite, il suffit de <a href=https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/ target=_blank rel="noopener noreferrer">la lire</a>.</p><h3 id=initialisation class=headerLink><a href=#initialisation class=header-mark></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">groovy</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">groovy</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -355,19 +331,15 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=n>dependencies</s
 </span></span><span class=line><span class=cl>    <span class=n>imports</span> <span class=o>{</span>
 </span></span><span class=line><span class=cl>        <span class=n>mavenBom</span> <span class=s2>&#34;org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}&#34;</span>
 </span></span><span class=line><span class=cl>    <span class=o>}</span>
-</span></span><span class=line><span class=cl><span class=o>}</span></span></span></code></pre></div><p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p><h3 id=construction-de-la-tâche class=headerLink><a href=#construction-de-la-t%c3%a2che class=header-mark></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl><span class=o>}</span></span></span></code></pre></div><p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p><h3 id=construction-de-la-tâche class=headerLink><a href=#construction-de-la-t%c3%a2che class=header-mark></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">java</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">java</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -409,19 +381,15 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=nd>@Configuration
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nd>@EnableTask</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=kd>public</span><span class=w> </span><span class=kd>class</span> <span class=nc>TaskConfiguration</span><span class=w> </span><span class=p>{</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=p>...</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span></span></span></code></pre></div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=p>}</span></span></span></code></pre></div><p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">java</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">java</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -466,19 +434,15 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=w>    </span><spa
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=kd>var</span><span class=w> </span><span class=n>entity</span><span class=w> </span><span class=o>=</span><span class=w> </span><span class=n>restTemplate</span><span class=p>.</span><span class=na>getForEntity</span><span class=p>(</span><span class=s>&#34;https://api.nationalize.io/?name=&#34;</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=n>Optional</span><span class=p>.</span><span class=na>ofNullable</span><span class=p>(</span><span class=n>commandLinePropertySource</span><span class=p>.</span><span class=na>getProperty</span><span class=p>(</span><span class=s>&#34;name&#34;</span><span class=p>)).</span><span class=na>orElse</span><span class=p>(</span><span class=s>&#34;BLANK&#34;</span><span class=p>),</span><span class=w> </span><span class=n>NationalizeResponseDTO</span><span class=p>.</span><span class=na>class</span><span class=p>);</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=n>LOGGER</span><span class=p>.</span><span class=na>info</span><span class=p>(</span><span class=s>&#34;RESPONSE[{}]: {}&#34;</span><span class=p>,</span><span class=w> </span><span class=n>entity</span><span class=p>.</span><span class=na>getStatusCode</span><span class=p>(),</span><span class=w> </span><span class=n>entity</span><span class=p>.</span><span class=na>getBody</span><span class=p>());</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>};</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span></span></span></code></pre></div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p><p>Voici un exemple d&rsquo;exécution :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span></span></span></code></pre></div><p>Dans mon exemple, j&rsquo;affiche dans la sortie standard le payload de l&rsquo;API ainsi que le code HTTP de la réponse.</p><p>Voici un exemple d&rsquo;exécution :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -518,19 +482,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>2022-08-12 15:11:07.885  INFO <span class=m>1</span> --- <span class=o>[</span>           main<span class=o>]</span> o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port<span class=o>(</span>s<span class=o>)</span>: <span class=m>8080</span> <span class=o>(</span>http<span class=o>)</span> with context path <span class=s1>&#39;&#39;</span>
 </span></span><span class=line><span class=cl>2022-08-12 15:11:07.894  INFO <span class=m>1</span> --- <span class=o>[</span>           main<span class=o>]</span> i.t.b.cloudtask.CloudTaskApplication     : Started CloudTaskApplication in 17.704 seconds <span class=o>(</span>JVM running <span class=k>for</span> 19.18<span class=o>)</span>
-</span></span><span class=line><span class=cl>2022-08-12 15:11:10.722  INFO <span class=m>1</span> --- <span class=o>[</span>           main<span class=o>]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class=o>[</span><span class=m>200</span> OK<span class=o>]</span>: NationalizeResponseDTO<span class=o>{</span><span class=nv>name</span><span class=o>=</span><span class=s1>&#39;Alexandre&#39;</span>, <span class=nv>countries</span><span class=o>=[</span>CountryDTO<span class=o>{</span><span class=nv>countryId</span><span class=o>=</span><span class=s1>&#39;BR&#39;</span>, pr....</span></span></code></pre></div><h3 id=packaging class=headerLink><a href=#packaging class=header-mark></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+</span></span><span class=line><span class=cl>2022-08-12 15:11:10.722  INFO <span class=m>1</span> --- <span class=o>[</span>           main<span class=o>]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class=o>[</span><span class=m>200</span> OK<span class=o>]</span>: NationalizeResponseDTO<span class=o>{</span><span class=nv>name</span><span class=o>=</span><span class=s1>&#39;Alexandre&#39;</span>, <span class=nv>countries</span><span class=o>=[</span>CountryDTO<span class=o>{</span><span class=nv>countryId</span><span class=o>=</span><span class=s1>&#39;BR&#39;</span>, pr....</span></span></code></pre></div><h3 id=packaging class=headerLink><a href=#packaging class=header-mark></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -568,19 +528,15 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>./gradlew build</span></span></code></pre></div><h2 id=déploiement class=headerLink><a href=#d%c3%a9ploiement class=header-mark></a>3 Déploiement</h2><h3 id=création-et-déploiement-de-limage-docker class=headerLink><a href=#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker class=header-mark></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p><p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+tw-scrollbar-thin"><span class=line><span class=cl>./gradlew build</span></span></code></pre></div><h2 id=déploiement class=headerLink><a href=#d%c3%a9ploiement class=header-mark></a>3 Déploiement</h2><h3 id=création-et-déploiement-de-limage-docker class=headerLink><a href=#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker class=header-mark></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p><p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -618,19 +574,15 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span></span></span></code></pre></div><p>Ensuite, il nous reste à créer l&rsquo;image Docker</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+tw-scrollbar-thin"><span class=line><span class=cl><span class=nb>eval</span> <span class=k>$(</span>minikube docker-env<span class=k>)</span></span></span></code></pre></div><p>Ensuite, il nous reste à créer l&rsquo;image Docker</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -668,19 +620,15 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>./gradlew bootBuildImage --imageName<span class=o>=</span>info.touret/cloud-task:latest</span></span></code></pre></div><p>Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+tw-scrollbar-thin"><span class=line><span class=cl>./gradlew bootBuildImage --imageName<span class=o>=</span>info.touret/cloud-task:latest</span></span></code></pre></div><p>Pour vérifier que votre image est bien présente dans minikube, vous pouvez exécuter la commande suivante:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -720,19 +668,15 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>minikube image ls <span class=p>|</span> grep cloud-task                                                                                                                                                                          
 </span></span><span class=line><span class=cl>info.touret/cloud-task:latest</span></span></code></pre></div><h3 id=création-de-lapplication class=headerLink><a href=#cr%c3%a9ation-de-lapplication class=header-mark></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href=https://dataflow.spring.io/docs/applications/ target=_blank rel="noopener noreferrer">application</a>:</p><figure><img src=/assets/images/2022/08/dataflow_config5.webp></figure><p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p><h3 id=création-de-la-tâche class=headerLink><a href=#cr%c3%a9ation-de-la-t%c3%a2che class=header-mark></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p><p><div class=gallery-wrapper style=grid-template-columns:repeat(2,1fr)><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config3.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config4.webp alt=configuration></div></div>Vous trouverez plus de détails dans <a href=https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/ target=_blank rel="noopener noreferrer">la documentation officielle</a>.</p><h2 id=exécution class=headerLink><a href=#ex%c3%a9cution class=header-mark></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
-Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p><div class=gallery-wrapper style=grid-template-columns:repeat(2,1fr)><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config2.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config10.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config8.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config7.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config9.webp alt=configuration></div></div><p>J&rsquo;ai pu également accéder aux logs.</p><p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code> afin que Kubernetes ne redémarre pas automatiquement le traitement.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
+Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p><div class=gallery-wrapper style=grid-template-columns:repeat(2,1fr)><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config2.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config10.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config8.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config7.webp alt=configuration></div><div class=img-wrapper><img class=tw-inline loading=lazy src=/assets/images/2022/08/dataflow_config9.webp alt=configuration></div></div><p>J&rsquo;ai pu également accéder aux logs.</p><p>Il est également important de noter qu&rsquo; après l&rsquo;exécution d&rsquo;une tâche, le POD est toujours au statut <code>RUNNING</code> afin que Kubernetes ne redémarre pas automatiquement le traitement.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
+tw-flex-row
+tw-flex-1
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
+tw-mx-2
 tw-flex
 tw-flex-row
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
-tw-mx-2
-tw-block
-group-[.is-open]:tw-rotate-90
-tw-transition-[transform]
-tw-duration-500
-tw-ease-in-out
-print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
-tw-select-none
+tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
