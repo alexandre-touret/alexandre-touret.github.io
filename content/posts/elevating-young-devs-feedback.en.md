@@ -48,7 +48,7 @@ It's nearly impossible to address all these skills comprehensively in school.
 That's why, when I'm looking for a new young engineer, I prioritize a _well-prepared mind_ over specific technical skills.
 
 We also shared a common observation:  
-It's essential to teach the basics while onboarding young developers—logs, error management, tests, and so on.
+It's essential to teach the basics while onboarding young developers: logs, error management, tests, and so on.
 
 The million-dollar question then arose: Who should take responsibility for this—universities/schools or our industry?
 
