@@ -50,7 +50,7 @@ That's why, when I'm looking for a new young engineer, I prioritize a _well-prep
 We also shared a common observation:  
 It's essential to teach the basics while onboarding young developers—logs, error management, tests, and so on.
 
-The million-dollar question then arose: Who should take responsibility for this—universities/schools or the industry?
+The million-dollar question then arose: Who should take responsibility for this—universities/schools or our industry?
 
 In conclusion, we leaned slightly toward the idea that our industry should share a common program to teach the fundamentals of development.  
 At this stage, I am unsure whether we should adopt a bottom-up or a top-down approach. I assume that some large IT companies already have onboarding and training programs for this purpose.  
