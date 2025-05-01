@@ -30,7 +30,7 @@ This is why I have been sharing my experiences in this field through various cha
 I have noticed a high demand for discussions on this topic. 
 Every time I speak about it, the subject resonates strongly with the audience.
 
-For instance, at Devoxx France, I was thrilled to see more than 40 people attend my BOF (at 7 PM!) and share their experiences on this topic.
+For instance, at [Devoxx France](https://www.devoxx.fr/), I was thrilled to see more than 40 people attend my BOF (at 7 PM!) and share their experiences on this topic.
 
 As a result, I will attempt to summarize all the conclusions, questions, and insights I encountered during these meaningful discussions.
 
@@ -56,27 +56,21 @@ In conclusion, we leaned slightly toward the idea that our industry should share
 At this stage, I am unsure whether we should adopt a bottom-up or a top-down approach. I assume that some large IT companies already have onboarding and training programs for this purpose.  
 It would be fantastic if we could pool our efforts and, for example, create a dedicated open-source project with materials such as workshops, documentation, and more.
 
-## Devoxx France
+As I mentioned earlier in my introduction, I also had the opportunity to share my experiences in this field at Devoxx France.  
+During a [BOF (Birds Of a Feather)](https://www.devoxx.fr/en/questions-frequentes/), I began by sharing my thoughts based on my experiences and the topics I had discussed in previous conferences. I did this to explain why I decided to share insights and feedback on this subject.  
 
-![Feedback 1](/assets/images/2025/05/IMG_20250417_195601.jpg)
-![Feedback 2](/assets/images/2025/05/IMG_20250417_195819.jpg)
-![Feedback 3](/assets/images/2025/05/IMG_20250417_195835.jpg)
+To engage the audience (40 people at 7 PM after a full day of the conference!), I chose to organize a [lean coffee](https://leancoffee.org/) session.  
+The main goal was to have a discussion split into two distinct 15-minute time slots.  
+I then invited participants to write down any topics they wanted to address on post-it notes.  
+I was pleasantly surprised by the number of ideas and topics that emerged.  
+Gathering all of these could almost be described as a DDOS post-it attack!  
 
->40 personnes
+{{< image src="/assets/images/2025/05/IMG_20250417_195605.jpg" caption="Post-It Ideas" width="300" height="300">}}  
 
-Cadrer la réunion au travers d'un lean-coffee
+With the help of my colleagues and people I knew —[Raphaël Semeteys](https://raphiki.github.io/), [Yann-Thomas Le Moigne](https://www.linkedin.com/in/yatho), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/), and [Loïc Le Meur](https://www.linkedin.com/in/lo%C3%AFc-le-meur-23a159174) — we categorized all the post-it notes and identified two main topics:  
 
-Post its
-
-![Post-Its](/assets/images/2025/05/IMG_20250417_195605.jpg)
-
-Deux sujets :
-
-Méthodologie, pair programming
-Les soft skills
-
-![Feedback 1](/assets/images/2025/05/IMG_20250417_195601.jpg)
-![Feedback 2](/assets/images/2025/05/IMG_20250417_195819.jpg)
-![Feedback 3](/assets/images/2025/05/IMG_20250417_195835.jpg)
+* Methodology, documentation, and support  
+* Soft skills  
 
 ## Conclusion
+
