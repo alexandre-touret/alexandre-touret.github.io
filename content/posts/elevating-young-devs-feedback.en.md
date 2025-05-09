@@ -36,6 +36,9 @@ As a result, I will attempt to summarize all the conclusions, questions, and ins
 
 ## JChateau
 I proposed this topic at JChateau. Although it was far beyond the usual technical topics, I managed to arrange a roundtable with four people on the second day.  
+
+![Agenda](/assets/images/2025/05/IMG_20250328_085525340.jpg)
+
 The discussions were truly insightful. The audience consisted of seasoned engineers, software architects, and one person involved in training young students.
 
 We agreed that there is a significant gap between the way coding is taught at universities or engineering schools and how it is practiced in IT companies. The skills learned at school often don't align with the requirements of a real-life production platform.
@@ -56,6 +59,8 @@ In conclusion, we leaned slightly toward the idea that our industry should share
 At this stage, I am unsure whether we should adopt a bottom-up or a top-down approach. I assume that some large IT companies already have onboarding and training programs for this purpose.  
 It would be fantastic if we could pool our efforts and, for example, create a dedicated open-source project with materials such as workshops, documentation, and more.
 
+## Devoxx France
+
 As I mentioned earlier in my introduction, I also had the opportunity to share my experiences in this field at Devoxx France.  
 During a [BOF (Birds Of a Feather)](https://www.devoxx.fr/en/questions-frequentes/), I began by sharing my thoughts based on my experiences and the topics I had discussed in previous conferences. I did this to explain why I decided to share insights and feedback on this subject.  
 
@@ -65,12 +70,42 @@ I then invited participants to write down any topics they wanted to address on p
 I was pleasantly surprised by the number of ideas and topics that emerged.  
 Gathering all of these could almost be described as a DDOS post-it attack!  
 
-{{< image src="/assets/images/2025/05/IMG_20250417_195605.jpg" caption="Post-It Ideas" width="300" height="300">}}  
+{{< image src="/assets/images/2025/05/IMG_20250417_195605.jpg" caption="Post-It Ideas" width="600" height="600">}}  
 
 With the help of my colleagues and people I knew —[Raphaël Semeteys](https://raphiki.github.io/), [Yann-Thomas Le Moigne](https://www.linkedin.com/in/yatho), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/), and [Loïc Le Meur](https://www.linkedin.com/in/lo%C3%AFc-le-meur-23a159174) — we categorized all the post-it notes and identified two main topics:  
 
 * Methodology, documentation, and support  
 * Soft skills  
+
+Here are the topics and ideas thrown during this free chat:
+
+### Methodology, documentation, and support
+
+During this discussion, many points were raised. 
+We emphasized the necessity of arranging labs and dojos where (not only) young developers could dive into best practices alongside seasoned developers. 
+By the way, the _"Pair programming" topic_ was highly requested during the Post-It brainstorming session.
+Using such a practice, you would both instill good practices and help developers grow their skills. 
+Next, you could build on this and reuse it regularly.
+
+Additionally, organizing internal tech conferences could also contribute to this effort.
+
+Beyond these two topics, we highlighted the importance of fostering a tech culture within our organizations. 
+Arranging workshops or tech conferences and drafting articles are excellent ways to promote good practices and improve all developers. Furthermore, we might consider creating workshops for either live pair-programming sessions or self-paced learning.
+
+Similarly, we discussed the importance of documentation for everyone, especially young developers. 
+You must teach them how to use it and ensure all your processes are as exhaustive as possible. This would help avoid misunderstandings.
+
+Last but not least, we addressed one of the trickiest points: time management.
+
+This is perhaps one of the most significant challenges to tackle.
+
+How can we emphasize the importance of dedicating time to onboarding and managing young developers? 
+Nowadays, it can be challenging, but in my view, it should be considered an investment. If you don't invest time and resources, you won't achieve a good return on investment.
+
+Remember: _"If you pay peanuts, you get monkeys."_ 
+
+### Soft skills
+
 
 ## Conclusion
 
