@@ -18,14 +18,14 @@ At these two events, I organized and facilitated roundtables on how to onboard, 
 For many years, I have been managing young developers, including trainees and developers with less than one year of experience. 
 Additionally, I have been involved in various mentoring programs. For example, I have helped young students prepare for their first interviews and guided them to succeed.
 
-Since last year, I have also been teaching at the University of Tours.
+Since last year, I [have also been teaching at the University of Tours](https://blog.touret.info/teaching/).
 
 These experiences, especially early in my career, often left me feeling slightly frustrated or conflicted. Why? Because I had the impression of reinventing the wheel. I was certain that others had faced similar challenges and had developed smart solutions or patterns to address them.
 
 This is why I have been sharing my experiences in this field through various channels:
 - Conferences
 - Workshops
-- Articles
+- Articles ([In English](https://blog.worldline.tech/2024/06/04/elevating_young_developers.html) or [in French](https://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/))
 
 I have noticed a high demand for discussions on this topic. 
 Every time I speak about it, the subject resonates strongly with the audience.
@@ -105,7 +105,27 @@ Nowadays, it can be challenging, but in my view, it should be considered an inve
 Remember: _"If you pay peanuts, you get monkeys."_ 
 
 ### Soft skills
+This was probably the most eagerly awaited topic.  
+We shared many of our good and bad experiences in managing young developers.  
+We then agreed on the necessity of being trained in management, even if we are not managers.  
+Knowing how to train others would also be a key topic.  
 
+I believe this could be crucial for optimizing the onboarding process and the learning path. It may also help avoid mistakes and establish the right approach.  
+We also identified two important soft skills: exemplarity and empathy.  
 
-## Conclusion
+Exemplarity could be the first step in promoting a safe environment where young developers can learn, fail, and find solutions without fear.  
+Empathy, in my view, is essential for adapting the workload or training to suit your new young colleague. It is critical to understand that, from their perspective, they are entering an entirely new world where everything feels completely different.  
+
+## Wrap-up
+Through all the interactions I had during the recent conferences where I presented this topic, I noticed it is a common concern in our industry.  
+Many people highlighted the challenges of managing young developers.  
+Guiding them to reach the "plateau of productivity" is a long journey that requires a combination of technical and soft skills.  
+
+I strongly believe our industry needs to address this topic collectively.  
+Creating a shared learning path among IT companies that covers the fundamentals of development could be a significant first step.  
+
+For example, at Worldline, together with [Philippe Vincent](https://www.linkedin.com/in/phivincent/), we developed a [quality code workshop](https://github.com/worldline/code-quality-workshop).  
+We recognize that this is just the beginning and only one of the initial steps.  
+
+Perhaps we could combine our efforts on this topic. What do you think?  
 
