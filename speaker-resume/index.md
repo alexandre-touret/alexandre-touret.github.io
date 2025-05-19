@@ -10,8 +10,8 @@ If you want to know more about them, you can see the descriptions on [the talks 
 
 - Devoxx France :fr: : [L'observabilité des applications Java, c'est aussi en dev avec OpenTelemetry !](https://www.devoxx.fr/agenda-2025/talk/l-observabilite-des-applications-java-c-est-aussi-en-dev-avec-opentelemetry/)
 - Devoxx France :fr: : [Ensemble faisons progresser et grandir les développeurs débutants !](https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants/)
-- Warsaw IT Days :en: : [Take your API development to the next level with API-First approach](https://warszawskiedniinformatyki.pl/)
-- Warsaw IT Days :en: : [Elevating Young Developers: Best practices and feedback for seasoned developers on onboarding and skill development](https://warszawskiedniinformatyki.pl/)
+- Warsaw IT Days :gb: : [Take your API development to the next level with API-First approach](https://warszawskiedniinformatyki.pl/)
+- Warsaw IT Days :gb: : [Elevating Young Developers: Best practices and feedback for seasoned developers on onboarding and skill development](https://warszawskiedniinformatyki.pl/)
 - Archilocus :fr: : [Le versioning des APIs REST : dans la vraie vie, on fait comment ?](https://www.archilocus.tech/2025/03)
 - Touraine Tech :fr: : [Créer des API REST en Java avec une approche API-First : Mise en pratique et retours d'expérience](https://touraine.tech/talk/cm24uc0y200f9h2uwddb3cnmx)
 - Touraine Tech :fr: : [Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs](https://touraine.tech/talk/clzyec355316b13hp6t3idc94)
