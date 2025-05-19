@@ -59,19 +59,17 @@ Nous saurons donc à la fin de cette présentation comment intégrer et rendre a
 * [Slides](https://speakerdeck.com/alexandretouret/rvd24-integrons-faisons-grandir-et-progresser-les-jeunes-devs-bonnes-pratiques-et-retours-dexperiences-a-lintention-des-vieux-devs)
 * [Video](https://youtu.be/V3jCZgEgUn8?si=GZVAE-D5S7o8vj2y)
 
-### L'observabilité dès le développement: Maîtrisez vos applications Java en production avec Grafana
+###  Let your Java application be truly observable! Let's dive into logs, traces and monitoring with OpenTelemetry
 
-{{< admonition abstract "Résumé" false >}}
+{{< admonition abstract "Abstract" false >}}
 
-Imaginez, c'est vendredi après-midi. Vous êtes impatient de profiter de votre week-end quand un ingénieur Ops vous transfère un problème bloquant avec une erreur HTTP 500.
+Imagine it's Friday afternoon. You're looking forward to enjoying your weekend when an Ops engineer forwards you a blocking issue with an HTTP 500 error.
 
-Il n'a en effet, pas réussi à identifier l'origine en raison d'un manque d'informations contextuelles. Après quelques heures, vous parvenez enfin à l'identifier en le reproduisant et en le déboguant sur votre ordinateur.
+He couldn't pinpoint the root cause due to a lack of contextual information. After a few hours, you finally manage to identify it by reproducing and debugging it on your computer.
 
-Si vous avez l'habitude de faire face à de tels problèmes, cela signifie sûrement que vous avez négligé le développement d'une des fonctionnalités les plus importantes de votre application : l'observabilité !
+If you often encounter such issues, it likely means that you may have overlooked developing one of the most important features of your application: Observability!
 
-Au cours de cet atelier, nous implémenterons des bonnes pratiques de logging et mettrons en oeuvre toute une stack d'observabilité: des librairies à la plateforme en se basant sur les produits Grafana (Tempo, Loki, Prometheus).
-
-Nous saurons donc comment adapter nos applications pour la production et faire des Ops nos meilleurs amis!
+In this workshop, we will implement logging best practices and cover the entire observability stack from libraries to storage backend and visualization tools based on OpenTelemetry and the Grafana Suite (Tempo, Prometheus, Loki, Grafana). We will gain an understanding of how Java Developers can make Ops their best friends by making our Java application more reliable and production-ready!
 
 * [Workshop](https://github.com/worldline/observability-workshop/)
 
