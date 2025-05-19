@@ -26,15 +26,19 @@ Cancel</button></div><a class=menu-item href=/posts/ title>Posts</a><a class=men
 <svg class="icon" viewBox="0 0 512 512"><path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705.0 184 82.311 184 184 0 101.705-82.311 184-184 184z"/></svg>
 <select class=color-theme-select id=theme-select-mobile aria-label="Switch Theme"><option value=light>Light</option><option value=dark>Dark</option><option value=auto>Auto</option></select></button></div></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class="tw-mx-4 tw-flex-1"><div class="toc print:!tw-hidden" id=toc-auto><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-auto><nav id=TableOfContents><ul><li><a href=#configuration-de-vagrant>Configuration de Vagrant</a><ul><li><a href=#configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</a><ul><li><ul><li><a href=#ansiblecfg>ansible.cfg</a></li><li><a href=#hosts>hosts</a></li></ul></li></ul></li></ul></li><li><a href=#provisionning>Provisionning</a><ul><li><a href=#a-la-création>A la création</a></li></ul></li></ul></nav></div></div><dialog id=toc-dialog class="tw-max-w-full tw-w-full tw-max-h-full tw-h-full tw-ml-16"><div class="toc tw-mx-4 tw-max-w-full"><h2 class="tw-mx-0 tw-my-6 tw-uppercase tw-text-2xl">Contents</h2><div class=toc-content><nav id=TableOfContents><ul><li><a href=#configuration-de-vagrant>Configuration de Vagrant</a><ul><li><a href=#configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</a><ul><li><ul><li><a href=#ansiblecfg>ansible.cfg</a></li><li><a href=#hosts>hosts</a></li></ul></li></ul></li></ul></li><li><a href=#provisionning>Provisionning</a><ul><li><a href=#a-la-création>A la création</a></li></ul></li></ul></nav></div></div></dialog><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single print:!tw-w-full print:!tw-max-w-none print:!tw-m-0 print:!tw-p-0"><h1 class=single-title data-pagefind-meta=date:2019-06-25 data-pagefind-body>Ansible pour les provisionner tous !</h1><div class=post-meta><div class=post-meta-line><span class=post-author><img class="tw-inline-block tw-max-h-4 tw-rounded-full tw-translate-y-[-2px] tw-mr-1" src=/assets/images/alexandre.touret.webp alt="Alexandre Touret avatar" height=16 width=16><a href=https://blog.touret.info title=Author target=_blank rel="noopener noreferrer author" class=author>Alexandre Touret</a></span></div><div class=post-meta-line><svg class="icon" viewBox="0 0 448 512"><path d="M148 288h-40c-6.6.0-12-5.4-12-12v-40c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v40c0 6.6-5.4 12-12 12zm108-12v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 96v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm-96 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm192 0v-40c0-6.6-5.4-12-12-12h-40c-6.6.0-12 5.4-12 12v40c0 6.6 5.4 12 12 12h40c6.6.0 12-5.4 12-12zm96-260v352c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h48V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h128V12c0-6.6 5.4-12 12-12h40c6.6.0 12 5.4 12 12v52h48c26.5.0 48 21.5 48 48zm-48 346V160H48v298c0 3.3 2.7 6 6 6h340c3.3.0 6-2.7 6-6z"/></svg>&nbsp;<time datetime=2019-06-25>2019-06-25</time>&nbsp;<svg class="icon" viewBox="0 0 576 512"><path d="M402.3 344.9l32-32c5-5 13.7-1.5 13.7 5.7V464c0 26.5-21.5 48-48 48H48c-26.5.0-48-21.5-48-48V112c0-26.5 21.5-48 48-48h273.5c7.1.0 10.7 8.6 5.7 13.7l-32 32c-1.5 1.5-3.5 2.3-5.7 2.3H48v352h352V350.5c0-2.1.8-4.1 2.3-5.6zm156.6-201.8L296.3 405.7l-90.4 10c-26.2 2.9-48.5-19.2-45.6-45.6l10-90.4L432.9 17.1c22.9-22.9 59.9-22.9 82.7.0l43.2 43.2c22.9 22.9 22.9 60 .1 82.8zM460.1 174 402 115.9 216.2 301.8l-7.3 65.3 65.3-7.3L460.1 174zm64.8-79.7-43.2-43.2c-4.1-4.1-10.8-4.1-14.8.0L436 82l58.1 58.1 30.9-30.9c4-4.2 4-10.8-.1-14.9z"/></svg>&nbsp;<time datetime=2023-03-08>2023-03-08</time>&nbsp;<svg class="icon" viewBox="0 0 512 512"><path d="M497.9 142.1l-46.1 46.1c-4.7 4.7-12.3 4.7-17 0l-111-111c-4.7-4.7-4.7-12.3.0-17l46.1-46.1c18.7-18.7 49.1-18.7 67.9.0l60.1 60.1c18.8 18.7 18.8 49.1.0 67.9zM284.2 99.8 21.6 362.4.4 483.9c-2.9 16.4 11.4 30.6 27.8 27.8l121.5-21.3 262.6-262.6c4.7-4.7 4.7-12.3.0-17l-111-111c-4.8-4.7-12.4-4.7-17.1.0zM124.1 339.9c-5.5-5.5-5.5-14.3.0-19.8l154-154c5.5-5.5 14.3-5.5 19.8.0s5.5 14.3.0 19.8l-154 154c-5.5 5.5-14.3 5.5-19.8.0zM88 424h48v36.3l-64.5 11.3-31.1-31.1L51.7 376H88v48z"/></svg>&nbsp;564 words&nbsp;
 <svg class="icon" viewBox="0 0 512 512"><path d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8zm0 448c-110.5.0-2e2-89.5-2e2-2e2S145.5 56 256 56s2e2 89.5 2e2 2e2-89.5 2e2-2e2 2e2zm61.8-104.4-84.9-61.7c-3.1-2.3-4.9-5.9-4.9-9.7V116c0-6.6 5.4-12 12-12h32c6.6.0 12 5.4 12 12v141.7l66.8 48.6c5.4 3.9 6.5 11.4 2.6 16.8L334.6 349c-3.9 5.3-11.4 6.5-16.8 2.6z"/></svg>&nbsp;3 minutes&nbsp;</div></div><div class="details toc print:!tw-block" id=toc-static kept><div class="details-summary toc-title"><span>Contents</span>
-<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#configuration-de-vagrant>Configuration de Vagrant</a><ul><li><a href=#configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</a><ul><li><ul><li><a href=#ansiblecfg>ansible.cfg</a></li><li><a href=#hosts>hosts</a></li></ul></li></ul></li></ul></li><li><a href=#provisionning>Provisionning</a><ul><li><a href=#a-la-création>A la création</a></li></ul></li></ul></nav></div></div><div class=content id=content data-pagefind-body><div class="details admonition warning open"><div class="details-summary admonition-title"><span class=icon><svg class="icon" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></svg></span>Warning<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class=details-content><div class=admonition-content>This article was last updated on <span class=timeago datetime=2023-03-08T11:09:07 title="March 8, 2023">2023-03-08</span>, the content may be out of date.</div></div></div><p>Si vous <a href=http://blog.touret.info/2018/03/15/installation-de-vagrant/ target=_blank rel="noopener noreferrer">provisionnez vos VM VirtualBox avec Vagrant</a>, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.</p><p>Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez <a href=https://www.ansible.com/ target=_blank rel="noopener noreferrer">Ansible.</a></p><div id=id-10><img class=tw-inline loading=lazy src=/assets/images/2019/06/ansible_logo.svg_.png alt=ansible></div><p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href=https://puppet.com target=_blank rel="noopener noreferrer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation d&rsquo;agent.</p><p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href=https://www.virtualbox.org/ target=_blank rel="noopener noreferrer">VirtualBox</a>.</p><h2 id=configuration-de-vagrant class=headerLink><a href=#configuration-de-vagrant class=header-mark></a>1 Configuration de Vagrant</h2><p>Dans le fichier Vagrantfile, on active le provisionning via Ansible:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#configuration-de-vagrant>Configuration de Vagrant</a><ul><li><a href=#configuration-spécifique-pour-virtualbox>Configuration spécifique pour VirtualBox</a><ul><li><ul><li><a href=#ansiblecfg>ansible.cfg</a></li><li><a href=#hosts>hosts</a></li></ul></li></ul></li></ul></li><li><a href=#provisionning>Provisionning</a><ul><li><a href=#a-la-création>A la création</a></li></ul></li></ul></nav></div></div><div class=content id=content data-pagefind-body><div class="details admonition warning open"><div class="details-summary admonition-title"><span class=icon><svg class="icon" viewBox="0 0 576 512"><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937.0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154.0l239.94 416.028zM288 354c-25.405.0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346 7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373.0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884.0-12.356 5.78-11.981 12.654z"/></svg></span>Warning<span class=details-icon><svg class="icon" viewBox="0 0 256 512"><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9.0l-22.6-22.6c-9.4-9.4-9.4-24.6.0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6.0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9.0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span></div><div class=details-content><div class=admonition-content>This article was last updated on <span class=timeago datetime=2023-03-08T11:09:07 title="March 8, 2023">2023-03-08</span>, the content may be out of date.</div></div></div><p>Si vous <a href=http://blog.touret.info/2018/03/15/installation-de-vagrant/ target=_blank rel="noopener noreferrer">provisionnez vos VM VirtualBox avec Vagrant</a>, vous avez sans doute eu l&rsquo;idée d&rsquo;automatiser le provisionning des machines virtuelles. Dans mon cas une VM GNU/Linux basée sur Debian 9.</p><p>Pour cela, soit vous faite tout manuellement et après les mises à jour deviennent fastidieuses, soit vous appliquez un script shell au démarrage de vagrant, soit vous utilisez <a href=https://www.ansible.com/ target=_blank rel="noopener noreferrer">Ansible.</a></p><div id=id-10><img class=tw-inline loading=lazy src=/assets/images/2019/06/ansible_logo.svg_.png alt=ansible></div><p>Ansible est un outil opensource permettant d&rsquo;automatiser le provisionning et la mise à jour des environnements à distance (via SSH). L&rsquo;avantage par rapport à des outils tels que <a href=https://puppet.com target=_blank rel="noopener noreferrer">Puppet</a>, est qu&rsquo;il ne nécessite pas l&rsquo;installation d&rsquo;agent.</p><p>Je vais essayer de vous montrer comment mettre en place le provisionning via Ansible pour <a href=https://www.virtualbox.org/ target=_blank rel="noopener noreferrer">VirtualBox</a>.</p><h2 id=configuration-de-vagrant class=headerLink><a href=#configuration-de-vagrant class=header-mark></a>1 Configuration de Vagrant</h2><p>Dans le fichier Vagrantfile, on active le provisionning via Ansible:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">ini</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">ini</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -76,15 +80,19 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=na>config.vm.prov
 </span></span><span class=line><span class=cl>  <span class=na>do |ansible| ansible.playbook</span> <span class=o>=</span> <span class=s>&#34;site.yml&#34;
 </span></span></span><span class=line><span class=cl><span class=s>  ansible.install_mode = &#34;pip&#34;
 </span></span></span><span class=line><span class=cl><span class=s>  ansible.version = &#34;2.7.10&#34;</span>
-</span></span><span class=line><span class=cl><span class=na>end</span></span></span></code></pre></div><p>Cette configuration fait référence à un fichier « playbook » site.yml. C&rsquo;est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.</p><p>Voici un exemple de contenu:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl><span class=na>end</span></span></span></code></pre></div><p>Cette configuration fait référence à un fichier « playbook » site.yml. C&rsquo;est la configuration qui sera appliqué lors du provisionning . Que ça soit à la création ou pour les mises à jour.</p><p>Voici un exemple de contenu:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -130,15 +138,19 @@ tw-scrollbar-thin"><span class=line><span class=cl>- <span class=nt>name</span><
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>roles</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>      </span>- <span class=nt>common</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nt>vars_files</span><span class=p>:</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=l>vars/environment.yml</span></span></span></code></pre></div><p>Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span></span><span class=line><span class=cl><span class=w>          </span>- <span class=l>vars/environment.yml</span></span></span></code></pre></div><p>Ce fichier est la racine de notre configuration Ansible. On y référence les rôles appliqués et les fichiers d&rsquo; environnement. Voici un exemple de rôle:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -226,15 +238,19 @@ tw-scrollbar-thin"><span class=line><span class=cl>- <span class=nt>name</span><
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>modification_time</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;preserve&#34;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>access_time</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;preserve&#34;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>owner</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span></span></span></code></pre></div><p>Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nt>group</span><span class=p>:</span><span class=w> </span><span class=s2>&#34;{{ username }}&#34;</span></span></span></code></pre></div><p>Les variables d&rsquo;environnement permettent de variabiliser certains champs de vos rôles. On peut trouver par exemple les versions de certains outils déployés</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -275,15 +291,19 @@ tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>maven_version: 3.5.4
 </span></span><span class=line><span class=cl>username: vagrant
 </span></span><span class=line><span class=cl>home: /home/vagrant
-</span></span><span class=line><span class=cl>docker_compose_version: 1.22.0</span></span></code></pre></div><p>Il y a <a href=https://docs.ansible.com/ansible/latest/modules/modules_by_category.html target=_blank rel="noopener noreferrer">une quantité impressionnante de modules Ansible que l&rsquo;on peut utiliser</a>. Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d&rsquo;un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.</p><h3 id=configuration-spécifique-pour-virtualbox class=headerLink><a href=#configuration-sp%c3%a9cifique-pour-virtualbox class=header-mark></a>1.1 Configuration spécifique pour VirtualBox</h3><p>Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentaires à la racine:</p><h5 id=ansiblecfg class=headerLink><a href=#ansiblecfg class=header-mark></a>1.1.0.1 ansible.cfg</h5><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl>docker_compose_version: 1.22.0</span></span></code></pre></div><p>Il y a <a href=https://docs.ansible.com/ansible/latest/modules/modules_by_category.html target=_blank rel="noopener noreferrer">une quantité impressionnante de modules Ansible que l&rsquo;on peut utiliser</a>. Que ça soit pour lancer des commandes shell ou lancer des services. Contrairement à la création d&rsquo;un script shell qui pourrait faire les mêmes actions à la création, on peut facilement gérer la mise à jour de la VM car Ansible détecte les modifications lors de son exécution.</p><h3 id=configuration-spécifique-pour-virtualbox class=headerLink><a href=#configuration-sp%c3%a9cifique-pour-virtualbox class=header-mark></a>1.1 Configuration spécifique pour VirtualBox</h3><p>Pour VirtualBox, j&rsquo;ai ajouté deux fichiers de configuration supplémentaires à la racine:</p><h5 id=ansiblecfg class=headerLink><a href=#ansiblecfg class=header-mark></a>1.1.0.1 ansible.cfg</h5><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">ini</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">ini</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -322,15 +342,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=k>[defaults]</span>
-</span></span><span class=line><span class=cl>  <span class=na>hostfile</span> <span class=o>=</span> <span class=s>hosts</span></span></span></code></pre></div><h5 id=hosts class=headerLink><a href=#hosts class=header-mark></a>1.1.0.2 hosts</h5><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl>  <span class=na>hostfile</span> <span class=o>=</span> <span class=s>hosts</span></span></span></code></pre></div><h5 id=hosts class=headerLink><a href=#hosts class=header-mark></a>1.1.0.2 hosts</h5><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">ini</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">ini</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -369,15 +393,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=k>[local]</span>
-</span></span><span class=line><span class=cl>  <span class=na>localhost ansible_connection</span><span class=o>=</span><span class=s>local</span></span></span></code></pre></div><h2 id=provisionning class=headerLink><a href=#provisionning class=header-mark></a>2 Provisionning</h2><h3 id=a-la-création class=headerLink><a href=#a-la-cr%c3%a9ation class=header-mark></a>2.1 A la création</h3><p>le provisionning peut se faire au lancement de vagrant via la commande:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl>  <span class=na>localhost ansible_connection</span><span class=o>=</span><span class=s>local</span></span></span></code></pre></div><h2 id=provisionning class=headerLink><a href=#provisionning class=header-mark></a>2 Provisionning</h2><h3 id=a-la-création class=headerLink><a href=#a-la-cr%c3%a9ation class=header-mark></a>2.1 A la création</h3><p>le provisionning peut se faire au lancement de vagrant via la commande:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -415,15 +443,19 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>vagrant up</span></span></code></pre></div><p>Pour faire une mise à jour</p><p>Directement dans la box, vous pouvez lancer les commandes suivantes :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+tw-scrollbar-thin"><span class=line><span class=cl>vagrant up</span></span></code></pre></div><p>Pour faire une mise à jour</p><p>Directement dans la box, vous pouvez lancer les commandes suivantes :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -461,15 +493,19 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>sudo mount -t vboxsf vagrant /vagrant</span></span></code></pre></div><p>Puis, vous pouvez lancer les commandes suivantes dans la box:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+tw-scrollbar-thin"><span class=line><span class=cl>sudo mount -t vboxsf vagrant /vagrant</span></span></code></pre></div><p>Puis, vous pouvez lancer les commandes suivantes dans la box:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block

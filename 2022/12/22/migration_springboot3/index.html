@@ -34,15 +34,19 @@ Par exemple, je n&rsquo;ai qu&rsquo;une seule entité JPA&mldr;
 Cependant, je la trouve représentative et espère (très modestement) que mon retour d&rsquo;expérience pourra servir.</p><p><a href=https://github.com/alexandre-touret/rest-apis-versioning-workshop/pull/11/files target=_blank rel="noopener noreferrer">La Pull Request correspondante est disponible sur GitHub</a>.</p><h2 id=pré-requis class=headerLink><a href=#pr%c3%a9-requis class=header-mark></a>1 Pré-requis</h2><p>Une documentation existe.
 Vous pouvez la consulter <a href=https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-3.0-Migration-Guide target=_blank rel="noopener noreferrer">ici</a>.
 Il existe aussi plusieurs articles sur le blog du projet Spring. Voici <a href=https://spring.io/blog/2022/05/24/preparing-for-spring-boot-3-0 target=_blank rel="noopener noreferrer">un exemple</a>.</p><h2 id=dépendances-et-configuration-des-plugins class=headerLink><a href=#d%c3%a9pendances-et-configuration-des-plugins class=header-mark></a>2 Dépendances et configuration des plugins</h2><h3 id=jdk class=headerLink><a href=#jdk class=header-mark></a>2.1 JDK</h3><p>Pour Spring Boot 3, il faut impérativement utiliser un <a href=https://openjdk.org/projects/jdk/17/ target=_blank rel="noopener noreferrer">JDK >=17</a>.</p><h3 id=mises-à-jour class=headerLink><a href=#mises-%c3%a0-jour class=header-mark></a>2.2 Mises à jour</h3><p>L&rsquo;une des premières actions à réaliser est de migrer votre application vers <a href=https://spring.io/blog/2022/06/23/spring-boot-2-7-1-available-now target=_blank rel="noopener noreferrer">la version 2.7</a>.</p><p>À l&rsquo;heure où j&rsquo;écris cet article, la version de Spring Cloud est encore en version RC.
-J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Spring:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+J&rsquo;ai donc dû ajouter le repository <em>&ldquo;milestone&rdquo;</em> de Spring:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">groovy</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">groovy</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -83,15 +87,19 @@ tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=n>repositories</span> <span class=o>{</span>
 </span></span><span class=line><span class=cl>        <span class=n>maven</span> <span class=o>{</span> <span class=n>url</span> <span class=s1>&#39;https://repo.spring.io/milestone&#39;</span> <span class=o>}</span>
 </span></span><span class=line><span class=cl>        <span class=n>mavenCentral</span><span class=o>()</span>
-</span></span><span class=line><span class=cl><span class=o>}</span></span></span></code></pre></div><p>Ensuite, j&rsquo;ai utilisé les versions suivantes pour les différents composants spring:</p><ul><li>Spring Boot : 3.0.0</li><li>Spring Cloud : 2022.0.0-RC2</li><li>Spring Dependency Management : 1.1.0</li></ul><p>Dans mon application, j&rsquo;utilisais certains plugins Gradle pour la génération du code notamment <a href=https://openapi-generator.tech/docs/generators/spring/ target=_blank rel="noopener noreferrer">OpenAPIGenerator</a>. Pour ce dernier, j&rsquo;ai ajouté un paramètre pour le rendre compatible avec spring boot 3:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl><span class=o>}</span></span></span></code></pre></div><p>Ensuite, j&rsquo;ai utilisé les versions suivantes pour les différents composants spring:</p><ul><li>Spring Boot : 3.0.0</li><li>Spring Cloud : 2022.0.0-RC2</li><li>Spring Dependency Management : 1.1.0</li></ul><p>Dans mon application, j&rsquo;utilisais certains plugins Gradle pour la génération du code notamment <a href=https://openapi-generator.tech/docs/generators/spring/ target=_blank rel="noopener noreferrer">OpenAPIGenerator</a>. Pour ce dernier, j&rsquo;ai ajouté un paramètre pour le rendre compatible avec spring boot 3:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">groovy</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">groovy</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -129,15 +137,19 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl> <span class=n>useSpringBoot3</span>       <span class=o>:</span> <span class=s2>&#34;true&#34;</span></span></span></code></pre></div><p>Bref, il faut impérativement tous les mettre à jour et vérifier la compatibilité !</p><h2 id=ajout-de-nouvelles-dépendances class=headerLink><a href=#ajout-de-nouvelles-d%c3%a9pendances class=header-mark></a>3 Ajout de nouvelles dépendances</h2><p>Pour vérifier la pertinence de certaines propriétés dans la nouvelle version, Spring a mis à disposition ce plugin:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+tw-scrollbar-thin"><span class=line><span class=cl> <span class=n>useSpringBoot3</span>       <span class=o>:</span> <span class=s2>&#34;true&#34;</span></span></span></code></pre></div><p>Bref, il faut impérativement tous les mettre à jour et vérifier la compatibilité !</p><h2 id=ajout-de-nouvelles-dépendances class=headerLink><a href=#ajout-de-nouvelles-d%c3%a9pendances class=header-mark></a>3 Ajout de nouvelles dépendances</h2><p>Pour vérifier la pertinence de certaines propriétés dans la nouvelle version, Spring a mis à disposition ce plugin:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">groovy</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">groovy</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -175,15 +187,19 @@ group-[.is-closed]:!tw-max-h-0
 group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
-tw-scrollbar-thin"><span class=line><span class=cl>   <span class=n>runtimeOnly</span> <span class=s1>&#39;org.springframework.boot:spring-boot-properties-migrator&#39;</span></span></span></code></pre></div><p>Il permet de notifier à l&rsquo;exécution si un paramètre est déprécié ou totalement inutile.</p><h2 id=migration-namespace-javax-vers-jakartaee class=headerLink><a href=#migration-namespace-javax-vers-jakartaee class=header-mark></a>4 Migration namespace javax vers jakartaee</h2><p>Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d&rsquo;innombrables maux de tête.</p><p>Si vous utilisez Spring Boot au-dessus d&rsquo;un Tomcat (c.-à-d. en mode <em>old school</em>), il vous faudra mettre à jour le conteneur de servlet à une version compatible.</p><p>Dans mon application, je n&rsquo;ai eu qu&rsquo;à modifier les imports dans les entités, filtres et méthodes annotées par l&rsquo;annotation <code>@PostConstruct()</code>.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+tw-scrollbar-thin"><span class=line><span class=cl>   <span class=n>runtimeOnly</span> <span class=s1>&#39;org.springframework.boot:spring-boot-properties-migrator&#39;</span></span></span></code></pre></div><p>Il permet de notifier à l&rsquo;exécution si un paramètre est déprécié ou totalement inutile.</p><h2 id=migration-namespace-javax-vers-jakartaee class=headerLink><a href=#migration-namespace-javax-vers-jakartaee class=header-mark></a>4 Migration namespace javax vers jakartaee</h2><p>Selon votre code, les dépendances que vous pouvez avoir, cette étape pourra aller du renommage des import javax vers jakarta à d&rsquo;innombrables maux de tête.</p><p>Si vous utilisez Spring Boot au-dessus d&rsquo;un Tomcat (c.-à-d. en mode <em>old school</em>), il vous faudra mettre à jour le conteneur de servlet à une version compatible.</p><p>Dans mon application, je n&rsquo;ai eu qu&rsquo;à modifier les imports dans les entités, filtres et méthodes annotées par l&rsquo;annotation <code>@PostConstruct()</code>.</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">java</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">java</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -227,15 +243,19 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=kn>import</span><
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=kn>import</span><span class=w> </span><span class=nn>jakarta.persistence.GenerationType</span><span class=p>;</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=p>...</span></span></span></code></pre></div><p>Sur ce sujet, Jetbrains a <a href=https://www.jetbrains.com/idea/guide/tutorials/migrating-javax-jakarta/ target=_blank rel="noopener noreferrer">publié un tutoriel sur la migration vers Jakarta</a>.</p><h2 id=distributed-tracing-et-observabilité class=headerLink><a href=#distributed-tracing-et-observabilit%c3%a9 class=header-mark></a>5 Distributed Tracing et observabilité</h2><p>Spring embarque désormais plusieurs fonctionnalités liées à l&rsquo;observabilité sous forme de starters.
 Dans mon cas, <a href=https://blog.worldline.tech/2021/09/22/enabling_distributed_tracing_in_spring_apps.html target=_blank rel="noopener noreferrer">j&rsquo;avais embarqué opentracing (qui était déprécié depuis quelques temps) et me connectait sur Jaeger</a>.</p><p>J&rsquo;ai suivi <a href=https://spring.io/blog/2022/10/12/observability-with-spring-boot-3 target=_blank rel="noopener noreferrer">cet article</a> paru sur le blog de Spring.
-J&rsquo;ai par conséquent basculé sur <a href=https://zipkin.io/ target=_blank rel="noopener noreferrer">Zipkin</a> (pour mon Workshop, l&rsquo;utilisation du distributed tracing est un peu la cerise sur le gâteau).</p><p>Voici les starters que j&rsquo;ai intégrés :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+J&rsquo;ai par conséquent basculé sur <a href=https://zipkin.io/ target=_blank rel="noopener noreferrer">Zipkin</a> (pour mon Workshop, l&rsquo;utilisation du distributed tracing est un peu la cerise sur le gâteau).</p><p>Voici les starters que j&rsquo;ai intégrés :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">groovy</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">groovy</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -276,15 +296,19 @@ tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=n>implementation</span> <span class=s1>&#39;io.micrometer:micrometer-tracing-bridge-brave&#39;</span>
 </span></span><span class=line><span class=cl><span class=n>implementation</span> <span class=s1>&#39;io.zipkin.reporter2:zipkin-reporter-brave&#39;</span>
 </span></span><span class=line><span class=cl><span class=n>implementation</span> <span class=s1>&#39;io.opentelemetry:opentelemetry-exporter-zipkin&#39;</span>
-</span></span><span class=line><span class=cl><span class=n>implementation</span> <span class=s1>&#39;org.springframework.boot:spring-boot-starter-aop&#39;</span></span></span></code></pre></div><p>J&rsquo;ai par la suite intégré les propriétés suivantes dans la configuration:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl><span class=n>implementation</span> <span class=s1>&#39;org.springframework.boot:spring-boot-starter-aop&#39;</span></span></span></code></pre></div><p>J&rsquo;ai par la suite intégré les propriétés suivantes dans la configuration:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -340,15 +364,19 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>spring</span><
 </span></span></span><span class=line><span class=cl><span class=w>          </span><span class=nt>server</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>            </span><span class=nt>requests</span><span class=p>:</span><span class=w> </span><span class=kc>true</span></span></span></code></pre></div><p>Je pense que j&rsquo;aurai pu faire fonctionner <a href=https://www.jaegertracing.io/ target=_blank rel="noopener noreferrer">Jaeger</a>.
 Je n&rsquo;ai pas voulu perdre de temps (SnowcampIO arrive bientôt&mldr;).</p><h2 id=securité class=headerLink><a href=#securit%c3%a9 class=header-mark></a>6 Securité</h2><p>J&rsquo;ai eu quelques soucis après avoir mis à jour Spring Authorization Server et Spring Security.
-Je pense que la version précédente de Spring était plus permissive sur l&rsquo;injection et le nom des beans chargés dans les classes Configuration.</p><p>J&rsquo;ai donc revu <a href=https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006 target=_blank rel="noopener noreferrer">la validation côté gateway et plus particulièrement la validation du jeton JWT</a>.</p><p>J&rsquo;ai dû notamment ajouter le paramètre <code>jwk-set-uri</code> qui est obligatoire maintenant :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Je pense que la version précédente de Spring était plus permissive sur l&rsquo;injection et le nom des beans chargés dans les classes Configuration.</p><p>J&rsquo;ai donc revu <a href=https://github.com/alexandre-touret/rest-apis-versioning-solution/pull/3/files#diff-8e3d0d23edcf12597216d4469b5a3576c0b4d3d24a4cee740cb2ae67481fe006 target=_blank rel="noopener noreferrer">la validation côté gateway et plus particulièrement la validation du jeton JWT</a>.</p><p>J&rsquo;ai dû notamment ajouter le paramètre <code>jwk-set-uri</code> qui est obligatoire maintenant :</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block

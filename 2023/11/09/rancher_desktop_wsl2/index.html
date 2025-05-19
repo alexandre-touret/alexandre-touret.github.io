@@ -33,15 +33,19 @@ I would then see if Rancher Desktop fits well in this case and could help me.</p
 Follow <a href=https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows target=_blank rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
 Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p><p>During the setup process, I chose to install <a href=https://github.com/moby/moby target=_blank rel="noopener noreferrer">Moby</a> to use <a href=https://www.docker.com/ target=_blank rel="noopener noreferrer">Docker</a> and <a href=https://docs.docker.com/compose/ target=_blank rel="noopener noreferrer">Docker Compose</a>.</p><p>After installing Rancher Desktop, you will need to ensure your virtual machine (VM) is connected to expose the Docker daemon and related commands.
 You can find detailed steps in the Rancher Desktop documentation under <a href=https://docs.rancherdesktop.io/ui/preferences/wsl/ target=_blank rel="noopener noreferrer">WSL Preferences</a>.
-Don&rsquo;t forget that in some cases, you may need to restart both WSL2 and Rancher Desktop for the changes to take effect.</p><h2 id=configure-docker-credential-store class=headerLink><a href=#configure-docker-credential-store class=header-mark></a>2 Configure Docker Credential Store</h2><p>When you start your Docker compose infrastructure and encounter an error like this:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Don&rsquo;t forget that in some cases, you may need to restart both WSL2 and Rancher Desktop for the changes to take effect.</p><h2 id=configure-docker-credential-store class=headerLink><a href=#configure-docker-credential-store class=header-mark></a>2 Configure Docker Credential Store</h2><p>When you start your Docker compose infrastructure and encounter an error like this:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">jshelllanguage</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">jshelllanguage</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -80,15 +84,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>Error saving credentials: error storing credentials - err: exit status 1,</span></span></code></pre></div><p>You&rsquo;ll need to configure Docker&rsquo;s credential store.
-To resolve this issue, follow these steps:</p><ol><li>Inside your WSL2 VM, create or edit the <code>~/.docker/config.json</code> file.</li><li>Add the following content to the <code>config.json</code> file:</li></ol><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+To resolve this issue, follow these steps:</p><ol><li>Inside your WSL2 VM, create or edit the <code>~/.docker/config.json</code> file.</li><li>Add the following content to the <code>config.json</code> file:</li></ol><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">json</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">json</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -129,15 +137,19 @@ tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=p>{</span>                            
 </span></span><span class=line><span class=cl><span class=nt>&#34;credsStore&#34;</span><span class=p>:</span> <span class=s2>&#34;wincred.exe&#34;</span>
 </span></span><span class=line><span class=cl><span class=p>}</span>   </span></span></code></pre></div><p>This configuration points to the <code>docker-credential-wincred.exe</code> binary and will resolve the credential storage problem when using Docker.</p><h2 id=get-containers-output-in-the-console class=headerLink><a href=#get-containers-output-in-the-console class=header-mark></a>3 Get container&rsquo;s output in the console</h2><p>A common issue with Docker containers in Rancher Desktop is the lack of output in the console when running a container, such as with the command <code>docker run hello-world</code>.
-This issue is well-documented in <a href=https://github.com/rancher-sandbox/rancher-desktop/issues/1558 target=_blank rel="noopener noreferrer">this GitHub issue</a>.</p><p>To view the container&rsquo;s output in the console, you need to start your commands with the <code>-i</code> option. For example:</p><p>For instance:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+This issue is well-documented in <a href=https://github.com/rancher-sandbox/rancher-desktop/issues/1558 target=_blank rel="noopener noreferrer">this GitHub issue</a>.</p><p>To view the container&rsquo;s output in the console, you need to start your commands with the <code>-i</code> option. For example:</p><p>For instance:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">jshelllanguage</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">jshelllanguage</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block

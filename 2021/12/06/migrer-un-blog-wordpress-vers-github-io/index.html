@@ -28,15 +28,19 @@ Cancel</button></div><a class=menu-item href=/posts/ title>Posts</a><a class=men
 La date de renouvellement de ma souscription Wordpress arrivant à terme, je me suis décidé à franchir le pas.
 s</p><h2 id=l-hébergement-de-sites-web-sur-github class=headerLink><a href=#l-h%c3%a9bergement-de-sites-web-sur-github class=header-mark></a>1 L&rsquo; hébergement de sites web sur Github</h2><p><a href=https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll target=_blank rel="noopener noreferrer">Github permet via son service Github Pages d&rsquo;héberger des sites statiques</a> (c.-à-d. pas de base de données derrière) en permettant d&rsquo;associer son nom de domaine.
 Le certificat est automatiquement généré.</p><p>Pour avoir un look un peu sympa, j&rsquo;ai donc mis en oeuvre les outils suivants:</p><ul><li><a href=https://jekyllrb.com target=_blank rel="noopener noreferrer">Jekyll</a></li><li><a href=https://mmistakes.github.io/minimal-mistakes/ target=_blank rel="noopener noreferrer">Minimal Mistakes</a></li><li><a href=https://jekyllrb.com/docs/continuous-integration/github-actions/ target=_blank rel="noopener noreferrer">Github Actions pour construire le site</a></li><li><a href=https://www.markdownguide.org/ target=_blank rel="noopener noreferrer">Markdown</a> pour écrire les différents articles</li></ul><h2 id=démarrer-avec-minimal-mistakes class=headerLink><a href=#d%c3%a9marrer-avec-minimal-mistakes class=header-mark></a>2 Démarrer avec Minimal Mistakes</h2><p>Je vous conseille d&rsquo;aller sur <a href=https://mmistakes.github.io/minimal-mistakes/ target=_blank rel="noopener noreferrer">ce site</a>.
-Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p><h2 id=migration-des-données class=headerLink><a href=#migration-des-donn%c3%a9es class=header-mark></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p><ul><li>Exporter les données si vous êtes hébergé sur wordpress.com</li><li>Les ré-importer dans une instance locale</li><li>Les exporter au format Jekyll</li><li>Copier le contenu généré dans un nouveau site</li></ul><h3 id=exporter-les-données class=headerLink><a href=#exporter-les-donn%c3%a9es class=header-mark></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p><div id=id-8><img class=tw-inline loading=lazy src=/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png alt=wordpress_export></div><p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p><p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p><h3 id=importer-les-données class=headerLink><a href=#importer-les-donn%c3%a9es class=header-mark></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href=https://docs.docker.com/samples/wordpress/ target=_blank rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p><p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seulement.</p><h2 id=migration-des-données class=headerLink><a href=#migration-des-donn%c3%a9es class=header-mark></a>3 Migration des données</h2><p>Sans surprise, c&rsquo;est la partie la moins drôle. Il faut en résumé:</p><ul><li>Exporter les données si vous êtes hébergé sur wordpress.com</li><li>Les ré-importer dans une instance locale</li><li>Les exporter au format Jekyll</li><li>Copier le contenu généré dans un nouveau site</li></ul><h3 id=exporter-les-données class=headerLink><a href=#exporter-les-donn%c3%a9es class=header-mark></a>3.1 Exporter les données</h3><p>Afin d&rsquo;exporter les données et de les transformer, il faut d&rsquo;abord exporter les données (articles + médias) de votre site Wordpress</p><div id=id-8><img class=tw-inline loading=lazy src=/assets/images/2021/12/Screenshot_2021-12-03_12-01-31.png alt=wordpress_export></div><p>Vous obtiendrez deux archives: la première pour les articles, la deuxième pour les médias.</p><p>Création d&rsquo;une instance Wordpress pour convertir les données au format Jekyll</p><h3 id=importer-les-données class=headerLink><a href=#importer-les-donn%c3%a9es class=header-mark></a>3.2 Importer les données</h3><p>Pour faire simple, j&rsquo;utilise <a href=https://docs.docker.com/samples/wordpress/ target=_blank rel="noopener noreferrer">Docker pour monter une architecture Wordpress sur mon poste</a>.</p><p>Il faut pour ça créer un fichier <code>docker-compose.yml</code> et insérer le contenu suivant:</p><div class="code-block highlight is-closed show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -104,15 +108,19 @@ tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>version</span>
 </span></span></span><span class=line><span class=cl><span class=w>      </span><span class=nt>WORDPRESS_DB_NAME</span><span class=p>:</span><span class=w> </span><span class=l>wordpress</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>volumes</span><span class=p>:</span><span class=w>
 </span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>db_data</span><span class=p>:</span><span class=w> </span>{}<span class=w>
-</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>wordpress_data</span><span class=p>:</span><span class=w> </span>{}</span></span></code></pre></div><p>Ensuite, vous aurez à lancer la commande suivante:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nt>wordpress_data</span><span class=p>:</span><span class=w> </span>{}</span></span></code></pre></div><p>Ensuite, vous aurez à lancer la commande suivante:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -152,15 +160,19 @@ tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>docker-compose up</span></span></code></pre></div><p>Une fois lancé, vous aurez à une instance Wordpress via cette URL : http://localhost:8000</p><p>Ensuite, il faut installer l&rsquo;extension <a href=https://wordpress.org/plugins/jekyll-exporter/ target=_blank rel="noopener noreferrer">jekyll-exporter</a>.
 La procédure peut prendre un peu de temps.</p><p>Une fois effectuée, vous aurez une archive ZIP contenant un site Jekyll avec les images et articles associés.</p><h2 id=création-du-site class=headerLink><a href=#cr%c3%a9ation-du-site class=header-mark></a>4 Création du site</h2><p>En attendant que ça se termine, j&rsquo;ai crée <a href=https://github.com/mmistakes/mm-github-pages-starter/generate target=_blank rel="noopener noreferrer">un site jekyll avec le starter du thème minimal mistakes</a>.</p><p>J&rsquo;ai ensuite copié les articles (répertoire <code>/_posts</code>) et images (<code>/assets/img</code>).
-Au premier lancement des commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Au premier lancement des commandes suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">bash</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">bash</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -199,15 +211,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl>bundle install
-</span></span><span class=line><span class=cl>bundle <span class=nb>exec</span> jekyll serve</span></span></code></pre></div><p>J&rsquo;ai eu quelques erreurs. J&rsquo;ai donc eu à nettoyer les fichiers via des recherche/remplace dans un éditeur</p><p>Par exemple, j&rsquo;ai supprimé les références <code>author</code> et <code>layout</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span><span class=line><span class=cl>bundle <span class=nb>exec</span> jekyll serve</span></span></code></pre></div><p>J&rsquo;ai eu quelques erreurs. J&rsquo;ai donc eu à nettoyer les fichiers via des recherche/remplace dans un éditeur</p><p>Par exemple, j&rsquo;ai supprimé les références <code>author</code> et <code>layout</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -246,15 +262,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>author</span><span class=p>:</span><span class=w> </span><span class=l>admin</span><span class=w>
-</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>layout</span><span class=p>:</span><span class=w> </span><span class=l>post</span></span></span></code></pre></div><p>J&rsquo;ai également ajouté pour certains articles une image pour le teaser</p><p>Exemple:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+</span></span></span><span class=line><span class=cl><span class=w></span><span class=nt>layout</span><span class=p>:</span><span class=w> </span><span class=l>post</span></span></span></code></pre></div><p>J&rsquo;ai également ajouté pour certains articles une image pour le teaser</p><p>Exemple:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -293,15 +313,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>featuredImagePreview</span><span class=p>:</span><span class=w> </span><span class=l>/assets/images/2021/07/rest-book-architecture.png</span></span></span></code></pre></div><h3 id=url-des-pages-et-compatibilité-wordpress--jekyll class=headerLink><a href=#url-des-pages-et-compatibilit%c3%a9-wordpress--jekyll class=header-mark></a>4.1 URL des pages et compatibilité Wordpress &lt;> Jekyll</h3><p>Pour me faciliter la vie dans les URLS et liens en tout genre, j&rsquo;ai gardé le format des URLS de Wordpress.
-Pour que ça soit le format par défaut de Jekyll, il faut modifier le paramètre <code>permalink</code> dans le fichier <code>_config.yml</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Pour que ça soit le format par défaut de Jekyll, il faut modifier le paramètre <code>permalink</code> dans le fichier <code>_config.yml</code></p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
@@ -340,15 +364,19 @@ group-[.is-wrap]:tw-text-wrap
 tw-overflow-y-hidden
 tw-overflow-x-auto
 tw-scrollbar-thin"><span class=line><span class=cl><span class=nt>permalink</span><span class=p>:</span><span class=w> </span><span class=l>/:year/:month/:day/:title/</span></span></span></code></pre></div><h3 id=flux-rss-pour-un-tag-donné class=headerLink><a href=#flux-rss-pour-un-tag-donn%c3%a9 class=header-mark></a>4.2 Flux RSS pour un tag donné</h3><p>J&rsquo;utilisais une petite spécificité de Wordpress: la création d&rsquo;un flux RSS pour un tag donné.
-Pour le mettre en place dans Jekyll, il faut configurer le plugin <code>jekyll-feed</code> avec les propriété suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="tw-flex
-tw-flex-row
-tw-flex-1
-tw-justify-between
-tw-w-full tw-bg-bgColor-secondary"><button class="code-block-button
-tw-mx-2
+Pour le mettre en place dans Jekyll, il faut configurer le plugin <code>jekyll-feed</code> avec les propriété suivantes:</p><div class="code-block highlight is-open show-line-numbers tw-group tw-my-2"><div class="code-block-title
 tw-flex
 tw-flex-row
-tw-flex-1" aria-hidden=true><div class="group-[.is-open]:tw-rotate-90 tw-transition-[transform] tw-duration-500 tw-ease-in-out print:!tw-hidden tw-w-min tw-h-min tw-my-1 tw-mx-1"><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></div><p class="tw-select-none !tw-my-1">yaml</p></button><div class=tw-flex><button class="line-number-button
+tw-justify-between
+tw-w-full tw-bg-bgColor-secondary"><button class="tw-select-none
+tw-mx-2
+tw-block
+group-[.is-open]:tw-rotate-90
+tw-transition-[transform]
+tw-duration-500
+tw-ease-in-out
+print:!tw-hidden" disabled aria-hidden=true><svg class="icon" viewBox="0 0 320 512"><path d="M285.476 272.971 91.132 467.314c-9.373 9.373-24.569 9.373-33.941.0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941.0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button><div class="code-block-title-bar tw-w-full"><p class="tw-select-none !tw-my-1">yaml</p></div><div class=tw-flex><button class="line-number-button
+tw-select-none
 tw-mx-2
 tw-hidden
 group-[.is-open]:tw-block
