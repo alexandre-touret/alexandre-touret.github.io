@@ -1,1 +1,86 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 24 Mar 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/></channel></rss>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 21 May 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Insights from Onboarding young developers and Mentoring Experiences</title><link>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</link><pubDate>Wed, 21 May 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2025/05/IMG_20250417_195605.jpg" referrerpolicy="no-referrer">
+            </div><h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>Recently, I had the opportunity to participate in <a href="https://www.jchateau.org/" target="_blank" rel="noopener noreferrer">JChateau</a> and <a href="https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants" target="_blank" rel="noopener noreferrer">Devoxx France</a>.
+At these two events, I organized and facilitated roundtables on how to onboard, mentor, and manage young developers to help them grow and improve over time.</p>
+<p>For many years, I have been managing young developers, including trainees and developers with less than one year of experience.
+Additionally, I have been involved in various mentoring programs. For example, I have helped young students prepare for their first interviews and guided them to succeed.</p>
+<p>Since last year, I <a href="https://blog.touret.info/teaching/" target="_blank" rel="noopener noreferrer">have also been teaching at the University of Tours</a>.</p>
+<p>These experiences, especially early in my career, often left me feeling slightly frustrated or conflicted. Why? Because I had the impression of reinventing the wheel. I was certain that others had faced similar challenges and had developed smart solutions or patterns to address them.</p>
+<p>This is why I have been sharing my experiences in this field through various channels:</p>
+<ul>
+<li>Conferences</li>
+<li>Workshops</li>
+<li>Articles (<a href="https://blog.worldline.tech/2024/06/04/elevating_young_developers.html" target="_blank" rel="noopener noreferrer">In English</a> or <a href="https://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/" target="_blank" rel="noopener noreferrer">in French</a>)</li>
+</ul>
+<p>I have noticed a high demand for discussions on this topic.
+Every time I speak about it, the subject resonates strongly with the audience.</p>
+<p>For instance, at <a href="https://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">Devoxx France</a>, I was thrilled to see more than 40 people attend my BOF (at 7 PM!) and share their experiences on this topic.</p>
+<p>As a result, I will attempt to summarize all the conclusions, questions, and insights I encountered during these meaningful discussions.</p>
+<h2 id="jchateau" class="headerLink">
+    <a href="#jchateau" class="header-mark"></a>2 JChateau</h2><p>I proposed this topic at JChateau. Although it was far beyond the usual technical topics, I managed to arrange a roundtable with four people on the second day.</p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2025/05/IMG_20250328_085525340.jpg'   alt="Agenda"  ></p>
+<p>The discussions were truly insightful. The audience consisted of seasoned engineers, software architects, and one person involved in training young students.</p>
+<p>We agreed that there is a significant gap between the way coding is taught at universities or engineering schools and how it is practiced in IT companies. The skills learned at school often don&rsquo;t align with the requirements of a real-life production platform.</p>
+<p>To some extent, it&rsquo;s more important <em>to learn how to learn</em> through algorithms, mathematics, and analysis than to simply learn the latest trendy framework.<br>
+The pace of technological evolution is both overwhelming and fascinating.<br>
+Moreover, the learning curve for developers is incredibly steep nowadays. Beyond mastering a favorite programming language, one must also learn to use Docker, build tools, Bash, database tools/queries, cloud commands, and many others.<br>
+It&rsquo;s nearly impossible to address all these skills comprehensively in school.</p>
+<p>That&rsquo;s why, when I&rsquo;m looking for a new young engineer, I prioritize a <em>well-prepared mind</em> over specific technical skills.</p>
+<p>We also shared a common observation:<br>
+It&rsquo;s essential to teach the basics while onboarding young developers: logs, error management, tests, and so on.</p>
+<p>The million-dollar question then arose: Who should take responsibility for this—universities/schools or our industry?</p>
+<p>In conclusion, we leaned slightly toward the idea that our industry should share a common program to teach the fundamentals of development.<br>
+At this stage, I am unsure whether we should adopt a bottom-up or a top-down approach. I assume that some large IT companies already have onboarding and training programs for this purpose.<br>
+It would be fantastic if we could pool our efforts and, for example, create a dedicated open-source project with materials such as workshops, documentation, and more.</p>
+<h2 id="devoxx-france" class="headerLink">
+    <a href="#devoxx-france" class="header-mark"></a>3 Devoxx France</h2><p>As I mentioned earlier in my introduction, I also had the opportunity to share my experiences in this field at Devoxx France.<br>
+During a <a href="https://www.devoxx.fr/en/questions-frequentes/" target="_blank" rel="noopener noreferrer">BOF (Birds Of a Feather)</a>, I began by sharing my thoughts based on my experiences and the topics I had discussed in previous conferences. I did this to explain why I decided to share insights and feedback on this subject.</p>
+<p>To engage the audience (40 people at 7 PM after a full day of the conference!), I chose to organize a <a href="https://leancoffee.org/" target="_blank" rel="noopener noreferrer">lean coffee</a> session.<br>
+The main goal was to have a discussion split into two distinct 15-minute time slots.<br>
+I then invited participants to write down any topics they wanted to address on post-it notes.<br>
+I was pleasantly surprised by the number of ideas and topics that emerged.<br>
+Gathering all of these could almost be described as a DDOS post-it attack!</p>
+<figure><a class="lightgallery" href="/assets/images/2025/05/IMG_20250417_195605.jpg" title="" data-thumbnail="/assets/images/2025/05/IMG_20250417_195605.jpg" data-sub-html="<h2>Post-It Ideas</h2>"><img  loading="lazy" src='/assets/images/2025/05/IMG_20250417_195605.jpg'    height="600" width="600"></a><figcaption class="image-caption">Post-It Ideas</figcaption>
+    </figure>
+<p>With the help of my colleagues and people I knew —<a href="https://raphiki.github.io/" target="_blank" rel="noopener noreferrer">Raphaël Semeteys</a>, <a href="https://www.linkedin.com/in/yatho" target="_blank" rel="noopener noreferrer">Yann-Thomas Le Moigne</a>, <a href="https://www.linkedin.com/in/davidpequegnot/" target="_blank" rel="noopener noreferrer">David Pequegnot</a>, and <a href="https://www.linkedin.com/in/lo%C3%AFc-le-meur-23a159174" target="_blank" rel="noopener noreferrer">Loïc Le Meur</a> — we categorized all the post-it notes and identified two main topics:</p>
+<ul>
+<li>Methodology, documentation, and support</li>
+<li>Soft skills</li>
+</ul>
+<p>Here are the topics and ideas thrown during this free chat:</p>
+<h3 id="methodology-documentation-and-support" class="headerLink">
+    <a href="#methodology-documentation-and-support" class="header-mark"></a>3.1 Methodology, documentation, and support</h3><p>During this discussion, many points were raised.
+We emphasized the necessity of arranging labs and dojos where (not only) young developers could dive into best practices alongside seasoned developers.
+By the way, the <em>&ldquo;Pair programming&rdquo; topic</em> was highly requested during the Post-It brainstorming session.
+Using such a practice, you would both instill good practices and help developers grow their skills.
+Next, you could build on this and reuse it regularly.</p>
+<p>Additionally, organizing internal tech conferences could also contribute to this effort.</p>
+<p>Beyond these two topics, we highlighted the importance of fostering a tech culture within our organizations.
+Arranging workshops or tech conferences and drafting articles are excellent ways to promote good practices and improve all developers. Furthermore, we might consider creating workshops for either live pair-programming sessions or self-paced learning.</p>
+<p>Similarly, we discussed the importance of documentation for everyone, especially young developers.
+You must teach them how to use it and ensure all your processes are as exhaustive as possible. This would help avoid misunderstandings.</p>
+<p>Last but not least, we addressed one of the trickiest points: time management.</p>
+<p>This is perhaps one of the most significant challenges to tackle.</p>
+<p>How can we emphasize the importance of dedicating time to onboarding and managing young developers?
+Nowadays, it can be challenging, but in my view, it should be considered an investment. If you don&rsquo;t invest time and resources, you won&rsquo;t achieve a good return on investment.</p>
+<p>Remember: <em>&ldquo;If you pay peanuts, you get monkeys.&rdquo;</em></p>
+<h3 id="soft-skills" class="headerLink">
+    <a href="#soft-skills" class="header-mark"></a>3.2 Soft skills</h3><p>This was probably the most eagerly awaited topic.<br>
+We shared many of our good and bad experiences in managing young developers.<br>
+We then agreed on the necessity of being trained in management, even if we are not managers.<br>
+Knowing how to train others would also be a key topic.</p>
+<p>I believe this could be crucial for optimizing the onboarding process and the learning path. It may also help avoid mistakes and establish the right approach.<br>
+We also identified two important soft skills: exemplarity and empathy.</p>
+<p>Exemplarity could be the first step in promoting a safe environment where young developers can learn, fail, and find solutions without fear.<br>
+Empathy, in my view, is essential for adapting the workload or training to suit your new young colleague. It is critical to understand that, from their perspective, they are entering an entirely new world where everything feels completely different.</p>
+<h2 id="wrap-up" class="headerLink">
+    <a href="#wrap-up" class="header-mark"></a>4 Wrap-up</h2><p>Through all the interactions I had during the recent conferences where I presented this topic, I noticed it is a common concern in our industry.<br>
+Many people highlighted the challenges of managing young developers.<br>
+Guiding them to reach the &ldquo;plateau of productivity&rdquo; is a long journey that requires a combination of technical and soft skills.</p>
+<p>I strongly believe our industry needs to address this topic collectively.<br>
+Creating a shared learning path among IT companies that covers the fundamentals of development could be a significant first step.</p>
+<p>For example, at Worldline, together with <a href="https://www.linkedin.com/in/phivincent/" target="_blank" rel="noopener noreferrer">Philippe Vincent</a>, we developed a <a href="https://github.com/worldline/code-quality-workshop" target="_blank" rel="noopener noreferrer">quality code workshop</a>.<br>
+We recognize that this is just the beginning and only one of the initial steps.</p>
+<p>Perhaps we could combine our efforts on this topic. What do you think?</p>
+]]></description></item></channel></rss>

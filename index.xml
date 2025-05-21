@@ -1,4 +1,89 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 24 Mar 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator</title><link>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 21 May 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Insights from Onboarding young developers and Mentoring Experiences</title><link>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</link><pubDate>Wed, 21 May 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2025/05/IMG_20250417_195605.jpg" referrerpolicy="no-referrer">
+            </div><h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>Recently, I had the opportunity to participate in <a href="https://www.jchateau.org/" target="_blank" rel="noopener noreferrer">JChateau</a> and <a href="https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants" target="_blank" rel="noopener noreferrer">Devoxx France</a>.
+At these two events, I organized and facilitated roundtables on how to onboard, mentor, and manage young developers to help them grow and improve over time.</p>
+<p>For many years, I have been managing young developers, including trainees and developers with less than one year of experience.
+Additionally, I have been involved in various mentoring programs. For example, I have helped young students prepare for their first interviews and guided them to succeed.</p>
+<p>Since last year, I <a href="https://blog.touret.info/teaching/" target="_blank" rel="noopener noreferrer">have also been teaching at the University of Tours</a>.</p>
+<p>These experiences, especially early in my career, often left me feeling slightly frustrated or conflicted. Why? Because I had the impression of reinventing the wheel. I was certain that others had faced similar challenges and had developed smart solutions or patterns to address them.</p>
+<p>This is why I have been sharing my experiences in this field through various channels:</p>
+<ul>
+<li>Conferences</li>
+<li>Workshops</li>
+<li>Articles (<a href="https://blog.worldline.tech/2024/06/04/elevating_young_developers.html" target="_blank" rel="noopener noreferrer">In English</a> or <a href="https://blog.touret.info/2019/07/17/comment-coacher-des-jeunes-developpeurs/" target="_blank" rel="noopener noreferrer">in French</a>)</li>
+</ul>
+<p>I have noticed a high demand for discussions on this topic.
+Every time I speak about it, the subject resonates strongly with the audience.</p>
+<p>For instance, at <a href="https://www.devoxx.fr/" target="_blank" rel="noopener noreferrer">Devoxx France</a>, I was thrilled to see more than 40 people attend my BOF (at 7 PM!) and share their experiences on this topic.</p>
+<p>As a result, I will attempt to summarize all the conclusions, questions, and insights I encountered during these meaningful discussions.</p>
+<h2 id="jchateau" class="headerLink">
+    <a href="#jchateau" class="header-mark"></a>2 JChateau</h2><p>I proposed this topic at JChateau. Although it was far beyond the usual technical topics, I managed to arrange a roundtable with four people on the second day.</p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2025/05/IMG_20250328_085525340.jpg'   alt="Agenda"  ></p>
+<p>The discussions were truly insightful. The audience consisted of seasoned engineers, software architects, and one person involved in training young students.</p>
+<p>We agreed that there is a significant gap between the way coding is taught at universities or engineering schools and how it is practiced in IT companies. The skills learned at school often don&rsquo;t align with the requirements of a real-life production platform.</p>
+<p>To some extent, it&rsquo;s more important <em>to learn how to learn</em> through algorithms, mathematics, and analysis than to simply learn the latest trendy framework.<br>
+The pace of technological evolution is both overwhelming and fascinating.<br>
+Moreover, the learning curve for developers is incredibly steep nowadays. Beyond mastering a favorite programming language, one must also learn to use Docker, build tools, Bash, database tools/queries, cloud commands, and many others.<br>
+It&rsquo;s nearly impossible to address all these skills comprehensively in school.</p>
+<p>That&rsquo;s why, when I&rsquo;m looking for a new young engineer, I prioritize a <em>well-prepared mind</em> over specific technical skills.</p>
+<p>We also shared a common observation:<br>
+It&rsquo;s essential to teach the basics while onboarding young developers: logs, error management, tests, and so on.</p>
+<p>The million-dollar question then arose: Who should take responsibility for this—universities/schools or our industry?</p>
+<p>In conclusion, we leaned slightly toward the idea that our industry should share a common program to teach the fundamentals of development.<br>
+At this stage, I am unsure whether we should adopt a bottom-up or a top-down approach. I assume that some large IT companies already have onboarding and training programs for this purpose.<br>
+It would be fantastic if we could pool our efforts and, for example, create a dedicated open-source project with materials such as workshops, documentation, and more.</p>
+<h2 id="devoxx-france" class="headerLink">
+    <a href="#devoxx-france" class="header-mark"></a>3 Devoxx France</h2><p>As I mentioned earlier in my introduction, I also had the opportunity to share my experiences in this field at Devoxx France.<br>
+During a <a href="https://www.devoxx.fr/en/questions-frequentes/" target="_blank" rel="noopener noreferrer">BOF (Birds Of a Feather)</a>, I began by sharing my thoughts based on my experiences and the topics I had discussed in previous conferences. I did this to explain why I decided to share insights and feedback on this subject.</p>
+<p>To engage the audience (40 people at 7 PM after a full day of the conference!), I chose to organize a <a href="https://leancoffee.org/" target="_blank" rel="noopener noreferrer">lean coffee</a> session.<br>
+The main goal was to have a discussion split into two distinct 15-minute time slots.<br>
+I then invited participants to write down any topics they wanted to address on post-it notes.<br>
+I was pleasantly surprised by the number of ideas and topics that emerged.<br>
+Gathering all of these could almost be described as a DDOS post-it attack!</p>
+<figure><a class="lightgallery" href="/assets/images/2025/05/IMG_20250417_195605.jpg" title="" data-thumbnail="/assets/images/2025/05/IMG_20250417_195605.jpg" data-sub-html="<h2>Post-It Ideas</h2>"><img  loading="lazy" src='/assets/images/2025/05/IMG_20250417_195605.jpg'    height="600" width="600"></a><figcaption class="image-caption">Post-It Ideas</figcaption>
+    </figure>
+<p>With the help of my colleagues and people I knew —<a href="https://raphiki.github.io/" target="_blank" rel="noopener noreferrer">Raphaël Semeteys</a>, <a href="https://www.linkedin.com/in/yatho" target="_blank" rel="noopener noreferrer">Yann-Thomas Le Moigne</a>, <a href="https://www.linkedin.com/in/davidpequegnot/" target="_blank" rel="noopener noreferrer">David Pequegnot</a>, and <a href="https://www.linkedin.com/in/lo%C3%AFc-le-meur-23a159174" target="_blank" rel="noopener noreferrer">Loïc Le Meur</a> — we categorized all the post-it notes and identified two main topics:</p>
+<ul>
+<li>Methodology, documentation, and support</li>
+<li>Soft skills</li>
+</ul>
+<p>Here are the topics and ideas thrown during this free chat:</p>
+<h3 id="methodology-documentation-and-support" class="headerLink">
+    <a href="#methodology-documentation-and-support" class="header-mark"></a>3.1 Methodology, documentation, and support</h3><p>During this discussion, many points were raised.
+We emphasized the necessity of arranging labs and dojos where (not only) young developers could dive into best practices alongside seasoned developers.
+By the way, the <em>&ldquo;Pair programming&rdquo; topic</em> was highly requested during the Post-It brainstorming session.
+Using such a practice, you would both instill good practices and help developers grow their skills.
+Next, you could build on this and reuse it regularly.</p>
+<p>Additionally, organizing internal tech conferences could also contribute to this effort.</p>
+<p>Beyond these two topics, we highlighted the importance of fostering a tech culture within our organizations.
+Arranging workshops or tech conferences and drafting articles are excellent ways to promote good practices and improve all developers. Furthermore, we might consider creating workshops for either live pair-programming sessions or self-paced learning.</p>
+<p>Similarly, we discussed the importance of documentation for everyone, especially young developers.
+You must teach them how to use it and ensure all your processes are as exhaustive as possible. This would help avoid misunderstandings.</p>
+<p>Last but not least, we addressed one of the trickiest points: time management.</p>
+<p>This is perhaps one of the most significant challenges to tackle.</p>
+<p>How can we emphasize the importance of dedicating time to onboarding and managing young developers?
+Nowadays, it can be challenging, but in my view, it should be considered an investment. If you don&rsquo;t invest time and resources, you won&rsquo;t achieve a good return on investment.</p>
+<p>Remember: <em>&ldquo;If you pay peanuts, you get monkeys.&rdquo;</em></p>
+<h3 id="soft-skills" class="headerLink">
+    <a href="#soft-skills" class="header-mark"></a>3.2 Soft skills</h3><p>This was probably the most eagerly awaited topic.<br>
+We shared many of our good and bad experiences in managing young developers.<br>
+We then agreed on the necessity of being trained in management, even if we are not managers.<br>
+Knowing how to train others would also be a key topic.</p>
+<p>I believe this could be crucial for optimizing the onboarding process and the learning path. It may also help avoid mistakes and establish the right approach.<br>
+We also identified two important soft skills: exemplarity and empathy.</p>
+<p>Exemplarity could be the first step in promoting a safe environment where young developers can learn, fail, and find solutions without fear.<br>
+Empathy, in my view, is essential for adapting the workload or training to suit your new young colleague. It is critical to understand that, from their perspective, they are entering an entirely new world where everything feels completely different.</p>
+<h2 id="wrap-up" class="headerLink">
+    <a href="#wrap-up" class="header-mark"></a>4 Wrap-up</h2><p>Through all the interactions I had during the recent conferences where I presented this topic, I noticed it is a common concern in our industry.<br>
+Many people highlighted the challenges of managing young developers.<br>
+Guiding them to reach the &ldquo;plateau of productivity&rdquo; is a long journey that requires a combination of technical and soft skills.</p>
+<p>I strongly believe our industry needs to address this topic collectively.<br>
+Creating a shared learning path among IT companies that covers the fundamentals of development could be a significant first step.</p>
+<p>For example, at Worldline, together with <a href="https://www.linkedin.com/in/phivincent/" target="_blank" rel="noopener noreferrer">Philippe Vincent</a>, we developed a <a href="https://github.com/worldline/code-quality-workshop" target="_blank" rel="noopener noreferrer">quality code workshop</a>.<br>
+We recognize that this is just the beginning and only one of the initial steps.</p>
+<p>Perhaps we could combine our efforts on this topic. What do you think?</p>
+]]></description></item><item><title>Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator</title><link>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-6">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
 <p>Most workloads we deploy <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">on Kubernetes are deployments</a>.
@@ -7299,327 +7384,4 @@ It has enabled me to share, gather feedback on submissions, and conduct live reh
 </li>
 </ol>
 </div>
-]]></description></item><item><title>Configuring WSL2 for Seamless Compatibility with Rancher Desktop</title><link>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</link><pubDate>Thu, 09 Nov 2023 08:00:16 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2023/11/09/rancher_desktop_wsl2/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2023/11/carlo-borella-ozDrGigNQXY-unsplash.webp" referrerpolicy="no-referrer">
-            </div><p>Just out of curiosity, I <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">downloaded and sat up Rancher Desktop on my laptop</a>.</p>
-<p>I daily use <a href="https://docs.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker compose</a> on top of <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> using <em>home made mechanism/tooling</em>
-I would then see if Rancher Desktop fits well in this case and could help me.</p>
-<p>In this (very short) article, we&rsquo;ll go over the necessary steps to configure <a href="https://learn.microsoft.com/en-us/windows/wsl/install" target="_blank" rel="noopener noreferrer">WSL2</a> Ubuntu virtual machines and Docker with Rancher Desktop.</p>
-<p>If you want to get into Rancher Desktop in another way and discover how to install <a href="https://skaffold.dev/" target="_blank" rel="noopener noreferrer">Skaffold</a>, you <a href="https://malkav30.gitlab.io/posts/first-rancherdesktop-application-skaffold/" target="_blank" rel="noopener noreferrer">can read this article</a>.</p>
-<h2 id="install--configure-rancher-desktop" class="headerLink">
-    <a href="#install--configure-rancher-desktop" class="header-mark"></a>1 Install &amp; configure Rancher Desktop</h2><div id="id-4"><img class="tw-inline" loading="lazy" src='/assets/images/2023/11/rancher-desktop-logo.svg'   alt="rancher desktop logo"  ></div>
-<p>The setup is quite straightforward.
-Follow <a href="https://docs.rancherdesktop.io/getting-started/installation#installing-rancher-desktop-on-windows" target="_blank" rel="noopener noreferrer">the instructions provided in the official documentation</a> to get Rancher Desktop up and running on your Windows machine.
-Rancher Desktop allows you to run Docker and Docker Compose seamlessly within a WSL2 environment.</p>
-<p>During the setup process, I chose to install <a href="https://github.com/moby/moby" target="_blank" rel="noopener noreferrer">Moby</a> to use <a href="https://www.docker.com/" target="_blank" rel="noopener noreferrer">Docker</a> and <a href="https://docs.docker.com/compose/" target="_blank" rel="noopener noreferrer">Docker Compose</a>.</p>
-<p>After installing Rancher Desktop, you will need to ensure your virtual machine (VM) is connected to expose the Docker daemon and related commands.
-You can find detailed steps in the Rancher Desktop documentation under <a href="https://docs.rancherdesktop.io/ui/preferences/wsl/" target="_blank" rel="noopener noreferrer">WSL Preferences</a>.
-Don&rsquo;t forget that in some cases, you may need to restart both WSL2 and Rancher Desktop for the changes to take effect.</p>
-<h2 id="configure-docker-credential-store" class="headerLink">
-    <a href="#configure-docker-credential-store" class="header-mark"></a>2 Configure Docker Credential Store</h2><p>When you start your Docker compose infrastructure and encounter an error like this:</p>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    code-block-title 
-    
-    tw-flex 
-    tw-flex-row 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        tw-select-none 
-        tw-mx-2 
-        tw-block
-        group-[.is-open]:tw-rotate-90
-        tw-transition-[transform] 
-        tw-duration-500 
-        tw-ease-in-out
-        print:!tw-hidden"
-      disabled
-      aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
-
-    <div class="code-block-title-bar tw-w-full">
-      <p class="tw-select-none !tw-my-1">jshelllanguage</p>
-    </div>
-    <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl">Error saving credentials: error storing credentials - err: exit status 1,</span></span></code></pre>
-</div>
-<p>You&rsquo;ll need to configure Docker&rsquo;s credential store.
-To resolve this issue, follow these steps:</p>
-<ol>
-<li>Inside your WSL2 VM, create or edit the <code>~/.docker/config.json</code> file.</li>
-<li>Add the following content to the <code>config.json</code> file:</li>
-</ol>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    code-block-title 
-    
-    tw-flex 
-    tw-flex-row 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        tw-select-none 
-        tw-mx-2 
-        tw-block
-        group-[.is-open]:tw-rotate-90
-        tw-transition-[transform] 
-        tw-duration-500 
-        tw-ease-in-out
-        print:!tw-hidden"
-      disabled
-      aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
-
-    <div class="code-block-title-bar tw-w-full">
-      <p class="tw-select-none !tw-my-1">json</p>
-    </div>
-    <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="p">{</span>                            
-</span></span><span class="line"><span class="cl"><span class="nt">&#34;credsStore&#34;</span><span class="p">:</span> <span class="s2">&#34;wincred.exe&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>   </span></span></code></pre>
-</div>
-<p>This configuration points to the <code>docker-credential-wincred.exe</code> binary and will resolve the credential storage problem when using Docker.</p>
-<h2 id="get-containers-output-in-the-console" class="headerLink">
-    <a href="#get-containers-output-in-the-console" class="header-mark"></a>3 Get container&rsquo;s output in the console</h2><p>A common issue with Docker containers in Rancher Desktop is the lack of output in the console when running a container, such as with the command <code>docker run hello-world</code>.
-This issue is well-documented in <a href="https://github.com/rancher-sandbox/rancher-desktop/issues/1558" target="_blank" rel="noopener noreferrer">this GitHub issue</a>.</p>
-<p>To view the container&rsquo;s output in the console, you need to start your commands with the <code>-i</code> option. For example:</p>
-<p>For instance:</p>
-<div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
-  <div class="
-    code-block-title 
-    
-    tw-flex 
-    tw-flex-row 
-    tw-justify-between 
-    tw-w-full tw-bg-bgColor-secondary
-    ">      
-    <button 
-      class="
-        tw-select-none 
-        tw-mx-2 
-        tw-block
-        group-[.is-open]:tw-rotate-90
-        tw-transition-[transform] 
-        tw-duration-500 
-        tw-ease-in-out
-        print:!tw-hidden"
-      disabled
-      aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M285.476 272.971L91.132 467.314c-9.373 9.373-24.569 9.373-33.941 0l-22.667-22.667c-9.357-9.357-9.375-24.522-.04-33.901L188.505 256 34.484 101.255c-9.335-9.379-9.317-24.544.04-33.901l22.667-22.667c9.373-9.373 24.569-9.373 33.941 0L285.475 239.03c9.373 9.372 9.373 24.568.001 33.941z"/></svg></button>
-
-    <div class="code-block-title-bar tw-w-full">
-      <p class="tw-select-none !tw-my-1">jshelllanguage</p>
-    </div>
-    <div class="tw-flex">
-      <button 
-        class="
-          line-number-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.show-line-numbers]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle line numbers"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M61.77 401l17.5-20.15a19.92 19.92 0 0 0 5.07-14.19v-3.31C84.34 356 80.5 352 73 352H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8h22.83a157.41 157.41 0 0 0-11 12.31l-5.61 7c-4 5.07-5.25 10.13-2.8 14.88l1.05 1.93c3 5.76 6.29 7.88 12.25 7.88h4.73c10.33 0 15.94 2.44 15.94 9.09 0 4.72-4.2 8.22-14.36 8.22a41.54 41.54 0 0 1-15.47-3.12c-6.49-3.88-11.74-3.5-15.6 3.12l-5.59 9.31c-3.72 6.13-3.19 11.72 2.63 15.94 7.71 4.69 20.38 9.44 37 9.44 34.16 0 48.5-22.75 48.5-44.12-.03-14.38-9.12-29.76-28.73-34.88zM496 224H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zm0-160H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16V80a16 16 0 0 0-16-16zm0 320H176a16 16 0 0 0-16 16v32a16 16 0 0 0 16 16h320a16 16 0 0 0 16-16v-32a16 16 0 0 0-16-16zM16 160h64a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H64V40a8 8 0 0 0-8-8H32a8 8 0 0 0-7.14 4.42l-8 16A8 8 0 0 0 24 64h8v64H16a8 8 0 0 0-8 8v16a8 8 0 0 0 8 8zm-3.91 160H80a8 8 0 0 0 8-8v-16a8 8 0 0 0-8-8H41.32c3.29-10.29 48.34-18.68 48.34-56.44 0-29.06-25-39.56-44.47-39.56-21.36 0-33.8 10-40.46 18.75-4.37 5.59-3 10.84 2.8 15.37l8.58 6.88c5.61 4.56 11 2.47 16.12-2.44a13.44 13.44 0 0 1 9.46-3.84c3.33 0 9.28 1.56 9.28 8.75C51 248.19 0 257.31 0 304.59v4C0 316 5.08 320 12.09 320z"/></svg></button>
-
-      <button 
-        class="
-          wrap-code-button
-          tw-select-none 
-          tw-mx-2 
-          tw-hidden 
-          group-[.is-open]:tw-block 
-          group-[.is-wrap]:tw-text-fgColor-link 
-          print:!tw-hidden" 
-        title="Toggle code wrap"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M16 132h416c8.837 0 16-7.163 16-16V76c0-8.837-7.163-16-16-16H16C7.163 60 0 67.163 0 76v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16zm0 160h416c8.837 0 16-7.163 16-16v-40c0-8.837-7.163-16-16-16H16c-8.837 0-16 7.163-16 16v40c0 8.837 7.163 16 16 16z"/></svg></button>
-      
-      <button 
-        class="
-          copy-code-button
-          tw-select-none
-          tw-mx-2 
-          tw-hidden
-          group-[.is-open]:tw-block
-          hover:tw-text-fgColor-link 
-          print:!tw-hidden"
-        title="Copy code">
-          <span class="copy-icon tw-block"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M433.941 65.941l-51.882-51.882A48 48 0 0 0 348.118 0H176c-26.51 0-48 21.49-48 48v48H48c-26.51 0-48 21.49-48 48v320c0 26.51 21.49 48 48 48h224c26.51 0 48-21.49 48-48v-48h80c26.51 0 48-21.49 48-48V99.882a48 48 0 0 0-14.059-33.941zM266 464H54a6 6 0 0 1-6-6V150a6 6 0 0 1 6-6h74v224c0 26.51 21.49 48 48 48h96v42a6 6 0 0 1-6 6zm128-96H182a6 6 0 0 1-6-6V54a6 6 0 0 1 6-6h106v88c0 13.255 10.745 24 24 24h88v202a6 6 0 0 1-6 6zm6-256h-64V48h9.632c1.591 0 3.117.632 4.243 1.757l48.368 48.368a6 6 0 0 1 1.757 4.243V112z"/></svg></span>
-          <span class="check-icon tw-hidden"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M173.898 439.404l-166.4-166.4c-9.997-9.997-9.997-26.206 0-36.204l36.203-36.204c9.997-9.998 26.207-9.998 36.204 0L192 312.69 432.095 72.596c9.997-9.997 26.207-9.997 36.204 0l36.203 36.204c9.997 9.997 9.997 26.206 0 36.204l-294.4 294.401c-9.998 9.997-26.207 9.997-36.204-.001z"/></svg></span>
-      </button>
-        
-      <button 
-        class="
-          tw-select-none 
-          tw-mx-2 
-          tw-block 
-          group-[.is-open]:tw-hidden 
-          print:!tw-hidden" 
-        disabled
-        aria-hidden="true"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M328 256c0 39.8-32.2 72-72 72s-72-32.2-72-72 32.2-72 72-72 72 32.2 72 72zm104-72c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72zm-352 0c-39.8 0-72 32.2-72 72s32.2 72 72 72 72-32.2 72-72-32.2-72-72-72z"/></svg></button>
-    </div>
-  </div>
-  <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
-    class="
-      chroma 
-      !tw-block 
-      tw-p-0
-      tw-m-0
-      tw-transition-[max-height] 
-      tw-duration-500 
-      tw-ease-in-out 
-      group-[.is-closed]:!tw-max-h-0 
-      group-[.is-wrap]:tw-text-wrap
-      tw-overflow-y-hidden
-      tw-overflow-x-auto
-      tw-scrollbar-thin
-      "><span class="line"><span class="cl">docker run -i hello-world</span></span></code></pre>
-</div>
-<p>This option tells Docker to attach to the container&rsquo;s standard input, allowing you to see the output directly in your console.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>I hope this article has been helpful for you, and you&rsquo;re now ready to <em>supercharge</em> your development workflow with Rancher Desktop and Docker!</p>
 ]]></description></item></channel></rss>
