@@ -39,10 +39,10 @@ Through practical feedback we will cover how to implement API-first Approaches w
 
 We will therefore see how to tackle this huge challenge: improve the quality of your API, increasing the adoption of your APIs by your customers, and most importantly, make your developers love the Documentation Code First approach!
 
+{{< /admonition >}}
+
 * [Slides](https://speakerdeck.com/alexandretouret/apidays24-implementing-api-first-practical-insights-for-streamlining-your-api)
 * [Workshop](https://blog.touret.info/api-first-workshop)
-
-{{< /admonition >}}
 
 ### Intégrons, faisons grandir et progresser les jeunes devs: Bonnes pratiques et retours d'expériences à l'intention des (vieux) devs.
 
