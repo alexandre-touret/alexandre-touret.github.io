@@ -40,6 +40,7 @@ Through practical feedback we will cover how to implement API-first Approaches w
 We will therefore see how to tackle this huge challenge: improve the quality of your API, increasing the adoption of your APIs by your customers, and most importantly, make your developers love the Documentation Code First approach!
 
 * [Slides](https://speakerdeck.com/alexandretouret/apidays24-implementing-api-first-practical-insights-for-streamlining-your-api)
+* [Workshop](https://blog.touret.info/api-first-workshop)
 
 {{< /admonition >}}
 
@@ -71,6 +72,7 @@ If you often encounter such issues, it likely means that you may have overlooked
 
 In this workshop, we will implement logging best practices and cover the entire observability stack from libraries to storage backend and visualization tools based on OpenTelemetry and the Grafana Suite (Tempo, Prometheus, Loki, Grafana). We will gain an understanding of how Java Developers can make Ops their best friends by making our Java application more reliable and production-ready!
 
+* [Slides](https://speakerdeck.com/alexandretouret/jnation25-let-your-java-application-be-truly-observable-lets-dive-into-logs-traces-and-monitoring)
 * [Workshop](https://github.com/worldline/observability-workshop/)
 
 {{< /admonition >}}
