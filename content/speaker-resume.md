@@ -18,6 +18,9 @@ If you want to know more about them, you can see the descriptions on [the talks 
 
 ## 2025
 
+- Breizhcamp :fr: [Améliorons la qualité et l'adoption de nos API grâce à l'approche API-First](https://www.breizhcamp.org/conference/programme/) 
+- TechForum France: :gb: Overcoming impostor syndrome: navigating the Journey of Public Speaking 
+- Devoxx Poland :gb: [Let your Java application be truly observable! Let's dive into logs, traces and monitoring ](https://devoxx.pl/speaker-details/?id=2115)
 - JNation :gb: : [Let your Java application be truly observable! Let's dive into logs, traces and monitoring ](https://jnation.pt/speakers/)
 - Devoxx France :fr: : [L'observabilité des applications Java, c'est aussi en dev avec OpenTelemetry !](https://www.devoxx.fr/agenda-2025/talk/l-observabilite-des-applications-java-c-est-aussi-en-dev-avec-opentelemetry/)
 - Devoxx France :fr: : [Ensemble faisons progresser et grandir les développeurs débutants !](https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants/)
