@@ -18,6 +18,8 @@ If you want to know more about them, you can see the descriptions on [the talks 
 
 ## 2025
 
+- DevBCN :gb: [Elevating Young Developers: Best practices and feedback for seasoned developers on onboarding and skill development](https://www.devbcn.com/schedule#sz-tab-45848)
+- RivieraDev :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://rivieradev.fr/session/617)
 - Breizhcamp :fr: [Améliorons la qualité et l'adoption de nos API grâce à l'approche API-First](https://www.breizhcamp.org/conference/programme/) 
 - TechForum France: :gb: Overcoming impostor syndrome: navigating the Journey of Public Speaking 
 - Devoxx Poland :gb: [Let your Java application be truly observable! Let's dive into logs, traces and monitoring ](https://devoxx.pl/speaker-details/?id=2115)
