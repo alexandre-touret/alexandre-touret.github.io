@@ -1,11 +1,11 @@
 ---
 title: Insights from Onboarding young developers and Mentoring Experiences
 date: 2025-05-21 08:00:00
-images: ["/assets/images/2025/05/IMG_20250417_195605.jpg"]
-featuredImagePreview: /assets/images/2025/05/IMG_20250417_195605.jpg
-featuredImage: /assets/images/2025/05/IMG_20250417_195605.jpg
+images: ["/assets/images/2025/05/IMG_20250417_195605.webp"]
+featuredImagePreview: /assets/images/2025/05/IMG_20250417_195605.webp
+featuredImage: /assets/images/2025/05/IMG_20250417_195605.webp
 lightgallery: true
-og_image: /assets/images/2025/05/IMG_20250417_195605.jpg
+og_image: /assets/images/2025/05/IMG_20250417_195605.webp
 tags:
   - conference
 ---
