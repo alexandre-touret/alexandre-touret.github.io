@@ -61,7 +61,7 @@ I then invited participants to write down any topics they wanted to address on p
 I was pleasantly surprised by the number of ideas and topics that emerged.  
 Gathering all of these could almost be described as a DDOS post-it attack!  
 
-{{< image src="/assets/images/2025/05/IMG_20250417_195605.jpg" caption="Post-It Ideas" width="600" height="600">}}  
+{{< image src="/assets/images/2025/05/IMG_20250417_195605.webp" caption="Post-It Ideas" width="600" height="600">}}  
 
 With the help of my colleagues and people I knew —[Raphaël Semeteys](https://raphiki.github.io/), [Yann-Thomas Le Moigne](https://www.linkedin.com/in/yatho), [David Pequegnot](https://www.linkedin.com/in/davidpequegnot/), and [Loïc Le Meur](https://www.linkedin.com/in/lo%C3%AFc-le-meur-23a159174) — we categorized all the post-it notes and identified two main topics:  
 
