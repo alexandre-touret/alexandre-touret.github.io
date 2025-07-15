@@ -73,7 +73,7 @@ ___
 ## 2022
 
 - Paris JUG :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://parisjug.org/xwiki/wiki/oldversion/view/Meeting/20221108)
-- Devoxx BE  :gb: : [Architecture Katas : Improve your system architecture design skills in a funny way !]
+- Devoxx BE  :gb: : Architecture Katas : Improve your system architecture design skills in a funny way !
 - Cloud Nord :fr: :  [Java dans le Cloud: avec Spring ou Quarkus](https://cloudnord.fr/page20993016.html#rec468946901)
 - Jug Summer Camp :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://www.jugsummercamp.org/edition/13/presentations/M4PStUHdf6GaOqfOlwOt)
 - Voxxed Days Luxembourg :fr: : [Améliorer les compétences et les infrastructures avec les katas d'architecture](https://cfp-voxxed-lux.yajug.org/2022/talk/CRJ-3791/Ameliorer_les_competences_et_les_infrastructures_avec_les_katas_d'architecture.html)
