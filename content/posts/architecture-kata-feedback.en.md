@@ -140,3 +140,10 @@ And the external services:
 
 
 ## Conclusion
+
+You probably noticed slight differences between the three propositions. 
+This is normal. Depending on background, experience, and time, we may choose different approaches.
+
+To cut a long story short: put 3 architects in a room and one platform to design, you will probably get 4 solutions...
+
+Joking aside, if you face such a dilemma, you should choose the simplest and most evolutive solution.
