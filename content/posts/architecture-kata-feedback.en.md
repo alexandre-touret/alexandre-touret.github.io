@@ -1,5 +1,5 @@
 ---
-title: Insights from an Architecture Kata
+title: Architecture Kata Insights
 date: 2025-07-15 08:00:00
 images: ["/assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp"]
 featuredImagePreview: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp
@@ -54,7 +54,7 @@ Here are some the diagrams made by Christian, and to be honest I was totally imp
 {{< /gallery >}}
 
 
-{{< admonition type=tip title="How to browse into this documentation" >}}
+{{< admonition type=tip title="How to browse this documentation" >}}
 I suggest you download [this file](/assets/images/2025/07/michael_kata/travel.dsl) and go to [Structurizr](https://structurizr.com/dsl?src=https://docs.structurizr.com/dsl/tutorial/5.dsl) to try it out.
 {{< /admonition >}}
 
@@ -75,5 +75,68 @@ You could find below his feedback and take-aways in French:
 
 They started working on a whiteboard but switched on DrawIO.
 
-Below the design
+Below their design:
 
+### High level design
+
+![hld](/assets/images/2025/07/nikita_rousseau/hld.webp)
+
+### Low level design
+
+![lld](/assets/images/2025/07/nikita_rousseau/lld.webp)
+
+## My proposition
+
+### My approach (in nutshell)
+
+Here are some of the guidelines I gave to the attendees: 
+
+1. Start asking "Why a new app?
+2. Pinpoint the Business & Non-Functional Requirements  and the key figures
+3. Dig into the design step by step
+
+Furthermore, when some of them were completely stuck, I gave this pice of advice: start identify the main business flows and design your platform upon these ones.
+
+Finally, throughout the design, it's really important to focus on the core business and give the opportunity to re-use external services.
+
+#### Business Flows
+
+1. Searching, booking, traveller profile & dashboard
+2. Local & sustainable activities publishing, enrollment & management
+3. Communication
+4. Payment, donations
+5. IoT metrics gathering & dashboards
+6. Mobile & Web interactions
+
+#### NFRs
+The NFRs (RTO, RPO) are very well described in the document. Both the RTO & RPO definition are prioritized according to the business functionalities.
+
+For instance, we can check that the financial transactions are highly criticals. 
+Therefore, it makes sense to reuse and buy an external service which could handle such a requirements.
+
+#### High level design (System View)
+
+##### Assumptions
+
+As said above, I chose not to implement the payment/donations functionality and use/buy an external service. It helps me avoid dealing with the strong RTO & RPO and the related compliancy (PCI-DSS). 
+
+##### Actors & external systems
+
+I identified the different actors :
+
+* Traveller
+* Sustainable Travel Service Provider
+
+And the external services:
+
+* IOT Devices
+* PSP (Payment Service Provider)
+
+##### Design
+
+![hld](/assets/images/2025/07/att-hld.png)
+
+#### Low Level Design (Container View)
+
+
+## Conclusion
