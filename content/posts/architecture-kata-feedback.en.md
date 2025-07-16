@@ -1,42 +1,42 @@
 ---
-title: Architecture Kata Insights
+title: "Lessons learned from an architecture kata: Workshop insights and design approaches"
 date: 2025-07-15 08:00:00
-images: ["/assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp"]
-featuredImagePreview: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp
-featuredImage: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp
+images: ["/assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp"]
+featuredImagePreview: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp
+featuredImage: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp
 lightgallery: true
-og_image: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e.webp
+og_image: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp
 tags:
   - conference
 ---
 
 ## Introduction
 
-Last week, I had the opportunity to lead a workshop at [Riviera Dev](rivieradev.fr/) on Software Architecture.
+Last week, I had the opportunity to lead a workshop on Software Architecture at [Riviera Dev](rivieradev.fr/).
 
-With the help of [my colleague Yassine Benabbas](https://dev.to/yostane), through a three-hour Architecture Kata, more than sixty participants have learned and improved their design/architecture skills through a (not so)real-life use case.
+With the help of [my colleague Yassine Benabbas](https://dev.to/yostane), more than sixty participants learned and improved their design and architecture skills through a three-hour Architecture Kata based on a (not so) real-life use case.
 
-If you are not familiar with the Architecture Katas, I suggest you have a sneak peek on the following links:
+If you are not familiar with Architecture Katas, I suggest you take a look at the following links:
 
 * [A video captured during a conference](https://youtu.be/xLhb3mvweDI) and [the slides](https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way) where I introduce the concept.
 * [An article from the Worldline Tech Blog](https://blog.worldline.tech/2019/12/12/architecture-katas.html).
 
-
-In this article, as a follow up, I will expose some of the solutions proposed by the participants and give then my proposition.
+In this article, as a follow-up, I will present some of the solutions proposed by the participants and then share my own proposition.
 
 ## The Kata
 
-Before getting into the different propositions, [here is the Kata (in French)](/assets/images/2025/07/kata_rivieradev.pdf)
+Before diving into the different solutions, [here is the Kata (in French)](/assets/images/2025/07/kata_rivieradev.pdf).
 
-To sum up, the main purpose was to design an innovative digital platform to promote sustainable and solidarity-based tourism. The platform targeted eco-conscious travelers, local ecological associations, and responsible tourism service providers.
+In short, the main objective was to design an innovative digital platform to promote sustainable and solidarity-based tourism. The platform targeted eco-conscious travelers, local ecological associations, and responsible tourism service providers.
 
-Key features included user profiles with eco-friendly booking options, carbon footprint dashboards, gamification, and activity tracking. Associations could publish volunteer initiatives and gather support, while service providers can manage eco-labelled offers and reservations. IoT sensors monitored environmental quality, and integration with connected mobility enhances eco-actions.
+Key features included user profiles with eco-friendly booking options, carbon footprint dashboards, gamification, and activity tracking. Associations could publish volunteer initiatives and gather support, while service providers could manage eco-labeled offers and reservations. IoT sensors monitored environmental quality, and integration with connected mobility enhanced eco-actions.
+
+I present here three solutions. The first two drafts were created by two different teams and are published with their agreement.
 
 ## First proposition
 
 Most of the attendees worked at Amadeus. They definitively used to with this kind of use case.
 Among of them, [Christian Ceelen](https://www.linkedin.com/in/christian-ceelen-5891a33) and his team proposed this solution.
-
 
 Here are some the diagrams made by Christian, and to be honest I was totally impressed!
 
@@ -53,17 +53,20 @@ I suggest you download [this file](/assets/images/2025/07/michael_kata/travel.ds
 
 ## Second proposition
 
-This proposition was submitted by Nikita Rousseau and his teammates:
+This proposition was submitted by [Nikita Rousseau](https://fr.linkedin.com/in/nikita-rousseau) and his teammates:
 
 You could find below his feedback and take-aways in French:
 
-> Les challenges :
-> - très peu de temps avec beaucoup de personnes 6P
-> - Faire un tour de table pour identifier les contributeurs et adapter le niveau de langage entre les acteurs
-> - Clarifier les termes et objets métiers qui vont être impliqués lors du design (parler d > experience pour coupler les notions du transport + hébergement + activité écolo + score)
-> -  Faire des workflows pour expliciter l'aspect fonctionnel de haut de niveau et vérifier que l'on répond au besoin
-> - Construire une maquette HLD qui implèmente les workflows (on parcours les fleches pour vérifier que l'on construit un système cohérent)
-> - Grouper par aspect fonctionnel pour ensuite proposer une implémentaiton technique
+{{< admonition type=quote title="Feedback" >}}
+Les challenges :
+- très peu de temps avec beaucoup de personnes 6P
+- Faire un tour de table pour identifier les contributeurs et adapter le niveau de langage entre les acteurs
+- Clarifier les termes et objets métiers qui vont être impliqués lors du design (parler d > experience pour coupler les notions du transport + hébergement + activité écolo + score)
+-  Faire des workflows pour expliciter l'aspect fonctionnel de haut de niveau et vérifier que l'on répond au besoin
+- Construire une maquette HLD qui implèmente les workflows (on parcours les fleches pour vérifier que l'on construit un système cohérent)
+- Grouper par aspect fonctionnel pour ensuite proposer une implémentaiton technique
+
+{{< /admonition >}}
 
 They started working on a whiteboard but switched on DrawIO.
 
@@ -78,6 +81,13 @@ Below their design:
 ![lld](/assets/images/2025/07/nikita_rousseau/lld.webp)
 
 ## My proposition
+
+{{< admonition warning "It's not complete (yet)" true >}}
+Although I tried to create this design under similar conditions as the participants (within about 2 hours), it doesn't fully represent what can be achieved during a real Kata. In an actual session, you spend time debating and understanding the perspectives of different stakeholders. **Among other things, it needs to be challenged by peers**.
+
+In summary, this is just an example of what could be designed based on the Kata topic. Feel free to reach out if I missed something (and I probably did!).
+
+{{< /admonition >}}
 
 ### My approach (in nutshell)
 
@@ -107,13 +117,6 @@ For instance, we can check that the financial transactions are highly criticals.
 Therefore, it makes sense to reuse and buy an external service which could handle such a requirements.
 
 #### High level design (System View)
-
-{{< admonition warning "It's not complete" true >}}
-Although I tried to create this design under similar conditions as the participants (within about 2 hours), it doesn't fully represent what can be achieved during a real Kata. In an actual session, you spend time debating and understanding the perspectives of different stakeholders.
-
-In summary, this is just an example of what could be designed based on the Kata topic. Feel free to reach out if I missed something (and I probably did!).
-
-{{< /admonition >}}
 
 ##### Assumptions
 
@@ -155,6 +158,8 @@ And the external services:
 
 ![lld1](/assets/images/2025/07/att_lld/structurizr-1-CarbonEfficiencyMonitoring.svg)
 
+If you want to browse the documentation with the help of Structurizr, you can check out the model [here](https://gist.github.com/alexandre-touret/e0b7dfea74ff6d3483e439865e08b4eb).
+
 ## Conclusion
 You probably noticed some differences between the three propositions. This is perfectly normal—depending on background, experience, and available time, people may choose different approaches.
 
@@ -165,7 +170,8 @@ Jokes aside, when faced with such dilemmas, it's best to choose the simplest and
 Furthermore, I explained the whole approach in [these slides](https://speakerdeck.com/alexandretouret/rvd25-katas-darchitecture-workshop).
 
 Finally, the final design diagrams are only a part of the take aways. 
-Practising Architecture katas also enable:
+
+Practising Architecture katas on a regular basis also enable:
 * Learning from the experience of his/her peers
 * Deep diving into a new subject in a short time
 * Taking decisions, assumptions
