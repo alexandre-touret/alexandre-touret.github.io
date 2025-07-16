@@ -1,4 +1,170 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Conference - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/conference/</link><description>Conference - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Wed, 21 May 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>Insights from Onboarding young developers and Mentoring Experiences</title><link>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</link><pubDate>Wed, 21 May 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Conference - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/conference/</link><description>Conference - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Tue, 15 Jul 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/conference/" rel="self" type="application/rss+xml"/><item><title>Lessons learned from an architecture kata: Workshop insights and design approaches</title><link>https://blog.touret.info/2025/07/15/architecture-kata-feedback/</link><pubDate>Tue, 15 Jul 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/07/15/architecture-kata-feedback/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp" referrerpolicy="no-referrer">
+            </div><h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>Last week, I had the opportunity to lead a workshop on Software Architecture at <a href="rivieradev.fr/" rel="">Riviera Dev</a>.</p>
+<p>With the help of <a href="https://dev.to/yostane" target="_blank" rel="noopener noreferrer">my colleague Yassine Benabbas</a>, more than sixty participants learned and improved their design and architecture skills through a three-hour Architecture Kata based on a (not so) real-life use case.</p>
+<p>If you are not familiar with Architecture Katas, I suggest you take a look at the following links:</p>
+<ul>
+<li><a href="https://youtu.be/xLhb3mvweDI" target="_blank" rel="noopener noreferrer">A video captured during a conference</a> and <a href="https://speakerdeck.com/alexandretouret/architecture-katas-improve-your-system-architecture-design-skills-in-a-fun-way" target="_blank" rel="noopener noreferrer">the slides</a> where I introduce the concept.</li>
+<li><a href="https://blog.worldline.tech/2019/12/12/architecture-katas.html" target="_blank" rel="noopener noreferrer">An article from the Worldline Tech Blog</a>.</li>
+</ul>
+<p>In this article, as a follow-up, I will present some of the solutions proposed by the participants and then share my own proposition.</p>
+<h2 id="the-kata" class="headerLink">
+    <a href="#the-kata" class="header-mark"></a>2 The Kata</h2><p>Before diving into the different solutions, <a href="/assets/images/2025/07/kata_rivieradev.pdf" rel="">here is the Kata (in French)</a>.</p>
+<p>In short, the main objective was to design an innovative digital platform to promote sustainable and solidarity-based tourism. The platform targeted eco-conscious travelers, local ecological associations, and responsible tourism service providers.</p>
+<p>Key features included user profiles with eco-friendly booking options, carbon footprint dashboards, gamification, and activity tracking. Associations could publish volunteer initiatives and gather support, while service providers could manage eco-labeled offers and reservations. IoT sensors monitored environmental quality, and integration with connected mobility enhanced eco-actions.</p>
+<p>During this workshop, my colleague and I did our best to help more than ten teams design this platform. We assisted them in making assumptions, overcoming the blank page challenge, and validating their designs.</p>
+<p>I present here three solutions. The first two drafts were created by two different teams and are published with their agreement.</p>
+<h2 id="first-proposition" class="headerLink">
+    <a href="#first-proposition" class="header-mark"></a>3 First proposition</h2><p>Most of the attendees worked at Amadeus. They definitively used to with this kind of use case.
+Among of them, <a href="https://www.linkedin.com/in/christian-ceelen-5891a33" target="_blank" rel="noopener noreferrer">Christian Ceelen</a> and his team proposed this solution.</p>
+<p>Here are some the diagrams made by Christian, and to be honest I was totally impressed!</p>
+<div class="hugo-gallery"><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-15.png" data-lightbox="Galerie" data-title="17-14-15.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-15.png" alt="17-14-15.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-26.png" data-lightbox="Galerie" data-title="17-14-26.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-26.png" alt="17-14-26.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-38.png" data-lightbox="Galerie" data-title="17-14-38.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-38.png" alt="17-14-38.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-45.png" data-lightbox="Galerie" data-title="17-14-45.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-45.png" alt="17-14-45.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-50.png" data-lightbox="Galerie" data-title="17-14-50.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-50.png" alt="17-14-50.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-57.png" data-lightbox="Galerie" data-title="17-14-57.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-14-57.png" alt="17-14-57.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-03.png" data-lightbox="Galerie" data-title="17-15-03.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-03.png" alt="17-15-03.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-09.png" data-lightbox="Galerie" data-title="17-15-09.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-09.png" alt="17-15-09.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-14.png" data-lightbox="Galerie" data-title="17-15-14.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-14.png" alt="17-15-14.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-19.png" data-lightbox="Galerie" data-title="17-15-19.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-19.png" alt="17-15-19.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a><a href="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-25.png" data-lightbox="Galerie" data-title="17-15-25.png"></a>
+        <img src="https://blog.touret.info//assets/images/2025/07/michael_kata/17-15-25.png" alt="17-15-25.png" loading="lazy" style="max-width:200px; margin:5px;">
+      </a></div>
+<style>
+.hugo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hugo-gallery img {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: box-shadow 0.2s;
+}
+.hugo-gallery img:hover {
+  box-shadow: 0 0 10px #888;
+}
+</style>
+<div id="id-1"><em>Right Click on the picture then Open on a new tab to get the original one.</em></div>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"/></svg></span>How to browse this documentation<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">I suggest you download <a href="/assets/images/2025/07/michael_kata/travel.dsl" rel="">this file</a> and go to <a href="https://structurizr.com/dsl?src=https://docs.structurizr.com/dsl/tutorial/5.dsl" target="_blank" rel="noopener noreferrer">Structurizr</a> to try it out.</div></div></div>
+<h2 id="second-proposition" class="headerLink">
+    <a href="#second-proposition" class="header-mark"></a>4 Second proposition</h2><p>This proposition was submitted by <a href="https://fr.linkedin.com/in/nikita-rousseau" target="_blank" rel="noopener noreferrer">Nikita Rousseau</a> and his teammates:</p>
+<p>You could find below his feedback and take-aways in French:</p>
+<div class="details admonition quote open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M464 32H336c-26.5 0-48 21.5-48 48v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48zm-288 0H48C21.5 32 0 53.5 0 80v128c0 26.5 21.5 48 48 48h80v64c0 35.3-28.7 64-64 64h-8c-13.3 0-24 10.7-24 24v48c0 13.3 10.7 24 24 24h8c88.4 0 160-71.6 160-160V80c0-26.5-21.5-48-48-48z"/></svg></span>Feedback<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><p>Les challenges :</p>
+<ul>
+<li>très peu de temps avec beaucoup de personnes 6P</li>
+<li>Faire un tour de table pour identifier les contributeurs et adapter le niveau de langage entre les acteurs</li>
+<li>Clarifier les termes et objets métiers qui vont être impliqués lors du design (parler d &gt; experience pour coupler les notions du transport + hébergement + activité écolo + score)</li>
+<li>Faire des workflows pour expliciter l&rsquo;aspect fonctionnel de haut de niveau et vérifier que l&rsquo;on répond au besoin</li>
+<li>Construire une maquette HLD qui implèmente les workflows (on parcours les fleches pour vérifier que l&rsquo;on construit un système cohérent)</li>
+<li>Grouper par aspect fonctionnel pour ensuite proposer une implémentaiton technique</li>
+</ul></div></div></div>
+<p>They started working on a whiteboard but switched on DrawIO.</p>
+<p>Below their design:</p>
+<h3 id="high-level-design" class="headerLink">
+    <a href="#high-level-design" class="header-mark"></a>4.1 High level design</h3><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/nikita_rousseau/hld.webp'   alt="hld"  ></p>
+<h3 id="low-level-design" class="headerLink">
+    <a href="#low-level-design" class="header-mark"></a>4.2 Low level design</h3><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/nikita_rousseau/lld.webp'   alt="lld"  ></p>
+<h2 id="my-proposition" class="headerLink">
+    <a href="#my-proposition" class="header-mark"></a>5 My proposition</h2><div class="details admonition warning open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg></span>It&#39;s not complete (yet)<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><p>Although I tried to create this design under similar conditions as the participants (within about 2 hours), it doesn&rsquo;t fully represent what can be achieved during a real Kata. In an actual session, you spend time debating and understanding the perspectives of different stakeholders. <strong>Among other things, it needs to be challenged by peers</strong>.</p>
+<p>In summary, this is just an example of what could be designed based on the Kata topic. Feel free to reach out if I missed something (and I probably did!).</p>
+</div></div></div>
+<h3 id="my-approach-in-nutshell" class="headerLink">
+    <a href="#my-approach-in-nutshell" class="header-mark"></a>5.1 My approach (in nutshell)</h3><p>Here are some of the guidelines I gave to the attendees:</p>
+<ol>
+<li>Start asking &ldquo;Why a new app?</li>
+<li>Pinpoint the Business &amp; Non-Functional Requirements  and the key figures</li>
+<li>Dig into the design step by step</li>
+</ol>
+<p>Furthermore, when some of them were completely stuck, I gave this pice of advice: start identify the main business flows and design your platform upon these ones.</p>
+<p>Finally, throughout the design, it&rsquo;s really important to focus on the core business and give the opportunity to re-use external services.</p>
+<h4 id="business-flows" class="headerLink">
+    <a href="#business-flows" class="header-mark"></a>5.1.1 Business Flows</h4><ol>
+<li>Searching, booking, traveller profile &amp; dashboard</li>
+<li>Local &amp; sustainable activities publishing, enrollment &amp; management</li>
+<li>Communication</li>
+<li>Payment, donations</li>
+<li>IoT metrics gathering &amp; dashboards</li>
+<li>Mobile &amp; Web interactions</li>
+</ol>
+<h4 id="nfrs" class="headerLink">
+    <a href="#nfrs" class="header-mark"></a>5.1.2 NFRs</h4><p>The NFRs (<a href="https://en.wikipedia.org/wiki/IT_disaster_recovery" target="_blank" rel="noopener noreferrer">RTO, RPO</a>) are very well described in the document. Both the <a href="https://en.wikipedia.org/wiki/IT_disaster_recovery" target="_blank" rel="noopener noreferrer">RTO &amp; RPO</a> definition are prioritized according to the business functionalities.</p>
+<p>For instance, we can check that the financial transactions are highly criticals.
+Therefore, it makes sense to reuse and buy an external service which could handle such a requirements.</p>
+<h4 id="high-level-design-system-view" class="headerLink">
+    <a href="#high-level-design-system-view" class="header-mark"></a>5.1.3 High level design (System View)</h4><h5 id="assumptions" class="headerLink">
+    <a href="#assumptions" class="header-mark"></a>5.1.3.1 Assumptions</h5><p>As said above, I chose not to implement the payment/donations functionality and use/buy an external service. It helps me avoid dealing with the strong RTO &amp; RPO and the related compliancy (i.e., <a href="https://www.pcisecuritystandards.org/" target="_blank" rel="noopener noreferrer">PCI-DSS</a>).</p>
+<p>Then, I chose not to include the IoT sensors in my design. Instead, I decided to require all sensors to comply with a mandatory service contract.</p>
+<h5 id="actors--external-systems" class="headerLink">
+    <a href="#actors--external-systems" class="header-mark"></a>5.1.3.2 Actors &amp; external systems</h5><p>I identified the different actors :</p>
+<ul>
+<li>Traveller</li>
+<li>Sustainable Travel Service Provider</li>
+</ul>
+<p>And the external services:</p>
+<ul>
+<li>IOT Devices</li>
+<li>PSP (Payment Service Provider)</li>
+</ul>
+<h5 id="design" class="headerLink">
+    <a href="#design" class="header-mark"></a>5.1.3.3 Design</h5><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/att-hld.svg'   alt="hld"  ></p>
+<h4 id="low-level-design-container-view" class="headerLink">
+    <a href="#low-level-design-container-view" class="header-mark"></a>5.1.4 Low Level Design (Container View)</h4><h5 id="traveller-portal-view" class="headerLink">
+    <a href="#traveller-portal-view" class="header-mark"></a>5.1.4.1 Traveller Portal view</h5><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/att_lld/structurizr-1-TravellerPortal.svg'   alt="lld1"  ></p>
+<h5 id="local-organisation-portal-view" class="headerLink">
+    <a href="#local-organisation-portal-view" class="header-mark"></a>5.1.4.2 Local Organisation Portal view</h5><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/att_lld/structurizr-1-LocalOrganizationPortal.svg'   alt="lld1"  ></p>
+<h5 id="service-provider-portal-view" class="headerLink">
+    <a href="#service-provider-portal-view" class="header-mark"></a>5.1.4.3 Service Provider Portal view</h5><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/att_lld/structurizr-1-ServiceProvider.svg'   alt="lld1"  ></p>
+<h5 id="iot-carbon-efficiency-monitoring" class="headerLink">
+    <a href="#iot-carbon-efficiency-monitoring" class="header-mark"></a>5.1.4.4 IOT Carbon Efficiency Monitoring</h5><p><img class="tw-inline" loading="lazy" src='/assets/images/2025/07/att_lld/structurizr-1-CarbonEfficiencyMonitoring.svg'   alt="lld1"  ></p>
+<p>If you want to browse the documentation with the help of Structurizr, you can check out the model <a href="https://gist.github.com/alexandre-touret/e0b7dfea74ff6d3483e439865e08b4eb" target="_blank" rel="noopener noreferrer">here</a>.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>You probably noticed some differences between the three propositions. This is perfectly normal—depending on background, experience, and available time, people may choose different approaches.</p>
+<p>As the saying goes: put three architects in a room with one platform to design, and you&rsquo;ll probably end up with four solutions.</p>
+<p>Jokes aside, when faced with such dilemmas, it&rsquo;s best to choose the simplest and most adaptable solution.</p>
+<p>Furthermore, I explained the whole approach in <a href="https://speakerdeck.com/alexandretouret/rvd25-katas-darchitecture-workshop" target="_blank" rel="noopener noreferrer">these slides</a>.</p>
+<p>Finally, the final design diagrams are only a part of the take aways.</p>
+<p>Practising Architecture katas on a regular basis also enable:</p>
+<ul>
+<li>Learning from the experience of his/her peers</li>
+<li>Deep diving into a new subject in a short time</li>
+<li>Taking decisions, assumptions</li>
+<li>Communicating and explain the design decisions (perhaps the most important part)</li>
+</ul>
+]]></description></item><item><title>Insights from Onboarding young developers and Mentoring Experiences</title><link>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</link><pubDate>Wed, 21 May 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/05/21/elevating-young-devs-feedback/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2025/05/IMG_20250417_195605.webp" referrerpolicy="no-referrer">
             </div><h2 id="introduction" class="headerLink">
     <a href="#introduction" class="header-mark"></a>1 Introduction</h2><p>Recently, I had the opportunity to participate in <a href="https://www.jchateau.org/" target="_blank" rel="noopener noreferrer">JChateau</a> and <a href="https://www.devoxx.fr/agenda-2025/talk/ensemble-faisons-progresser-et-grandir-les-developpeurs-debutants" target="_blank" rel="noopener noreferrer">Devoxx France</a>.
