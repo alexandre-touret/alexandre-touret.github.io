@@ -108,9 +108,18 @@ Therefore, it makes sense to reuse and buy an external service which could handl
 
 #### High level design (System View)
 
+{{< admonition warning "It's not complete" true >}}
+Although I tried to create this design under similar conditions as the participants (within about 2 hours), it doesn't fully represent what can be achieved during a real Kata. In an actual session, you spend time debating and understanding the perspectives of different stakeholders.
+
+In summary, this is just an example of what could be designed based on the Kata topic. Feel free to reach out if I missed something (and I probably did!).
+
+{{< /admonition >}}
+
 ##### Assumptions
 
 As said above, I chose not to implement the payment/donations functionality and use/buy an external service. It helps me avoid dealing with the strong RTO & RPO and the related compliancy (i.e., [PCI-DSS](https://www.pcisecuritystandards.org/)). 
+
+Then, I chose not to include the IoT sensors in my design. Instead, I decided to require all sensors to comply with a mandatory service contract.
 
 ##### Actors & external systems
 
@@ -126,9 +135,25 @@ And the external services:
 
 ##### Design
 
-![hld](/assets/images/2025/07/att-hld.png)
+![hld](/assets/images/2025/07/att-hld.svg)
 
 #### Low Level Design (Container View)
+
+##### Traveller Portal view
+
+![lld1](/assets/images/2025/07/att_lld/structurizr-1-TravellerPortal.svg)
+
+##### Local Organisation Portal view
+
+![lld1](/assets/images/2025/07/att_lld/structurizr-1-LocalOrganizationPortal.svg)
+
+##### Service Provider Portal view
+
+![lld1](/assets/images/2025/07/att_lld/structurizr-1-ServiceProvider.svg )
+
+##### IOT Carbon Efficiency Monitoring
+
+![lld1](/assets/images/2025/07/att_lld/structurizr-1-CarbonEfficiencyMonitoring.svg)
 
 ## Conclusion
 You probably noticed some differences between the three propositions. This is perfectly normal—depending on background, experience, and available time, people may choose different approaches.
