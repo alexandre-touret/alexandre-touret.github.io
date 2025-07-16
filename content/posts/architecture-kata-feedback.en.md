@@ -8,6 +8,7 @@ lightgallery: true
 og_image: /assets/images/2025/07/8766b1ec-22e1-44a7-af3f-006a27d2bf3e_1.webp
 tags:
   - conference
+  - architecture
 ---
 
 ## Introduction
