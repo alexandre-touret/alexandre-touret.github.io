@@ -14,7 +14,7 @@ tags:
 
 Last week, I had the opportunity to lead a workshop at [Riviera Dev](rivieradev.fr/) on Software Architecture.
 
-Through a three-hour Architecture Kata, more than sixty participants have learned and improved their design/architecture skills through a (not so)real-life use case.
+With the help of [my colleague Yassine Benabbas](https://dev.to/yostane), through a three-hour Architecture Kata, more than sixty participants have learned and improved their design/architecture skills through a (not so)real-life use case.
 
 If you are not familiar with the Architecture Katas, I suggest you have a sneak peek on the following links:
 
@@ -40,24 +40,16 @@ Among of them, [Christian Ceelen](https://www.linkedin.com/in/christian-ceelen-5
 
 Here are some the diagrams made by Christian, and to be honest I was totally impressed!
 
-{{< gallery >}}
-![1](/assets/images/2025/07/michael_kata/17-14-15.png)
-![2](/assets/images/2025/07/michael_kata/17-14-26.png)
-![2](/assets/images/2025/07/michael_kata/17-14-38.png)
-![2](/assets/images/2025/07/michael_kata/17-14-50.png)
-![2](/assets/images/2025/07/michael_kata/17-14-57.png)
-![2](/assets/images/2025/07/michael_kata/17-15-03.png)
-![2](/assets/images/2025/07/michael_kata/17-15-09.png)
-![2](/assets/images/2025/07/michael_kata/17-15-14.png)
-![2](/assets/images/2025/07/michael_kata/17-15-15.png)
-![2](/assets/images/2025/07/michael_kata/17-15-25.png)
-{{< /gallery >}}
+{{< image-gallery dir="/assets/images/2025/07/michael_kata" >}}
+
+{{< style "text-align:center" >}}
+_Right Click on the picture then Open on a new tab to get the original one._
+{{</ style >}}
 
 
 {{< admonition type=tip title="How to browse this documentation" >}}
 I suggest you download [this file](/assets/images/2025/07/michael_kata/travel.dsl) and go to [Structurizr](https://structurizr.com/dsl?src=https://docs.structurizr.com/dsl/tutorial/5.dsl) to try it out.
 {{< /admonition >}}
-
 
 ## Second proposition
 
@@ -109,7 +101,7 @@ Finally, throughout the design, it's really important to focus on the core busin
 6. Mobile & Web interactions
 
 #### NFRs
-The NFRs (RTO, RPO) are very well described in the document. Both the RTO & RPO definition are prioritized according to the business functionalities.
+The NFRs ([RTO, RPO](https://en.wikipedia.org/wiki/IT_disaster_recovery)) are very well described in the document. Both the [RTO & RPO](https://en.wikipedia.org/wiki/IT_disaster_recovery) definition are prioritized according to the business functionalities.
 
 For instance, we can check that the financial transactions are highly criticals. 
 Therefore, it makes sense to reuse and buy an external service which could handle such a requirements.
@@ -118,7 +110,7 @@ Therefore, it makes sense to reuse and buy an external service which could handl
 
 ##### Assumptions
 
-As said above, I chose not to implement the payment/donations functionality and use/buy an external service. It helps me avoid dealing with the strong RTO & RPO and the related compliancy (PCI-DSS). 
+As said above, I chose not to implement the payment/donations functionality and use/buy an external service. It helps me avoid dealing with the strong RTO & RPO and the related compliancy (i.e., [PCI-DSS](https://www.pcisecuritystandards.org/)). 
 
 ##### Actors & external systems
 
@@ -138,12 +130,18 @@ And the external services:
 
 #### Low Level Design (Container View)
 
-
 ## Conclusion
+You probably noticed some differences between the three propositions. This is perfectly normal—depending on background, experience, and available time, people may choose different approaches.
 
-You probably noticed slight differences between the three propositions. 
-This is normal. Depending on background, experience, and time, we may choose different approaches.
+As the saying goes: put three architects in a room with one platform to design, and you'll probably end up with four solutions.
 
-To cut a long story short: put 3 architects in a room and one platform to design, you will probably get 4 solutions...
+Jokes aside, when faced with such dilemmas, it's best to choose the simplest and most adaptable solution.
 
-Joking aside, if you face such a dilemma, you should choose the simplest and most evolutive solution.
+Furthermore, I explained the whole approach in [these slides](https://speakerdeck.com/alexandretouret/rvd25-katas-darchitecture-workshop).
+
+Finally, the final design diagrams are only a part of the take aways. 
+Practising Architecture katas also enable:
+* Learning from the experience of his/her peers
+* Deep diving into a new subject in a short time
+* Taking decisions, assumptions
+* Communicating and explain the design decisions (perhaps the most important part)

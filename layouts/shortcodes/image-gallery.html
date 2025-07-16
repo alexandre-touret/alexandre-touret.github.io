@@ -1,0 +1,28 @@
+<div class="hugo-gallery">
+  {{- $dir := .Get "dir" | default "images/gallery" -}}
+  {{- $title := .Get "title" | default "Galerie" -}}
+  {{- $images := readDir (printf "static/%s" $dir) -}}
+  {{- range $images -}}
+    {{- if or (strings.HasSuffix .Name ".jpg") (strings.HasSuffix .Name ".jpeg") (strings.HasSuffix .Name ".png") (strings.HasSuffix .Name ".webp") -}}
+      {{- $baseURL := site.BaseURL -}}
+      <a href="{{ $baseURL }}{{ $dir }}/{{ .Name }}" data-lightbox="{{ $title }}" data-title="{{ .Name }}"></a>
+        <img src="{{ $baseURL }}{{ $dir }}/{{ .Name }}" alt="{{ .Name }}" loading="lazy" style="max-width:200px; margin:5px;">
+      </a>
+    {{- end -}}
+  {{- end -}}
+</div>
+<style>
+.hugo-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.hugo-gallery img {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: box-shadow 0.2s;
+}
+.hugo-gallery img:hover {
+  box-shadow: 0 0 10px #888;
+}
+</style>
