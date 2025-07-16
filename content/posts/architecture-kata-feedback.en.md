@@ -31,6 +31,8 @@ In short, the main objective was to design an innovative digital platform to pro
 
 Key features included user profiles with eco-friendly booking options, carbon footprint dashboards, gamification, and activity tracking. Associations could publish volunteer initiatives and gather support, while service providers could manage eco-labeled offers and reservations. IoT sensors monitored environmental quality, and integration with connected mobility enhanced eco-actions.
 
+During this workshop, my colleague and I did our best to help more than ten teams design this platform. We assisted them in making assumptions, overcoming the blank page challenge, and validating their designs.
+
 I present here three solutions. The first two drafts were created by two different teams and are published with their agreement.
 
 ## First proposition
