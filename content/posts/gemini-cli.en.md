@@ -7,7 +7,7 @@ featuredImage: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash
 lightgallery: true
 og_image: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp
 tags:
-  - IA
+  - AI
 ---
 
 {{< style "text-align:center;" >}}
@@ -17,11 +17,10 @@ tags:
 
 After reading the insightful [Nicolas Martignole articles series (in French)](https://touilleur-express.fr/2025/07/27/claude-code-et-les-serveurs-mcp-ou-comment-transformer-ton-terminal-en-assistant-surpuissant/) on how [Claude Code](https://www.anthropic.com/claude-code) could streamline and accelerate coding through our terminal, I had the idea to test it by my own on specific (boring) use cases.
 
-In nutshell, [he used it to create a MVP in roughly 20H](https://touilleur-express.fr/2025/07/30/comment-jai-code-un-mvp-en-une-vingtaine-dheures-avec-claude-code/) and explains how he did it.
+In nutshell, [he used it to create a MVP in roughly 20H](https://touilleur-express.fr/2025/07/30/comment-jai-code-un-mvp-en-une-vingtaine-dheures-avec-claude-code/) and explains how he handled it.
 
 I had the opportunity to test [Google Code Assist](https://codeassist.google/).
 I then decided to boost my terminal with [Gemini Cli](https://github.com/google-gemini/gemini-cli) instead of Claude Code.
-
 
 ## Use-cases 
 
@@ -36,18 +35,18 @@ The setup is quite straightforward.
 I personally chose to set it up with Npm:
 
 ```bash
-npm install -g @google/gemini-cli
+$ npm install -g @google/gemini-cli
 ```
 
 After installing it, if you opted for a paid Code Assist organisation licence, you will need to plug it to a GCP project through an environment variable:
 
 ```bash
-export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_NAME"
+$ export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_NAME"
 ```
 Now you can start it using this command:
 
 ```bash
-gemini
+$ gemini
 ```
 
 
@@ -85,7 +84,7 @@ Before running it, I had pinpointed the different actions:
 
 ### First impressions
 
-I was impressed by the learning process of the agent. 
+I was really impressed by the learning process of the agent and how it tackled all the errors made during its workflow. 
 To upgrade my project, it ran several maven commands that failed prior to really update it directly in the ``pom.xml`` file. 
 By the way, I noticed it produced a bunch of errors manipulating it, missing out some closing elements. Perhaps, it is too vintage for Gemini :-) 
 
@@ -93,12 +92,13 @@ It analysed the output, searching on Google how to fix the different errors and 
 
 Among other things, it fixed the following error types:
 
-* System user rights 
+* System user rights problems
 * Missing dependencies
 * Classpath issues
 
-### Statistics & insights
+To leverage the hype effect, I noticed that many errors we produced by the agent itself and while some iterations it looped making and fixing its own errors.
 
+### Statistics & insights
 
 After **roughly 30 mn**, I got my project updated and the following report (I asked it through the prompt):
 
@@ -124,7 +124,7 @@ After **roughly 30 mn**, I got my project updated and the following report (I as
 
 ```
 
-I also tried to get some insights and KPI as [Claude does](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) . Unfortunately, I was unable to get it.
+I also tried to get some insights and KPI as [Claude does](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor). Unfortunately, I was unable to get it.
 
 ```bash
 ╭─────────────────────────────────────────────────────────────────────────╮
@@ -255,9 +255,169 @@ One interesting thing is the ca
 https://google-gemini.github.io/gemini-cli/docs/cli/token-caching.html
 
 
+## API End to End tests
+
+I would also like to challenge Gemini Cli on the End to End tests generation and execution.
+
+For that purpose, as you noticed above, I plugged the Playwright MCP Server to Gemini Cli.
+I then asked my new buddy to:
+
+```bash
+Generate API end-to-end tests using PlayWright
+```
+
+It finally outcomes with this test:
+
+```java
+package info.touret.guitarheaven.test.playwright;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.microsoft.playwright.APIRequest;
+import com.microsoft.playwright.APIRequestContext;
+import com.microsoft.playwright.APIResponse;
+import com.microsoft.playwright.Playwright;
+import com.microsoft.playwright.options.RequestOptions;
+import info.touret.guitarheaven.application.generated.model.GuitarDto;
+import info.touret.guitarheaven.application.generated.model.OrderRequestDto;
+import info.touret.guitarheaven.application.generated.model.QuoteDto;
+import io.quarkus.test.junit.QuarkusTest;
+import org.junit.jupiter.api.*;
+
+import java.io.IOException;
+import java.util.Collections;
+import java.util.UUID;
+
+import static info.touret.guitarheaven.application.generated.model.TYPEDto.ELECTRIC;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+
+@QuarkusTest
+public class E2ETest {
+
+    private static Playwright playwright;
+    private static APIRequestContext request;
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    @BeforeAll
+    public static void setUp() {
+        playwright = Playwright.create();
+        request = playwright.request().newContext(new APIRequest.NewContextOptions()
+                .setBaseURL("http://localhost:8081"));
+    }
+
+    @AfterAll
+    public static void tearDown() {
+        if (request != null) {
+            request.dispose();
+            request = null;
+        }
+        if (playwright != null) {
+            playwright.close();
+            playwright = null;
+        }
+    }
+
+    @Test
+    public void shouldRunE2ETests() throws IOException {
+        // Get all guitars
+        APIResponse response = request.get("/guitars?pageNumber=0&pageSize=10");
+        assertEquals(200, response.status());
+        assertTrue(response.ok());
+
+        // Create a guitar
+        GuitarDto guitar = new GuitarDto().name("Gibson ES 335").type(ELECTRIC).priceInUSD(1500.0).stock(10);
+        String jsonBody = OBJECT_MAPPER.writeValueAsString(guitar);
+        response = request.post("/guitars", RequestOptions.create().setData(jsonBody).setHeader("Content-Type", "application/json"));
+        assertEquals(201, response.status());
+        JsonNode jsonNode = OBJECT_MAPPER.readTree(response.body());
+        String guitarId = jsonNode.get("guitarId").asText();
+
+        // Update the guitar
+        guitar = new GuitarDto().guitarId(UUID.fromString(guitarId)).name("Gibson ES 335").type(ELECTRIC).priceInUSD(2500.0).stock(9);
+        jsonBody = OBJECT_MAPPER.writeValueAsString(guitar);
+        response = request.put("/guitars/" + guitarId, RequestOptions.create().setData(jsonBody).setHeader("Content-Type", "application/json"));
+        assertEquals(200, response.status());
+
+        // Get all orders
+        response = request.get("/orders-requests");
+        assertEquals(200, response.status());
+        assertTrue(response.ok());
+
+        // Create an order
+        OrderRequestDto orderRequest = new OrderRequestDto().guitarIds(Collections.singletonList(UUID.fromString(guitarId)));
+        jsonBody = OBJECT_MAPPER.writeValueAsString(orderRequest);
+        response = request.post("/orders-requests", RequestOptions.create().setData(jsonBody).setHeader("Content-Type", "application/json"));
+        assertEquals(201, response.status());
+        jsonNode = OBJECT_MAPPER.readTree(response.body());
+        String orderId = jsonNode.get("orderId").asText();
+
+        // Get the order
+        response = request.get("/orders-requests/" + orderId);
+        assertEquals(200, response.status());
+        assertTrue(response.ok());
+
+        // Create a quote
+        QuoteDto quote = new QuoteDto().orderId(UUID.fromString(orderId));
+        jsonBody = OBJECT_MAPPER.writeValueAsString(quote);
+        response = request.post("/quotes", RequestOptions.create().setData(jsonBody).setHeader("Content-Type", "application/json"));
+        assertEquals(201, response.status());
+
+        // Delete the guitar
+        response = request.delete("/guitars/" + guitarId);
+        // This will fail because the guitar is associated with an order
+        assertEquals(500, response.status());
+    }
+}
 
 
-Play wright
+```
+
+In the same way than the previous use case, I asked for a report. Here it is:
+
+```bash
+
+✦ Here is a report of the actions taken:
+
+  1. Initial Exploration and Testing
+
+  I began by familiarizing myself with the project to determine how to run the existing tests. My initial steps included:
+
+   * Reading `README.md`: The file provided a link to a blog post but no instructions for running tests.
+   * Inspecting `pom.xml`: I examined the pom.xml file and determined that the command to run the tests was mvn verify -DskipITs=false.
+   * Running Existing Tests: I executed the test command, and all existing tests passed successfully.
+
+  2. Generating End-to-End Tests with Playwright
+
+  Next, I proceeded to generate end-to-end tests using Playwright, as requested. This involved the following steps:
+
+   * Adding Playwright Dependency: I added the com.microsoft.playwright:playwright dependency to the pom.xml file.
+   * Creating a Playwright Test File: I created a new test file at src/test/java/info/touret/guitarheaven/test/playwright/E2ETest.java.
+   * Initial Test and Troubleshooting:
+       * I wrote a simple test to verify the /guitars endpoint.
+       * The initial test run failed due to missing OS-level dependencies for Playwright.
+       * I installed the required dependencies using the command suggested by the Playwright error message.
+       * The test failed again with a 400 Bad Request. I resolved this by adding the necessary query parameters to the request URL.
+       * After these fixes, the simple Playwright test passed.
+
+  3. Expanding and Refining Playwright Tests
+
+  With the initial setup complete, I expanded the Playwright tests to cover the full API:
+
+   * Comprehensive Endpoint Coverage: I added tests for creating, updating, and deleting guitars, as well as for creating and retrieving orders and quotes.
+   * Troubleshooting Test Failures:
+       * The expanded tests failed due to a JsonIOException during object serialization and an incorrect test execution order.
+       * To resolve the serialization issue, I modified the tests to send request bodies as JSON strings.
+       * To address the execution order problem and a related mock server issue, I consolidated the tests into a single test method and corrected the guitar name used in
+         the test to align with the mock server's expectations.
+   * Final Test Execution: After these adjustments, I ran the tests again, and all tests passed successfully.
+
+  4. Cleanup
+
+  The final step was to remove the generated test file and revert the changes to the pom.xml file. However, this action was canceled by the user.
+```
+
+And the associated statistics:
 
 
 ```bash
@@ -308,50 +468,24 @@ Using: 2 MCP servers (ctrl+t to view)
 │                                                                    │
 ╰────────────────────────────────────────────────────────────────────╯
 
-
-
-✦ Here is a report of the actions taken:
-
-  1. Initial Exploration and Testing
-
-  I began by familiarizing myself with the project to determine how to run the existing tests. My initial steps included:
-
-   * Reading `README.md`: The file provided a link to a blog post but no instructions for running tests.
-   * Inspecting `pom.xml`: I examined the pom.xml file and determined that the command to run the tests was mvn verify -DskipITs=false.
-   * Running Existing Tests: I executed the test command, and all existing tests passed successfully.
-
-  2. Generating End-to-End Tests with Playwright
-
-  Next, I proceeded to generate end-to-end tests using Playwright, as requested. This involved the following steps:
-
-   * Adding Playwright Dependency: I added the com.microsoft.playwright:playwright dependency to the pom.xml file.
-   * Creating a Playwright Test File: I created a new test file at src/test/java/info/touret/guitarheaven/test/playwright/E2ETest.java.
-   * Initial Test and Troubleshooting:
-       * I wrote a simple test to verify the /guitars endpoint.
-       * The initial test run failed due to missing OS-level dependencies for Playwright.
-       * I installed the required dependencies using the command suggested by the Playwright error message.
-       * The test failed again with a 400 Bad Request. I resolved this by adding the necessary query parameters to the request URL.
-       * After these fixes, the simple Playwright test passed.
-
-  3. Expanding and Refining Playwright Tests
-
-  With the initial setup complete, I expanded the Playwright tests to cover the full API:
-
-   * Comprehensive Endpoint Coverage: I added tests for creating, updating, and deleting guitars, as well as for creating and retrieving orders and quotes.
-   * Troubleshooting Test Failures:
-       * The expanded tests failed due to a JsonIOException during object serialization and an incorrect test execution order.
-       * To resolve the serialization issue, I modified the tests to send request bodies as JSON strings.
-       * To address the execution order problem and a related mock server issue, I consolidated the tests into a single test method and corrected the guitar name used in
-         the test to align with the mock server's expectations.
-   * Final Test Execution: After these adjustments, I ran the tests again, and all tests passed successfully.
-
-  4. Cleanup
-
-  The final step was to remove the generated test file and revert the changes to the pom.xml file. However, this action was canceled by the user.
 ```
+
+To be completely honest, I was a bit disapointed. 
+The generated test is not exhaustive. For instance, it does not include most of the error cases.
+
+## Conclusion
 
 Retour
 
 La suite
 
 cut off one's nose to spite one's face
+
+Dire que le meilleur moyen d'utiliser ces outils est de savoir ce qu'on veut en sortie pour bien vérifier le résultat
+C'est prometteur
+
+
+Je n'ai pas fait un benchmark Claude/Gemini
+
+La partie tests est encore à valider
+
