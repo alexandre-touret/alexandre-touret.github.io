@@ -15,56 +15,94 @@ tags:
 <i>Photo by <a href="https://unsplash.com/@possessedphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Possessed Photography</a> on <a href="https://unsplash.com/photos/asimo-robot-doing-handsign-g29arbbvPjo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></i>
 {{< /style >}}      
 
-Article Nicolas Martignole
+After reading the insightful [Nicolas Martignole articles series (in French)](https://touilleur-express.fr/2025/07/27/claude-code-et-les-serveurs-mcp-ou-comment-transformer-ton-terminal-en-assistant-surpuissant/) on how [Claude Code](https://www.anthropic.com/claude-code) could streamline and accelerate coding through our terminal, I had the idea to test it by my own on specific (boring) use cases.
 
-Outils mis en oeuvre
+In nutshell, [he used it to create a MVP in roughly 20H](https://touilleur-express.fr/2025/07/30/comment-jai-code-un-mvp-en-une-vingtaine-dheures-avec-claude-code/) and explains how he did it.
 
-Gemini
-
-MCP : Context7
-
-
-Uses cases testés
-
-Quarkus Application upgrade
+I had the opportunity to test [Google Code Assist](https://codeassist.google/).
+I then decided to boost my terminal with [Gemini Cli](https://github.com/google-gemini/gemini-cli) instead of Claude Code.
 
 
+## Use-cases 
 
-Install in Gemini CLI
+I took some boring use cases for a spin:
 
-See Gemini CLI Configuration for details.
+* Update a Java backend API project (frameworks, libraries)
+* Generate integration tests in an API
 
-    Open the Gemini CLI settings file. The location is ~/.gemini/settings.json (where ~ is your home directory).
-    Add the following to the mcpServers object in your settings.json file:
+## Setup 
 
-❯ cat ~/.gemini/settings.json
-{
-  "theme": "Default",
-  "selectedAuthType": "oauth-personal",
-  "mcpServers": {
-    "context7": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@upstash/context7-mcp"
-      ]
-    },
-    "playwright": {
-      "command": "npx",
-      "args": [
-        "@playwright/mcp@latest"
-      ]
-    }
-  },
-  "preferredEditor": "vim"
-}¶                 
+The setup is quite straightforward. 
+I personally chose to set it up with Npm:
 
- Upgrade the current project (Quarkus, Frameworks, Libraries) to the latest LTS version; Build & Test it to validate it ; Answer "y" to apply changes ; Use Context7         
+```bash
+npm install -g @google/gemini-cli
+```
+
+After installing it, if you opted for a paid Code Assist organisation licence, you will need to plug it to a GCP project through an environment variable:
+
+```bash
+export GOOGLE_CLOUD_PROJECT="YOUR_PROJECT_NAME"
+```
+Now you can start it using this command:
+
+```bash
+gemini
+```
 
 
-✦ The Quarkus LTS upgrade to 3.20.0 and quarkus-resteasy-problem to 3.21.0, along with temporary jctools-core and quarkus.kafka.devservices.image-name properties, fixed the build. After a pom.xml parsing error and subsequent
-  fix, the build is now stable. I've removed the temporary dependency and property, and the final build was successful, indicating they are no longer needed. I am now finished with the task.
+If you want to explore other setup possibilities, please [refer to the documentation](https://google-gemini.github.io/gemini-cli/).
 
+## Boost the Gemini Cli with MCP servers
+
+As Nicolas Martignole explained in his articles, we can improve our experience adding MCP servers. For my use cases, I chose to add:
+
+* [Context7](https://context7.com/) : To take up-to-date documentation to the LLM
+* [Playwright](https://github.com/microsoft/playwright-mcp): To provide end-to-end testing capabilities (not implemented in the code yet)
+
+{{ <admonition type=tip title="What is a MCP server?"> }}
+If you don't know what is a MCP server, please refer to [this article](https://modelcontextprotocol.io/docs/getting-started/intro).
+{{ </admonition>}}
+
+
+### Quarkus Application upgrade
+
+First and foremost, I created a feature branch to isolate my work from the "regular" codebase/
+
+After starting gemini, and after a couple of tests, I finally entered the following prompt:
+
+```bash
+Upgrade the current project (Quarkus, Frameworks, Libraries) to the latest LTS version; Build & Test it to validate it ; Answer "y" to apply changes ; Use Context7         
+```
+
+By the way, to be completely honest, I ran it on [a simple project](https://github.com/alexandre-touret/api-first-workshop).
+It is not a professional-production-ready Java project but only a workshop but with enough unit and integration tests to validate this upgrade.
+
+Before running it, I had pinpointed the different actions: 
+1. Update the pom.xml and specifically the Quarkus' version
+2. Check/Fix some dependencies 
+3. Validate it using automated tests.
+
+### First impressions
+
+I was impressed by the learning process of the agent. 
+To upgrade my project, it ran several maven commands that failed prior to really update it directly in the ``pom.xml`` file. 
+By the way, I noticed it produced a bunch of errors manipulating it, missing out some closing elements. Perhaps, it is too vintage for Gemini :-) 
+
+It analysed the output, searching on Google how to fix the different errors and found solutions. 
+
+Among other things, it fixed the following error types:
+
+* System user rights 
+* Missing dependencies
+* Classpath issues
+
+### Statistics & insights
+
+
+After **roughly 30 mn**, I got my project updated and the following report (I asked it through the prompt):
+
+```bash
 ╭────────────────────────────────────────────╮
 │  > Write a report of all the actions done  │
 ╰────────────────────────────────────────────╯
@@ -84,6 +122,11 @@ See Gemini CLI Configuration for details.
 
   The project is now successfully upgraded and in a stable state.
 
+```
+
+I also tried to get some insights and KPI as [Claude does](https://github.com/Maciek-roboblog/Claude-Code-Usage-Monitor) . Unfortunately, I was unable to get it.
+
+```bash
 ╭─────────────────────────────────────────────────────────────────────────╮
 │  > Write a stats report of this upgrade (consumption, costs, time,...)  │
 ╰─────────────────────────────────────────────────────────────────────────╯
@@ -106,7 +149,13 @@ See Gemini CLI Configuration for details.
 
 ✦ I am sorry, I cannot provide you with the cost of this upgrade. I do not have access to any billing or cost management information. I am a large language model, and I do not have access to this kind of information.
 
+```
 
+Perhaps it's due to my organisation setup but I was unable to get these insights on the GCP Billing Console neither.
+
+Nevertheless, I got the following stats from Gemini Cli
+
+```bash
 ╭────────────╮
 │  > /stats  │
 ╰────────────╯
@@ -139,8 +188,6 @@ See Gemini CLI Configuration for details.
 ╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯
 
 Using: 2 MCP servers (ctrl+t to view)                                                                                                                                
-
-
 
 ✦ The build succeeded. I updated Quarkus to 3.20.0 and its dependencies to their latest versions: resteasy-problem to 3.21.0, openapi-generator to 2.11.0,
   openapi-generator-maven-plugin to 7.14.0, and microcks to 0.4.0. The tests passed, so the upgrade is complete. I'm finished.
@@ -201,7 +248,11 @@ Using: 2 MCP servers (ctrl+t to view)
 │                                                      │
 ╰──────────────────────────────────────────────────────╯
 
+```
 
+One interesting thing is the ca
+
+https://google-gemini.github.io/gemini-cli/docs/cli/token-caching.html
 
 
 
@@ -209,7 +260,7 @@ Using: 2 MCP servers (ctrl+t to view)
 Play wright
 
 
-
+```bash
 ╭──────────────────────────────────────────────────────╮
 │                                                      │
 │  Model Stats For Nerds                               │
@@ -231,8 +282,6 @@ Play wright
 ╰──────────────────────────────────────────────────────╯
 
 Using: 2 MCP servers (ctrl+t to view)                   
-
-
 
 ╭──────────────────╮
 │  > /stats tools  │
@@ -299,13 +348,10 @@ Using: 2 MCP servers (ctrl+t to view)
   4. Cleanup
 
   The final step was to remove the generated test file and revert the changes to the pom.xml file. However, this action was canceled by the user.
-
-
-
-
-
+```
 
 Retour
 
 La suite
 
+cut off one's nose to spite one's face
