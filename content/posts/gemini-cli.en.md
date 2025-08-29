@@ -1,6 +1,6 @@
 ---
-title: "Streamline some dev tasks with Gemini Cli: Feedbacks & insights "
-date: 2025-09-15 08:00:00
+title: "Streamline some dev tasks with Gemini Cli: Feedbacks & insights"
+date: 2025-09-01 08:00:00
 images: ["/assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp "]
 featuredImagePreview: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp
 featuredImage: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp
@@ -24,10 +24,10 @@ I then decided to boost my terminal with [Gemini Cli](https://github.com/google-
 
 ## Use-cases 
 
-I took some boring use cases for a spin:
+I put it to the test on some common but tedious use cases:
 
-* Update a Java backend API project (frameworks, libraries)
-* Generate API integration tests
+*   Updating a Java backend API project (frameworks and libraries)
+*   Generating API integration tests
 
 ## Setup 
 
@@ -48,8 +48,6 @@ Now you can start it using this command:
 ```bash
 $ gemini
 ```
-
-
 If you want to explore other setup possibilities, please [refer to the documentation](https://google-gemini.github.io/gemini-cli/).
 
 ## Boost the Gemini Cli with MCP servers
@@ -66,9 +64,9 @@ If you don't know what is a MCP server, please refer to [this article](https://m
 
 ### Quarkus Application upgrade
 
-First and foremost, I created a feature branch to isolate my work from the "regular" codebase/
+First and foremost, I created a feature branch to isolate my work from the main codebase.
 
-After starting gemini, and after a couple of tests, I finally entered the following prompt:
+After starting Gemini and running a couple of tests, I entered the following prompt:
 
 ```bash
 Upgrade the current project (Quarkus, Frameworks, Libraries) to the latest LTS version; Build & Test it to validate it ; Answer "y" to apply changes ; Use Context7         
@@ -84,19 +82,17 @@ Before running it, I had pinpointed the different actions:
 
 ### First impressions
 
-I was really impressed by the learning process of the agent and how it tackled all the errors made during its workflow. 
-To upgrade my project, it ran several maven commands that failed prior to really update it directly in the ``pom.xml`` file. 
-By the way, I noticed it produced a bunch of errors manipulating it, missing out some closing elements. Perhaps, it is too vintage for Gemini :-) 
+I was really impressed by the agent's learning process and how it tackled all the errors it encountered. To upgrade my project, it ran several Maven commands that failed before it finally updated the `pom.xml` file directly. I also noticed it produced a number of errors while manipulating the file, such as missing closing elements. Perhaps XML is too vintage for Gemini :-).
 
-It analysed the output, searching on Google how to fix the different errors and found solutions. 
+It analyzed the output, searched on Google for solutions, and fixed the following types of errors:
 
 Among other things, it fixed the following error types:
 
-* System user rights problems
+* Permission issues
 * Missing dependencies
 * Classpath issues
 
-To leverage the hype effect, I noticed that many errors we produced by the agent itself and while some iterations it looped making and fixing its own errors.
+On a less positive note, I noticed that many errors were produced by the agent itself. In some iterations, it seemed to get stuck in a loop of creating and then fixing its own mistakes.
 
 ### Statistics & insights
 
@@ -470,30 +466,29 @@ Using: 2 MCP servers (ctrl+t to view)
 
 ```
 
-To be completely honest, I was a bit disapointed. 
-The generated test is not exhaustive. For instance, it does not include most of the error cases.
+To be completely honest, I was at this stage a bit disapointed . 
+The generated tests were not exhaustive. 
 
 Therefore, I ran the following prompt:
 
 ```bash
 update the E2ETest with all the error cases assumptions available in the guitarheaven-with-examples-openapi.yaml file. You must detect and validate all the different return codes (404,400,204,500,...).          
 ```
-
-It finally implemented all the different use cases.
+It finally outcomes with a test for every potential case.
+They were not perfect, nor exhaustive it could be a good start for people who whant to create such a tests.
 
 ## Conclusion
 
-Retour
+Although I have the impression to cut off one's nose to spite one's face, you probably unterstood my feedback on using LLM agents through terminal is extremely positive.
 
-La suite
+I didn't run a benchmark comparing Claude Code and Gemini CLI. 
+I preferred to dive into its usage and explore some use cases I wanted to automate.
 
-cut off one's nose to spite one's face
+Nevertheless, it's not perfect (yet).
+Many errors thrown during the upgrade were produced by Gemini itself (e.g., a missing XML closing element). 
+The creation of integration tests from existing source code or OpenAPI specifications is still, in my view (AFAIK), only suitable for scaffolding a test plan—which is already great!—not for use as-is without any modification.
+Among other things, we must be careful with the data being manipulated, the implemented scenarios, and the checked assumptions.
 
-Dire que le meilleur moyen d'utiliser ces outils est de savoir ce qu'on veut en sortie pour bien vérifier le résultat
-C'est prometteur
-Il faut être vigilant pour la réalisation des tests, les données et assumptions ne sont pas forcément judicieux. TDD is not dead.
+To cut a long story short: [TDD](https://en.wikipedia.org/wiki/Test-driven_development) & [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) are not dead!
 
-Je n'ai pas fait un benchmark Claude/Gemini
-
-La partie tests est encore à valider
-
+While I consider these tools promising and a mandatory development skill, I believe their true power is unlocked only when we can rigorously verify their outcomes.
