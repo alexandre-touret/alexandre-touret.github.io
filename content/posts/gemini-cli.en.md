@@ -479,7 +479,8 @@ They were not perfect, nor exhaustive it could be a good start for people who wh
 
 ## Conclusion
 
-Although I have the impression to cut off one's nose to spite one's face, you probably unterstood my feedback on using LLM agents through terminal is extremely positive.
+Although I have the impression to cut off one's nose to spite one's face, you probably unterstood my feedback on using Coding LLM agents through terminal is extremely positive. 
+It may streamline and accelarete some developement tasks.
 
 I didn't run a benchmark comparing Claude Code and Gemini CLI. 
 I preferred to dive into its usage and explore some use cases I wanted to automate.
