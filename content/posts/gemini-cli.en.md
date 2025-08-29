@@ -15,7 +15,7 @@ tags:
 <i>Photo by <a href="https://unsplash.com/@possessedphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Possessed Photography</a> on <a href="https://unsplash.com/photos/asimo-robot-doing-handsign-g29arbbvPjo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></i>
 {{< /style >}}      
 
-After reading the insightful [Nicolas Martignole articles series (in French)](https://touilleur-express.fr/2025/07/27/claude-code-et-les-serveurs-mcp-ou-comment-transformer-ton-terminal-en-assistant-surpuissant/) on how [Claude Code](https://www.anthropic.com/claude-code) could streamline and accelerate coding through our terminal, I had the idea to test it by my own on specific (boring) use cases.
+After reading the insightful [Nicolas Martignole articles series (in French)](https://touilleur-express.fr/2025/07/27/claude-code-et-les-serveurs-mcp-ou-comment-transformer-ton-terminal-en-assistant-surpuissant/) on how [Claude Code](https://www.anthropic.com/claude-code) could streamline and accelerate coding through a terminal, I had the idea to test it by my own on specific (boring) use cases.
 
 In nutshell, [he used it to create a MVP in roughly 20H](https://touilleur-express.fr/2025/07/30/comment-jai-code-un-mvp-en-une-vingtaine-dheures-avec-claude-code/) and explains how he handled it.
 
@@ -27,7 +27,7 @@ I then decided to boost my terminal with [Gemini Cli](https://github.com/google-
 I took some boring use cases for a spin:
 
 * Update a Java backend API project (frameworks, libraries)
-* Generate integration tests in an API
+* Generate API integration tests
 
 ## Setup 
 
@@ -473,6 +473,14 @@ Using: 2 MCP servers (ctrl+t to view)
 To be completely honest, I was a bit disapointed. 
 The generated test is not exhaustive. For instance, it does not include most of the error cases.
 
+Therefore, I ran the following prompt:
+
+```bash
+update the E2ETest with all the error cases assumptions available in the guitarheaven-with-examples-openapi.yaml file. You must detect and validate all the different return codes (404,400,204,500,...).          
+```
+
+It finally implemented all the different use cases.
+
 ## Conclusion
 
 Retour
@@ -483,7 +491,7 @@ cut off one's nose to spite one's face
 
 Dire que le meilleur moyen d'utiliser ces outils est de savoir ce qu'on veut en sortie pour bien vérifier le résultat
 C'est prometteur
-
+Il faut être vigilant pour la réalisation des tests, les données et assumptions ne sont pas forcément judicieux. TDD is not dead.
 
 Je n'ai pas fait un benchmark Claude/Gemini
 
