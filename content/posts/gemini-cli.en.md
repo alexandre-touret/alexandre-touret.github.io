@@ -57,9 +57,9 @@ As Nicolas Martignole explained in his articles, we can improve our experience a
 * [Context7](https://context7.com/) : To take up-to-date documentation to the LLM
 * [Playwright](https://github.com/microsoft/playwright-mcp): To provide end-to-end testing capabilities (not implemented in the code yet)
 
-{{ <admonition type=tip title="What is a MCP server?"> }}
+{{<admonition type=tip title="What is a MCP server?">}}
 If you don't know what is a MCP server, please refer to [this article](https://modelcontextprotocol.io/docs/getting-started/intro).
-{{ </admonition>}}
+{{</admonition>}}
 
 
 ### Quarkus Application upgrade
