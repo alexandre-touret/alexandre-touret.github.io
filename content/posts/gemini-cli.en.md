@@ -1,7 +1,7 @@
 ---
 title: "Streamlining Development with Gemini CLI: A Hands-On Review"
 date: 2025-09-01 08:00:00
-images: ["/assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp "]
+images: ["/assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp"]
 featuredImagePreview: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp
 featuredImage: /assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp
 lightgallery: true
