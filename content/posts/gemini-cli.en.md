@@ -246,10 +246,10 @@ Using: 2 MCP servers (ctrl+t to view)
 
 ```
 
-One interesting thing is the ca
+One interesting thing is [the caching](https://google-gemini.github.io/gemini-cli/docs/cli/token-caching.html). 
+It optimizes API costs through token caching.
 
-https://google-gemini.github.io/gemini-cli/docs/cli/token-caching.html
-
+I noticed the benefits when I applied the same work on different branches of my project.
 
 ## API End to End tests
 
@@ -466,7 +466,7 @@ Using: 2 MCP servers (ctrl+t to view)
 
 ```
 
-To be completely honest, I was at this stage a bit disapointed . 
+To be frank, I was a bit disappointed at this stage.
 The generated tests were not exhaustive. 
 
 Therefore, I ran the following prompt:
