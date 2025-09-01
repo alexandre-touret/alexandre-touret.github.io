@@ -480,7 +480,7 @@ They were not perfect, nor exhaustive it could be a good start for people who wh
 ## Conclusion
 
 Although I have the impression to cut off one's nose to spite one's face, you probably unterstood my feedback on using Coding LLM agents through terminal is extremely positive. 
-It may streamline and accelarete some developement tasks.
+It may streamline and accelerate some developement tasks.
 
 I didn't run a benchmark comparing Claude Code and Gemini CLI. 
 I preferred to dive into its usage and explore some use cases I wanted to automate.
@@ -490,6 +490,15 @@ Many errors thrown during the upgrade were produced by Gemini itself (e.g., a mi
 The creation of integration tests from existing source code or OpenAPI specifications is still, in my view (AFAIK), only suitable for scaffolding a test plan—which is already great!—not for use as-is without any modification.
 Among other things, we must be careful with the data being manipulated, the implemented scenarios, and the checked assumptions.
 
-To cut a long story short: [TDD](https://en.wikipedia.org/wiki/Test-driven_development) & [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) are not dead!
+To cut a long story short: [TDD](https://en.wikipedia.org/wiki/Test-driven_development) & [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development) are not dead! 
 
-While I consider these tools promising and a mandatory development skill, I believe their true power is unlocked only when we can rigorously verify their outcomes.
+However, we are only just beginning to scratch the surface of the real problem. 
+How to really dig into these practices and more broadly coding, if we are more and more assisted?
+We have seen in the past [GPS usage negatively impacted spatial memory and orientation](https://www.nature.com/articles/s41598-020-62877-0).
+
+In IT, we can notice that many developers do not care about resource consumption because they do not have to handle it/it is totally hidden by their favorite framework.
+
+As all the different (r)evolutions of our industry in the past, we will clearly differenciate developers on their capability to dive into the technology and understand what is under the hood.
+
+Finally, "AI driven development/vide coding/whatever" is now the new black and becomes a mandatory development skill. 
+I strongly believe their true power is unlocked only when we can rigorously verify their outcomes.
