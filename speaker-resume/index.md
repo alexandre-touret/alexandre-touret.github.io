@@ -7,6 +7,7 @@ Below the conferences I presented so far.
 If you want to know more about them, you can see the descriptions on [the talks page of my blog](/talks).
 
 ## 2025
+- DevFest Paris :fr: [Améliorons la qualité et l'adoption de nos API grâce à l'approche API-First](https://devfest.gdgparis.fr/talks/16)
 - TechForum UK :gb: : Let your Java application be truly observable! Let's dive into logs, traces and monitoring
 - TechForum UK :gb: : Elevating Young Developers: Best practices and feedback for seasoned developers on onboarding and skill development
 - DevBCN :gb: : [Elevating Young Developers: Best practices and feedback for seasoned developers on onboarding and skill development](https://www.devbcn.com/schedule#sz-tab-45848)
