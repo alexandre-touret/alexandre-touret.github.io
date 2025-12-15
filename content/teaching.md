@@ -12,7 +12,9 @@ images: ["/assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp"]
 
 {{< figure src="/assets/images/pages/element5-digital-OyCl7Y4y0Bk-unsplash.webp" title="Teaching" >}}
 
+{{< style "text-align:center" >}}
 _Photo by <a href="https://unsplash.com/@element5digital?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Element5 Digital</a> on <a href="https://unsplash.com/photos/red-apple-fruit-on-four-pyle-books-OyCl7Y4y0Bk?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a>_
+{{</ style >}}
 
 From 2024, I have been teaching at the [University de Tours](https://www.univ-tours.fr/) and [PolyTech Tours](https://polytech.univ-tours.fr/).
 
