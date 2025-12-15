@@ -3,6 +3,10 @@
 
 {{< figure src="/assets/images/2021/11/pexels-skitterphoto-691485.webp" title="Talks" >}}
 
+{{< style "text-align:center" >}}
+_Photo by <a href="https://www.pexels.com/fr-fr/photo/a-l-interieur-aluminum-chaises-comite-691485/_">ClickerHappy on Pexels</a>_
+{{</ style >}}
+
 You can find below the slides and videos of my latest talks in French and in English.
 I held most of them in both two languages.
 

@@ -9,7 +9,11 @@ By default, the content is published under the [Creative Commons CC BY license](
 Obviously, I accept remarks, fixes (nobody is perfect). However, I reserve the right to publish or not a comment.
 Usually, I publish it except if I consider it as a [troll](https://en.wikipedia.org/wiki/Troll_(slang)).
 
-{{< image src="/assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp" caption="Stop " alt="stop">}}
+{{< figure src="/assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp" title="Hold on!" >}}
+
+{{< style "text-align:center" >}}
+_Photo by <a href="https://unsplash.com/@john_matychuk?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">John Matychuk</a> on <a href="https://unsplash.com/photos/red-stop-sign-dJdcb11aboQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>_
+{{</ style >}}      
 
 You probably understood it's a personal blog and not a professional one.
 I publish also articles on the [Worldline Technical Blog](https://blog.worldline.tech/).
@@ -26,7 +30,8 @@ Generally speaking, I would rather not write an article than fully generate it e
 
 I only use LLM :
 - to fix my english articles and make them sounding like more "native
-- to get sometimes inspiration or use them as a search engine on steroids
+- to get sometimes inspiration 
+- as a search engine on steroids
 
 By the way, this precision is inspired from the article of [D. GERMAIN](https://blog.zwindler.fr/ai-manifesto/) and [C. WILLIAMS](https://cassidoo.co/ai/).
 

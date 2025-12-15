@@ -1,7 +1,11 @@
 # Contact
 
 
-{{< figure src="/assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp" title="Photo by Jac Alexandru" >}}
+{{< figure src="/assets/images/jac-alexandru-L0Wdk52FAmM-unsplash.webp" title="Contact" >}}
+
+{{< style "text-align:center" >}}
+_Photo by Photo by Jac Alexandru_
+{{</ style >}}
 
 You can reach / follow me through:
 
