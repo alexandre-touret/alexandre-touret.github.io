@@ -16,6 +16,9 @@ Below the conferences I presented so far.
 
 If you want to know more about them, you can see the descriptions on [the talks page of my blog](/talks).
 
+## 2026
+-SnowcampIO :fr: : [Le Casse-tête de la plateforme imprévue : De l'idée folle à la conception en 3 heures](https://app.voxxr.in/events/snowcamp26/talks/7/details) 
+
 ## 2025
 - APIDays Paris :gb: [Unlocking the future of mobility: How APIs are revolutionizing Ticketing and Transportation Platforms](https://www.apidays.global/events/paris#agenda)
 - DevFest Paris :fr: [Améliorons la qualité et l'adoption de nos API grâce à l'approche API-First](https://devfest.gdgparis.fr/talks/16)
