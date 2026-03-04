@@ -38,10 +38,15 @@ Behind the curtain, you will find that achieving true business continuity across
 
 Beyond maintaining different tools and setups (e.g., 2 Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.
 
-Finally, in my view, this use case is strictly reserved to highly sensitive workloads. Usually for financial institutions or public services which are providing services which are subject to military or governmental regulations such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf), providing a multiple-region setup is "enough" and might comply with these requirements and prevent any outage.
+Then, in my view, this use case is strictly reserved to highly sensitive workloads. Usually for financial institutions or public services which are providing services which are subject to military or governmental regulations such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf), providing a multiple-region setup may be "enough" and might comply with these requirements and prevent any outage.
+
+Nevertheless, at a company level, having a multi-cloud hosting for different platforms may be a good thing. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
 
 ### Cost optimization
 
+I will start this chapter by two jokes:
+- Cloud hosting is cheaper than on-premise hosting
+- Multi-Cloud hosting could save money by optimising costs
 
 
 It's a joke, outillage, compétences, coûts supplémentaires
