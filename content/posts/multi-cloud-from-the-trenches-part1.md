@@ -17,11 +17,11 @@ _Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_mediu
 {{< /style >}}      
 
 For a couple of years, I have been regularly working on designing and implementing cloud-native landing zones on multiple cloud providers at once. 
-When I started desigining such a platforms, I was a little bit scared. 
-The theory was slighlty attractive: I could cherry pick the best services from each cloud provider to build the ultimate architecture. 
-Nevertheless, I had expressed some reservations about operational worries : complexity, costs, observability, alerting and such like.
+When I started designing such platforms, I was a little bit scared. 
+The theory was slightly attractive: I could cherry-pick the best services from each cloud provider to build the ultimate architecture. 
+Nevertheless, I had expressed some reservations about operational concerns: complexity, costs, observability, alerting, and the like.
 
-Why? The sad reality is actually that, beyond the commercial speeches, cloud platforms capabilities are not equals and they are not interchangeable. Then, the operational burden of managing multiple clouds is not linear. It may take you into a labyrinth of technical complexities where network latency, fragmented data and incompatible API threnten both your SLA and your peace of mind.
+Why? The sad reality is that, beyond the marketing hype, cloud platform capabilities are not equal and they are not interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.
 
 This article is the first part of a series that aims to share my experience and lessons learned from the trenches of multi-cloud. It will cover the "Why" and "What" of multi-cloud, exploring the motivations behind adopting such a strategy and defining what multi-cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful multi-cloud implementations.
 
@@ -36,11 +36,11 @@ This is often cited as a primary driver for multi-cloud adoption. The idea is to
 That was the easy part.
 Behind the curtain, you will find that achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
 
-Beyond maintaining different tools and setups (e.g., 2 Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.
+Beyond maintaining different tools and setups (e.g., two Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.
 
-Then, in my view, this use case is strictly reserved to highly sensitive workloads. Usually for financial institutions or public services which are providing services which are subject to military or governmental regulations such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf), providing a multiple-region setup may be "enough" and might comply with these requirements and prevent any outage.
+Therefore, in my view, this use case is strictly reserved for highly sensitive workloads. For financial institutions or public services providing services subject to military or governmental regulations (such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf)), a multi-region setup may be "enough" to comply with these requirements and prevent outages.
 
-Nevertheless, at a company level, having a multi-cloud hosting for different platforms may be a good thing. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
+Nevertheless, at a corporate level, multi-cloud hosting for different platforms can be beneficial. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
 
 ### Cost "optimization"
 
@@ -54,7 +54,7 @@ Furthermore, it brings additional costs which may inflate the bill: staying curr
 
 For the latter, it's a whole new ball game.
 Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
-I'm used to start evaluating network costs. It's not the only cost center impacted by a multi-cloud topoology. Nevertheless, it's a good smell to outlook the cost increase.
+I usually start by evaluating network costs. It's not the only cost center impacted by a multi-cloud topology. Nevertheless, it's a good indicator to forecast the cost increase.
 
 For instance, imagine we have this workflow for one use case involving two different cloud providers: 
 
@@ -74,7 +74,7 @@ Imagine you have the following requirements:
 - Number of transactions for ``/my_feature`` per second: 100 TPS
 - Estimated payload size: 5KB
 
-It results to a monthly bandwidth of roughly 43GB.
+This results in a monthly bandwidth of roughly 43GB.
 On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require a VPN, it will cost around $6,800!
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
@@ -83,9 +83,9 @@ To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Fu
 
 From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
 
-I believe that instead of self-restricting, one should take a more pragmatic approach and evaluate the impact of a potential migration: is it impossible? If not, at what cost?
+I believe that instead of self-restricting, one should take a more pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, at what cost?
 
-For instance, let's dig into a ecommerce microservices platform :
+For instance, let's look at an e-commerce microservices platform:
 
 ```plantuml {format="svg" title="example"}
 @startuml monolith
@@ -153,18 +153,22 @@ Lay_D(billingAPI,customerAPI)
 
 ```
 
-Even though we deploy managed services for databases or API gateway, we may guess we won't be totally locked by these components. They rely either on standards or open source solutions. It won't be free, but the migration costs will be acceptables.
-However, there's one component in this architecture it's worth taking time to look into it : the [HSM](https://en.wikipedia.org/wiki/Hardware_security_module). Usually it's fully proprietary and you would be definitively locked once you started rolling out your service on production.
+Even though we deploy managed services for databases or API gateways, we can assume we won't be totally locked into these components. They rely on either standards or open-source solutions. It won't be free, but the migration costs will be acceptable.
+However, there's one component in this architecture worth taking the time to look into: the [HSM](https://en.wikipedia.org/wiki/Hardware_security_module). Usually, it's fully proprietary, and you would be definitively locked in once you start rolling out your service in production.
 
-That's why, in some cases, architecturing a multi-cloud setup might secure your architectural technical choices in the long term.
+In this use case, we can imagine two solutions:
+1. Assume we will be fully locked in 
+2. Providing a different HSM module (on-premise or from another provider) or using cryptographic mechanisms (e.g., DEK/KEK) to mitigate the risks.
+
+That's just a sneak peek into why, in the long term, architecting a multi-cloud setup might secure your technical architectural choices. As discussed in the Risk Mitigation chapter, it might help avoid being locked in with a vendor.
 
 ### 4. Best-of-Breed services
 
-Usually when I work on multi-cloud platforms, the main reason behind this choice is either getting the best services to fit the user needs or reusing existing ones avoiding reinventing the wheel.
+Usually, when I work on multi-cloud platforms, the main reason for this choice is either selecting the best services to fit user needs or reusing existing ones to avoid reinventing the wheel.
 
-We can imagine, a platform splitted in two parts:
+We can imagine a platform split into two parts:
 1. The first part for the transactional processes : AWS EC2 VMs, EKS Kubernetes cluster
-2. The second part for the Business Inteligence workloads run on top of GCP BigQuery.
+2. The second part for the Business Intelligence workloads run on top of GCP BigQuery.
 
 
 
