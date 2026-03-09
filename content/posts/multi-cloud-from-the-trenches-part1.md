@@ -25,20 +25,20 @@ Why? The sad reality is that, beyond the marketing hype, cloud platform capabili
 
 This article is the first part of a series that aims to share my experience and lessons learned from the trenches of multi-cloud. It will cover the "Why" and "What" of multi-cloud, exploring the motivations behind adopting such a strategy and defining what multi-cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful multi-cloud implementations.
 
-## Why
+## The Why
 
-There are many reasons you may adopt a multi-cloud strategy. Whether you are drafting a hosting strategy at a global level of your company or when you are designing a new platform, multi-cloud can be a compelling option. Let's explore some of the most common drivers. For each of them, I will provide my **personal**  insights:
+There are many reasons why you might adopt a multi-cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, multi-cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights:
 
 ### Risk mitigation and business continuity
 
 This is often cited as a primary driver for multi-cloud adoption. The idea is to avoid a single point of failure by distributing your workloads across multiple cloud providers. In the event of an outage or disaster with one provider, your services can theoretically failover to another, ensuring business continuity.
 
 That was the easy part.
-Behind the curtain, you will find that achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
+In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
 
 Beyond maintaining different tools and setups (e.g., two Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.
 
-Therefore, in my view, this use case is strictly reserved for highly sensitive workloads. For financial institutions or public services providing services subject to military or governmental regulations (such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf)), a multi-region setup may be "enough" to comply with these requirements and prevent outages.
+Consequently, in my view, this use case is primarily reserved for highly sensitive workloads. For financial institutions or public services subject to military or governmental regulations (such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf)), a multi-region setup may be "enough" to comply with these requirements and prevent outages.
 
 Nevertheless, at a corporate level, multi-cloud hosting for different platforms can be beneficial. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
 
@@ -54,7 +54,7 @@ Furthermore, it brings additional costs which may inflate the bill: staying curr
 
 For the latter, it's a whole new ball game.
 Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
-I usually start by evaluating network costs. It's not the only cost center impacted by a multi-cloud topology. Nevertheless, it's a good indicator to forecast the cost increase.
+I usually start by evaluating network costs. While it's not the only cost center impacted by a multi-cloud topology, it's a good indicator for forecasting cost increases.
 
 For instance, imagine we have this workflow for one use case involving two different cloud providers: 
 
@@ -74,7 +74,7 @@ Imagine you have the following requirements:
 - Number of transactions for ``/my_feature`` per second: 100 TPS
 - Estimated payload size: 5KB
 
-This results in a monthly bandwidth of roughly 43GB.
+This results in a monthly bandwidth of roughly 43 GB.
 On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require a VPN, it will cost around $6,800!
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
@@ -83,11 +83,11 @@ To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Fu
 
 From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
 
-I believe that instead of self-restricting, one should take a more pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, at what cost?
+I believe that instead of self-restricting, one should take a pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, what is the cost?
 
 For instance, let's look at an e-commerce microservices platform:
 
-```plantuml {format="svg" title="example"}
+```plantuml {format="svg" title="vendor lock-in"}
 @startuml monolith
 !include <C4/C4_Container>
 !include <C4/C4_Context>
@@ -164,21 +164,111 @@ That's just a sneak peek into why, in the long term, architecting a multi-cloud 
 
 ### 4. Best-of-Breed services
 
-Usually, when I work on multi-cloud platforms, the main reason for this choice is either selecting the best services to fit user needs or reusing existing ones to avoid reinventing the wheel.
+When you design a platform you are often tempted to choose the best product or solution for every use case. It might also help you avoid reinventing the wheel if you already have existing off-the-shelf solutions.
 
 We can imagine a platform split into two parts:
-1. The first part for the transactional processes : AWS EC2 VMs, EKS Kubernetes cluster
-2. The second part for the Business Intelligence workloads run on top of GCP BigQuery.
+1. The first part for the transactional processes : [AWS EC2 VMs](https://aws.amazon.com/ec2/) and or [EKS Kubernetes cluster](https://aws.amazon.com/eks/)
+2. The second part for the Business Intelligence workloads run on top of [GCP BigQuery](https://cloud.google.com/bigquery?hl=en). 
 
+For the latter, we can imagine we already have scripts, dashboards which could be reused.
 
+Usually it's one of the most important key factor to switch to this kind of architecture. It may help streamline your delivery by promoting reusability. 
 
+Nevertheless, it's crucial to check if it's relevant regarding the platform requirements and expectations. 
 
 ### 6. Regulatory compliance and data residency
 
-organization / partnersship / compliance
+Last, but not the least, what about all regulation and compliance?
 
-different products
+Isolating some of your worloads into one cloud provider and host the least critical workloads to another one may be a strategy to assess. 
+In my opinion, it's a strategy that would be studied at a global level because the scope of this implementation will affect the entire company's IT landscape. It may help streamline the setup and the compliancy assessment of sensitive workloads (e.g., [PCI DSS](https://www.pcisecuritystandards.org/)).
 
+
+For instance, if we stick to the same e-commerce use case, we may consider splitting our workload into two different ones hosted on different cloud providers.
+
+```plantuml {format="svg" title="compliancy"}
+@startuml
+!include <C4/C4_Container>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+LAYOUT_LANDSCAPE()
+HIDE_STEREOTYPE()
+AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColor="447870", $shadowing="true", $shape = RoundedBoxShape())
+AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
+AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
+
+Person(user, "Truffade At Home Admins")
+Person(customer, "Customer")
+
+System_Boundary(donutssystem, "Truffade At Home") {
+    System_Boundary("GUI","Presentation Layer"){
+        Container(fogui,"GUI")
+        Container(bogui,"backoffice GUI")
+        Container(foapi,"Back for Front GUI")
+        Container(boapi,"Back for Backoffice GUI")
+    }
+
+    System_Boundary(api,"Service Layer") {
+        System_Boundary(shoppingAPI,"Shopping Service",$tags="newboundary"){
+            Container(shoppingService,"Shopping API",)
+            ContainerDb(shoppingDb,"Shopping DB")
+        }
+        System_Boundary(customerAPI,"Customer Service",$tags="newboundary"){
+            Container(customerService,"Customer API")
+            ContainerDb(customerDb,"Customer DB")
+        }
+        System_Boundary(billingAPI,"Billing Service",$tags="newboundary"){
+            Container(billingService,"Billing API")
+            Container(hsm,"HSM")
+            ContainerDb(billingDb,"Billing DB")
+            ContainerDb(billingS3,"Billing Object Storage")
+        }
+        
+    
+    }
+}
+
+System_Boundary(paymentSystem,"PCI DSS Payment"){
+    System_Boundary(payment,"PCI DSS Payment Service", $tags="eventBoundary"){
+            Container(paymentgui,"Payment GUI")
+            Container(paymentService,"Payment Service")
+            ContainerDb(paymentDb,"Payment DB")
+        }
+}
+
+
+Rel(customer,fogui,"HTTPS")
+Rel(fogui, foapi,"HTTPS")
+
+Rel(foapi,shoppingService,"HTTPS")
+Rel(shoppingService,shoppingDb,"JDBC")
+
+Rel(customerService,customerDb,"JDBC")
+'Rel(shoppingService,billingService,"HTTPS")
+'Rel(shoppingService,SIPS,"HTTPS")
+'Rel(shoppingService,delivery,"HTTPS")
+Rel(billingService,billingDb,"JDBC")
+Rel(billingService,billingS3,"HTTPS")
+
+Rel(user,bogui,"HTTPS")
+Rel(bogui,boapi,"HTTPS")
+Rel(boapi,customerService,"HTTPS")
+Rel(boapi,billingService,"HTTPS")
+Rel(boapi,shoppingService,"HTTPS")
+
+Rel(billingService,hsm,"TCPS",$tags="security")
+
+Rel(customer,paymentgui,"HTTPS")
+Rel(paymentgui,paymentService, "HTTPS")
+Rel(paymentService,paymentDb, "JDBC")
+
+Lay_D(billingAPI,customerAPI)
+@enduml
+
+```
+
+In this way, we would be able to streamline the setup, reviewal and by extension, the entire SDLC for specific sensitive workloads.
 
 ## What
 
