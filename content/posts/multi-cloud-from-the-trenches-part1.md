@@ -53,7 +53,8 @@ Building a multi-cloud setup from the ground up is a technical solution to mitig
 Furthermore, it brings additional costs which may inflate the bill: staying current with two different technologies, maintaining and operating two different setups, networking...
 
 For the latter, it's a whole new ball game.
-Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs.
+Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
+I'm used to start evaluating network costs. It's not the only cost center impacted by a multi-cloud topoology. Nevertheless, it's a good smell to outlook the cost increase.
 
 For instance, imagine we have this workflow for one use case involving two different cloud providers: 
 
@@ -73,7 +74,7 @@ Imagine you have the following requirements:
 - Number of transactions for ``/my_feature`` per second: 100 TPS
 - Estimated payload size: 5KB
 
-This results in a monthly bandwidth of roughly 43GB.
+It results to a monthly bandwidth of roughly 43GB.
 On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require a VPN, it will cost around $6,800!
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
@@ -84,7 +85,89 @@ From an organizational perspective, this makes sense as it prevents dependency o
 
 I believe that instead of self-restricting, one should take a more pragmatic approach and evaluate the impact of a potential migration: is it impossible? If not, at what cost?
 
+For instance, let's dig into a ecommerce microservices platform :
+
+```plantuml {format="svg" title="example"}
+@startuml monolith
+!include <C4/C4_Container>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+LAYOUT_LANDSCAPE()
+HIDE_STEREOTYPE()
+AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColor="447870", $shadowing="true", $shape = RoundedBoxShape())
+AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
+AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
+Person(user, "Truffade At Home Admins")
+Person(customer, "Customer")
+
+System_Boundary(donutssystem, "Truffade At Home") {
+    System_Boundary("GUI","Presentation Layer"){
+        Container(fogui,"GUI")
+        Container(bogui,"backoffice GUI")
+        Container(foapi,"Back for Front GUI")
+        Container(boapi,"Back for Backoffice GUI")
+    }
+
+    System_Boundary(api,"Service Layer") {
+        System_Boundary(shoppingAPI,"Shopping Service",$tags="newboundary"){
+            Container(shoppingService,"Shopping API",)
+            ContainerDb(shoppingDb,"Shopping DB")
+        }
+        System_Boundary(customerAPI,"Customer Service",$tags="newboundary"){
+            Container(customerService,"Customer API")
+            ContainerDb(customerDb,"Customer DB")
+        }
+        System_Boundary(billingAPI,"Billing Service",$tags="newboundary"){
+            Container(billingService,"Billing API")
+            Container(hsm,"HSM")
+            ContainerDb(billingDb,"Billing DB")
+            ContainerDb(billingS3,"Billing Object Storage")
+        }
+    }
+}
+
+
+Rel(customer,fogui,"HTTPS")
+Rel(fogui, foapi,"HTTPS")
+
+Rel(foapi,shoppingService,"HTTPS")
+Rel(shoppingService,shoppingDb,"JDBC")
+
+Rel(customerService,customerDb,"JDBC")
+'Rel(shoppingService,billingService,"HTTPS")
+'Rel(shoppingService,SIPS,"HTTPS")
+'Rel(shoppingService,delivery,"HTTPS")
+Rel(billingService,billingDb,"JDBC")
+Rel(billingService,billingS3,"HTTPS")
+
+Rel(user,bogui,"HTTPS")
+Rel(bogui,boapi,"HTTPS")
+Rel(boapi,customerService,"HTTPS")
+Rel(boapi,billingService,"HTTPS")
+Rel(boapi,shoppingService,"HTTPS")
+
+Rel(billingService,hsm,"TCPS",$tags="security")
+Lay_D(billingAPI,customerAPI)
+@enduml
+
+```
+
+Even though we deploy managed services for databases or API gateway, we may guess we won't be totally locked by these components. They rely either on standards or open source solutions. It won't be free, but the migration costs will be acceptables.
+However, there's one component in this architecture it's worth taking time to look into it : the [HSM](https://en.wikipedia.org/wiki/Hardware_security_module). Usually it's fully proprietary and you would be definitively locked once you started rolling out your service on production.
+
+That's why, in some cases, architecturing a multi-cloud setup might secure your architectural technical choices in the long term.
+
 ### 4. Best-of-Breed services
+
+Usually when I work on multi-cloud platforms, the main reason behind this choice is either getting the best services to fit the user needs or reusing existing ones avoiding reinventing the wheel.
+
+We can imagine, a platform splitted in two parts:
+1. The first part for the transactional processes : AWS EC2 VMs, EKS Kubernetes cluster
+2. The second part for the Business Inteligence workloads run on top of GCP BigQuery.
+
+
+
 
 ### 6. Regulatory compliance and data residency
 
