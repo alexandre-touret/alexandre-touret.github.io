@@ -17,21 +17,21 @@ _Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_mediu
 {{< /style >}}      
 
 For a couple of years, I have been regularly working on designing and implementing cloud-native landing zones on multiple cloud providers at once. 
-When I started designing such platforms, I was a little bit scared. 
+When I started designing such platforms, I was somewhat apprehensive. 
 The theory was slightly attractive: I could cherry-pick the best services from each cloud provider to build the ultimate architecture. 
-Nevertheless, I had expressed some reservations about operational concerns: complexity, costs, observability, alerting, and the like.
+Nevertheless, I held some reservations about operational concerns: complexity, costs, observability, alerting, and the like.
 
 Why? The sad reality is that, beyond the marketing hype, cloud platform capabilities are not equal and they are not interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.
 
-This article is the first part of a series that aims to share my experience and lessons learned from the trenches of multi-cloud. It will cover the "Why" and "What" of multi-cloud, exploring the motivations behind adopting such a strategy and defining what multi-cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful multi-cloud implementations.
+This article is the first part of a series that aims to share my experience and lessons learned from the trenches of Multi-Cloud. It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
 
 ## The Why
 
-There are many reasons why you might adopt a multi-cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, multi-cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights:
+There are many reasons why you might adopt a Multi-Cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, Multi-Cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights:
 
 ### Risk mitigation and business continuity
 
-This is often cited as a primary driver for multi-cloud adoption. The idea is to avoid a single point of failure by distributing your workloads across multiple cloud providers. In the event of an outage or disaster with one provider, your services can theoretically failover to another, ensuring business continuity.
+This is often cited as a primary driver for Multi-Cloud adoption. The idea is to avoid a single point of failure by distributing your workloads across multiple cloud providers. In the event of an outage or disaster with one provider, your services can theoretically failover to another, ensuring business continuity.
 
 That was the easy part.
 In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
@@ -40,21 +40,21 @@ Beyond maintaining different tools and setups (e.g., two Terraform setups), you 
 
 Consequently, in my view, this use case is primarily reserved for highly sensitive workloads. For financial institutions or public services subject to military or governmental regulations (such as the [OIV in France](https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf)), a multi-region setup may be "enough" to comply with these requirements and prevent outages.
 
-Nevertheless, at a corporate level, multi-cloud hosting for different platforms can be beneficial. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
+Nevertheless, at a corporate level, Multi-Cloud hosting for different platforms can be beneficial. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to _easily_ switch from one provider to another if needed.
 
 ### Cost "optimization"
 
 For this topic, there are basically two situations to consider: 
-- Building a multi-cloud landing zone from scratch 
+- Building a Multi-Cloud landing zone from scratch 
 - Integrating two existing solutions without rebuilding one of them in another cloud provider's landing zone
 
 For the first topic, we will definitely lose money. 
-Building a multi-cloud setup from the ground up is a technical solution to mitigate and prevent high-impact risks when there's no other possible way.
+Building a Multi-Cloud setup from the ground up is a technical solution to mitigate and prevent high-impact risks when there's no other possible way.
 Furthermore, it brings additional costs which may inflate the bill: staying current with two different technologies, maintaining and operating two different setups, networking...
 
 For the latter, it's a whole new ball game.
 Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
-I usually start by evaluating network costs. While it's not the only cost center impacted by a multi-cloud topology, it's a good indicator for forecasting cost increases.
+I usually start by evaluating network costs. While it's not the only cost center impacted by a Multi-Cloud topology, it's a good indicator for forecasting cost increases.
 
 For instance, imagine we have this workflow for one use case involving two different cloud providers: 
 
@@ -79,7 +79,7 @@ On GCP, it would cost approximately $6 if your transactions go through the Inter
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
 
-### 3. Vendor Lock-in avoidance
+### Vendor Lock-in avoidance
 
 From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
 
@@ -98,10 +98,10 @@ HIDE_STEREOTYPE()
 AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColor="447870", $shadowing="true", $shape = RoundedBoxShape())
 AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
 AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
-Person(user, "Truffade At Home Admins")
+Person(user, "Admins")
 Person(customer, "Customer")
 
-System_Boundary(donutssystem, "Truffade At Home") {
+System_Boundary(donutssystem, "System") {
     System_Boundary("GUI","Presentation Layer"){
         Container(fogui,"GUI")
         Container(bogui,"backoffice GUI")
@@ -160,9 +160,9 @@ In this use case, we can imagine two solutions:
 1. Assume we will be fully locked in 
 2. Providing a different HSM module (on-premise or from another provider) or using cryptographic mechanisms (e.g., DEK/KEK) to mitigate the risks.
 
-That's just a sneak peek into why, in the long term, architecting a multi-cloud setup might secure your technical architectural choices. As discussed in the Risk Mitigation chapter, it might help avoid being locked in with a vendor.
+That's just a sneak peek into why, in the long term, architecting a Multi-Cloud setup might secure your technical architectural choices. As discussed in the Risk Mitigation chapter, it might help avoid being locked in with a vendor.
 
-### 4. Best-of-Breed services
+### Best-of-Breed services
 
 When you design a platform you are often tempted to choose the best product or solution for every use case. It might also help you avoid reinventing the wheel if you already have existing off-the-shelf solutions.
 
@@ -176,11 +176,11 @@ Usually it's one of the most important key factor to switch to this kind of arch
 
 Nevertheless, it's crucial to check if it's relevant regarding the platform requirements and expectations. 
 
-### 6. Regulatory compliance and data residency
+### Regulatory compliance and data residency
 
 Last, but not the least, what about all regulation and compliance?
 
-Isolating some of your worloads into one cloud provider and host the least critical workloads to another one may be a strategy to assess. 
+Isolating some of your workloads into one cloud provider and host the least critical workloads to another one may be a strategy to assess. 
 In my opinion, it's a strategy that would be studied at a global level because the scope of this implementation will affect the entire company's IT landscape. It may help streamline the setup and the compliancy assessment of sensitive workloads (e.g., [PCI DSS](https://www.pcisecuritystandards.org/)).
 
 
@@ -198,10 +198,10 @@ AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColo
 AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
 AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
 
-Person(user, "Truffade At Home Admins")
+Person(user, "Admins")
 Person(customer, "Customer")
 
-System_Boundary(donutssystem, "Truffade At Home") {
+System_Boundary(donutssystem, "System") {
     System_Boundary("GUI","Presentation Layer"){
         Container(fogui,"GUI")
         Container(bogui,"backoffice GUI")
@@ -268,19 +268,51 @@ Lay_D(billingAPI,customerAPI)
 
 ```
 
-In this way, we would be able to streamline the setup, reviewal and by extension, the entire SDLC for specific sensitive workloads.
+In this way, we would be able to streamline the setup, review, and by extension, the entire SDLC for specific sensitive workloads.
 
 ## What
 
-configuration multi cloud dans le cadre d'une plateforme 
+In the first part, we explored why we would be interested in embracing such an architecture. Now, let's see what a Multi-Cloud architecture looks like in real life.
 
-plusieurs acteurs et solutions sont envisagées et on va évaluer la pertinence du multi cloud
+### Beyond the buzzword
 
-L'utilisateur veut un service et non plusieurs plateformes !
+Before diving into the "how", we need to align on what Multi-Cloud actually means in a production environment. It’s not just about having an AWS account for one team and a GCP project for another. It is a deliberate architectural choice to distribute a single platform or a set of interconnected services across multiple public cloud providers.
+
+In my experience, Multi-Cloud usually takes one of three forms:
+
+1. **Functional Split (Best-of-Breed):** Distributing components based on provider strengths (e.g., App on AWS, Analytics on BigQuery).
+2. **Redundancy ([BCP](https://entreprendre.service-public.gouv.fr/actualites/A18429?lang=en)):** Running the same workload on two clouds for extreme resilience.
+3. **Portability (Cloud Agnostic):** Using abstraction layers like Kubernetes to remain provider-agnostic, keeping in mind the constraints I mentioned earlier.
+
+
+This architecture relies on three main pillars that I will dig into in the next parts of this series: 
+
+* **Connectivity:** VPN, Interconnect,...
+* **Identity (IAM):** Identity federation (or not)? Role mapping based on OpenID Connect
+* **Observability:** Bringing together logs and metrics to get a consolidated 360° overview.
+
+### What about human costs ?
+
+double competence 
+outillage à maintenr
+
+2 relation commerciale 
+
+### The sad reality: End users don't care
+
+Now let's address this matter from an end-user's perspective. Normally, your customers won't care whether you set up your platform on one or two cloud providers. 
+They just want it to work.
+One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.
+From a customer perspective, having two log or KPI dashboards would be awful.
+
+### What is _NOT_ a Multi-Cloud architecture
+
+Before embracing this architectural pattern, it's mandatory to weigh the pros and cons and understand:
+
+* It's neither a silver bullet nor a magical recipe 
+* It's not free of charge and incurs additional technical and human costs.
 
 ## Conclusion
 
-
-
-
-
+Multi-cloud is a powerful strategy, but it’s a double-edged sword. It offers unparalleled resilience and flexibility, but it demands a high level of technical maturity and a clear understanding of the operational costs. 
+In the next part of this series, we will dive into the **"How"**: the actual implementation details, the networking pitfalls, and how to build a deployment pipeline that doesn't lose its mind across multiple providers. Stay tuned!
