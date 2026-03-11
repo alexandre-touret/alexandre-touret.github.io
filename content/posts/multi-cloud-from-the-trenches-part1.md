@@ -23,7 +23,7 @@ Nevertheless, I held some reservations about operational concerns: complexity, c
 
 Why? The sad reality is that, beyond the marketing hype, cloud platform capabilities are not equal and they are not interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.
 
-This article is the first part of a series that aims to share my experience and lessons learned from the trenches of Multi-Cloud. It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
+This article is the first part of a series that aims to share my experience and lessons learned from the trenches of [Multi-Cloud](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud). It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
 
 ## The Why
 
@@ -81,7 +81,7 @@ On GCP, it would cost approximately $6 if your transactions go through the Inter
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
 
-### Vendor Lock-in avoidance
+### [Vendor Lock-in](https://www.cloudflare.com/en-gb/learning/cloud/what-is-vendor-lock-in/) avoidance
 
 From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
 
@@ -321,7 +321,7 @@ It will offer clarity to your teams and help them avoid struggling to choose the
 Now let's address this matter from an end-user's perspective. Normally, your customers won't care whether you set up your platform on one or two cloud providers. 
 They just want it to work.
 One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.
-From a customer perspective, having two log or KPI dashboards would be awful.
+From a customer perspective, having, for instance, two log or KPI dashboards would be awful.
 
 ## Conclusion
 
@@ -357,4 +357,4 @@ This evaluation is personal. You may be against some of my conclusions.
 
 In the next part of this series, we will dive into the **"How"**: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!
 
-[^2]: ~ Number of loose-coupled artifacts
+[^1]: ~ Number of loose-coupled artifacts
