@@ -17,17 +17,21 @@ _Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_mediu
 {{< /style >}}      
 
 For a couple of years, I have been regularly working on designing and implementing cloud-native landing zones on multiple cloud providers at once. 
-When I started designing such platforms, I was somewhat apprehensive. 
+When I started designing such platforms, I was somewhat wary. 
 The theory was slightly attractive: I could cherry-pick the best services from each cloud provider to build the ultimate architecture. 
 Nevertheless, I held some reservations about operational concerns: complexity, costs, observability, alerting, and the like.
 
-Why? The sad reality is that, beyond the marketing hype, cloud platform capabilities are not equal and they are not interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.
+Let's be honest: beyond the marketing slides, cloud providers are anything but interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.
 
-This article is the first part of a series that aims to share my experience and lessons learned from the trenches of [Multi-Cloud](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud). It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails. Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
+This article is the first part of a series that aims to share my experience and lessons learned from the trenches of [Multi-Cloud](https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud). 
+It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
+Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
 
 ## The Why
 
-There are many reasons why you might adopt a Multi-Cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, Multi-Cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights.
+Why go through this pain? 
+Everyone has their reasons—usually driven by a mix of corporate strategy and technical requirements. 
+Here’s my take on the main drivers I’ve encountered.
 
 ### Risk mitigation and business continuity
 
@@ -83,9 +87,10 @@ To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Fu
 
 ### [Vendor Lock-in](https://www.cloudflare.com/en-gb/learning/cloud/what-is-vendor-lock-in/) avoidance
 
-From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
-
-I believe that, instead of self-restricting, one should take a pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, what would be the associated migration costs?
+Avoiding vendor lock-in is the holy grail of IT managers. It sounds great on paper, but in practice, if you stick strictly to the "lowest common denominator" to stay portable, you’re missing out on 80% of what makes cloud worth the money. 
+My advice? 
+Be pragmatic. 
+Don't self-restrict; just calculate the "exit price" before you commit.
 
 For instance, let's look at an e-commerce microservices platform:
 
@@ -325,7 +330,8 @@ From a customer perspective, having, for instance, two log or KPI dashboards wou
 
 ## Conclusion
 
-Multi-cloud is a powerful strategy, but it is a double-edged sword. While it offers unparalleled resilience and flexibility, it also demands a high level of technical maturity and a clear understanding of operational costs. 
+ To cut a long story short: Multi-cloud isn't a silver bullet.
+ While it offers unparalleled resilience and flexibility, it also demands a high level of technical maturity and a clear understanding of operational costs. 
 One of the main challenges is providing a cohesive view to end users, whether for the services provided or for observability purposes.
 
 We can then compare a Multi-Cloud Architecture with a "Single-Cloud" one through these [architectural characteristics](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/ch02.html) :
