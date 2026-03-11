@@ -38,7 +38,7 @@ The idea is simple: avoid any single point of failure by distributing your workl
 If one provider goes down, you failover to another, ensuring business continuity.
 
 That was the easy part.
-In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
+In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across different environments. 
 
 Beyond maintaining different tools and setups (e.g., two Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.
 
@@ -88,7 +88,7 @@ Why? Because, initially, you will likely work with significant uncertainty that 
 
 ### [Vendor Lock-in](https://www.cloudflare.com/en-gb/learning/cloud/what-is-vendor-lock-in/) avoidance
 
-Avoiding vendor lock-in is the holy grail of IT managers. It sounds great on paper, but in practice, if you stick strictly to the "lowest common denominator" to stay portable, you will miss out 80% of what makes the cloud worth the investment. 
+Avoiding vendor lock-in sounds great on paper, but in practice, if you stick strictly to the "lowest common denominator" to stay portable, you will miss out 80% of what makes the cloud worth the investment. 
 My advice? 
 Be pragmatic. 
 Don't self-restrict your architecture; just ensure you understand the migration cost.
@@ -327,6 +327,7 @@ It will offer clarity to your teams and help them avoid struggling to choose the
 Now let's address this matter from an end-user's perspective. Normally, your customers won't care whether you set up your platform on one or two cloud providers. 
 They just want it to work.
 One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.
+
 The real challenge is providing a **unified view**. Having two different log dashboards or two separate SLA reports is a nightmare for operations and your customers.
 
 ## Conclusion
