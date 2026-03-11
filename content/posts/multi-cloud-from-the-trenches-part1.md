@@ -327,4 +327,32 @@ From a customer perspective, having two log or KPI dashboards would be awful.
 
 Multi-cloud is a powerful strategy, but it is a double-edged sword. While it offers unparalleled resilience and flexibility, it also demands a high level of technical maturity and a clear understanding of operational costs. 
 One of the main challenges is providing a cohesive view to end users, whether for the services provided or for observability purposes.
+
+We can then compare a Multi-Cloud Architecture with a "Single-Cloud" one through these [architectural fitness functions](https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/ch02.html) :
+
+
+{{< admonition type=info title="Before assessing this list" >}}
+The more a function has stars, the more is convenient or better.
+
+This evaluation is personal. You may be against some of my conclusions.
+
+{{< /admonition >}}
+
+|Architecture characteristic   |   "Single" Cloud Architecture | Multi-Cloud Architecture|
+|---|---|---| 
+|Partitioning type   | Domain & technical  | Domain & technical|
+|Number of quanta [^2]  |  1 | 1 to many |
+|Deployability   | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Elasticity   | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+|Evolutionary   | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
+|Fault Tolerance   | ⭐⭐⭐⭐ | ⭐⭐⭐⭐⭐ |
+|Modularity   | ⭐⭐⭐⭐  | ⭐⭐⭐⭐⭐|
+|Overall cost   | ⭐⭐⭐| ⭐|
+|Performance   | ⭐⭐⭐⭐⭐| ⭐⭐⭐⭐⭐ |
+|Reliability   | ⭐⭐⭐⭐| ⭐⭐⭐⭐⭐ |
+|Scalability   | ⭐⭐⭐⭐⭐| ⭐⭐⭐⭐⭐ |
+|Simplicity   | ⭐⭐⭐⭐⭐| ⭐⭐|
+|Testability   | ⭐⭐⭐  | ⭐⭐⭐|
+
+
 In the next part of this series, we will dive into the **"How"**: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!
