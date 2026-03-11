@@ -27,7 +27,7 @@ This article is the first part of a series that aims to share my experience and 
 
 ## The Why
 
-There are many reasons why you might adopt a Multi-Cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, Multi-Cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights:
+There are many reasons why you might adopt a Multi-Cloud strategy. Whether you are drafting a global hosting strategy for your company or designing a new platform, Multi-Cloud can be a compelling option. Let's explore some of the most common drivers. For each, I will provide my **personal** insights.
 
 ### Risk mitigation and business continuity
 
@@ -53,8 +53,10 @@ Building a Multi-Cloud setup from the ground up is a technical solution to mitig
 Furthermore, it brings additional costs which may inflate the bill: staying current with two different technologies, maintaining and operating two different setups, networking...
 
 For the latter, it's a whole new ball game.
-Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
-I usually start by evaluating network costs. While it's not the only cost center impacted by a Multi-Cloud topology, it's a good indicator for forecasting cost increases.
+Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs. 
+
+The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs. 
+I usually start by evaluating network costs. While it's not the only cost center impacted by a Multi-Cloud topology, it's a good indicator for forecasting cost increases though.
 
 For instance, imagine we have this workflow for one use case involving two different cloud providers: 
 
@@ -64,7 +66,7 @@ For instance, imagine we have this workflow for one use case involving two diffe
     participant API_Cloud_Provider_#2
     Client->>API_Cloud_Provider_#1: Call API /my_feature
     API_Cloud_Provider_#1->>API_Cloud_Provider_#2: Call API /my_sub_feature
-    Note right of API_Cloud_Provider_#2: Inter cloud provider transaction through Internet or VPN
+    Note right of API_Cloud_Provider_#2: Inter cloud provider transaction through Internet or VPN (Egress fees)
 {{< /mermaid >}}
 
 Obviously, internet transactions are cheaper than VPN or [InterConnect solutions](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview). However, even though they go through the Internet, they still incur additional costs.
@@ -75,7 +77,7 @@ Imagine you have the following requirements:
 - Estimated payload size: 5KB
 
 This results in a monthly bandwidth of roughly 43 GB.
-On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require a VPN, it will cost around $6,800!
+On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require an Interconnect connection, it will cost around $6,800!
 
 To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
 
@@ -83,7 +85,7 @@ To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Fu
 
 From an organizational perspective, this makes sense as it prevents dependency on a single provider. That is the theory. In practice, if you only stick to standards and avoid provider-specific features, you miss out on many valuable functionalities. 
 
-I believe that instead of self-restricting, one should take a pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, what is the cost?
+I believe that, instead of self-restricting, one should take a pragmatic approach and evaluate the impact of a potential migration: Is it impossible? If not, what would be the associated migration costs?
 
 For instance, let's look at an e-commerce microservices platform:
 
@@ -153,7 +155,8 @@ Lay_D(billingAPI,customerAPI)
 
 ```
 
-Even though we deploy managed services for databases or API gateways, we can assume we won't be totally locked into these components. They rely on either standards or open-source solutions. It won't be free, but the migration costs will be acceptable.
+Even though we deploy managed services for databases or API gateways, we can assume we won't be totally locked into these components. They rely on either standards or open-source solutions. It won't be free, but the migration costs will be _acceptable_.
+
 However, there's one component in this architecture worth taking the time to look into: the [HSM](https://en.wikipedia.org/wiki/Hardware_security_module). Usually, it's fully proprietary, and you would be definitively locked in once you start rolling out your service in production.
 
 In this use case, we can imagine two solutions:
@@ -274,6 +277,15 @@ In this way, we would be able to streamline the setup, review, and by extension,
 
 In the first part, we explored why we would be interested in embracing such an architecture. Now, let's see what a Multi-Cloud architecture looks like in real life.
 
+### What is _NOT_ a Multi-Cloud architecture
+
+Before embracing this architectural pattern, it's mandatory to weigh the pros and cons and understand:
+
+* It's neither a silver bullet nor a magical recipe 
+* It's not free of charge and incurs additional technical and human costs.
+
+Now, we have exposed the basics, we can go further 😀.
+
 ### Beyond the buzzword
 
 Before diving into the "how", we need to align on what Multi-Cloud actually means in a production environment. It’s not just about having an AWS account for one team and a GCP project for another. It is a deliberate architectural choice to distribute a single platform or a set of interconnected services across multiple public cloud providers.
@@ -284,19 +296,25 @@ In my experience, Multi-Cloud usually takes one of three forms:
 2. **Redundancy ([BCP](https://entreprendre.service-public.gouv.fr/actualites/A18429?lang=en)):** Running the same workload on two clouds for extreme resilience.
 3. **Portability (Cloud Agnostic):** Using abstraction layers like Kubernetes to remain provider-agnostic, keeping in mind the constraints I mentioned earlier.
 
-
 This architecture relies on three main pillars that I will dig into in the next parts of this series: 
 
 * **Connectivity:** VPN, Interconnect,...
+* **Data Portability:** Correlating data stored in the different platforms
 * **Identity (IAM):** Identity federation (or not)? Role mapping based on OpenID Connect
 * **Observability:** Bringing together logs and metrics to get a consolidated 360° overview.
 
-### What about human costs ?
+### What about human costs?
 
-double competence 
-outillage à maintenr
+At this stage of the article, you likely understand that choosing a Multi-Cloud strategy will eventually require your teams to gain and maintain expertise in the technologies of two (or more) cloud providers.
+These costs will stem from the time spent training and upskilling.
+Additionally, further costs will come from the maintenance of tooling and procedures: Infrastructure as Code, backups, network VPNs, and the supply chain.
+This is often underestimated at the beginning but can eventually inflate the bill.
 
-2 relation commerciale 
+Then, this strategy requires developing commercial partnerships with different cloud providers. This can be time-consuming.
+
+Furthermore, it will require formalizing your strategy through, for example, a decision tree.
+In my view, although it may be time-consuming to draft and validate, this step is mandatory.
+It will offer clarity to your teams and help them avoid struggling to choose the right provider for each use case.
 
 ### The sad reality: End users don't care
 
@@ -305,14 +323,8 @@ They just want it to work.
 One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.
 From a customer perspective, having two log or KPI dashboards would be awful.
 
-### What is _NOT_ a Multi-Cloud architecture
-
-Before embracing this architectural pattern, it's mandatory to weigh the pros and cons and understand:
-
-* It's neither a silver bullet nor a magical recipe 
-* It's not free of charge and incurs additional technical and human costs.
-
 ## Conclusion
 
-Multi-cloud is a powerful strategy, but it’s a double-edged sword. It offers unparalleled resilience and flexibility, but it demands a high level of technical maturity and a clear understanding of the operational costs. 
-In the next part of this series, we will dive into the **"How"**: the actual implementation details, the networking pitfalls, and how to build a deployment pipeline that doesn't lose its mind across multiple providers. Stay tuned!
+Multi-cloud is a powerful strategy, but it is a double-edged sword. While it offers unparalleled resilience and flexibility, it also demands a high level of technical maturity and a clear understanding of operational costs. 
+One of the main challenges is providing a cohesive view to end users, whether for the services provided or for observability purposes.
+In the next part of this series, we will dive into the **"How"**: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!
