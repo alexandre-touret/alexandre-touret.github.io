@@ -1,6 +1,6 @@
 ---
 title: "Multi-Cloud from the Trenches: Part 1 - The Why and The What"
-date: 2026-03-16 08:00:00
+date: 2026-03-12 08:00:00
 images: ["/assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp"]
 featuredImagePreview: /assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp
 featuredImage: /assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp
