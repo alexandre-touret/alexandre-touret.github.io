@@ -27,15 +27,15 @@ This article is the first part of a series that aims to share my experience and 
 It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
 Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
 
-## The Why
+## Why go through the pain?
 
-Why go through this pain? 
-Everyone has their reasons—usually driven by a mix of corporate strategy and technical requirements. 
-Here’s my take on the main drivers I’ve encountered.
+Why take on this complexity? Usually, it's a mix of corporate strategy and technical necessity. In my experience, these are the main drivers that actually matter.
 
 ### Risk mitigation and business continuity
 
-This is often cited as a primary driver for Multi-Cloud adoption. The idea is to avoid a single point of failure by distributing your workloads across multiple cloud providers. In the event of an outage or disaster with one provider, your services can theoretically failover to another, ensuring business continuity.
+This is the most cited.
+The idea is simple: avoid any single point of failure by distributing your workloads across multiple cloud providers. 
+If one provider goes down, you failover to another, ensuring business continuity.
 
 That was the easy part.
 In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider's infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across disparate environments. 
@@ -48,7 +48,7 @@ Nevertheless, at a corporate level, Multi-Cloud hosting for different platforms 
 
 ### Cost "optimization"
 
-For this topic, there are basically two situations to consider: 
+I've seen two main situations here:
 - Building a Multi-Cloud landing zone from scratch 
 - Integrating two existing solutions without rebuilding one of them in another cloud provider's landing zone
 
@@ -81,16 +81,17 @@ Imagine you have the following requirements:
 - Estimated payload size: 5KB
 
 This results in a monthly bandwidth of roughly 43 GB.
-On GCP, it would cost approximately $6 if your transactions go through the Internet. In this case, it is definitely worth it. However, if your transactions require an Interconnect connection, it will cost around $6,800!
+On GCP, it would cost approximately $6 if your transactions go through the Internet. But if your transactions require an Interconnect connection, it will cost around $6,800!
 
-To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the implied additional costs of your technical choices. Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
+To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the true cost of your architecture. 
+Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).
 
 ### [Vendor Lock-in](https://www.cloudflare.com/en-gb/learning/cloud/what-is-vendor-lock-in/) avoidance
 
-Avoiding vendor lock-in is the holy grail of IT managers. It sounds great on paper, but in practice, if you stick strictly to the "lowest common denominator" to stay portable, you’re missing out on 80% of what makes cloud worth the money. 
+Avoiding vendor lock-in is the holy grail of IT managers. It sounds great on paper, but in practice, if you stick strictly to the "lowest common denominator" to stay portable, you will miss out 80% of what makes the cloud worth the investment. 
 My advice? 
 Be pragmatic. 
-Don't self-restrict; just calculate the "exit price" before you commit.
+Don't self-restrict your architecture; just ensure you understand the migration cost.
 
 For instance, let's look at an e-commerce microservices platform:
 
@@ -326,7 +327,7 @@ It will offer clarity to your teams and help them avoid struggling to choose the
 Now let's address this matter from an end-user's perspective. Normally, your customers won't care whether you set up your platform on one or two cloud providers. 
 They just want it to work.
 One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.
-From a customer perspective, having, for instance, two log or KPI dashboards would be awful.
+The real challenge is providing a **unified view**. Having two different log dashboards or two separate SLA reports is a nightmare for operations and your customers.
 
 ## Conclusion
 
