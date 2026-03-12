@@ -1,4 +1,370 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 01 Sep 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Streamlining Development with Gemini CLI: A Hands-On Review</title><link>https://blog.touret.info/2025/09/01/gemini-cli/</link><pubDate>Mon, 01 Sep 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/09/01/gemini-cli/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>Alexandre Touret's Blog</title><link>https://blog.touret.info/</link><description>Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 12 Mar 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/index.xml" rel="self" type="application/rss+xml"/><item><title>Multi-Cloud from the Trenches: Part 1 - The Why and The What</title><link>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</link><pubDate>Thu, 12 Mar 2026 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-3"><em>Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joel Filipe</a> on <a href="https://unsplash.com/photos/low-angle-photo-of-30-st-mary-axe-VuwAfoHpxgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></em></div>
+<p>For a couple of years, I have been regularly working on designing and implementing cloud-native landing zones on multiple cloud providers at once.
+When I started designing such platforms, I was somewhat wary.
+The theory was slightly attractive: I could cherry-pick the best services from each cloud provider to build the ultimate architecture.
+Nevertheless, I held some reservations about operational concerns: complexity, costs, observability, alerting, and the like.</p>
+<p>Let&rsquo;s be honest: beyond the marketing slides, cloud providers are anything but interchangeable. Furthermore, the operational burden of managing multiple clouds is not linear. It may lead you into a labyrinth of technical complexities where network latency, fragmented data, and incompatible APIs threaten both your SLA and your peace of mind.</p>
+<p>This article is the first part of a series that aims to share my experience and lessons learned from the trenches of <a href="https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud" target="_blank" rel="noopener noreferrer">Multi-Cloud</a>.
+It will cover the &ldquo;Why&rdquo; and &ldquo;What&rdquo; of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
+Subsequent parts will delve into the &ldquo;How,&rdquo; providing practical insights and strategies for successful Multi-Cloud implementations.</p>
+<h2 id="why-go-through-the-pain" class="headerLink">
+    <a href="#why-go-through-the-pain" class="header-mark"></a>7 Why go through the pain?</h2><p>Why take on this complexity? Usually, it&rsquo;s a mix of corporate strategy and technical necessity. In my experience, these are the main drivers that actually matter.</p>
+<h3 id="risk-mitigation-and-business-continuity" class="headerLink">
+    <a href="#risk-mitigation-and-business-continuity" class="header-mark"></a>7.1 Risk mitigation and business continuity</h3><p>This is the most cited.
+The idea is simple: avoid any single point of failure by distributing your workloads across multiple cloud providers.
+If one provider goes down, you failover to another, ensuring business continuity.</p>
+<p>That was the easy part.
+In practice, achieving true business continuity across multiple clouds is far more complex than simply replicating workloads. This is because it requires a deep understanding of each cloud provider&rsquo;s infrastructure, services, and APIs, as well as the ability to manage and orchestrate workloads across different environments.</p>
+<p>Beyond maintaining different tools and setups (e.g., two Terraform setups), you will also need to consider data replication strategies, network connectivity, and security implications across multiple environments.</p>
+<p>Consequently, in my view, this use case is primarily reserved for highly sensitive workloads. For financial institutions or public services subject to military or governmental regulations (such as the <a href="https://www.sgdsn.gouv.fr/files/files/Nos_missions/plaquette-saiv.pdf" target="_blank" rel="noopener noreferrer">OIV in France</a>), a multi-region setup may be &ldquo;enough&rdquo; to comply with these requirements and prevent outages.</p>
+<p>Nevertheless, at a corporate level, Multi-Cloud hosting for different platforms can be beneficial. It may offer the ability to choose the right hosting provider for every platform. In addition, it may help you to <em>easily</em> switch from one provider to another if needed.</p>
+<h3 id="cost-optimization" class="headerLink">
+    <a href="#cost-optimization" class="header-mark"></a>7.2 Cost &ldquo;optimization&rdquo;</h3><p>I&rsquo;ve seen two main situations here:</p>
+<ul>
+<li>Building a Multi-Cloud landing zone from scratch</li>
+<li>Integrating two existing solutions without rebuilding one of them in another cloud provider&rsquo;s landing zone</li>
+</ul>
+<p>For the first topic, we will definitely lose money.
+Building a Multi-Cloud setup from the ground up is a technical solution to mitigate and prevent high-impact risks when there&rsquo;s no other possible way.
+Furthermore, it brings additional costs which may inflate the bill: staying current with two different technologies, maintaining and operating two different setups, networking&hellip;</p>
+<p>For the latter, it&rsquo;s a whole new ball game.
+Building or migrating an existing service already available on another cloud provider could be tricky and highly expensive, even if you built it on top of standards such as Kubernetes. Nevertheless, would you really save money in this case? Depending on the interactions between the different parts of the platform (from one cloud provider to another), you may, at the end of the day, face prohibitive additional costs.</p>
+<p>The only way to determine if it is acceptable is to analyze the different workflows, pinpoint the implied transactions, and estimate the corresponding costs.
+I usually start by evaluating network costs. While it&rsquo;s not the only cost center impacted by a Multi-Cloud topology, it&rsquo;s a good indicator for forecasting cost increases though.</p>
+<p>For instance, imagine we have this workflow for one use case involving two different cloud providers:</p>
+<pre class="mermaid">sequenceDiagram
+    participant Client
+    participant API_Cloud_Provider_#1
+    participant API_Cloud_Provider_#2
+    Client->>API_Cloud_Provider_#1: Call API /my_feature
+    API_Cloud_Provider_#1->>API_Cloud_Provider_#2: Call API /my_sub_feature
+    Note right of API_Cloud_Provider_#2: Inter cloud provider transaction through Internet or VPN (Egress fees)
+
+</pre>
+<p>Obviously, internet transactions are cheaper than VPN or <a href="https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview" target="_blank" rel="noopener noreferrer">InterConnect solutions</a>. However, even though they go through the Internet, they still incur additional costs.</p>
+<p>Imagine you have the following requirements:</p>
+<ul>
+<li>Number of transactions for <code>/my_feature</code> per second: 100 TPS</li>
+<li>Estimated payload size: 5KB</li>
+</ul>
+<p>This results in a monthly bandwidth of roughly 43 GB.
+On GCP, it would cost approximately $6 if your transactions go through the Internet. But if your transactions require an Interconnect connection, it will cost around $6,800!</p>
+<p>To sum up, it is crucial to regularly review the main workflows and NFRs (Non-Functional Requirements) to estimate the true cost of your architecture.
+Why? Because, initially, you will likely work with significant uncertainty that will only decrease over time (e.g., after setting up your platform in the development environment).</p>
+<h3 id="vendor-lock-in-avoidance" class="headerLink">
+    <a href="#vendor-lock-in-avoidance" class="header-mark"></a>7.3 <a href="https://www.cloudflare.com/en-gb/learning/cloud/what-is-vendor-lock-in/" target="_blank" rel="noopener noreferrer">Vendor Lock-in</a> avoidance</h3><p>Avoiding vendor lock-in sounds great on paper, but in practice, if you stick strictly to the &ldquo;lowest common denominator&rdquo; to stay portable, you will miss out 80% of what makes the cloud worth the investment.
+My advice?
+Be pragmatic.
+Don&rsquo;t self-restrict your architecture; just ensure you understand the migration cost.</p>
+<p>For instance, let&rsquo;s look at an e-commerce microservices platform:</p>
+<script type='plantuml' data-server="https://www.plantuml.com/plantuml" data-format="svg" data-title="vendor lock-in">@startuml monolith
+!include <C4/C4_Container>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+LAYOUT_LANDSCAPE()
+HIDE_STEREOTYPE()
+AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColor="447870", $shadowing="true", $shape = RoundedBoxShape())
+AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
+AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
+Person(user, "Admins")
+Person(customer, "Customer")
+
+System_Boundary(donutssystem, "System") {
+    System_Boundary("GUI","Presentation Layer"){
+        Container(fogui,"GUI")
+        Container(bogui,"backoffice GUI")
+        Container(foapi,"Back for Front GUI")
+        Container(boapi,"Back for Backoffice GUI")
+    }
+
+    System_Boundary(api,"Service Layer") {
+        System_Boundary(shoppingAPI,"Shopping Service",$tags="newboundary"){
+            Container(shoppingService,"Shopping API",)
+            ContainerDb(shoppingDb,"Shopping DB")
+        }
+        System_Boundary(customerAPI,"Customer Service",$tags="newboundary"){
+            Container(customerService,"Customer API")
+            ContainerDb(customerDb,"Customer DB")
+        }
+        System_Boundary(billingAPI,"Billing Service",$tags="newboundary"){
+            Container(billingService,"Billing API")
+            Container(hsm,"HSM")
+            ContainerDb(billingDb,"Billing DB")
+            ContainerDb(billingS3,"Billing Object Storage")
+        }
+    }
+}
+
+
+Rel(customer,fogui,"HTTPS")
+Rel(fogui, foapi,"HTTPS")
+
+Rel(foapi,shoppingService,"HTTPS")
+Rel(shoppingService,shoppingDb,"JDBC")
+
+Rel(customerService,customerDb,"JDBC")
+'Rel(shoppingService,billingService,"HTTPS")
+'Rel(shoppingService,SIPS,"HTTPS")
+'Rel(shoppingService,delivery,"HTTPS")
+Rel(billingService,billingDb,"JDBC")
+Rel(billingService,billingS3,"HTTPS")
+
+Rel(user,bogui,"HTTPS")
+Rel(bogui,boapi,"HTTPS")
+Rel(boapi,customerService,"HTTPS")
+Rel(boapi,billingService,"HTTPS")
+Rel(boapi,shoppingService,"HTTPS")
+
+Rel(billingService,hsm,"TCPS",$tags="security")
+Lay_D(billingAPI,customerAPI)
+@enduml</script>
+<p>Even though we deploy managed services for databases or API gateways, we can assume we won&rsquo;t be totally locked into these components. They rely on either standards or open-source solutions. It won&rsquo;t be free, but the migration costs will be <em>acceptable</em>.</p>
+<p>However, there&rsquo;s one component in this architecture worth taking the time to look into: the <a href="https://en.wikipedia.org/wiki/Hardware_security_module" target="_blank" rel="noopener noreferrer">HSM</a>. Usually, it&rsquo;s fully proprietary, and you would be definitively locked in once you start rolling out your service in production.</p>
+<p>In this use case, we can imagine two solutions:</p>
+<ol>
+<li>Assume we will be fully locked in</li>
+<li>Providing a different HSM module (on-premise or from another provider) or using cryptographic mechanisms (e.g., DEK/KEK) to mitigate the risks.</li>
+</ol>
+<p>That&rsquo;s just a sneak peek into why, in the long term, architecting a Multi-Cloud setup might secure your technical architectural choices. As discussed in the Risk Mitigation chapter, it might help avoid being locked in with a vendor.</p>
+<h3 id="best-of-breed-services" class="headerLink">
+    <a href="#best-of-breed-services" class="header-mark"></a>7.4 Best-of-Breed services</h3><p>When you design a platform you are often tempted to choose the best product or solution for every use case. It might also help you avoid reinventing the wheel if you already have existing off-the-shelf solutions.</p>
+<p>We can imagine a platform split into two parts:</p>
+<ol>
+<li>The first part for the transactional processes : <a href="https://aws.amazon.com/ec2/" target="_blank" rel="noopener noreferrer">AWS EC2 VMs</a> and or <a href="https://aws.amazon.com/eks/" target="_blank" rel="noopener noreferrer">EKS Kubernetes cluster</a></li>
+<li>The second part for the Business Intelligence workloads run on top of <a href="https://cloud.google.com/bigquery?hl=en" target="_blank" rel="noopener noreferrer">GCP BigQuery</a>.</li>
+</ol>
+<p>For the latter, we can imagine we already have scripts, dashboards which could be reused.</p>
+<p>Usually it&rsquo;s one of the most important key factor to switch to this kind of architecture. It may help streamline your delivery by promoting reusability.</p>
+<p>Nevertheless, it&rsquo;s crucial to check if it&rsquo;s relevant regarding the platform requirements and expectations.</p>
+<h3 id="regulatory-compliance-and-data-residency" class="headerLink">
+    <a href="#regulatory-compliance-and-data-residency" class="header-mark"></a>7.5 Regulatory compliance and data residency</h3><p>Last, but not the least, what about all regulation and compliance?</p>
+<p>Isolating some of your workloads into one cloud provider and host the least critical workloads to another one may be a strategy to assess.
+In my opinion, it&rsquo;s a strategy that would be studied at a global level because the scope of this implementation will affect the entire company&rsquo;s IT landscape. It may help streamline the setup and the compliancy assessment of sensitive workloads (e.g., <a href="https://www.pcisecuritystandards.org/" target="_blank" rel="noopener noreferrer">PCI DSS</a>).</p>
+<p>For instance, if we stick to the same e-commerce use case, we may consider splitting our workload into two different ones hosted on different cloud providers.</p>
+<script type='plantuml' data-server="https://www.plantuml.com/plantuml" data-format="svg" data-title="compliancy">@startuml
+!include <C4/C4_Container>
+!include <C4/C4_Context>
+!include <C4/C4_Component>
+
+LAYOUT_LANDSCAPE()
+HIDE_STEREOTYPE()
+AddBoundaryTag("newboundary", $bgColor="e1f3f8",$borderColor="447870", $fontColor="447870", $shadowing="true", $shape = RoundedBoxShape())
+AddBoundaryTag("eventBoundary", $bgColor="46beaa",$borderColor="green", $fontColor="white", $shadowing="true", $shape = EightSidedShape())
+AddRelTag("eventRel", $textColor="green", $lineColor="green", $lineStyle="boldStyle", $sprite="eventRel,scale=2,color=green", $legendText="firewall")
+
+Person(user, "Admins")
+Person(customer, "Customer")
+
+System_Boundary(donutssystem, "System") {
+    System_Boundary("GUI","Presentation Layer"){
+        Container(fogui,"GUI")
+        Container(bogui,"backoffice GUI")
+        Container(foapi,"Back for Front GUI")
+        Container(boapi,"Back for Backoffice GUI")
+    }
+
+    System_Boundary(api,"Service Layer") {
+        System_Boundary(shoppingAPI,"Shopping Service",$tags="newboundary"){
+            Container(shoppingService,"Shopping API",)
+            ContainerDb(shoppingDb,"Shopping DB")
+        }
+        System_Boundary(customerAPI,"Customer Service",$tags="newboundary"){
+            Container(customerService,"Customer API")
+            ContainerDb(customerDb,"Customer DB")
+        }
+        System_Boundary(billingAPI,"Billing Service",$tags="newboundary"){
+            Container(billingService,"Billing API")
+            Container(hsm,"HSM")
+            ContainerDb(billingDb,"Billing DB")
+            ContainerDb(billingS3,"Billing Object Storage")
+        }
+        
+    
+    }
+}
+
+System_Boundary(paymentSystem,"PCI DSS Payment"){
+    System_Boundary(payment,"PCI DSS Payment Service", $tags="eventBoundary"){
+            Container(paymentgui,"Payment GUI")
+            Container(paymentService,"Payment Service")
+            ContainerDb(paymentDb,"Payment DB")
+        }
+}
+
+
+Rel(customer,fogui,"HTTPS")
+Rel(fogui, foapi,"HTTPS")
+
+Rel(foapi,shoppingService,"HTTPS")
+Rel(shoppingService,shoppingDb,"JDBC")
+
+Rel(customerService,customerDb,"JDBC")
+'Rel(shoppingService,billingService,"HTTPS")
+'Rel(shoppingService,SIPS,"HTTPS")
+'Rel(shoppingService,delivery,"HTTPS")
+Rel(billingService,billingDb,"JDBC")
+Rel(billingService,billingS3,"HTTPS")
+
+Rel(user,bogui,"HTTPS")
+Rel(bogui,boapi,"HTTPS")
+Rel(boapi,customerService,"HTTPS")
+Rel(boapi,billingService,"HTTPS")
+Rel(boapi,shoppingService,"HTTPS")
+
+Rel(billingService,hsm,"TCPS",$tags="security")
+
+Rel(customer,paymentgui,"HTTPS")
+Rel(paymentgui,paymentService, "HTTPS")
+Rel(paymentService,paymentDb, "JDBC")
+
+Lay_D(billingAPI,customerAPI)
+@enduml</script>
+<p>In this way, we would be able to streamline the setup, review, and by extension, the entire SDLC for specific sensitive workloads.</p>
+<h2 id="what" class="headerLink">
+    <a href="#what" class="header-mark"></a>8 What</h2><p>In the first part, we explored why we would be interested in embracing such an architecture. Now, let&rsquo;s see what a Multi-Cloud architecture looks like in real life.</p>
+<h3 id="what-is-not-a-multi-cloud-architecture" class="headerLink">
+    <a href="#what-is-not-a-multi-cloud-architecture" class="header-mark"></a>8.1 What is <em>NOT</em> a Multi-Cloud architecture</h3><p>Before embracing this architectural pattern, it&rsquo;s mandatory to weigh the pros and cons and understand:</p>
+<ul>
+<li>It&rsquo;s neither a silver bullet nor a magical recipe</li>
+<li>It&rsquo;s not free of charge and incurs additional technical and human costs.</li>
+</ul>
+<p>Now, we have exposed the basics, we can go further 😀.</p>
+<h3 id="beyond-the-buzzword" class="headerLink">
+    <a href="#beyond-the-buzzword" class="header-mark"></a>8.2 Beyond the buzzword</h3><p>Before diving into the &ldquo;how&rdquo;, we need to align on what Multi-Cloud actually means in a production environment. It’s not just about having an AWS account for one team and a GCP project for another. It is a deliberate architectural choice to distribute a single platform or a set of interconnected services across multiple public cloud providers.</p>
+<p>In my experience, Multi-Cloud usually takes one of three forms:</p>
+<ol>
+<li><strong>Functional Split (Best-of-Breed):</strong> Distributing components based on provider strengths (e.g., App on AWS, Analytics on BigQuery).</li>
+<li><strong>Redundancy (<a href="https://entreprendre.service-public.gouv.fr/actualites/A18429?lang=en" target="_blank" rel="noopener noreferrer">BCP</a>):</strong> Running the same workload on two clouds for extreme resilience.</li>
+<li><strong>Portability (Cloud Agnostic):</strong> Using abstraction layers like Kubernetes to remain provider-agnostic, keeping in mind the constraints I mentioned earlier.</li>
+</ol>
+<p>This architecture relies on three main pillars that I will dig into in the next parts of this series:</p>
+<ul>
+<li><strong>Connectivity:</strong> VPN, Interconnect,&hellip;</li>
+<li><strong>Data Portability:</strong> Correlating data stored in the different platforms</li>
+<li><strong>Identity (IAM):</strong> Identity federation (or not)? Role mapping based on OpenID Connect</li>
+<li><strong>Observability:</strong> Bringing together logs and metrics to get a consolidated 360° overview.</li>
+</ul>
+<h3 id="what-about-human-costs" class="headerLink">
+    <a href="#what-about-human-costs" class="header-mark"></a>8.3 What about human costs?</h3><p>At this stage of the article, you likely understand that choosing a Multi-Cloud strategy will eventually require your teams to gain and maintain expertise in the technologies of two (or more) cloud providers.
+These costs will stem from the time spent training and upskilling.
+Additionally, further costs will come from the maintenance of tooling and procedures: Infrastructure as Code, backups, network VPNs, and the supply chain.
+This is often underestimated at the beginning but can eventually inflate the bill.</p>
+<p>Then, this strategy requires developing commercial partnerships with different cloud providers. This can be time-consuming.</p>
+<p>Furthermore, it will require formalizing your strategy through, for example, a decision tree.
+In my view, although it may be time-consuming to draft and validate, this step is mandatory.
+It will offer clarity to your teams and help them avoid struggling to choose the right provider for each use case.</p>
+<h3 id="the-sad-reality-end-users-dont-care" class="headerLink">
+    <a href="#the-sad-reality-end-users-dont-care" class="header-mark"></a>8.4 The sad reality: End users don&rsquo;t care</h3><p>Now let&rsquo;s address this matter from an end-user&rsquo;s perspective. Normally, your customers won&rsquo;t care whether you set up your platform on one or two cloud providers.
+They just want it to work.
+One of the main challenges, which I will present in the next article, will be to provide a unified view of your platform. For instance, how to provide insightful, unified KPIs (e.g., SLAs) or consolidated observability from end to end.</p>
+<p>The real challenge is providing a <strong>unified view</strong>. Having two different log dashboards or two separate SLA reports is a nightmare for operations and your customers.</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>9 Conclusion</h2><p>To cut a long story short: Multi-cloud isn&rsquo;t a silver bullet.
+While it offers unparalleled resilience and flexibility, it also demands a high level of technical maturity and a clear understanding of operational costs.
+One of the main challenges is providing a cohesive view to end users, whether for the services provided or for observability purposes.</p>
+<p>We can then compare a Multi-Cloud Architecture with a &ldquo;Single-Cloud&rdquo; one through these <a href="https://www.oreilly.com/library/view/building-evolutionary-architectures/9781491986356/ch02.html" target="_blank" rel="noopener noreferrer">architectural characteristics</a> :</p>
+<div class="details admonition info open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg></span>Before checking this list out<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><p>The more a function has stars, the more is convenient or better.</p>
+<p>This evaluation is personal. You may be against some of my conclusions.</p>
+</div></div></div>
+
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: ">Architecture characteristic</th>
+            <th style="text-align: ">&ldquo;Single&rdquo; Cloud Architecture</th>
+            <th style="text-align: ">Multi-Cloud Architecture</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: ">Partitioning type</td>
+            <td style="text-align: ">Domain &amp; technical</td>
+            <td style="text-align: ">Domain &amp; technical</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Number of quanta <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+            <td style="text-align: ">1 to many</td>
+            <td style="text-align: ">many</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Deployability</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Elasticity</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Evolutionary</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Fault Tolerance</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Modularity</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Overall cost</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: ">⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Performance</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Reliability</td>
+            <td style="text-align: ">⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Scalability</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Simplicity</td>
+            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐</td>
+        </tr>
+        <tr>
+            <td style="text-align: ">Testability</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+            <td style="text-align: ">⭐⭐⭐</td>
+        </tr>
+    </tbody>
+  </table>
+</div>
+<p>In the next part of this series, we will dive into the <strong>&ldquo;How&rdquo;</strong>: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!</p>
+<div class="footnotes" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn:1">
+<p>~ Number of loose-coupled artifacts&#160;<a href="#fnref:1" class="footnote-backref" role="doc-backlink">&#x21a9;&#xfe0e;</a></p>
+</li>
+</ol>
+</div>
+]]></description></item><item><title>Streamlining Development with Gemini CLI: A Hands-On Review</title><link>https://blog.touret.info/2025/09/01/gemini-cli/</link><pubDate>Mon, 01 Sep 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/09/01/gemini-cli/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2025/09/possessed-photography-g29arbbvPjo-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-13"><i>Photo by <a href="https://unsplash.com/@possessedphotography?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Possessed Photography</a> on <a href="https://unsplash.com/photos/asimo-robot-doing-handsign-g29arbbvPjo?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></i></div>
 <p>After reading the insightful <a href="https://touilleur-express.fr/2025/07/27/claude-code-et-les-serveurs-mcp-ou-comment-transformer-ton-terminal-en-assistant-surpuissant/" target="_blank" rel="noopener noreferrer">Nicolas Martignole articles series (in French)</a> on how <a href="https://www.anthropic.com/claude-code" target="_blank" rel="noopener noreferrer">Claude Code</a> could streamline and accelerate coding through a terminal, I had the idea to test it by my own on specific (boring) use cases.</p>
@@ -6907,118 +7273,4 @@ Observe your application first to figure out if it&rsquo;s worth it.</p>
 <li><a href="https://thorben-janssen.com" target="_blank" rel="noopener noreferrer">https://thorben-janssen.com</a></li>
 <li><a href="https://vladmihalcea.com" target="_blank" rel="noopener noreferrer">https://vladmihalcea.com</a></li>
 </ul>
-]]></description></item><item><title>My (not only) Tech Library</title><link>https://blog.touret.info/2024/02/14/my-tech-library/</link><pubDate>Wed, 14 Feb 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/02/14/my-tech-library/</guid><description><![CDATA[<div class="featured-image">
-                <img src="/assets/images/2024/02/prateek-katyal-_YzGQvASeMk-unsplash.webp" referrerpolicy="no-referrer">
-            </div><div id="id-1"><em>Picture of <a href="https://unsplash.com/fr/@prateekkatyal?utm_content=creditCopyText&amp;utm_medium=referral&amp;utm_source=unsplash" target="_blank" rel="noopener noreferrer">Prateek Katyal</a></em></div>
-<p>Early in my career, when the documentation was not so spread across the Internet, I had to buy and crack open books to learn new things.
-I stumbled upon of <a href="https://ilibrairie.fr/75/paris/le-monde-en-tique-1zu" target="_blank" rel="noopener noreferrer">Le Monde en &ldquo;Tique&rdquo;</a>, a famous Parisian bookstore getting books of Java EE, XML, or whatever else.</p>
-<p>I then realised, even with the number of documentations, articles, videos growing on Internet, I learnt far better new topics reading books.</p>
-<p>All through my career I therefore tried to keep this habit.
-During the last <a href="https://touraine.tech/" target="_blank" rel="noopener noreferrer">Touraine Tech</a> edition, I had a chat with one of my ex-colleagues about that.
-He asked me: <em>&ldquo;Do you have a list of the best books you read and enjoyed? It would be nice if not&rdquo;</em></p>
-<p>I will therefore try to reply here to this query.</p>
-<p>You will find below <strong>TEN books</strong> I found really helpful at different steps of my career.</p>
-<div class="details admonition warning open">
-    <div class="details-summary admonition-title">
-        <span class="icon"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M569.517 440.013C587.975 472.007 564.806 512 527.94 512H48.054c-36.937 0-59.999-40.055-41.577-71.987L246.423 23.985c18.467-32.009 64.72-31.951 83.154 0l239.94 416.028zM288 354c-25.405 0-46 20.595-46 46s20.595 46 46 46 46-20.595 46-46-20.595-46-46-46zm-43.673-165.346l7.418 136c.347 6.364 5.609 11.346 11.982 11.346h48.546c6.373 0 11.635-4.982 11.982-11.346l7.418-136c.375-6.874-5.098-12.654-11.982-12.654h-63.383c-6.884 0-12.356 5.78-11.981 12.654z"/></svg></span>About this list<span class="details-icon"><svg class="icon"
-    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
-    </div>
-    <div class="details-content">
-        <div class="admonition-content"><p>It was quite hard to draw up this list which looks like to <em>&ldquo;if you had been on a desert island, which book you would have brought&rdquo;</em>.</p>
-<p>Please, remember then this list is not exhaustive and there are plenty of interesting books beyond this list.</p>
-</div></div></div>
-<h2 id="the-staple" class="headerLink">
-    <a href="#the-staple" class="header-mark"></a>1 The staple</h2><p>Here are few books I strongly recommend to read and read again to every developer in this particular order.</p>
-<h3 id="clean-code-by-r-c-martin" class="headerLink">
-    <a href="#clean-code-by-r-c-martin" class="header-mark"></a>1.1 Clean code by R. C. MARTIN</h3><p><figure><img src="/assets/images/2024/02/cleancode.webp"><figcaption>
-      <h4>Clean Code</h4>
-    </figcaption>
-</figure>
-
-For few years, when I must mentor a young developer, I ask him/her to read Clean code first and code then.</p>
-<h3 id="refactoring-by-m-fowler" class="headerLink">
-    <a href="#refactoring-by-m-fowler" class="header-mark"></a>1.2 Refactoring by M. FOWLER</h3><p><figure><img src="/assets/images/2024/02/refactoring.webp"><figcaption>
-      <h4>Refactoring</h4>
-    </figcaption>
-</figure>
-
-I must admit, I am a big fan of <a href="https://martinfowler.com/" target="_blank" rel="noopener noreferrer">M. FOWLER</a>.
-Every of his presentations, articles or books are really informative and inspiring.
-In my opinion, this book belongs to the mandatory reading list for every person who wants to become better in this field.</p>
-<h3 id="design-patterns-by-the-gof" class="headerLink">
-    <a href="#design-patterns-by-the-gof" class="header-mark"></a>1.3 Design Patterns by the GoF</h3><figure><img src="/assets/images/2024/02/gof.webp"><figcaption>
-      <h4>Design Patterns by the GoF</h4>
-    </figcaption>
-</figure>
-
-<p>One of the first tech book I bought. It was during the first years of my career.
-I had a blast reading it because it addressed common problems with simple <em>cooking recipes</em> we could easily put into practice.</p>
-<p>I think it is still worth reading it.</p>
-<h2 id="for-java-developers" class="headerLink">
-    <a href="#for-java-developers" class="header-mark"></a>2 For Java developers</h2><h3 id="effective-java-by-j-bloch" class="headerLink">
-    <a href="#effective-java-by-j-bloch" class="header-mark"></a>2.1 Effective Java by J. BLOCH</h3><figure><img src="/assets/images/2024/02/effective_java.webp"><figcaption>
-      <h4>Effective Java</h4>
-    </figcaption>
-</figure>
-
-<p>From my perspective, it is the perfect Java developer &ldquo;Clean Code&rdquo; book companion.
-If you are a Java developer beginner (or not!), you can also refer to <a href="https://www.oreilly.com/library/view/head-first-java/9781492091646/" target="_blank" rel="noopener noreferrer">Head First Java by K. SIERA &amp; B. BATES</a>.</p>
-<h2 id="for-designers" class="headerLink">
-    <a href="#for-designers" class="header-mark"></a>3 For designers</h2><h3 id="fundamentals-of-software-architecture-by-m-richards--n-ford" class="headerLink">
-    <a href="#fundamentals-of-software-architecture-by-m-richards--n-ford" class="header-mark"></a>3.1 Fundamentals of Software Architecture by M. RICHARDS &amp; N. FORD</h3><figure><img src="/assets/images/2024/02/fundamentals_sa.webp"><figcaption>
-      <h4>Fundamentals of Software Architecture</h4>
-    </figcaption>
-</figure>
-
-<p>It is definitively the book I would have wished to read 10+ years ago!
-In my opinion, reading this book is a mandatory step for anyone who wants to dig into architecture.
-It addresses both the hard skills with all the main architecture design patterns and the soft skills (i.e., how to work as an architect?).</p>
-<h3 id="software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="headerLink">
-    <a href="#software-architecture-for-developers-technical-leadership-and-the-balance-with-agility-by-s-brown" class="header-mark"></a>3.2 Software architecture for developers: Technical Leadership and the balance with agility by S. BROWN</h3><figure><img src="/assets/images/2024/02/software_arch_for_developers.webp"><figcaption>
-      <h4>Software architecture for developers: Technical Leadership and the balance with agility</h4>
-    </figcaption>
-</figure>
-
-<p>This is another terrific book talking about software architecture.<br>
-I also recommend reading it.</p>
-<h3 id="building-microservices-by-s-newman" class="headerLink">
-    <a href="#building-microservices-by-s-newman" class="header-mark"></a>3.3 Building Microservices by S. NEWMAN</h3><figure><img src="/assets/images/2024/02/microservices.webp"><figcaption>
-      <h4>Building Microservices</h4>
-    </figcaption>
-</figure>
-
-<p>If you want to dig into how to design a microservice platform, this book is a good start.
-It will provide you a good overview of all the main points to tackle such as integration, deployment, or the famous <a href="https://en.wikipedia.org/wiki/Conway%27s_law" target="_blank" rel="noopener noreferrer">Conway&rsquo;s Law</a>.</p>
-<h3 id="building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="headerLink">
-    <a href="#building-evolutionary-architectures-by-n-ford-r-parsons--p-kua" class="header-mark"></a>3.4 Building Evolutionary Architectures by N. FORD, R. PARSONS &amp; P. KUA</h3><figure><img src="/assets/images/2024/02/evolutionary.webp"><figcaption>
-      <h4>Building Evolutionary Architectures</h4>
-    </figcaption>
-</figure>
-
-<p>This book comforted me a platform must be on the one hand designed and sat up as simply as possible and on the other hand supports changes over the time.
-Among other things, the authors bring guidance to achieve that.</p>
-<h2 id="for-speakers" class="headerLink">
-    <a href="#for-speakers" class="header-mark"></a>4 For speakers</h2><h3 id="resonate-by-n-duarte" class="headerLink">
-    <a href="#resonate-by-n-duarte" class="header-mark"></a>4.1 Resonate by N. DUARTE</h3><figure><img src="/assets/images/2024/02/resonate.webp"><figcaption>
-      <h4>Resonate</h4>
-    </figcaption>
-</figure>
-
-<p>It is considered as a reference for people who talk in public.
-Even if I read a bunch on this field, it is still the best I read so far.</p>
-<h2 id="for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="headerLink">
-    <a href="#for-people-who-want-to-get-rid-of-stress-and-being-mostly-organised" class="header-mark"></a>5 For people who want to get rid of stress and being (mostly) organised</h2><h3 id="getting-things-done-by-d-allen" class="headerLink">
-    <a href="#getting-things-done-by-d-allen" class="header-mark"></a>5.1 Getting Things Done by D. ALLEN</h3><figure><img src="/assets/images/2024/02/gtd.webp"><figcaption>
-      <h4>Getting Things Done</h4>
-    </figcaption>
-</figure>
-
-<p>Last but not least, this book changed 15 years ago the way I organised both my personal and professional life.
-This kind of personal life methodology does not work for everyone.
-For me, it was a game changer.</p>
-<h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Unfortunately, I haven&rsquo;t read plenty of fascinating books yet.
-Regarding software architecture or design topics, I usually choose a book taking a look on <a href="https://architectelevator.com/architecture/architect-bookshelf/" target="_blank" rel="noopener noreferrer">the Gregor Hohpe bookshelf</a> first.
-You will find many of the books I already mentioned in this article and many more!</p>
 ]]></description></item></channel></rss>
