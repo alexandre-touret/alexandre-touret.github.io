@@ -50,6 +50,14 @@ What I learned from this experience is that the key to successfully implementing
 Then, if you start from the ground up, you will have to design the whole system and make a lot of trade-offs between complexity, cost, performance, compliance, and maintainability.
 Generally speaking, you will have the same trade-offs to make, and you will need more design and project iterations than if you were to use existing products.
 
+Finally, to sum up, we may summarise this process in three main steps:
+
+1. Check-out the business strategy and goals
+2. Check-out the different use cases and workloads
+ - If you have a product-based strategy, check-out the compatibility of the use cases with the available products
+ - If you have a custom solution strategy, check-out the different design options and trade-offs
+3. Check-out the different cloud providers and their products
+
 ## Back to basics
 
 Pinpoint the different use cases and workloads.
