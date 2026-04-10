@@ -10,13 +10,10 @@ tags:
   - Cloud
 ---
 
-
 {{< style "text-align:center;" >}}
 _Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joel Filipe</a> on <a href="https://unsplash.com/photos/low-angle-photo-of-30-st-mary-axe-VuwAfoHpxgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>_
       
 {{< /style >}}      
-
-
 
 ## Introduction
 
@@ -32,13 +29,26 @@ So, let's get started!
 
 ## How to start?
 
-Check if multi-cloud is relevant
+First and foremost, it's important to start with a **clear strategy**.
+It is essentially the same approach as any other architectural strategy: start with the business goals and requirements, then design the technical solution that best meets those needs.
+However, in the case of multi-cloud, there are some specific considerations to take into account throughout the process.
+It requires an iterative approach.
+Once you have made the decision to adopt a multi-cloud strategy, you should start by identifying the use cases and workloads that are best suited to each cloud provider.
+This will allow you to leverage the strengths of each provider and optimize your costs and performance.
+This step will help you determine whether building a multi-cloud platform is relevant.
 
-different partners with existing platforms --> it makes sense
+{{< admonition tip "Part 1" true >}}
+By the way, I strongly recommend reading the first part of this series before addressing the next steps. I will then assume that you have already identified the reasons why you want to adopt a multi-cloud strategy and that you have a clear understanding of the benefits and challenges associated with it.
+{{< /admonition >}}
 
-Apply this iterative approach to your multi-cloud strategy. Start with a small use case, and then expand it gradually. This will allow you to learn and adapt as you go, and to avoid getting overwhelmed by the complexity of managing multiple cloud providers from the start.
+Personally, I started working on multi-cloud architectures when I was on a project that required us to use existing products from both Azure and GCP operated by different teams.
+Each of these products had specific features and capabilities that were essential for our use case.
+Instead of reinventing the wheel by moving an existing product to another cloud platform and causing a skyrocketing cost increase, we chose to integrate these products, and we designed a solution that could leverage the strengths of both providers, combining off-the-shelf products and custom solutions while also ensuring that we could manage the complexity of using multiple cloud platforms.
 
-// schema d'itération
+What I learned from this experience is that the key to successfully implementing a multi-cloud strategy is to start with a clear understanding of your business goals and requirements, and then design a solution that can leverage the strengths of each cloud provider while managing the complexity of multiple platforms. When your technical strategy is based on products, your process is less complex. You start by pinpointing the different use cases and workloads, and how compatible they are with the available products. Then you check how to connect them together and how to interact with different cloud providers through APIs.
+
+Then, if you start from the ground up, you will have to design the whole system and make a lot of trade-offs between complexity, cost, performance, compliance, and maintainability.
+Generally speaking, you will have the same trade-offs to make, and you will need more design and project iterations than if you were to use existing products.
 
 ## Back to basics
 
@@ -64,6 +74,9 @@ However, we had to make it work. Hopefully, it was only for a specific use case 
 
 ## The NFR
 Check if we met the non-functional requirements, such as security, compliance, and performance, across all cloud providers.
+
+## DRS & Reliability
+You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
 
 ## The fallacies of ~~Multi-cloud~~ Network Computing
 
@@ -97,6 +110,55 @@ sinon, il faut challenger les performances de chaque interaction entre les diff�
 data transer costs, data egress costs, and the importance of monitoring and optimizing cloud spending across multiple providers.
 
 
+## Automation & DevOps
+ Automation for policy enforcement, configuration drift management, and audit trails across clouds.
+## Identity & Access Management
+Centralized IAM/federation (SSO, RBAC, minimizing privilege sprawl across clouds).
+## Skillsets & Process
+Team training, cross-cloud architectural patterns, runbook/playbook development.
+
 ## Conclusion
 
 What about agnostic ?
+
+
+
+- Operational Excellence: Automation, iterative improvement, monitoring, incident response
+- Security: Identity/access management, encryption, data protection, compliance controls, zero trust principles
+- Reliability: Disaster recovery planning, backup, failover, multi-region/multi-cloud redundancy, SLAs
+- Performance Efficiency: Resource right-sizing, latency/bandwidth planning, network design, capacity management
+- Cost Optimization: FinOps, monitoring usage, cross-cloud cost comparison and controls, spend optimization
+- Sustainability: Resource utilization, energy consumption, green practices (if relevant)
+- Governance: Policy management, cloud provider account management, auditability, configuration standards
+- People & Process: Training, dedicated cross-cloud teams, documented runbooks/playbooks, clear escalation paths
+- Vendor Lock-in Mitigation: Use of portable components, open standards, containerization, abstraction (e.g., Terraform)
+- Interoperability: API gateway, messaging and eventing platforms, common data formats/schemas
+- Observability: Centralized logging, monitoring, alerting spanning all cloud providers; unified dashboards
+Comparing to Your "How" Section
+You covered:
+- Iterative/gradual approach
+- Use-case/workload isolation
+- Wire them with APIs, model processes, BPMN
+- Acknowledge practical trade-offs
+- NFRs: security, compliance, performance, cost
+- Distributed systems/network fallacies
+- Compliance (regulations, audits)
+- Performance (especially for cross-cloud flows)
+- FinOps: egress/transfer costs, optimization
+Potential Gaps or Areas That Could be Strengthened
+1. Disaster Recovery & Reliability:  
+   - You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
+2. Automation & DevOps:  
+   - The importance of using automation tools (e.g., Infrastructure as Code), CI/CD pipelines that can target multiple clouds, automated policy enforcement, or cross-cloud blueprints.
+3. Identity & Access Management:  
+   - Centralized IAM/federation (SSO, RBAC, minimizing privilege sprawl across clouds).
+4. Governance & Policy:
+   - Automation for policy enforcement, configuration drift management, and audit trails across clouds.
+5. Vendor Lock-in/Portability:
+   - Containerization, serverless frameworks that are cloud-neutral, use of open APIs, and avoiding proprietary cloud services where portability is a priority.
+6. Unified Observability:
+   - Centralizing logging, monitoring, and incident response for all clouds—(you said you’ll cover observability later, but a cross-reference or note here may help).
+7. Skillsets & Process:
+   - Team training, cross-cloud architectural patterns, runbook/playbook development.
+8. Sustainability (if relevant to audience):
+   - Resource efficiency, “green cloud” strategies (less commonly covered but increasingly topical).
