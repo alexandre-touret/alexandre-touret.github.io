@@ -13,7 +13,7 @@ jobs:
       fail-fast: false
       matrix:
         os: ["ubuntu-24.04"]
-        hugo_version: ["0.147.8"]
+        hugo_version: ["0.160.1"]
     permissions:
       contents: write
     steps:
