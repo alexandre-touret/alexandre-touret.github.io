@@ -60,15 +60,41 @@ Finally, to sum up, we may summarise this process in three main steps:
 
 ## Back to basics
 
-Pinpoint the different use cases and workloads.
+It's time to get back to basics! 
+First, we need to have a clear understanding of your business goals and requirements. This will help you determine which cloud providers and services are best suited for your needs. It's therefore crucial to have a clear understanding of the different use cases and workloads that you want to run on the cloud. This will help you determine which cloud providers and services are best suited for your needs.
 
-// Exemple de decoupage fonctionnel
+As any other design, we should start designing the system by identifying the different use cases and workloads, and how they interact with each other. We can use for that many different techniques, such as [user stories](https://en.wikipedia.org/wiki/User_story), [use case diagrams](https://martinfowler.com/bliki/BoundedContext.html), [High-level UML Sequence diagrams](https://en.wikipedia.org/wiki/Sequence_diagram), or [BPMN](https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation) diagrams. The important thing is to have a clear understanding of the different use cases and workloads, and how they interact with each other. In my view, the [Domain Driven Design](https://martinfowler.com/bliki/DomainDrivenDesign.html) and particularly dividing your platform into different [Bounded Contexts](https://martinfowler.com/bliki/BoundedContext.html) are quite useful to identify all of them.
 
-Check how to connect them together, 
+To illustrate this point, let's take the example of a company that wants to build a mobility platform. The main use cases are:
+- Real-time tracking of vehicles
+- Data analytics and reporting
+- AI and machine learning for predictive maintenance and route optimization
+- Customer-facing applications
+- Payment processing services
 
-Using BPMN to model the different processes and interactions between the various cloud providers and services.
+We may start by checking which cloud providers offer the best services for each use case. For instance, we may have this feature's coverage if we used to use AWS and GCP:
 
-// Exemple de BPMN
+| Use case |  AWS | GCP |
+| --- | --- | --- | --- |
+| Real-time tracking of vehicles |  AWS IoT Core | **GCP IoT Core** |
+| Data analytics and reporting |  AWS Redshift | **GCP BigQuery** |
+| AI and machine learning for predictive maintenance and route optimization |  | AWS SageMaker | **GCP Vertex AI Platform** |
+| Customer-facing applications | **AWS Elastic Beanstalk** | GCP App Engine |
+
+I emphasised the most suitable services (for my organisation) for each use case, but in practice, you may have to make trade-offs between the different providers and services. For instance, if you are already using AWS for other use cases, it may be easier to use AWS SageMaker for AI and machine learning, even if GCP Vertex AI Platform offers better features.
+
+For the payment processing services, we may choose to use a third-party service that is compatible with all cloud providers, such as Worldline or Stripe.
+
+Normally we may start working on the use cases and then determine which cloud providers and services are best suited for each use case. However, in practice, we may have to start by checking the different cloud providers and their products, especially if we have a product-based strategy. This will help us determine which use cases and workloads are best suited for each cloud provider, and how to connect them together.
+
+Now, let's see how to design the system and how to connect the different cloud providers together. For that purpose, I used to work with BPMN diagrams. It's understandable for everyone, and it allows us to easily pinpoint the different interactions between the different cloud providers.
+
+We can decline the different use cases into processes and sub-processes, and then model the interactions between the different cloud providers and services. This will help us identify the different components of the system, and how they interact with each other.
+
+For instance, we may model the real-time tracking of vehicles use case as follows:
+
+
+![Real-time Monitoring](/assets/images/2026/04/real-time-monitoring.svg)
 
 Try to keep every use case only on one cloud provider, to avoid complexity. But if you need to use multiple providers, make sure to clearly define the boundaries and interactions between them.
 
@@ -80,7 +106,7 @@ You will get some use cases that require you to interact with multiple cloud pro
 In practice, it's not that simple. For instance, I had in the past to deal with a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database, which added complexity and latency.
 However, we had to make it work. Hopefully, it was only for a specific use case not on the critical path, and we were able to isolate it from the rest of the system. 
 
-## The NFR
+## NFR
 Check if we met the non-functional requirements, such as security, compliance, and performance, across all cloud providers.
 
 ## DRS & Reliability
