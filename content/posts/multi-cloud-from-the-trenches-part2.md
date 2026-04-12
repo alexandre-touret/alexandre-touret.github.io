@@ -30,9 +30,9 @@ So, let's get started!
 ## How to start?
 
 First and foremost, it's important to start with a **clear strategy**.
-It is essentially the same approach as any other architectural strategy: start with the business goals and requirements, then design the technical solution that best meets those needs.
+It is essentially to keep the same approach as any other architectural strategy: start with the business goals and requirements, then design the technical solution that best meets those needs.
 However, in the case of multi-cloud, there are some specific considerations to take into account throughout the process.
-It requires an iterative approach.
+It requires an iterative approach (i.e., more than deploying on a single cloud).
 Once you have made the decision to adopt a multi-cloud strategy, you should start by identifying the use cases and workloads that are best suited to each cloud provider.
 This will allow you to leverage the strengths of each provider and optimize your costs and performance.
 This step will help you determine whether building a multi-cloud platform is relevant.
@@ -41,16 +41,18 @@ This step will help you determine whether building a multi-cloud platform is rel
 By the way, I strongly recommend reading the first part of this series before addressing the next steps. I will then assume that you have already identified the reasons why you want to adopt a multi-cloud strategy and that you have a clear understanding of the benefits and challenges associated with it.
 {{< /admonition >}}
 
-Personally, I started working on multi-cloud architectures when I was on a project that required us to use existing products from both Azure and GCP operated by different teams.
+Personally, I started working on multi-cloud architectures when I was involved in a project that required us to use existing products from both Azure and GCP operated by different teams.
 Each of these products had specific features and capabilities that were essential for our use case.
-Instead of reinventing the wheel by moving an existing product to another cloud platform and causing a skyrocketing cost increase, we chose to integrate these products, and we designed a solution that could leverage the strengths of both providers, combining off-the-shelf products and custom solutions while also ensuring that we could manage the complexity of using multiple cloud platforms.
+Instead of reinventing the wheel by moving an existing product to another cloud platform and causing a skyrocketing cost increase, we opted to integrate them, and we designed a solution that could leverage the strengths of both providers, combining off-the-shelf products and custom solutions while also ensuring that we could manage the complexity of using multiple cloud platforms.
 
-What I learned from this experience is that the key to successfully implementing a multi-cloud strategy is to start with a clear understanding of your business goals and requirements, and then design a solution that can leverage the strengths of each cloud provider while managing the complexity of multiple platforms. When your technical strategy is based on products, your process is less complex. You start by pinpointing the different use cases and workloads, and how compatible they are with the available products. Then you check how to connect them together and how to interact with different cloud providers through APIs.
+What I learned from this experience is that the key to successfully implementing a multi-cloud strategy is to start with a clear understanding of your business goals and requirements. It may seem obvious when you read it, but throughout the different iterations of the design, it's easy to lose sight of the original goals and requirements, and to get caught up in the technical details.
 
-Then, if you start from the ground up, you will have to design the whole system and make a lot of trade-offs between complexity, cost, performance, compliance, and maintainability.
+When your technical strategy is based on off-the-shelf products, your process is "less" complex. You usually start by pinpointing the different use cases and workloads, and how compatible they are with the available products. Then you check how to connect them together and how to interact with different cloud providers through APIs.
+
+By contrast, if you start from the ground up, you will have to design the whole system and make a lot of trade-offs between complexity, cost, performance, compliance, and maintainability.
 Generally speaking, you will have the same trade-offs to make, and you will need more design and project iterations than if you were to use existing products.
 
-Finally, to sum up, we may summarise this process in three main steps:
+Finally, to sum up, we may summarise this process into three main steps:
 
 1. Check-out the business strategy and goals
 2. Check-out the different use cases and workloads
@@ -60,12 +62,11 @@ Finally, to sum up, we may summarise this process in three main steps:
 
 ## Back to basics
 
-It's time to get back to basics! 
-First, we need to have a clear understanding of your business goals and requirements. This will help you determine which cloud providers and services are best suited for your needs. It's therefore crucial to have a clear understanding of the different use cases and workloads that you want to run on the cloud. This will help you determine which cloud providers and services are best suited for your needs.
+It's time to get back to basics!
 
 As any other design, we should start designing the system by identifying the different use cases and workloads, and how they interact with each other. We can use for that many different techniques, such as [user stories](https://en.wikipedia.org/wiki/User_story), [use case diagrams](https://martinfowler.com/bliki/BoundedContext.html), [High-level UML Sequence diagrams](https://en.wikipedia.org/wiki/Sequence_diagram), or [BPMN](https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation) diagrams. The important thing is to have a clear understanding of the different use cases and workloads, and how they interact with each other. In my view, the [Domain Driven Design](https://martinfowler.com/bliki/DomainDrivenDesign.html) and particularly dividing your platform into different [Bounded Contexts](https://martinfowler.com/bliki/BoundedContext.html) are quite useful to identify all of them.
 
-To illustrate this point, let's take the example of a company that wants to build a mobility platform. The main use cases are:
+To clear this point up, let's take the example of a company that wants to build a mobility platform. The main use cases are:
 - Real-time tracking of vehicles
 - Data analytics and reporting
 - AI and machine learning for predictive maintenance and route optimization
@@ -85,22 +86,32 @@ I emphasised the most suitable services (for my organisation) for each use case,
 
 For the payment processing services, we may choose to use a third-party service that is compatible with all cloud providers, such as Worldline or Stripe.
 
-Normally we may start working on the use cases and then determine which cloud providers and services are best suited for each use case. However, in practice, we may have to start by checking the different cloud providers and their products, especially if we have a product-based strategy. This will help us determine which use cases and workloads are best suited for each cloud provider, and how to connect them together.
+Starting with this study doesn't mean you need to avoid a functional analysis. On the contrary, it will help you to determine which use cases and workloads are best suited for each cloud provider during our functional analysis.
+Furthermore, this assessment must be reviewed and updated regularly. As you will progress in your design you will probably get into a better understanding of the user's needs and the technical requirements. It will potentially lead you to change your initial cloud-provider strategy, and to choose different providers and services for each use case.
 
-Now, let's see how to design the system and how to connect the different cloud providers together. For that purpose, I used to work with BPMN diagrams. It's understandable for everyone, and it allows us to easily pinpoint the different interactions between the different cloud providers.
+If usually, you start designing in the other way around, starting with the use cases and the workloads:  Don't worry, it's not a problem. This approach is not too far from that you are used to. I just recommend you to keep in mind that you will have to check the different cloud providers and their products at some point, and that it may impact your design. So, it's better to start with a quick check of the different cloud providers and their products, to have a better understanding of the different options available to you, and to be able to make informed decisions during your design process.
+However, if you rely on a product-based strategy, starting from the use cases might be biased because you will eventually deploy most of your use cases on the same cloud provider to avoid complexity (_which is a good thing!_). 
+
+During this phase, we will be able to pinpoint what are the different use cases and workloads, and how they interact with each other.
+For that purpose, I used to work with BPMN diagrams. It's understandable for everyone, and it allows us to easily pinpoint the different interactions between the different cloud providers.
 
 We can decline the different use cases into processes and sub-processes, and then model the interactions between the different cloud providers and services. This will help us identify the different components of the system, and how they interact with each other.
 
 For instance, we may model the real-time tracking of vehicles use case as follows:
 
-
 ![Real-time Monitoring](/assets/images/2026/04/real-time-monitoring.svg)
 
-Try to keep every use case only on one cloud provider, to avoid complexity. But if you need to use multiple providers, make sure to clearly define the boundaries and interactions between them.
+{{< admonition info "About this diagram" true >}}
+Normally you would have one diagram per use case, but I just wanted to give you an example of how to model the interactions between the different cloud providers and services. 
+{{< /admonition >}}
 
-Interact between the different cloud providers with API. I consider them as different systems. It's important to check inputs and outputs, and how they interact with each other.
+While making such a design, we can easily pinpoint the different interactions between the different cloud providers and services. The most important recommendation I can give you is to keep it as simple as possible keeping every use case only on one cloud provider, to avoid complexity. 
+Nevertheless, if you need to use multiple providers, make sure to clearly define the boundaries and interactions between them.
 
-OK... this is the theory. 
+Then, try **to promote API interaction** between the different cloud providers. It could be easy to reach a remote database or a remote service, but it may add complexity and latency. Further, if we consider the different cloud providers as different systems, we must validate incoming data and outputs, and check the interactions between them.
+
+OK. Now you got the theory. Let's see how it ~~fails~~ works in practice.
+
 You will get some use cases that require you to interact with multiple cloud providers. Your job as an architect is to weight the pros and cons of each approach: reusing as is this workload and have a cross-providers workload or re-implementing it on one provider. You will have to make trade-offs (everything in architecture is about trade-offs) between complexity, cost, performance, compliance and maintainability.
 
 In practice, it's not that simple. For instance, I had in the past to deal with a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database, which added complexity and latency.
