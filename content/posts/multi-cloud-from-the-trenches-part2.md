@@ -114,29 +114,41 @@ OK. Now you got the theory. Let's see how it ~~fails~~ works in practice.
 
 You will get some use cases that require you to interact with multiple cloud providers. Your job as an architect is to weight the pros and cons of each approach: reusing as is this workload and have a cross-providers workload or re-implementing it on one provider. You will have to make trade-offs (everything in architecture is about trade-offs) between complexity, cost, performance, compliance and maintainability.
 
-In practice, it's not that simple. For instance, I had in the past to deal with a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database, which added complexity and latency.
-However, we had to make it work. Hopefully, it was only for a specific use case not on the critical path, and we were able to isolate it from the rest of the system. 
+In practice, it's not that simple. For instance, I had in the past to deal with a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database instead, which added complexity and latency.
+We chose this solution to avoid unworthy costs increases. Hopefully, it was only for a specific use case not on the critical path, and we were able to isolate it from the rest of the system. 
+
+It's just an illustration of what you would face when designing a multi-cloud platform.  
+Finally, as with any other design (but even more so for this kind of architecture), one of the keys to success will be to design your system as a set of [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling) sub-systems or workloads. It will help you tackle some of the challenges of such a design. 
+In other words, shaping your platform with loosely coupled systems will enable you to deploy your workloads into different cloud providers, preventing any failures (_mostly_) and tackling the challenge of creating a fully distributed application. 
+
+## The fallacies of ~~Multi-cloud~~ Network Computing
+
+When you design your application with cross-services (or cross-cloud-providers) transactions, it's quite easy to draw an arrow with PlantUML or any other design tool.
+In practice, it comes with some difficulties. You may have some troubles with the internet connection or face to skyrocketting cost increase.
+
+Basically, you come accross the [Fallacies of Distributed Computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing): 
+
+- The network is reliable;
+- Latency is zero;
+- Bandwidth is infinite;
+- The network is secure;
+- Topology doesn't change;
+- There is one administrator;
+- Transport cost is zero;
+- The network is homogeneous;
+
+Having in mind these typical worries helped me a lot while designing platforms. It helps me challenge any boxes and arrows of my diagrams.
 
 ## NFR
+
+During the entire process of design, you will need to balance your 
+
 Check if we met the non-functional requirements, such as security, compliance, and performance, across all cloud providers.
 
 ## DRS & Reliability
 You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
 
-## The fallacies of ~~Multi-cloud~~ Network Computing
 
-https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing
-
-The originally listed fallacies are:
-
-    The network is reliable;
-    Latency is zero;
-    Bandwidth is infinite;
-    The network is secure;
-    Topology doesn't change;
-    There is one administrator;
-    Transport cost is zero;
-    The network is homogeneous;
 
 ## Compliance
 
