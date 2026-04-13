@@ -123,10 +123,10 @@ In other words, shaping your platform with loosely coupled systems will enable y
 
 ## The fallacies of ~~Multi-cloud~~ Network Computing
 
-When you design your application with cross-services (or cross-cloud-providers) transactions, it's quite easy to draw an arrow with PlantUML or any other design tool.
-In practice, it comes with some difficulties. You may have some troubles with the internet connection or face to skyrocketting cost increase.
+When you design your application with cross-service (or cross-cloud-provider) transactions, it's quite easy to draw an arrow with PlantUML or any other design tool.
+In practice, it comes with some difficulties. You may have some trouble with the internet connection or face skyrocketing cost increases.
 
-Basically, you come accross the [Fallacies of Distributed Computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing): 
+Basically, you come across the [Fallacies of Distributed Computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing): 
 
 - The network is reliable;
 - Latency is zero;
@@ -137,18 +137,23 @@ Basically, you come accross the [Fallacies of Distributed Computing](https://en.
 - Transport cost is zero;
 - The network is homogeneous;
 
-Having in mind these typical worries helped me a lot while designing platforms. It helps me challenge any boxes and arrows of my diagrams.
+Assessing your design choices against these fallacies is key. It will help you challenge the boxes and arrows in your diagrams with real-life challenges.
 
 ## NFR
 
-During the entire process of design, you will need to balance your 
+Pointing out Non-Functional Requirements and checking how use cases and designed workloads are compatible with them is one of the most critical steps of the design.
 
-Check if we met the non-functional requirements, such as security, compliance, and performance, across all cloud providers.
+For a multi-cloud platform, we will need to assess these points in particular:
+
+- Performance: Do all your transactions, and especially the cross-provider ones, fit with the [Service Level Objectives](https://en.wikipedia.org/wiki/Service-level_objective) (e.g., _95% of your API calls must be rendered within 30ms_)?
+- Availability: What is the availability of the entire platform? 
+
+For the latter, it will strongly rely on the way you segregate the different workloads between the different cloud providers. You can have different figures depending on the workloads. For instance, you can provide 99.95% of availability for your API and less for your Analytics platform. 
+This segregation makes sense.
+If one of your workloads involves two different platforms, the availability will be limited to the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor) of the different cloud providers' [SLAs](https://en.wikipedia.org/wiki/Service-level_agreement).
 
 ## DRS & Reliability
 You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
-
-
 
 ## Compliance
 
