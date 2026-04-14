@@ -203,12 +203,14 @@ Here is one strategy I have successfully applied:
 
 ### Customer data and user rights
 - We used **only** one Single Sign-On (SSO) solution (e.g., Keycloak) with OpenID Connect. Ideally, it is best to rely on a single Identity Provider (IdP).
-- We leveraged custom fields (e.g., token claims) to correlate users seamlessly across the different subsystems.
+- We leveraged custom fields (e.g., token claims) or used standards fields such as the email to correlate users seamlessly across the different subsystems.
 - The user rights policy was strictly based on Role-Based Access Control (RBAC).
 
 ### "Technical" security data
 - Each cloud platform brought its own IAM policies and technical accounts. We deliberately avoided spanning them from one cloud provider to another to keep the technical security context isolated.
 
+The purpose of this segregation is to keep loose-coupling the setup of the different cloud providers as much as possible.
+Using an open standard for authentication and authorisation such as OpenID Connect help broadcast all the required info to correlate the identity of the users across the entire system.
 
 ## Automation & DevOps
  Automation for policy enforcement, configuration drift management, and audit trails across clouds.
