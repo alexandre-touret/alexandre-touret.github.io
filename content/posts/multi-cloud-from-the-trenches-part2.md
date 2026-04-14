@@ -167,10 +167,10 @@ Furthermore, while designing our multi-cloud platform, it's worth gathering the 
 In this way, you would avoid mixing different requirements in the same cloud provider. By specialising the usage of your different cloud providers, you will prevent assessing and auditing two different cloud providers against compliance rules. 
 This segregation will come with some beneficial side effects for your organisation: you will be able to get a dedicated CI/CD pipeline for each cloud provider.
 
-## Performance
+## Performance & Reliability
 
 Checking and ensuring the performance of a single-cloud platform might be challenging; imagine when you deploy across several cloud providers!
-As mentioned earlier, if you clearly pinpointed the bounded contexts, avoiding cross-cloud-provider transactions within the same workload as much as possible will help you guarantee the performance of your platform (_remember the fallacies of distributed programming_).
+As mentioned earlier, if you clearly pinpointed the bounded contexts, avoiding cross-cloud-provider transactions within the same workload as much as possible will help you guarantee the performance of your platform (_remember the fallacies of distributed programming_). It will also strengthen the reliability of the entire system.
 
 If you can't avoid it, it will be mandatory to keep an eye on this workload and measure the impact in terms of performance. 
 Nevertheless, you can prevent some latency issues. You may colocate the different datacenters in the same region (i.e., deploy all your workloads in Paris). Some of the main actors recently published news about how to seamlessly connect different clouds with each other (e.g. [AWS / GCP](https://aws.amazon.com/blogs/networking-and-content-delivery/aws-and-google-cloud-collaborate-to-simplify-multicloud-networking/)). Unfortunately, there's no free lunch. When you dive into the highlighted solutions, they are usually based [on interconnect (for GCP)](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview) which could strongly impact the costs of your platform.
@@ -178,7 +178,18 @@ Nevertheless, you can prevent some latency issues. You may colocate the differen
 Before over-complicating your architecture, consider using only the Internet when possible. It will be cheaper. To prevent network latency issues, we can also deploy the different cloud platforms in the same location. For instance, we can opt for ``europe-west9`` for GCP and ``eu-west-3`` for AWS.
 
 ## FinOps 
-data transer costs, data egress costs, and the importance of monitoring and optimizing cloud spending across multiple providers.
+
+Let's be honest, during operations, a platform deployed on several cloud providers will always be significantly more expensive than on a single cloud provider.
+Nevertheless, it's important to balance these costs against additional costs, such as rebuilding a service from the ground up for colocation, or data transfer costs.
+
+To limit the impacts, it's crucial to embrace a FinOps approach from the outset. My recommendation is not to be a rocket scientist, but to enable the simplest solutions—or at least those in which you have a strong background—and increase the complexity step by step.
+Then, enable observability from the outset. It will enhance your accurate understanding of the platform and ease your decision-making.
+
+Beyond setting up end-to-end observability in your projects, another best practice is to regularly review your platform and check out the different costs. One exercise I've been leading for a while is arranging FinOps reviews with lead developers and Ops (_et que s'appelerio DevOps_). We check and explain the different cost variations, whether they are increases or decreases.
+
+Throughout this review, we can evaluate the different implemented solutions in terms of costs. For instance, we can check if a component's setup is overkill.
+
+It's not really different from "traditional cloud projects". But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it's worth keeping track of it and balancing it against the benefits of the service exposed to your customers.
 
 ## Automation & DevOps
  Automation for policy enforcement, configuration drift management, and audit trails across clouds.
