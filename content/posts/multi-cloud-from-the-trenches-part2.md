@@ -191,6 +191,11 @@ Throughout this review, we can evaluate the different implemented solutions in t
 
 It's not really different from "traditional cloud projects". But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it's worth keeping track of it and balancing it against the benefits of the service exposed to your customers.
 
+## Data Portability
+
+What about synchonisation ?
+Data Portability: Mentioned in Part 1, but missing in Part 2. How do you deal with data gravity? Do you replicate data across clouds, or strictly keep databases isolated to avoid latency and egress costs?
+
 ## Identity & Access Management
 
 Let's go back to the example I presented earlier about the real-time tracking of vehicles. What if we needed to link the vehicles users tracked through our IoT platform to the customer facing applications?
@@ -212,12 +217,14 @@ Here is one strategy I have successfully applied:
 The purpose of this segregation is to keep loose-coupling the setup of the different cloud providers as much as possible.
 Using an open standard for authentication and authorisation such as OpenID Connect help broadcast all the required info to correlate the identity of the users across the entire system.
 
-## Automation & DevOps
- Automation for policy enforcement, configuration drift management, and audit trails across clouds.
+## A Unified View for End Users
+A Unified View for End Users: Part 1 ended by highlighting that "The real challenge is providing a unified view" so customers don't care about the multi-cloud backend. Part 2 needs a section explaining how to achieve this—perhaps by discussing global API Gateways (like Kong, Apigee, or Cloudflare) or specialized Backends-for-Frontends (BFF).
 
-## Skillsets & Process
-Team training, cross-cloud architectural patterns, runbook/playbook development.
+
 
 ## Conclusion
+
+
+
 
 Skill sets, operational excellence, automation, sustainability
