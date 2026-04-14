@@ -124,9 +124,9 @@ In other words, shaping your platform with loosely coupled systems will enable y
 ## The fallacies of ~~Multi-cloud~~ Network Computing
 
 When you design your application with cross-service (or cross-cloud-provider) transactions, it's quite easy to draw an arrow with PlantUML or any other design tool.
-In practice, it comes with some difficulties. You may have some trouble with the internet connection or face skyrocketing cost increases.
+In practice, it comes with some difficulties. For instance, you may have some trouble with the internet connection or face skyrocketing cost increases.
 
-Basically, you come across the [Fallacies of Distributed Computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing): 
+Basically, you would come across the [Fallacies of Distributed Computing](https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing): 
 
 - The network is reliable;
 - Latency is zero;
@@ -137,7 +137,8 @@ Basically, you come across the [Fallacies of Distributed Computing](https://en.w
 - Transport cost is zero;
 - The network is homogeneous;
 
-Assessing your design choices against these fallacies is key. It will help you challenge the boxes and arrows in your diagrams with real-life challenges.
+Assessing your design choices against these fallacies is key. It will help you challenge the boxes and arrows in your diagrams with real-life challenges. 
+Beyond the joke, I think it's a good reminder while designing. It might guide the different design iterations to check and validate the different assumptions that will be stated through the study of the NFRs.
 
 ## NFR
 
@@ -152,25 +153,32 @@ For the latter, it will strongly rely on the way you segregate the different wor
 This segregation makes sense.
 If one of your workloads involves two different platforms, the availability will be limited to the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor) of the different cloud providers' [SLAs](https://en.wikipedia.org/wiki/Service-level_agreement).
 
-## DRS & Reliability
-You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
-
 ## Compliance
 
-Ne pas oublier les aspects de compliance, notamment en ce qui concerne les données. Il est important de vérifier les réglementations en vigueur dans les différents pays où les données sont stockées et traitées, et de s'assurer que les fournisseurs de cloud respectent ces réglementations.
+Another topic to address while reviewing the NFRs is compliance. Usually, this requirement comes first and will be the cornerstone of your platform's design: Do you need to handle payments and be [PCI DSS compliant](https://www.pcisecuritystandards.org/standards/)? Do your customers aim to provide an [OIV](https://fr.wikipedia.org/wiki/Op%C3%A9rateur_d%27importance_vitale)?
 
-Si vous devez vous conformer à des aspects reglementaires spécifiques, il est important de vérifier que les fournisseurs de cloud que vous utilisez sont conformes à ces réglementations.
+You will then need to ask these questions and share these requirements with all the stakeholders. Throughout these discussions, you will get insights and will be able to validate whether you can deploy your workloads and store data in specific countries.
 
-Si possible, essayez de centraliser la gestion de la compliance pour éviter les erreurs et les incohérences entre les différents fournisseurs de cloud. Aussi un audit est assez lourd à traiter, si vous pouvez concentrer les données dans un seul fournisseur de cloud, cela peut faciliter la gestion de la compliance.
+For instance, you may need to answer these questions:
+- Could you deploy a fully French sovereign platform onto AWS us-east-1?
+- Is this region/cloud provider fully compliant with PCI DSS (or any regulation)?
+
+Furthermore, while designing our multi-cloud platform, it's worth gathering the components based on their required compliance onto the same cloud provider. One good practice would be to isolate them from the rest of the platform.
+In this way, you would avoid mixing different requirements in the same cloud provider. By specialising the usage of your different cloud providers, you will prevent assessing and auditing two different cloud providers against compliance rules. 
+This segregation will come with some beneficial side effects for your organisation: you will be able to get a dedicated CI/CD pipeline for each cloud provider.
 
 ## Performance
 
-Si on a bien séparé les uses cases, c'est gagné
-sinon, il faut challenger les performances de chaque interaction entre les différents cloud providers. Il est important de vérifier que les performances sont acceptables pour chaque use case, et de faire des compromis si nécessaire.
+Checking and ensuring the performance of a single-cloud platform might be challenging; imagine when you deploy across several cloud providers!
+As mentioned earlier, if you clearly pinpointed the bounded contexts, avoiding cross-cloud-provider transactions within the same workload as much as possible will help you guarantee the performance of your platform (_remember the fallacies of distributed programming_).
+
+If you can't avoid it, it will be mandatory to keep an eye on this workload and measure the impact in terms of performance. 
+Nevertheless, you can prevent some latency issues. You may colocate the different datacenters in the same region (i.e., deploy all your workloads in Paris). Some of the main actors recently published news about how to seamlessly connect different clouds with each other (e.g. [AWS / GCP](https://aws.amazon.com/blogs/networking-and-content-delivery/aws-and-google-cloud-collaborate-to-simplify-multicloud-networking/)). Unfortunately, there's no free lunch. When you dive into the highlighted solutions, they are usually based [on interconnect (for GCP)](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview) which could strongly impact the costs of your platform.
+
+Before over-complicating your architecture, consider using only the Internet when possible. It will be cheaper. To prevent network latency issues, we can also deploy the different cloud platforms in the same location. For instance, we can opt for ``europe-west9`` for GCP and ``eu-west-3`` for AWS.
 
 ## FinOps 
 data transer costs, data egress costs, and the importance of monitoring and optimizing cloud spending across multiple providers.
-
 
 ## Automation & DevOps
  Automation for policy enforcement, configuration drift management, and audit trails across clouds.
@@ -183,7 +191,8 @@ Team training, cross-cloud architectural patterns, runbook/playbook development.
 
 What about agnostic ?
 
-
+Talk about DRS
+You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
 
 - Operational Excellence: Automation, iterative improvement, monitoring, incident response
 - Security: Identity/access management, encryption, data protection, compliance controls, zero trust principles
