@@ -191,56 +191,31 @@ Throughout this review, we can evaluate the different implemented solutions in t
 
 It's not really different from "traditional cloud projects". But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it's worth keeping track of it and balancing it against the benefits of the service exposed to your customers.
 
+## Identity & Access Management
+
+Let's go back to the example I presented earlier about the real-time tracking of vehicles. What if we needed to link the vehicles users tracked through our IoT platform to the customer facing applications?
+
+Actually, when it comes to defining how to identify users and how to correlate customer data across the different sub-systems, it can quickly become a headache. 
+
+There are many strategies depending on the context and the targeted platforms.
+
+Here is one strategy I have successfully applied:
+
+### Customer data and user rights
+- We used **only** one Single Sign-On (SSO) solution (e.g., Keycloak) with OpenID Connect. Ideally, it is best to rely on a single Identity Provider (IdP).
+- We leveraged custom fields (e.g., token claims) to correlate users seamlessly across the different subsystems.
+- The user rights policy was strictly based on Role-Based Access Control (RBAC).
+
+### "Technical" security data
+- Each cloud platform brought its own IAM policies and technical accounts. We deliberately avoided spanning them from one cloud provider to another to keep the technical security context isolated.
+
+
 ## Automation & DevOps
  Automation for policy enforcement, configuration drift management, and audit trails across clouds.
-## Identity & Access Management
-Centralized IAM/federation (SSO, RBAC, minimizing privilege sprawl across clouds).
+
 ## Skillsets & Process
 Team training, cross-cloud architectural patterns, runbook/playbook development.
 
 ## Conclusion
 
-What about agnostic ?
-
-Talk about DRS
-You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
-
-- Operational Excellence: Automation, iterative improvement, monitoring, incident response
-- Security: Identity/access management, encryption, data protection, compliance controls, zero trust principles
-- Reliability: Disaster recovery planning, backup, failover, multi-region/multi-cloud redundancy, SLAs
-- Performance Efficiency: Resource right-sizing, latency/bandwidth planning, network design, capacity management
-- Cost Optimization: FinOps, monitoring usage, cross-cloud cost comparison and controls, spend optimization
-- Sustainability: Resource utilization, energy consumption, green practices (if relevant)
-- Governance: Policy management, cloud provider account management, auditability, configuration standards
-- People & Process: Training, dedicated cross-cloud teams, documented runbooks/playbooks, clear escalation paths
-- Vendor Lock-in Mitigation: Use of portable components, open standards, containerization, abstraction (e.g., Terraform)
-- Interoperability: API gateway, messaging and eventing platforms, common data formats/schemas
-- Observability: Centralized logging, monitoring, alerting spanning all cloud providers; unified dashboards
-Comparing to Your "How" Section
-You covered:
-- Iterative/gradual approach
-- Use-case/workload isolation
-- Wire them with APIs, model processes, BPMN
-- Acknowledge practical trade-offs
-- NFRs: security, compliance, performance, cost
-- Distributed systems/network fallacies
-- Compliance (regulations, audits)
-- Performance (especially for cross-cloud flows)
-- FinOps: egress/transfer costs, optimization
-Potential Gaps or Areas That Could be Strengthened
-1. Disaster Recovery & Reliability:  
-   - You mention trade-offs, but not explicit advice on DR/multi-cloud failover, backup, or high-availability design patterns.
-2. Automation & DevOps:  
-   - The importance of using automation tools (e.g., Infrastructure as Code), CI/CD pipelines that can target multiple clouds, automated policy enforcement, or cross-cloud blueprints.
-3. Identity & Access Management:  
-   - Centralized IAM/federation (SSO, RBAC, minimizing privilege sprawl across clouds).
-4. Governance & Policy:
-   - Automation for policy enforcement, configuration drift management, and audit trails across clouds.
-5. Vendor Lock-in/Portability:
-   - Containerization, serverless frameworks that are cloud-neutral, use of open APIs, and avoiding proprietary cloud services where portability is a priority.
-6. Unified Observability:
-   - Centralizing logging, monitoring, and incident response for all clouds—(you said you’ll cover observability later, but a cross-reference or note here may help).
-7. Skillsets & Process:
-   - Team training, cross-cloud architectural patterns, runbook/playbook development.
-8. Sustainability (if relevant to audience):
-   - Resource efficiency, “green cloud” strategies (less commonly covered but increasingly topical).
+Skill sets, operational excellence, automation, sustainability
