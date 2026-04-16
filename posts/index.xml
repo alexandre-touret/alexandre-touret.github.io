@@ -1,4 +1,254 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 12 Mar 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Multi-Cloud from the Trenches: Part 1 - The Why and The What</title><link>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</link><pubDate>Thu, 12 Mar 2026 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</guid><description><![CDATA[<div class="featured-image">
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>All Posts - Alexandre Touret's Blog</title><link>https://blog.touret.info/posts/</link><description>All Posts | Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Thu, 16 Apr 2026 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/posts/" rel="self" type="application/rss+xml"/><item><title>Multi-Cloud from the Trenches: Part 2 - The How</title><link>https://blog.touret.info/2026/04/16/multi-cloud-from-the-trenches-part2/</link><pubDate>Thu, 16 Apr 2026 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2026/04/16/multi-cloud-from-the-trenches-part2/</guid><description><![CDATA[<div class="featured-image">
+                <img src="/assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp" referrerpolicy="no-referrer">
+            </div><div id="id-3"><em>Photo by <a href="https://unsplash.com/@rpianarosa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ramiro Pianarosa</a> on <a href="https://unsplash.com/photos/white-clouds-on-black-background-xUpbQ9GX7SQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></em></div>
+<h2 id="introduction" class="headerLink">
+    <a href="#introduction" class="header-mark"></a>25 Introduction</h2><p>This article is the second part of a series on multi-cloud strategies. In the first part, we explored the reasons why organizations are adopting multi-cloud approaches and the benefits they can reap from it. Now, in this second part, we will dive into the practical aspects of implementing a multi-cloud strategy. We will discuss the key considerations, challenges, and best practices for successfully managing multiple cloud environments. I will also share some real-world examples and insights from my experience.</p>
+<p>Whether you are just starting to explore multi-cloud or are already in the midst of your journey, I hope this article will provide you with valuable guidance on how to navigate the complexities of multi-cloud and achieve your business goals.</p>
+<p>So, let&rsquo;s get started!</p>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"/></svg></span>The series<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><ul>
+<li>Part 1 : <a href="https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/" target="_blank" rel="noopener noreferrer">Multi-Cloud from the Trenches: Part 1 - The Why</a></li>
+</ul>
+</div></div></div>
+<h2 id="how-to-start" class="headerLink">
+    <a href="#how-to-start" class="header-mark"></a>26 How to start?</h2><p>First and foremost, it&rsquo;s important to start with a <strong>clear strategy</strong>.
+It is essentially to keep the same approach as any other architectural strategy: start with the business goals and requirements, then design the technical solution that best meets those needs.
+However, in the case of multi-cloud, there are some specific considerations to take into account throughout the process.
+It requires an iterative approach (i.e., more than deploying on a single cloud).
+Once you have made the decision to adopt a multi-cloud strategy, you should start by identifying the use cases and workloads that are best suited to each cloud provider.
+This will allow you to leverage the strengths of each provider and optimize your costs and performance.
+This step will help you determine whether building a multi-cloud platform is relevant.</p>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"/></svg></span>Part 1<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">By the way, I strongly recommend reading the first part of this series before addressing the next steps. I will then assume that you have already identified the reasons why you want to adopt a multi-cloud strategy and that you have a clear understanding of the benefits and challenges associated with it.</div></div></div>
+<p>Personally, I started working on multi-cloud architectures when I was involved in a project that required us to use existing products from both Azure and GCP operated by different teams.
+Each of these products had specific features and capabilities that were essential for our use case.
+Instead of reinventing the wheel by moving an existing product to another cloud platform and causing a skyrocketing cost increase, we opted to integrate them, and we designed a solution that could leverage the strengths of both providers, combining off-the-shelf products and custom solutions while also ensuring that we could manage the complexity of using multiple cloud platforms.</p>
+<p>What I learned from this experience is that the key to successfully implementing a multi-cloud strategy is to start with a clear understanding of your business goals and requirements. It may seem obvious when you read it, but throughout the different iterations of the design, it&rsquo;s easy to lose sight of the original goals and requirements, and to get caught up in the technical details.</p>
+<p>When your technical strategy is based on off-the-shelf products, your process is &ldquo;less&rdquo; complex. You usually start by pinpointing the different use cases and workloads, and how compatible they are with the available products. Then you check how to connect them together and how to interact with different cloud providers through APIs.</p>
+<p>By contrast, if you start from the ground up, you will have to design the whole system and make a lot of trade-offs between complexity, cost, performance, compliance, and maintainability.
+Generally speaking, you will have the same trade-offs to make, and you will need more design and project iterations than if you were to use existing products.</p>
+<p>Finally, to sum up, we may summarise this process into three main steps:</p>
+<ol>
+<li>Check-out the business strategy and goals</li>
+<li>Check-out the different use cases and workloads</li>
+</ol>
+<ul>
+<li>If you have a product-based strategy, check-out the compatibility of the use cases with the available products</li>
+<li>If you have a custom solution strategy, check-out the different design options and trade-offs</li>
+</ul>
+<ol start="3">
+<li>Check-out the different cloud providers and their products</li>
+</ol>
+<h2 id="back-to-basics" class="headerLink">
+    <a href="#back-to-basics" class="header-mark"></a>27 Back to basics</h2><p>It&rsquo;s time to get back to basics!</p>
+<p>As any other design, we should start designing the system by identifying the different use cases and workloads, and how they interact with each other. We can use for that many different techniques, such as <a href="https://en.wikipedia.org/wiki/User_story" target="_blank" rel="noopener noreferrer">user stories</a>, <a href="https://martinfowler.com/bliki/BoundedContext.html" target="_blank" rel="noopener noreferrer">use case diagrams</a>, <a href="https://en.wikipedia.org/wiki/Sequence_diagram" target="_blank" rel="noopener noreferrer">High-level UML Sequence diagrams</a>, or <a href="https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation" target="_blank" rel="noopener noreferrer">BPMN</a> diagrams. The important thing is to have a clear understanding of the different use cases and workloads, and how they interact with each other. In my view, the <a href="https://martinfowler.com/bliki/DomainDrivenDesign.html" target="_blank" rel="noopener noreferrer">Domain Driven Design</a> and particularly dividing your platform into different <a href="https://martinfowler.com/bliki/BoundedContext.html" target="_blank" rel="noopener noreferrer">Bounded Contexts</a> are quite useful to identify all of them.</p>
+<p>To clear this point up, let&rsquo;s take the example of a company that wants to build a mobility platform. The main use cases are:</p>
+<ul>
+<li>Real-time tracking of vehicles</li>
+<li>Data analytics and reporting</li>
+<li>AI and machine learning for predictive maintenance and route optimization</li>
+<li>Customer-facing applications</li>
+<li>Payment processing services</li>
+</ul>
+<p>We may start by checking which cloud providers offer the best services for each use case. For instance, we may have this feature&rsquo;s coverage if we used to use AWS and GCP:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Use case</th>
+          <th>AWS</th>
+          <th>GCP</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Real-time tracking of vehicles</td>
+          <td>AWS IoT Core</td>
+          <td><strong>GCP IoT Core</strong></td>
+      </tr>
+      <tr>
+          <td>Data analytics and reporting</td>
+          <td>AWS Redshift</td>
+          <td><strong>GCP BigQuery</strong></td>
+      </tr>
+      <tr>
+          <td>AI and machine learning for predictive maintenance and route optimization</td>
+          <td>AWS SageMaker</td>
+          <td><strong>GCP Vertex AI Platform</strong></td>
+      </tr>
+      <tr>
+          <td>Customer-facing applications</td>
+          <td><strong>AWS Elastic Beanstalk</strong></td>
+          <td>GCP App Engine</td>
+      </tr>
+  </tbody>
+</table>
+<p>I emphasised the most suitable services (for my organisation) for each use case, but in practice, you may have to make trade-offs between the different providers and services. For instance, if you are already using AWS for other use cases, it may be easier to use AWS SageMaker for AI and machine learning, even if GCP Vertex AI Platform offers better features.</p>
+<p>For the payment processing services, we may choose to use a third-party service that is compatible with all cloud providers, such as Worldline or Stripe.</p>
+<p>Starting with this study doesn&rsquo;t mean you need to avoid a functional analysis. On the contrary, it will help you to determine which use cases and workloads are best suited for each cloud provider during our functional analysis.
+Furthermore, this assessment must be reviewed and updated regularly. As you will progress in your design you will probably get into a better understanding of the user&rsquo;s needs and the technical requirements. It will potentially lead you to change your initial cloud-provider strategy, and to choose different providers and services for each use case.</p>
+<p>If usually, you start designing in the other way around, starting with the use cases and the workloads.
+Don&rsquo;t worry, it&rsquo;s not a problem.
+This approach is not too far from that you are used to.
+I just recommend you to keep in mind that you will have to check the different cloud providers and their products at some point, and that it may impact your design.
+Therefore, it&rsquo;s better to start with a quick check of the different cloud providers and their products, to have a better understanding of the different options available to you, and to be able to make informed decisions during your design process.
+However, if you rely on a product-based strategy, starting from the use cases might be biased because you will eventually deploy most of your use cases on the same cloud provider to avoid complexity (<em>which is a good thing!</em>).</p>
+<p>During this phase, we will be able to pinpoint what are the different use cases and workloads, and how they interact with each other.
+For that purpose, I used to work with BPMN diagrams. It&rsquo;s understandable for everyone, and it allows us to easily pinpoint the different interactions between the different cloud providers.</p>
+<p>We can decline the different use cases into processes and sub-processes, and then model the interactions between the different cloud providers and services. This will help us identify the different components of the system, and how they interact with each other.</p>
+<p>For instance, we may model the real-time tracking of vehicles use case as follows:</p>
+<p><img class="tw-inline" loading="lazy" src='/assets/images/2026/04/real-time-monitoring.svg'   alt="Real-time Monitoring"  ></p>
+<div class="details admonition info open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M256 8C119.043 8 8 119.083 8 256c0 136.997 111.043 248 248 248s248-111.003 248-248C504 119.083 392.957 8 256 8zm0 110c23.196 0 42 18.804 42 42s-18.804 42-42 42-42-18.804-42-42 18.804-42 42-42zm56 254c0 6.627-5.373 12-12 12h-88c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h12v-64h-12c-6.627 0-12-5.373-12-12v-24c0-6.627 5.373-12 12-12h64c6.627 0 12 5.373 12 12v100h12c6.627 0 12 5.373 12 12v24z"/></svg></span>About this diagram<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content">Normally you would have one diagram per use case, but I just wanted to give you an example of how to model the interactions between the different cloud providers and services.</div></div></div>
+<p>While making such a design, we can easily pinpoint the different interactions between the different cloud providers and services. The most important recommendation I can give you is to keep it as simple as possible keeping every use case only on one cloud provider, to avoid complexity.
+Nevertheless, if you need to use multiple providers, make sure to clearly define the boundaries and interactions between them.</p>
+<p>Then, try <strong>to promote API interaction</strong> between the different cloud providers. It could be easy to reach a remote database or a remote service, but it may add complexity and latency. Further, if we consider the different cloud providers as different systems, we must validate incoming data and outputs, and check the interactions between them.</p>
+<p>OK. Now you got the theory. Let&rsquo;s see how it <del>fails</del> works in practice.</p>
+<p>You will get some use cases that require you to interact with multiple cloud providers. Your job as an architect is to weight the pros and cons of each approach: reusing as is this workload and have a cross-providers workload or re-implementing it on one provider. You will have to make trade-offs (everything in architecture is about trade-offs) between complexity, cost, performance, compliance and maintainability.</p>
+<p>In practice, it&rsquo;s not that simple. For instance, I had in the past to connect to a database on Azure. It wasn&rsquo;t possible to interact with API. We had to use a secure connection to connect to the database instead, which added complexity and latency.
+We chose this solution to avoid unworthy costs increases. Hopefully, it was only for a specific use case not on the critical path, and we were able to isolate it from the rest of the system.</p>
+<p>It&rsquo;s just an illustration of what you would face when designing a multi-cloud platform.</p>
+<p>Finally, as with any other design (but even more so for this kind of architecture), one of the keys to success will be to design your system as a set of <a href="https://en.wikipedia.org/wiki/Loose_coupling" target="_blank" rel="noopener noreferrer">loosely coupled</a> sub-systems or workloads. It will help you tackle some of the challenges of such a design.
+In other words, shaping your platform with loosely coupled systems will enable you to deploy your workloads into different cloud providers, preventing any failures (<em>mostly</em>) and tackling the challenge of creating a fully distributed application.</p>
+<h2 id="the-fallacies-of-multi-cloud-network-computing" class="headerLink">
+    <a href="#the-fallacies-of-multi-cloud-network-computing" class="header-mark"></a>28 The fallacies of <del>Multi-cloud</del> Network Computing</h2><p>When you design your application with cross-service (or cross-cloud-provider) transactions, it&rsquo;s quite easy to draw an arrow with PlantUML or any other design tool.
+In practice, it comes with some difficulties. For instance, you may have some trouble with the internet connection or face skyrocketing cost increases.</p>
+<p>Basically, you would come across the <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing" target="_blank" rel="noopener noreferrer">Fallacies of Distributed Computing</a>:</p>
+<ul>
+<li>The network is reliable;</li>
+<li>Latency is zero;</li>
+<li>Bandwidth is infinite;</li>
+<li>The network is secure;</li>
+<li>Topology doesn&rsquo;t change;</li>
+<li>There is one administrator;</li>
+<li>Transport cost is zero;</li>
+<li>The network is homogeneous;</li>
+</ul>
+<p>Assessing your design choices against these fallacies is key. It will help you challenge the boxes and arrows in your diagrams with real-life challenges.
+Beyond the joke, I think it&rsquo;s a good reminder while designing. It might guide the different design iterations to check and validate the different assumptions that will be stated through the study of the NFRs.</p>
+<h2 id="nfr" class="headerLink">
+    <a href="#nfr" class="header-mark"></a>29 NFR</h2><p>Pointing out Non-Functional Requirements and checking how use cases and designed workloads are compatible with them is one of the most critical steps of the design.</p>
+<p>For a multi-cloud platform, we will need to assess these points in particular:</p>
+<ul>
+<li>Performance: Do all your transactions, and especially the cross-provider ones, fit with the <a href="https://en.wikipedia.org/wiki/Service-level_objective" target="_blank" rel="noopener noreferrer">Service Level Objectives</a> (e.g., <em>95% of your API calls must be rendered within 30ms</em>)?</li>
+<li>Availability: What is the availability of the entire platform?</li>
+</ul>
+<p>For the latter, it will strongly rely on the way you segregate the different workloads between the different cloud providers. You can have different figures depending on the workloads. For instance, you can provide 99.95% of availability for your API and less for your Analytics platform.</p>
+<p>This segregation makes sense.
+If one of your workloads involves two different platforms, the availability will be limited to the <a href="https://en.wikipedia.org/wiki/Greatest_common_divisor" target="_blank" rel="noopener noreferrer">GCD</a> of the different cloud providers&rsquo; <a href="https://en.wikipedia.org/wiki/Service-level_agreement" target="_blank" rel="noopener noreferrer">SLAs</a>.</p>
+<h2 id="compliance" class="headerLink">
+    <a href="#compliance" class="header-mark"></a>30 Compliance</h2><p>Another topic to address while reviewing the NFRs is compliance. Usually, this requirement comes first and will be the cornerstone of your platform&rsquo;s design: Do you need to handle payments and be <a href="https://www.pcisecuritystandards.org/standards/" target="_blank" rel="noopener noreferrer">PCI DSS compliant</a>? Do your customers aim to provide an <a href="https://fr.wikipedia.org/wiki/Op%C3%A9rateur_d%27importance_vitale" target="_blank" rel="noopener noreferrer">OIV</a>?</p>
+<p>You will then need to ask these questions and share these requirements with all the stakeholders. Throughout these discussions, you will get insights and will be able to validate whether you can deploy your workloads and store data in specific countries.</p>
+<p>For instance, you may need to answer these questions:</p>
+<ul>
+<li>Could you deploy a fully French sovereign platform onto AWS us-east-1?</li>
+<li>Is this region/cloud provider fully compliant with PCI DSS (or any regulation)?</li>
+</ul>
+<p>Furthermore, while designing our multi-cloud platform, it&rsquo;s worth gathering the components based on their required compliance onto the same cloud provider.</p>
+<p>One good practice would be to isolate them from the rest of the platform.
+In this way, you would avoid mixing different requirements in the same cloud provider. By specialising the usage of your different cloud providers, you will prevent assessing and auditing two different cloud providers against compliance rules.
+This segregation will come with some beneficial side effects for your organisation: you will be able to get a dedicated CI/CD pipeline for each cloud provider.</p>
+<h2 id="performance--reliability" class="headerLink">
+    <a href="#performance--reliability" class="header-mark"></a>31 Performance &amp; Reliability</h2><p>Checking and ensuring the performance of a single-cloud platform might be challenging; imagine when you deploy across several cloud providers!
+As mentioned earlier, if you clearly pinpointed the bounded contexts, avoiding cross-cloud-provider transactions within the same workload as much as possible will help you guarantee the performance of your platform (<em>remember the fallacies of distributed programming</em>). It will also strengthen the reliability of the entire system.</p>
+<p>If you can&rsquo;t avoid it, it will be mandatory to keep an eye on this workload and measure the impact in terms of performance.
+Nevertheless, you can prevent some latency issues. You may colocate the different datacenters in the same region (i.e., deploy all your workloads in Paris). Some of the main actors recently published news about how to seamlessly connect different clouds with each other (e.g. <a href="https://aws.amazon.com/blogs/networking-and-content-delivery/aws-and-google-cloud-collaborate-to-simplify-multicloud-networking/" target="_blank" rel="noopener noreferrer">AWS / GCP</a>).</p>
+<p>Unfortunately, there&rsquo;s no free lunch. When you dive into the highlighted solutions, they are usually based <a href="https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview" target="_blank" rel="noopener noreferrer">on interconnect (for GCP)</a> which could strongly impact the costs of your platform.</p>
+<p>Before over-complicating your architecture, consider using only the Internet when possible. It will be cheaper. To prevent network latency issues, we can also deploy the different cloud platforms in the same location. For instance, we can opt for <code>europe-west9</code> for GCP and <code>eu-west-3</code> for AWS.</p>
+<h2 id="finops" class="headerLink">
+    <a href="#finops" class="header-mark"></a>32 FinOps</h2><p>Let&rsquo;s be honest, during operations, a platform deployed on several cloud providers will always be significantly more expensive than on a single cloud provider.
+Nevertheless, it&rsquo;s important to balance these costs against additional costs, such as rebuilding a service from the ground up for colocation, or data transfer costs.</p>
+<p>To limit the impacts, it&rsquo;s crucial to embrace a FinOps approach from the outset. My recommendation is not to be a rocket scientist, but to enable the simplest solutions—or at least those in which you have a strong background—and increase the complexity step by step.</p>
+<p>Then, enable observability too. It will enhance your accurate understanding of the platform and ease your decision-making.</p>
+<p>Beyond setting up end-to-end observability in your projects, another best practice is to regularly review your platform and check out the different costs. One exercise I&rsquo;ve been leading for a while is arranging FinOps reviews with lead developers and Ops (<em>et que s&rsquo;appelerio DevOps</em>). We check and explain the different cost variations, whether they are increases or decreases.</p>
+<p>Throughout this review, we can evaluate the different implemented solutions in terms of costs. For instance, we can check if a component&rsquo;s setup is overkill.</p>
+<p>It&rsquo;s not really different from &ldquo;traditional cloud projects&rdquo;. But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it&rsquo;s worth keeping track of it and balancing it against the benefits of the service exposed to your customers.</p>
+<h2 id="data-portability--personal-data-protection" class="headerLink">
+    <a href="#data-portability--personal-data-protection" class="header-mark"></a>33 Data portability &amp; personal data protection</h2><p>What about synchronisation or portability?
+It might be a big deal. For many reasons such as costs (<em>it&rsquo;s always about cost savings</em>), simplicity, security, or just preventing conflicts, I tend to avoid data replication between the different cloud providers as much as possible.</p>
+<p>Why? Because at the end of the day you could get either a split-brain issue or simply data inconsistency.</p>
+<p>In one of my previous professional experiences, we used to intensively synchronise data across different systems (within the same datacenter), and we struggled a lot to ensure data consistency.</p>
+<p>To be completely honest, we cannot completely avoid data synchronisation. However, by loosely coupling your different components and segregating your different workloads, you can significantly avoid massive data synchronisation.</p>
+<p>Nevertheless, even though you will keep your different use cases and components as loosely coupled as possible, you will need to tackle these challenges:</p>
+<h3 id="data-correlation" class="headerLink">
+    <a href="#data-correlation" class="header-mark"></a>33.1 Data correlation</h3><p>Let&rsquo;s go back to our previous example: we may manipulate some repository data such as vehicle names, product names, or user names. How to correlate them?
+For the users, I will address this point just after, but for the other ones, it&rsquo;s essential to go back to the basics, and pinpoint what are the master data and what will be their corresponding repositories.</p>
+<p>Depending on the context, technologies, and performance, you can either provide these data through an API or simply through synchronisation (e.g., with files). Usually, these data won&rsquo;t change a lot. This synchronisation is, in my view, acceptable.</p>
+<p>Then, imagine we want to correlate the vehicle IDs across the IoT cloud to the customer-facing applications. How to do that? In this case, we can imagine different solutions:</p>
+<ul>
+<li>Create a key/value cache which would be accessible from both platforms. The IoT part would write data, and the customer-facing side would only read it (and cache it locally if needed).</li>
+<li>Copy it from one cloud provider to another on a regular basis. The copy would only be unidirectional.</li>
+</ul>
+<p>Regarding the solution, we can implement it in different ways (from the easiest to the most complicated):</p>
+<ul>
+<li>A simple Key/Value cache service such as <a href="https://redis.io/nosql/key-value-databases/" target="_blank" rel="noopener noreferrer">Redis</a></li>
+<li>A file copy</li>
+<li><a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing" target="_blank" rel="noopener noreferrer">Event Sourcing</a></li>
+<li><a href="https://cloud.google.com/discover/what-is-change-data-capture" target="_blank" rel="noopener noreferrer">Change Data Capture</a></li>
+</ul>
+<h3 id="security--personally-identifiable-information-pii" class="headerLink">
+    <a href="#security--personally-identifiable-information-pii" class="header-mark"></a>33.2 Security &amp; Personally Identifiable Information (PII)</h3><p>If you need to synchronise and control the data lifecycle, it&rsquo;s mandatory to think about security at different levels:</p>
+<ul>
+<li>At rest</li>
+<li>In motion</li>
+</ul>
+<p>At the bare minimum, the data synchronised must be encrypted from end to end. But what about <a href="https://www.dol.gov/general/ppii" target="_blank" rel="noopener noreferrer">Personally Identifiable Information (PII)</a>?</p>
+<p>Unfortunately, there&rsquo;s no magic. You will have to track and manage the whole personal data lifecycle at the different levels of your architecture across the different components of the cloud providers.</p>
+<p>Another challenge arises in the different environments, such as the development or staging platforms. What if we need to create a pseudonymised set of data which would be consistent across the different software systems?
+It&rsquo;s not a new topic, but it becomes more difficult to handle in this case.</p>
+<p>Unfortunately, I haven&rsquo;t found any magical recipe yet for this concern.</p>
+<h2 id="identity--access-management" class="headerLink">
+    <a href="#identity--access-management" class="header-mark"></a>34 Identity &amp; access management</h2><p>Let&rsquo;s go back to the real-time tracking of vehicles example. What if we needed to link the vehicles that users track through our IoT platform to the customer-facing applications?</p>
+<p>Actually, when it comes to define how to identify users and how to correlate customer data across the different sub-systems, it can quickly become cumbersome.</p>
+<p>There are many strategies depending on the context and the targeted platforms.</p>
+<p>Here is one strategy I have successfully applied:</p>
+<h3 id="customer-data-and-user-rights" class="headerLink">
+    <a href="#customer-data-and-user-rights" class="header-mark"></a>34.1 Customer data and user rights</h3><ul>
+<li>We used <strong>only</strong> one Single Sign-On (SSO) solution (e.g., Keycloak) with OpenID Connect. Ideally, it is best to rely on a single Identity Provider (IdP).</li>
+<li>We leveraged custom fields (e.g., token claims) or used standard fields such as the email to correlate users seamlessly across the different subsystems.</li>
+<li>The user rights policy was strictly based on Role-Based Access Control (RBAC).</li>
+</ul>
+<h3 id="technical-security-data" class="headerLink">
+    <a href="#technical-security-data" class="header-mark"></a>34.2 &ldquo;Technical&rdquo; security data</h3><ul>
+<li>Each cloud platform brought its own IAM policies and technical accounts. We deliberately avoided spanning them from one cloud provider to another to keep the technical security context isolated.</li>
+</ul>
+<p>The purpose of this segregation is to keep the setup of the different cloud providers as loosely coupled as possible.
+Using an open standard for authentication and authorisation such as OpenID Connect helps broadcast all the required info to correlate the identity of the users across the entire system.</p>
+<h2 id="a-unified-view-for-end-users" class="headerLink">
+    <a href="#a-unified-view-for-end-users" class="header-mark"></a>35 A Unified View for End Users</h2><p>Last but not least, remember the <a href="https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/#the-sad-reality-end-users-dont-care" target="_blank" rel="noopener noreferrer">first part of this series: Users don&rsquo;t give a heck!</a>.</p>
+<p>From an architecture perspective, it means the challenge is to span our services across many cloud providers and provide a unified view to our customers.
+For that purpose, we may have different strategies depending on whether we consider the front-office or the back-office.</p>
+<h3 id="front-office" class="headerLink">
+    <a href="#front-office" class="header-mark"></a>35.1 Front-Office</h3><p>When we need to expose APIs or web interfaces to our APIs, it&rsquo;s important to think from a customer&rsquo;s perspective.
+Even though exposing different URLs for IoT or specific equipment may be acceptable, providing two (or more) sets of APIs which will be completely different in terms of conventions, error management, or anything else is, to some extent, unacceptable.
+Your customers will lose time and engagement during onboarding.
+That is why it matters to think about streamlining public APIs through, for instance, a global API Gateway. It will help provide a cohesive set of functionalities and give a unique way to interact with your platform.</p>
+<p>If you aim to provide web interfaces or mobile applications, specializing <a href="https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends" target="_blank" rel="noopener noreferrer">Backends-for-Frontends (BFF)</a> could also help in that field.</p>
+<h3 id="back-office" class="headerLink">
+    <a href="#back-office" class="header-mark"></a>35.2 Back-Office</h3><p>Providing a unified view is also important for the back office. How do you get unified KPIs or SLOs from end-to-end? I will answer these questions in the next part of this series :).</p>
+<h2 id="conclusion" class="headerLink">
+    <a href="#conclusion" class="header-mark"></a>36 Conclusion</h2><p>Implementing a multi-cloud strategy is far more complex than just drawing lines between cloud providers on a whiteboard. As we&rsquo;ve seen, it requires a rigorous methodology: from defining clear bounded contexts and keeping an eye on FinOps, to handling data portability and identity seamlessly.</p>
+<p>To avoid any surprises after delivery, it&rsquo;s key to develop a holistic approach from design to production and to continuously challenge your assumptions against the reality of distributed systems.</p>
+<p>Of course, the multi-cloud journey doesn&rsquo;t stop here. Several essential domains remain to be explored in your projects, such as managing different skill sets, achieving <a href="https://en.wikipedia.org/wiki/Operational_excellence" target="_blank" rel="noopener noreferrer">Operational Excellence</a>, automation, and sustainability.</p>
+<p>FInally, your goal is to shield your users from this underlying complexity. In the next part of this series, we will tackle one of the most critical challenges of these distributed systems: end-to-end observability and how to provide a unified, cohesive view of your platform&rsquo;s health.</p>
+]]></description></item><item><title>Multi-Cloud from the Trenches: Part 1 - The Why and The What</title><link>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</link><pubDate>Thu, 12 Mar 2026 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp" referrerpolicy="no-referrer">
             </div><div id="id-3"><em>Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joel Filipe</a> on <a href="https://unsplash.com/photos/low-angle-photo-of-30-st-mary-axe-VuwAfoHpxgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a></em></div>
 <p>For a couple of years, I have been regularly working on designing and implementing cloud-native landing zones on multiple cloud providers at once.
