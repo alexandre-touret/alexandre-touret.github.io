@@ -224,11 +224,14 @@ If you need to synchronise and control the data lifecycle, it's mandatory to thi
 - At rest
 - In motion
 
-At the bare minimum, the data synchronised must be encrypted. But what about [Personally Identifiable Information (PII)](https://www.dol.gov/general/ppii)? 
+At the bare minimum, the data synchronised must be encrypted from end to end. But what about [Personally Identifiable Information (PII)](https://www.dol.gov/general/ppii)?
 
 Unfortunately, there's no magic. You will have to track and manage the whole personal data lifecycle at the different levels of your architecture across the different components of the cloud providers.
 
-It's just another example of concerns when spanning your distributed workloads across different cloud providers.
+Another challenge arises in the different environments, such as the development or staging platforms. What if we need to create a pseudonymised set of data which would be consistent across the different software systems?
+It's not a new topic, but it becomes more difficult to handle in this case.
+
+Unfortunately, I haven't found any magical recipe yet for this concern.
 
 ## Identity & Access Management
 
