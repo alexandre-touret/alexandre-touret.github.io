@@ -1,18 +1,17 @@
 ---
 title: "Multi-Cloud from the Trenches: Part 2 - The How"
 date: 2026-04-24 08:00:00
-images: ["/assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp"]
-featuredImagePreview: /assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp
-featuredImage: /assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp
+images: ["/assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp "]
+featuredImagePreview: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
+featuredImage: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
 lightgallery: true
-og_image: /assets/images/2026/03/joel-filipe-VuwAfoHpxgs-unsplash.webp
+og_image: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
 tags:
   - Cloud
 ---
 
 {{< style "text-align:center;" >}}
-_Photo by <a href="https://unsplash.com/@joelfilip?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Joel Filipe</a> on <a href="https://unsplash.com/photos/low-angle-photo-of-30-st-mary-axe-VuwAfoHpxgs?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>_
-      
+_Photo by <a href="https://unsplash.com/@rpianarosa?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ramiro Pianarosa</a> on <a href="https://unsplash.com/photos/white-clouds-on-black-background-xUpbQ9GX7SQ?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>_      
 {{< /style >}}      
 
 ## Introduction
@@ -203,6 +202,7 @@ To be completely honest, we cannot completely avoid data synchronisation. Howeve
 Nevertheless, even though you will keep your different use cases and components as loosely coupled as possible, you will need to tackle these challenges:
 
 ### Data correlation 
+
 Let's go back to our previous example: we may manipulate some repository data such as vehicle names, product names, or user names. How to correlate them?
 For the users, I will address this point just after, but for the other ones, it's essential to go back to the basics, and pinpoint what are the master data and what will be their corresponding repositories.
 
@@ -235,7 +235,7 @@ Unfortunately, I haven't found any magical recipe yet for this concern.
 
 ## Identity & Access Management
 
-Let's go back to the example I presented earlier about the real-time tracking of vehicles. What if we needed to link the vehicles that users track through our IoT platform to the customer-facing applications?
+Let's go back to the real-time tracking of vehicles example. What if we needed to link the vehicles that users track through our IoT platform to the customer-facing applications?
 
 Actually, when it comes to defining how to identify users and how to correlate customer data across the different sub-systems, it can quickly become a headache. 
 
@@ -255,10 +255,32 @@ The purpose of this segregation is to keep the setup of the different cloud prov
 Using an open standard for authentication and authorisation such as OpenID Connect helps broadcast all the required info to correlate the identity of the users across the entire system.
 
 ## A Unified View for End Users
-A Unified View for End Users: Part 1 ended by highlighting that "The real challenge is providing a unified view" so that customers don't have to care about the multi-cloud backend. Part 2 needs a section explaining how to achieve this—perhaps by discussing global API Gateways (like Kong, Apigee, or Cloudflare) or specialized Backends-for-Frontends (BFF).
 
+Last but not least, remember the [first part of this series: Users don't give a heck!](https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part1/#the-sad-reality-end-users-dont-care).
 
+From an architecture perspective, it means the challenge is to span our services across many cloud providers and provide a unified view to our customers.
+For that purpose, we may have different strategies depending on whether we consider the front-office or the back-office.
+
+### Front-Office
+When we need to expose APIs or web interfaces to our APIs, it's important to think from a customer's perspective. 
+Even though exposing different URLs for IoT or specific equipment may be acceptable, providing two (or more) sets of APIs which will be completely different in terms of conventions, error management, or anything else is, to some extent, unacceptable. 
+Your customers will lose time and engagement during onboarding.
+That is why it matters to think about streamlining public APIs through, for instance, a global API Gateway. It will help provide a cohesive set of functionalities and give a unique way to interact with your platform.
+
+If you aim to provide web interfaces or mobile applications, specializing [Backends-for-Frontends (BFF)](https://learn.microsoft.com/en-us/azure/architecture/patterns/backends-for-frontends) could also help in that field.
+
+### Back-Office
+Providing a unified view is also important for the back office. How do you get unified KPIs or SLOs from end-to-end? I will answer these questions in the next part of this series :).
 
 ## Conclusion
 
-Skill sets, operational excellence, automation, sustainability
+I didn't talk about several domains which are also essential: 
+- How to manage different skill sets?
+- What about [Operational Excellence](https://en.wikipedia.org/wiki/Operational_excellence)?
+- Automation
+- Sustainability
+
+Nevertheless, I think I have given you the most important pointers on how to get into multi-cloud architectures and how to implement them.
+To avoid any surprises after delivery, it's key to develop a holistic approach from design to production and iterate to challenge every step of the design and implementation processes.
+
+In the next part of this series, I will dig into observability and how important it is to provide a unified view of your platform's health to your customers.
