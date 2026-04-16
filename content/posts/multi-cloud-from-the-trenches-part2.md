@@ -1,6 +1,6 @@
 ---
 title: "Multi-Cloud from the Trenches: Part 2 - The How"
-date: 2026-04-24 08:00:00
+date: 2026-04-16 08:00:00
 images: ["/assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp"]
 featuredImagePreview: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
 featuredImage: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
