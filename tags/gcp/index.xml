@@ -1,6 +1,6 @@
 <rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title>GCP - Tag - Alexandre Touret's Blog</title><link>https://blog.touret.info/tags/gcp/</link><description>GCP - Tag - Alexandre Touret's Blog</description><generator>Hugo -- gohugo.io</generator><language>en</language><copyright>This work is licensed under a Creative Commons Attribution 4.0 International License.</copyright><lastBuildDate>Mon, 24 Mar 2025 08:00:00 +0000</lastBuildDate><atom:link href="https://blog.touret.info/tags/gcp/" rel="self" type="application/rss+xml"/><item><title>Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator</title><link>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp" referrerpolicy="no-referrer">
-            </div><div id="id-6">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+            </div><div id="id-18">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
 <p>Most workloads we deploy <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">on Kubernetes are deployments</a>.
 They dynamically manage Pods &amp; Replicasets.</p>
 <p>However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.</p>
@@ -17,11 +17,11 @@ They dynamically manage Pods &amp; Replicasets.</p>
 </ul>
 <p>I will then introduce how to put it in place.</p>
 <h2 id="a-sneak-peak" class="headerLink">
-    <a href="#a-sneak-peak" class="header-mark"></a>1 A sneak peak</h2><p>Here’s a representation of the main infrastructure components required:</p>
+    <a href="#a-sneak-peak" class="header-mark"></a>9 A sneak peak</h2><p>Here’s a representation of the main infrastructure components required:</p>
 <p><img class="tw-inline" loading="lazy" src='/assets/images/2025/04/google_cloud_statefulha_operator.svg'   alt="Stateful Ha Operator"  ></p>
 <p>The Stateful set is exposed through a Regional Load Balancer to ensure connectivity after switching to another node during the failover process.</p>
 <h2 id="enabling-the-addon" class="headerLink">
-    <a href="#enabling-the-addon" class="header-mark"></a>2 Enabling the Addon</h2><p>First, enable the addon:</p>
+    <a href="#enabling-the-addon" class="header-mark"></a>10 Enabling the Addon</h2><p>First, enable the addon:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -97,7 +97,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
+    id="codeblock-id-13" 
     class="
       chroma 
       !tw-block 
@@ -112,12 +112,12 @@ They dynamically manage Pods &amp; Replicasets.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl">gcloud container clusters update gke-cluster <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --region MY_REGION --project MY_GCP_PROJECT <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --update-addons<span class="o">=</span><span class="nv">StatefulHA</span><span class="o">=</span>ENABLED</span></span></code></pre>
+</span></span></span><span class="line"><span class="cl">      --region MY_REGION --project MY_GCP_PROJECT <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --update-addons<span class="o">=</span><span class="nv">StatefulHA</span><span class="o">=</span>ENABLED</span></span></code></pre>
 </div>
 <p>For more details, you can refer to <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha" target="_blank" rel="noopener noreferrer">the documentation</a>.</p>
 <h2 id="activation" class="headerLink">
-    <a href="#activation" class="header-mark"></a>3 Activation</h2><p>You can now set up this Kubernetes object</p>
+    <a href="#activation" class="header-mark"></a>11 Activation</h2><p>You can now set up this Kubernetes object</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -193,7 +193,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
+    id="codeblock-id-14" 
     class="
       chroma 
       !tw-block 
@@ -208,11 +208,11 @@ They dynamically manage Pods &amp; Replicasets.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HighAvailabilityApplication</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ha.gke.io/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ha.gke.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAME</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAMESPACE</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resourceSelection</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceKind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">policy</span><span class="p">:</span><span class="w">
@@ -299,7 +299,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
+    id="codeblock-id-15" 
     class="
       chroma 
       !tw-block 
@@ -407,7 +407,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
+    id="codeblock-id-16" 
     class="
       chroma 
       !tw-block 
@@ -501,7 +501,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
+    id="codeblock-id-17" 
     class="
       chroma 
       !tw-block 
@@ -548,82 +548,79 @@ They dynamically manage Pods &amp; Replicasets.</p>
 </span></span><span class="line"><span class="cl">Events:                    &lt;none&gt;</span></span></code></pre>
 </div>
 <h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.</p>
+    <a href="#conclusion" class="header-mark"></a>12 Conclusion</h2><p>The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.</p>
 <p>I’ve summarized the key characteristics, along with their pros and cons, in the table below:</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Architecture characteristic</th>
-            <th style="text-align: ">GKE HA Stateful Operator</th>
-            <th style="text-align: ">Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Partitioning type</td>
-            <td style="text-align: ">The same as for StatefulSet</td>
-            <td style="text-align: ">You need to enable the add-on first</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Deployability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">Very easy to deploy, as you don’t need to configure a cluster manually</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Elasticity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">Matches the elasticity of a StatefulSet</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Evolutionary</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">You must stick to the operator&rsquo;s requirements</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Fault Tolerance</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">Requires a retry mechanism in the client code to handle potential node failover</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Modularity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: "></td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Overall cost</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Reliability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">If using CSI persistent storage, it can only be configured across a maximum of two zones</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Scalability</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">Limited by the scalability of the application deployed via StatefulSet</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Simplicity</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">Really easy to setup. You can move to another solution easily.</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Testability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: "></td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Cloud-Agnosticism</td>
-            <td style="text-align: ">⭐</td>
-            <td style="text-align: ">A proprietary Google extension</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Architecture characteristic</th>
+          <th>GKE HA Stateful Operator</th>
+          <th>Comment</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Partitioning type</td>
+          <td>The same as for StatefulSet</td>
+          <td>You need to enable the add-on first</td>
+      </tr>
+      <tr>
+          <td>Deployability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Very easy to deploy, as you don’t need to configure a cluster manually</td>
+      </tr>
+      <tr>
+          <td>Elasticity</td>
+          <td>⭐⭐⭐</td>
+          <td>Matches the elasticity of a StatefulSet</td>
+      </tr>
+      <tr>
+          <td>Evolutionary</td>
+          <td>⭐⭐⭐</td>
+          <td>You must stick to the operator&rsquo;s requirements</td>
+      </tr>
+      <tr>
+          <td>Fault Tolerance</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>Requires a retry mechanism in the client code to handle potential node failover</td>
+      </tr>
+      <tr>
+          <td>Modularity</td>
+          <td>⭐⭐⭐</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Overall cost</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster</td>
+      </tr>
+      <tr>
+          <td>Reliability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>If using CSI persistent storage, it can only be configured across a maximum of two zones</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>⭐⭐⭐</td>
+          <td>Limited by the scalability of the application deployed via StatefulSet</td>
+      </tr>
+      <tr>
+          <td>Simplicity</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Really easy to setup. You can move to another solution easily.</td>
+      </tr>
+      <tr>
+          <td>Testability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Cloud-Agnosticism</td>
+          <td>⭐</td>
+          <td>A proprietary Google extension</td>
+      </tr>
+  </tbody>
+</table>
 <p>You probably understand that, depending on your constraints, this tool could be a good fit—or not.</p>
 <p>To conclude, in my view, it&rsquo;s worth starting with this setup if your architecture is Kubernetes-centric and you have some tolerance for failover. This approach allows you to take advantage of Kubernetes&rsquo; built-in failover mechanisms</p>
 ]]></description></item><item><title>My Google Professional Cloud Architect certification journey: insights &amp; pieces of advice</title><link>https://blog.touret.info/2024/08/02/gcp_certification/</link><pubDate>Fri, 02 Aug 2024 06:00:43 +0100</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2024/08/02/gcp_certification/</guid><description><![CDATA[<div class="featured-image">

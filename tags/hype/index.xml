@@ -135,10 +135,10 @@ La contrainte que l&rsquo;on peut voir à cette fonctionnalité et qu&rsquo;on n
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">strategy</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RollingUpdate</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">rollingUpdate</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">0</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">RollingUpdate</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">rollingUpdate</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">maxSurge</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">maxUnavailable</span><span class="p">:</span><span class="w"> </span><span class="m">0</span></span></span></code></pre>
 </div>
 <h3 id="linfrastructure-as-code" class="headerLink">
     <a href="#linfrastructure-as-code" class="header-mark"></a>2.3 L&rsquo;Infrastructure As Code</h3><div id="id-3"><img class="tw-inline" loading="lazy" src='/assets/images/2020/10/jacek-dylag-nhcpop4a2xo-unsplash.png'   alt="infrastructure as code"  ></div>

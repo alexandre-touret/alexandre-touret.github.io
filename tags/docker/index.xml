@@ -431,7 +431,7 @@ Because you just have to add the following lines of code in our Docker images de
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="k">RUN</span> mkdir /opt/agent<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent/javaagent.jar</span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> ./javaagent.jar /opt/agent/javaagent.jar</span></span></code></pre>
 </div>
 <p>Nonetheless, if you want to upgrade your agent, you will have to repackage it and redeploy all your Docker images.</p>
 <p>For regular upgrades, it will not bother you, but, if you encounter a bug or a vulnerability, it will be tricky and annoying to do that.</p>
@@ -532,7 +532,7 @@ For our current use case, it will copy the javaagent into a volume such as an <a
       tw-overflow-y-hidden
       tw-overflow-x-auto
       tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="s"> /opt/agent</span></span></span></code></pre>
+      "><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="w"> </span><span class="s">/opt/agent</span></span></span></code></pre>
 </div>
 <p>It will be used by both the Docker container and the initContainer.
 We can consider it as a &ldquo;bridge&rdquo; between these two ones.</p>
@@ -628,8 +628,8 @@ We can consider it as a &ldquo;bridge&rdquo; between these two ones.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="k">ENV</span> <span class="nv">JAVA_OPTS</span><span class="o">=</span><span class="nv">$JAVA_OPTS</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="o">[</span>...<span class="o">]</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher&#34;</span><span class="p">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span>...<span class="o">]</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">ENTRYPOINT</span> <span class="p">[</span><span class="s2">&#34;sh&#34;</span><span class="p">,</span> <span class="s2">&#34;-c&#34;</span><span class="p">,</span> <span class="s2">&#34;java ${JAVA_OPTS} org.springframework.boot.loader.JarLauncher&#34;</span><span class="p">]</span></span></span></code></pre>
 </div>
 <p>Il will be used during the deployment to set up our <em>Wonderful Java Application</em>.</p>
 <p>Now, let&rsquo;s build our initContainer&rsquo;s Docker image.</p>
@@ -725,11 +725,11 @@ We can use for example, the following configuration:</p>
       tw-overflow-y-hidden
       tw-overflow-x-auto
       tw-scrollbar-thin
-      "><span class="line"><span class="cl"><span class="k">FROM</span><span class="s"> alpine:latest</span><span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir -p /opt/agent_setup<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">RUN</span> mkdir /opt/agent<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">COPY</span> ./javaagent.jar /opt/agent_setup/javaagent.jar<span class="err">
-</span></span></span><span class="line"><span class="cl"><span class="err"></span><span class="k">VOLUME</span><span class="s"> /opt/agent</span></span></span></code></pre>
+      "><span class="line"><span class="cl"><span class="k">FROM</span><span class="w"> </span><span class="s">alpine:latest</span><span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> mkdir -p /opt/agent_setup<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">RUN</span> mkdir /opt/agent<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">COPY</span> ./javaagent.jar /opt/agent_setup/javaagent.jar<span class="err">
+</span></span></span><span class="line"><span class="cl"><span class="k">VOLUME</span><span class="w"> </span><span class="s">/opt/agent</span></span></span></code></pre>
 </div>
 <h3 id="kubernetes-configuration" class="headerLink">
     <a href="#kubernetes-configuration" class="header-mark"></a>2.3 Kubernetes configuration</h3><p>We can now set up our Kubernetes Deployment to start the corresponding container and copy the Java agent.</p>
@@ -823,7 +823,7 @@ We can use for example, the following configuration:</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Deployment</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">containers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">java-app</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">repo/my-wonderful-java-app:v1</span><span class="w">
@@ -1165,10 +1165,10 @@ Si vous voulez plus de détails sur le pourquoi du comment je vous conseille <a 
 </span></span><span class="line"><span class="cl">  composer=&#34;Harry Woods, Jimmy Campbell <span class="nb">&amp;</span> Reg Connely&#34;
 </span></span><span class="line"><span class="cl">  subtitle = &#34;Commitments Version&#34;
 </span></span><span class="line"><span class="cl">  <span class="c">%poet = &#34;Poete&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  instrument = &#34;Piano&#34;
+</span></span></span><span class="line"><span class="cl">  instrument = &#34;Piano&#34;
 </span></span><span class="line"><span class="cl">  editor = &#34;L&#39;éditeur&#34;
 </span></span><span class="line"><span class="cl">  <span class="c">%meter=\markup {\bold {&#34;Remarque sur le rhythme&#34;}}
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  style = &#34;Soul&#34;
+</span></span></span><span class="line"><span class="cl">  style = &#34;Soul&#34;
 </span></span><span class="line"><span class="cl">  maintainer = &#34;Alexandre Touret&#34;
 </span></span><span class="line"><span class="cl">  maintainerEmail = &#34;alexandre.touret@free.fr&#34;
 </span></span><span class="line"><span class="cl">  maintainerWeb = &#34;http://blog.touret.info&#34;     
@@ -1294,22 +1294,22 @@ Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Lilypond</span><span class="w"> </span><span class="n">Generator</span><span class="err">&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Run</span><span class="w"> </span><span class="n">Lilypond</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arguments</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="err">&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Run</span><span class="w"> </span><span class="n">Lilypond</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arguments</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">inputs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">args</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Arguments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Lilyponid</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="o">-</span><span class="n">h</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">runs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">runs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">using</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">docker</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Dockerfile</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">args</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">inputs</span><span class="p">.</span><span class="na">args</span><span class="w"> </span><span class="p">}}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">branding</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">branding</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">underline</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">blue</span><span class="err">&#39;</span></span></span></code></pre>
 </div>
@@ -2019,7 +2019,7 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
 </span></span><span class="line"><span class="cl"><span class="c1"># curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add &amp;#8211;  </span>
 </span></span><span class="line"><span class="cl"><span class="c1"># add-apt-repository \  </span>
 </span></span><span class="line"><span class="cl"><span class="s2">&#34;deb [arch=amd64] https://download.docker.com/linux/debian \  
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \ stable&#34;</span>  </span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \ stable&#34;</span>  </span></span></code></pre>
 </div>
 <p>Puis lancer</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">

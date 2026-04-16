@@ -123,7 +123,7 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">version</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;3.9&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">services</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">services</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">image</span><span class="p">:</span><span class="w"> </span><span class="l">mysql:5.7</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">volumes</span><span class="p">:</span><span class="w">
@@ -149,7 +149,7 @@ Tout est bien détaillé est c&rsquo;est réalisable en quelques minutes seuleme
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_USER</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_PASSWORD</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">WORDPRESS_DB_NAME</span><span class="p">:</span><span class="w"> </span><span class="l">wordpress</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">volumes</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">volumes</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">db_data</span><span class="p">:</span><span class="w"> </span>{}<span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">wordpress_data</span><span class="p">:</span><span class="w"> </span>{}</span></span></code></pre>
 </div>
@@ -437,7 +437,7 @@ Au premier lancement des commandes suivantes:</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">author</span><span class="p">:</span><span class="w"> </span><span class="l">admin</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l">post</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nt">layout</span><span class="p">:</span><span class="w"> </span><span class="l">post</span></span></span></code></pre>
 </div>
 <p>J&rsquo;ai également ajouté pour certains articles une image pour le teaser</p>
 <p>Exemple:</p>

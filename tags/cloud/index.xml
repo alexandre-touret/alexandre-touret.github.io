@@ -9,6 +9,17 @@ Nevertheless, I held some reservations about operational concerns: complexity, c
 <p>This article is the first part of a series that aims to share my experience and lessons learned from the trenches of <a href="https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud" target="_blank" rel="noopener noreferrer">Multi-Cloud</a>.
 It will cover the &ldquo;Why&rdquo; and &ldquo;What&rdquo; of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
 Subsequent parts will delve into the &ldquo;How,&rdquo; providing practical insights and strategies for successful Multi-Cloud implementations.</p>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"/></svg></span>The series<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><ul>
+<li>Part 1 : <a href="https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part2/" target="_blank" rel="noopener noreferrer">Multi-Cloud from the Trenches: Part 2 - The How</a></li>
+</ul>
+</div></div></div>
 <h2 id="why-go-through-the-pain" class="headerLink">
     <a href="#why-go-through-the-pain" class="header-mark"></a>7 Why go through the pain?</h2><p>Why take on this complexity? Usually, it&rsquo;s a mix of corporate strategy and technical necessity. In my experience, these are the main drivers that actually matter.</p>
 <h3 id="risk-mitigation-and-business-continuity" class="headerLink">
@@ -276,85 +287,82 @@ One of the main challenges is providing a cohesive view to end users, whether fo
         <div class="admonition-content"><p>The more a function has stars, the more is convenient or better.</p>
 <p>This evaluation is personal. You may be against some of my conclusions.</p>
 </div></div></div>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Architecture characteristic</th>
-            <th style="text-align: ">&ldquo;Single&rdquo; Cloud Architecture</th>
-            <th style="text-align: ">Multi-Cloud Architecture</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Partitioning type</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Number of quanta <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
-            <td style="text-align: ">1 to many</td>
-            <td style="text-align: ">many</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Deployability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Elasticity</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Evolutionary</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Fault Tolerance</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Modularity</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Overall cost</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Performance</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Reliability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Scalability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Simplicity</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Testability</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Architecture characteristic</th>
+          <th>&ldquo;Single&rdquo; Cloud Architecture</th>
+          <th>Multi-Cloud Architecture</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Partitioning type</td>
+          <td>Domain &amp; technical</td>
+          <td>Domain &amp; technical</td>
+      </tr>
+      <tr>
+          <td>Number of quanta <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+          <td>1 to many</td>
+          <td>many</td>
+      </tr>
+      <tr>
+          <td>Deployability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Elasticity</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Evolutionary</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Fault Tolerance</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Modularity</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Overall cost</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐</td>
+      </tr>
+      <tr>
+          <td>Performance</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Reliability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Simplicity</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Testability</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+  </tbody>
+</table>
 <p>In the next part of this series, we will dive into the <strong>&ldquo;How&rdquo;</strong>: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>
@@ -366,7 +374,7 @@ One of the main challenges is providing a cohesive view to end users, whether fo
 </div>
 ]]></description></item><item><title>Improve your Statefulsets' reliability on GCP with the GKE Stateful HA Operator</title><link>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</link><pubDate>Mon, 24 Mar 2025 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2025/03/24/gcp-stateful-ha-operator/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2025/04/marc-pell-QA2rCdHbfpI-unsplash.webp" referrerpolicy="no-referrer">
-            </div><div id="id-6">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
+            </div><div id="id-18">Photo by <a href="https://unsplash.com/@blinky264?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Marc Pell</a> on <a href="https://unsplash.com/photos/a-red-and-white-coffee-cup-sitting-on-top-of-a-wooden-table-QA2rCdHbfpI?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash">Unsplash</a></div>
 <p>Most workloads we deploy <a href="https://kubernetes.io/docs/concepts/workloads/controllers/deployment/" target="_blank" rel="noopener noreferrer">on Kubernetes are deployments</a>.
 They dynamically manage Pods &amp; Replicasets.</p>
 <p>However, it may be useful to manually handle the identity of the Pods and their scalability. For instance, if we want to install a distributed database such as MongoDB on top of Kubernetes, it would be mandatory to manually set the names to set up the cluster and its discovery.</p>
@@ -383,11 +391,11 @@ They dynamically manage Pods &amp; Replicasets.</p>
 </ul>
 <p>I will then introduce how to put it in place.</p>
 <h2 id="a-sneak-peak" class="headerLink">
-    <a href="#a-sneak-peak" class="header-mark"></a>1 A sneak peak</h2><p>Here’s a representation of the main infrastructure components required:</p>
+    <a href="#a-sneak-peak" class="header-mark"></a>9 A sneak peak</h2><p>Here’s a representation of the main infrastructure components required:</p>
 <p><img class="tw-inline" loading="lazy" src='/assets/images/2025/04/google_cloud_statefulha_operator.svg'   alt="Stateful Ha Operator"  ></p>
 <p>The Stateful set is exposed through a Regional Load Balancer to ensure connectivity after switching to another node during the failover process.</p>
 <h2 id="enabling-the-addon" class="headerLink">
-    <a href="#enabling-the-addon" class="header-mark"></a>2 Enabling the Addon</h2><p>First, enable the addon:</p>
+    <a href="#enabling-the-addon" class="header-mark"></a>10 Enabling the Addon</h2><p>First, enable the addon:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -463,7 +471,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
+    id="codeblock-id-13" 
     class="
       chroma 
       !tw-block 
@@ -478,12 +486,12 @@ They dynamically manage Pods &amp; Replicasets.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl">gcloud container clusters update gke-cluster <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --region MY_REGION --project MY_GCP_PROJECT <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>      --update-addons<span class="o">=</span><span class="nv">StatefulHA</span><span class="o">=</span>ENABLED</span></span></code></pre>
+</span></span></span><span class="line"><span class="cl">      --region MY_REGION --project MY_GCP_PROJECT <span class="se">\
+</span></span></span><span class="line"><span class="cl">      --update-addons<span class="o">=</span><span class="nv">StatefulHA</span><span class="o">=</span>ENABLED</span></span></code></pre>
 </div>
 <p>For more details, you can refer to <a href="https://cloud.google.com/kubernetes-engine/docs/how-to/stateful-ha" target="_blank" rel="noopener noreferrer">the documentation</a>.</p>
 <h2 id="activation" class="headerLink">
-    <a href="#activation" class="header-mark"></a>3 Activation</h2><p>You can now set up this Kubernetes object</p>
+    <a href="#activation" class="header-mark"></a>11 Activation</h2><p>You can now set up this Kubernetes object</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -559,7 +567,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
+    id="codeblock-id-14" 
     class="
       chroma 
       !tw-block 
@@ -574,11 +582,11 @@ They dynamically manage Pods &amp; Replicasets.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">HighAvailabilityApplication</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ha.gke.io/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">ha.gke.io/v1</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAME</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">namespace</span><span class="p">:</span><span class="w"> </span><span class="l">APP_NAMESPACE</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">resourceSelection</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">resourceKind</span><span class="p">:</span><span class="w"> </span><span class="l">StatefulSet</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">policy</span><span class="p">:</span><span class="w">
@@ -665,7 +673,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
+    id="codeblock-id-15" 
     class="
       chroma 
       !tw-block 
@@ -773,7 +781,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
+    id="codeblock-id-16" 
     class="
       chroma 
       !tw-block 
@@ -867,7 +875,7 @@ They dynamically manage Pods &amp; Replicasets.</p>
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
+    id="codeblock-id-17" 
     class="
       chroma 
       !tw-block 
@@ -914,104 +922,101 @@ They dynamically manage Pods &amp; Replicasets.</p>
 </span></span><span class="line"><span class="cl">Events:                    &lt;none&gt;</span></span></code></pre>
 </div>
 <h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.</p>
+    <a href="#conclusion" class="header-mark"></a>12 Conclusion</h2><p>The Google HA Operator is a great option to simplify your architecture, avoiding the need to create a full cluster (e.g., a database cluster) on top of Google Kubernetes Engine. Unfortunately, as always, these technologies come with constraints: the availability of the storage and the unavailability of the service during the failover.</p>
 <p>I’ve summarized the key characteristics, along with their pros and cons, in the table below:</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Architecture characteristic</th>
-            <th style="text-align: ">GKE HA Stateful Operator</th>
-            <th style="text-align: ">Comment</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Partitioning type</td>
-            <td style="text-align: ">The same as for StatefulSet</td>
-            <td style="text-align: ">You need to enable the add-on first</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Deployability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">Very easy to deploy, as you don’t need to configure a cluster manually</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Elasticity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">Matches the elasticity of a StatefulSet</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Evolutionary</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">You must stick to the operator&rsquo;s requirements</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Fault Tolerance</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">Requires a retry mechanism in the client code to handle potential node failover</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Modularity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: "></td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Overall cost</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Reliability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">If using CSI persistent storage, it can only be configured across a maximum of two zones</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Scalability</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">Limited by the scalability of the application deployed via StatefulSet</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Simplicity</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">Really easy to setup. You can move to another solution easily.</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Testability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: "></td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Cloud-Agnosticism</td>
-            <td style="text-align: ">⭐</td>
-            <td style="text-align: ">A proprietary Google extension</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Architecture characteristic</th>
+          <th>GKE HA Stateful Operator</th>
+          <th>Comment</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Partitioning type</td>
+          <td>The same as for StatefulSet</td>
+          <td>You need to enable the add-on first</td>
+      </tr>
+      <tr>
+          <td>Deployability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Very easy to deploy, as you don’t need to configure a cluster manually</td>
+      </tr>
+      <tr>
+          <td>Elasticity</td>
+          <td>⭐⭐⭐</td>
+          <td>Matches the elasticity of a StatefulSet</td>
+      </tr>
+      <tr>
+          <td>Evolutionary</td>
+          <td>⭐⭐⭐</td>
+          <td>You must stick to the operator&rsquo;s requirements</td>
+      </tr>
+      <tr>
+          <td>Fault Tolerance</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>Requires a retry mechanism in the client code to handle potential node failover</td>
+      </tr>
+      <tr>
+          <td>Modularity</td>
+          <td>⭐⭐⭐</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Overall cost</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>No extra cost. Can be deployed on either an Autopilot or self-managed GKE cluster</td>
+      </tr>
+      <tr>
+          <td>Reliability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>If using CSI persistent storage, it can only be configured across a maximum of two zones</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>⭐⭐⭐</td>
+          <td>Limited by the scalability of the application deployed via StatefulSet</td>
+      </tr>
+      <tr>
+          <td>Simplicity</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>Really easy to setup. You can move to another solution easily.</td>
+      </tr>
+      <tr>
+          <td>Testability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td></td>
+      </tr>
+      <tr>
+          <td>Cloud-Agnosticism</td>
+          <td>⭐</td>
+          <td>A proprietary Google extension</td>
+      </tr>
+  </tbody>
+</table>
 <p>You probably understand that, depending on your constraints, this tool could be a good fit—or not.</p>
 <p>To conclude, in my view, it&rsquo;s worth starting with this setup if your architecture is Kubernetes-centric and you have some tolerance for failover. This approach allows you to take advantage of Kubernetes&rsquo; built-in failover mechanisms</p>
 ]]></description></item><item><title>Déployer des batchs cloud native avec Spring Cloud Data Flow</title><link>https://blog.touret.info/2022/08/16/spring-data-flow/</link><pubDate>Tue, 16 Aug 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/08/16/spring-data-flow/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp" referrerpolicy="no-referrer">
             </div><p><a href="https://blog.touret.info/2022/05/17/cloud-native-batchs/" target="_blank" rel="noopener noreferrer">Dans mon dernier article</a>, j&rsquo;ai tenté de faire un état des lieux des solutions possibles pour implémenter des batchs cloud natifs.</p>
-<div id="id-15"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp'   alt="dataflow"  ></div>
+<div id="id-49"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp'   alt="dataflow"  ></div>
 <p>J&rsquo;ai par la suite testé plus en détails les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> Kubernetes en essayant d&rsquo;avoir une vue OPS sur ce sujet.
 Le principal inconvénient (qui ne l&rsquo;est pas dans certains cas) des jobs est qu&rsquo;on ne peut pas les rejouer.
 Si ces derniers sont terminés avec succès - <em>Vous allez me dire, il faut bien les coder</em> - mais qu&rsquo;on souhaite les rejouer pour diverses raisons, on doit les supprimer et relancer.
 J&rsquo;ai vu plusieurs posts sur StackOverflow à ce sujet, je n&rsquo;ai pas trouvé de solutions satisfaisantes relatifs à ce sujet.</p>
-<div id="id-16"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/luke_cage.webp'   alt="dataflow"  ></div>
+<div id="id-50"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/luke_cage.webp'   alt="dataflow"  ></div>
 <p>Attention, je ne dis pas que les jobs et cron jobs ne doivent pas être utilisés.
 Loin de là.</p>
 <p>Je pense que si vous avez besoin d&rsquo;un traitement sans chaînage d&rsquo;actions, sans rejeu, les <a href="https://kubernetes.io/docs/concepts/workloads/controllers/job/" target="_blank" rel="noopener noreferrer">jobs</a> et <a href="https://kubernetes.io/docs/concepts/workloads/controllers/cron-jobs/" target="_blank" rel="noopener noreferrer">cron jobs</a> sont de bonnes options.
 Le monitoring et reporting des actions réalisées peut se faire par l&rsquo;observabilité mise en place dans votre cluster K8S.</p>
-<div id="id-17"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/spring_dataflow_logo.webp'   alt="dataflow"  ></div>
+<div id="id-51"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/spring_dataflow_logo.webp'   alt="dataflow"  ></div>
 <p>Après plusieurs recherches, je suis tombé sur <a href="https://dataflow.spring.io/" target="_blank" rel="noopener noreferrer">Spring Data Flow</a>.
 L&rsquo;offre de ce module de Spring Cloud va au delà des batchs.
 Il permet notamment de gérer le streaming via une interface graphique ou via son <a href="https://docs.spring.io/spring-cloud-dataflow/docs/current/reference/htmlsingle/#api-guide" target="_blank" rel="noopener noreferrer">API</a>.</p>
 <p>Dans cet article, je vais implémenter un exemple et le déployer dans <a href="https://minikube.sigs.k8s.io/" target="_blank" rel="noopener noreferrer">Minikube</a>.</p>
 <h2 id="installation-et-configuration-de-minikube" class="headerLink">
-    <a href="#installation-et-configuration-de-minikube" class="header-mark"></a>1 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener noreferrer">le site officiel</a>.</p>
+    <a href="#installation-et-configuration-de-minikube" class="header-mark"></a>13 Installation et configuration de Minikube</h2><p>L&rsquo;installation de minikube est décrite sur <a href="https://minikube.sigs.k8s.io/docs/start/" target="_blank" rel="noopener noreferrer">le site officiel</a>.</p>
 <p>Pour l&rsquo;installer, j&rsquo;ai exécuté les commandes suivantes:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
@@ -1088,7 +1093,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-1" 
+    id="codeblock-id-35" 
     class="
       chroma 
       !tw-block 
@@ -1181,7 +1186,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-2" 
+    id="codeblock-id-36" 
     class="
       chroma 
       !tw-block 
@@ -1198,7 +1203,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
       "><span class="line"><span class="cl">minikube start</span></span></code></pre>
 </div>
 <h3 id="installation-de-spring-cloud-data-flow" class="headerLink">
-    <a href="#installation-de-spring-cloud-data-flow" class="header-mark"></a>1.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p>
+    <a href="#installation-de-spring-cloud-data-flow" class="header-mark"></a>13.1 Installation de Spring Cloud Data Flow</h3><p>Pour installer Spring Cloud Data Flow directement dans Kubernetes, vous pouvez exécuter les commandes suivantes:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -1274,7 +1279,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-3" 
+    id="codeblock-id-37" 
     class="
       chroma 
       !tw-block 
@@ -1367,7 +1372,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-4" 
+    id="codeblock-id-38" 
     class="
       chroma 
       !tw-block 
@@ -1391,7 +1396,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
 </span></span><span class="line"><span class="cl">dataflow-spring-cloud-dataflow-skipper-9db568cf4-rzsqq   1/1     Running            <span class="m">1</span> <span class="o">(</span>24h ago<span class="o">)</span>   24h</span></span></code></pre>
 </div>
 <h3 id="accès-au-dashboard" class="headerLink">
-    <a href="#acc%c3%a8s-au-dashboard" class="header-mark"></a>1.2 Accès au dashboard</h3><p>Pour accéder au <a href="https://cloud.spring.io/spring-cloud-dataflow-ui/" target="_blank" rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p>
+    <a href="#acc%c3%a8s-au-dashboard" class="header-mark"></a>13.2 Accès au dashboard</h3><p>Pour accéder au <a href="https://cloud.spring.io/spring-cloud-dataflow-ui/" target="_blank" rel="noopener noreferrer">dashboard de Spring Cloud Data Flow</a>, vous pouvez lancer les commandes suivantes:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -1467,7 +1472,7 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-5" 
+    id="codeblock-id-39" 
     class="
       chroma 
       !tw-block 
@@ -1486,13 +1491,13 @@ Il permet notamment de gérer le streaming via une interface graphique ou via so
 </div>
 <p>Ensuite, vous pourrez accéder à la console web via l&rsquo;URL <code>http://localhost:8080/dashboard</code>.</p>
 <h2 id="développement-dune-task" class="headerLink">
-    <a href="#d%c3%a9veloppement-dune-task" class="header-mark"></a>2 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
+    <a href="#d%c3%a9veloppement-dune-task" class="header-mark"></a>14 Développement d&rsquo;une Task</h2><p>J&rsquo;ai crée une simple task qui va rechercher la nationalité d&rsquo;un prénom.
 Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" target="_blank" rel="noopener noreferrer">https://api.nationalize.io/</a>.</p>
 <p>On passe un prénom en paramètre et on obtient une liste de nationalités possibles avec leurs probabilités.</p>
 <p>Vous trouverez les sources de cet exemple sur <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">mon Github</a>.</p>
 <p>Aussi, la documentation est bien faite, il suffit de <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/spring-task/" target="_blank" rel="noopener noreferrer">la lire</a>.</p>
 <h3 id="initialisation" class="headerLink">
-    <a href="#initialisation" class="header-mark"></a>2.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p>
+    <a href="#initialisation" class="header-mark"></a>14.1 Initialisation</h3><p>J&rsquo;ai initié un projet Spring avec les dépendances suivantes:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -1568,7 +1573,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-6" 
+    id="codeblock-id-40" 
     class="
       chroma 
       !tw-block 
@@ -1599,7 +1604,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </div>
 <p>Attention, les starters et dépendances JDBC/MariaDB sont indispensables pour que votre tâche puisse enregistrer le statut des exécutions.</p>
 <h3 id="construction-de-la-tâche" class="headerLink">
-    <a href="#construction-de-la-t%c3%a2che" class="header-mark"></a>2.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p>
+    <a href="#construction-de-la-t%c3%a2che" class="header-mark"></a>14.2 Construction de la tâche</h3><p>Une tâche se crée facilement en annotation une classe &ldquo;Configuration&rdquo; par l&rsquo;annotation <code>@EnableTask</code></p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -1675,7 +1680,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-7" 
+    id="codeblock-id-41" 
     class="
       chroma 
       !tw-block 
@@ -1690,10 +1695,10 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Configuration</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableTask</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TaskConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@EnableTask</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TaskConfiguration</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="p">...</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>Ensuite l&rsquo;essentiel du job s&rsquo;effectue dans la construction d&rsquo;un bean <code>CommandLineRunner</code> :</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
@@ -1771,7 +1776,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-8" 
+    id="codeblock-id-42" 
     class="
       chroma 
       !tw-block 
@@ -1871,7 +1876,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-9" 
+    id="codeblock-id-43" 
     class="
       chroma 
       !tw-block 
@@ -1890,7 +1895,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span></span><span class="line"><span class="cl">2022-08-12 15:11:10.722  INFO <span class="m">1</span> --- <span class="o">[</span>           main<span class="o">]</span> i.t.batch.cloudtask.TaskConfiguration    : RESPONSE<span class="o">[</span><span class="m">200</span> OK<span class="o">]</span>: NationalizeResponseDTO<span class="o">{</span><span class="nv">name</span><span class="o">=</span><span class="s1">&#39;Alexandre&#39;</span>, <span class="nv">countries</span><span class="o">=[</span>CountryDTO<span class="o">{</span><span class="nv">countryId</span><span class="o">=</span><span class="s1">&#39;BR&#39;</span>, pr....</span></span></code></pre>
 </div>
 <h3 id="packaging" class="headerLink">
-    <a href="#packaging" class="header-mark"></a>2.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p>
+    <a href="#packaging" class="header-mark"></a>14.3 Packaging</h3><p>Ici rien de nouveau, il suffit de lancer la commande:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
     
@@ -1966,7 +1971,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-10" 
+    id="codeblock-id-44" 
     class="
       chroma 
       !tw-block 
@@ -1983,8 +1988,8 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
       "><span class="line"><span class="cl">./gradlew build</span></span></code></pre>
 </div>
 <h2 id="déploiement" class="headerLink">
-    <a href="#d%c3%a9ploiement" class="header-mark"></a>3 Déploiement</h2><h3 id="création-et-déploiement-de-limage-docker" class="headerLink">
-    <a href="#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker" class="header-mark"></a>3.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p>
+    <a href="#d%c3%a9ploiement" class="header-mark"></a>15 Déploiement</h2><h3 id="création-et-déploiement-de-limage-docker" class="headerLink">
+    <a href="#cr%c3%a9ation-et-d%c3%a9ploiement-de-limage-docker" class="header-mark"></a>15.1 Création et déploiement de l&rsquo;image Docker</h3><p>Pour déployer notre toute nouvelle tâche, nous allons d&rsquo;abord créer l&rsquo;image Docker avec buildpack.</p>
 <p>Tout d&rsquo;abord on va se brancher sur minikube pour que notre image soit déployée dans le repository de minikube</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
@@ -2061,7 +2066,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-11" 
+    id="codeblock-id-45" 
     class="
       chroma 
       !tw-block 
@@ -2153,7 +2158,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-12" 
+    id="codeblock-id-46" 
     class="
       chroma 
       !tw-block 
@@ -2245,7 +2250,7 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-13" 
+    id="codeblock-id-47" 
     class="
       chroma 
       !tw-block 
@@ -2263,18 +2268,18 @@ Pour ceci, j&rsquo;utilise l&rsquo;API <a href="https://api.nationalize.io/" tar
 </span></span><span class="line"><span class="cl">info.touret/cloud-task:latest</span></span></code></pre>
 </div>
 <h3 id="création-de-lapplication" class="headerLink">
-    <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>3.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
+    <a href="#cr%c3%a9ation-de-lapplication" class="header-mark"></a>15.2 Création de l&rsquo;application</h3><p>Avant de créer la tâche dans l&rsquo;interface, il faut d&rsquo;abord référencer l&rsquo;image Docker en créer une <a href="https://dataflow.spring.io/docs/applications/" target="_blank" rel="noopener noreferrer">application</a>:</p>
 <figure><img src="/assets/images/2022/08/dataflow_config5.webp">
 </figure>
 
 <p>Il faut déclarer l&rsquo;image Docker avec le formalisme présenté dans la capture d&rsquo;écran.</p>
 <h3 id="création-de-la-tâche" class="headerLink">
-    <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>3.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
+    <a href="#cr%c3%a9ation-de-la-t%c3%a2che" class="header-mark"></a>15.3 Création de la tâche</h3><p>Voici les différentes actions que j&rsquo;ai réalisé via l&rsquo;interface:</p>
 <p><div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config3.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config4.webp'   alt="configuration"  ></div></div>
 
 Vous trouverez plus de détails dans <a href="https://dataflow.spring.io/docs/batch-developer-guides/batch/data-flow-simple-task/" target="_blank" rel="noopener noreferrer">la documentation officielle</a>.</p>
 <h2 id="exécution" class="headerLink">
-    <a href="#ex%c3%a9cution" class="header-mark"></a>4 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
+    <a href="#ex%c3%a9cution" class="header-mark"></a>16 Exécution</h2><p>Maintenant, il nous est possible de lancer notre tâche.
 Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes actions que j&rsquo;ai réalisé pour exécuter ma toute nouvelle tâche.</p>
 <div class="gallery-wrapper" style="grid-template-columns: repeat(2, 1fr)"><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config2.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config10.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config8.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config7.webp'   alt="configuration"  ></div><div class="img-wrapper"><img class="tw-inline" loading="lazy" src='/assets/images/2022/08/dataflow_config9.webp'   alt="configuration"  ></div></div>
 
@@ -2355,7 +2360,7 @@ Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes action
     </div>
   </div>
   <pre style="counter-reset: codeblock;" class="tw-block tw-m-0 tw-p-0"><code 
-    id="codeblock-id-14" 
+    id="codeblock-id-48" 
     class="
       chroma 
       !tw-block 
@@ -2375,7 +2380,7 @@ Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes action
 </div>
 <p>A chaque exécution il y aura donc un pod d&rsquo;alloué.</p>
 <h2 id="aller-plus-loin" class="headerLink">
-    <a href="#aller-plus-loin" class="header-mark"></a>5 Aller plus loin</h2><p>Parmi les fonctionnalités que j&rsquo;ai découvert, on peut :</p>
+    <a href="#aller-plus-loin" class="header-mark"></a>17 Aller plus loin</h2><p>Parmi les fonctionnalités que j&rsquo;ai découvert, on peut :</p>
 <ul>
 <li>relancer un traitement</li>
 <li>le programmer</li>
@@ -2385,92 +2390,89 @@ Vous trouverez dans les copies d&rsquo;écran ci-dessous les différentes action
 </ul>
 <p>Gros inconvénient pour le nettoyage: je n&rsquo;ai pas constaté un impact dans les pods alloués.</p>
 <h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>6 Conclusion</h2><p>Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
+    <a href="#conclusion" class="header-mark"></a>18 Conclusion</h2><p>Pour résumer, je vais me risquer à comparer les deux solutions jobs/cron jobs Kubernetes et une solution basée sur Spring Cloud Dataflow.
 Je vais donc utiliser la liste des caractéristiques présentée par <a href="https://fundamentalsofsoftwarearchitecture.com/" target="_blank" rel="noopener noreferrer">M. Richards et N. Ford dans leur livre: Fundamentals of Software Architecture</a><sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup>.</p>
 <p>Bien évidemment, cette notation est purement personnelle.
 Vous noterez que selon où on positionne le curseur, l&rsquo;une des deux solutions peut s&rsquo;avérer meilleure (ou pas).</p>
 <p>Bref, tout dépend de vos contraintes et de ce que vous souhaitez en faire.
 A mon avis, une solution telle que Spring Cloud Dataflow s&rsquo;inscrit parfaitement pour des traitements mixtes (streaming, batch) et pour des traitements Big Data.</p>
 <p>N&rsquo;hésitez pas à me donner votre avis (<a href="https://blog.touret.info/a-propos/" target="_blank" rel="noopener noreferrer">sans troller svp</a>) en commentaire ou si ça concerne l&rsquo;exemple, directement <a href="https://github.com/alexandre-touret/cloud-task" target="_blank" rel="noopener noreferrer">dans Github</a>.</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Architecture characteristic</th>
-            <th style="text-align: ">K8s job rating</th>
-            <th style="text-align: ">Spring Cloud Dataflow rating</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Partitioning type</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
-            <td style="text-align: ">1</td>
-            <td style="text-align: ">1 to many</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Deployability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Elasticity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Evolutionary</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Fault Tolerance</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Modularity</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Overall cost</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Performance</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Reliability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Scalability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Simplicity</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Testability</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Architecture characteristic</th>
+          <th>K8s job rating</th>
+          <th>Spring Cloud Dataflow rating</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Partitioning type</td>
+          <td>Domain &amp; technical</td>
+          <td>Domain &amp; technical</td>
+      </tr>
+      <tr>
+          <td>Number of quanta <sup id="fnref:2"><a href="#fn:2" class="footnote-ref" role="doc-noteref">2</a></sup></td>
+          <td>1</td>
+          <td>1 to many</td>
+      </tr>
+      <tr>
+          <td>Deployability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Elasticity</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Evolutionary</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Fault Tolerance</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Modularity</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Overall cost</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Performance</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Reliability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Simplicity</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Testability</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+  </tbody>
+</table>
 <div class="footnotes" role="doc-endnotes">
 <hr>
 <ol>
@@ -2673,10 +2675,10 @@ Généralement, dans le monde de l&rsquo;entreprise, la planification des traite
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Job</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">Job</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello-world</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">template</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">containers</span><span class="p">:</span><span class="w">
@@ -2967,10 +2969,10 @@ Bien que je ne suis pas trop fan de ne pas centraliser l&rsquo;ordonnancement, c
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="l">batch/v1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metadata</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">kind</span><span class="p">:</span><span class="w"> </span><span class="l">CronJob</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metadata</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">hello</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">spec</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">spec</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">schedule</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;* * * * *&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">jobTemplate</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">spec</span><span class="p">:</span><span class="w">

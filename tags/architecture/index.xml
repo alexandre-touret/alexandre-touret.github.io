@@ -167,7 +167,7 @@ Therefore, it makes sense to reuse and buy an external service which could handl
 ]]></description></item><item><title>Mieux analyser les risques pour simplifier les architectures (ou pas)</title><link>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</link><pubDate>Wed, 09 Feb 2022 08:00:00 +0000</pubDate><author><name>Alexandre Touret</name></author><guid>https://blog.touret.info/2022/02/09/analyser-les-risques-pour-mieux-definir-une-architecture/</guid><description><![CDATA[<div class="featured-image">
                 <img src="/assets/images/2022/02/architecture.webp" referrerpolicy="no-referrer">
             </div><h2 id="lanalyse-des-risques-kezako-" class="headerLink">
-    <a href="#lanalyse-des-risques-kezako-" class="header-mark"></a>1 L&rsquo;analyse des risques: kezako ?</h2><p>Souvent utilisée dans la prise de décision, l&rsquo;analyse des risques a plusieurs objectifs :</p>
+    <a href="#lanalyse-des-risques-kezako-" class="header-mark"></a>11 L&rsquo;analyse des risques: kezako ?</h2><p>Souvent utilisée dans la prise de décision, l&rsquo;analyse des risques a plusieurs objectifs :</p>
 <ul>
 <li>Permettre de pondérer des risques potentiels</li>
 <li>Faciliter la prise de décision sur les actions à réaliser pour les prévenir ou tout du moins les atténuer.</li>
@@ -176,11 +176,12 @@ Therefore, it makes sense to reuse and buy an external service which could handl
 <p>Selon <a href="https://fr.wikipedia.org/wiki/Risque" target="_blank" rel="noopener noreferrer">Wikipedia</a>, voici la définition:</p>
 <blockquote>
   <p>Le risque est la possibilité de survenue d&rsquo;un événement indésirable, la probabilité d’occurrence d&rsquo;un péril probable ou d&rsquo;un aléa.</p>
+
 </blockquote><p>Bien évidemment, on a les risques inconnus et ceux qui sont connus.
 Le préalable à toute gestion de risque (tout du moins pour la définition d&rsquo;architecture) est de capitaliser les connaissances et retours d&rsquo;expérience qui viennent du terrain.</p>
 <p>On va donc oublier les risques inconnus dans cet article.</p>
 <h3 id="comment-les-définir-" class="headerLink">
-    <a href="#comment-les-d%c3%a9finir-" class="header-mark"></a>1.1 Comment les définir ?</h3><p>Tout d&rsquo;abord, il faut connaître les <a href="https://sre.google/workbook/implementing-slos/" target="_blank" rel="noopener noreferrer">SLOs</a> de la plateforme qu&rsquo;on souhaite concevoir. Pourquoi ? Pour vérifier si les risques qu&rsquo;on identifiera plus tard sont pertinents ou tout du moins impactants.</p>
+    <a href="#comment-les-d%c3%a9finir-" class="header-mark"></a>11.1 Comment les définir ?</h3><p>Tout d&rsquo;abord, il faut connaître les <a href="https://sre.google/workbook/implementing-slos/" target="_blank" rel="noopener noreferrer">SLOs</a> de la plateforme qu&rsquo;on souhaite concevoir. Pourquoi ? Pour vérifier si les risques qu&rsquo;on identifiera plus tard sont pertinents ou tout du moins impactants.</p>
 <p>Par exemple: Une panne électrique sera faiblement impactante pour une application avec une disponibilité &lt; 70%.</p>
 <p>La réalisation des SLIs et SLOs est un préalable pour définir <a href="https://cloud.google.com/blog/products/management-tools/sre-error-budgets-and-maintenance-windows" target="_blank" rel="noopener noreferrer">le &ldquo;budget d&rsquo;erreur&rdquo;</a>.
 Ce dernier nous permettra <em>in fine</em> de quantifier les risques et de voir si il faut les atténuer.</p>
@@ -191,7 +192,7 @@ Ce dernier nous permettra <em>in fine</em> de quantifier les risques et de voir 
 <li>Conséquence (gravité)</li>
 </ul>
 <h4 id="un-exemple" class="headerLink">
-    <a href="#un-exemple" class="header-mark"></a>1.1.1 Un exemple</h4><p><strong>La base de données est indisponible</strong></p>
+    <a href="#un-exemple" class="header-mark"></a>11.1.1 Un exemple</h4><p><strong>La base de données est indisponible</strong></p>
 <ul>
 <li>Cause: Système de fichier plein</li>
 <li>Probabilité: faible</li>
@@ -204,8 +205,8 @@ Vous remontrez dans le temps pour déterminer quels ont été les différents in
 Pour chacun, vous devrez définir ces trois caractéristiques : cause, probabilité, conséquence.</p>
 <p>A coté de ça, vous aurez à identifier si possible le temps d&rsquo;indisponibilité du service.</p>
 <h3 id="synthèse" class="headerLink">
-    <a href="#synth%c3%a8se" class="header-mark"></a>1.2 Synthèse</h3><p>Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:</p>
-<div id="id-1"><img class="tw-inline" loading="lazy" src='/assets/images/2022/02/Risk-Based-Audit_technical.webp'   alt="analyse de risques"  ></div>
+    <a href="#synth%c3%a8se" class="header-mark"></a>11.2 Synthèse</h3><p>Une fois ce travail de fourmi réalisé, vous pourrez le synthétiser dans un premier temps avec ce formalisme souvent repris dans la gestion de projet:</p>
+<div id="id-3"><img class="tw-inline" loading="lazy" src='/assets/images/2022/02/Risk-Based-Audit_technical.webp'   alt="analyse de risques"  ></div>
 <p>En résumé, les actions qui sont oranges ou rouges doivent être traitées et avoir un plan d&rsquo;action.</p>
 <p>Prenons la définition d&rsquo;une plateforme:
 Si votre API doit traiter de manière régulière des PAYLOADs volumineux (bon déjà, la ce n&rsquo;est pas top).
@@ -215,47 +216,44 @@ Le temps de traitement peut être très long et bloquer certaines ressources (ex
 Bref, est-ce acceptable?</p>
 <p>Si vous allez plus loin, je vous conseille la formation <a href="https://www.coursera.org/learn/site-reliability-engineering-slos" target="_blank" rel="noopener noreferrer">Coursera Site Reliability Engineering: Measuring and Managing Reliability</a>.</p>
 <h2 id="ok-jai-identifié-les-risques-potentiels-quest-ce-que-jen-fait-maintenant" class="headerLink">
-    <a href="#ok-jai-identifi%c3%a9-les-risques-potentiels-quest-ce-que-jen-fait-maintenant" class="header-mark"></a>2 OK, j&rsquo;ai identifié les risques potentiels. Qu&rsquo;est-ce que j&rsquo;en fait maintenant?</h2><p>C&rsquo;est là que démarre réellement le travail d&rsquo;architecture: vous devrez évaluer chaque risque en fonction des exigences fonctionnelles et technique pour savoir si elles valent la peine d&rsquo;être prises en considération.
+    <a href="#ok-jai-identifi%c3%a9-les-risques-potentiels-quest-ce-que-jen-fait-maintenant" class="header-mark"></a>12 OK, j&rsquo;ai identifié les risques potentiels. Qu&rsquo;est-ce que j&rsquo;en fait maintenant?</h2><p>C&rsquo;est là que démarre réellement le travail d&rsquo;architecture: vous devrez évaluer chaque risque en fonction des exigences fonctionnelles et technique pour savoir si elles valent la peine d&rsquo;être prises en considération.
 Si vous avez des risques de faible impact, vous pourrez soit les &ldquo;mettre sous contrôle&rdquo; pour traiter d&rsquo;autres problèmes, soit les traiter car ils sont &ldquo;faciles&rdquo; à traiter et vous permettront d&rsquo;agrandir votre &ldquo;budget d&rsquo;erreur&rdquo;.
 Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo; d&rsquo;autres erreurs plus compliquées à traiter car elles rentreront dans votre budget.</p>
 <p>Bref, c&rsquo;est un vrai travail de fourmi qui se base sur l&rsquo;expérience du terrain.</p>
 <h2 id="quid-de-larchitecture" class="headerLink">
-    <a href="#quid-de-larchitecture" class="header-mark"></a>3 <em>Quid</em> de l&rsquo;architecture?</h2><p>Si vous avez évalué les risques correctement, vous pourrez ne traiter que les risques qui en valent la peine et par conséquent n&rsquo; ajouter de la complexité que là ou ça en vaut la peine!</p>
+    <a href="#quid-de-larchitecture" class="header-mark"></a>13 <em>Quid</em> de l&rsquo;architecture?</h2><p>Si vous avez évalué les risques correctement, vous pourrez ne traiter que les risques qui en valent la peine et par conséquent n&rsquo; ajouter de la complexité que là ou ça en vaut la peine!</p>
 <p><strong>Oui, ce travail préalable permet de faire simple!</strong></p>
 <h2 id="un-exemple-concret" class="headerLink">
-    <a href="#un-exemple-concret" class="header-mark"></a>4 Un exemple concret</h2><p>Si je reprends l&rsquo;application <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">bookstore</a> que j&rsquo;ai décrite dans <a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">un précédent article</a>:</p>
+    <a href="#un-exemple-concret" class="header-mark"></a>14 Un exemple concret</h2><p>Si je reprends l&rsquo;application <a href="https://github.com/alexandre-touret/bookstore_spring" target="_blank" rel="noopener noreferrer">bookstore</a> que j&rsquo;ai décrite dans <a href="https://blog.touret.info/2021/07/26/observabilite-et-circuit-breaker-avec-spring/" target="_blank" rel="noopener noreferrer">un précédent article</a>:</p>
 <p><img class="tw-inline" loading="lazy" src='/assets/images/2021/07/rest-book-architecture.png'   alt="bookstore architecture"  ></p>
 <h3 id="exigences-techniques" class="headerLink">
-    <a href="#exigences-techniques" class="header-mark"></a>4.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
-    <a href="#slos--slis" class="header-mark"></a>4.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">SLO</th>
-            <th style="text-align: ">SLI</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">L&rsquo;API Bookstore doit être disponible 99%</td>
-            <td style="text-align: ">Nombre de réponses HTTP = 2XX ou 4XX</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
-            <td style="text-align: ">Temps de réponse de l&rsquo;API</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+    <a href="#exigences-techniques" class="header-mark"></a>14.1 Exigences techniques</h3><h4 id="slos--slis" class="headerLink">
+    <a href="#slos--slis" class="header-mark"></a>14.1.1 SLOs / SLIs</h4><p>Pour cet exemple, je ne vais traiter que deux exigences techniques:</p>
+<table>
+  <thead>
+      <tr>
+          <th>SLO</th>
+          <th>SLI</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>L&rsquo;API Bookstore doit être disponible 99%</td>
+          <td>Nombre de réponses HTTP = 2XX ou 4XX</td>
+      </tr>
+      <tr>
+          <td>L&rsquo;API Bookstore doit répondre en moins de 1 sec</td>
+          <td>Temps de réponse de l&rsquo;API</td>
+      </tr>
+  </tbody>
+</table>
 <h4 id="volumétrie" class="headerLink">
-    <a href="#volum%c3%a9trie" class="header-mark"></a>4.1.2 Volumétrie</h4><ul>
+    <a href="#volum%c3%a9trie" class="header-mark"></a>14.1.2 Volumétrie</h4><ul>
 <li>100 transactions par seconde (TPS)</li>
 <li>100 utilisateurs simultanés</li>
 </ul>
 <h3 id="risques-identifiés" class="headerLink">
-    <a href="#risques-identifi%c3%a9s" class="header-mark"></a>4.2 Risques identifiés</h3><p>Sans aller dans le détail, voici quelques risques que l&rsquo;on peut identifier de prime abord dans cette architecture:</p>
+    <a href="#risques-identifi%c3%a9s" class="header-mark"></a>14.2 Risques identifiés</h3><p>Sans aller dans le détail, voici quelques risques que l&rsquo;on peut identifier de prime abord dans cette architecture:</p>
 <ul>
 <li>Indisponibilité du service bookstore</li>
 <li>Indisponibilité du service booknumber</li>
@@ -264,76 +262,70 @@ Dans ce dernier cas, vous aurez la possibilité de laisser &ldquo;de coté&rdquo
 <p>En vous basant sur l&rsquo;expérience de vos OPS, vous pourrez également ajouter des risques liés à l&rsquo;infrastructure (routeurs, DNS, &hellip;).
 Je ne vais pas les aborder dans cet article.</p>
 <h3 id="qualification-des-risques" class="headerLink">
-    <a href="#qualification-des-risques" class="header-mark"></a>4.3 Qualification des risques</h3><p>Voici une rapide qualification:</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Risques</th>
-            <th style="text-align: ">Probabilité</th>
-            <th style="text-align: ">Impact</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Indisponibilité du service bookstore</td>
-            <td style="text-align: ">Probable</td>
-            <td style="text-align: ">Majeur</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Indisponibilité du service booknumber</td>
-            <td style="text-align: ">Probable</td>
-            <td style="text-align: ">Majeur</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Indisponibilité de la base de données</td>
-            <td style="text-align: ">Possible</td>
-            <td style="text-align: ">Catastrophique</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+    <a href="#qualification-des-risques" class="header-mark"></a>14.3 Qualification des risques</h3><p>Voici une rapide qualification:</p>
+<table>
+  <thead>
+      <tr>
+          <th>Risques</th>
+          <th>Probabilité</th>
+          <th>Impact</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Indisponibilité du service bookstore</td>
+          <td>Probable</td>
+          <td>Majeur</td>
+      </tr>
+      <tr>
+          <td>Indisponibilité du service booknumber</td>
+          <td>Probable</td>
+          <td>Majeur</td>
+      </tr>
+      <tr>
+          <td>Indisponibilité de la base de données</td>
+          <td>Possible</td>
+          <td>Catastrophique</td>
+      </tr>
+  </tbody>
+</table>
 <p>Si on se réfère au premier diagramme, il est obligatoire de les prendre en compte.</p>
 <h3 id="solutions-darchitecture-pour-leur-prise-en-compte" class="headerLink">
-    <a href="#solutions-darchitecture-pour-leur-prise-en-compte" class="header-mark"></a>4.4 Solutions d&rsquo;architecture pour leur prise en compte</h3><p>Une fois les risques identifiés, on peut tout d&rsquo;abord les confronter à notre budget d&rsquo;erreur pour valider leur prise en compte dans notre conception.</p>
+    <a href="#solutions-darchitecture-pour-leur-prise-en-compte" class="header-mark"></a>14.4 Solutions d&rsquo;architecture pour leur prise en compte</h3><p>Une fois les risques identifiés, on peut tout d&rsquo;abord les confronter à notre budget d&rsquo;erreur pour valider leur prise en compte dans notre conception.</p>
 <p>Dans notre cas, on va prendre le postulat qu&rsquo;il faut réellement les prendre en considération et trouver une solution adaptée.</p>
 <p>Voici des exemples de solutions qui permettraient de faire descendre leur impact our leur probabilité.</p>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Risques</th>
-            <th style="text-align: ">Probabilité</th>
-            <th style="text-align: ">Impact</th>
-            <th style="text-align: ">Action/Solutions possibles</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Indisponibilité du service bookstore</td>
-            <td style="text-align: ">Possible</td>
-            <td style="text-align: ">Majeur</td>
-            <td style="text-align: ">Load balancing avec deux instances, Utilisation Kubernetes,.</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Indisponibilité du service booknumber</td>
-            <td style="text-align: ">Possible</td>
-            <td style="text-align: ">Majeur</td>
-            <td style="text-align: ">Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Indisponibilité de la base de données</td>
-            <td style="text-align: ">Possible</td>
-            <td style="text-align: ">Catastrophique</td>
-            <td style="text-align: ">- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Risques</th>
+          <th>Probabilité</th>
+          <th>Impact</th>
+          <th>Action/Solutions possibles</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Indisponibilité du service bookstore</td>
+          <td>Possible</td>
+          <td>Majeur</td>
+          <td>Load balancing avec deux instances, Utilisation Kubernetes,.</td>
+      </tr>
+      <tr>
+          <td>Indisponibilité du service booknumber</td>
+          <td>Possible</td>
+          <td>Majeur</td>
+          <td>Sur le service book-number:<br>Load balancing avec deux instances, Utilisation Kubernetes,..<br><br>Sur le service bookstore:<br><br>Mettre en place un circuit breaker basé sur le timeout d&rsquo;appel <br>vers le service book-number pour garantir la SLO</td>
+      </tr>
+      <tr>
+          <td>Indisponibilité de la base de données</td>
+          <td>Possible</td>
+          <td>Catastrophique</td>
+          <td>- Réalisation d&rsquo;un benchmark pour s&rsquo;assurer qu&rsquo;une instance est suffisante.<br><br>- Sinon mise en place mécanisme HA ou changement de technologie</td>
+      </tr>
+  </tbody>
+</table>
 <h2 id="conclusion" class="headerLink">
-    <a href="#conclusion" class="header-mark"></a>5 Conclusion</h2><p>L&rsquo;analyse des risques n&rsquo;est pas récente et n&rsquo;a pas été inventée par le monde de l&rsquo;informatique.
+    <a href="#conclusion" class="header-mark"></a>15 Conclusion</h2><p>L&rsquo;analyse des risques n&rsquo;est pas récente et n&rsquo;a pas été inventée par le monde de l&rsquo;informatique.
 Elle est d&rsquo;abord apparue dans la gestion de projets et fait désormais partie prenante de la définition d&rsquo;architectures (enfin ça commence&hellip;).
 Il ne faut pas la voir seulement pour un outil de &ldquo;GO-NO GO&rdquo; de réunion de cellule de crise mais comme une aide à la décision pour la conception des systèmes.</p>
 <p>Il a toute sa place à coté des différentes caractéristiques que vous devrez prendre en compte ( sécurité, modularité, &hellip;).

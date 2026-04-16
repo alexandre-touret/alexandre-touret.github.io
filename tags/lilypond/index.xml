@@ -109,10 +109,10 @@ Si vous voulez plus de détails sur le pourquoi du comment je vous conseille <a 
 </span></span><span class="line"><span class="cl">  composer=&#34;Harry Woods, Jimmy Campbell <span class="nb">&amp;</span> Reg Connely&#34;
 </span></span><span class="line"><span class="cl">  subtitle = &#34;Commitments Version&#34;
 </span></span><span class="line"><span class="cl">  <span class="c">%poet = &#34;Poete&#34;
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  instrument = &#34;Piano&#34;
+</span></span></span><span class="line"><span class="cl">  instrument = &#34;Piano&#34;
 </span></span><span class="line"><span class="cl">  editor = &#34;L&#39;éditeur&#34;
 </span></span><span class="line"><span class="cl">  <span class="c">%meter=\markup {\bold {&#34;Remarque sur le rhythme&#34;}}
-</span></span></span><span class="line"><span class="cl"><span class="c"></span>  style = &#34;Soul&#34;
+</span></span></span><span class="line"><span class="cl">  style = &#34;Soul&#34;
 </span></span><span class="line"><span class="cl">  maintainer = &#34;Alexandre Touret&#34;
 </span></span><span class="line"><span class="cl">  maintainerEmail = &#34;alexandre.touret@free.fr&#34;
 </span></span><span class="line"><span class="cl">  maintainerWeb = &#34;http://blog.touret.info&#34;     
@@ -238,22 +238,22 @@ Bref, ça offre la sécurité d&rsquo;une sauvegarde et la possibilité d&rsquo;
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nl">name</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Lilypond</span><span class="w"> </span><span class="n">Generator</span><span class="err">&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Run</span><span class="w"> </span><span class="n">Lilypond</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arguments</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="err">&#39;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Run</span><span class="w"> </span><span class="n">Lilypond</span><span class="w"> </span><span class="n">tool</span><span class="w"> </span><span class="n">with</span><span class="w"> </span><span class="n">the</span><span class="w"> </span><span class="n">given</span><span class="w"> </span><span class="n">set</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">arguments</span><span class="w"> </span><span class="n">to</span><span class="w"> </span><span class="n">generate</span><span class="w"> </span><span class="n">music</span><span class="w"> </span><span class="n">sheets</span><span class="err">&#39;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">author</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="nd">@alexandre</span><span class="o">-</span><span class="n">touret</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">inputs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">inputs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">args</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">description</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Arguments</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">Lilyponid</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">required</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">default</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="o">-</span><span class="n">h</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">runs</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">runs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">using</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">docker</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">image</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">Dockerfile</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">args</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="o">-</span><span class="w"> </span><span class="n">$</span><span class="p">{{</span><span class="w"> </span><span class="n">inputs</span><span class="p">.</span><span class="na">args</span><span class="w"> </span><span class="p">}}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nl">branding</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nl">branding</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">icon</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">underline</span><span class="err">&#39;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="n">color</span><span class="p">:</span><span class="w"> </span><span class="err">&#39;</span><span class="n">blue</span><span class="err">&#39;</span></span></span></code></pre>
 </div>

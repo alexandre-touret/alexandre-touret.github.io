@@ -9,6 +9,17 @@ Nevertheless, I held some reservations about operational concerns: complexity, c
 <p>This article is the first part of a series that aims to share my experience and lessons learned from the trenches of <a href="https://azure.microsoft.com/en-us/resources/cloud-computing-dictionary/what-is-multi-cloud" target="_blank" rel="noopener noreferrer">Multi-Cloud</a>.
 It will cover the &ldquo;Why&rdquo; and &ldquo;What&rdquo; of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
 Subsequent parts will delve into the &ldquo;How,&rdquo; providing practical insights and strategies for successful Multi-Cloud implementations.</p>
+<div class="details admonition tip open">
+    <div class="details-summary admonition-title">
+        <span class="icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 352 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M96.06 454.35c.01 6.29 1.87 12.45 5.36 17.69l17.09 25.69a31.99 31.99 0 0 0 26.64 14.28h61.71a31.99 31.99 0 0 0 26.64-14.28l17.09-25.69a31.989 31.989 0 0 0 5.36-17.69l.04-38.35H96.01l.05 38.35zM0 176c0 44.37 16.45 84.85 43.56 115.78 16.52 18.85 42.36 58.23 52.21 91.45.04.26.07.52.11.78h160.24c.04-.26.07-.51.11-.78 9.85-33.22 35.69-72.6 52.21-91.45C335.55 260.85 352 220.37 352 176 352 78.61 272.91-.3 175.45 0 73.44.31 0 82.97 0 176zm176-80c-44.11 0-80 35.89-80 80 0 8.84-7.16 16-16 16s-16-7.16-16-16c0-61.76 50.24-112 112-112 8.84 0 16 7.16 16 16s-7.16 16-16 16z"/></svg></span>The series<span class="details-icon"><svg class="icon"
+    xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 512"><!-- Font Awesome Free 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) --><path d="M224.3 273l-136 136c-9.4 9.4-24.6 9.4-33.9 0l-22.6-22.6c-9.4-9.4-9.4-24.6 0-33.9l96.4-96.4-96.4-96.4c-9.4-9.4-9.4-24.6 0-33.9L54.3 103c9.4-9.4 24.6-9.4 33.9 0l136 136c9.5 9.4 9.5 24.6.1 34z"/></svg></span>
+    </div>
+    <div class="details-content">
+        <div class="admonition-content"><ul>
+<li>Part 1 : <a href="https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part2/" target="_blank" rel="noopener noreferrer">Multi-Cloud from the Trenches: Part 2 - The How</a></li>
+</ul>
+</div></div></div>
 <h2 id="why-go-through-the-pain" class="headerLink">
     <a href="#why-go-through-the-pain" class="header-mark"></a>7 Why go through the pain?</h2><p>Why take on this complexity? Usually, it&rsquo;s a mix of corporate strategy and technical necessity. In my experience, these are the main drivers that actually matter.</p>
 <h3 id="risk-mitigation-and-business-continuity" class="headerLink">
@@ -276,85 +287,82 @@ One of the main challenges is providing a cohesive view to end users, whether fo
         <div class="admonition-content"><p>The more a function has stars, the more is convenient or better.</p>
 <p>This evaluation is personal. You may be against some of my conclusions.</p>
 </div></div></div>
-
-<div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th style="text-align: ">Architecture characteristic</th>
-            <th style="text-align: ">&ldquo;Single&rdquo; Cloud Architecture</th>
-            <th style="text-align: ">Multi-Cloud Architecture</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td style="text-align: ">Partitioning type</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-            <td style="text-align: ">Domain &amp; technical</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Number of quanta <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
-            <td style="text-align: ">1 to many</td>
-            <td style="text-align: ">many</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Deployability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Elasticity</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Evolutionary</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Fault Tolerance</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Modularity</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Overall cost</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Performance</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Reliability</td>
-            <td style="text-align: ">⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Scalability</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Simplicity</td>
-            <td style="text-align: ">⭐⭐⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐</td>
-        </tr>
-        <tr>
-            <td style="text-align: ">Testability</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-            <td style="text-align: ">⭐⭐⭐</td>
-        </tr>
-    </tbody>
-  </table>
-</div>
+<table>
+  <thead>
+      <tr>
+          <th>Architecture characteristic</th>
+          <th>&ldquo;Single&rdquo; Cloud Architecture</th>
+          <th>Multi-Cloud Architecture</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>Partitioning type</td>
+          <td>Domain &amp; technical</td>
+          <td>Domain &amp; technical</td>
+      </tr>
+      <tr>
+          <td>Number of quanta <sup id="fnref:1"><a href="#fn:1" class="footnote-ref" role="doc-noteref">1</a></sup></td>
+          <td>1 to many</td>
+          <td>many</td>
+      </tr>
+      <tr>
+          <td>Deployability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Elasticity</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Evolutionary</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Fault Tolerance</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Modularity</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Overall cost</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐</td>
+      </tr>
+      <tr>
+          <td>Performance</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Reliability</td>
+          <td>⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Scalability</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐⭐⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Simplicity</td>
+          <td>⭐⭐⭐⭐⭐</td>
+          <td>⭐⭐</td>
+      </tr>
+      <tr>
+          <td>Testability</td>
+          <td>⭐⭐⭐</td>
+          <td>⭐⭐⭐</td>
+      </tr>
+  </tbody>
+</table>
 <p>In the next part of this series, we will dive into the <strong>&ldquo;How&rdquo;</strong>: the actual design and implementation details, the networking pitfalls, and how to provide a cohesive view to your customers from end to end. Stay tuned!</p>
 <div class="footnotes" role="doc-endnotes">
 <hr>

@@ -31,6 +31,7 @@ By doing so, you can transform your relationship with Ops teams, making them you
   <p>Observability is the ability <strong>to understand the internal state of a complex system</strong>.
 When a system is observable, a user can <strong>identify the root cause</strong> of a performance problem by examining the data it produces, without additional testing or coding.</p>
 <p>This is one of the ways in which <strong>quality of service</strong> issues can be addressed.</p>
+
 </blockquote><h2 id="a-short-presentation-of-the-grafana-stack" class="headerLink">
     <a href="#a-short-presentation-of-the-grafana-stack" class="header-mark"></a>3 A short presentation of the Grafana stack</h2><p><a href="https://grafana.com/oss/" target="_blank" rel="noopener noreferrer">The Grafana stack</a> aims at a tool which allows you to query, visualise, alert and explore all of your metrics.
 You can aggregate them through a <a href="https://grafana.com/docs/grafana/latest/datasources/" target="_blank" rel="noopener noreferrer">wide range of data sources</a>.
@@ -691,7 +692,7 @@ It is less intrusive than other solutions.</p>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">ext</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">opentelemetryAgentVersion</span> <span class="o">=</span> <span class="s1">&#39;1.32.0&#39;</span> <span class="c1">// Mettez la version appropriée
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="n">group</span> <span class="o">=</span> <span class="s1">&#39;info.touret.observability&#39;</span>
 </span></span><span class="line"><span class="cl"><span class="n">version</span> <span class="o">=</span> <span class="s1">&#39;0.0.1-SNAPSHOT&#39;</span>
@@ -730,11 +731,11 @@ It is less intrusive than other solutions.</p>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl">    <span class="c1">// 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// systemProperties = [
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler&#39;: &#39;parentbased_traceidratio&#39;,
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">//     &#39;otel.traces.sampler.arg&#39;: &#39;0.2&#39;
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="c1">// ]
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// systemProperties = [
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//     &#39;otel.traces.sampler&#39;: &#39;parentbased_traceidratio&#39;,
+</span></span></span><span class="line"><span class="cl">    <span class="c1">//     &#39;otel.traces.sampler.arg&#39;: &#39;0.2&#39;
+</span></span></span><span class="line"><span class="cl">    <span class="c1">// ]
+</span></span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="n">tasks</span><span class="o">.</span><span class="na">named</span><span class="o">(</span><span class="s1">&#39;test&#39;</span><span class="o">)</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="n">useJUnitPlatform</span><span class="o">()</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span></span></span></code></pre>
@@ -924,11 +925,11 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Service</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ObservabilityService</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">ObservabilityService</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">breakMethod</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">throw</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">IllegalStateException</span><span class="p">(</span><span class="s">&#34;Breaking method issue&#34;</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>And the <a href="https://github.com/alexandre-touret/observability-from-zero-to-hero/blob/main/src/main/java/info/touret/observability/observabilityfromzerotohero/ObservabilityAPIController.java" target="_blank" rel="noopener noreferrer">controller</a> which returns the error:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
@@ -1021,7 +1022,7 @@ To illustrate how to handle errors using both the Spring stack and the Grafana s
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@GetMapping</span><span class="p">(</span><span class="s">&#34;/api/event&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ObservabilityEventDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getEvent</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">ResponseEntity</span><span class="o">&lt;</span><span class="n">ObservabilityEventDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">getEvent</span><span class="p">()</span><span class="w"> </span><span class="kd">throws</span><span class="w"> </span><span class="n">ErrorResponseException</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">try</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="n">observabilityService</span><span class="p">.</span><span class="na">breakMethod</span><span class="p">();</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="n">observabilityEventDto</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ObservabilityEventDto</span><span class="p">(</span><span class="n">UUID</span><span class="p">.</span><span class="na">randomUUID</span><span class="p">().</span><span class="na">toString</span><span class="p">(),</span><span class="w"> </span><span class="s">&#34;OK&#34;</span><span class="p">);</span><span class="w">
@@ -1657,7 +1658,7 @@ We can do that through <a href="https://prometheus.io/" target="_blank" rel="noo
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">scrape_configs</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">job_name</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">honor_timestamps</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">15s</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">scrape_timeout</span><span class="p">:</span><span class="w"> </span><span class="l">10s</span><span class="w">
@@ -1913,7 +1914,7 @@ It will help us get, transform and export telemetry data.</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="c"># (1)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">receivers</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">receivers</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">protocols</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
@@ -1929,8 +1930,8 @@ It will help us get, transform and export telemetry data.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;host.docker.internal:8080&#39;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (2)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># (2)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">exporters</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#  prometheus:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#    endpoint: &#34;0.0.0.0:8889&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c">#    const_labels:</span><span class="w">
@@ -1942,23 +1943,23 @@ It will help us get, transform and export telemetry data.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">jaeger:14250</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">insecure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#  zipkin:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#    endpoint: http://zipkin:9411/api/v2/spans</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#    tls:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c">#      insecure: true</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#  zipkin:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#    endpoint: http://zipkin:9411/api/v2/spans</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#    tls:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c">#      insecure: true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (3)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">processors</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># (3)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">processors</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">batch</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">extensions</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">extensions</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">health_check</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pprof</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="p">:</span><span class="m">1888</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">zpages</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="p">:</span><span class="m">55679</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># (4)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="c"># (4)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">service</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">extensions</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">pprof, zpages, health_check]</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
@@ -2173,9 +2174,9 @@ However, if you are eager to get more details in your Jaeger dashboard, it is ad
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@CamelOpenTelemetry</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@SpringBootApplication</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">DemoApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
 </div>
 <p>If you want more details, you can check <a href="https://camel.apache.org/components/3.20.x/others/opentelemetry.html" target="_blank" rel="noopener noreferrer">the official documentation</a>.</p>
 <h4 id="the-java-agent" class="headerLink">
@@ -2993,7 +2994,7 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span></span><span class="line"><span class="cl">  <span class="err">CamelHttpPath=,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">CamelHttpUri=/camel/test,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">CamelHttpUrl=http:</span><span class="c1">//127.0.0.1:8080/camel/test, 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">CamelMessageTimestamp=1693567851901,</span>
+</span></span></span><span class="line"><span class="cl">  <span class="err">CamelMessageTimestamp=1693567851901,</span>
 </span></span><span class="line"><span class="cl">  <span class="err">CamelServletContextPath=/test,</span>
 </span></span><span class="line"><span class="cl">  <span class="err">content-length=0,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">forwarded=proto=http;host=</span><span class="nt">&#34;localhost:9080&#34;</span><span class="err">;for=</span><span class="s2">&#34;127.0.0.1:39352&#34;</span><span class="p">,</span> 
@@ -3002,7 +3003,7 @@ For instance, in the consumer application, when we consume the messages as:</p>
 </span></span><span class="line"><span class="cl">  <span class="err">JMSCorrelationIDAsBytes=null,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">JMSDeliveryMode=2,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">JMSDestination=queue:</span><span class="c1">//HELLO.WORLD, 
-</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="err">JMSExpiration=0,</span> 
+</span></span></span><span class="line"><span class="cl">  <span class="err">JMSExpiration=0,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">JMSMessageID=ID:XXXX-1:1:1:1:75,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">JMSPriority=4,</span> 
 </span></span><span class="line"><span class="cl">  <span class="err">JMSRedelivered=false,</span> 
@@ -3238,12 +3239,12 @@ We only have to specify the tempo URL.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">scrape_interval</span><span class="p">:</span><span class="w"> </span><span class="l">5s</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">          </span><span class="nt">static_configs</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">            </span>- <span class="nt">targets</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s1">&#39;host.docker.internal:8080&#39;</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">exporters</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">exporters</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">otlp</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">endpoint</span><span class="p">:</span><span class="w"> </span><span class="l">tempo:4317</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">tls</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">insecure</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">service</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">service</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">pipelines</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">traces</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">receivers</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">otlp]</span><span class="w">
@@ -3343,7 +3344,7 @@ We only have to specify the tempo URL.</p>
       "><span class="line"><span class="cl"><span class="nt">server</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">http_listen_port</span><span class="p">:</span><span class="w"> </span><span class="m">3200</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">distributor</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">distributor</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">receivers</span><span class="p">:</span><span class="w">                           </span><span class="c"># this configuration will listen on all ports and protocols that tempo is capable of.</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">jaeger</span><span class="p">:</span><span class="w">                            </span><span class="c"># the receives all come from the OpenTelemetry collector.  more configuration information can</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">protocols:                       # be found there</span><span class="p">:</span><span class="w"> </span><span class="l">https://github.com/open-telemetry/opentelemetry-collector/tree/main/receiver</span><span class="w">
@@ -3358,14 +3359,14 @@ We only have to specify the tempo URL.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">grpc</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">opencensus</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">ingester</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">ingester</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">max_block_duration</span><span class="p">:</span><span class="w"> </span><span class="l">5m              </span><span class="w"> </span><span class="c"># cut the headblock when this much time passes. this is being set for demo purposes and should probably be left alone normally</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">compactor</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">compactor</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">compaction</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">block_retention</span><span class="p">:</span><span class="w"> </span><span class="l">1h               </span><span class="w"> </span><span class="c"># overall Tempo trace retention. set for demo purposes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">metrics_generator</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">metrics_generator</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">registry</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">external_labels</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">source</span><span class="p">:</span><span class="w"> </span><span class="l">tempo</span><span class="w">
@@ -3376,7 +3377,7 @@ We only have to specify the tempo URL.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l">http://prometheus:9090/api/v1/write</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nt">send_exemplars</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">storage</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">storage</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">trace</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">backend</span><span class="p">:</span><span class="w"> </span><span class="l">local                    </span><span class="w"> </span><span class="c"># backend configuration to use</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">wal</span><span class="p">:</span><span class="w">
@@ -3384,10 +3385,10 @@ We only have to specify the tempo URL.</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">local</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/tmp/tempo/blocks</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">overrides</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">overrides</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">metrics_generator_processors</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="l">service-graphs, span-metrics]</span><span class="w"> </span><span class="c"># enables metrics generator</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">search_enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nt">search_enabled</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span></span></span></code></pre>
 </div>
 <h3 id="grafana-configuration" class="headerLink">
     <a href="#grafana-configuration" class="header-mark"></a>3.4 Grafana configuration</h3><p>Now we must configure Grafana to enable querying into our tempo instance.
@@ -3483,7 +3484,7 @@ The configuration is made here using a configuration file provided during the st
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">apiVersion</span><span class="p">:</span><span class="w"> </span><span class="m">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">datasources</span><span class="p">:</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nt">datasources</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="c"># Prometheus backend where metrics are sent</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Prometheus</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">type</span><span class="p">:</span><span class="w"> </span><span class="l">prometheus</span><span class="w">

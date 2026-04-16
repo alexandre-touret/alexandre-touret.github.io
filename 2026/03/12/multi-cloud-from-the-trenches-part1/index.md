@@ -18,6 +18,11 @@ This article is the first part of a series that aims to share my experience and 
 It will cover the "Why" and "What" of Multi-Cloud, exploring the motivations behind adopting such a strategy and defining what Multi-Cloud truly entails.
 Subsequent parts will delve into the "How," providing practical insights and strategies for successful Multi-Cloud implementations.
 
+
+{{< admonition tip "The series" true >}}
+- Part 1 : [Multi-Cloud from the Trenches: Part 2 - The How](https://blog.touret.info/2026/03/12/multi-cloud-from-the-trenches-part2/)
+{{< /admonition >}}
+
 ## Why go through the pain?
 
 Why take on this complexity? Usually, it's a mix of corporate strategy and technical necessity. In my experience, these are the main drivers that actually matter.

@@ -2345,17 +2345,17 @@ Dans le fichier <code>/etc/default/grub</code>, ajouter la ligne suivante:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoclean</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Remove dependencies that are no longer required&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Remove dependencies that are no longer required&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">autoremove</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Update and upgrade apt packages (may take a while)&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Update and upgrade apt packages (may take a while)&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">upgrade</span><span class="p">:</span><span class="w"> </span><span class="l">dist</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">force_apt_get</span><span class="p">:</span><span class="w"> </span><span class="kc">yes</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install useful packages&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install useful packages&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">apt</span><span class="p">:</span><span class="w"> 
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w">
@@ -2366,24 +2366,24 @@ Dans le fichier <code>/etc/default/grub</code>, ajouter la ligne suivante:</p>
 </span></span></span><span class="line"><span class="cl"><span class="w">      </span>- <span class="l">firewalld</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">present</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">update_cache</span><span class="p">:</span><span class="w"> </span><span class="kc">no</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ansible create directory example</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">ansible create directory example</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ home }}/.m2&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">directory</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Maven settings.xml</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l">Install Maven settings.xml</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">copy</span><span class="p">:</span><span class="w"> 
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">src</span><span class="p">:</span><span class="w"> </span><span class="l">settings.xml</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">dest</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ home }}/.m2/settings.xml&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">owner</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;{{ username }}&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install Maven&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Install Maven&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">raw</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;curl -sL \&#34;http://mirror.ibcp.fr/pub/apache/maven/maven-3/{{ maven_version }}/binaries/apache-maven-{{ maven_version }}-bin.tar.gz\&#34; -o /opt/apache-maven.tar.gz &amp;&amp; tar -zxf /opt/apache-maven.tar.gz -C /opt&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become_user</span><span class="p">:</span><span class="w"> </span><span class="l">root</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">become_method</span><span class="p">:</span><span class="w"> </span><span class="l">sudo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span>- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Change Maven Rights&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl">- <span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Change Maven Rights&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nt">file</span><span class="p">:</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l">/opt/*</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l">touch</span><span class="w">
@@ -3150,7 +3150,7 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
 </span></span><span class="line"><span class="cl"><span class="c1"># curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add &amp;#8211;  </span>
 </span></span><span class="line"><span class="cl"><span class="c1"># add-apt-repository \  </span>
 </span></span><span class="line"><span class="cl"><span class="s2">&#34;deb [arch=amd64] https://download.docker.com/linux/debian \  
-</span></span></span><span class="line"><span class="cl"><span class="s2"></span><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \ stable&#34;</span>  </span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="k">$(</span>lsb_release -cs<span class="k">)</span><span class="s2"> \ stable&#34;</span>  </span></span></code></pre>
 </div>
 <p>Puis lancer</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
@@ -4949,17 +4949,17 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
       "><span class="line"><span class="cl"><span class="c1"># apt-get update</span>
 </span></span><span class="line"><span class="cl"><span class="c1"># apt-get install firmware-iwlwifi virtualbox-5.2\</span>
 </span></span><span class="line"><span class="cl">ttf-mscorefonts-installer easytag tuxguitar-jsa htop<span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span> frescobaldi gparted grsync ntfs-config chromium autofs<span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span> openjdk-8-jdk openjdk-8-jre gnome-tweak-tool ntfs-config <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>ntfs-3g cifs-utils geogebra-gnome arduino libmediainfo <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>libmediainfo0v5 network-manager-openvpn-gnome dirmngr <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>spotify-client spotify-client-gnome-support <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span> etcher apt-transport-https etcher-electron vim <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>fonts-powerline audacity ffmpeg lame unrar rar gdebi <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>sound-juicer traceroute scala net-tools nmap <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>gnome-shell-pomodoro hplip dig dnsutils build-essential <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>linux-headers-amd64 firmware-linux-nonfree lshw ethtool <span class="se">\
-</span></span></span><span class="line"><span class="cl"><span class="se"></span>libsane-hpaio xsane autofs vlc</span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"> frescobaldi gparted grsync ntfs-config chromium autofs<span class="se">\
+</span></span></span><span class="line"><span class="cl"> openjdk-8-jdk openjdk-8-jre gnome-tweak-tool ntfs-config <span class="se">\
+</span></span></span><span class="line"><span class="cl">ntfs-3g cifs-utils geogebra-gnome arduino libmediainfo <span class="se">\
+</span></span></span><span class="line"><span class="cl">libmediainfo0v5 network-manager-openvpn-gnome dirmngr <span class="se">\
+</span></span></span><span class="line"><span class="cl">spotify-client spotify-client-gnome-support <span class="se">\
+</span></span></span><span class="line"><span class="cl"> etcher apt-transport-https etcher-electron vim <span class="se">\
+</span></span></span><span class="line"><span class="cl">fonts-powerline audacity ffmpeg lame unrar rar gdebi <span class="se">\
+</span></span></span><span class="line"><span class="cl">sound-juicer traceroute scala net-tools nmap <span class="se">\
+</span></span></span><span class="line"><span class="cl">gnome-shell-pomodoro hplip dig dnsutils build-essential <span class="se">\
+</span></span></span><span class="line"><span class="cl">linux-headers-amd64 firmware-linux-nonfree lshw ethtool <span class="se">\
+</span></span></span><span class="line"><span class="cl">libsane-hpaio xsane autofs vlc</span></span></code></pre>
 </div>
 <h2 id="configuration-autofs" class="headerLink">
     <a href="#configuration-autofs" class="header-mark"></a>4 Configuration autofs</h2><p>Pour ceux qui ne connaissent pas , <a href="https://wiki.debian.org/AutoFs" target="_blank" rel="noopener noreferrer">autofs</a> est un outil permettant de monter directement des partages <a href="https://linuxconfig.org/how-to-configure-nfs-on-debian-9-stretch-linux" target="_blank" rel="noopener noreferrer">nfs</a> et cicfs à l&rsquo;utilisation et non au démarrage de l&rsquo;ordinateur.</p>
@@ -5430,7 +5430,7 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="cp">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
+</span></span></span><span class="line"><span class="cl"><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
 </span></span><span class="line"><span class="cl">wget -O <span class="nv">$SETUP_ROOT</span>/atom.deb <span class="s2">&#34;https://atom.io/download/deb&#34;</span>
 </span></span><span class="line"><span class="cl"><span class="nb">echo</span> <span class="s2">&#34;Installation du paquet...&#34;</span>
 </span></span><span class="line"><span class="cl">dpkg -i <span class="nv">$SETUP_ROOT</span>/atom.deb
@@ -5620,7 +5620,7 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="cp">#!/bin/sh
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
+</span></span></span><span class="line"><span class="cl"><span class="nv">SETUP_ROOT</span><span class="o">=</span>/tmp
 </span></span><span class="line"><span class="cl"><span class="nv">BIN_ROOT</span><span class="o">=</span>/usr/local/firefox
 </span></span><span class="line"><span class="cl"><span class="nv">DATE</span><span class="o">=</span><span class="sb">`</span>date +%Y-%m-%d<span class="sb">`</span>
 </span></span><span class="line"><span class="cl"><span class="nv">OLD_EXE</span><span class="o">=</span>/usr/lib/firefox-esr/firefox-esr
@@ -5733,7 +5733,7 @@ Voici un rapide tuto pour installer <a href="https://docs.docker.com/install/lin
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="cp">#!/bin/bash
-</span></span></span><span class="line"><span class="cl"><span class="cp"></span><span class="nb">cd</span> /usr/local/minecraft
+</span></span></span><span class="line"><span class="cl"><span class="nb">cd</span> /usr/local/minecraft
 </span></span><span class="line"><span class="cl">java -Xmx1G -Xms512M -cp /usr/local/minecraft/Minecraft.jar net.minecraft.bootstrap.Bootstrap</span></span></code></pre>
 </div>
 <p>J&rsquo;ai placé le JAR en question dans le répertoire /usr/local/minecraft.</p>

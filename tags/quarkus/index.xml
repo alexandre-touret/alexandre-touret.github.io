@@ -640,7 +640,7 @@ I prefered not to use it to work in a Quarkus <em>&ldquo;standard&rdquo;</em> wa
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@RestClient</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">EbayClient</span><span class="w"> </span><span class="n">ebayClient</span><span class="p">;</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">EbayClient</span><span class="w"> </span><span class="n">ebayClient</span><span class="p">;</span></span></span></code></pre>
 </div>
 <p>define the client:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
@@ -733,8 +733,8 @@ I prefered not to use it to work in a Quarkus <em>&ldquo;standard&rdquo;</em> wa
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@RegisterRestClient</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Path</span><span class="p">(</span><span class="s">&#34;/item_summary/search&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">EbayClient</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Path</span><span class="p">(</span><span class="s">&#34;/item_summary/search&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">EbayClient</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// (1)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@GET</span><span class="w">
@@ -749,7 +749,7 @@ I prefered not to use it to work in a Quarkus <em>&ldquo;standard&rdquo;</em> wa
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Disabling some issues with the EBAY Mock</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">null</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <ol>
 <li>The client is automatically generated and plugged to the remote endpoint through the URL specified in the <code>application.properties</code>:</li>
@@ -945,25 +945,25 @@ I prefered not to use it to work in a Quarkus <em>&ldquo;standard&rdquo;</em> wa
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Inject</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Channel</span><span class="p">(</span><span class="s">&#34;guitar-requests-out&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Emitter</span><span class="o">&lt;</span><span class="n">Record</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="n">GuitarRequest</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">guitarRequestEmitter</span><span class="p">;</span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Channel</span><span class="p">(</span><span class="s">&#34;guitar-requests-out&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Emitter</span><span class="o">&lt;</span><span class="n">Record</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="n">GuitarRequest</span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">guitarRequestEmitter</span><span class="p">;</span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * Sends message to Kafka
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param guitarRequest : The Guitar to send to Kafka
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">requestForNewGuitars</span><span class="p">(</span><span class="n">GuitarRequest</span><span class="w"> </span><span class="n">guitarRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">requestForNewGuitars</span><span class="p">(</span><span class="n">GuitarRequest</span><span class="w"> </span><span class="n">guitarRequest</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;Sending Guitar Request to supplier : {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">guitarRequest</span><span class="p">.</span><span class="na">requestId</span><span class="p">().</span><span class="na">toString</span><span class="p">());</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">guitarRequestEmitter</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="n">Record</span><span class="p">.</span><span class="na">of</span><span class="p">(</span><span class="n">guitarRequest</span><span class="p">.</span><span class="na">requestId</span><span class="p">(),</span><span class="w"> </span><span class="n">guitarRequest</span><span class="p">));</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="cm">/**
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * Fetches the kafka topic
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * &lt;b&gt;This method is only for testing purpose during the workshop&lt;/b&gt;
 </span></span></span><span class="line"><span class="cl"><span class="cm"> *
 </span></span></span><span class="line"><span class="cl"><span class="cm"> * @param guitarRequestRecord: The Kafka record of the Guitar to send
 </span></span></span><span class="line"><span class="cl"><span class="cm"> */</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Incoming</span><span class="p">(</span><span class="s">&#34;guitar-requests-in&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">traceRequestsForNewGuitars</span><span class="p">(</span><span class="n">Record</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="n">GuitarRequest</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guitarRequestRecord</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Incoming</span><span class="p">(</span><span class="s">&#34;guitar-requests-in&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">traceRequestsForNewGuitars</span><span class="p">(</span><span class="n">Record</span><span class="o">&lt;</span><span class="n">UUID</span><span class="p">,</span><span class="w"> </span><span class="n">GuitarRequest</span><span class="o">&gt;</span><span class="w"> </span><span class="n">guitarRequestRecord</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">LOGGER</span><span class="p">.</span><span class="na">info</span><span class="p">(</span><span class="s">&#34;Received new Guitar Request: ID: {} - NAME: {} - QTY: {}&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">guitarRequestRecord</span><span class="p">.</span><span class="na">key</span><span class="p">(),</span><span class="w"> </span><span class="n">guitarRequestRecord</span><span class="p">.</span><span class="na">value</span><span class="p">().</span><span class="na">guitarName</span><span class="p">(),</span><span class="w"> </span><span class="n">guitarRequestRecord</span><span class="p">.</span><span class="na">value</span><span class="p">().</span><span class="na">quantity</span><span class="p">());</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>The configuration of the Kafka Client is then configured in the <code>application.properties</code> file:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">

@@ -401,7 +401,7 @@ Heureusement, je n&rsquo;en avais pas une centaine&hellip;</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nt">featuredImage</span><span class="p">:</span><span class="w"> </span><span class="l">/assets/images/2022/12/review.webp</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">images</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;/assets/images/2022/12/review.webp&#34;</span><span class="p">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nt">images</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&#34;/assets/images/2022/12/review.webp&#34;</span><span class="p">]</span></span></span></code></pre>
 </div>
 <p>Le premier attribut permet d&rsquo;avoir une image d&rsquo;en-tête pour l&rsquo;article.
 Le second permet d&rsquo;avoir l&rsquo;image lors d&rsquo;un partage sur un réseau social (ex. Twitter)</p>
@@ -495,9 +495,9 @@ Le second permet d&rsquo;avoir l&rsquo;image lors d&rsquo;un partage sur un rés
       tw-overflow-y-hidden
       tw-overflow-x-auto
       tw-scrollbar-thin
-      "><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="err">&#34;</span><span class="na">text-align:center</span><span class="err">&#34;</span> <span class="p">&gt;</span><span class="err">}}</span>
+      "><span class="line"><span class="cl">{{&lt; style &#34;text-align:center&#34; &gt;}}
 </span></span><span class="line"><span class="cl">![<span class="nt">dataflow</span>](<span class="na">/assets/images/2022/08/maksym-tymchyk-vHO-yT1BDWk-unsplash.webp</span>)
-</span></span><span class="line"><span class="cl">{{<span class="p">&lt;</span> <span class="nt">style</span> <span class="p">&gt;</span><span class="err">}}</span></span></span></code></pre>
+</span></span><span class="line"><span class="cl">{{&lt; style &gt;}}</span></span></code></pre>
 </div>
 <h2 id="configuration" class="headerLink">
     <a href="#configuration" class="header-mark"></a>4 Configuration</h2><p>Pour garder les mêmes URLs, j&rsquo;ai choisi de modifier le pattern d&rsquo; URL pour inclure la date. C&rsquo;est un vieux reliquat de mon blog Wordpress.</p>

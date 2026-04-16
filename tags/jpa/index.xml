@@ -790,11 +790,11 @@ However, you must take care of the whole <a href="https://jakarta.ee/learn/docs/
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@OneToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">,</span><span class="n">mappedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span><span class="w"> </span><span class="n">books</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@OneToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">,</span><span class="n">mappedBy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Book</span><span class="o">&gt;</span><span class="w"> </span><span class="n">books</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
 </div>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
@@ -886,11 +886,11 @@ However, you must take care of the whole <a href="https://jakarta.ee/learn/docs/
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@ManyToOne</span><span class="p">(</span><span class="n">targetEntity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Store</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">store</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">    </span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@ManyToOne</span><span class="p">(</span><span class="n">targetEntity</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Store</span><span class="p">.</span><span class="na">class</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">store</span><span class="p">;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span><span class="w">    </span></span></span></code></pre>
 </div>
 <p>If you remember well, this relationship is fetched in a EAGER way.
 When I try to get all the stores using a <code>findAll()</code> method:</p>
@@ -986,7 +986,7 @@ When I try to get all the stores using a <code>findAll()</code> method:</p>
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllStores</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">storeRepository</span><span class="p">.</span><span class="na">findStores</span><span class="p">().</span><span class="na">stream</span><span class="p">().</span><span class="na">toList</span><span class="p">();</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>Hibernate will query the database in this way:</p>
 <ul>
@@ -1183,7 +1183,7 @@ When I try to get all the stores using a <code>findAll()</code> method:</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@ManyToMany</span><span class="p">(</span><span class="n">fetch</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">FetchType</span><span class="p">.</span><span class="na">EAGER</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Author</span><span class="o">&gt;</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="kd">private</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">Author</span><span class="o">&gt;</span><span class="w"> </span><span class="n">authors</span><span class="p">;</span></span></span></code></pre>
 </div>
 <p>You will execute then another SQL queries.</p>
 <p>For instance, in this case:</p>
@@ -1382,11 +1382,11 @@ Using this API we can avoid fetching it in this way</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@NamedEntityGraph</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store[books]&#34;</span><span class="p">,</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@NamedEntityGraph</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store[books]&#34;</span><span class="p">,</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">attributeNodes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nd">@NamedAttributeNode</span><span class="p">(</span><span class="s">&#34;books&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Store</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
 </div>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
   <div class="
@@ -1478,10 +1478,10 @@ Using this API we can avoid fetching it in this way</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Repository</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">StoreRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Store</span><span class="p">,</span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">interface</span> <span class="nc">StoreRepository</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">JpaRepository</span><span class="o">&lt;</span><span class="n">Store</span><span class="p">,</span><span class="n">Long</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@EntityGraph</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;store[books]&#34;</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>You will get the following output:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
@@ -1689,7 +1689,7 @@ It could be lighter than the <em>regular</em> one and enhance the performances o
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_13&#34;</span><span class="p">)</span><span class="w">
@@ -1722,7 +1722,7 @@ It could be lighter than the <em>regular</em> one and enhance the performances o
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Store</span><span class="w"> </span><span class="n">store</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Transient</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">transient</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">excerpt</span><span class="p">;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="o">[</span><span class="p">...</span><span class="o">]</span></span></span></code></pre>
 </div>
 <p>We can shrink it with only the required attributes:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
@@ -1815,8 +1815,8 @@ It could be lighter than the <em>regular</em> one and enhance the performances o
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Entity</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Entity</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Book</span><span class="w"> </span><span class="kd">implements</span><span class="w"> </span><span class="n">Serializable</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@NotNull</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">title</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nd">@Column</span><span class="p">(</span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;isbn_13&#34;</span><span class="p">)</span><span class="w">
@@ -1944,7 +1944,7 @@ To do that, you can use the <code>JOIN FETCH</code> instruction:</p>
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;from Store store JOIN FETCH store.books books&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span></span></span></code></pre>
 </div>
 <p>In this manner, you can shrink the number of queries done from N+1 to only one.
 However, you <strong>MUST</strong> check and measure if it&rsquo;s worth it.
@@ -2044,7 +2044,7 @@ To get your code even clearer, you can also use <a href="https://docs.oracle.com
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">record</span> <span class="nc">BookDto</span><span class="w"> </span><span class="p">(</span><span class="n">Long</span><span class="w"> </span><span class="n">id</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="w"> </span><span class="n">description</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>You can get a set of this record writing the query:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
@@ -2137,7 +2137,7 @@ To get your code even clearer, you can also use <a href="https://docs.oracle.com
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;select new info.touret.query.optimizationjpa.BookDto(b.id, b.description) from Book b&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">BookDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllDto</span><span class="p">();</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="n">Set</span><span class="o">&lt;</span><span class="n">BookDto</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findAllDto</span><span class="p">();</span></span></span></code></pre>
 </div>
 <h2 id="other-optimisation-tracks" class="headerLink">
     <a href="#other-optimisation-tracks" class="header-mark"></a>3 Other optimisation tracks</h2><h3 id="avoid-transactions-while-reading-our-database-with-the-annotation-transactionalreadonlytrue" class="headerLink">
@@ -2252,8 +2252,8 @@ In this case, you may want to cache them in memory (i.e., <a href="https://jakar
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@SpringBootApplication</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@EnableCaching</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OptimizationJpaApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="nd">@EnableCaching</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">OptimizationJpaApplication</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">OptimizationJpaApplication</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span><span class="w">
@@ -2268,7 +2268,7 @@ In this case, you may want to cache them in memory (i.e., <a href="https://jakar
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="n">caffeineCacheManager</span><span class="p">.</span><span class="na">setCaffeine</span><span class="p">(</span><span class="n">caffeine</span><span class="p">);</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">caffeineCacheManager</span><span class="p">;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="p">}</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre>
 </div>
 <p>And declare your methods which use your cache:</p>
 <div class="code-block highlight is-open show-line-numbers  tw-group tw-my-2">
@@ -2361,8 +2361,8 @@ In this case, you may want to cache them in memory (i.e., <a href="https://jakar
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&#34;from Store store JOIN FETCH store.books books&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nd">@Cacheable</span><span class="p">(</span><span class="s">&#34;stores&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="nd">@Cacheable</span><span class="p">(</span><span class="s">&#34;stores&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="n">Set</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findStores</span><span class="p">();</span></span></span></code></pre>
 </div>
 <p>You will use your cache then and get the following logs after the second try:</p>
 <div class="code-block highlight is-closed show-line-numbers  tw-group tw-my-2">
@@ -2570,7 +2570,7 @@ At the end of the day, you won&rsquo;t be faster using an <a href="https://en.wi
       tw-overflow-x-auto
       tw-scrollbar-thin
       "><span class="line"><span class="cl"><span class="nd">@Query</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="s">&#34;select * from Store s where s.name= :name&#34;</span><span class="p">,</span><span class="w"> </span><span class="n">nativeQuery</span><span class="o">=</span><span class="kc">true</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span></span></span></code></pre>
+</span></span></span><span class="line"><span class="cl"><span class="n">Optional</span><span class="o">&lt;</span><span class="n">Store</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">findByName</span><span class="p">(</span><span class="n">String</span><span class="w"> </span><span class="n">name</span><span class="p">);</span></span></span></code></pre>
 </div>
 <h2 id="conclusion" class="headerLink">
     <a href="#conclusion" class="header-mark"></a>4 Conclusion</h2><p>If you reached this last chapter, you would see there are plenty of solutions to fix ORM/JPA performance issues.
