@@ -1,7 +1,7 @@
 ---
 title: "Multi-Cloud from the Trenches: Part 2 - The How"
 date: 2026-04-24 08:00:00
-images: ["/assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp "]
+images: ["/assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp"]
 featuredImagePreview: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
 featuredImage: /assets/images/2026/04/ramiro-pianarosa-xUpbQ9GX7SQ-unsplash.webp 
 lightgallery: true
@@ -88,7 +88,11 @@ For the payment processing services, we may choose to use a third-party service 
 Starting with this study doesn't mean you need to avoid a functional analysis. On the contrary, it will help you to determine which use cases and workloads are best suited for each cloud provider during our functional analysis.
 Furthermore, this assessment must be reviewed and updated regularly. As you will progress in your design you will probably get into a better understanding of the user's needs and the technical requirements. It will potentially lead you to change your initial cloud-provider strategy, and to choose different providers and services for each use case.
 
-If usually, you start designing in the other way around, starting with the use cases and the workloads:  Don't worry, it's not a problem. This approach is not too far from that you are used to. I just recommend you to keep in mind that you will have to check the different cloud providers and their products at some point, and that it may impact your design. So, it's better to start with a quick check of the different cloud providers and their products, to have a better understanding of the different options available to you, and to be able to make informed decisions during your design process.
+If usually, you start designing in the other way around, starting with the use cases and the workloads.
+Don't worry, it's not a problem. 
+This approach is not too far from that you are used to. 
+I just recommend you to keep in mind that you will have to check the different cloud providers and their products at some point, and that it may impact your design. 
+Therefore, it's better to start with a quick check of the different cloud providers and their products, to have a better understanding of the different options available to you, and to be able to make informed decisions during your design process.
 However, if you rely on a product-based strategy, starting from the use cases might be biased because you will eventually deploy most of your use cases on the same cloud provider to avoid complexity (_which is a good thing!_). 
 
 During this phase, we will be able to pinpoint what are the different use cases and workloads, and how they interact with each other.
@@ -113,10 +117,11 @@ OK. Now you got the theory. Let's see how it ~~fails~~ works in practice.
 
 You will get some use cases that require you to interact with multiple cloud providers. Your job as an architect is to weight the pros and cons of each approach: reusing as is this workload and have a cross-providers workload or re-implementing it on one provider. You will have to make trade-offs (everything in architecture is about trade-offs) between complexity, cost, performance, compliance and maintainability.
 
-In practice, it's not that simple. For instance, I had in the past to deal with a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database instead, which added complexity and latency.
+In practice, it's not that simple. For instance, I had in the past to connect to a database on Azure. It wasn't possible to interact with API. We had to use a secure connection to connect to the database instead, which added complexity and latency.
 We chose this solution to avoid unworthy costs increases. Hopefully, it was only for a specific use case not on the critical path, and we were able to isolate it from the rest of the system. 
 
 It's just an illustration of what you would face when designing a multi-cloud platform.  
+
 Finally, as with any other design (but even more so for this kind of architecture), one of the keys to success will be to design your system as a set of [loosely coupled](https://en.wikipedia.org/wiki/Loose_coupling) sub-systems or workloads. It will help you tackle some of the challenges of such a design. 
 In other words, shaping your platform with loosely coupled systems will enable you to deploy your workloads into different cloud providers, preventing any failures (_mostly_) and tackling the challenge of creating a fully distributed application. 
 
@@ -149,6 +154,7 @@ For a multi-cloud platform, we will need to assess these points in particular:
 - Availability: What is the availability of the entire platform? 
 
 For the latter, it will strongly rely on the way you segregate the different workloads between the different cloud providers. You can have different figures depending on the workloads. For instance, you can provide 99.95% of availability for your API and less for your Analytics platform. 
+
 This segregation makes sense.
 If one of your workloads involves two different platforms, the availability will be limited to the [GCD](https://en.wikipedia.org/wiki/Greatest_common_divisor) of the different cloud providers' [SLAs](https://en.wikipedia.org/wiki/Service-level_agreement).
 
@@ -162,7 +168,9 @@ For instance, you may need to answer these questions:
 - Could you deploy a fully French sovereign platform onto AWS us-east-1?
 - Is this region/cloud provider fully compliant with PCI DSS (or any regulation)?
 
-Furthermore, while designing our multi-cloud platform, it's worth gathering the components based on their required compliance onto the same cloud provider. One good practice would be to isolate them from the rest of the platform.
+Furthermore, while designing our multi-cloud platform, it's worth gathering the components based on their required compliance onto the same cloud provider. 
+
+One good practice would be to isolate them from the rest of the platform.
 In this way, you would avoid mixing different requirements in the same cloud provider. By specialising the usage of your different cloud providers, you will prevent assessing and auditing two different cloud providers against compliance rules. 
 This segregation will come with some beneficial side effects for your organisation: you will be able to get a dedicated CI/CD pipeline for each cloud provider.
 
@@ -172,7 +180,9 @@ Checking and ensuring the performance of a single-cloud platform might be challe
 As mentioned earlier, if you clearly pinpointed the bounded contexts, avoiding cross-cloud-provider transactions within the same workload as much as possible will help you guarantee the performance of your platform (_remember the fallacies of distributed programming_). It will also strengthen the reliability of the entire system.
 
 If you can't avoid it, it will be mandatory to keep an eye on this workload and measure the impact in terms of performance. 
-Nevertheless, you can prevent some latency issues. You may colocate the different datacenters in the same region (i.e., deploy all your workloads in Paris). Some of the main actors recently published news about how to seamlessly connect different clouds with each other (e.g. [AWS / GCP](https://aws.amazon.com/blogs/networking-and-content-delivery/aws-and-google-cloud-collaborate-to-simplify-multicloud-networking/)). Unfortunately, there's no free lunch. When you dive into the highlighted solutions, they are usually based [on interconnect (for GCP)](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview) which could strongly impact the costs of your platform.
+Nevertheless, you can prevent some latency issues. You may colocate the different datacenters in the same region (i.e., deploy all your workloads in Paris). Some of the main actors recently published news about how to seamlessly connect different clouds with each other (e.g. [AWS / GCP](https://aws.amazon.com/blogs/networking-and-content-delivery/aws-and-google-cloud-collaborate-to-simplify-multicloud-networking/)). 
+
+Unfortunately, there's no free lunch. When you dive into the highlighted solutions, they are usually based [on interconnect (for GCP)](https://docs.cloud.google.com/network-connectivity/docs/interconnect/concepts/overview) which could strongly impact the costs of your platform.
 
 Before over-complicating your architecture, consider using only the Internet when possible. It will be cheaper. To prevent network latency issues, we can also deploy the different cloud platforms in the same location. For instance, we can opt for ``europe-west9`` for GCP and ``eu-west-3`` for AWS.
 
@@ -182,7 +192,8 @@ Let's be honest, during operations, a platform deployed on several cloud provide
 Nevertheless, it's important to balance these costs against additional costs, such as rebuilding a service from the ground up for colocation, or data transfer costs.
 
 To limit the impacts, it's crucial to embrace a FinOps approach from the outset. My recommendation is not to be a rocket scientist, but to enable the simplest solutions—or at least those in which you have a strong background—and increase the complexity step by step.
-Then, enable observability from the outset. It will enhance your accurate understanding of the platform and ease your decision-making.
+
+Then, enable observability too. It will enhance your accurate understanding of the platform and ease your decision-making.
 
 Beyond setting up end-to-end observability in your projects, another best practice is to regularly review your platform and check out the different costs. One exercise I've been leading for a while is arranging FinOps reviews with lead developers and Ops (_et que s'appelerio DevOps_). We check and explain the different cost variations, whether they are increases or decreases.
 
@@ -190,10 +201,12 @@ Throughout this review, we can evaluate the different implemented solutions in t
 
 It's not really different from "traditional cloud projects". But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it's worth keeping track of it and balancing it against the benefits of the service exposed to your customers.
 
-## Data Portability & Personal data protection
+## Data portability & personal data protection
 
 What about synchronisation or portability?
-It might be a big deal. For many reasons such as costs (_it's always about cost savings_), simplicity, security, or just preventing conflicts, I tend to avoid data replication between the different cloud providers as much as possible. Why? Because at the end of the day you could get either a split-brain issue or simply data inconsistency. 
+It might be a big deal. For many reasons such as costs (_it's always about cost savings_), simplicity, security, or just preventing conflicts, I tend to avoid data replication between the different cloud providers as much as possible. 
+
+Why? Because at the end of the day you could get either a split-brain issue or simply data inconsistency. 
 
 In one of my previous professional experiences, we used to intensively synchronise data across different systems (within the same datacenter), and we struggled a lot to ensure data consistency.
 
@@ -233,11 +246,11 @@ It's not a new topic, but it becomes more difficult to handle in this case.
 
 Unfortunately, I haven't found any magical recipe yet for this concern.
 
-## Identity & Access Management
+## Identity & access management
 
 Let's go back to the real-time tracking of vehicles example. What if we needed to link the vehicles that users track through our IoT platform to the customer-facing applications?
 
-Actually, when it comes to defining how to identify users and how to correlate customer data across the different sub-systems, it can quickly become a headache. 
+Actually, when it comes to define how to identify users and how to correlate customer data across the different sub-systems, it can quickly become cumbersome. 
 
 There are many strategies depending on the context and the targeted platforms.
 
