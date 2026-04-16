@@ -287,13 +287,10 @@ Providing a unified view is also important for the back office. How do you get u
 
 ## Conclusion
 
-I didn't talk about several domains which are also essential: 
-- How to manage different skill sets?
-- What about [Operational Excellence](https://en.wikipedia.org/wiki/Operational_excellence)?
-- Automation
-- Sustainability
+Implementing a multi-cloud strategy is far more complex than just drawing lines between cloud providers on a whiteboard. As we've seen, it requires a rigorous methodology: from defining clear bounded contexts and keeping an eye on FinOps, to handling data portability and identity seamlessly. 
 
-Nevertheless, I think I have given you the most important pointers on how to get into multi-cloud architectures and how to implement them.
-To avoid any surprises after delivery, it's key to develop a holistic approach from design to production and iterate to challenge every step of the design and implementation processes.
+To avoid any surprises after delivery, it's key to develop a holistic approach from design to production and to continuously challenge your assumptions against the reality of distributed systems.
 
-In the next part of this series, I will dig into observability and how important it is to provide a unified view of your platform's health to your customers.
+Of course, the multi-cloud journey doesn't stop here. Several essential domains remain to be explored in your projects, such as managing different skill sets, achieving [Operational Excellence](https://en.wikipedia.org/wiki/Operational_excellence), automation, and sustainability.
+
+Ultimately, your goal is to shield your users from this underlying complexity. In the next part of this series, we will tackle one of the most critical challenges of these distributed systems: end-to-end observability and how to provide a unified, cohesive view of your platform's health.
