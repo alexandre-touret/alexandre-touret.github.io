@@ -75,10 +75,10 @@ To clear this point up, let's take the example of a company that wants to build 
 We may start by checking which cloud providers offer the best services for each use case. For instance, we may have this feature's coverage if we used to use AWS and GCP:
 
 | Use case |  AWS | GCP |
-| --- | --- | --- | --- |
+| --- | --- | --- |
 | Real-time tracking of vehicles |  AWS IoT Core | **GCP IoT Core** |
 | Data analytics and reporting |  AWS Redshift | **GCP BigQuery** |
-| AI and machine learning for predictive maintenance and route optimization |  | AWS SageMaker | **GCP Vertex AI Platform** |
+| AI and machine learning for predictive maintenance and route optimization |  AWS SageMaker | **GCP Vertex AI Platform** |
 | Customer-facing applications | **AWS Elastic Beanstalk** | GCP App Engine |
 
 I emphasised the most suitable services (for my organisation) for each use case, but in practice, you may have to make trade-offs between the different providers and services. For instance, if you are already using AWS for other use cases, it may be easier to use AWS SageMaker for AI and machine learning, even if GCP Vertex AI Platform offers better features.
