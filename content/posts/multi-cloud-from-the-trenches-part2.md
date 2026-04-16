@@ -191,14 +191,48 @@ Throughout this review, we can evaluate the different implemented solutions in t
 
 It's not really different from "traditional cloud projects". But, for multi-cloud projects, it will be crucial to keep an eye on data transfer costs and the underlying infrastructure (e.g., Cloud Interconnect). Although you are unlikely to have much room to evolve this part after the initial deployment, it's worth keeping track of it and balancing it against the benefits of the service exposed to your customers.
 
-## Data Portability
+## Data Portability & Personal data protection
 
-What about synchonisation ?
-Data Portability: Mentioned in Part 1, but missing in Part 2. How do you deal with data gravity? Do you replicate data across clouds, or strictly keep databases isolated to avoid latency and egress costs?
+What about synchronisation or portability?
+It might be a big deal. For many reasons such as costs (_it's always about cost savings_), simplicity, security, or just preventing conflicts, I tend to avoid data replication between the different cloud providers as much as possible. Why? Because at the end of the day you could get either a split-brain issue or simply data inconsistency. 
+
+In one of my previous professional experiences, we used to intensively synchronise data across different systems (within the same datacenter), and we struggled a lot to ensure data consistency.
+
+To be completely honest, we cannot completely avoid data synchronisation. However, by loosely coupling your different components and segregating your different workloads, you can significantly avoid massive data synchronisation.
+
+Nevertheless, even though you will keep your different use cases and components as loosely coupled as possible, you will need to tackle these challenges:
+
+### Data correlation 
+Let's go back to our previous example: we may manipulate some repository data such as vehicle names, product names, or user names. How to correlate them?
+For the users, I will address this point just after, but for the other ones, it's essential to go back to the basics, and pinpoint what are the master data and what will be their corresponding repositories.
+
+Depending on the context, technologies, and performance, you can either provide these data through an API or simply through synchronisation (e.g., with files). Usually, these data won't change a lot. This synchronisation is, in my view, acceptable.
+
+Then, imagine we want to correlate the vehicle IDs across the IoT cloud to the customer-facing applications. How to do that? In this case, we can imagine different solutions: 
+- Create a key/value cache which would be accessible from both platforms. The IoT part would write data, and the customer-facing side would only read it (and cache it locally if needed). 
+- Copy it from one cloud provider to another on a regular basis. The copy would only be unidirectional.
+
+Regarding the solution, we can implement it in different ways (from the easiest to the most complicated):
+- A simple Key/Value cache service such as [Redis](https://redis.io/nosql/key-value-databases/)
+- A file copy 
+- [Event Sourcing](https://learn.microsoft.com/en-us/azure/architecture/patterns/event-sourcing)
+- [Change Data Capture](https://cloud.google.com/discover/what-is-change-data-capture)
+
+### Security & Personally Identifiable Information (PII) 
+
+If you need to synchronise and control the data lifecycle, it's mandatory to think about security at different levels:
+- At rest
+- In motion
+
+At the bare minimum, the data synchronised must be encrypted. But what about [Personally Identifiable Information (PII)](https://www.dol.gov/general/ppii)? 
+
+Unfortunately, there's no magic. You will have to track and manage the whole personal data lifecycle at the different levels of your architecture across the different components of the cloud providers.
+
+It's just another example of concerns when spanning your distributed workloads across different cloud providers.
 
 ## Identity & Access Management
 
-Let's go back to the example I presented earlier about the real-time tracking of vehicles. What if we needed to link the vehicles users tracked through our IoT platform to the customer facing applications?
+Let's go back to the example I presented earlier about the real-time tracking of vehicles. What if we needed to link the vehicles that users track through our IoT platform to the customer-facing applications?
 
 Actually, when it comes to defining how to identify users and how to correlate customer data across the different sub-systems, it can quickly become a headache. 
 
@@ -208,23 +242,20 @@ Here is one strategy I have successfully applied:
 
 ### Customer data and user rights
 - We used **only** one Single Sign-On (SSO) solution (e.g., Keycloak) with OpenID Connect. Ideally, it is best to rely on a single Identity Provider (IdP).
-- We leveraged custom fields (e.g., token claims) or used standards fields such as the email to correlate users seamlessly across the different subsystems.
+- We leveraged custom fields (e.g., token claims) or used standard fields such as the email to correlate users seamlessly across the different subsystems.
 - The user rights policy was strictly based on Role-Based Access Control (RBAC).
 
 ### "Technical" security data
 - Each cloud platform brought its own IAM policies and technical accounts. We deliberately avoided spanning them from one cloud provider to another to keep the technical security context isolated.
 
-The purpose of this segregation is to keep loose-coupling the setup of the different cloud providers as much as possible.
-Using an open standard for authentication and authorisation such as OpenID Connect help broadcast all the required info to correlate the identity of the users across the entire system.
+The purpose of this segregation is to keep the setup of the different cloud providers as loosely coupled as possible.
+Using an open standard for authentication and authorisation such as OpenID Connect helps broadcast all the required info to correlate the identity of the users across the entire system.
 
 ## A Unified View for End Users
-A Unified View for End Users: Part 1 ended by highlighting that "The real challenge is providing a unified view" so customers don't care about the multi-cloud backend. Part 2 needs a section explaining how to achieve this—perhaps by discussing global API Gateways (like Kong, Apigee, or Cloudflare) or specialized Backends-for-Frontends (BFF).
+A Unified View for End Users: Part 1 ended by highlighting that "The real challenge is providing a unified view" so that customers don't have to care about the multi-cloud backend. Part 2 needs a section explaining how to achieve this—perhaps by discussing global API Gateways (like Kong, Apigee, or Cloudflare) or specialized Backends-for-Frontends (BFF).
 
 
 
 ## Conclusion
-
-
-
 
 Skill sets, operational excellence, automation, sustainability
