@@ -293,4 +293,4 @@ To avoid any surprises after delivery, it's key to develop a holistic approach f
 
 Of course, the multi-cloud journey doesn't stop here. Several essential domains remain to be explored in your projects, such as managing different skill sets, achieving [Operational Excellence](https://en.wikipedia.org/wiki/Operational_excellence), automation, and sustainability.
 
-Ultimately, your goal is to shield your users from this underlying complexity. In the next part of this series, we will tackle one of the most critical challenges of these distributed systems: end-to-end observability and how to provide a unified, cohesive view of your platform's health.
+FInally, your goal is to shield your users from this underlying complexity. In the next part of this series, we will tackle one of the most critical challenges of these distributed systems: end-to-end observability and how to provide a unified, cohesive view of your platform's health.
