@@ -26,7 +26,7 @@ _Photo by <a href="https://unsplash.com/@john_matychuk?utm_source=unsplash&utm_m
 {{</ style >}}      
 
 You probably understood it's a personal blog and not a professional one.
-I publish also articles on the [Worldline Technical Blog](https://blog.worldline.tech/).
+I also published articles on the [Worldline Technical Blog](https://blog.worldline.tech/author/alexandre-touret.html).
 
 Finally, views and opinions exposed on this blog are my own and not of my employer.
 
