@@ -30,6 +30,29 @@ Here is a bunch of talks I presented at various tech events (meetups, conference
 
 You can find them either in French or English.
 
+### Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype 
+
+{{< admonition abstract "Abstract" false >}}
+Today, most of our applications are hosted in the cloud. But what if we leveraged multiple providers for a single application or platform?
+
+The theory is attractive: cherry-picking the best services from each provider to build the ultimate architecture. The reality? Cloud providers that are "more equal than others" and a labyrinth of technical complexities—where network latency, fragmented data, and incompatible APIs threaten both your SLAs and your peace of mind.
+
+In this session, we will tackle the challenge of designing a multi-cloud platform based on a real-world use case.
+
+From defining bounded contexts to addressing production hurdles, security, and API design, we will navigate the pitfalls inherent to this architecture while highlighting essential best practices.
+
+Finally, we will explore how a thorough understanding of customer needs and a pragmatic risk analysis can guide design choices to deliver a coherent, end-to-end vision.
+{{< /admonition >}}
+
+{{< /admonition >}}(https://speakerdeck.com/alexandretouret/dvxpl26-pragmatic-multi-cloud-architecture-designing-for-resilience-and-portability-beyond-the-hype)
+
+### From code to control: master deployments with Feature Flagging and OpenFeature
+{{< admonition abstract "Abstract" false >}}
+{{< /admonition >}}
+
+* [Slides](https://speakerdeck.com/alexandretouret/dvxpl26-from-code-to-control-master-deployments-with-feature-flagging-and-openfeature)
+* [Workshop](https://blog.touret.info/feature-flag-workshop)
+
 ### Implementing API-First Approach: Practical Insights for Streamlining Your APIs
 
 {{< admonition abstract "Abstract" false >}}
