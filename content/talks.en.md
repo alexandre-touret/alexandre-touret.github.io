@@ -44,10 +44,24 @@ From defining bounded contexts to addressing production hurdles, security, and A
 Finally, we will explore how a thorough understanding of customer needs and a pragmatic risk analysis can guide design choices to deliver a coherent, end-to-end vision.
 {{< /admonition >}}
 
-{{< /admonition >}}(https://speakerdeck.com/alexandretouret/dvxpl26-pragmatic-multi-cloud-architecture-designing-for-resilience-and-portability-beyond-the-hype)
+- [Slides](https://speakerdeck.com/alexandretouret/dvxpl26-pragmatic-multi-cloud-architecture-designing-for-resilience-and-portability-beyond-the-hype)
 
 ### From code to control: master deployments with Feature Flagging and OpenFeature
 {{< admonition abstract "Abstract" false >}}
+Shipping code is good. Shipping a new feature without breaking the rest of the system is even better!
+
+Every release today brings the risk of regressions or bad interactions between existing and new functionality. And what about deploying to only a subset of users? That’s even trickier.
+
+Feature flagging decouples code deployment from feature activation, allowing you to turn blocks on or off at runtime without redeploying.
+
+Fortunately, this practice has been growing with open‑source tools and solid engineering habits. However, beyond simple if‑then‑else, most available solutions are proprietary, heavy or costly to set up.
+
+OpenFeature, a CNCF project, offers an open specification for unified feature flagging, usable both server‑ and client‑side regardless of the backing store.
+
+In this workshop we’ll add a new feature to an existing Java/Angular application and drive its activation through feature flags. Along the way we’ll cover key topics: error handling, A/B testing, progressive rollouts, targeting and observability.
+
+By the end, you’ll know how to deliver faster, safer and with confidence.
+
 {{< /admonition >}}
 
 * [Slides](https://speakerdeck.com/alexandretouret/dvxpl26-from-code-to-control-master-deployments-with-feature-flagging-and-openfeature)
