@@ -17,8 +17,8 @@ Below the conferences I presented so far.
 If you want to know more about them, you can see the descriptions on [the talks page of my blog](/talks).
 
 ## 2026
-- Devoxx Poland :gb: [Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype](https://devoxx.pl/speaker/?id=7061)
-- Devoxx Poland :gb: [From code to control: master deployments with Feature Flagging and OpenFeature](https://devoxx.pl/speaker/?id=7061)
+- Devoxx Poland :gb: : [Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype](https://devoxx.pl/speaker/?id=7061)
+- Devoxx Poland :gb: : [From code to control: master deployments with Feature Flagging and OpenFeature](https://devoxx.pl/speaker/?id=7061)
 - SnowcampIO :fr: : [Le Casse-tête de la plateforme imprévue : De l'idée folle à la conception en 3 heures](https://app.voxxr.in/events/snowcamp26/talks/7/details) 
 
 ## 2025
