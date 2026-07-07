@@ -30,6 +30,23 @@ Here is a bunch of talks I presented at various tech events (meetups, conference
 
 You can find them either in French or English.
 
+### Vibe Architecture et IA en 2040 : Darwin a-t-il enfin eu raison des architectes ?
+
+{{< admonition abstract "Abstract" false >}}
+A partir des années 2020, l'essor fulgurant des LLMs a transformé le quotidien des développeurs, notamment via le “vibe coding”. Une zone est encore un peu floue dans l'histoire : Est-ce que cette révolution s'est étendue au domaine de l'architecture logicielle ? En 2040, a-t-on pu augmenter ou finalement remplacer les architectes par l'IA ?
+
+Grâce à la présence d'un architecte tout droit “revenu du futur”, nous explorerons la pertinence et l'impact de l'IA sur l'architecture au-delà de la simple génération de code. Nous analyserons comment les LLMs ont aidé à extraire des contraintes et des exigences complexes, à combler le fossé entre l'architecture et le code et à évaluer les conceptions.
+
+Nous aborderons notamment :
+
+- L'IA est-elle désormais un “sparring partner” essentiel pour vérifier les choix technologiques complexes ? 
+- Assiste-t-on au retour du “cycle en V” via le “Spec Driven Development” ? 
+- Est-ce que la “Vibe Architecture” est-elle devenue un mythe ou une réalité ? 
+- Nous dresserons un état des lieux des outils, du prompt jusqu'aux capacités de “Copilot Architecture” et montrerons comment ils façonneront nos activités de demain à l’ère des IA génératives.
+{{< /admonition >}}
+
+- [Slides](https://speakerdeck.com/alexandretouret/rvd26-vibe-architecture-en-2040-darwin-a-t-il-enfin-eu-raison-des-architectes)
+
 ### Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype 
 
 {{< admonition abstract "Abstract" false >}}
