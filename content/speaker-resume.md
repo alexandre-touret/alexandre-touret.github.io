@@ -4,7 +4,7 @@ title: Speaker Resume
 date: 2022-07-02T09:41:07+01:00
 permalink: /en/speaker-resume/
 comment:
-  enable: true
+  enable: false
 featuredImagePreview: /assets/images/2021/11/pexels-skitterphoto-691485.webp
 featuredImage: /assets/images/2021/11/pexels-skitterphoto-691485.webp
 og_image: /assets/images/2021/11/pexels-skitterphoto-691485.webp 
