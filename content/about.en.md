@@ -4,7 +4,7 @@ title: About
 date: 2018-02-08T14:25:12+01:00
 permalink: /en/about/
 comment:
-  enable: true
+  enable: false
 featuredImagePreview: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
 featuredImage: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
 og_image: /assets/images/2020/01/john-matychuk-djdcb11aboq-unsplash.webp
