@@ -4,6 +4,6 @@
 <p>{% include gallery caption=&ldquo;Un kata d&rsquo;architecture à TNT&rdquo;  layout=&ldquo;half&rdquo; %}</p>
 <p>La cave à vin connecté a remporté un franc succès, du moins pendant la présentation des sujets 🙂</p>
 <p>Voici le feedback que j&rsquo;ai eu sur ma présentation:</p>
-<p><img class="tw-inline" loading="lazy" src='/assets/images/2019/02/img_20190201_174057.jpg'   alt="Feedback"  ></p>
+<p><img class="tw:inline" loading="lazy" src='/assets/images/2019/02/img_20190201_174057.jpg'   alt="Feedback"  ></p>
 <p>RDV l&rsquo;année prochaine !</p>
 ]]></description></item></channel></rss>
