@@ -2,5 +2,5 @@
 # 网站地图配置
 
 changefreq = "weekly"
-filename = "sitemap.xml"
+filename = "sitemap-blog.xml"
 priority = 0.5
