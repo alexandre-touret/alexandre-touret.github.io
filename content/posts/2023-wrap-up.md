@@ -18,7 +18,7 @@ Highlights of my speaking engagements this year include:
 - 6 tech conferences
 - 4 meetups
 - A Worldline tech event in Barcelona
-- An online presentation (i.e., [BBL](http://www.brownbaglunch.fr/)) for [ABBEAL](https://www.abbeal.com/)
+- An online presentation (i.e., [BBL](https://bbl-group.eu/)) for [ABBEAL](https://www.abbeal.com/)
 
 This year, unlike the previous one, I found myself presenting two talks or a talk and a workshop at the same conference—a challenging but exciting experience! Consequently, I delivered a similar number of talks compared to 2022.
 
