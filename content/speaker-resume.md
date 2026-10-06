@@ -17,6 +17,9 @@ Below the conferences I presented so far.
 If you want to know more about them, you can see the descriptions on [the talks page of my blog](/talks).
 
 ## 2026
+- Devoxx Belgium :gb: : [Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype](https://m.devoxx.com/events/dvbe26/talks/4097/pragmatic-multi-cloud-architecture-designing-for-resilience-and-portability-beyond-the-hype)
+- Devoxx Belgium :gb: : [From code to control: master deployments with Feature Flagging and OpenFeature](https://m.devoxx.com/events/dvbe26/talks/10022/from-code-to-control-master-deployments-with-feature-flagging-and-openfeature)
+- VolcampIO :fr: : [Maîtrisez vos déploiements avec OpenFeature et les Feature Flags](https://www.volcamp.io/)
 - RivieraDev :fr: : [Vibe Architecture et IA en 2040 : Darwin a-t-il enfin eu raison des architectes ?](https://rivieradev.fr/session/1022)
 - RivieraDev :fr: : [Maîtrisez vos déploiements avec OpenFeature et les Feature Flags](https://rivieradev.fr/session/964)
 - Devoxx Poland :gb: : [Pragmatic multi-cloud architecture: designing for resilience and portability beyond the hype](https://devoxx.pl/speaker/?id=7061)
